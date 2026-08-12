@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Python environments
+.venv/
+venv/
+env/
+
+# Environment files
+.env
+
+# IDEs
+.vscode/
+.idea/
+
+# Operating system
+.DS_Store
+Thumbs.db
+
+# Java generated files
+*.class
+
+# Runtime-generated project data
+data/cache/*
+!data/cache/.gitkeep
+
+results/*
+!results/.gitkeep
+
+models/*
+!models/.gitkeep
