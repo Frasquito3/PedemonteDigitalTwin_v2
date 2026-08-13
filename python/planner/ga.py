@@ -14,8 +14,6 @@ from .greedy import (
 
 from .objective import (
     evaluar_plan_estimado,
-    tiempo_carga_estimado_min,
-    tiempo_descarga_estimado_min,
 )
 
 from .schema import (
@@ -24,13 +22,11 @@ from .schema import (
     PedidoInput,
     PlanCamion,
     PlanTurno,
-    ViajePlan,
 )
 
 from .travel import (
     MatrizViaje,
     construir_matriz_viaje,
-    tiempo_viaje_esperado_min,
 )
 
 from .validator import (
@@ -38,9 +34,10 @@ from .validator import (
     validar_plan,
 )
 
-
-Cromosoma = tuple[str, ...]
-
+from .decoder import (
+    Cromosoma,
+    decodificar_plan_permutacion,
+)
 
 @dataclass(frozen=True)
 class ConfiguracionGA:
@@ -866,293 +863,24 @@ class GeneticAlgorithmPlanner(
             dict[str, PedidoInput],
         cromosoma: Cromosoma,
     ) -> PlanTurno:
-        self._validar_cromosoma(
-            pedidos_por_id,
-            cromosoma,
-        )
+        # Se conserva pedidos_por_id en la firma
+        # temporalmente para no modificar toda la
+        # cadena interna del GA.
+        _ = pedidos_por_id
 
-        viajes = self._decodificar_viajes(
-            instancia,
-            pedidos_por_id,
-            cromosoma,
-        )
+        return decodificar_plan_permutacion(
+            instancia=instancia,
 
-        planes_camion = [
-            PlanCamion(
-                camion_id=camion_id
-            )
-            for camion_id in range(
-                instancia.cantidad_camiones
-            )
-        ]
+            matriz=matriz,
 
-        disponibilidad = [
-            float(
-                instancia
-                .hora_inicio_turno_min
-            )
-            for _ in range(
-                instancia.cantidad_camiones
-            )
-        ]
+            configuracion=self.configuracion,
 
-        for pedido_ids in viajes:
-            camion_id = min(
-                range(
-                    instancia.cantidad_camiones
-                ),
-
-                key=lambda candidato_id: (
-                    disponibilidad[
-                        candidato_id
-                    ],
-
-                    len(
-                        planes_camion[
-                            candidato_id
-                        ].viajes
-                    ),
-
-                    candidato_id,
-                ),
-            )
-
-            numero_viaje = (
-                len(
-                    planes_camion[
-                        camion_id
-                    ].viajes
-                )
-                + 1
-            )
-
-            planes_camion[
-                camion_id
-            ].viajes.append(
-                ViajePlan(
-                    numero_viaje=numero_viaje,
-
-                    pedido_ids=list(
-                        pedido_ids
-                    ),
-                )
-            )
-
-            disponibilidad[
-                camion_id
-            ] = self._estimar_fin_viaje(
-                pedido_ids,
-                disponibilidad[camion_id],
-                pedidos_por_id,
-                matriz,
-            )
-
-        return PlanTurno(
-            instancia_id=(
-                instancia.instancia_id
-            ),
+            cromosoma=cromosoma,
 
             algoritmo=(
                 AlgoritmoPlanificacion.GA
             ),
-
-            camiones=planes_camion,
         )
-
-    @staticmethod
-    def _validar_cromosoma(
-        pedidos_por_id:
-            dict[str, PedidoInput],
-        cromosoma: Cromosoma,
-    ) -> None:
-        ids_esperados = set(
-            pedidos_por_id
-        )
-
-        ids_recibidos = set(
-            cromosoma
-        )
-
-        if (
-            len(cromosoma)
-            != len(pedidos_por_id)
-        ):
-            raise ValueError(
-                "Longitud incorrecta del cromosoma."
-            )
-
-        if (
-            len(cromosoma)
-            != len(ids_recibidos)
-        ):
-            raise ValueError(
-                "El cromosoma contiene "
-                "pedidos repetidos."
-            )
-
-        if ids_recibidos != ids_esperados:
-            faltantes = sorted(
-                ids_esperados
-                - ids_recibidos
-            )
-
-            desconocidos = sorted(
-                ids_recibidos
-                - ids_esperados
-            )
-
-            raise ValueError(
-                "Cromosoma incompatible. "
-                f"Faltantes={faltantes}, "
-                f"desconocidos={desconocidos}."
-            )
-
-    @staticmethod
-    def _decodificar_viajes(
-        instancia: InstanciaTurno,
-        pedidos_por_id:
-            dict[str, PedidoInput],
-        cromosoma: Cromosoma,
-    ) -> list[list[str]]:
-        viajes: list[list[str]] = []
-
-        viaje_actual: list[str] = []
-
-        carga_actual = 0
-
-        contiene_volcador = False
-
-        def cerrar_viaje() -> None:
-            nonlocal viaje_actual
-            nonlocal carga_actual
-            nonlocal contiene_volcador
-
-            if viaje_actual:
-                viajes.append(
-                    viaje_actual
-                )
-
-            viaje_actual = []
-
-            carga_actual = 0
-
-            contiene_volcador = False
-
-        for pedido_id in cromosoma:
-            pedido = pedidos_por_id[
-                pedido_id
-            ]
-
-            # No debería ocurrir porque un volcador
-            # cierra el viaje de inmediato, pero se
-            # mantiene como defensa.
-            if contiene_volcador:
-                cerrar_viaje()
-
-            supera_capacidad = (
-                carga_actual
-                + pedido.unidades_capacidad
-                >
-                instancia.capacidad_camion
-            )
-
-            if supera_capacidad:
-                cerrar_viaje()
-
-            viaje_actual.append(
-                pedido_id
-            )
-
-            carga_actual += (
-                pedido.unidades_capacidad
-            )
-
-            if pedido.requiere_volcador:
-                contiene_volcador = True
-
-                # El volcador debe quedar último.
-                cerrar_viaje()
-
-        cerrar_viaje()
-
-        return viajes
-
-    def _estimar_fin_viaje(
-        self,
-        pedido_ids: list[str],
-        minuto_inicio: float,
-        pedidos_por_id:
-            dict[str, PedidoInput],
-        matriz: MatrizViaje,
-    ) -> float:
-        unidades = sum(
-            pedidos_por_id[
-                pedido_id
-            ].unidades_capacidad
-            for pedido_id in pedido_ids
-        )
-
-        minuto_actual = (
-            minuto_inicio
-            + tiempo_carga_estimado_min(
-                unidades,
-                self.configuracion,
-            )
-        )
-
-        nodo_actual = (
-            self.configuracion
-            .id_nodo_corralon
-        )
-
-        for pedido_id in pedido_ids:
-            pedido = pedidos_por_id[
-                pedido_id
-            ]
-
-            minuto_actual += (
-                tiempo_viaje_esperado_min(
-                    matriz,
-                    nodo_actual,
-                    pedido_id,
-                    minuto_actual,
-                    self.configuracion,
-                )
-            )
-
-            if (
-                minuto_actual
-                < pedido.hora_desde_min
-            ):
-                minuto_actual = (
-                    pedido.hora_desde_min
-                )
-
-            minuto_actual += (
-                tiempo_descarga_estimado_min(
-                    pedido,
-                    self.configuracion,
-                )
-            )
-
-            nodo_actual = pedido_id
-
-        minuto_actual += (
-            tiempo_viaje_esperado_min(
-                matriz,
-                nodo_actual,
-
-                self.configuracion
-                .id_nodo_corralon,
-
-                minuto_actual,
-
-                self.configuracion,
-            )
-        )
-
-        return minuto_actual
-
 
 def generar_plan_ga(
     instancia: InstanciaTurno,
