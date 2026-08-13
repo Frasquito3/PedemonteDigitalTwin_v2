@@ -1,54 +1,97 @@
+from __future__ import annotations
+
 import argparse
 import json
+import sys
 
 from dataclasses import asdict
 from pathlib import Path
 from typing import Callable
 
-# pyrefly: ignore [missing-import]
 import gymnasium as gym
 
-# pyrefly: ignore [missing-import]
 from sb3_contrib import MaskablePPO
 
-# pyrefly: ignore [missing-import]
 from sb3_contrib.common.maskable.callbacks import (
     MaskableEvalCallback,
 )
 
-# pyrefly: ignore [missing-import]
 from stable_baselines3.common.callbacks import (
     CallbackList,
     CheckpointCallback,
 )
 
-# pyrefly: ignore [missing-import]
 from stable_baselines3.common.monitor import (
     Monitor,
 )
 
-# pyrefly: ignore [missing-import]
 from stable_baselines3.common.vec_env import (
     DummyVecEnv,
 )
 
-from planner.rl.instance_generator import (
+
+# ============================================================
+# RAÍZ PYTHON DEL PROYECTO
+# ============================================================
+#
+# Ubicación:
+#
+# python/
+# └── scripts/
+#     └── training/
+#         └── train_rl_curriculum.py
+#
+# parents[0] = training
+# parents[1] = scripts
+# parents[2] = python
+
+PYTHON_ROOT = Path(
+    __file__
+).resolve().parents[2]
+
+PLANNER_DIR = (
+    PYTHON_ROOT
+    / "planner"
+)
+
+if not PLANNER_DIR.is_dir():
+    raise RuntimeError(
+        "No se encontró el paquete planner. "
+        f"Raíz calculada: {PYTHON_ROOT}"
+    )
+
+python_root_texto = str(
+    PYTHON_ROOT
+)
+
+if python_root_texto not in sys.path:
+    sys.path.insert(
+        0,
+        python_root_texto,
+    )
+
+
+# ============================================================
+# IMPORTS DEL PROYECTO
+# ============================================================
+
+from planner.rl.instance_generator import (  # noqa: E402
     ConfiguracionGeneradorInstancias,
     GeneradorInstanciasRL,
 )
 
-from planner.rl.rl_curriculum import (
+from planner.rl.rl_curriculum import (  # noqa: E402
     EtapaCurriculumRL,
     crear_curriculum_fase9c,
     crear_curriculum_rapido_fase9c,
 )
 
-from planner.rl.rl_reward import (
+from planner.rl.rl_reward import (  # noqa: E402
     ConfiguracionRewardRL,
     ModoRewardRL,
 )
 
-from planner.rl.rl_training_env import (
+from planner.rl.rl_training_env import (  # noqa: E402
     PedemonteTrainingEnv,
 )
 
@@ -67,7 +110,7 @@ def parse_args(
     parser = argparse.ArgumentParser(
         description=(
             "Entrena MaskablePPO mediante "
-            "currículo de instancias Pedemonte."
+            "un currículo de instancias Pedemonte."
         )
     )
 
@@ -75,23 +118,37 @@ def parse_args(
         "--run-name",
         type=str,
         default="phase9c_curriculum",
+        help=(
+            "Nombre del directorio de resultados "
+            "dentro de rl_artifacts."
+        ),
     )
 
     parser.add_argument(
         "--seed",
         type=int,
         default=97_000,
+        help=(
+            "Seed base del entrenamiento."
+        ),
     )
 
     parser.add_argument(
         "--n-envs",
         type=int,
         default=4,
+        help=(
+            "Cantidad de entornos vectorizados."
+        ),
     )
 
     parser.add_argument(
         "--quick",
         action="store_true",
+        help=(
+            "Ejecuta el currículo reducido "
+            "utilizado como prueba técnica."
+        ),
     )
 
     args = parser.parse_args()
@@ -224,8 +281,15 @@ def crear_modelo(
 
         policy_kwargs={
             "net_arch": {
-                "pi": [256, 256],
-                "vf": [256, 256],
+                "pi": [
+                    256,
+                    256,
+                ],
+
+                "vf": [
+                    256,
+                    256,
+                ],
             }
         },
 
@@ -305,12 +369,8 @@ def main(
 ) -> None:
     args = parse_args()
 
-    base_dir = Path(
-        __file__
-    ).resolve().parent
-
     run_dir = (
-        base_dir
+        PYTHON_ROOT
         / "rl_artifacts"
         / args.run_name
     )
@@ -342,11 +402,21 @@ def main(
     )
 
     configuracion_salida = {
-        "seed": args.seed,
+        "run_name": (
+            args.run_name
+        ),
 
-        "n_envs": args.n_envs,
+        "seed": (
+            args.seed
+        ),
 
-        "quick": args.quick,
+        "n_envs": (
+            args.n_envs
+        ),
+
+        "quick": (
+            args.quick
+        ),
 
         "reward": {
             "modo": (
@@ -367,6 +437,8 @@ def main(
         },
 
         "algoritmo": {
+            "policy": "MlpPolicy",
+
             "learning_rate": 3e-4,
 
             "n_steps": 256,
@@ -384,9 +456,15 @@ def main(
             "ent_coef": 0.01,
 
             "net_arch": {
-                "pi": [256, 256],
+                "pi": [
+                    256,
+                    256,
+                ],
 
-                "vf": [256, 256],
+                "vf": [
+                    256,
+                    256,
+                ],
             },
         },
 
@@ -493,7 +571,9 @@ def main(
                     crear_train_env_factory(
                         rank=rank,
 
-                        seed_base=seed_etapa,
+                        seed_base=(
+                            seed_etapa
+                        ),
 
                         configuracion_generador=(
                             configuracion_generador
@@ -638,7 +718,7 @@ def main(
             )
 
             print(
-                "Modelo de etapa: "
+                "Modelo final de etapa: "
                 f"{stage_dir / 'final_model.zip'}"
             )
 
@@ -665,7 +745,7 @@ def main(
         )
 
         print(
-            "Modelo final: "
+            "Modelo final acumulado: "
             f"{run_dir / 'final_model.zip'}"
         )
 
