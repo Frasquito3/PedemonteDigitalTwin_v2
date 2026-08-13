@@ -152,6 +152,30 @@
 				<Name><![CDATA[CANCELADA_FIN_EJECUCION]]></Name>
 			</Option>
 		</OptionList>
+		<OptionList>
+			<Id>1786624904664</Id>
+			<Name><![CDATA[TipoActividadCamion]]></Name>
+			<Option>
+				<Id>1786624904665</Id>
+				<Name><![CDATA[CARGA]]></Name>
+			</Option>
+			<Option>
+				<Id>1786624904666</Id>
+				<Name><![CDATA[VIAJE_CLIENTE]]></Name>
+			</Option>
+			<Option>
+				<Id>1786624904667</Id>
+				<Name><![CDATA[ESPERA_CLIENTE]]></Name>
+			</Option>
+			<Option>
+				<Id>1786624904668</Id>
+				<Name><![CDATA[DESCARGA]]></Name>
+			</Option>
+			<Option>
+				<Id>1786624904669</Id>
+				<Name><![CDATA[REGRESO_CORRALON]]></Name>
+			</Option>
+		</OptionList>
 	</OptionLists>
 	<Folders>
 		<Folder>
@@ -177,7 +201,9 @@ PlanTurno plan =
     );
 
 
-imprimirPlan(plan);
+imprimirPlan(
+    plan
+);
 
 
 ejecutarPlan(
@@ -530,6 +556,21 @@ ejecutarPlan(
 					<ShowLabel>true</ShowLabel>
 					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
 						<Type><![CDATA[TravelTimeProvider]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[null]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1786624991202</Id>
+					<Name><![CDATA[resultadoActual]]></Name>
+					<X>-1100</X><Y>550</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[ResultadoTurno]]></Type>        
 						<InitialValue Class="CodeValue">
 							<Code><![CDATA[null]]></Code>
 						</InitialValue>
@@ -1673,12 +1714,212 @@ ejecutarPlan(
 						</ParameterEditor>
 					</Properties>                 
 				</Variable>
+				<Variable Class="Parameter">
+					<Id>1786626246248</Id>
+					<Name><![CDATA[COSTO_TAREA_NO_ENTREGADA]]></Name>
+					<Description><![CDATA[SUPUESTO A CALIBRAR — peso preliminar del objetivo común]]></Description>
+					<X>-420</X><Y>1420</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" ModificatorType="STATIC">
+						<Type><![CDATA[double]]></Type>
+						<UnitType><![CDATA[NONE]]></UnitType>
+						<SdArray>false</SdArray>
+						<DefaultValue Class="CodeValue">
+							<Code><![CDATA[10000.0]]></Code>
+						</DefaultValue>
+						<ParameterEditor>
+							<Id>1786626246246</Id>
+							<EditorContolType>TEXT_BOX</EditorContolType>
+							<MinSliderValue><![CDATA[0]]></MinSliderValue>
+							<MaxSliderValue><![CDATA[100]]></MaxSliderValue>
+							<DelimeterType>NO_DELIMETER</DelimeterType>
+						</ParameterEditor>
+					</Properties>                 
+				</Variable>
+				<Variable Class="Parameter">
+					<Id>1786626261134</Id>
+					<Name><![CDATA[COSTO_PEDIDO_ORIGINAL_INCOMPLETO]]></Name>
+					<Description><![CDATA[SUPUESTO A CALIBRAR — peso preliminar del objetivo común]]></Description>
+					<X>-420</X><Y>1450</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" ModificatorType="STATIC">
+						<Type><![CDATA[double]]></Type>
+						<UnitType><![CDATA[NONE]]></UnitType>
+						<SdArray>false</SdArray>
+						<DefaultValue Class="CodeValue">
+							<Code><![CDATA[5000.0]]></Code>
+						</DefaultValue>
+						<ParameterEditor>
+							<Id>1786626261132</Id>
+							<EditorContolType>TEXT_BOX</EditorContolType>
+							<MinSliderValue><![CDATA[0]]></MinSliderValue>
+							<MaxSliderValue><![CDATA[100]]></MaxSliderValue>
+							<DelimeterType>NO_DELIMETER</DelimeterType>
+						</ParameterEditor>
+					</Properties>                 
+				</Variable>
+				<Variable Class="Parameter">
+					<Id>1786626270493</Id>
+					<Name><![CDATA[COSTO_POR_MIN_TARDANZA]]></Name>
+					<Description><![CDATA[SUPUESTO A CALIBRAR — peso preliminar del objetivo común]]></Description>
+					<X>-420</X><Y>1480</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" ModificatorType="STATIC">
+						<Type><![CDATA[double]]></Type>
+						<UnitType><![CDATA[NONE]]></UnitType>
+						<SdArray>false</SdArray>
+						<DefaultValue Class="CodeValue">
+							<Code><![CDATA[100.0]]></Code>
+						</DefaultValue>
+						<ParameterEditor>
+							<Id>1786626270491</Id>
+							<EditorContolType>TEXT_BOX</EditorContolType>
+							<MinSliderValue><![CDATA[0]]></MinSliderValue>
+							<MaxSliderValue><![CDATA[100]]></MaxSliderValue>
+							<DelimeterType>NO_DELIMETER</DelimeterType>
+						</ParameterEditor>
+					</Properties>                 
+				</Variable>
+				<Variable Class="Parameter">
+					<Id>1786626278693</Id>
+					<Name><![CDATA[COSTO_POR_MIN_EXCESO_TOLERANCIA]]></Name>
+					<Description><![CDATA[SUPUESTO A CALIBRAR — peso preliminar del objetivo común]]></Description>
+					<X>-420</X><Y>1510</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" ModificatorType="STATIC">
+						<Type><![CDATA[double]]></Type>
+						<UnitType><![CDATA[NONE]]></UnitType>
+						<SdArray>false</SdArray>
+						<DefaultValue Class="CodeValue">
+							<Code><![CDATA[500.0]]></Code>
+						</DefaultValue>
+						<ParameterEditor>
+							<Id>1786626278691</Id>
+							<EditorContolType>TEXT_BOX</EditorContolType>
+							<MinSliderValue><![CDATA[0]]></MinSliderValue>
+							<MaxSliderValue><![CDATA[100]]></MaxSliderValue>
+							<DelimeterType>NO_DELIMETER</DelimeterType>
+						</ParameterEditor>
+					</Properties>                 
+				</Variable>
+				<Variable Class="Parameter">
+					<Id>1786626286956</Id>
+					<Name><![CDATA[COSTO_POR_MIN_OPERACION]]></Name>
+					<Description><![CDATA[SUPUESTO A CALIBRAR — peso preliminar del objetivo común]]></Description>
+					<X>-420</X><Y>1540</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" ModificatorType="STATIC">
+						<Type><![CDATA[double]]></Type>
+						<UnitType><![CDATA[NONE]]></UnitType>
+						<SdArray>false</SdArray>
+						<DefaultValue Class="CodeValue">
+							<Code><![CDATA[1.0]]></Code>
+						</DefaultValue>
+						<ParameterEditor>
+							<Id>1786626286954</Id>
+							<EditorContolType>TEXT_BOX</EditorContolType>
+							<MinSliderValue><![CDATA[0]]></MinSliderValue>
+							<MaxSliderValue><![CDATA[100]]></MaxSliderValue>
+							<DelimeterType>NO_DELIMETER</DelimeterType>
+						</ParameterEditor>
+					</Properties>                 
+				</Variable>
+				<Variable Class="Parameter">
+					<Id>1786626295620</Id>
+					<Name><![CDATA[COSTO_POR_KM]]></Name>
+					<Description><![CDATA[SUPUESTO A CALIBRAR — peso preliminar del objetivo común]]></Description>
+					<X>-420</X><Y>1570</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" ModificatorType="STATIC">
+						<Type><![CDATA[double]]></Type>
+						<UnitType><![CDATA[NONE]]></UnitType>
+						<SdArray>false</SdArray>
+						<DefaultValue Class="CodeValue">
+							<Code><![CDATA[2.0]]></Code>
+						</DefaultValue>
+						<ParameterEditor>
+							<Id>1786626295618</Id>
+							<EditorContolType>TEXT_BOX</EditorContolType>
+							<MinSliderValue><![CDATA[0]]></MinSliderValue>
+							<MaxSliderValue><![CDATA[100]]></MaxSliderValue>
+							<DelimeterType>NO_DELIMETER</DelimeterType>
+						</ParameterEditor>
+					</Properties>                 
+				</Variable>
+				<Variable Class="Parameter">
+					<Id>1786626304988</Id>
+					<Name><![CDATA[COSTO_POR_VIAJE]]></Name>
+					<Description><![CDATA[SUPUESTO A CALIBRAR — peso preliminar del objetivo común]]></Description>
+					<X>-420</X><Y>1600</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" ModificatorType="STATIC">
+						<Type><![CDATA[double]]></Type>
+						<UnitType><![CDATA[NONE]]></UnitType>
+						<SdArray>false</SdArray>
+						<DefaultValue Class="CodeValue">
+							<Code><![CDATA[5.0]]></Code>
+						</DefaultValue>
+						<ParameterEditor>
+							<Id>1786626304986</Id>
+							<EditorContolType>TEXT_BOX</EditorContolType>
+							<MinSliderValue><![CDATA[0]]></MinSliderValue>
+							<MaxSliderValue><![CDATA[100]]></MaxSliderValue>
+							<DelimeterType>NO_DELIMETER</DelimeterType>
+						</ParameterEditor>
+					</Properties>                 
+				</Variable>
+				<Variable Class="Parameter">
+					<Id>1786626313507</Id>
+					<Name><![CDATA[COSTO_POR_MIN_DESBALANCE_FIN]]></Name>
+					<Description><![CDATA[SUPUESTO A CALIBRAR — peso preliminar del objetivo común]]></Description>
+					<X>-420</X><Y>1630</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" ModificatorType="STATIC">
+						<Type><![CDATA[double]]></Type>
+						<UnitType><![CDATA[NONE]]></UnitType>
+						<SdArray>false</SdArray>
+						<DefaultValue Class="CodeValue">
+							<Code><![CDATA[0.5]]></Code>
+						</DefaultValue>
+						<ParameterEditor>
+							<Id>1786626313505</Id>
+							<EditorContolType>TEXT_BOX</EditorContolType>
+							<MinSliderValue><![CDATA[0]]></MinSliderValue>
+							<MaxSliderValue><![CDATA[100]]></MaxSliderValue>
+							<DelimeterType>NO_DELIMETER</DelimeterType>
+						</ParameterEditor>
+					</Properties>                 
+				</Variable>
 			</Variables>
 			<Events>
 				<Event>
 					<Id>1786581046654</Id>
 					<Name><![CDATA[eventoLlegadaProveedor]]></Name>
-					<X>-1330</X><Y>40</Y>
+					<X>-1360</X><Y>40</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1712,7 +1953,7 @@ programarProximaLlegadaProveedor();]]></Action>
 				<Event>
 					<Id>1786581120071</Id>
 					<Name><![CDATA[eventoFinAtencionProveedor]]></Name>
-					<X>-1330</X><Y>70</Y>
+					<X>-1360</X><Y>70</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -2330,9 +2571,15 @@ if (
 ) {
 
     ejecucionEnCurso = false;
+
     ejecucionFinalizada = true;
-    
+
+
     cerrarSistemaProveedores();
+
+
+    resultadoActual =
+    	construirResultadoTurno();
 
 
     traceln("");
@@ -2340,54 +2587,22 @@ if (
     traceln("=== EJECUCIÓN FINALIZADA =====");
     traceln("==============================");
 
-    imprimirResumenFase3();
-}]]></Body>
-				</Function>
-				<Function AccessType="default" StaticFunction="false">
-					<ReturnModificator>VOID</ReturnModificator>
-					<ReturnType><![CDATA[double]]></ReturnType>
-					<Id>1786560408923</Id>
-					<Name><![CDATA[imprimirResumenFase3]]></Name>
-					<X>-810</X><Y>340</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<Body><![CDATA[traceln("");
-traceln("=== ESTADO FINAL DE PEDIDOS ===");
 
-
-for (
-    PedidoRuntime runtime
-    : pedidosRuntime.values()
-) {
-
-    traceln(
-        runtime.input.pedidoId
-        + " -> "
-        + runtime.estado
-        + " | camión="
-        + runtime.camionIdAsignado
-        + " | viaje="
-        + runtime.numeroViajeAsignado
-        + " | entrega="
-        + runtime.minutoEntrega
+    imprimirMetricasCamiones(
+        resultadoActual
     );
-}
-
-
-traceln("");
-traceln(
-    "Hora final simulada: "
-    + minutoDiaActual()
-);]]></Body>
+    
+    imprimirMetricasGlobales(
+    	resultadoActual
+	);
+}]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
 					<ReturnType><![CDATA[boolean]]></ReturnType>
 					<Id>1786560433139</Id>
 					<Name><![CDATA[ejecutarPlan]]></Name>
-					<X>-810</X><Y>370</Y>
+					<X>-810</X><Y>340</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -2562,7 +2777,7 @@ return true;]]></Body>
 					<ReturnType><![CDATA[PedidoInput]]></ReturnType>
 					<Id>1786560472867</Id>
 					<Name><![CDATA[crearPedidoPrueba]]></Name>
-					<X>-810</X><Y>400</Y>
+					<X>-810</X><Y>370</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -2641,7 +2856,7 @@ return p;]]></Body>
 					<ReturnType><![CDATA[InstanciaTurno]]></ReturnType>
 					<Id>1786560543699</Id>
 					<Name><![CDATA[crearInstanciaPruebaFase3]]></Name>
-					<X>-810</X><Y>430</Y>
+					<X>-810</X><Y>400</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -2752,7 +2967,7 @@ return instancia;]]></Body>
 					<ReturnType><![CDATA[PlanTurno]]></ReturnType>
 					<Id>1786560571476</Id>
 					<Name><![CDATA[crearPlanManualFase3]]></Name>
-					<X>-810</X><Y>460</Y>
+					<X>-810</X><Y>430</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -2852,7 +3067,7 @@ return plan;]]></Body>
 					<ReturnType><![CDATA[PlanTurno]]></ReturnType>
 					<Id>1786561496633</Id>
 					<Name><![CDATA[crearPlanPruebaVolcadorInvalido]]></Name>
-					<X>-810</X><Y>490</Y>
+					<X>-810</X><Y>460</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -2937,7 +3152,7 @@ return plan;]]></Body>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786561573505</Id>
 					<Name><![CDATA[imprimirPlan]]></Name>
-					<X>-810</X><Y>520</Y>
+					<X>-810</X><Y>490</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -2971,7 +3186,7 @@ traceln("");]]></Body>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786562384883</Id>
 					<Name><![CDATA[inicializarRNGsEjecucion]]></Name>
-					<X>-810</X><Y>550</Y>
+					<X>-810</X><Y>520</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -3005,7 +3220,7 @@ rngProveedor =
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786562445467</Id>
 					<Name><![CDATA[inicializarTrabajadores]]></Name>
-					<X>-810</X><Y>580</Y>
+					<X>-810</X><Y>550</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -3095,7 +3310,7 @@ trabajadores.add(
 					<ReturnType><![CDATA[TrabajadorRuntime]]></ReturnType>
 					<Id>1786562466403</Id>
 					<Name><![CDATA[obtenerChofer]]></Name>
-					<X>-810</X><Y>610</Y>
+					<X>-810</X><Y>580</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -3132,7 +3347,7 @@ throw new IllegalArgumentException(
 					<ReturnType><![CDATA[Camion]]></ReturnType>
 					<Id>1786562552923</Id>
 					<Name><![CDATA[obtenerOtroCamion]]></Name>
-					<X>-810</X><Y>640</Y>
+					<X>-810</X><Y>610</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -3162,7 +3377,7 @@ throw new IllegalStateException(
 					<ReturnType><![CDATA[java.util.ArrayList<TrabajadorRuntime>]]></ReturnType>
 					<Id>1786562730747</Id>
 					<Name><![CDATA[asignarTrabajadoresCarga]]></Name>
-					<X>-810</X><Y>670</Y>
+					<X>-810</X><Y>640</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -3338,7 +3553,7 @@ return asignados;]]></Body>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786562778122</Id>
 					<Name><![CDATA[liberarTrabajadoresCarga]]></Name>
-					<X>-810</X><Y>700</Y>
+					<X>-810</X><Y>670</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -3377,7 +3592,7 @@ intentarAtenderProveedoresPendientes();]]></Body>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786562796715</Id>
 					<Name><![CDATA[tiempoCargaMin]]></Name>
-					<X>-810</X><Y>730</Y>
+					<X>-810</X><Y>700</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -3460,7 +3675,7 @@ return tiempoBase
 					<ReturnType><![CDATA[PlanTurno]]></ReturnType>
 					<Id>1786563351018</Id>
 					<Name><![CDATA[crearPlanTestTresPersonasFase4A]]></Name>
-					<X>-810</X><Y>760</Y>
+					<X>-810</X><Y>730</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -3540,7 +3755,7 @@ return plan;]]></Body>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786578215634</Id>
 					<Name><![CDATA[muestrearEsperaRespuestaClienteMin]]></Name>
-					<X>-810</X><Y>790</Y>
+					<X>-810</X><Y>760</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -3565,7 +3780,7 @@ return triangular(
 					<ReturnType><![CDATA[ResultadoAtencionCliente]]></ReturnType>
 					<Id>1786578241202</Id>
 					<Name><![CDATA[evaluarLlegadaCliente]]></Name>
-					<X>-810</X><Y>820</Y>
+					<X>-810</X><Y>790</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -3747,7 +3962,7 @@ return resultado;]]></Body>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786578298067</Id>
 					<Name><![CDATA[tiempoDescargaMin]]></Name>
-					<X>-810</X><Y>850</Y>
+					<X>-810</X><Y>820</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -3804,7 +4019,7 @@ return tiempoBase
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786580874509</Id>
 					<Name><![CDATA[tiempoHastaProximoProveedorMin]]></Name>
-					<X>-810</X><Y>880</Y>
+					<X>-810</X><Y>850</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -3843,7 +4058,7 @@ return -PROVEEDOR_MEDIA_ENTRE_LLEGADAS_MIN
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786580898437</Id>
 					<Name><![CDATA[muestrearDuracionProveedorMin]]></Name>
-					<X>-810</X><Y>910</Y>
+					<X>-810</X><Y>880</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -3868,7 +4083,7 @@ return triangular(
 					<ReturnType><![CDATA[SolicitudProveedorRuntime]]></ReturnType>
 					<Id>1786580912460</Id>
 					<Name><![CDATA[crearSolicitudProveedor]]></Name>
-					<X>-810</X><Y>940</Y>
+					<X>-810</X><Y>910</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -3912,7 +4127,7 @@ return solicitud;]]></Body>
 					<ReturnType><![CDATA[int]]></ReturnType>
 					<Id>1786580931524</Id>
 					<Name><![CDATA[cantidadEmpleadosCorralonLibres]]></Name>
-					<X>-810</X><Y>970</Y>
+					<X>-810</X><Y>940</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -3946,7 +4161,7 @@ return cantidad;]]></Body>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786580953020</Id>
 					<Name><![CDATA[iniciarAtencionProveedor]]></Name>
-					<X>-810</X><Y>1000</Y>
+					<X>-810</X><Y>970</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -4041,7 +4256,7 @@ traceln(
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786580983923</Id>
 					<Name><![CDATA[intentarAtenderProveedoresPendientes]]></Name>
-					<X>-810</X><Y>1030</Y>
+					<X>-810</X><Y>1000</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -4079,7 +4294,7 @@ reprogramarFinProveedor();]]></Body>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786581020628</Id>
 					<Name><![CDATA[procesarLlegadaProveedor]]></Name>
-					<X>-810</X><Y>1060</Y>
+					<X>-810</X><Y>1030</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -4117,7 +4332,7 @@ intentarAtenderProveedoresPendientes();]]></Body>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786581104180</Id>
 					<Name><![CDATA[programarProximaLlegadaProveedor]]></Name>
-					<X>-810</X><Y>1090</Y>
+					<X>-810</X><Y>1060</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -4165,7 +4380,7 @@ eventoLlegadaProveedor.restart(
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786581143604</Id>
 					<Name><![CDATA[reprogramarFinProveedor]]></Name>
-					<X>-810</X><Y>1120</Y>
+					<X>-810</X><Y>1090</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -4219,7 +4434,7 @@ eventoFinAtencionProveedor.restart(
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786581155189</Id>
 					<Name><![CDATA[procesarFinAtencionesProveedor]]></Name>
-					<X>-810</X><Y>1150</Y>
+					<X>-810</X><Y>1120</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -4290,7 +4505,7 @@ intentarAtenderProveedoresPendientes();]]></Body>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786581167085</Id>
 					<Name><![CDATA[inicializarSistemaProveedores]]></Name>
-					<X>-810</X><Y>1180</Y>
+					<X>-810</X><Y>1150</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -4319,7 +4534,7 @@ if (PROVEEDORES_HABILITADOS) {
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786581754529</Id>
 					<Name><![CDATA[cerrarSistemaProveedores]]></Name>
-					<X>-810</X><Y>1210</Y>
+					<X>-810</X><Y>1180</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -4392,7 +4607,7 @@ proveedoresPendientes.clear();]]></Body>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786582161315</Id>
 					<Name><![CDATA[calcularDistanciaHaversineMetros]]></Name>
-					<X>-810</X><Y>1240</Y>
+					<X>-810</X><Y>1210</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -4460,7 +4675,7 @@ return radioTierraMetros
 					<ReturnType><![CDATA[MatrizTiemposViaje]]></ReturnType>
 					<Id>1786582219356</Id>
 					<Name><![CDATA[crearMatrizTiemposViaje]]></Name>
-					<X>-810</X><Y>1270</Y>
+					<X>-810</X><Y>1240</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -4630,7 +4845,7 @@ return matriz;]]></Body>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786582660142</Id>
 					<Name><![CDATA[inicializarTravelTimeProvider]]></Name>
-					<X>-810</X><Y>1300</Y>
+					<X>-810</X><Y>1270</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -4685,7 +4900,7 @@ traceln(
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786582681629</Id>
 					<Name><![CDATA[obtenerTiempoViajeMin]]></Name>
-					<X>-810</X><Y>1330</Y>
+					<X>-810</X><Y>1300</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -4718,7 +4933,7 @@ return travelTimeProvider
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786582712494</Id>
 					<Name><![CDATA[obtenerDistanciaViajeMetros]]></Name>
-					<X>-810</X><Y>1360</Y>
+					<X>-810</X><Y>1330</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -4744,6 +4959,1374 @@ return travelTimeProvider
         origenId,
         destinoId
     );]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[MetricasCamion]]></ReturnType>
+					<Id>1786625601320</Id>
+					<Name><![CDATA[construirMetricasCamion]]></Name>
+					<X>-810</X><Y>1360</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[camion]]></Name>
+						<Type><![CDATA[Camion]]></Type>
+					</Parameter>
+					<Body><![CDATA[if (camion == null) {
+
+    throw new IllegalArgumentException(
+        "camion no puede ser null."
+    );
+}
+
+
+if (instanciaActual == null) {
+
+    throw new IllegalStateException(
+        "No existe instanciaActual."
+    );
+}
+
+
+MetricasCamion metricas =
+    new MetricasCamion();
+
+
+metricas.camionId =
+    camion.camionId;
+
+
+metricas.minutoInicioOperacion =
+    instanciaActual.horaInicioTurnoMin;
+
+
+metricas.minutoFinOperacion =
+    camion.minutoFinPlan;
+
+
+metricas.duracionOperacionMin =
+    Math.max(
+        0.0,
+        metricas.minutoFinOperacion
+        - metricas.minutoInicioOperacion
+    );
+
+
+double personaMinCarga =
+    0.0;
+
+
+// =====================================================
+// ACTIVIDADES
+// =====================================================
+
+for (
+    RegistroActividadCamion registro
+    : camion.historialActividades
+) {
+
+    metricas.distanciaTotalMetros +=
+        registro.distanciaMetros;
+
+
+    if (
+        registro.tipo
+        == TipoActividadCamion.CARGA
+    ) {
+
+        metricas.tiempoCargaMin +=
+            registro.duracionMin;
+
+        personaMinCarga +=
+            registro.personasAsignadas
+            * registro.duracionMin;
+    }
+
+
+    else if (
+        registro.tipo
+        == TipoActividadCamion.VIAJE_CLIENTE
+    ) {
+
+        metricas.tiempoViajeClienteMin +=
+            registro.duracionMin;
+    }
+
+
+    else if (
+        registro.tipo
+        == TipoActividadCamion.REGRESO_CORRALON
+    ) {
+
+        metricas.tiempoRegresoMin +=
+            registro.duracionMin;
+    }
+
+
+    else if (
+        registro.tipo
+        == TipoActividadCamion.ESPERA_CLIENTE
+    ) {
+
+        metricas.tiempoEsperaClienteMin +=
+            registro.duracionMin;
+    }
+
+
+    else if (
+        registro.tipo
+        == TipoActividadCamion.DESCARGA
+    ) {
+
+        metricas.tiempoDescargaMin +=
+            registro.duracionMin;
+    }
+}
+
+
+// =====================================================
+// TOTALES TEMPORALES
+// =====================================================
+
+metricas.distanciaTotalKm =
+    metricas.distanciaTotalMetros
+    / 1000.0;
+
+
+metricas.tiempoViajeTotalMin =
+    metricas.tiempoViajeClienteMin
+    + metricas.tiempoRegresoMin;
+
+
+metricas.tiempoActivoMin =
+    metricas.tiempoCargaMin
+    + metricas.tiempoViajeTotalMin
+    + metricas.tiempoEsperaClienteMin
+    + metricas.tiempoDescargaMin;
+
+
+metricas.tiempoInactivoMin =
+    Math.max(
+        0.0,
+        metricas.duracionOperacionMin
+        - metricas.tiempoActivoMin
+    );
+
+
+if (metricas.tiempoCargaMin > 0.0) {
+
+    metricas.promedioPersonasCarga =
+        personaMinCarga
+        / metricas.tiempoCargaMin;
+}
+
+
+// =====================================================
+// PEDIDOS ASIGNADOS AL CAMIÓN
+// =====================================================
+
+for (
+    PedidoRuntime runtime
+    : pedidosRuntime.values()
+) {
+
+    if (
+        runtime.camionIdAsignado
+        != camion.camionId
+    ) {
+        continue;
+    }
+
+
+    metricas.tareasPlanificadas++;
+
+
+    metricas.unidadesPlanificadas +=
+        runtime.input.unidadesCapacidad;
+
+
+    if (
+        runtime.estado
+        == EstadoPedido.ENTREGADO
+    ) {
+
+        metricas.tareasEntregadas++;
+
+        metricas.unidadesEntregadas +=
+            runtime.input.unidadesCapacidad;
+    }
+
+
+    else if (
+        runtime.estado
+        == EstadoPedido.NO_ENTREGADO
+        ||
+        runtime.estado
+        == EstadoPedido.PENDIENTE_DIA_SIGUIENTE
+    ) {
+
+        metricas.tareasNoEntregadas++;
+    }
+}
+
+
+metricas.unidadesRetornadas =
+    camion.unidadesRetornadasCorralon;
+
+
+// =====================================================
+// VIAJES Y OCUPACIÓN
+// =====================================================
+
+metricas.viajesCompletados =
+    camion.indiceViaje;
+
+
+if (
+    camion.planAsignado != null
+    &&
+    !camion.planAsignado.viajes.isEmpty()
+) {
+
+    int unidadesTotalesViajes =
+        0;
+
+
+    for (
+        ViajePlan viaje
+        : camion.planAsignado.viajes
+    ) {
+
+        for (
+            String pedidoId
+            : viaje.pedidoIds
+        ) {
+
+            unidadesTotalesViajes +=
+                obtenerPedidoInput(
+                    pedidoId
+                ).unidadesCapacidad;
+        }
+    }
+
+
+    double capacidadTotalDisponible =
+        camion.planAsignado.viajes.size()
+        * instanciaActual.capacidadCamion;
+
+
+    metricas.ocupacionPromedioViajes =
+        unidadesTotalesViajes
+        / capacidadTotalDisponible;
+}
+
+
+return metricas;]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1786625657012</Id>
+					<Name><![CDATA[imprimirMetricasCamiones]]></Name>
+					<X>-810</X><Y>1390</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[resultado]]></Name>
+						<Type><![CDATA[ResultadoTurno]]></Type>
+					</Parameter>
+					<Body><![CDATA[if (resultado == null) {
+    return;
+}
+
+
+traceln("");
+traceln("================================");
+traceln("=== MÉTRICAS POR CAMIÓN ========");
+traceln("================================");
+
+
+for (
+    MetricasCamion m
+    : resultado.metricasCamiones
+) {
+
+    traceln("");
+    traceln("Camión " + m.camionId);
+
+    traceln(
+        "  Viajes completados: "
+        + m.viajesCompletados
+    );
+
+    traceln(
+        "  Tareas entregadas: "
+        + m.tareasEntregadas
+        + "/"
+        + m.tareasPlanificadas
+    );
+
+    traceln(
+        "  Unidades entregadas: "
+        + m.unidadesEntregadas
+        + "/"
+        + m.unidadesPlanificadas
+    );
+
+    traceln(
+        "  Unidades retornadas: "
+        + m.unidadesRetornadas
+    );
+
+    traceln(
+        "  Distancia: "
+        + m.distanciaTotalKm
+        + " km"
+    );
+
+    traceln(
+        "  Tiempo carga: "
+        + m.tiempoCargaMin
+        + " min"
+    );
+
+    traceln(
+        "  Tiempo viaje: "
+        + m.tiempoViajeTotalMin
+        + " min"
+    );
+
+    traceln(
+        "  Tiempo espera cliente: "
+        + m.tiempoEsperaClienteMin
+        + " min"
+    );
+
+    traceln(
+        "  Tiempo descarga: "
+        + m.tiempoDescargaMin
+        + " min"
+    );
+
+    traceln(
+        "  Tiempo activo: "
+        + m.tiempoActivoMin
+        + " min"
+    );
+
+    traceln(
+        "  Tiempo inactivo: "
+        + m.tiempoInactivoMin
+        + " min"
+    );
+
+    traceln(
+        "  Ocupación promedio: "
+        + 100.0
+          * m.ocupacionPromedioViajes
+        + " %"
+    );
+
+    traceln(
+        "  Personas promedio en carga: "
+        + m.promedioPersonasCarga
+    );
+
+    traceln(
+        "  Finalización: "
+        + m.minutoFinOperacion
+    );
+}
+
+
+traceln("");
+traceln(
+    "Registros de actividad generados: "
+    + resultado.registrosActividad.size()
+);]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1786626351798</Id>
+					<Name><![CDATA[divisionSegura]]></Name>
+					<X>-810</X><Y>1420</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[numerador]]></Name>
+						<Type><![CDATA[double]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[denominador]]></Name>
+						<Type><![CDATA[double]]></Type>
+					</Parameter>
+					<Body><![CDATA[if (denominador == 0.0) {
+    return 0.0;
+}
+
+return numerador / denominador;]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[java.util.ArrayList<ResumenPedidoOriginal>]]></ReturnType>
+					<Id>1786626382485</Id>
+					<Name><![CDATA[construirResumenesPedidosOriginales]]></Name>
+					<X>-810</X><Y>1450</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[java.util.LinkedHashMap<String, ResumenPedidoOriginal> porOriginal =
+    new java.util.LinkedHashMap<String, ResumenPedidoOriginal>();
+
+
+for (
+    PedidoRuntime runtime
+    : pedidosRuntime.values()
+) {
+
+    PedidoInput pedido =
+        runtime.input;
+
+
+    String originalId =
+        pedido.pedidoOriginalId;
+
+
+    if (
+        originalId == null
+        || originalId.trim().isEmpty()
+    ) {
+
+        originalId =
+            pedido.pedidoId;
+    }
+
+
+    ResumenPedidoOriginal resumen =
+        porOriginal.get(
+            originalId
+        );
+
+
+    if (resumen == null) {
+
+        resumen =
+            new ResumenPedidoOriginal();
+
+        resumen.pedidoOriginalId =
+            originalId;
+
+        porOriginal.put(
+            originalId,
+            resumen
+        );
+    }
+
+
+    resumen.partesPlanificadas++;
+
+    resumen.unidadesPlanificadas +=
+        pedido.unidadesCapacidad;
+
+
+    if (
+        runtime.estado
+        == EstadoPedido.ENTREGADO
+    ) {
+
+        resumen.partesEntregadas++;
+
+        resumen.unidadesEntregadas +=
+            pedido.unidadesCapacidad;
+    }
+}
+
+
+for (
+    ResumenPedidoOriginal resumen
+    : porOriginal.values()
+) {
+
+    resumen.completo =
+        resumen.partesEntregadas
+        == resumen.partesPlanificadas;
+}
+
+
+return new java.util.ArrayList<ResumenPedidoOriginal>(
+    porOriginal.values()
+);]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[MetricasGlobalesTurno]]></ReturnType>
+					<Id>1786626405476</Id>
+					<Name><![CDATA[construirMetricasGlobales]]></Name>
+					<X>-810</X><Y>1480</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[resultado]]></Name>
+						<Type><![CDATA[ResultadoTurno]]></Type>
+					</Parameter>
+					<Body><![CDATA[if (resultado == null) {
+
+    throw new IllegalArgumentException(
+        "resultado no puede ser null."
+    );
+}
+
+
+MetricasGlobalesTurno global =
+    new MetricasGlobalesTurno();
+
+
+double menorFinCamion =
+    Double.POSITIVE_INFINITY;
+
+double mayorFinCamion =
+    Double.NEGATIVE_INFINITY;
+
+double menorDistanciaKm =
+    Double.POSITIVE_INFINITY;
+
+double mayorDistanciaKm =
+    Double.NEGATIVE_INFINITY;
+
+double menorTiempoActivo =
+    Double.POSITIVE_INFINITY;
+
+double mayorTiempoActivo =
+    Double.NEGATIVE_INFINITY;
+
+
+// =====================================================
+// MÉTRICAS POR CAMIÓN
+// =====================================================
+
+for (
+    MetricasCamion m
+    : resultado.metricasCamiones
+) {
+
+    global.viajesTotales +=
+        m.viajesCompletados;
+
+    global.distanciaTotalKm +=
+        m.distanciaTotalKm;
+
+    global.tiempoCargaTotalMin +=
+        m.tiempoCargaMin;
+
+    global.tiempoViajeTotalMin +=
+        m.tiempoViajeTotalMin;
+
+    global.tiempoEsperaClienteTotalMin +=
+        m.tiempoEsperaClienteMin;
+
+    global.tiempoDescargaTotalMin +=
+        m.tiempoDescargaMin;
+
+    global.tiempoActivoAcumuladoCamionesMin +=
+        m.tiempoActivoMin;
+
+    global.unidadesRetornadas +=
+        m.unidadesRetornadas;
+
+
+    global.personaMinCarga +=
+        m.promedioPersonasCarga
+        * m.tiempoCargaMin;
+
+
+    menorFinCamion =
+        Math.min(
+            menorFinCamion,
+            m.minutoFinOperacion
+        );
+
+    mayorFinCamion =
+        Math.max(
+            mayorFinCamion,
+            m.minutoFinOperacion
+        );
+
+
+    menorDistanciaKm =
+        Math.min(
+            menorDistanciaKm,
+            m.distanciaTotalKm
+        );
+
+    mayorDistanciaKm =
+        Math.max(
+            mayorDistanciaKm,
+            m.distanciaTotalKm
+        );
+
+
+    menorTiempoActivo =
+        Math.min(
+            menorTiempoActivo,
+            m.tiempoActivoMin
+        );
+
+    mayorTiempoActivo =
+        Math.max(
+            mayorTiempoActivo,
+            m.tiempoActivoMin
+        );
+}
+
+
+// =====================================================
+// PEDIDOS / TAREAS
+// =====================================================
+
+for (
+    PedidoRuntime runtime
+    : pedidosRuntime.values()
+) {
+
+    PedidoInput pedido =
+        runtime.input;
+
+
+    global.tareasPlanificadas++;
+
+    global.unidadesPlanificadas +=
+        pedido.unidadesCapacidad;
+
+
+    if (
+        runtime.estado
+        == EstadoPedido.ENTREGADO
+    ) {
+
+        global.tareasEntregadas++;
+
+        global.unidadesEntregadas +=
+            pedido.unidadesCapacidad;
+
+
+        if (runtime.aceptadoAntes) {
+
+            global.entregasAceptadasAntes++;
+        }
+
+        else if (runtime.llegadaTardia) {
+
+            global.entregasTardiasAceptadas++;
+        }
+
+        else if (
+            runtime.minutoLlegada
+                >= pedido.horaDesdeMin
+            &&
+            runtime.minutoLlegada
+                <= pedido.horaHastaMin
+        ) {
+
+            global.entregasEnVentana++;
+        }
+    }
+
+    else {
+
+        global.tareasNoEntregadas++;
+
+
+        if (runtime.llegadaTardia) {
+
+            global.llegadasTardiasRechazadas++;
+        }
+    }
+
+
+    if (runtime.llegadaTardia) {
+
+        global.cantidadLlegadasTardias++;
+
+        global.tardanzaTotalMin +=
+            runtime.tardanzaLlegadaMin;
+
+        global.tardanzaMaxMin =
+            Math.max(
+                global.tardanzaMaxMin,
+                runtime.tardanzaLlegadaMin
+            );
+    }
+}
+
+
+global.entregasSinTardanza =
+    global.entregasEnVentana
+    + global.entregasAceptadasAntes;
+
+
+// =====================================================
+// PEDIDOS ORIGINALES
+// =====================================================
+
+for (
+    ResumenPedidoOriginal resumen
+    : resultado.resumenesPedidosOriginales
+) {
+
+    global.pedidosOriginalesPlanificados++;
+
+
+    if (resumen.completo) {
+
+        global.pedidosOriginalesCompletos++;
+
+    } else {
+
+        global.pedidosOriginalesIncompletos++;
+    }
+}
+
+
+// =====================================================
+// PORCENTAJES
+// =====================================================
+
+global.porcentajeTareasEntregadas =
+    divisionSegura(
+        global.tareasEntregadas,
+        global.tareasPlanificadas
+    );
+
+
+global.porcentajePedidosOriginalesCompletos =
+    divisionSegura(
+        global.pedidosOriginalesCompletos,
+        global.pedidosOriginalesPlanificados
+    );
+
+
+global.porcentajeUnidadesEntregadas =
+    divisionSegura(
+        global.unidadesEntregadas,
+        global.unidadesPlanificadas
+    );
+
+
+global.porcentajeEnVentanaSobreEntregadas =
+    divisionSegura(
+        global.entregasEnVentana,
+        global.tareasEntregadas
+    );
+
+
+global.porcentajeServicioSinTardanzaSobrePlanificadas =
+    divisionSegura(
+        global.entregasSinTardanza,
+        global.tareasPlanificadas
+    );
+
+
+global.tardanzaPromedioMin =
+    divisionSegura(
+        global.tardanzaTotalMin,
+        global.cantidadLlegadasTardias
+    );
+
+
+// =====================================================
+// FINALIZACIÓN Y OVERTIME
+// =====================================================
+
+if (!resultado.metricasCamiones.isEmpty()) {
+
+    global.minutoFinTurnoReal =
+        mayorFinCamion;
+
+    global.duracionTurnoRealMin =
+        Math.max(
+            0.0,
+            global.minutoFinTurnoReal
+            - instanciaActual.horaInicioTurnoMin
+        );
+
+
+    global.overtimeMin =
+        Math.max(
+            0.0,
+            global.minutoFinTurnoReal
+            - instanciaActual.horaFinObjetivoMin
+        );
+
+
+    global.excesoToleranciaMin =
+        Math.max(
+            0.0,
+            global.minutoFinTurnoReal
+            - instanciaActual.horaFinToleranciaMin
+        );
+
+
+    global.diferenciaFinCamionesMin =
+        mayorFinCamion
+        - menorFinCamion;
+
+
+    global.diferenciaDistanciaCamionesKm =
+        mayorDistanciaKm
+        - menorDistanciaKm;
+
+
+    global.diferenciaTiempoActivoCamionesMin =
+        mayorTiempoActivo
+        - menorTiempoActivo;
+}
+
+
+// =====================================================
+// OCUPACIÓN GLOBAL
+// =====================================================
+
+double capacidadTotalViajes =
+    global.viajesTotales
+    * instanciaActual.capacidadCamion;
+
+
+global.ocupacionGlobalViajes =
+    divisionSegura(
+        global.unidadesPlanificadas,
+        capacidadTotalViajes
+    );
+
+
+global.promedioPersonasCargaGlobal =
+    divisionSegura(
+        global.personaMinCarga,
+        global.tiempoCargaTotalMin
+    );
+
+
+// =====================================================
+// PROVEEDORES
+// =====================================================
+
+global.proveedoresLlegados =
+    historialProveedores.size();
+
+
+for (
+    SolicitudProveedorRuntime solicitud
+    : historialProveedores
+) {
+
+    if (
+        solicitud.empleadosRequeridos == 2
+    ) {
+
+        global.proveedoresQueRequirieronDosEmpleados++;
+    }
+
+
+    if (
+        solicitud.estado
+        == EstadoSolicitudProveedor.COMPLETADA
+    ) {
+
+        global.proveedoresCompletados++;
+
+    } else if (
+        solicitud.estado
+        == EstadoSolicitudProveedor
+            .CANCELADA_FIN_EJECUCION
+    ) {
+
+        global.proveedoresCanceladosFinEjecucion++;
+    }
+
+
+    double esperaProveedor = 0.0;
+
+
+    if (
+        solicitud.minutoInicioAtencion >= 0.0
+    ) {
+
+        esperaProveedor =
+            solicitud.minutoInicioAtencion
+            - solicitud.minutoLlegada;
+
+    } else if (
+        solicitud.minutoFinReal >= 0.0
+    ) {
+
+        // Nunca comenzó y quedó esperando
+        // hasta el cierre de la ejecución.
+
+        esperaProveedor =
+            solicitud.minutoFinReal
+            - solicitud.minutoLlegada;
+    }
+
+
+    esperaProveedor =
+        Math.max(
+            0.0,
+            esperaProveedor
+        );
+
+
+    global.esperaProveedorTotalMin +=
+        esperaProveedor;
+
+
+    global.esperaProveedorMaxMin =
+        Math.max(
+            global.esperaProveedorMaxMin,
+            esperaProveedor
+        );
+
+
+    if (
+        solicitud.minutoInicioAtencion >= 0.0
+        &&
+        solicitud.minutoFinReal
+            >= solicitud.minutoInicioAtencion
+    ) {
+
+        double tiempoAtencionReal =
+            solicitud.minutoFinReal
+            - solicitud.minutoInicioAtencion;
+
+
+        global.tiempoAtencionProveedorTotalMin +=
+            tiempoAtencionReal;
+
+
+        global.personaMinProveedor +=
+            tiempoAtencionReal
+            * solicitud.empleadosAsignados.size();
+    }
+}
+
+
+global.esperaProveedorPromedioMin =
+    divisionSegura(
+        global.esperaProveedorTotalMin,
+        global.proveedoresLlegados
+    );
+
+
+return global;]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[DesgloseCostoTurno]]></ReturnType>
+					<Id>1786626445922</Id>
+					<Name><![CDATA[evaluarCostoTurno]]></Name>
+					<X>-810</X><Y>1510</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[metricas]]></Name>
+						<Type><![CDATA[MetricasGlobalesTurno]]></Type>
+					</Parameter>
+					<Body><![CDATA[if (metricas == null) {
+
+    throw new IllegalArgumentException(
+        "metricas no puede ser null."
+    );
+}
+
+
+DesgloseCostoTurno costo =
+    new DesgloseCostoTurno();
+
+
+costo.costoTareasNoEntregadas =
+    metricas.tareasNoEntregadas
+    * COSTO_TAREA_NO_ENTREGADA;
+
+
+costo.costoPedidosOriginalesIncompletos =
+    metricas.pedidosOriginalesIncompletos
+    * COSTO_PEDIDO_ORIGINAL_INCOMPLETO;
+
+
+costo.costoTardanza =
+    metricas.tardanzaTotalMin
+    * COSTO_POR_MIN_TARDANZA;
+
+
+costo.costoExcesoTolerancia =
+    metricas.excesoToleranciaMin
+    * COSTO_POR_MIN_EXCESO_TOLERANCIA;
+
+
+costo.costoOperacion =
+    metricas.duracionTurnoRealMin
+    * COSTO_POR_MIN_OPERACION;
+
+
+costo.costoDistancia =
+    metricas.distanciaTotalKm
+    * COSTO_POR_KM;
+
+
+costo.costoViajes =
+    metricas.viajesTotales
+    * COSTO_POR_VIAJE;
+
+
+costo.costoDesbalance =
+    metricas.diferenciaFinCamionesMin
+    * COSTO_POR_MIN_DESBALANCE_FIN;
+
+
+costo.costoTotal =
+    costo.costoTareasNoEntregadas
+    + costo.costoPedidosOriginalesIncompletos
+    + costo.costoTardanza
+    + costo.costoExcesoTolerancia
+    + costo.costoOperacion
+    + costo.costoDistancia
+    + costo.costoViajes
+    + costo.costoDesbalance;
+
+
+return costo;]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[ResultadoTurno]]></ReturnType>
+					<Id>1786626499999</Id>
+					<Name><![CDATA[construirResultadoTurno]]></Name>
+					<X>-810</X><Y>1540</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[if (instanciaActual == null) {
+
+    throw new IllegalStateException(
+        "No existe instanciaActual."
+    );
+}
+
+
+if (planActual == null) {
+
+    throw new IllegalStateException(
+        "No existe planActual."
+    );
+}
+
+
+ResultadoTurno resultado =
+    new ResultadoTurno();
+
+
+resultado.instanciaId =
+    instanciaActual.instanciaId;
+
+resultado.fechaOperacion =
+    instanciaActual.fechaOperacion;
+
+resultado.turno =
+    instanciaActual.turno;
+
+resultado.algoritmo =
+    planActual.algoritmo;
+
+resultado.seedEscenario =
+    instanciaActual.seedEscenario;
+
+resultado.seedEjecucion =
+    instanciaActual.seedEjecucion;
+
+resultado.planValido =
+    true;
+
+resultado.ejecucionCompletada =
+    ejecucionFinalizada;
+
+
+// =====================================================
+// CAMIONES Y ACTIVIDADES
+// =====================================================
+
+for (Camion camion : camiones) {
+
+    MetricasCamion metricas =
+        construirMetricasCamion(
+            camion
+        );
+
+
+    resultado.metricasCamiones.add(
+        metricas
+    );
+
+
+    resultado.registrosActividad.addAll(
+        camion.historialActividades
+    );
+}
+
+
+// =====================================================
+// PEDIDOS ORIGINALES
+// =====================================================
+
+resultado.resumenesPedidosOriginales.addAll(
+    construirResumenesPedidosOriginales()
+);
+
+
+// =====================================================
+// KPI GLOBAL
+// =====================================================
+
+resultado.metricasGlobales =
+    construirMetricasGlobales(
+        resultado
+    );
+
+
+// =====================================================
+// COSTO
+// =====================================================
+
+resultado.desgloseCosto =
+    evaluarCostoTurno(
+        resultado.metricasGlobales
+    );
+
+
+resultado.costoTotal =
+    resultado.desgloseCosto.costoTotal;
+
+
+return resultado;]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1786626524198</Id>
+					<Name><![CDATA[imprimirMetricasGlobales]]></Name>
+					<X>-810</X><Y>1570</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[resultado]]></Name>
+						<Type><![CDATA[ResultadoTurno]]></Type>
+					</Parameter>
+					<Body><![CDATA[if (
+    resultado == null
+    || resultado.metricasGlobales == null
+) {
+    return;
+}
+
+
+MetricasGlobalesTurno g =
+    resultado.metricasGlobales;
+
+
+traceln("");
+traceln("================================");
+traceln("=== MÉTRICAS GLOBALES =========");
+traceln("================================");
+
+
+traceln(
+    "Tareas entregadas: "
+    + g.tareasEntregadas
+    + "/"
+    + g.tareasPlanificadas
+    + " ("
+    + 100.0 * g.porcentajeTareasEntregadas
+    + " %)"
+);
+
+
+traceln(
+    "Pedidos originales completos: "
+    + g.pedidosOriginalesCompletos
+    + "/"
+    + g.pedidosOriginalesPlanificados
+    + " ("
+    + 100.0
+      * g.porcentajePedidosOriginalesCompletos
+    + " %)"
+);
+
+
+traceln(
+    "Unidades entregadas: "
+    + g.unidadesEntregadas
+    + "/"
+    + g.unidadesPlanificadas
+    + " ("
+    + 100.0
+      * g.porcentajeUnidadesEntregadas
+    + " %)"
+);
+
+
+traceln(
+    "Entregas en ventana: "
+    + g.entregasEnVentana
+);
+
+
+traceln(
+    "Aceptadas antes: "
+    + g.entregasAceptadasAntes
+);
+
+
+traceln(
+    "Tardías aceptadas: "
+    + g.entregasTardiasAceptadas
+);
+
+
+traceln(
+    "Tardías rechazadas: "
+    + g.llegadasTardiasRechazadas
+);
+
+
+traceln(
+    "Tardanza total/media/máxima: "
+    + g.tardanzaTotalMin
+    + " / "
+    + g.tardanzaPromedioMin
+    + " / "
+    + g.tardanzaMaxMin
+    + " min"
+);
+
+
+traceln(
+    "Viajes totales: "
+    + g.viajesTotales
+);
+
+
+traceln(
+    "Distancia total: "
+    + g.distanciaTotalKm
+    + " km"
+);
+
+
+traceln(
+    "Tiempo carga total: "
+    + g.tiempoCargaTotalMin
+    + " min"
+);
+
+
+traceln(
+    "Tiempo viaje total: "
+    + g.tiempoViajeTotalMin
+    + " min"
+);
+
+
+traceln(
+    "Tiempo espera cliente total: "
+    + g.tiempoEsperaClienteTotalMin
+    + " min"
+);
+
+
+traceln(
+    "Tiempo descarga total: "
+    + g.tiempoDescargaTotalMin
+    + " min"
+);
+
+
+traceln(
+    "Fin real: "
+    + g.minutoFinTurnoReal
+);
+
+
+traceln(
+    "Duración operativa: "
+    + g.duracionTurnoRealMin
+    + " min"
+);
+
+
+traceln(
+    "Overtime: "
+    + g.overtimeMin
+    + " min"
+);
+
+
+traceln(
+    "Exceso de tolerancia: "
+    + g.excesoToleranciaMin
+    + " min"
+);
+
+
+traceln(
+    "Ocupación global: "
+    + 100.0
+      * g.ocupacionGlobalViajes
+    + " %"
+);
+
+
+traceln(
+    "Promedio personas en carga: "
+    + g.promedioPersonasCargaGlobal
+);
+
+
+traceln(
+    "Diferencia de finalización: "
+    + g.diferenciaFinCamionesMin
+    + " min"
+);
+
+
+traceln(
+    "Proveedores llegados/completados/cancelados: "
+    + g.proveedoresLlegados
+    + "/"
+    + g.proveedoresCompletados
+    + "/"
+    + g.proveedoresCanceladosFinEjecucion
+);
+
+
+traceln("");
+traceln("=== COSTO PRELIMINAR ===");
+
+
+traceln(
+    resultado.desgloseCosto
+);]]></Body>
 				</Function>
 			</Functions>
 			<AgentLinks>
@@ -4976,7 +6559,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786559290524</Id>
 					<Name><![CDATA[camionId]]></Name>
-					<X>-530</X><Y>50</Y>
+					<X>-620</X><Y>50</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -4991,7 +6574,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786559315291</Id>
 					<Name><![CDATA[planAsignado]]></Name>
-					<X>-530</X><Y>80</Y>
+					<X>-620</X><Y>80</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -5006,7 +6589,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786559327066</Id>
 					<Name><![CDATA[indiceViaje]]></Name>
-					<X>-530</X><Y>110</Y>
+					<X>-620</X><Y>110</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -5021,7 +6604,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786559336083</Id>
 					<Name><![CDATA[indicePedido]]></Name>
-					<X>-530</X><Y>140</Y>
+					<X>-620</X><Y>140</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -5036,7 +6619,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786559346059</Id>
 					<Name><![CDATA[viajeActual]]></Name>
-					<X>-530</X><Y>170</Y>
+					<X>-620</X><Y>170</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -5051,7 +6634,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786559356851</Id>
 					<Name><![CDATA[pedidoActual]]></Name>
-					<X>-530</X><Y>200</Y>
+					<X>-620</X><Y>200</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -5066,7 +6649,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786559368067</Id>
 					<Name><![CDATA[unidadesViajeActual]]></Name>
-					<X>-530</X><Y>230</Y>
+					<X>-620</X><Y>230</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -5081,7 +6664,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786559375659</Id>
 					<Name><![CDATA[cargaActual]]></Name>
-					<X>-530</X><Y>260</Y>
+					<X>-620</X><Y>260</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -5096,7 +6679,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786559383443</Id>
 					<Name><![CDATA[latActual]]></Name>
-					<X>-530</X><Y>290</Y>
+					<X>-620</X><Y>290</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -5111,7 +6694,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786559394700</Id>
 					<Name><![CDATA[lonActual]]></Name>
-					<X>-530</X><Y>320</Y>
+					<X>-620</X><Y>320</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -5126,7 +6709,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786559403748</Id>
 					<Name><![CDATA[turnoFinalizado]]></Name>
-					<X>-530</X><Y>350</Y>
+					<X>-620</X><Y>350</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -5141,7 +6724,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786562587906</Id>
 					<Name><![CDATA[trabajadoresCarga]]></Name>
-					<X>-530</X><Y>380</Y>
+					<X>-620</X><Y>380</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -5156,7 +6739,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786562604124</Id>
 					<Name><![CDATA[personasCargaActual]]></Name>
-					<X>-530</X><Y>410</Y>
+					<X>-620</X><Y>410</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -5171,7 +6754,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786562612706</Id>
 					<Name><![CDATA[duracionCargaActualMin]]></Name>
-					<X>-530</X><Y>440</Y>
+					<X>-620</X><Y>440</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -5186,7 +6769,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786562622467</Id>
 					<Name><![CDATA[cargandoAhora]]></Name>
-					<X>-530</X><Y>470</Y>
+					<X>-620</X><Y>470</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -5201,7 +6784,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786562632059</Id>
 					<Name><![CDATA[enCalle]]></Name>
-					<X>-530</X><Y>500</Y>
+					<X>-620</X><Y>500</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -5216,7 +6799,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786578329243</Id>
 					<Name><![CDATA[decisionClienteActual]]></Name>
-					<X>-530</X><Y>530</Y>
+					<X>-620</X><Y>530</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -5231,7 +6814,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786578354851</Id>
 					<Name><![CDATA[duracionEsperaClienteActualMin]]></Name>
-					<X>-530</X><Y>560</Y>
+					<X>-620</X><Y>560</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -5246,7 +6829,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786578377186</Id>
 					<Name><![CDATA[duracionDescargaActualMin]]></Name>
-					<X>-530</X><Y>590</Y>
+					<X>-620</X><Y>590</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -5261,7 +6844,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786578385467</Id>
 					<Name><![CDATA[unidadesRetornadasCorralon]]></Name>
-					<X>-530</X><Y>620</Y>
+					<X>-620</X><Y>620</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -5276,7 +6859,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786580481851</Id>
 					<Name><![CDATA[abortarViajeActual]]></Name>
-					<X>-530</X><Y>650</Y>
+					<X>-620</X><Y>650</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -5291,7 +6874,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786582794261</Id>
 					<Name><![CDATA[nodoActualId]]></Name>
-					<X>-530</X><Y>680</Y>
+					<X>-620</X><Y>680</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -5306,7 +6889,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786582805389</Id>
 					<Name><![CDATA[duracionViajeActualMin]]></Name>
-					<X>-530</X><Y>710</Y>
+					<X>-620</X><Y>710</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -5321,7 +6904,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786582813670</Id>
 					<Name><![CDATA[distanciaViajeActualMetros]]></Name>
-					<X>-530</X><Y>740</Y>
+					<X>-620</X><Y>740</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -5330,6 +6913,126 @@ traceln(
 						<Type><![CDATA[double]]></Type>        
 						<InitialValue Class="CodeValue">
 							<Code><![CDATA[0.0]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1786625013741</Id>
+					<Name><![CDATA[historialActividades]]></Name>
+					<X>-620</X><Y>770</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[java.util.ArrayList<RegistroActividadCamion>]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[new java.util.ArrayList<RegistroActividadCamion>()]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1786625031827</Id>
+					<Name><![CDATA[actividadActual]]></Name>
+					<X>-620</X><Y>800</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[TipoActividadCamion]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[null]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1786625056138</Id>
+					<Name><![CDATA[inicioActividadActualMin]]></Name>
+					<X>-620</X><Y>830</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[double]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[-1.0]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1786625067272</Id>
+					<Name><![CDATA[pedidoIdActividadActual]]></Name>
+					<X>-620</X><Y>860</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[""]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1786625080488</Id>
+					<Name><![CDATA[distanciaActividadActualMetros]]></Name>
+					<X>-620</X><Y>890</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[double]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[0.0]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1786625088943</Id>
+					<Name><![CDATA[personasActividadActual]]></Name>
+					<X>-620</X><Y>920</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[int]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[0]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1786625097846</Id>
+					<Name><![CDATA[unidadesActividadActual]]></Name>
+					<X>-620</X><Y>950</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[int]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[0]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1786625107749</Id>
+					<Name><![CDATA[minutoFinPlan]]></Name>
+					<X>-620</X><Y>980</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[double]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[-1.0]]></Code>
 						</InitialValue>
 					</Properties>
 				</Variable>
@@ -5867,7 +7570,7 @@ evaluarClienteActual();]]></Action>
 					<ReturnType><![CDATA[Main]]></ReturnType>
 					<Id>1786559452107</Id>
 					<Name><![CDATA[mainModel]]></Name>
-					<X>-260</X><Y>50</Y>
+					<X>-320</X><Y>50</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -5879,7 +7582,7 @@ evaluarClienteActual();]]></Action>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786559490532</Id>
 					<Name><![CDATA[asignarPlan]]></Name>
-					<X>-260</X><Y>80</Y>
+					<X>-320</X><Y>80</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -5898,6 +7601,22 @@ duracionViajeActualMin =
 
 distanciaViajeActualMetros =
     0.0;
+
+historialActividades.clear();
+
+actividadActual = null;
+
+inicioActividadActualMin = -1.0;
+
+pedidoIdActividadActual = "";
+
+distanciaActividadActualMetros = 0.0;
+
+personasActividadActual = 0;
+
+unidadesActividadActual = 0;
+
+minutoFinPlan = -1.0;
 
 enCalle = false;
 
@@ -5953,7 +7672,7 @@ traceln(
 					<ReturnType><![CDATA[boolean]]></ReturnType>
 					<Id>1786559522691</Id>
 					<Name><![CDATA[hayViajePendiente]]></Name>
-					<X>-260</X><Y>110</Y>
+					<X>-320</X><Y>110</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -5967,7 +7686,7 @@ traceln(
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786559542932</Id>
 					<Name><![CDATA[prepararViajeActual]]></Name>
-					<X>-260</X><Y>140</Y>
+					<X>-320</X><Y>140</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -6033,12 +7752,14 @@ traceln(
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786559580547</Id>
 					<Name><![CDATA[finalizarCarga]]></Name>
-					<X>-260</X><Y>170</Y>
+					<X>-320</X><Y>170</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>true</ShowLabel>
-					<Body><![CDATA[cargaActual =
+					<Body><![CDATA[cerrarActividadActual();
+
+cargaActual =
     unidadesViajeActual;
 
 
@@ -6075,7 +7796,7 @@ traceln(
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786559599332</Id>
 					<Name><![CDATA[prepararPedidoActual]]></Name>
-					<X>-260</X><Y>200</Y>
+					<X>-320</X><Y>200</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -6126,6 +7847,13 @@ distanciaViajeActualMetros =
             pedidoId
         );
 
+iniciarActividad(
+    TipoActividadCamion.VIAJE_CLIENTE,
+    pedidoId,
+    distanciaViajeActualMetros,
+    0,
+    0
+);
 
 pedidoActual.estado =
     EstadoPedido.EN_TRANSITO;
@@ -6162,12 +7890,14 @@ traceln(
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786559645531</Id>
 					<Name><![CDATA[llegarPedidoActual]]></Name>
-					<X>-260</X><Y>230</Y>
+					<X>-320</X><Y>230</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>true</ShowLabel>
-					<Body><![CDATA[latActual =
+					<Body><![CDATA[cerrarActividadActual();
+
+latActual =
     pedidoActual.input.latitud;
 
 lonActual =
@@ -6192,7 +7922,7 @@ traceln(
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786559674498</Id>
 					<Name><![CDATA[finalizarPedidoActual]]></Name>
-					<X>-260</X><Y>260</Y>
+					<X>-320</X><Y>260</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -6204,6 +7934,7 @@ traceln(
     );
 }
 
+cerrarActividadActual();
 
 PedidoInput input =
     pedidoActual.input;
@@ -6272,7 +8003,7 @@ pedidoActual = null;]]></Body>
 					<ReturnType><![CDATA[boolean]]></ReturnType>
 					<Id>1786559693523</Id>
 					<Name><![CDATA[hayMasPedidosEnViaje]]></Name>
-					<X>-260</X><Y>290</Y>
+					<X>-320</X><Y>290</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -6286,12 +8017,14 @@ pedidoActual = null;]]></Body>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786559729995</Id>
 					<Name><![CDATA[finalizarRegreso]]></Name>
-					<X>-260</X><Y>320</Y>
+					<X>-320</X><Y>320</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>true</ShowLabel>
-					<Body><![CDATA[latActual =
+					<Body><![CDATA[cerrarActividadActual();
+
+latActual =
     mainModel().LAT_CORRALON;
 
 lonActual =
@@ -6339,7 +8072,7 @@ indiceViaje++;]]></Body>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786559744707</Id>
 					<Name><![CDATA[finalizarTurnoCamion]]></Name>
-					<X>-260</X><Y>350</Y>
+					<X>-320</X><Y>350</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -6348,6 +8081,11 @@ indiceViaje++;]]></Body>
     return;
 }
 
+// Defensa: no debería quedar una actividad abierta.
+cerrarActividadActual();
+
+minutoFinPlan =
+    mainModel().minutoDiaActual();
 
 turnoFinalizado = true;
 
@@ -6369,7 +8107,7 @@ mainModel()
 					<ReturnType><![CDATA[boolean]]></ReturnType>
 					<Id>1786562644507</Id>
 					<Name><![CDATA[tieneTrabajoRestante]]></Name>
-					<X>-260</X><Y>380</Y>
+					<X>-320</X><Y>380</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -6388,7 +8126,7 @@ mainModel()
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786562834010</Id>
 					<Name><![CDATA[iniciarCarga]]></Name>
-					<X>-260</X><Y>410</Y>
+					<X>-320</X><Y>410</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -6429,6 +8167,13 @@ duracionCargaActualMin =
 cargandoAhora =
     true;
 
+iniciarActividad(
+    TipoActividadCamion.CARGA,
+    "",
+    0.0,
+    personasCargaActual,
+    unidadesViajeActual
+);
 
 traceln(
     "[" + mainModel().minutoDiaActual() + "] "
@@ -6447,7 +8192,7 @@ traceln(
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786563033916</Id>
 					<Name><![CDATA[activarEjecucion]]></Name>
-					<X>-260</X><Y>440</Y>
+					<X>-320</X><Y>440</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -6459,7 +8204,7 @@ traceln(
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786578445652</Id>
 					<Name><![CDATA[evaluarClienteActual]]></Name>
-					<X>-260</X><Y>470</Y>
+					<X>-320</X><Y>470</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -6513,7 +8258,7 @@ traceln(
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786578462420</Id>
 					<Name><![CDATA[iniciarEsperaCliente]]></Name>
-					<X>-260</X><Y>500</Y>
+					<X>-320</X><Y>500</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -6525,6 +8270,13 @@ traceln(
     );
 }
 
+iniciarActividad(
+    TipoActividadCamion.ESPERA_CLIENTE,
+    pedidoActual.input.pedidoId,
+    0.0,
+    0,
+    0
+);
 
 pedidoActual.estado =
     EstadoPedido.ESPERANDO;
@@ -6550,7 +8302,7 @@ traceln(
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786578480444</Id>
 					<Name><![CDATA[iniciarDescarga]]></Name>
-					<X>-260</X><Y>530</Y>
+					<X>-320</X><Y>530</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -6562,6 +8314,13 @@ traceln(
     );
 }
 
+// Si venimos de EsperandoCliente,
+// cerramos primero esa actividad.
+//
+// Si la descarga es inmediata,
+// actividadActual ya será null.
+
+cerrarActividadActual();
 
 duracionDescargaActualMin =
     mainModel()
@@ -6569,6 +8328,13 @@ duracionDescargaActualMin =
             pedidoActual.input
         );
 
+iniciarActividad(
+    TipoActividadCamion.DESCARGA,
+    pedidoActual.input.pedidoId,
+    0.0,
+    0,
+    pedidoActual.input.unidadesCapacidad
+);
 
 pedidoActual.minutoInicioDescarga =
     mainModel().minutoDiaActual();
@@ -6592,7 +8358,7 @@ traceln(
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786578497196</Id>
 					<Name><![CDATA[finalizarPedidoNoEntregadoActual]]></Name>
-					<X>-260</X><Y>560</Y>
+					<X>-320</X><Y>560</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -6661,7 +8427,7 @@ if (hayVolcadorDespues) {
 					<ReturnType><![CDATA[boolean]]></ReturnType>
 					<Id>1786580523308</Id>
 					<Name><![CDATA[hayVolcadorPendienteDespues]]></Name>
-					<X>-260</X><Y>590</Y>
+					<X>-320</X><Y>590</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -6696,7 +8462,7 @@ return false;]]></Body>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786580550444</Id>
 					<Name><![CDATA[marcarRestantesComoNoEntregados]]></Name>
-					<X>-260</X><Y>620</Y>
+					<X>-320</X><Y>620</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -6763,7 +8529,7 @@ indicePedido =
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786582941877</Id>
 					<Name><![CDATA[prepararRegresoCorralon]]></Name>
-					<X>-260</X><Y>650</Y>
+					<X>-320</X><Y>650</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -6783,6 +8549,13 @@ distanciaViajeActualMetros =
             mainModel().ID_NODO_CORRALON
         );
 
+iniciarActividad(
+    TipoActividadCamion.REGRESO_CORRALON,
+    "",
+    distanciaViajeActualMetros,
+    0,
+    0
+);
 
 traceln(
     "[" + mainModel().minutoDiaActual() + "] "
@@ -6794,6 +8567,193 @@ traceln(
     + duracionViajeActualMin
     + " min"
 );]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1786625140562</Id>
+					<Name><![CDATA[iniciarActividad]]></Name>
+					<X>-320</X><Y>680</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[tipo]]></Name>
+						<Type><![CDATA[TipoActividadCamion]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[pedidoId]]></Name>
+						<Type><![CDATA[String]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[distanciaMetros]]></Name>
+						<Type><![CDATA[double]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[personasAsignadas]]></Name>
+						<Type><![CDATA[int]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[unidades]]></Name>
+						<Type><![CDATA[int]]></Type>
+					</Parameter>
+					<Body><![CDATA[if (tipo == null) {
+
+    throw new IllegalArgumentException(
+        "El tipo de actividad no puede ser null."
+    );
+}
+
+
+if (actividadActual != null) {
+
+    throw new IllegalStateException(
+        "Camión " + camionId +
+        " intentó iniciar " + tipo +
+        " sin cerrar la actividad " +
+        actividadActual
+    );
+}
+
+
+if (distanciaMetros < 0.0) {
+
+    throw new IllegalArgumentException(
+        "La distancia de actividad no puede ser negativa."
+    );
+}
+
+
+if (personasAsignadas < 0) {
+
+    throw new IllegalArgumentException(
+        "La cantidad de personas no puede ser negativa."
+    );
+}
+
+
+if (unidades < 0) {
+
+    throw new IllegalArgumentException(
+        "Las unidades no pueden ser negativas."
+    );
+}
+
+
+actividadActual =
+    tipo;
+
+inicioActividadActualMin =
+    mainModel().minutoDiaActual();
+
+pedidoIdActividadActual =
+    pedidoId == null
+    ? ""
+    : pedidoId;
+
+distanciaActividadActualMetros =
+    distanciaMetros;
+
+personasActividadActual =
+    personasAsignadas;
+
+unidadesActividadActual =
+    unidades;]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1786625203053</Id>
+					<Name><![CDATA[cerrarActividadActual]]></Name>
+					<X>-320</X><Y>710</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[if (actividadActual == null) {
+
+    return;
+}
+
+
+double fin =
+    mainModel().minutoDiaActual();
+
+
+if (
+    fin
+    < inicioActividadActualMin - 1e-9
+) {
+
+    throw new IllegalStateException(
+        "Fin de actividad anterior al inicio. " +
+        "Camión=" + camionId +
+        ", actividad=" + actividadActual
+    );
+}
+
+
+RegistroActividadCamion registro =
+    new RegistroActividadCamion();
+
+
+registro.camionId =
+    camionId;
+
+registro.tipo =
+    actividadActual;
+
+registro.inicioMinDia =
+    inicioActividadActualMin;
+
+registro.finMinDia =
+    fin;
+
+registro.duracionMin =
+    Math.max(
+        0.0,
+        fin - inicioActividadActualMin
+    );
+
+registro.numeroViaje =
+    viajeActual == null
+    ? -1
+    : viajeActual.numeroViaje;
+
+registro.pedidoId =
+    pedidoIdActividadActual;
+
+registro.distanciaMetros =
+    distanciaActividadActualMetros;
+
+registro.personasAsignadas =
+    personasActividadActual;
+
+registro.unidades =
+    unidadesActividadActual;
+
+
+historialActividades.add(
+    registro
+);
+
+
+// =====================================================
+// RESET
+// =====================================================
+
+actividadActual = null;
+
+inicioActividadActualMin = -1.0;
+
+pedidoIdActividadActual = "";
+
+distanciaActividadActualMetros = 0.0;
+
+personasActividadActual = 0;
+
+unidadesActividadActual = 0;]]></Body>
 				</Function>
 			</Functions>
 			<AgentLinks>
@@ -7122,6 +9082,30 @@ traceln(
 				<Parameter>
 					<ParameterName><![CDATA[TRAFICO_BUCKET_MIN]]></ParameterName>
 				</Parameter>
+				<Parameter>
+					<ParameterName><![CDATA[COSTO_TAREA_NO_ENTREGADA]]></ParameterName>
+				</Parameter>
+				<Parameter>
+					<ParameterName><![CDATA[COSTO_PEDIDO_ORIGINAL_INCOMPLETO]]></ParameterName>
+				</Parameter>
+				<Parameter>
+					<ParameterName><![CDATA[COSTO_POR_MIN_TARDANZA]]></ParameterName>
+				</Parameter>
+				<Parameter>
+					<ParameterName><![CDATA[COSTO_POR_MIN_EXCESO_TOLERANCIA]]></ParameterName>
+				</Parameter>
+				<Parameter>
+					<ParameterName><![CDATA[COSTO_POR_MIN_OPERACION]]></ParameterName>
+				</Parameter>
+				<Parameter>
+					<ParameterName><![CDATA[COSTO_POR_KM]]></ParameterName>
+				</Parameter>
+				<Parameter>
+					<ParameterName><![CDATA[COSTO_POR_VIAJE]]></ParameterName>
+				</Parameter>
+				<Parameter>
+					<ParameterName><![CDATA[COSTO_POR_MIN_DESBALANCE_FIN]]></ParameterName>
+				</Parameter>
 			</Parameters>
 			<PresentationProperties>
 				<EnableZoomAndPanning>true</EnableZoomAndPanning>
@@ -7399,6 +9383,37 @@ public class ResultadoTurno implements Serializable {
 
 	public java.util.ArrayList<String> errores =
 	    new java.util.ArrayList<String>();
+	
+	public String fechaOperacion = "";
+
+	public Turno turno = Turno.MANANA;
+
+	public long seedEscenario = 0L;
+
+	public long seedEjecucion = 0L;
+
+
+	public java.util.ArrayList<MetricasCamion> metricasCamiones =
+	    new java.util.ArrayList<MetricasCamion>();
+
+
+	public java.util.ArrayList<RegistroActividadCamion> registrosActividad =
+	    new java.util.ArrayList<RegistroActividadCamion>();
+	
+	public java.util.ArrayList<ResumenPedidoOriginal>
+    resumenesPedidosOriginales =
+        new java.util.ArrayList<ResumenPedidoOriginal>();
+
+
+	public MetricasGlobalesTurno metricasGlobales =
+	    new MetricasGlobalesTurno();
+	
+	
+	public DesgloseCostoTurno desgloseCosto =
+	    new DesgloseCostoTurno();
+	
+	
+	public double costoTotal = 0.0;
 
 }]]></Text>
 		</JavaClass>
@@ -8045,6 +10060,423 @@ public class TravelTimeProviderMatriz implements TravelTimeProvider {
 	@Override
 	public String nombreProvider() {
 	    return "MATRIZ_OFFLINE";
+	}
+
+}]]></Text>
+		</JavaClass>
+		<!--   =========   Java Class   ========  -->
+		<JavaClass>
+			<Id>1786624915924</Id>
+			<Name><![CDATA[RegistroActividadCamion]]></Name>
+			<Folder>1786556019063</Folder>
+			<Text><![CDATA[/**
+ * RegistroActividadCamion
+ */	
+public class RegistroActividadCamion implements Serializable {
+
+	public int camionId = -1;
+
+	public TipoActividadCamion tipo = null;
+
+	public double inicioMinDia = -1.0;
+
+	public double finMinDia = -1.0;
+
+	public double duracionMin = 0.0;
+
+	public int numeroViaje = -1;
+
+	public String pedidoId = "";
+
+	public double distanciaMetros = 0.0;
+
+	public int personasAsignadas = 0;
+
+	public int unidades = 0;
+
+
+	@Override
+	public String toString() {
+
+	    return "RegistroActividadCamion{" +
+	        "camionId=" + camionId +
+	        ", tipo=" + tipo +
+	        ", inicio=" + inicioMinDia +
+	        ", fin=" + finMinDia +
+	        ", duracion=" + duracionMin +
+	        ", viaje=" + numeroViaje +
+	        ", pedidoId='" + pedidoId + '\'' +
+	        ", distanciaMetros=" + distanciaMetros +
+	        ", personas=" + personasAsignadas +
+	        ", unidades=" + unidades +
+	        '}';
+	}
+
+}]]></Text>
+		</JavaClass>
+		<!--   =========   Java Class   ========  -->
+		<JavaClass>
+			<Id>1786624944666</Id>
+			<Name><![CDATA[MetricasCamion]]></Name>
+			<Folder>1786556019063</Folder>
+			<Text><![CDATA[/**
+ * MetricasCamion
+ */	
+public class MetricasCamion implements Serializable {
+
+	public int camionId = -1;
+
+
+	// =====================================================
+	// PRODUCCIÓN
+	// =====================================================
+
+	public int viajesCompletados = 0;
+
+	public int tareasPlanificadas = 0;
+
+	public int tareasEntregadas = 0;
+
+	public int tareasNoEntregadas = 0;
+
+	public int unidadesPlanificadas = 0;
+
+	public int unidadesEntregadas = 0;
+
+	public int unidadesRetornadas = 0;
+
+
+	// =====================================================
+	// DISTANCIA
+	// =====================================================
+
+	public double distanciaTotalMetros = 0.0;
+
+	public double distanciaTotalKm = 0.0;
+
+
+	// =====================================================
+	// TIEMPOS
+	// =====================================================
+
+	public double tiempoCargaMin = 0.0;
+
+	public double tiempoViajeClienteMin = 0.0;
+
+	public double tiempoRegresoMin = 0.0;
+
+	public double tiempoViajeTotalMin = 0.0;
+
+	public double tiempoEsperaClienteMin = 0.0;
+
+	public double tiempoDescargaMin = 0.0;
+
+	public double tiempoActivoMin = 0.0;
+
+	public double tiempoInactivoMin = 0.0;
+
+
+	// =====================================================
+	// INICIO Y FINALIZACIÓN
+	// =====================================================
+
+	public double minutoInicioOperacion = -1.0;
+
+	public double minutoFinOperacion = -1.0;
+
+	public double duracionOperacionMin = 0.0;
+
+
+	// =====================================================
+	// UTILIZACIÓN
+	// =====================================================
+
+	public double ocupacionPromedioViajes = 0.0;
+
+	public double promedioPersonasCarga = 0.0;
+
+
+	@Override
+	public String toString() {
+
+	    return "MetricasCamion{" +
+	        "camionId=" + camionId +
+	        ", viajes=" + viajesCompletados +
+	        ", entregadas=" + tareasEntregadas +
+	        "/" + tareasPlanificadas +
+	        ", distanciaKm=" + distanciaTotalKm +
+	        ", cargaMin=" + tiempoCargaMin +
+	        ", viajeMin=" + tiempoViajeTotalMin +
+	        ", esperaMin=" + tiempoEsperaClienteMin +
+	        ", descargaMin=" + tiempoDescargaMin +
+	        ", activoMin=" + tiempoActivoMin +
+	        ", inactivoMin=" + tiempoInactivoMin +
+	        ", ocupacion=" + ocupacionPromedioViajes +
+	        '}';
+	}
+
+}]]></Text>
+		</JavaClass>
+		<!--   =========   Java Class   ========  -->
+		<JavaClass>
+			<Id>1786626144858</Id>
+			<Name><![CDATA[ResumenPedidoOriginal]]></Name>
+			<Folder>1786556019063</Folder>
+			<Text><![CDATA[/**
+ * ResumenPedidoOriginal
+ */	
+public class ResumenPedidoOriginal implements Serializable {
+
+	public String pedidoOriginalId = "";
+
+	public int partesPlanificadas = 0;
+
+	public int partesEntregadas = 0;
+
+	public int unidadesPlanificadas = 0;
+
+	public int unidadesEntregadas = 0;
+
+	public boolean completo = false;
+
+
+	@Override
+	public String toString() {
+
+	    return "ResumenPedidoOriginal{" +
+	        "pedidoOriginalId='" + pedidoOriginalId + '\'' +
+	        ", partesEntregadas=" + partesEntregadas +
+	        "/" + partesPlanificadas +
+	        ", unidadesEntregadas=" + unidadesEntregadas +
+	        "/" + unidadesPlanificadas +
+	        ", completo=" + completo +
+	        '}';
+	}
+
+}]]></Text>
+		</JavaClass>
+		<!--   =========   Java Class   ========  -->
+		<JavaClass>
+			<Id>1786626165121</Id>
+			<Name><![CDATA[MetricasGlobalesTurno]]></Name>
+			<Folder>1786556019063</Folder>
+			<Text><![CDATA[/**
+ * MetricasGlobalesTurno
+ */	
+public class MetricasGlobalesTurno implements Serializable {
+
+	// =====================================================
+	// ENTREGA POR TAREA
+	// =====================================================
+
+	public int tareasPlanificadas = 0;
+
+	public int tareasEntregadas = 0;
+
+	public int tareasNoEntregadas = 0;
+
+	public double porcentajeTareasEntregadas = 0.0;
+
+
+	// =====================================================
+	// PEDIDOS EMPRESARIALES ORIGINALES
+	// =====================================================
+
+	public int pedidosOriginalesPlanificados = 0;
+
+	public int pedidosOriginalesCompletos = 0;
+
+	public int pedidosOriginalesIncompletos = 0;
+
+	public double porcentajePedidosOriginalesCompletos = 0.0;
+
+
+	// =====================================================
+	// UNIDADES
+	// =====================================================
+
+	public int unidadesPlanificadas = 0;
+
+	public int unidadesEntregadas = 0;
+
+	public int unidadesRetornadas = 0;
+
+	public double porcentajeUnidadesEntregadas = 0.0;
+
+
+	// =====================================================
+	// VENTANAS Y ATENCIÓN
+	// =====================================================
+
+	public int entregasEnVentana = 0;
+
+	public int entregasAceptadasAntes = 0;
+
+	public int entregasTardiasAceptadas = 0;
+
+	public int llegadasTardiasRechazadas = 0;
+
+	public int entregasSinTardanza = 0;
+
+	public double porcentajeEnVentanaSobreEntregadas = 0.0;
+
+	public double porcentajeServicioSinTardanzaSobrePlanificadas = 0.0;
+
+
+	// =====================================================
+	// TARDANZA
+	// =====================================================
+
+	public int cantidadLlegadasTardias = 0;
+
+	public double tardanzaTotalMin = 0.0;
+
+	public double tardanzaPromedioMin = 0.0;
+
+	public double tardanzaMaxMin = 0.0;
+
+
+	// =====================================================
+	// OPERACIÓN
+	// =====================================================
+
+	public int viajesTotales = 0;
+
+	public double distanciaTotalKm = 0.0;
+
+	public double tiempoCargaTotalMin = 0.0;
+
+	public double tiempoViajeTotalMin = 0.0;
+
+	public double tiempoEsperaClienteTotalMin = 0.0;
+
+	public double tiempoDescargaTotalMin = 0.0;
+
+	public double tiempoActivoAcumuladoCamionesMin = 0.0;
+
+
+	// =====================================================
+	// FINALIZACIÓN DEL TURNO
+	// =====================================================
+
+	public double minutoFinTurnoReal = -1.0;
+
+	public double duracionTurnoRealMin = 0.0;
+
+	public double overtimeMin = 0.0;
+
+	public double excesoToleranciaMin = 0.0;
+
+
+	// =====================================================
+	// OCUPACIÓN Y PERSONAL
+	// =====================================================
+
+	public double ocupacionGlobalViajes = 0.0;
+
+	public double promedioPersonasCargaGlobal = 0.0;
+
+	public double personaMinCarga = 0.0;
+
+	public double personaMinProveedor = 0.0;
+
+
+	// =====================================================
+	// BALANCE
+	// =====================================================
+
+	public double diferenciaFinCamionesMin = 0.0;
+
+	public double diferenciaDistanciaCamionesKm = 0.0;
+
+	public double diferenciaTiempoActivoCamionesMin = 0.0;
+
+
+	// =====================================================
+	// PROVEEDORES
+	// =====================================================
+
+	public int proveedoresLlegados = 0;
+
+	public int proveedoresCompletados = 0;
+
+	public int proveedoresCanceladosFinEjecucion = 0;
+
+	public int proveedoresQueRequirieronDosEmpleados = 0;
+
+	public double esperaProveedorTotalMin = 0.0;
+
+	public double esperaProveedorPromedioMin = 0.0;
+
+	public double esperaProveedorMaxMin = 0.0;
+
+	public double tiempoAtencionProveedorTotalMin = 0.0;
+
+
+	@Override
+	public String toString() {
+
+	    return "MetricasGlobalesTurno{" +
+	        "tareasEntregadas=" + tareasEntregadas +
+	        "/" + tareasPlanificadas +
+	        ", pedidosOriginalesCompletos=" +
+	        pedidosOriginalesCompletos +
+	        "/" + pedidosOriginalesPlanificados +
+	        ", unidadesEntregadas=" + unidadesEntregadas +
+	        "/" + unidadesPlanificadas +
+	        ", distanciaTotalKm=" + distanciaTotalKm +
+	        ", viajesTotales=" + viajesTotales +
+	        ", tardanzaTotalMin=" + tardanzaTotalMin +
+	        ", minutoFinTurnoReal=" + minutoFinTurnoReal +
+	        '}';
+	}
+
+}]]></Text>
+		</JavaClass>
+		<!--   =========   Java Class   ========  -->
+		<JavaClass>
+			<Id>1786626182095</Id>
+			<Name><![CDATA[DesgloseCostoTurno]]></Name>
+			<Folder>1786556019063</Folder>
+			<Text><![CDATA[/**
+ * DesgloseCostoTurno
+ */	
+public class DesgloseCostoTurno implements Serializable {
+
+	public double costoTareasNoEntregadas = 0.0;
+
+	public double costoPedidosOriginalesIncompletos = 0.0;
+
+	public double costoTardanza = 0.0;
+
+	public double costoExcesoTolerancia = 0.0;
+
+	public double costoOperacion = 0.0;
+
+	public double costoDistancia = 0.0;
+
+	public double costoViajes = 0.0;
+
+	public double costoDesbalance = 0.0;
+
+	public double costoTotal = 0.0;
+
+
+	@Override
+	public String toString() {
+
+	    return "DesgloseCostoTurno{" +
+	        "noEntrega=" + costoTareasNoEntregadas +
+	        ", originalesIncompletos=" +
+	        costoPedidosOriginalesIncompletos +
+	        ", tardanza=" + costoTardanza +
+	        ", excesoTolerancia=" + costoExcesoTolerancia +
+	        ", operacion=" + costoOperacion +
+	        ", distancia=" + costoDistancia +
+	        ", viajes=" + costoViajes +
+	        ", desbalance=" + costoDesbalance +
+	        ", total=" + costoTotal +
+	        '}';
 	}
 
 }]]></Text>
