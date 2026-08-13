@@ -192,24 +192,6 @@
 		<ActiveObjectClass>
 			<Id>1786555084415</Id>
 			<Name><![CDATA[Main]]></Name>
-			<StartupCode><![CDATA[InstanciaTurno instancia =
-    crearInstanciaPruebaFase3();
-
-PlanTurno plan =
-    crearPlanTestTresPersonasFase4A(
-        instancia
-    );
-
-
-imprimirPlan(
-    plan
-);
-
-
-ejecutarPlan(
-    instancia,
-    plan
-);]]></StartupCode>
 			<Generic>false</Generic>
 			<GenericParameter>
 				<Id>1786555084420</Id>
