@@ -116,6 +116,42 @@
 				<Name><![CDATA[EMPLEADO_CORRALON]]></Name>
 			</Option>
 		</OptionList>
+		<OptionList>
+			<Id>1786577940329</Id>
+			<Name><![CDATA[DecisionAtencionCliente]]></Name>
+			<Option>
+				<Id>1786577940330</Id>
+				<Name><![CDATA[DESCARGAR_AHORA]]></Name>
+			</Option>
+			<Option>
+				<Id>1786577940331</Id>
+				<Name><![CDATA[ESPERAR]]></Name>
+			</Option>
+			<Option>
+				<Id>1786577940332</Id>
+				<Name><![CDATA[NO_ENTREGAR]]></Name>
+			</Option>
+		</OptionList>
+		<OptionList>
+			<Id>1786580709932</Id>
+			<Name><![CDATA[EstadoSolicitudProveedor]]></Name>
+			<Option>
+				<Id>1786580709933</Id>
+				<Name><![CDATA[PENDIENTE]]></Name>
+			</Option>
+			<Option>
+				<Id>1786580709934</Id>
+				<Name><![CDATA[EN_ATENCION]]></Name>
+			</Option>
+			<Option>
+				<Id>1786580709935</Id>
+				<Name><![CDATA[COMPLETADA]]></Name>
+			</Option>
+			<Option>
+				<Id>1786581709835</Id>
+				<Name><![CDATA[CANCELADA_FIN_EJECUCION]]></Name>
+			</Option>
+		</OptionList>
 	</OptionLists>
 	<Folders>
 		<Folder>
@@ -140,7 +176,9 @@ PlanTurno plan =
         instancia
     );
 
+
 imprimirPlan(plan);
+
 
 ejecutarPlan(
     instancia,
@@ -378,24 +416,9 @@ ejecutarPlan(
 					</Properties>
 				</Variable>
 				<Variable Class="PlainVariable">
-					<Id>1786562340859</Id>
-					<Name><![CDATA[rngTrafico]]></Name>
-					<X>-1100</X><Y>310</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
-						<Type><![CDATA[java.util.Random]]></Type>        
-						<InitialValue Class="CodeValue">
-							<Code><![CDATA[null]]></Code>
-						</InitialValue>
-					</Properties>
-				</Variable>
-				<Variable Class="PlainVariable">
 					<Id>1786562349667</Id>
 					<Name><![CDATA[rngProveedor]]></Name>
-					<X>-1100</X><Y>340</Y>
+					<X>-1100</X><Y>310</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -410,7 +433,7 @@ ejecutarPlan(
 				<Variable Class="PlainVariable">
 					<Id>1786562427915</Id>
 					<Name><![CDATA[trabajadores]]></Name>
-					<X>-1100</X><Y>370</Y>
+					<X>-1100</X><Y>340</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -419,6 +442,96 @@ ejecutarPlan(
 						<Type><![CDATA[java.util.ArrayList<TrabajadorRuntime>]]></Type>        
 						<InitialValue Class="CodeValue">
 							<Code><![CDATA[new java.util.ArrayList<TrabajadorRuntime>()]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1786580810020</Id>
+					<Name><![CDATA[contadorSolicitudesProveedor]]></Name>
+					<X>-1100</X><Y>370</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[int]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[0]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1786580819916</Id>
+					<Name><![CDATA[proveedoresPendientes]]></Name>
+					<X>-1100</X><Y>400</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[java.util.ArrayList<SolicitudProveedorRuntime>]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[new java.util.ArrayList<SolicitudProveedorRuntime>()]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1786580839940</Id>
+					<Name><![CDATA[proveedoresEnAtencion]]></Name>
+					<X>-1100</X><Y>430</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[java.util.ArrayList<SolicitudProveedorRuntime>]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[new java.util.ArrayList<SolicitudProveedorRuntime>()]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1786580856556</Id>
+					<Name><![CDATA[historialProveedores]]></Name>
+					<X>-1100</X><Y>460</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[java.util.ArrayList<SolicitudProveedorRuntime>]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[new java.util.ArrayList<SolicitudProveedorRuntime>()]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1786582598350</Id>
+					<Name><![CDATA[matrizTiemposActual]]></Name>
+					<X>-1100</X><Y>490</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[MatrizTiemposViaje]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[null]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1786582626957</Id>
+					<Name><![CDATA[travelTimeProvider]]></Name>
+					<X>-1100</X><Y>520</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[TravelTimeProvider]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[null]]></Code>
 						</InitialValue>
 					</Properties>
 				</Variable>
@@ -711,82 +824,10 @@ ejecutarPlan(
 					</Properties>                 
 				</Variable>
 				<Variable Class="Parameter">
-					<Id>1786558268774</Id>
-					<Name><![CDATA[TIEMPO_VIAJE_TRAMO_PRUEBA_MIN]]></Name>
-					<X>-420</X><Y>400</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<Properties SaveInSnapshot="true" ModificatorType="STATIC">
-						<Type><![CDATA[double]]></Type>
-						<UnitType><![CDATA[NONE]]></UnitType>
-						<SdArray>false</SdArray>
-						<DefaultValue Class="CodeValue">
-							<Code><![CDATA[5.0]]></Code>
-						</DefaultValue>
-						<ParameterEditor>
-							<Id>1786558268772</Id>
-							<EditorContolType>TEXT_BOX</EditorContolType>
-							<MinSliderValue><![CDATA[0]]></MinSliderValue>
-							<MaxSliderValue><![CDATA[100]]></MaxSliderValue>
-							<DelimeterType>NO_DELIMETER</DelimeterType>
-						</ParameterEditor>
-					</Properties>                 
-				</Variable>
-				<Variable Class="Parameter">
-					<Id>1786558311456</Id>
-					<Name><![CDATA[TIEMPO_DESCARGA_BASE_PRUEBA_MIN]]></Name>
-					<X>-420</X><Y>430</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<Properties SaveInSnapshot="true" ModificatorType="STATIC">
-						<Type><![CDATA[double]]></Type>
-						<UnitType><![CDATA[NONE]]></UnitType>
-						<SdArray>false</SdArray>
-						<DefaultValue Class="CodeValue">
-							<Code><![CDATA[1.0]]></Code>
-						</DefaultValue>
-						<ParameterEditor>
-							<Id>1786558311454</Id>
-							<EditorContolType>TEXT_BOX</EditorContolType>
-							<MinSliderValue><![CDATA[0]]></MinSliderValue>
-							<MaxSliderValue><![CDATA[100]]></MaxSliderValue>
-							<DelimeterType>NO_DELIMETER</DelimeterType>
-						</ParameterEditor>
-					</Properties>                 
-				</Variable>
-				<Variable Class="Parameter">
-					<Id>1786558320206</Id>
-					<Name><![CDATA[TIEMPO_DESCARGA_POR_UNIDAD_PRUEBA_MIN]]></Name>
-					<X>-420</X><Y>460</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<Properties SaveInSnapshot="true" ModificatorType="STATIC">
-						<Type><![CDATA[double]]></Type>
-						<UnitType><![CDATA[NONE]]></UnitType>
-						<SdArray>false</SdArray>
-						<DefaultValue Class="CodeValue">
-							<Code><![CDATA[0.5]]></Code>
-						</DefaultValue>
-						<ParameterEditor>
-							<Id>1786558320204</Id>
-							<EditorContolType>TEXT_BOX</EditorContolType>
-							<MinSliderValue><![CDATA[0]]></MinSliderValue>
-							<MaxSliderValue><![CDATA[100]]></MaxSliderValue>
-							<DelimeterType>NO_DELIMETER</DelimeterType>
-						</ParameterEditor>
-					</Properties>                 
-				</Variable>
-				<Variable Class="Parameter">
 					<Id>1786562181869</Id>
 					<Name><![CDATA[CARGA_SETUP_MIN]]></Name>
 					<Description><![CDATA[SUPUESTO A CALIBRAR]]></Description>
-					<X>-420</X><Y>490</Y>
+					<X>-420</X><Y>400</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -811,7 +852,7 @@ ejecutarPlan(
 					<Id>1786562194813</Id>
 					<Name><![CDATA[CARGA_MIN_POR_UNIDAD_1_PERSONA]]></Name>
 					<Description><![CDATA[SUPUESTO A CALIBRAR]]></Description>
-					<X>-420</X><Y>520</Y>
+					<X>-420</X><Y>430</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -836,7 +877,7 @@ ejecutarPlan(
 					<Id>1786562204325</Id>
 					<Name><![CDATA[CARGA_EFICIENCIA_PERSONA_ADICIONAL]]></Name>
 					<Description><![CDATA[SUPUESTO A CALIBRAR]]></Description>
-					<X>-420</X><Y>550</Y>
+					<X>-420</X><Y>460</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -861,7 +902,7 @@ ejecutarPlan(
 					<Id>1786562212781</Id>
 					<Name><![CDATA[CARGA_FACTOR_VARIACION_MIN]]></Name>
 					<Description><![CDATA[SUPUESTO A CALIBRAR]]></Description>
-					<X>-420</X><Y>580</Y>
+					<X>-420</X><Y>490</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -886,7 +927,7 @@ ejecutarPlan(
 					<Id>1786562222708</Id>
 					<Name><![CDATA[CARGA_FACTOR_VARIACION_MODA]]></Name>
 					<Description><![CDATA[SUPUESTO A CALIBRAR]]></Description>
-					<X>-420</X><Y>610</Y>
+					<X>-420</X><Y>520</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -911,7 +952,7 @@ ejecutarPlan(
 					<Id>1786562229853</Id>
 					<Name><![CDATA[CARGA_FACTOR_VARIACION_MAX]]></Name>
 					<Description><![CDATA[SUPUESTO A CALIBRAR]]></Description>
-					<X>-420</X><Y>640</Y>
+					<X>-420</X><Y>550</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -932,7 +973,775 @@ ejecutarPlan(
 						</ParameterEditor>
 					</Properties>                 
 				</Variable>
+				<Variable Class="Parameter">
+					<Id>1786578045660</Id>
+					<Name><![CDATA[CLIENTE_PROB_ACEPTAR_ANTES]]></Name>
+					<Description><![CDATA[SUPUESTO A CALIBRAR]]></Description>
+					<X>-420</X><Y>580</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" ModificatorType="STATIC">
+						<Type><![CDATA[double]]></Type>
+						<UnitType><![CDATA[NONE]]></UnitType>
+						<SdArray>false</SdArray>
+						<DefaultValue Class="CodeValue">
+							<Code><![CDATA[0.35]]></Code>
+						</DefaultValue>
+						<ParameterEditor>
+							<Id>1786578045658</Id>
+							<EditorContolType>TEXT_BOX</EditorContolType>
+							<MinSliderValue><![CDATA[0]]></MinSliderValue>
+							<MaxSliderValue><![CDATA[100]]></MaxSliderValue>
+							<DelimeterType>NO_DELIMETER</DelimeterType>
+						</ParameterEditor>
+					</Properties>                 
+				</Variable>
+				<Variable Class="Parameter">
+					<Id>1786578062827</Id>
+					<Name><![CDATA[CLIENTE_MAX_ANTICIPACION_ACEPTABLE_MIN]]></Name>
+					<Description><![CDATA[SUPUESTO A CALIBRAR]]></Description>
+					<X>-420</X><Y>610</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" ModificatorType="STATIC">
+						<Type><![CDATA[double]]></Type>
+						<UnitType><![CDATA[NONE]]></UnitType>
+						<SdArray>false</SdArray>
+						<DefaultValue Class="CodeValue">
+							<Code><![CDATA[30.0]]></Code>
+						</DefaultValue>
+						<ParameterEditor>
+							<Id>1786578062825</Id>
+							<EditorContolType>TEXT_BOX</EditorContolType>
+							<MinSliderValue><![CDATA[0]]></MinSliderValue>
+							<MaxSliderValue><![CDATA[100]]></MaxSliderValue>
+							<DelimeterType>NO_DELIMETER</DelimeterType>
+						</ParameterEditor>
+					</Properties>                 
+				</Variable>
+				<Variable Class="Parameter">
+					<Id>1786578071419</Id>
+					<Name><![CDATA[CLIENTE_PROB_ACEPTAR_TARDE]]></Name>
+					<Description><![CDATA[SUPUESTO A CALIBRAR]]></Description>
+					<X>-420</X><Y>640</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" ModificatorType="STATIC">
+						<Type><![CDATA[double]]></Type>
+						<UnitType><![CDATA[NONE]]></UnitType>
+						<SdArray>false</SdArray>
+						<DefaultValue Class="CodeValue">
+							<Code><![CDATA[0.85]]></Code>
+						</DefaultValue>
+						<ParameterEditor>
+							<Id>1786578071417</Id>
+							<EditorContolType>TEXT_BOX</EditorContolType>
+							<MinSliderValue><![CDATA[0]]></MinSliderValue>
+							<MaxSliderValue><![CDATA[100]]></MaxSliderValue>
+							<DelimeterType>NO_DELIMETER</DelimeterType>
+						</ParameterEditor>
+					</Properties>                 
+				</Variable>
+				<Variable Class="Parameter">
+					<Id>1786578080828</Id>
+					<Name><![CDATA[CLIENTE_ESPERA_RESPUESTA_MIN]]></Name>
+					<Description><![CDATA[SUPUESTO A CALIBRAR]]></Description>
+					<X>-420</X><Y>670</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" ModificatorType="STATIC">
+						<Type><![CDATA[double]]></Type>
+						<UnitType><![CDATA[NONE]]></UnitType>
+						<SdArray>false</SdArray>
+						<DefaultValue Class="CodeValue">
+							<Code><![CDATA[0.0]]></Code>
+						</DefaultValue>
+						<ParameterEditor>
+							<Id>1786578080826</Id>
+							<EditorContolType>TEXT_BOX</EditorContolType>
+							<MinSliderValue><![CDATA[0]]></MinSliderValue>
+							<MaxSliderValue><![CDATA[100]]></MaxSliderValue>
+							<DelimeterType>NO_DELIMETER</DelimeterType>
+						</ParameterEditor>
+					</Properties>                 
+				</Variable>
+				<Variable Class="Parameter">
+					<Id>1786578088219</Id>
+					<Name><![CDATA[CLIENTE_ESPERA_RESPUESTA_MODA]]></Name>
+					<Description><![CDATA[SUPUESTO A CALIBRAR]]></Description>
+					<X>-420</X><Y>700</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" ModificatorType="STATIC">
+						<Type><![CDATA[double]]></Type>
+						<UnitType><![CDATA[NONE]]></UnitType>
+						<SdArray>false</SdArray>
+						<DefaultValue Class="CodeValue">
+							<Code><![CDATA[2.0]]></Code>
+						</DefaultValue>
+						<ParameterEditor>
+							<Id>1786578088217</Id>
+							<EditorContolType>TEXT_BOX</EditorContolType>
+							<MinSliderValue><![CDATA[0]]></MinSliderValue>
+							<MaxSliderValue><![CDATA[100]]></MaxSliderValue>
+							<DelimeterType>NO_DELIMETER</DelimeterType>
+						</ParameterEditor>
+					</Properties>                 
+				</Variable>
+				<Variable Class="Parameter">
+					<Id>1786578096843</Id>
+					<Name><![CDATA[CLIENTE_ESPERA_RESPUESTA_MAX]]></Name>
+					<Description><![CDATA[SUPUESTO A CALIBRAR]]></Description>
+					<X>-420</X><Y>730</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" ModificatorType="STATIC">
+						<Type><![CDATA[double]]></Type>
+						<UnitType><![CDATA[NONE]]></UnitType>
+						<SdArray>false</SdArray>
+						<DefaultValue Class="CodeValue">
+							<Code><![CDATA[8.0]]></Code>
+						</DefaultValue>
+						<ParameterEditor>
+							<Id>1786578096841</Id>
+							<EditorContolType>TEXT_BOX</EditorContolType>
+							<MinSliderValue><![CDATA[0]]></MinSliderValue>
+							<MaxSliderValue><![CDATA[100]]></MaxSliderValue>
+							<DelimeterType>NO_DELIMETER</DelimeterType>
+						</ParameterEditor>
+					</Properties>                 
+				</Variable>
+				<Variable Class="Parameter">
+					<Id>1786578154291</Id>
+					<Name><![CDATA[DESCARGA_SETUP_MIN]]></Name>
+					<Description><![CDATA[SUPUESTO A CALIBRAR]]></Description>
+					<X>-420</X><Y>760</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" ModificatorType="STATIC">
+						<Type><![CDATA[double]]></Type>
+						<UnitType><![CDATA[NONE]]></UnitType>
+						<SdArray>false</SdArray>
+						<DefaultValue Class="CodeValue">
+							<Code><![CDATA[1.0]]></Code>
+						</DefaultValue>
+						<ParameterEditor>
+							<Id>1786578154289</Id>
+							<EditorContolType>TEXT_BOX</EditorContolType>
+							<MinSliderValue><![CDATA[0]]></MinSliderValue>
+							<MaxSliderValue><![CDATA[100]]></MaxSliderValue>
+							<DelimeterType>NO_DELIMETER</DelimeterType>
+						</ParameterEditor>
+					</Properties>                 
+				</Variable>
+				<Variable Class="Parameter">
+					<Id>1786578162060</Id>
+					<Name><![CDATA[DESCARGA_MIN_POR_UNIDAD]]></Name>
+					<Description><![CDATA[SUPUESTO A CALIBRAR]]></Description>
+					<X>-420</X><Y>790</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" ModificatorType="STATIC">
+						<Type><![CDATA[double]]></Type>
+						<UnitType><![CDATA[NONE]]></UnitType>
+						<SdArray>false</SdArray>
+						<DefaultValue Class="CodeValue">
+							<Code><![CDATA[1.2]]></Code>
+						</DefaultValue>
+						<ParameterEditor>
+							<Id>1786578162058</Id>
+							<EditorContolType>TEXT_BOX</EditorContolType>
+							<MinSliderValue><![CDATA[0]]></MinSliderValue>
+							<MaxSliderValue><![CDATA[100]]></MaxSliderValue>
+							<DelimeterType>NO_DELIMETER</DelimeterType>
+						</ParameterEditor>
+					</Properties>                 
+				</Variable>
+				<Variable Class="Parameter">
+					<Id>1786578168972</Id>
+					<Name><![CDATA[DESCARGA_FACTOR_VARIACION_MIN]]></Name>
+					<Description><![CDATA[SUPUESTO A CALIBRAR]]></Description>
+					<X>-420</X><Y>820</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" ModificatorType="STATIC">
+						<Type><![CDATA[double]]></Type>
+						<UnitType><![CDATA[NONE]]></UnitType>
+						<SdArray>false</SdArray>
+						<DefaultValue Class="CodeValue">
+							<Code><![CDATA[0.85]]></Code>
+						</DefaultValue>
+						<ParameterEditor>
+							<Id>1786578168970</Id>
+							<EditorContolType>TEXT_BOX</EditorContolType>
+							<MinSliderValue><![CDATA[0]]></MinSliderValue>
+							<MaxSliderValue><![CDATA[100]]></MaxSliderValue>
+							<DelimeterType>NO_DELIMETER</DelimeterType>
+						</ParameterEditor>
+					</Properties>                 
+				</Variable>
+				<Variable Class="Parameter">
+					<Id>1786578177492</Id>
+					<Name><![CDATA[DESCARGA_FACTOR_VARIACION_MODA]]></Name>
+					<Description><![CDATA[SUPUESTO A CALIBRAR]]></Description>
+					<X>-420</X><Y>850</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" ModificatorType="STATIC">
+						<Type><![CDATA[double]]></Type>
+						<UnitType><![CDATA[NONE]]></UnitType>
+						<SdArray>false</SdArray>
+						<DefaultValue Class="CodeValue">
+							<Code><![CDATA[1.0]]></Code>
+						</DefaultValue>
+						<ParameterEditor>
+							<Id>1786578177490</Id>
+							<EditorContolType>TEXT_BOX</EditorContolType>
+							<MinSliderValue><![CDATA[0]]></MinSliderValue>
+							<MaxSliderValue><![CDATA[100]]></MaxSliderValue>
+							<DelimeterType>NO_DELIMETER</DelimeterType>
+						</ParameterEditor>
+					</Properties>                 
+				</Variable>
+				<Variable Class="Parameter">
+					<Id>1786578185308</Id>
+					<Name><![CDATA[DESCARGA_FACTOR_VARIACION_MAX]]></Name>
+					<Description><![CDATA[SUPUESTO A CALIBRAR]]></Description>
+					<X>-420</X><Y>880</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" ModificatorType="STATIC">
+						<Type><![CDATA[double]]></Type>
+						<UnitType><![CDATA[NONE]]></UnitType>
+						<SdArray>false</SdArray>
+						<DefaultValue Class="CodeValue">
+							<Code><![CDATA[1.15]]></Code>
+						</DefaultValue>
+						<ParameterEditor>
+							<Id>1786578185306</Id>
+							<EditorContolType>TEXT_BOX</EditorContolType>
+							<MinSliderValue><![CDATA[0]]></MinSliderValue>
+							<MaxSliderValue><![CDATA[100]]></MaxSliderValue>
+							<DelimeterType>NO_DELIMETER</DelimeterType>
+						</ParameterEditor>
+					</Properties>                 
+				</Variable>
+				<Variable Class="Parameter">
+					<Id>1786580737757</Id>
+					<Name><![CDATA[PROVEEDORES_HABILITADOS]]></Name>
+					<Description><![CDATA[SUPUESTO A CALIBRAR]]></Description>
+					<X>-420</X><Y>910</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" ModificatorType="STATIC">
+						<Type><![CDATA[boolean]]></Type>
+						<UnitType><![CDATA[NONE]]></UnitType>
+						<SdArray>false</SdArray>
+						<DefaultValue Class="CodeValue">
+							<Code><![CDATA[true]]></Code>
+						</DefaultValue>
+						<ParameterEditor>
+							<Id>1786580737755</Id>
+							<EditorContolType>CHECK_BOX</EditorContolType>
+							<MinSliderValue><![CDATA[0]]></MinSliderValue>
+							<MaxSliderValue><![CDATA[100]]></MaxSliderValue>
+							<DelimeterType>NO_DELIMETER</DelimeterType>
+						</ParameterEditor>
+					</Properties>                 
+				</Variable>
+				<Variable Class="Parameter">
+					<Id>1786580748469</Id>
+					<Name><![CDATA[PROVEEDOR_MEDIA_ENTRE_LLEGADAS_MIN]]></Name>
+					<Description><![CDATA[SUPUESTO A CALIBRAR]]></Description>
+					<X>-420</X><Y>940</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" ModificatorType="STATIC">
+						<Type><![CDATA[double]]></Type>
+						<UnitType><![CDATA[NONE]]></UnitType>
+						<SdArray>false</SdArray>
+						<DefaultValue Class="CodeValue">
+							<Code><![CDATA[90.0]]></Code>
+						</DefaultValue>
+						<ParameterEditor>
+							<Id>1786580748467</Id>
+							<EditorContolType>TEXT_BOX</EditorContolType>
+							<MinSliderValue><![CDATA[0]]></MinSliderValue>
+							<MaxSliderValue><![CDATA[100]]></MaxSliderValue>
+							<DelimeterType>NO_DELIMETER</DelimeterType>
+						</ParameterEditor>
+					</Properties>                 
+				</Variable>
+				<Variable Class="Parameter">
+					<Id>1786580756774</Id>
+					<Name><![CDATA[PROVEEDOR_PROB_REQUIERE_DOS_EMPLEADOS]]></Name>
+					<Description><![CDATA[SUPUESTO A CALIBRAR]]></Description>
+					<X>-420</X><Y>970</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" ModificatorType="STATIC">
+						<Type><![CDATA[double]]></Type>
+						<UnitType><![CDATA[NONE]]></UnitType>
+						<SdArray>false</SdArray>
+						<DefaultValue Class="CodeValue">
+							<Code><![CDATA[0.30]]></Code>
+						</DefaultValue>
+						<ParameterEditor>
+							<Id>1786580756772</Id>
+							<EditorContolType>TEXT_BOX</EditorContolType>
+							<MinSliderValue><![CDATA[0]]></MinSliderValue>
+							<MaxSliderValue><![CDATA[100]]></MaxSliderValue>
+							<DelimeterType>NO_DELIMETER</DelimeterType>
+						</ParameterEditor>
+					</Properties>                 
+				</Variable>
+				<Variable Class="Parameter">
+					<Id>1786580764006</Id>
+					<Name><![CDATA[PROVEEDOR_DURACION_MIN]]></Name>
+					<Description><![CDATA[SUPUESTO A CALIBRAR]]></Description>
+					<X>-420</X><Y>1000</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" ModificatorType="STATIC">
+						<Type><![CDATA[double]]></Type>
+						<UnitType><![CDATA[NONE]]></UnitType>
+						<SdArray>false</SdArray>
+						<DefaultValue Class="CodeValue">
+							<Code><![CDATA[10.0]]></Code>
+						</DefaultValue>
+						<ParameterEditor>
+							<Id>1786580764004</Id>
+							<EditorContolType>TEXT_BOX</EditorContolType>
+							<MinSliderValue><![CDATA[0]]></MinSliderValue>
+							<MaxSliderValue><![CDATA[100]]></MaxSliderValue>
+							<DelimeterType>NO_DELIMETER</DelimeterType>
+						</ParameterEditor>
+					</Properties>                 
+				</Variable>
+				<Variable Class="Parameter">
+					<Id>1786580771158</Id>
+					<Name><![CDATA[PROVEEDOR_DURACION_MODA]]></Name>
+					<Description><![CDATA[SUPUESTO A CALIBRAR]]></Description>
+					<X>-420</X><Y>1030</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" ModificatorType="STATIC">
+						<Type><![CDATA[double]]></Type>
+						<UnitType><![CDATA[NONE]]></UnitType>
+						<SdArray>false</SdArray>
+						<DefaultValue Class="CodeValue">
+							<Code><![CDATA[20.0]]></Code>
+						</DefaultValue>
+						<ParameterEditor>
+							<Id>1786580771156</Id>
+							<EditorContolType>TEXT_BOX</EditorContolType>
+							<MinSliderValue><![CDATA[0]]></MinSliderValue>
+							<MaxSliderValue><![CDATA[100]]></MaxSliderValue>
+							<DelimeterType>NO_DELIMETER</DelimeterType>
+						</ParameterEditor>
+					</Properties>                 
+				</Variable>
+				<Variable Class="Parameter">
+					<Id>1786580778174</Id>
+					<Name><![CDATA[PROVEEDOR_DURACION_MAX]]></Name>
+					<Description><![CDATA[SUPUESTO A CALIBRAR]]></Description>
+					<X>-420</X><Y>1060</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" ModificatorType="STATIC">
+						<Type><![CDATA[double]]></Type>
+						<UnitType><![CDATA[NONE]]></UnitType>
+						<SdArray>false</SdArray>
+						<DefaultValue Class="CodeValue">
+							<Code><![CDATA[40.0]]></Code>
+						</DefaultValue>
+						<ParameterEditor>
+							<Id>1786580778172</Id>
+							<EditorContolType>TEXT_BOX</EditorContolType>
+							<MinSliderValue><![CDATA[0]]></MinSliderValue>
+							<MaxSliderValue><![CDATA[100]]></MaxSliderValue>
+							<DelimeterType>NO_DELIMETER</DelimeterType>
+						</ParameterEditor>
+					</Properties>                 
+				</Variable>
+				<Variable Class="Parameter">
+					<Id>1786582022162</Id>
+					<Name><![CDATA[ID_NODO_CORRALON]]></Name>
+					<Description><![CDATA[SUPUESTO A CALIBRAR]]></Description>
+					<X>-420</X><Y>1090</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" ModificatorType="STATIC">
+						<Type><![CDATA[String]]></Type>
+						<UnitType><![CDATA[NONE]]></UnitType>
+						<SdArray>false</SdArray>
+						<DefaultValue Class="CodeValue">
+							<Code><![CDATA["DEPOT"]]></Code>
+						</DefaultValue>
+						<ParameterEditor>
+							<Id>1786582022160</Id>
+							<EditorContolType>TEXT_BOX</EditorContolType>
+							<MinSliderValue><![CDATA[0]]></MinSliderValue>
+							<MaxSliderValue><![CDATA[100]]></MaxSliderValue>
+							<DelimeterType>NO_DELIMETER</DelimeterType>
+						</ParameterEditor>
+					</Properties>                 
+				</Variable>
+				<Variable Class="Parameter">
+					<Id>1786582041570</Id>
+					<Name><![CDATA[TRAFICO_VELOCIDAD_BASE_KMH]]></Name>
+					<Description><![CDATA[SUPUESTO A CALIBRAR]]></Description>
+					<X>-420</X><Y>1120</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" ModificatorType="STATIC">
+						<Type><![CDATA[double]]></Type>
+						<UnitType><![CDATA[NONE]]></UnitType>
+						<SdArray>false</SdArray>
+						<DefaultValue Class="CodeValue">
+							<Code><![CDATA[25.0]]></Code>
+						</DefaultValue>
+						<ParameterEditor>
+							<Id>1786582041568</Id>
+							<EditorContolType>TEXT_BOX</EditorContolType>
+							<MinSliderValue><![CDATA[0]]></MinSliderValue>
+							<MaxSliderValue><![CDATA[100]]></MaxSliderValue>
+							<DelimeterType>NO_DELIMETER</DelimeterType>
+						</ParameterEditor>
+					</Properties>                 
+				</Variable>
+				<Variable Class="Parameter">
+					<Id>1786582053251</Id>
+					<Name><![CDATA[TRAFICO_FACTOR_URBANO_DISTANCIA]]></Name>
+					<Description><![CDATA[SUPUESTO A CALIBRAR]]></Description>
+					<X>-420</X><Y>1150</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" ModificatorType="STATIC">
+						<Type><![CDATA[double]]></Type>
+						<UnitType><![CDATA[NONE]]></UnitType>
+						<SdArray>false</SdArray>
+						<DefaultValue Class="CodeValue">
+							<Code><![CDATA[1.30]]></Code>
+						</DefaultValue>
+						<ParameterEditor>
+							<Id>1786582053249</Id>
+							<EditorContolType>TEXT_BOX</EditorContolType>
+							<MinSliderValue><![CDATA[0]]></MinSliderValue>
+							<MaxSliderValue><![CDATA[100]]></MaxSliderValue>
+							<DelimeterType>NO_DELIMETER</DelimeterType>
+						</ParameterEditor>
+					</Properties>                 
+				</Variable>
+				<Variable Class="Parameter">
+					<Id>1786582061674</Id>
+					<Name><![CDATA[TRAFICO_FACTOR_NORMAL]]></Name>
+					<Description><![CDATA[SUPUESTO A CALIBRAR]]></Description>
+					<X>-420</X><Y>1180</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" ModificatorType="STATIC">
+						<Type><![CDATA[double]]></Type>
+						<UnitType><![CDATA[NONE]]></UnitType>
+						<SdArray>false</SdArray>
+						<DefaultValue Class="CodeValue">
+							<Code><![CDATA[1.0]]></Code>
+						</DefaultValue>
+						<ParameterEditor>
+							<Id>1786582061672</Id>
+							<EditorContolType>TEXT_BOX</EditorContolType>
+							<MinSliderValue><![CDATA[0]]></MinSliderValue>
+							<MaxSliderValue><![CDATA[100]]></MaxSliderValue>
+							<DelimeterType>NO_DELIMETER</DelimeterType>
+						</ParameterEditor>
+					</Properties>                 
+				</Variable>
+				<Variable Class="Parameter">
+					<Id>1786582069935</Id>
+					<Name><![CDATA[TRAFICO_FACTOR_PICO_MANANA]]></Name>
+					<Description><![CDATA[SUPUESTO A CALIBRAR]]></Description>
+					<X>-420</X><Y>1210</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" ModificatorType="STATIC">
+						<Type><![CDATA[double]]></Type>
+						<UnitType><![CDATA[NONE]]></UnitType>
+						<SdArray>false</SdArray>
+						<DefaultValue Class="CodeValue">
+							<Code><![CDATA[1.20]]></Code>
+						</DefaultValue>
+						<ParameterEditor>
+							<Id>1786582069933</Id>
+							<EditorContolType>TEXT_BOX</EditorContolType>
+							<MinSliderValue><![CDATA[0]]></MinSliderValue>
+							<MaxSliderValue><![CDATA[100]]></MaxSliderValue>
+							<DelimeterType>NO_DELIMETER</DelimeterType>
+						</ParameterEditor>
+					</Properties>                 
+				</Variable>
+				<Variable Class="Parameter">
+					<Id>1786582077982</Id>
+					<Name><![CDATA[TRAFICO_PICO_MANANA_FIN_MIN]]></Name>
+					<Description><![CDATA[SUPUESTO A CALIBRAR]]></Description>
+					<X>-420</X><Y>1240</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" ModificatorType="STATIC">
+						<Type><![CDATA[int]]></Type>
+						<UnitType><![CDATA[NONE]]></UnitType>
+						<SdArray>false</SdArray>
+						<DefaultValue Class="CodeValue">
+							<Code><![CDATA[540]]></Code>
+						</DefaultValue>
+						<ParameterEditor>
+							<Id>1786582077980</Id>
+							<EditorContolType>TEXT_BOX</EditorContolType>
+							<MinSliderValue><![CDATA[0]]></MinSliderValue>
+							<MaxSliderValue><![CDATA[100]]></MaxSliderValue>
+							<DelimeterType>NO_DELIMETER</DelimeterType>
+						</ParameterEditor>
+					</Properties>                 
+				</Variable>
+				<Variable Class="Parameter">
+					<Id>1786582087487</Id>
+					<Name><![CDATA[TRAFICO_FACTOR_PICO_TARDE]]></Name>
+					<Description><![CDATA[SUPUESTO A CALIBRAR]]></Description>
+					<X>-420</X><Y>1270</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" ModificatorType="STATIC">
+						<Type><![CDATA[double]]></Type>
+						<UnitType><![CDATA[NONE]]></UnitType>
+						<SdArray>false</SdArray>
+						<DefaultValue Class="CodeValue">
+							<Code><![CDATA[1.20]]></Code>
+						</DefaultValue>
+						<ParameterEditor>
+							<Id>1786582087485</Id>
+							<EditorContolType>TEXT_BOX</EditorContolType>
+							<MinSliderValue><![CDATA[0]]></MinSliderValue>
+							<MaxSliderValue><![CDATA[100]]></MaxSliderValue>
+							<DelimeterType>NO_DELIMETER</DelimeterType>
+						</ParameterEditor>
+					</Properties>                 
+				</Variable>
+				<Variable Class="Parameter">
+					<Id>1786582095550</Id>
+					<Name><![CDATA[TRAFICO_PICO_TARDE_INICIO_MIN]]></Name>
+					<Description><![CDATA[SUPUESTO A CALIBRAR]]></Description>
+					<X>-420</X><Y>1300</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" ModificatorType="STATIC">
+						<Type><![CDATA[int]]></Type>
+						<UnitType><![CDATA[NONE]]></UnitType>
+						<SdArray>false</SdArray>
+						<DefaultValue Class="CodeValue">
+							<Code><![CDATA[960]]></Code>
+						</DefaultValue>
+						<ParameterEditor>
+							<Id>1786582095548</Id>
+							<EditorContolType>TEXT_BOX</EditorContolType>
+							<MinSliderValue><![CDATA[0]]></MinSliderValue>
+							<MaxSliderValue><![CDATA[100]]></MaxSliderValue>
+							<DelimeterType>NO_DELIMETER</DelimeterType>
+						</ParameterEditor>
+					</Properties>                 
+				</Variable>
+				<Variable Class="Parameter">
+					<Id>1786582104454</Id>
+					<Name><![CDATA[TRAFICO_RUIDO_FACTOR_MIN]]></Name>
+					<Description><![CDATA[SUPUESTO A CALIBRAR]]></Description>
+					<X>-420</X><Y>1330</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" ModificatorType="STATIC">
+						<Type><![CDATA[double]]></Type>
+						<UnitType><![CDATA[NONE]]></UnitType>
+						<SdArray>false</SdArray>
+						<DefaultValue Class="CodeValue">
+							<Code><![CDATA[0.90]]></Code>
+						</DefaultValue>
+						<ParameterEditor>
+							<Id>1786582104452</Id>
+							<EditorContolType>TEXT_BOX</EditorContolType>
+							<MinSliderValue><![CDATA[0]]></MinSliderValue>
+							<MaxSliderValue><![CDATA[100]]></MaxSliderValue>
+							<DelimeterType>NO_DELIMETER</DelimeterType>
+						</ParameterEditor>
+					</Properties>                 
+				</Variable>
+				<Variable Class="Parameter">
+					<Id>1786582111839</Id>
+					<Name><![CDATA[TRAFICO_RUIDO_FACTOR_MAX]]></Name>
+					<Description><![CDATA[SUPUESTO A CALIBRAR]]></Description>
+					<X>-420</X><Y>1360</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" ModificatorType="STATIC">
+						<Type><![CDATA[double]]></Type>
+						<UnitType><![CDATA[NONE]]></UnitType>
+						<SdArray>false</SdArray>
+						<DefaultValue Class="CodeValue">
+							<Code><![CDATA[1.10]]></Code>
+						</DefaultValue>
+						<ParameterEditor>
+							<Id>1786582111837</Id>
+							<EditorContolType>TEXT_BOX</EditorContolType>
+							<MinSliderValue><![CDATA[0]]></MinSliderValue>
+							<MaxSliderValue><![CDATA[100]]></MaxSliderValue>
+							<DelimeterType>NO_DELIMETER</DelimeterType>
+						</ParameterEditor>
+					</Properties>                 
+				</Variable>
+				<Variable Class="Parameter">
+					<Id>1786582119383</Id>
+					<Name><![CDATA[TRAFICO_BUCKET_MIN]]></Name>
+					<Description><![CDATA[SUPUESTO A CALIBRAR]]></Description>
+					<X>-420</X><Y>1390</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" ModificatorType="STATIC">
+						<Type><![CDATA[int]]></Type>
+						<UnitType><![CDATA[NONE]]></UnitType>
+						<SdArray>false</SdArray>
+						<DefaultValue Class="CodeValue">
+							<Code><![CDATA[15]]></Code>
+						</DefaultValue>
+						<ParameterEditor>
+							<Id>1786582119381</Id>
+							<EditorContolType>TEXT_BOX</EditorContolType>
+							<MinSliderValue><![CDATA[0]]></MinSliderValue>
+							<MaxSliderValue><![CDATA[100]]></MaxSliderValue>
+							<DelimeterType>NO_DELIMETER</DelimeterType>
+						</ParameterEditor>
+					</Properties>                 
+				</Variable>
 			</Variables>
+			<Events>
+				<Event>
+					<Id>1786581046654</Id>
+					<Name><![CDATA[eventoLlegadaProveedor]]></Name>
+					<X>-1330</X><Y>40</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties TriggerType="timeout" Mode="userControls">
+						<Timeout Class="CodeUnitValue">
+							<Code><![CDATA[1]]></Code>
+							<Unit Class="TimeUnits"><![CDATA[MINUTE]]></Unit>
+						</Timeout>
+						<Rate Class="CodeUnitValue">
+							<Code><![CDATA[1]]></Code>
+							<Unit Class="RateUnits"><![CDATA[PER_MINUTE]]></Unit>
+						</Rate>
+						<Id>1786581046652</Id>
+						<OccurrenceAtTime>true</OccurrenceAtTime>
+						<OccurrenceDate>1786608000000</OccurrenceDate>
+						<OccurrenceTime Class="CodeUnitValue">
+							<Code><![CDATA[0]]></Code>
+							<Unit Class="TimeUnits"><![CDATA[MINUTE]]></Unit>
+						</OccurrenceTime>
+						<RecurrenceCode Class="CodeUnitValue">
+							<Code><![CDATA[1]]></Code>
+							<Unit Class="TimeUnits"><![CDATA[MINUTE]]></Unit>
+						</RecurrenceCode>
+						<Condition><![CDATA[false]]></Condition>
+					</Properties>
+					<Action><![CDATA[procesarLlegadaProveedor();
+
+programarProximaLlegadaProveedor();]]></Action>
+				</Event>
+				<Event>
+					<Id>1786581120071</Id>
+					<Name><![CDATA[eventoFinAtencionProveedor]]></Name>
+					<X>-1330</X><Y>70</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties TriggerType="timeout" Mode="userControls">
+						<Timeout Class="CodeUnitValue">
+							<Code><![CDATA[1]]></Code>
+							<Unit Class="TimeUnits"><![CDATA[MINUTE]]></Unit>
+						</Timeout>
+						<Rate Class="CodeUnitValue">
+							<Code><![CDATA[1]]></Code>
+							<Unit Class="RateUnits"><![CDATA[PER_MINUTE]]></Unit>
+						</Rate>
+						<Id>1786581120069</Id>
+						<OccurrenceAtTime>true</OccurrenceAtTime>
+						<OccurrenceDate>1786608000000</OccurrenceDate>
+						<OccurrenceTime Class="CodeUnitValue">
+							<Code><![CDATA[0]]></Code>
+							<Unit Class="TimeUnits"><![CDATA[MINUTE]]></Unit>
+						</OccurrenceTime>
+						<RecurrenceCode Class="CodeUnitValue">
+							<Code><![CDATA[1]]></Code>
+							<Unit Class="TimeUnits"><![CDATA[MINUTE]]></Unit>
+						</RecurrenceCode>
+						<Condition><![CDATA[false]]></Condition>
+					</Properties>
+					<Action><![CDATA[procesarFinAtencionesProveedor();]]></Action>
+				</Event>
+			</Events>
 			<Functions>
 				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
@@ -1023,62 +1832,10 @@ return instanciaActual.horaInicioTurnoMin + time();]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
-					<ReturnType><![CDATA[double]]></ReturnType>
-					<Id>1786558571368</Id>
-					<Name><![CDATA[tiempoDescargaDeterministaMin]]></Name>
-					<X>-810</X><Y>160</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<Parameter>
-						<Name><![CDATA[pedido]]></Name>
-						<Type><![CDATA[PedidoInput]]></Type>
-					</Parameter>
-					<Body><![CDATA[if (pedido == null) {
-    throw new IllegalArgumentException(
-        "Pedido nulo al calcular tiempo de descarga."
-    );
-}
-
-return TIEMPO_DESCARGA_BASE_PRUEBA_MIN
-    + TIEMPO_DESCARGA_POR_UNIDAD_PRUEBA_MIN
-    * pedido.unidadesCapacidad;]]></Body>
-				</Function>
-				<Function AccessType="default" StaticFunction="false">
-					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
-					<ReturnType><![CDATA[double]]></ReturnType>
-					<Id>1786558595993</Id>
-					<Name><![CDATA[tiempoViajeDeterministaMin]]></Name>
-					<X>-810</X><Y>190</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<Parameter>
-						<Name><![CDATA[latOrigen]]></Name>
-						<Type><![CDATA[double]]></Type>
-					</Parameter>
-					<Parameter>
-						<Name><![CDATA[lonOrigen]]></Name>
-						<Type><![CDATA[double]]></Type>
-					</Parameter>
-					<Parameter>
-						<Name><![CDATA[latDestino]]></Name>
-						<Type><![CDATA[double]]></Type>
-					</Parameter>
-					<Parameter>
-						<Name><![CDATA[lonDestino]]></Name>
-						<Type><![CDATA[double]]></Type>
-					</Parameter>
-					<Body><![CDATA[return TIEMPO_VIAJE_TRAMO_PRUEBA_MIN;]]></Body>
-				</Function>
-				<Function AccessType="default" StaticFunction="false">
-					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
 					<ReturnType><![CDATA[PedidoRuntime]]></ReturnType>
 					<Id>1786558675432</Id>
 					<Name><![CDATA[obtenerPedidoRuntime]]></Name>
-					<X>-810</X><Y>220</Y>
+					<X>-810</X><Y>160</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1102,7 +1859,7 @@ return pedido;]]></Body>
 					<ReturnType><![CDATA[PedidoInput]]></ReturnType>
 					<Id>1786558711136</Id>
 					<Name><![CDATA[obtenerPedidoInput]]></Name>
-					<X>-810</X><Y>250</Y>
+					<X>-810</X><Y>190</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1118,7 +1875,7 @@ return pedido;]]></Body>
 					<ReturnType><![CDATA[ResultadoValidacionPlan]]></ReturnType>
 					<Id>1786558755592</Id>
 					<Name><![CDATA[validarPlan]]></Name>
-					<X>-810</X><Y>280</Y>
+					<X>-810</X><Y>220</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1483,7 +2240,7 @@ return resultado;]]></Body>
 					<ReturnType><![CDATA[void]]></ReturnType>
 					<Id>1786558904560</Id>
 					<Name><![CDATA[prepararPedidosRuntime]]></Name>
-					<X>-810</X><Y>310</Y>
+					<X>-810</X><Y>250</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1514,7 +2271,7 @@ for (PedidoInput pedido : instancia.pedidos) {
 					<ReturnType><![CDATA[PlanCamion]]></ReturnType>
 					<Id>1786558951929</Id>
 					<Name><![CDATA[obtenerPlanCamion]]></Name>
-					<X>-810</X><Y>340</Y>
+					<X>-810</X><Y>280</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1545,7 +2302,7 @@ throw new IllegalArgumentException(
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786560383763</Id>
 					<Name><![CDATA[notificarCamionFinalizado]]></Name>
-					<X>-810</X><Y>370</Y>
+					<X>-810</X><Y>310</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1574,6 +2331,8 @@ if (
 
     ejecucionEnCurso = false;
     ejecucionFinalizada = true;
+    
+    cerrarSistemaProveedores();
 
 
     traceln("");
@@ -1589,7 +2348,7 @@ if (
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786560408923</Id>
 					<Name><![CDATA[imprimirResumenFase3]]></Name>
-					<X>-810</X><Y>400</Y>
+					<X>-810</X><Y>340</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1628,7 +2387,7 @@ traceln(
 					<ReturnType><![CDATA[boolean]]></ReturnType>
 					<Id>1786560433139</Id>
 					<Name><![CDATA[ejecutarPlan]]></Name>
-					<X>-810</X><Y>430</Y>
+					<X>-810</X><Y>370</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1683,10 +2442,16 @@ inicializarRNGsEjecucion(
     instancia.seedEjecucion
 );
 
+inicializarTravelTimeProvider(
+    instanciaActual
+);
+
 inicializarTrabajadores();
 
 ejecucionEnCurso =
     true;
+    
+inicializarSistemaProveedores();
 
 ejecucionFinalizada =
     false;
@@ -1797,7 +2562,7 @@ return true;]]></Body>
 					<ReturnType><![CDATA[PedidoInput]]></ReturnType>
 					<Id>1786560472867</Id>
 					<Name><![CDATA[crearPedidoPrueba]]></Name>
-					<X>-810</X><Y>460</Y>
+					<X>-810</X><Y>400</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1876,7 +2641,7 @@ return p;]]></Body>
 					<ReturnType><![CDATA[InstanciaTurno]]></ReturnType>
 					<Id>1786560543699</Id>
 					<Name><![CDATA[crearInstanciaPruebaFase3]]></Name>
-					<X>-810</X><Y>490</Y>
+					<X>-810</X><Y>430</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1987,7 +2752,7 @@ return instancia;]]></Body>
 					<ReturnType><![CDATA[PlanTurno]]></ReturnType>
 					<Id>1786560571476</Id>
 					<Name><![CDATA[crearPlanManualFase3]]></Name>
-					<X>-810</X><Y>520</Y>
+					<X>-810</X><Y>460</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -2087,7 +2852,7 @@ return plan;]]></Body>
 					<ReturnType><![CDATA[PlanTurno]]></ReturnType>
 					<Id>1786561496633</Id>
 					<Name><![CDATA[crearPlanPruebaVolcadorInvalido]]></Name>
-					<X>-810</X><Y>550</Y>
+					<X>-810</X><Y>490</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -2172,7 +2937,7 @@ return plan;]]></Body>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786561573505</Id>
 					<Name><![CDATA[imprimirPlan]]></Name>
-					<X>-810</X><Y>580</Y>
+					<X>-810</X><Y>520</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -2206,7 +2971,7 @@ traceln("");]]></Body>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786562384883</Id>
 					<Name><![CDATA[inicializarRNGsEjecucion]]></Name>
-					<X>-810</X><Y>610</Y>
+					<X>-810</X><Y>550</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -2230,11 +2995,6 @@ rngCliente =
         seedBase + 3001L
     );
 
-rngTrafico =
-    new java.util.Random(
-        seedBase + 4001L
-    );
-
 rngProveedor =
     new java.util.Random(
         seedBase + 5003L
@@ -2245,7 +3005,7 @@ rngProveedor =
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786562445467</Id>
 					<Name><![CDATA[inicializarTrabajadores]]></Name>
-					<X>-810</X><Y>640</Y>
+					<X>-810</X><Y>580</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -2335,7 +3095,7 @@ trabajadores.add(
 					<ReturnType><![CDATA[TrabajadorRuntime]]></ReturnType>
 					<Id>1786562466403</Id>
 					<Name><![CDATA[obtenerChofer]]></Name>
-					<X>-810</X><Y>670</Y>
+					<X>-810</X><Y>610</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -2372,7 +3132,7 @@ throw new IllegalArgumentException(
 					<ReturnType><![CDATA[Camion]]></ReturnType>
 					<Id>1786562552923</Id>
 					<Name><![CDATA[obtenerOtroCamion]]></Name>
-					<X>-810</X><Y>700</Y>
+					<X>-810</X><Y>640</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -2402,7 +3162,7 @@ throw new IllegalStateException(
 					<ReturnType><![CDATA[java.util.ArrayList<TrabajadorRuntime>]]></ReturnType>
 					<Id>1786562730747</Id>
 					<Name><![CDATA[asignarTrabajadoresCarga]]></Name>
-					<X>-810</X><Y>730</Y>
+					<X>-810</X><Y>670</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -2578,7 +3338,7 @@ return asignados;]]></Body>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786562778122</Id>
 					<Name><![CDATA[liberarTrabajadoresCarga]]></Name>
-					<X>-810</X><Y>760</Y>
+					<X>-810</X><Y>700</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -2606,14 +3366,18 @@ return asignados;]]></Body>
 camion.trabajadoresCarga.clear();
 
 camion.cargandoAhora =
-    false;]]></Body>
+    false;
+    
+// Una solicitud de proveedor podría estar
+// esperando exactamente por estos empleados.
+intentarAtenderProveedoresPendientes();]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786562796715</Id>
 					<Name><![CDATA[tiempoCargaMin]]></Name>
-					<X>-810</X><Y>790</Y>
+					<X>-810</X><Y>730</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -2696,7 +3460,7 @@ return tiempoBase
 					<ReturnType><![CDATA[PlanTurno]]></ReturnType>
 					<Id>1786563351018</Id>
 					<Name><![CDATA[crearPlanTestTresPersonasFase4A]]></Name>
-					<X>-810</X><Y>820</Y>
+					<X>-810</X><Y>760</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -2771,6 +3535,1216 @@ plan.camiones.add(camion1);
 
 return plan;]]></Body>
 				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1786578215634</Id>
+					<Name><![CDATA[muestrearEsperaRespuestaClienteMin]]></Name>
+					<X>-810</X><Y>790</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[if (rngCliente == null) {
+
+    throw new IllegalStateException(
+        "rngCliente no fue inicializado."
+    );
+}
+
+
+return triangular(
+    CLIENTE_ESPERA_RESPUESTA_MIN,
+    CLIENTE_ESPERA_RESPUESTA_MODA,
+    CLIENTE_ESPERA_RESPUESTA_MAX,
+    rngCliente
+);]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[ResultadoAtencionCliente]]></ReturnType>
+					<Id>1786578241202</Id>
+					<Name><![CDATA[evaluarLlegadaCliente]]></Name>
+					<X>-810</X><Y>820</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[pedido]]></Name>
+						<Type><![CDATA[PedidoInput]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[minutoLlegada]]></Name>
+						<Type><![CDATA[double]]></Type>
+					</Parameter>
+					<Body><![CDATA[if (pedido == null) {
+
+    throw new IllegalArgumentException(
+        "pedido no puede ser null."
+    );
+}
+
+
+if (rngCliente == null) {
+
+    throw new IllegalStateException(
+        "rngCliente no fue inicializado."
+    );
+}
+
+
+ResultadoAtencionCliente resultado =
+    new ResultadoAtencionCliente();
+
+
+double desde =
+    pedido.horaDesdeMin;
+
+double hasta =
+    pedido.horaHastaMin;
+
+
+// =====================================================
+// CASO 1: LLEGADA TEMPRANA
+// =====================================================
+
+if (minutoLlegada < desde) {
+
+    double anticipacion =
+        desde - minutoLlegada;
+
+    resultado.anticipacionMin =
+        anticipacion;
+
+
+    boolean puedeAceptarAntes =
+        anticipacion
+        <= CLIENTE_MAX_ANTICIPACION_ACEPTABLE_MIN;
+
+
+    boolean aceptaAntes =
+        puedeAceptarAntes
+        &&
+        rngCliente.nextDouble()
+        < CLIENTE_PROB_ACEPTAR_ANTES;
+
+
+    if (aceptaAntes) {
+
+        resultado.decision =
+            DecisionAtencionCliente.DESCARGAR_AHORA;
+
+        resultado.aceptadoAntes =
+            true;
+
+        resultado.motivo =
+            "ACEPTADO_ANTES_DE_VENTANA";
+
+        return resultado;
+    }
+
+
+    // -------------------------------------------------
+    // No acepta antes:
+    // espera hasta apertura + tiempo de respuesta.
+    // -------------------------------------------------
+
+    double esperaHastaVentana =
+        desde - minutoLlegada;
+
+    double esperaRespuesta =
+        muestrearEsperaRespuestaClienteMin();
+
+
+    resultado.esperaMin =
+        esperaHastaVentana
+        + esperaRespuesta;
+
+    resultado.decision =
+        DecisionAtencionCliente.ESPERAR;
+
+    resultado.motivo =
+        "ESPERA_HASTA_VENTANA";
+
+    return resultado;
+}
+
+
+// =====================================================
+// CASO 2: DENTRO DE LA VENTANA
+// =====================================================
+
+if (minutoLlegada <= hasta) {
+
+    double esperaRespuesta =
+        muestrearEsperaRespuestaClienteMin();
+
+
+    if (esperaRespuesta > 0.0) {
+
+        resultado.decision =
+            DecisionAtencionCliente.ESPERAR;
+
+        resultado.esperaMin =
+            esperaRespuesta;
+
+        resultado.motivo =
+            "ESPERA_RESPUESTA_CLIENTE";
+
+    } else {
+
+        resultado.decision =
+            DecisionAtencionCliente.DESCARGAR_AHORA;
+
+        resultado.motivo =
+            "ATENCION_INMEDIATA";
+    }
+
+
+    return resultado;
+}
+
+
+// =====================================================
+// CASO 3: LLEGADA TARDÍA
+// =====================================================
+
+resultado.llegadaTardia =
+    true;
+
+resultado.tardanzaMin =
+    minutoLlegada - hasta;
+
+
+boolean aceptaTarde =
+    rngCliente.nextDouble()
+    < CLIENTE_PROB_ACEPTAR_TARDE;
+
+
+if (aceptaTarde) {
+
+    resultado.decision =
+        DecisionAtencionCliente.DESCARGAR_AHORA;
+
+    resultado.motivo =
+        "ACEPTADO_CON_TARDANZA";
+
+} else {
+
+    resultado.decision =
+        DecisionAtencionCliente.NO_ENTREGAR;
+
+    resultado.motivo =
+        "CLIENTE_NO_ACEPTA_LLEGADA_TARDIA";
+}
+
+
+return resultado;]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1786578298067</Id>
+					<Name><![CDATA[tiempoDescargaMin]]></Name>
+					<X>-810</X><Y>850</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[pedido]]></Name>
+						<Type><![CDATA[PedidoInput]]></Type>
+					</Parameter>
+					<Body><![CDATA[if (pedido == null) {
+
+    throw new IllegalArgumentException(
+        "pedido no puede ser null."
+    );
+}
+
+
+if (pedido.unidadesCapacidad <= 0) {
+
+    throw new IllegalArgumentException(
+        "unidadesCapacidad debe ser > 0."
+    );
+}
+
+
+if (rngDescarga == null) {
+
+    throw new IllegalStateException(
+        "rngDescarga no fue inicializado."
+    );
+}
+
+
+double tiempoBase =
+    DESCARGA_SETUP_MIN
+    +
+    DESCARGA_MIN_POR_UNIDAD
+    * pedido.unidadesCapacidad;
+
+
+double factorVariacion =
+    triangular(
+        DESCARGA_FACTOR_VARIACION_MIN,
+        DESCARGA_FACTOR_VARIACION_MODA,
+        DESCARGA_FACTOR_VARIACION_MAX,
+        rngDescarga
+    );
+
+
+return tiempoBase
+    * factorVariacion;]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1786580874509</Id>
+					<Name><![CDATA[tiempoHastaProximoProveedorMin]]></Name>
+					<X>-810</X><Y>880</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[if (rngProveedor == null) {
+
+    throw new IllegalStateException(
+        "rngProveedor no fue inicializado."
+    );
+}
+
+
+if (
+    PROVEEDOR_MEDIA_ENTRE_LLEGADAS_MIN
+    <= 0.0
+) {
+
+    throw new IllegalStateException(
+        "PROVEEDOR_MEDIA_ENTRE_LLEGADAS_MIN debe ser > 0."
+    );
+}
+
+
+// Muestreo exponencial mediante
+// transformación inversa.
+
+double u =
+    rngProveedor.nextDouble();
+
+
+return -PROVEEDOR_MEDIA_ENTRE_LLEGADAS_MIN
+    * Math.log(1.0 - u);]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1786580898437</Id>
+					<Name><![CDATA[muestrearDuracionProveedorMin]]></Name>
+					<X>-810</X><Y>910</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[if (rngProveedor == null) {
+
+    throw new IllegalStateException(
+        "rngProveedor no fue inicializado."
+    );
+}
+
+
+return triangular(
+    PROVEEDOR_DURACION_MIN,
+    PROVEEDOR_DURACION_MODA,
+    PROVEEDOR_DURACION_MAX,
+    rngProveedor
+);]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[SolicitudProveedorRuntime]]></ReturnType>
+					<Id>1786580912460</Id>
+					<Name><![CDATA[crearSolicitudProveedor]]></Name>
+					<X>-810</X><Y>940</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[SolicitudProveedorRuntime solicitud =
+    new SolicitudProveedorRuntime();
+
+
+solicitud.solicitudId =
+    contadorSolicitudesProveedor++;
+
+
+solicitud.minutoLlegada =
+    minutoDiaActual();
+
+
+solicitud.empleadosRequeridos =
+    rngProveedor.nextDouble()
+        < PROVEEDOR_PROB_REQUIERE_DOS_EMPLEADOS
+    ? 2
+    : 1;
+
+
+solicitud.duracionAtencionMin =
+    muestrearDuracionProveedorMin();
+
+
+solicitud.estado =
+    EstadoSolicitudProveedor.PENDIENTE;
+
+
+historialProveedores.add(
+    solicitud
+);
+
+
+return solicitud;]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[int]]></ReturnType>
+					<Id>1786580931524</Id>
+					<Name><![CDATA[cantidadEmpleadosCorralonLibres]]></Name>
+					<X>-810</X><Y>970</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[int cantidad = 0;
+
+
+for (
+    TrabajadorRuntime trabajador
+    : trabajadores
+) {
+
+    if (
+        trabajador.tipo
+        != TipoTrabajador.EMPLEADO_CORRALON
+    ) {
+        continue;
+    }
+
+
+    if (trabajador.estaLibre()) {
+        cantidad++;
+    }
+}
+
+
+return cantidad;]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1786580953020</Id>
+					<Name><![CDATA[iniciarAtencionProveedor]]></Name>
+					<X>-810</X><Y>1000</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[solicitud]]></Name>
+						<Type><![CDATA[SolicitudProveedorRuntime]]></Type>
+					</Parameter>
+					<Body><![CDATA[if (
+    cantidadEmpleadosCorralonLibres()
+    < solicitud.empleadosRequeridos
+) {
+
+    throw new IllegalStateException(
+        "No hay empleados suficientes para iniciar "
+        + "la solicitud de proveedor "
+        + solicitud.solicitudId
+    );
+}
+
+
+solicitud.empleadosAsignados.clear();
+
+
+for (
+    TrabajadorRuntime trabajador
+    : trabajadores
+) {
+
+    if (
+        trabajador.tipo
+        != TipoTrabajador.EMPLEADO_CORRALON
+    ) {
+        continue;
+    }
+
+
+    if (!trabajador.estaLibre()) {
+        continue;
+    }
+
+
+    trabajador.ocupadoProveedor =
+        true;
+
+
+    solicitud.empleadosAsignados.add(
+        trabajador
+    );
+
+
+    if (
+        solicitud.empleadosAsignados.size()
+        >= solicitud.empleadosRequeridos
+    ) {
+        break;
+    }
+}
+
+
+solicitud.estado =
+    EstadoSolicitudProveedor.EN_ATENCION;
+
+
+solicitud.minutoInicioAtencion =
+    minutoDiaActual();
+
+
+solicitud.minutoFinPrevisto =
+    solicitud.minutoInicioAtencion
+    + solicitud.duracionAtencionMin;
+
+
+proveedoresEnAtencion.add(
+    solicitud
+);
+
+
+traceln(
+    "[" + minutoDiaActual() + "] "
+    + "Proveedor "
+    + solicitud.solicitudId
+    + " inicia atención con "
+    + solicitud.empleadosAsignados
+    + ". Duración="
+    + solicitud.duracionAtencionMin
+    + " min"
+);]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1786580983923</Id>
+					<Name><![CDATA[intentarAtenderProveedoresPendientes]]></Name>
+					<X>-810</X><Y>1030</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[while (!proveedoresPendientes.isEmpty()) {
+
+    SolicitudProveedorRuntime solicitud =
+        proveedoresPendientes.get(0);
+
+
+    if (
+        cantidadEmpleadosCorralonLibres()
+        < solicitud.empleadosRequeridos
+    ) {
+
+        // FIFO:
+        // la primera solicitud espera.
+        break;
+    }
+
+
+    proveedoresPendientes.remove(0);
+
+
+    iniciarAtencionProveedor(
+        solicitud
+    );
+}
+
+
+reprogramarFinProveedor();]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1786581020628</Id>
+					<Name><![CDATA[procesarLlegadaProveedor]]></Name>
+					<X>-810</X><Y>1060</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[if (!ejecucionEnCurso) {
+    return;
+}
+
+
+SolicitudProveedorRuntime solicitud =
+    crearSolicitudProveedor();
+
+
+proveedoresPendientes.add(
+    solicitud
+);
+
+
+traceln(
+    "[" + minutoDiaActual() + "] "
+    + "Llega proveedor "
+    + solicitud.solicitudId
+    + ". Requiere "
+    + solicitud.empleadosRequeridos
+    + " empleado(s). "
+    + "Duración="
+    + solicitud.duracionAtencionMin
+);
+
+
+intentarAtenderProveedoresPendientes();]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1786581104180</Id>
+					<Name><![CDATA[programarProximaLlegadaProveedor]]></Name>
+					<X>-810</X><Y>1090</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[if (
+    !PROVEEDORES_HABILITADOS
+    || !ejecucionEnCurso
+    || instanciaActual == null
+) {
+
+    eventoLlegadaProveedor.reset();
+
+    return;
+}
+
+
+double demora =
+    tiempoHastaProximoProveedorMin();
+
+
+double minutoProximo =
+    minutoDiaActual()
+    + demora;
+
+
+// No generamos proveedores
+// después del horizonte operativo.
+if (
+    minutoProximo
+    > instanciaActual.horaFinToleranciaMin
+) {
+
+    eventoLlegadaProveedor.reset();
+
+    return;
+}
+
+
+eventoLlegadaProveedor.restart(
+    demora
+);]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1786581143604</Id>
+					<Name><![CDATA[reprogramarFinProveedor]]></Name>
+					<X>-810</X><Y>1120</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[if (
+    proveedoresEnAtencion.isEmpty()
+) {
+
+    eventoFinAtencionProveedor.reset();
+
+    return;
+}
+
+
+double menorFin =
+    Double.POSITIVE_INFINITY;
+
+
+for (
+    SolicitudProveedorRuntime solicitud
+    : proveedoresEnAtencion
+) {
+
+    if (
+        solicitud.minutoFinPrevisto
+        < menorFin
+    ) {
+
+        menorFin =
+            solicitud.minutoFinPrevisto;
+    }
+}
+
+
+double demora =
+    menorFin
+    - minutoDiaActual();
+
+
+if (demora < 0.0) {
+    demora = 0.0;
+}
+
+
+eventoFinAtencionProveedor.restart(
+    demora
+);]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1786581155189</Id>
+					<Name><![CDATA[procesarFinAtencionesProveedor]]></Name>
+					<X>-810</X><Y>1150</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[double ahora =
+    minutoDiaActual();
+
+
+for (
+    int i =
+        proveedoresEnAtencion.size() - 1;
+
+    i >= 0;
+
+    i--
+) {
+
+    SolicitudProveedorRuntime solicitud =
+        proveedoresEnAtencion.get(i);
+
+
+    if (
+        solicitud.minutoFinPrevisto
+        > ahora + 1e-9
+    ) {
+        continue;
+    }
+
+
+    for (
+        TrabajadorRuntime trabajador
+        : solicitud.empleadosAsignados
+    ) {
+
+        trabajador.ocupadoProveedor =
+            false;
+    }
+
+
+    solicitud.estado =
+        EstadoSolicitudProveedor.COMPLETADA;
+
+
+    solicitud.minutoFinReal =
+        ahora;
+
+
+    proveedoresEnAtencion.remove(i);
+
+
+    traceln(
+        "[" + ahora + "] "
+        + "Proveedor "
+        + solicitud.solicitudId
+        + " finalizó atención. "
+        + "Libera "
+        + solicitud.empleadosAsignados
+    );
+}
+
+
+// Puede haber un proveedor esperando
+// justamente por estos empleados.
+intentarAtenderProveedoresPendientes();]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1786581167085</Id>
+					<Name><![CDATA[inicializarSistemaProveedores]]></Name>
+					<X>-810</X><Y>1180</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[contadorSolicitudesProveedor = 0;
+
+proveedoresPendientes.clear();
+
+proveedoresEnAtencion.clear();
+
+historialProveedores.clear();
+
+
+eventoLlegadaProveedor.reset();
+
+eventoFinAtencionProveedor.reset();
+
+
+if (PROVEEDORES_HABILITADOS) {
+
+    programarProximaLlegadaProveedor();
+}]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1786581754529</Id>
+					<Name><![CDATA[cerrarSistemaProveedores]]></Name>
+					<X>-810</X><Y>1210</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[eventoLlegadaProveedor.reset();
+eventoFinAtencionProveedor.reset();
+
+
+double ahora =
+    minutoDiaActual();
+
+
+// =====================================================
+// Solicitudes que estaban siendo atendidas
+// =====================================================
+
+for (
+    SolicitudProveedorRuntime solicitud
+    : proveedoresEnAtencion
+) {
+
+    for (
+        TrabajadorRuntime trabajador
+        : solicitud.empleadosAsignados
+    ) {
+
+        trabajador.ocupadoProveedor =
+            false;
+    }
+
+
+    solicitud.estado =
+        EstadoSolicitudProveedor
+            .CANCELADA_FIN_EJECUCION;
+
+    solicitud.minutoFinReal =
+        ahora;
+
+    solicitud.motivoCierre =
+        "FIN_EJECUCION_CAMIONES";
+}
+
+
+// =====================================================
+// Solicitudes que seguían esperando
+// =====================================================
+
+for (
+    SolicitudProveedorRuntime solicitud
+    : proveedoresPendientes
+) {
+
+    solicitud.estado =
+        EstadoSolicitudProveedor
+            .CANCELADA_FIN_EJECUCION;
+
+    solicitud.minutoFinReal =
+        ahora;
+
+    solicitud.motivoCierre =
+        "FIN_EJECUCION_CAMIONES";
+}
+
+
+proveedoresEnAtencion.clear();
+proveedoresPendientes.clear();]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1786582161315</Id>
+					<Name><![CDATA[calcularDistanciaHaversineMetros]]></Name>
+					<X>-810</X><Y>1240</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[lat1]]></Name>
+						<Type><![CDATA[double]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[lon1]]></Name>
+						<Type><![CDATA[double]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[lat2]]></Name>
+						<Type><![CDATA[double]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[lon2]]></Name>
+						<Type><![CDATA[double]]></Type>
+					</Parameter>
+					<Body><![CDATA[double radioTierraMetros =
+    6371000.0;
+
+
+double lat1Rad =
+    Math.toRadians(lat1);
+
+double lat2Rad =
+    Math.toRadians(lat2);
+
+double deltaLat =
+    Math.toRadians(
+        lat2 - lat1
+    );
+
+double deltaLon =
+    Math.toRadians(
+        lon2 - lon1
+    );
+
+
+double a =
+    Math.sin(deltaLat / 2.0)
+    * Math.sin(deltaLat / 2.0)
+    +
+    Math.cos(lat1Rad)
+    * Math.cos(lat2Rad)
+    * Math.sin(deltaLon / 2.0)
+    * Math.sin(deltaLon / 2.0);
+
+
+double c =
+    2.0
+    * Math.atan2(
+        Math.sqrt(a),
+        Math.sqrt(1.0 - a)
+    );
+
+
+return radioTierraMetros
+    * c;]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[MatrizTiemposViaje]]></ReturnType>
+					<Id>1786582219356</Id>
+					<Name><![CDATA[crearMatrizTiemposViaje]]></Name>
+					<X>-810</X><Y>1270</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[instancia]]></Name>
+						<Type><![CDATA[InstanciaTurno]]></Type>
+					</Parameter>
+					<Body><![CDATA[if (instancia == null) {
+
+    throw new IllegalArgumentException(
+        "instancia no puede ser null."
+    );
+}
+
+
+if (
+    TRAFICO_VELOCIDAD_BASE_KMH
+    <= 0.0
+) {
+
+    throw new IllegalStateException(
+        "TRAFICO_VELOCIDAD_BASE_KMH debe ser > 0."
+    );
+}
+
+
+// =====================================================
+// Nodos alineados por índice
+// =====================================================
+
+java.util.ArrayList<String> ids =
+    new java.util.ArrayList<String>();
+
+java.util.ArrayList<Double> latitudes =
+    new java.util.ArrayList<Double>();
+
+java.util.ArrayList<Double> longitudes =
+    new java.util.ArrayList<Double>();
+
+
+// DEPOT siempre ocupa el índice técnico 0.
+
+ids.add(
+    ID_NODO_CORRALON
+);
+
+latitudes.add(
+    instancia.latCorralon
+);
+
+longitudes.add(
+    instancia.lonCorralon
+);
+
+
+// Pedidos
+
+for (
+    PedidoInput pedido
+    : instancia.pedidos
+) {
+
+    ids.add(
+        pedido.pedidoId
+    );
+
+    latitudes.add(
+        pedido.latitud
+    );
+
+    longitudes.add(
+        pedido.longitud
+    );
+}
+
+
+// =====================================================
+// Crear matriz
+// =====================================================
+
+MatrizTiemposViaje matriz =
+    new MatrizTiemposViaje();
+
+
+matriz.matrizId =
+    instancia.instanciaId
+    + "-BASE";
+
+
+matriz.inicializar(
+    ids
+);
+
+
+int n =
+    ids.size();
+
+
+for (
+    int i = 0;
+    i < n;
+    i++
+) {
+
+    for (
+        int j = 0;
+        j < n;
+        j++
+    ) {
+
+        if (i == j) {
+
+            matriz.distanciaMetros[i][j] =
+                0.0;
+
+            matriz.tiempoBaseMin[i][j] =
+                0.0;
+
+            continue;
+        }
+
+
+        double distanciaGeodesica =
+            calcularDistanciaHaversineMetros(
+                latitudes.get(i),
+                longitudes.get(i),
+                latitudes.get(j),
+                longitudes.get(j)
+            );
+
+
+        double distanciaAjustada =
+            distanciaGeodesica
+            * TRAFICO_FACTOR_URBANO_DISTANCIA;
+
+
+        double distanciaKm =
+            distanciaAjustada
+            / 1000.0;
+
+
+        double tiempoHoras =
+            distanciaKm
+            / TRAFICO_VELOCIDAD_BASE_KMH;
+
+
+        double tiempoMin =
+            tiempoHoras
+            * 60.0;
+
+
+        matriz.distanciaMetros[i][j] =
+            distanciaAjustada;
+
+
+        matriz.tiempoBaseMin[i][j] =
+            tiempoMin;
+    }
+}
+
+
+return matriz;]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1786582660142</Id>
+					<Name><![CDATA[inicializarTravelTimeProvider]]></Name>
+					<X>-810</X><Y>1300</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[instancia]]></Name>
+						<Type><![CDATA[InstanciaTurno]]></Type>
+					</Parameter>
+					<Body><![CDATA[matrizTiemposActual =
+    crearMatrizTiemposViaje(
+        instancia
+    );
+
+
+travelTimeProvider =
+    new TravelTimeProviderMatriz(
+        matrizTiemposActual,
+
+        instancia.seedEjecucion,
+
+        TRAFICO_BUCKET_MIN,
+
+        HORA_INICIO_MANANA_MIN,
+
+        TRAFICO_PICO_MANANA_FIN_MIN,
+
+        TRAFICO_PICO_TARDE_INICIO_MIN,
+
+        HORA_FIN_TARDE_MIN,
+
+        TRAFICO_FACTOR_NORMAL,
+
+        TRAFICO_FACTOR_PICO_MANANA,
+
+        TRAFICO_FACTOR_PICO_TARDE,
+
+        TRAFICO_RUIDO_FACTOR_MIN,
+
+        TRAFICO_RUIDO_FACTOR_MAX
+    );
+
+
+traceln(
+    "TravelTimeProvider: "
+    + travelTimeProvider.nombreProvider()
+    + " | nodos="
+    + matrizTiemposActual.cantidadNodos()
+);]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1786582681629</Id>
+					<Name><![CDATA[obtenerTiempoViajeMin]]></Name>
+					<X>-810</X><Y>1330</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[origenId]]></Name>
+						<Type><![CDATA[String]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[destinoId]]></Name>
+						<Type><![CDATA[String]]></Type>
+					</Parameter>
+					<Body><![CDATA[if (travelTimeProvider == null) {
+
+    throw new IllegalStateException(
+        "TravelTimeProvider no inicializado."
+    );
+}
+
+
+return travelTimeProvider
+    .tiempoViajeMin(
+        origenId,
+        destinoId,
+        minutoDiaActual()
+    );]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1786582712494</Id>
+					<Name><![CDATA[obtenerDistanciaViajeMetros]]></Name>
+					<X>-810</X><Y>1360</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[origenId]]></Name>
+						<Type><![CDATA[String]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[destinoId]]></Name>
+						<Type><![CDATA[String]]></Type>
+					</Parameter>
+					<Body><![CDATA[if (travelTimeProvider == null) {
+
+    throw new IllegalStateException(
+        "TravelTimeProvider no inicializado."
+    );
+}
+
+
+return travelTimeProvider
+    .distanciaMetros(
+        origenId,
+        destinoId
+    );]]></Body>
+				</Function>
 			</Functions>
 			<AgentLinks>
 				<AgentLink>
@@ -2798,7 +4772,7 @@ return plan;]]></Body>
 				<EmbeddedObject>
 					<Id>1786559212291</Id>
 					<Name><![CDATA[camiones]]></Name>
-					<X>-1320</X><Y>50</Y>
+					<X>-1550</X><Y>40</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -2863,7 +4837,7 @@ return plan;]]></Body>
 				<EmbeddedObjectPresentation>
 					<Id>1786559212293</Id>
 					<Name><![CDATA[camiones_presentation]]></Name>
-					<X>-1220</X><Y>50</Y>
+					<X>-1450</X><Y>40</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -2895,6 +4869,9 @@ latActual =
 
 lonActual =
     main.LON_CORRALON;
+    
+nodoActualId =
+    main.ID_NODO_CORRALON;
 
 traceln(
     "Camión creado. camionId="
@@ -2999,7 +4976,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786559290524</Id>
 					<Name><![CDATA[camionId]]></Name>
-					<X>-470</X><Y>50</Y>
+					<X>-530</X><Y>50</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -3014,7 +4991,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786559315291</Id>
 					<Name><![CDATA[planAsignado]]></Name>
-					<X>-470</X><Y>80</Y>
+					<X>-530</X><Y>80</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -3029,7 +5006,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786559327066</Id>
 					<Name><![CDATA[indiceViaje]]></Name>
-					<X>-470</X><Y>110</Y>
+					<X>-530</X><Y>110</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -3044,7 +5021,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786559336083</Id>
 					<Name><![CDATA[indicePedido]]></Name>
-					<X>-470</X><Y>140</Y>
+					<X>-530</X><Y>140</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -3059,7 +5036,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786559346059</Id>
 					<Name><![CDATA[viajeActual]]></Name>
-					<X>-470</X><Y>170</Y>
+					<X>-530</X><Y>170</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -3074,7 +5051,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786559356851</Id>
 					<Name><![CDATA[pedidoActual]]></Name>
-					<X>-470</X><Y>200</Y>
+					<X>-530</X><Y>200</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -3089,7 +5066,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786559368067</Id>
 					<Name><![CDATA[unidadesViajeActual]]></Name>
-					<X>-470</X><Y>230</Y>
+					<X>-530</X><Y>230</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -3104,7 +5081,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786559375659</Id>
 					<Name><![CDATA[cargaActual]]></Name>
-					<X>-470</X><Y>260</Y>
+					<X>-530</X><Y>260</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -3119,7 +5096,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786559383443</Id>
 					<Name><![CDATA[latActual]]></Name>
-					<X>-470</X><Y>290</Y>
+					<X>-530</X><Y>290</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -3134,7 +5111,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786559394700</Id>
 					<Name><![CDATA[lonActual]]></Name>
-					<X>-470</X><Y>320</Y>
+					<X>-530</X><Y>320</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -3149,7 +5126,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786559403748</Id>
 					<Name><![CDATA[turnoFinalizado]]></Name>
-					<X>-470</X><Y>350</Y>
+					<X>-530</X><Y>350</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -3164,7 +5141,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786562587906</Id>
 					<Name><![CDATA[trabajadoresCarga]]></Name>
-					<X>-470</X><Y>380</Y>
+					<X>-530</X><Y>380</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -3179,7 +5156,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786562604124</Id>
 					<Name><![CDATA[personasCargaActual]]></Name>
-					<X>-470</X><Y>410</Y>
+					<X>-530</X><Y>410</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -3194,7 +5171,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786562612706</Id>
 					<Name><![CDATA[duracionCargaActualMin]]></Name>
-					<X>-470</X><Y>440</Y>
+					<X>-530</X><Y>440</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -3209,7 +5186,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786562622467</Id>
 					<Name><![CDATA[cargandoAhora]]></Name>
-					<X>-470</X><Y>470</Y>
+					<X>-530</X><Y>470</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -3224,7 +5201,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786562632059</Id>
 					<Name><![CDATA[enCalle]]></Name>
-					<X>-470</X><Y>500</Y>
+					<X>-530</X><Y>500</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -3233,6 +5210,126 @@ traceln(
 						<Type><![CDATA[boolean]]></Type>        
 						<InitialValue Class="CodeValue">
 							<Code><![CDATA[false]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1786578329243</Id>
+					<Name><![CDATA[decisionClienteActual]]></Name>
+					<X>-530</X><Y>530</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[DecisionAtencionCliente]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[DecisionAtencionCliente.DESCARGAR_AHORA]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1786578354851</Id>
+					<Name><![CDATA[duracionEsperaClienteActualMin]]></Name>
+					<X>-530</X><Y>560</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[double]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[0.0]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1786578377186</Id>
+					<Name><![CDATA[duracionDescargaActualMin]]></Name>
+					<X>-530</X><Y>590</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[double]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[0.0]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1786578385467</Id>
+					<Name><![CDATA[unidadesRetornadasCorralon]]></Name>
+					<X>-530</X><Y>620</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[int]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[0]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1786580481851</Id>
+					<Name><![CDATA[abortarViajeActual]]></Name>
+					<X>-530</X><Y>650</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[boolean]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[false]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1786582794261</Id>
+					<Name><![CDATA[nodoActualId]]></Name>
+					<X>-530</X><Y>680</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA["DEPOT"]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1786582805389</Id>
+					<Name><![CDATA[duracionViajeActualMin]]></Name>
+					<X>-530</X><Y>710</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[double]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[0.0]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1786582813670</Id>
+					<Name><![CDATA[distanciaViajeActualMetros]]></Name>
+					<X>-530</X><Y>740</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[double]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[0.0]]></Code>
 						</InitialValue>
 					</Properties>
 				</Variable>
@@ -3277,7 +5374,7 @@ traceln(
 				<StatechartElement Class="State" ParentState="ROOT_NODE">
 					<Id>1786559828387</Id>
 					<Name><![CDATA[Descargando]]></Name>
-					<X>90</X><Y>270</Y>
+					<X>90</X><Y>340</Y>
 					<Label><X>10</X><Y>10</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -3289,7 +5386,7 @@ traceln(
 				<StatechartElement Class="State" ParentState="ROOT_NODE">
 					<Id>1786559844659</Id>
 					<Name><![CDATA[EvaluandoSiguiente]]></Name>
-					<X>90</X><Y>340</Y>
+					<X>90</X><Y>410</Y>
 					<Label><X>10</X><Y>10</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -3301,7 +5398,7 @@ traceln(
 				<StatechartElement Class="State" ParentState="ROOT_NODE">
 					<Id>1786559852235</Id>
 					<Name><![CDATA[Regresando]]></Name>
-					<X>90</X><Y>410</Y>
+					<X>90</X><Y>480</Y>
 					<Label><X>10</X><Y>10</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -3314,6 +5411,30 @@ traceln(
 					<Id>1786559865243</Id>
 					<Name><![CDATA[FinTurno]]></Name>
 					<X>270</X><Y>60</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties Width="100" Height="30">
+						<FillColor>-10496</FillColor>
+					</Properties>
+				</StatechartElement>
+				<StatechartElement Class="State" ParentState="ROOT_NODE">
+					<Id>1786578626913</Id>
+					<Name><![CDATA[EvaluandoCliente]]></Name>
+					<X>90</X><Y>270</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties Width="100" Height="30">
+						<FillColor>-10496</FillColor>
+					</Properties>
+				</StatechartElement>
+				<StatechartElement Class="State" ParentState="ROOT_NODE">
+					<Id>1786578775394</Id>
+					<Name><![CDATA[EsperandoCliente]]></Name>
+					<X>230</X><Y>310</Y>
 					<Label><X>10</X><Y>10</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -3424,10 +5545,11 @@ prepararPedidoActual();]]></Action>
 						<Point><X>0</X><Y>40</Y></Point>
 					</Points>
 					<IconOffset>20.0</IconOffset>
-					<Properties Source="1786559821755" Target="1786559828387" Trigger="timeout">
-						<Action><![CDATA[llegarPedidoActual();]]></Action>
+					<Properties Source="1786559821755" Target="1786578626913" Trigger="timeout">
+						<Action><![CDATA[llegarPedidoActual();
+evaluarClienteActual();]]></Action>
 						<Timeout Class="CodeUnitValue">
-							<Code><![CDATA[tiempoViajePedidoActualMin()]]></Code>
+							<Code><![CDATA[duracionViajeActualMin]]></Code>
 							<Unit Class="TimeUnits"><![CDATA[MINUTE]]></Unit>
 						</Timeout>
 						<Condition><![CDATA[true]]></Condition>
@@ -3445,7 +5567,7 @@ prepararPedidoActual();]]></Action>
 				<StatechartElement Class="Transition" ParentState="ROOT_NODE">
 					<Id>1786559978707</Id>
 					<Name><![CDATA[tFinDescarga]]></Name>
-					<X>140</X><Y>300</Y>
+					<X>140</X><Y>370</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -3458,7 +5580,7 @@ prepararPedidoActual();]]></Action>
 					<Properties Source="1786559828387" Target="1786559844659" Trigger="timeout">
 						<Action><![CDATA[finalizarPedidoActual();]]></Action>
 						<Timeout Class="CodeUnitValue">
-							<Code><![CDATA[tiempoDescargaPedidoActualMin()]]></Code>
+							<Code><![CDATA[duracionDescargaActualMin]]></Code>
 							<Unit Class="TimeUnits"><![CDATA[MINUTE]]></Unit>
 						</Timeout>
 						<Condition><![CDATA[true]]></Condition>
@@ -3476,7 +5598,7 @@ prepararPedidoActual();]]></Action>
 				<StatechartElement Class="Transition" ParentState="ROOT_NODE">
 					<Id>1786559981780</Id>
 					<Name><![CDATA[tRegresar]]></Name>
-					<X>140</X><Y>370</Y>
+					<X>140</X><Y>440</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -3487,11 +5609,13 @@ prepararPedidoActual();]]></Action>
 					</Points>
 					<IconOffset>20.0</IconOffset>
 					<Properties Source="1786559844659" Target="1786559852235" Trigger="condition">
+						<Action><![CDATA[prepararRegresoCorralon();]]></Action>
 						<Timeout Class="CodeUnitValue">
 							<Code><![CDATA[1]]></Code>
 							<Unit Class="TimeUnits"><![CDATA[MINUTE]]></Unit>
 						</Timeout>
-						<Condition><![CDATA[!hayMasPedidosEnViaje()]]></Condition>
+						<Condition><![CDATA[abortarViajeActual
+|| !hayMasPedidosEnViaje()]]></Condition>
 						<Rate Class="CodeUnitValue">
 							<Code><![CDATA[1]]></Code>
 							<Unit Class="RateUnits"><![CDATA[PER_MINUTE]]></Unit>
@@ -3506,16 +5630,16 @@ prepararPedidoActual();]]></Action>
 				<StatechartElement Class="Transition" ParentState="ROOT_NODE">
 					<Id>1786560008172</Id>
 					<Name><![CDATA[tSiguientePedido]]></Name>
-					<X>190</X><Y>350</Y>
+					<X>190</X><Y>420</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<Points>
 						<Point><X>0</X><Y>0</Y></Point>
-						<Point><X>50</X><Y>0</Y></Point>
-						<Point><X>50</X><Y>-130</Y></Point>
-						<Point><X>0</X><Y>-130</Y></Point>
+						<Point><X>210</X><Y>0</Y></Point>
+						<Point><X>210</X><Y>-200</Y></Point>
+						<Point><X>0</X><Y>-200</Y></Point>
 					</Points>
 					<IconOffset>20.0</IconOffset>
 					<Properties Source="1786559844659" Target="1786559821755" Trigger="condition">
@@ -3524,7 +5648,8 @@ prepararPedidoActual();]]></Action>
 							<Code><![CDATA[1]]></Code>
 							<Unit Class="TimeUnits"><![CDATA[MINUTE]]></Unit>
 						</Timeout>
-						<Condition><![CDATA[hayMasPedidosEnViaje()]]></Condition>
+						<Condition><![CDATA[hayMasPedidosEnViaje()
+&& !abortarViajeActual]]></Condition>
 						<Rate Class="CodeUnitValue">
 							<Code><![CDATA[1]]></Code>
 							<Unit Class="RateUnits"><![CDATA[PER_MINUTE]]></Unit>
@@ -3539,22 +5664,22 @@ prepararPedidoActual();]]></Action>
 				<StatechartElement Class="Transition" ParentState="ROOT_NODE">
 					<Id>1786560028243</Id>
 					<Name><![CDATA[tFinRegreso]]></Name>
-					<X>90</X><Y>430</Y>
+					<X>90</X><Y>500</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<Points>
 						<Point><X>0</X><Y>0</Y></Point>
-						<Point><X>-40</X><Y>0</Y></Point>
-						<Point><X>-40</X><Y>-350</Y></Point>
-						<Point><X>0</X><Y>-350</Y></Point>
+						<Point><X>-70</X><Y>0</Y></Point>
+						<Point><X>-70</X><Y>-420</Y></Point>
+						<Point><X>0</X><Y>-420</Y></Point>
 					</Points>
 					<IconOffset>20.0</IconOffset>
 					<Properties Source="1786559852235" Target="1786559800676" Trigger="timeout">
 						<Action><![CDATA[finalizarRegreso();]]></Action>
 						<Timeout Class="CodeUnitValue">
-							<Code><![CDATA[tiempoRegresoCorralonMin()]]></Code>
+							<Code><![CDATA[duracionViajeActualMin]]></Code>
 							<Unit Class="TimeUnits"><![CDATA[MINUTE]]></Unit>
 						</Timeout>
 						<Condition><![CDATA[true]]></Condition>
@@ -3602,6 +5727,139 @@ prepararPedidoActual();]]></Action>
 						<SatisfiesExpression><![CDATA[true]]></SatisfiesExpression>
 					</Properties>	
 				</StatechartElement>
+				<StatechartElement Class="Transition" ParentState="ROOT_NODE">
+					<Id>1786578701417</Id>
+					<Name><![CDATA[tClienteDescargar]]></Name>
+					<X>140</X><Y>300</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<Points>
+						<Point><X>0</X><Y>0</Y></Point>
+						<Point><X>0</X><Y>40</Y></Point>
+					</Points>
+					<IconOffset>20.0</IconOffset>
+					<Properties Source="1786578626913" Target="1786559828387" Trigger="condition">
+						<Action><![CDATA[iniciarDescarga();]]></Action>
+						<Timeout Class="CodeUnitValue">
+							<Code><![CDATA[1]]></Code>
+							<Unit Class="TimeUnits"><![CDATA[MINUTE]]></Unit>
+						</Timeout>
+						<Condition><![CDATA[decisionClienteActual
+    == DecisionAtencionCliente.DESCARGAR_AHORA]]></Condition>
+						<Rate Class="CodeUnitValue">
+							<Code><![CDATA[1]]></Code>
+							<Unit Class="RateUnits"><![CDATA[PER_MINUTE]]></Unit>
+						</Rate>
+						<MessageType><![CDATA[Object]]></MessageType>
+						<DefaultTransition>true</DefaultTransition>
+						<FilterType><![CDATA[unconditionally]]></FilterType>
+						<EqualsExpression><![CDATA["text"]]></EqualsExpression>
+						<SatisfiesExpression><![CDATA[true]]></SatisfiesExpression>
+					</Properties>	
+				</StatechartElement>
+				<StatechartElement Class="Transition" ParentState="ROOT_NODE">
+					<Id>1786578795209</Id>
+					<Name><![CDATA[tClienteEsperar]]></Name>
+					<X>190</X><Y>290</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<Points>
+						<Point><X>0</X><Y>0</Y></Point>
+						<Point><X>90</X><Y>0</Y></Point>
+						<Point><X>92</X><Y>20</Y></Point>
+					</Points>
+					<IconOffset>20.0</IconOffset>
+					<Properties Source="1786578626913" Target="1786578775394" Trigger="condition">
+						<Action><![CDATA[iniciarEsperaCliente();]]></Action>
+						<Timeout Class="CodeUnitValue">
+							<Code><![CDATA[1]]></Code>
+							<Unit Class="TimeUnits"><![CDATA[MINUTE]]></Unit>
+						</Timeout>
+						<Condition><![CDATA[decisionClienteActual
+    == DecisionAtencionCliente.ESPERAR]]></Condition>
+						<Rate Class="CodeUnitValue">
+							<Code><![CDATA[1]]></Code>
+							<Unit Class="RateUnits"><![CDATA[PER_MINUTE]]></Unit>
+						</Rate>
+						<MessageType><![CDATA[Object]]></MessageType>
+						<DefaultTransition>true</DefaultTransition>
+						<FilterType><![CDATA[unconditionally]]></FilterType>
+						<EqualsExpression><![CDATA["text"]]></EqualsExpression>
+						<SatisfiesExpression><![CDATA[true]]></SatisfiesExpression>
+					</Properties>	
+				</StatechartElement>
+				<StatechartElement Class="Transition" ParentState="ROOT_NODE">
+					<Id>1786578835970</Id>
+					<Name><![CDATA[tClienteNoEntrega]]></Name>
+					<X>90</X><Y>290</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<Points>
+						<Point><X>0</X><Y>0</Y></Point>
+						<Point><X>-30</X><Y>0</Y></Point>
+						<Point><X>-30</X><Y>140</Y></Point>
+						<Point><X>0</X><Y>140</Y></Point>
+					</Points>
+					<IconOffset>20.0</IconOffset>
+					<Properties Source="1786578626913" Target="1786559844659" Trigger="condition">
+						<Action><![CDATA[finalizarPedidoNoEntregadoActual(
+    "CLIENTE_NO_ACEPTA_LLEGADA_TARDIA"
+);]]></Action>
+						<Timeout Class="CodeUnitValue">
+							<Code><![CDATA[1]]></Code>
+							<Unit Class="TimeUnits"><![CDATA[MINUTE]]></Unit>
+						</Timeout>
+						<Condition><![CDATA[decisionClienteActual
+    == DecisionAtencionCliente.NO_ENTREGAR]]></Condition>
+						<Rate Class="CodeUnitValue">
+							<Code><![CDATA[1]]></Code>
+							<Unit Class="RateUnits"><![CDATA[PER_MINUTE]]></Unit>
+						</Rate>
+						<MessageType><![CDATA[Object]]></MessageType>
+						<DefaultTransition>true</DefaultTransition>
+						<FilterType><![CDATA[unconditionally]]></FilterType>
+						<EqualsExpression><![CDATA["text"]]></EqualsExpression>
+						<SatisfiesExpression><![CDATA[true]]></SatisfiesExpression>
+					</Properties>	
+				</StatechartElement>
+				<StatechartElement Class="Transition" ParentState="ROOT_NODE">
+					<Id>1786578895418</Id>
+					<Name><![CDATA[tFinEsperaCliente]]></Name>
+					<X>280</X><Y>340</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<Points>
+						<Point><X>0</X><Y>0</Y></Point>
+						<Point><X>0</X><Y>20</Y></Point>
+						<Point><X>-90</X><Y>20</Y></Point>
+					</Points>
+					<IconOffset>20.0</IconOffset>
+					<Properties Source="1786578775394" Target="1786559828387" Trigger="timeout">
+						<Action><![CDATA[iniciarDescarga();]]></Action>
+						<Timeout Class="CodeUnitValue">
+							<Code><![CDATA[duracionEsperaClienteActualMin]]></Code>
+							<Unit Class="TimeUnits"><![CDATA[MINUTE]]></Unit>
+						</Timeout>
+						<Condition><![CDATA[true]]></Condition>
+						<Rate Class="CodeUnitValue">
+							<Code><![CDATA[1]]></Code>
+							<Unit Class="RateUnits"><![CDATA[PER_MINUTE]]></Unit>
+						</Rate>
+						<MessageType><![CDATA[Object]]></MessageType>
+						<DefaultTransition>true</DefaultTransition>
+						<FilterType><![CDATA[unconditionally]]></FilterType>
+						<EqualsExpression><![CDATA["text"]]></EqualsExpression>
+						<SatisfiesExpression><![CDATA[true]]></SatisfiesExpression>
+					</Properties>	
+				</StatechartElement>
 			</StatechartElements>
 			<Functions>
 				<Function AccessType="default" StaticFunction="false">
@@ -3632,7 +5890,30 @@ prepararPedidoActual();]]></Action>
 					</Parameter>
 					<Body><![CDATA[planAsignado = plan;
 
+nodoActualId =
+    mainModel().ID_NODO_CORRALON;
+
+duracionViajeActualMin =
+    0.0;
+
+distanciaViajeActualMetros =
+    0.0;
+
 enCalle = false;
+
+abortarViajeActual = false;
+
+decisionClienteActual =
+    DecisionAtencionCliente.DESCARGAR_AHORA;
+
+duracionEsperaClienteActualMin =
+    0.0;
+
+duracionDescargaActualMin =
+    0.0;
+
+unidadesRetornadasCorralon =
+    0;
 
 cargandoAhora = false;
 
@@ -3734,6 +6015,7 @@ if (
     );
 }
 
+abortarViajeActual = false;
 
 traceln(
     "[" + mainModel().minutoDiaActual() + "] " +
@@ -3828,6 +6110,21 @@ pedidoActual =
     .obtenerPedidoRuntime(
         pedidoId
     );
+    
+duracionViajeActualMin =
+    mainModel()
+        .obtenerTiempoViajeMin(
+            nodoActualId,
+            pedidoId
+        );
+
+
+distanciaViajeActualMetros =
+    mainModel()
+        .obtenerDistanciaViajeMetros(
+            nodoActualId,
+            pedidoId
+        );
 
 
 pedidoActual.estado =
@@ -3838,37 +6135,34 @@ pedidoActual.minutoSalida =
 
 enCalle = true;
 
+decisionClienteActual =
+    DecisionAtencionCliente.DESCARGAR_AHORA;
+
+duracionEsperaClienteActualMin =
+    0.0;
+
+duracionDescargaActualMin =
+    0.0;
+
 traceln(
-    "[" + mainModel().minutoDiaActual() + "] " +
-    "Camión " + camionId +
-    " sale hacia "
+    "[" + mainModel().minutoDiaActual() + "] "
+    + "Camión " + camionId
+    + " sale hacia "
     + pedidoActual.input.pedidoId
+    + ". Distancia="
+    + distanciaViajeActualMetros
+    + " m"
+    + ", tiempo="
+    + duracionViajeActualMin
+    + " min"
 );]]></Body>
-				</Function>
-				<Function AccessType="default" StaticFunction="false">
-					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
-					<ReturnType><![CDATA[double]]></ReturnType>
-					<Id>1786559629443</Id>
-					<Name><![CDATA[tiempoViajePedidoActualMin]]></Name>
-					<X>-260</X><Y>230</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<Body><![CDATA[return mainModel()
-    .tiempoViajeDeterministaMin(
-        latActual,
-        lonActual,
-        pedidoActual.input.latitud,
-        pedidoActual.input.longitud
-    );]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>VOID</ReturnModificator>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786559645531</Id>
 					<Name><![CDATA[llegarPedidoActual]]></Name>
-					<X>-260</X><Y>260</Y>
+					<X>-260</X><Y>230</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -3878,6 +6172,9 @@ traceln(
 
 lonActual =
     pedidoActual.input.longitud;
+    
+nodoActualId =
+    pedidoActual.input.pedidoId;
 
 pedidoActual.minutoLlegada =
     mainModel().minutoDiaActual();
@@ -3891,26 +6188,11 @@ traceln(
 );]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
-					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
-					<ReturnType><![CDATA[double]]></ReturnType>
-					<Id>1786559657427</Id>
-					<Name><![CDATA[tiempoDescargaPedidoActualMin]]></Name>
-					<X>-260</X><Y>290</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<Body><![CDATA[return mainModel()
-    .tiempoDescargaDeterministaMin(
-        pedidoActual.input
-    );]]></Body>
-				</Function>
-				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>VOID</ReturnModificator>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786559674498</Id>
 					<Name><![CDATA[finalizarPedidoActual]]></Name>
-					<X>-260</X><Y>320</Y>
+					<X>-260</X><Y>260</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -3990,7 +6272,7 @@ pedidoActual = null;]]></Body>
 					<ReturnType><![CDATA[boolean]]></ReturnType>
 					<Id>1786559693523</Id>
 					<Name><![CDATA[hayMasPedidosEnViaje]]></Name>
-					<X>-260</X><Y>350</Y>
+					<X>-260</X><Y>290</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -4000,29 +6282,11 @@ pedidoActual = null;]]></Body>
        < viajeActual.pedidoIds.size();]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
-					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
-					<ReturnType><![CDATA[double]]></ReturnType>
-					<Id>1786559714411</Id>
-					<Name><![CDATA[tiempoRegresoCorralonMin]]></Name>
-					<X>-260</X><Y>380</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<Body><![CDATA[return mainModel()
-    .tiempoViajeDeterministaMin(
-        latActual,
-        lonActual,
-        mainModel().LAT_CORRALON,
-        mainModel().LON_CORRALON
-    );]]></Body>
-				</Function>
-				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>VOID</ReturnModificator>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786559729995</Id>
 					<Name><![CDATA[finalizarRegreso]]></Name>
-					<X>-260</X><Y>410</Y>
+					<X>-260</X><Y>320</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -4033,7 +6297,24 @@ pedidoActual = null;]]></Body>
 lonActual =
     mainModel().LON_CORRALON;
     
-enCalle = false;    
+nodoActualId =
+    mainModel().ID_NODO_CORRALON;
+    
+enCalle = false;  
+
+if (cargaActual > 0) {
+
+    unidadesRetornadasCorralon +=
+        cargaActual;
+
+    traceln(
+        "[" + mainModel().minutoDiaActual() + "] "
+        + "Camión " + camionId
+        + " regresa con "
+        + cargaActual
+        + " unidad(es) no entregadas."
+    );
+}  
 
 cargaActual = 0;
 
@@ -4058,7 +6339,7 @@ indiceViaje++;]]></Body>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786559744707</Id>
 					<Name><![CDATA[finalizarTurnoCamion]]></Name>
-					<X>-260</X><Y>440</Y>
+					<X>-260</X><Y>350</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -4088,7 +6369,7 @@ mainModel()
 					<ReturnType><![CDATA[boolean]]></ReturnType>
 					<Id>1786562644507</Id>
 					<Name><![CDATA[tieneTrabajoRestante]]></Name>
-					<X>-260</X><Y>470</Y>
+					<X>-260</X><Y>380</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -4107,7 +6388,7 @@ mainModel()
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786562834010</Id>
 					<Name><![CDATA[iniciarCarga]]></Name>
-					<X>-260</X><Y>500</Y>
+					<X>-260</X><Y>410</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -4166,12 +6447,353 @@ traceln(
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786563033916</Id>
 					<Name><![CDATA[activarEjecucion]]></Name>
-					<X>-260</X><Y>530</Y>
+					<X>-260</X><Y>440</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>true</ShowLabel>
 					<Body><![CDATA[scOperacion.onChange();]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1786578445652</Id>
+					<Name><![CDATA[evaluarClienteActual]]></Name>
+					<X>-260</X><Y>470</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[if (pedidoActual == null) {
+
+    throw new IllegalStateException(
+        "pedidoActual es null."
+    );
+}
+
+
+ResultadoAtencionCliente resultado =
+    mainModel()
+        .evaluarLlegadaCliente(
+            pedidoActual.input,
+            pedidoActual.minutoLlegada
+        );
+
+
+decisionClienteActual =
+    resultado.decision;
+
+duracionEsperaClienteActualMin =
+    resultado.esperaMin;
+
+
+pedidoActual.anticipacionLlegadaMin =
+    resultado.anticipacionMin;
+
+pedidoActual.tardanzaLlegadaMin =
+    resultado.tardanzaMin;
+
+pedidoActual.aceptadoAntes =
+    resultado.aceptadoAntes;
+
+pedidoActual.llegadaTardia =
+    resultado.llegadaTardia;
+
+
+traceln(
+    "[" + mainModel().minutoDiaActual() + "] "
+    + "Cliente "
+    + pedidoActual.input.pedidoId
+    + ": "
+    + resultado
+);]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1786578462420</Id>
+					<Name><![CDATA[iniciarEsperaCliente]]></Name>
+					<X>-260</X><Y>500</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[if (pedidoActual == null) {
+
+    throw new IllegalStateException(
+        "pedidoActual es null."
+    );
+}
+
+
+pedidoActual.estado =
+    EstadoPedido.ESPERANDO;
+
+pedidoActual.minutoInicioEspera =
+    mainModel().minutoDiaActual();
+
+pedidoActual.tiempoEsperaClienteMin =
+    duracionEsperaClienteActualMin;
+
+
+traceln(
+    "[" + mainModel().minutoDiaActual() + "] "
+    + "Camión " + camionId
+    + " espera "
+    + duracionEsperaClienteActualMin
+    + " min por "
+    + pedidoActual.input.pedidoId
+);]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1786578480444</Id>
+					<Name><![CDATA[iniciarDescarga]]></Name>
+					<X>-260</X><Y>530</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[if (pedidoActual == null) {
+
+    throw new IllegalStateException(
+        "pedidoActual es null."
+    );
+}
+
+
+duracionDescargaActualMin =
+    mainModel()
+        .tiempoDescargaMin(
+            pedidoActual.input
+        );
+
+
+pedidoActual.minutoInicioDescarga =
+    mainModel().minutoDiaActual();
+
+pedidoActual.duracionDescargaMin =
+    duracionDescargaActualMin;
+
+
+traceln(
+    "[" + mainModel().minutoDiaActual() + "] "
+    + "Camión " + camionId
+    + " inicia descarga de "
+    + pedidoActual.input.pedidoId
+    + ". Duración="
+    + duracionDescargaActualMin
+    + " min"
+);]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1786578497196</Id>
+					<Name><![CDATA[finalizarPedidoNoEntregadoActual]]></Name>
+					<X>-260</X><Y>560</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[motivo]]></Name>
+						<Type><![CDATA[String]]></Type>
+					</Parameter>
+					<Body><![CDATA[if (pedidoActual == null) {
+
+    throw new IllegalStateException(
+        "pedidoActual es null."
+    );
+}
+
+boolean hayVolcadorDespues =
+    hayVolcadorPendienteDespues();
+
+pedidoActual.estado =
+    EstadoPedido.NO_ENTREGADO;
+
+pedidoActual.minutoNoEntrega =
+    mainModel().minutoDiaActual();
+
+pedidoActual.motivoNoEntrega =
+    motivo;
+
+
+traceln(
+    "[" + mainModel().minutoDiaActual() + "] "
+    + "Camión " + camionId
+    + " NO pudo entregar "
+    + pedidoActual.input.pedidoId
+    + ". Motivo="
+    + motivo
+    + ". La carga permanece en el camión."
+);
+
+
+// IMPORTANTE:
+// NO reducimos cargaActual.
+
+indicePedido++;
+
+pedidoActual = null;
+
+if (hayVolcadorDespues) {
+
+    abortarViajeActual = true;
+
+    marcarRestantesComoNoEntregados(
+        "VIAJE_ABORTADO_POR_RECHAZO_ANTES_DE_VOLCADOR"
+    );
+
+
+    traceln(
+        "[" + mainModel().minutoDiaActual() + "] "
+        + "Camión " + camionId
+        + " aborta el viaje por seguridad: "
+        + "quedó material rechazado antes de un volcador."
+    );
+}]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[boolean]]></ReturnType>
+					<Id>1786580523308</Id>
+					<Name><![CDATA[hayVolcadorPendienteDespues]]></Name>
+					<X>-260</X><Y>590</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[if (viajeActual == null) {
+    return false;
+}
+
+
+for (
+    int i = indicePedido + 1;
+    i < viajeActual.pedidoIds.size();
+    i++
+) {
+
+    PedidoInput pedido =
+        mainModel()
+            .obtenerPedidoInput(
+                viajeActual.pedidoIds.get(i)
+            );
+
+    if (pedido.requiereVolcador) {
+        return true;
+    }
+}
+
+
+return false;]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1786580550444</Id>
+					<Name><![CDATA[marcarRestantesComoNoEntregados]]></Name>
+					<X>-260</X><Y>620</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[motivo]]></Name>
+						<Type><![CDATA[String]]></Type>
+					</Parameter>
+					<Body><![CDATA[if (viajeActual == null) {
+    return;
+}
+
+
+for (
+    int i = indicePedido;
+    i < viajeActual.pedidoIds.size();
+    i++
+) {
+
+    String pedidoId =
+        viajeActual.pedidoIds.get(i);
+
+    PedidoRuntime runtime =
+        mainModel()
+            .obtenerPedidoRuntime(
+                pedidoId
+            );
+
+
+    if (
+        runtime.estado
+        == EstadoPedido.ENTREGADO
+    ) {
+        continue;
+    }
+
+
+    runtime.estado =
+        EstadoPedido.NO_ENTREGADO;
+
+    runtime.minutoNoEntrega =
+        mainModel().minutoDiaActual();
+
+    runtime.motivoNoEntrega =
+        motivo;
+
+
+    traceln(
+        "[" + mainModel().minutoDiaActual() + "] "
+        + pedidoId
+        + " queda NO_ENTREGADO. Motivo="
+        + motivo
+    );
+}
+
+
+// No intentaremos ningún otro pedido
+// de este viaje.
+indicePedido =
+    viajeActual.pedidoIds.size();]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1786582941877</Id>
+					<Name><![CDATA[prepararRegresoCorralon]]></Name>
+					<X>-260</X><Y>650</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[duracionViajeActualMin =
+    mainModel()
+        .obtenerTiempoViajeMin(
+            nodoActualId,
+            mainModel().ID_NODO_CORRALON
+        );
+
+
+distanciaViajeActualMetros =
+    mainModel()
+        .obtenerDistanciaViajeMetros(
+            nodoActualId,
+            mainModel().ID_NODO_CORRALON
+        );
+
+
+traceln(
+    "[" + mainModel().minutoDiaActual() + "] "
+    + "Camión " + camionId
+    + " regresa al corralón. Distancia="
+    + distanciaViajeActualMetros
+    + " m"
+    + ", tiempo="
+    + duracionViajeActualMin
+    + " min"
+);]]></Body>
 				</Function>
 			</Functions>
 			<AgentLinks>
@@ -4399,15 +7021,6 @@ traceln(
 					<ParameterName><![CDATA[MODO_EJECUCION]]></ParameterName>
 				</Parameter>
 				<Parameter>
-					<ParameterName><![CDATA[TIEMPO_VIAJE_TRAMO_PRUEBA_MIN]]></ParameterName>
-				</Parameter>
-				<Parameter>
-					<ParameterName><![CDATA[TIEMPO_DESCARGA_BASE_PRUEBA_MIN]]></ParameterName>
-				</Parameter>
-				<Parameter>
-					<ParameterName><![CDATA[TIEMPO_DESCARGA_POR_UNIDAD_PRUEBA_MIN]]></ParameterName>
-				</Parameter>
-				<Parameter>
 					<ParameterName><![CDATA[CARGA_SETUP_MIN]]></ParameterName>
 				</Parameter>
 				<Parameter>
@@ -4424,6 +7037,90 @@ traceln(
 				</Parameter>
 				<Parameter>
 					<ParameterName><![CDATA[CARGA_FACTOR_VARIACION_MAX]]></ParameterName>
+				</Parameter>
+				<Parameter>
+					<ParameterName><![CDATA[CLIENTE_PROB_ACEPTAR_ANTES]]></ParameterName>
+				</Parameter>
+				<Parameter>
+					<ParameterName><![CDATA[CLIENTE_MAX_ANTICIPACION_ACEPTABLE_MIN]]></ParameterName>
+				</Parameter>
+				<Parameter>
+					<ParameterName><![CDATA[CLIENTE_PROB_ACEPTAR_TARDE]]></ParameterName>
+				</Parameter>
+				<Parameter>
+					<ParameterName><![CDATA[CLIENTE_ESPERA_RESPUESTA_MIN]]></ParameterName>
+				</Parameter>
+				<Parameter>
+					<ParameterName><![CDATA[CLIENTE_ESPERA_RESPUESTA_MODA]]></ParameterName>
+				</Parameter>
+				<Parameter>
+					<ParameterName><![CDATA[CLIENTE_ESPERA_RESPUESTA_MAX]]></ParameterName>
+				</Parameter>
+				<Parameter>
+					<ParameterName><![CDATA[DESCARGA_SETUP_MIN]]></ParameterName>
+				</Parameter>
+				<Parameter>
+					<ParameterName><![CDATA[DESCARGA_MIN_POR_UNIDAD]]></ParameterName>
+				</Parameter>
+				<Parameter>
+					<ParameterName><![CDATA[DESCARGA_FACTOR_VARIACION_MIN]]></ParameterName>
+				</Parameter>
+				<Parameter>
+					<ParameterName><![CDATA[DESCARGA_FACTOR_VARIACION_MODA]]></ParameterName>
+				</Parameter>
+				<Parameter>
+					<ParameterName><![CDATA[DESCARGA_FACTOR_VARIACION_MAX]]></ParameterName>
+				</Parameter>
+				<Parameter>
+					<ParameterName><![CDATA[PROVEEDORES_HABILITADOS]]></ParameterName>
+				</Parameter>
+				<Parameter>
+					<ParameterName><![CDATA[PROVEEDOR_MEDIA_ENTRE_LLEGADAS_MIN]]></ParameterName>
+				</Parameter>
+				<Parameter>
+					<ParameterName><![CDATA[PROVEEDOR_PROB_REQUIERE_DOS_EMPLEADOS]]></ParameterName>
+				</Parameter>
+				<Parameter>
+					<ParameterName><![CDATA[PROVEEDOR_DURACION_MIN]]></ParameterName>
+				</Parameter>
+				<Parameter>
+					<ParameterName><![CDATA[PROVEEDOR_DURACION_MODA]]></ParameterName>
+				</Parameter>
+				<Parameter>
+					<ParameterName><![CDATA[PROVEEDOR_DURACION_MAX]]></ParameterName>
+				</Parameter>
+				<Parameter>
+					<ParameterName><![CDATA[ID_NODO_CORRALON]]></ParameterName>
+				</Parameter>
+				<Parameter>
+					<ParameterName><![CDATA[TRAFICO_VELOCIDAD_BASE_KMH]]></ParameterName>
+				</Parameter>
+				<Parameter>
+					<ParameterName><![CDATA[TRAFICO_FACTOR_URBANO_DISTANCIA]]></ParameterName>
+				</Parameter>
+				<Parameter>
+					<ParameterName><![CDATA[TRAFICO_FACTOR_NORMAL]]></ParameterName>
+				</Parameter>
+				<Parameter>
+					<ParameterName><![CDATA[TRAFICO_FACTOR_PICO_MANANA]]></ParameterName>
+				</Parameter>
+				<Parameter>
+					<ParameterName><![CDATA[TRAFICO_PICO_MANANA_FIN_MIN]]></ParameterName>
+				</Parameter>
+				<Parameter>
+					<ParameterName><![CDATA[TRAFICO_FACTOR_PICO_TARDE]]></ParameterName>
+				</Parameter>
+				<Parameter>
+					<ParameterName><![CDATA[TRAFICO_PICO_TARDE_INICIO_MIN]]></ParameterName>
+				</Parameter>
+				<Parameter>
+					<ParameterName><![CDATA[TRAFICO_RUIDO_FACTOR_MIN]]></ParameterName>
+				</Parameter>
+				<Parameter>
+					<ParameterName><![CDATA[TRAFICO_RUIDO_FACTOR_MAX]]></ParameterName>
+				</Parameter>
+				<Parameter>
+					<ParameterName><![CDATA[TRAFICO_BUCKET_MIN]]></ParameterName>
 				</Parameter>
 			</Parameters>
 			<PresentationProperties>
@@ -4732,6 +7429,26 @@ public class PedidoRuntime implements Serializable {
 	public double minutoLlegada = -1.0;
 
 	public double minutoEntrega = -1.0;
+	
+	public double minutoInicioEspera = -1.0;
+
+	public double tiempoEsperaClienteMin = 0.0;
+
+	public double minutoInicioDescarga = -1.0;
+
+	public double duracionDescargaMin = 0.0;
+
+	public double anticipacionLlegadaMin = 0.0;
+
+	public double tardanzaLlegadaMin = 0.0;
+
+	public boolean aceptadoAntes = false;
+
+	public boolean llegadaTardia = false;
+
+	public double minutoNoEntrega = -1.0;
+
+	public String motivoNoEntrega = "";
 
 
 	public PedidoRuntime() {
@@ -4796,6 +7513,538 @@ public class TrabajadorRuntime implements Serializable {
 	@Override
 	public String toString() {
 	    return trabajadorId;
+	}
+
+}]]></Text>
+		</JavaClass>
+		<!--   =========   Java Class   ========  -->
+		<JavaClass>
+			<Id>1786577951960</Id>
+			<Name><![CDATA[ResultadoAtencionCliente]]></Name>
+			<Folder>1786556019063</Folder>
+			<Text><![CDATA[/**
+ * ResultadoAtencionCliente
+ */	
+public class ResultadoAtencionCliente implements Serializable {
+
+	public DecisionAtencionCliente decision =
+		    DecisionAtencionCliente.DESCARGAR_AHORA;
+
+	public double esperaMin = 0.0;
+
+	public double anticipacionMin = 0.0;
+
+	public double tardanzaMin = 0.0;
+
+	public boolean aceptadoAntes = false;
+
+	public boolean llegadaTardia = false;
+
+	public String motivo = "";
+
+
+	@Override
+	public String toString() {
+	    return "ResultadoAtencionCliente{" +
+	        "decision=" + decision +
+	        ", esperaMin=" + esperaMin +
+	        ", anticipacionMin=" + anticipacionMin +
+	        ", tardanzaMin=" + tardanzaMin +
+	        ", aceptadoAntes=" + aceptadoAntes +
+	        ", llegadaTardia=" + llegadaTardia +
+	        ", motivo='" + motivo + '\'' +
+	        '}';
+	}
+
+}]]></Text>
+		</JavaClass>
+		<!--   =========   Java Class   ========  -->
+		<JavaClass>
+			<Id>1786580719003</Id>
+			<Name><![CDATA[SolicitudProveedorRuntime]]></Name>
+			<Folder>1786556019063</Folder>
+			<Text><![CDATA[/**
+ * SolicitudProveedorRuntime
+ */	
+public class SolicitudProveedorRuntime implements Serializable {
+
+	public int solicitudId = -1;
+
+	public double minutoLlegada = -1.0;
+
+	public int empleadosRequeridos = 1;
+
+	public double duracionAtencionMin = 0.0;
+
+	public double minutoInicioAtencion = -1.0;
+
+	public double minutoFinPrevisto = -1.0;
+
+	public double minutoFinReal = -1.0;
+	
+	public String motivoCierre = "";
+
+	public EstadoSolicitudProveedor estado =
+	    EstadoSolicitudProveedor.PENDIENTE;
+
+
+	public java.util.ArrayList<TrabajadorRuntime> empleadosAsignados =
+	    new java.util.ArrayList<TrabajadorRuntime>();
+
+
+	@Override
+	public String toString() {
+
+	    return "SolicitudProveedorRuntime{" +
+	        "id=" + solicitudId +
+	        ", llegada=" + minutoLlegada +
+	        ", empleados=" + empleadosRequeridos +
+	        ", duracion=" + duracionAtencionMin +
+	        ", estado=" + estado +
+	        '}';
+	}
+
+}]]></Text>
+		</JavaClass>
+		<!--   =========   Java Class   ========  -->
+		<JavaClass>
+			<Id>1786581926464</Id>
+			<Name><![CDATA[TravelTimeProvider]]></Name>
+			<Text><![CDATA[public interface TravelTimeProvider
+{
+	double tiempoViajeMin(
+	    String origenId,
+	    String destinoId,
+	    double minutoDia
+	);
+
+
+	double distanciaMetros(
+	    String origenId,
+	    String destinoId
+	);
+
+
+	double tiempoBaseMin(
+	    String origenId,
+	    String destinoId
+	);
+
+
+	String nombreProvider();
+}]]></Text>
+		</JavaClass>
+		<!--   =========   Java Class   ========  -->
+		<JavaClass>
+			<Id>1786581982105</Id>
+			<Name><![CDATA[MatrizTiemposViaje]]></Name>
+			<Folder>1786556019063</Folder>
+			<Text><![CDATA[/**
+ * MatrizTiemposViaje
+ */	
+public class MatrizTiemposViaje implements Serializable {
+
+	public String matrizId = "";
+
+	public java.util.ArrayList<String> nodoIds =
+	    new java.util.ArrayList<String>();
+
+	public java.util.HashMap<String, Integer> indicePorNodoId =
+	    new java.util.HashMap<String, Integer>();
+
+	public double[][] distanciaMetros =
+	    new double[0][0];
+
+	public double[][] tiempoBaseMin =
+	    new double[0][0];
+
+
+	public void inicializar(
+	    java.util.List<String> ids
+	) {
+
+	    nodoIds.clear();
+	    indicePorNodoId.clear();
+
+
+	    for (String id : ids) {
+
+	        if (
+	            id == null
+	            || id.trim().isEmpty()
+	        ) {
+
+	            throw new IllegalArgumentException(
+	                "La matriz recibió un nodo sin ID."
+	            );
+	        }
+
+
+	        if (indicePorNodoId.containsKey(id)) {
+
+	            throw new IllegalArgumentException(
+	                "Nodo duplicado en matriz: "
+	                + id
+	            );
+	        }
+
+
+	        int indice =
+	            nodoIds.size();
+
+	        nodoIds.add(id);
+
+	        indicePorNodoId.put(
+	            id,
+	            indice
+	        );
+	    }
+
+
+	    int n =
+	        nodoIds.size();
+
+
+	    distanciaMetros =
+	        new double[n][n];
+
+	    tiempoBaseMin =
+	        new double[n][n];
+	}
+
+
+	public int indiceDe(
+	    String nodoId
+	) {
+
+	    Integer indice =
+	        indicePorNodoId.get(
+	            nodoId
+	        );
+
+
+	    if (indice == null) {
+
+	        throw new IllegalArgumentException(
+	            "Nodo inexistente en matriz: "
+	            + nodoId
+	        );
+	    }
+
+
+	    return indice;
+	}
+
+
+	public boolean contieneNodo(
+	    String nodoId
+	) {
+
+	    return indicePorNodoId
+	        .containsKey(
+	            nodoId
+	        );
+	}
+
+
+	public int cantidadNodos() {
+	    return nodoIds.size();
+	}
+
+}]]></Text>
+		</JavaClass>
+		<!--   =========   Java Class   ========  -->
+		<JavaClass>
+			<Id>1786582312675</Id>
+			<Name><![CDATA[TravelTimeProviderMatriz]]></Name>
+			<Folder>1786556019063</Folder>
+			<Text><![CDATA[/**
+ * TravelTimeProviderMatriz
+ */	
+public class TravelTimeProviderMatriz implements TravelTimeProvider {
+
+	private MatrizTiemposViaje matriz;
+
+	private long seedEjecucion;
+
+	private int bucketMin;
+
+	private int picoMananaInicioMin;
+
+	private int picoMananaFinMin;
+
+	private int picoTardeInicioMin;
+
+	private int picoTardeFinMin;
+
+	private double factorNormal;
+
+	private double factorPicoManana;
+
+	private double factorPicoTarde;
+
+	private double ruidoMin;
+
+	private double ruidoMax;
+
+
+	public TravelTimeProviderMatriz(
+	    MatrizTiemposViaje matriz,
+	    long seedEjecucion,
+	    int bucketMin,
+	    int picoMananaInicioMin,
+	    int picoMananaFinMin,
+	    int picoTardeInicioMin,
+	    int picoTardeFinMin,
+	    double factorNormal,
+	    double factorPicoManana,
+	    double factorPicoTarde,
+	    double ruidoMin,
+	    double ruidoMax
+	) {
+
+	    if (matriz == null) {
+
+	        throw new IllegalArgumentException(
+	            "matriz no puede ser null."
+	        );
+	    }
+
+
+	    if (bucketMin <= 0) {
+
+	        throw new IllegalArgumentException(
+	            "bucketMin debe ser > 0."
+	        );
+	    }
+
+
+	    if (
+	        ruidoMin <= 0.0
+	        || ruidoMax < ruidoMin
+	    ) {
+
+	        throw new IllegalArgumentException(
+	            "Rango de ruido inválido."
+	        );
+	    }
+
+
+	    this.matriz =
+	        matriz;
+
+	    this.seedEjecucion =
+	        seedEjecucion;
+
+	    this.bucketMin =
+	        bucketMin;
+
+	    this.picoMananaInicioMin =
+	        picoMananaInicioMin;
+
+	    this.picoMananaFinMin =
+	        picoMananaFinMin;
+
+	    this.picoTardeInicioMin =
+	        picoTardeInicioMin;
+
+	    this.picoTardeFinMin =
+	        picoTardeFinMin;
+
+	    this.factorNormal =
+	        factorNormal;
+
+	    this.factorPicoManana =
+	        factorPicoManana;
+
+	    this.factorPicoTarde =
+	        factorPicoTarde;
+
+	    this.ruidoMin =
+	        ruidoMin;
+
+	    this.ruidoMax =
+	        ruidoMax;
+	}
+
+
+	// =====================================================
+	// Franja horaria
+	// =====================================================
+
+	private double factorBandaHoraria(
+	    double minutoDia
+	) {
+
+	    if (
+	        minutoDia
+	            >= picoMananaInicioMin
+	        &&
+	        minutoDia
+	            < picoMananaFinMin
+	    ) {
+
+	        return factorPicoManana;
+	    }
+
+
+	    if (
+	        minutoDia
+	            >= picoTardeInicioMin
+	        &&
+	        minutoDia
+	            <= picoTardeFinMin
+	    ) {
+
+	        return factorPicoTarde;
+	    }
+
+
+	    return factorNormal;
+	}
+
+
+	// =====================================================
+	// Ruido estable por:
+	// seed + arco + bucket temporal
+	// =====================================================
+
+	private double factorRuido(
+	    String origenId,
+	    String destinoId,
+	    double minutoDia
+	) {
+
+	    int bucket =
+	        (int) Math.floor(
+	            minutoDia
+	            / bucketMin
+	        );
+
+
+	    long seedLocal =
+	        seedEjecucion;
+
+
+	    seedLocal =
+	        31L * seedLocal
+	        + origenId.hashCode();
+
+	    seedLocal =
+	        31L * seedLocal
+	        + destinoId.hashCode();
+
+	    seedLocal =
+	        31L * seedLocal
+	        + bucket;
+
+
+	    java.util.Random rngLocal =
+	        new java.util.Random(
+	            seedLocal
+	        );
+
+
+	    double u =
+	        rngLocal.nextDouble();
+
+
+	    return ruidoMin
+	        + u
+	        * (ruidoMax - ruidoMin);
+	}
+
+
+	// =====================================================
+	// Interface
+	// =====================================================
+
+	@Override
+	public double tiempoViajeMin(
+	    String origenId,
+	    String destinoId,
+	    double minutoDia
+	) {
+
+	    double base =
+	        tiempoBaseMin(
+	            origenId,
+	            destinoId
+	        );
+
+
+	    if (base == 0.0) {
+	        return 0.0;
+	    }
+
+
+	    double banda =
+	        factorBandaHoraria(
+	            minutoDia
+	        );
+
+
+	    double ruido =
+	        factorRuido(
+	            origenId,
+	            destinoId,
+	            minutoDia
+	        );
+
+
+	    return base
+	        * banda
+	        * ruido;
+	}
+
+
+	@Override
+	public double distanciaMetros(
+	    String origenId,
+	    String destinoId
+	) {
+
+	    int i =
+	        matriz.indiceDe(
+	            origenId
+	        );
+
+	    int j =
+	        matriz.indiceDe(
+	            destinoId
+	        );
+
+
+	    return matriz
+	        .distanciaMetros[i][j];
+	}
+
+
+	@Override
+	public double tiempoBaseMin(
+	    String origenId,
+	    String destinoId
+	) {
+
+	    int i =
+	        matriz.indiceDe(
+	            origenId
+	        );
+
+	    int j =
+	        matriz.indiceDe(
+	            destinoId
+	        );
+
+
+	    return matriz
+	        .tiempoBaseMin[i][j];
+	}
+
+
+	@Override
+	public String nombreProvider() {
+	    return "MATRIZ_OFFLINE";
 	}
 
 }]]></Text>
