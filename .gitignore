@@ -31,3 +31,6 @@ results/*
 
 models/*
 !models/.gitkeep
+
+# RL generated artifacts
+python/rl_artifacts/

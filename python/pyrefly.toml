@@ -1,0 +1,66 @@
+# ============================================================
+# ARCHIVOS DEL PROYECTO
+# ============================================================
+
+project-includes = [
+    "planner",
+    "tests",
+    "scripts",
+]
+
+project-excludes = [
+    "rl_artifacts",
+    "**/__pycache__",
+    "**/.pytest_cache",
+]
+
+
+# ============================================================
+# RESOLUCIÓN DE IMPORTS
+# ============================================================
+#
+# Este archivo está dentro de python/.
+# Por eso "." representa la raíz desde la que se importa
+# el paquete planner.
+
+search-path = [
+    ".",
+]
+
+
+# ============================================================
+# ENTORNO DE PYTHON
+# ============================================================
+#
+# Estructura:
+#
+# PedemonteDigitalTwin_v2/
+# ├── .venv/
+# └── python/
+#     └── pyrefly.toml
+
+python-interpreter-path = "../.venv/Scripts/python.exe"
+
+python-version = "3.11"
+
+
+# ============================================================
+# DIAGNÓSTICOS
+# ============================================================
+#
+# Conservamos activos errores reales como:
+#
+# - missing-import
+# - unknown-name
+# - no-matching-overload
+# - bad-assignment
+# - invalid-argument
+#
+# Sólo deshabilitamos la advertencia estética que propone
+# eliminar conversiones explícitas. En este proyecto muchas
+# conversiones se usan deliberadamente en límites entre
+# NumPy, Gymnasium, SB3 y los DTO propios.
+
+[errors]
+
+unnecessary-type-conversion = false

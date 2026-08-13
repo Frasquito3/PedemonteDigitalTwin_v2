@@ -1,4 +1,4 @@
-from planner.schema import (
+from planner.core.schema import (
     InstanciaTurno,
     PedidoInput,
     Turno,
