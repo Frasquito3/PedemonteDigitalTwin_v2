@@ -558,6 +558,156 @@
 						</InitialValue>
 					</Properties>
 				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1786647931100</Id>
+					<Name><![CDATA[alpyneConfigurado]]></Name>
+					<X>-1100</X><Y>580</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[boolean]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[false]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1786647943988</Id>
+					<Name><![CDATA[alpyneAccionRecibida]]></Name>
+					<X>-1100</X><Y>610</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[boolean]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[false]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1786647953789</Id>
+					<Name><![CDATA[alpyneError]]></Name>
+					<X>-1100</X><Y>640</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[boolean]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[false]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1786647964188</Id>
+					<Name><![CDATA[alpyneMensaje]]></Name>
+					<X>-1100</X><Y>670</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[""]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1786647976748</Id>
+					<Name><![CDATA[alpyneAccionCodigo]]></Name>
+					<X>-1100</X><Y>700</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[int]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[0]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1786650872969</Id>
+					<Name><![CDATA[alpynePlanVector]]></Name>
+					<X>-1100</X><Y>730</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>false</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[double[]]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[new double[0]]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1786650889481</Id>
+					<Name><![CDATA[alpyneInstanciaAceptada]]></Name>
+					<X>-1100</X><Y>760</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[boolean]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[false]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1786650901889</Id>
+					<Name><![CDATA[alpynePlanAceptado]]></Name>
+					<X>-1100</X><Y>790</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[boolean]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[false]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1786650911857</Id>
+					<Name><![CDATA[alpyneCantidadPedidos]]></Name>
+					<X>-1100</X><Y>820</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[int]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[0]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1786650920369</Id>
+					<Name><![CDATA[alpyneProtocoloVersion]]></Name>
+					<X>-1100</X><Y>850</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[int]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[1]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
 				<Variable Class="Parameter">
 					<Id>1786556369483</Id>
 					<Name><![CDATA[CAPACIDAD_CAMION]]></Name>
@@ -1896,6 +2046,54 @@
 						</ParameterEditor>
 					</Properties>                 
 				</Variable>
+				<Variable Class="Parameter">
+					<Id>1786652582773</Id>
+					<Name><![CDATA[alpyneSeedEjecucion]]></Name>
+					<X>-420</X><Y>1660</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" ModificatorType="STATIC">
+						<Type><![CDATA[int]]></Type>
+						<UnitType><![CDATA[NONE]]></UnitType>
+						<SdArray>false</SdArray>
+						<DefaultValue Class="CodeValue">
+							<Code><![CDATA[2001]]></Code>
+						</DefaultValue>
+						<ParameterEditor>
+							<Id>1786652582771</Id>
+							<EditorContolType>TEXT_BOX</EditorContolType>
+							<MinSliderValue><![CDATA[0]]></MinSliderValue>
+							<MaxSliderValue><![CDATA[100]]></MaxSliderValue>
+							<DelimeterType>NO_DELIMETER</DelimeterType>
+						</ParameterEditor>
+					</Properties>                 
+				</Variable>
+				<Variable Class="Parameter">
+					<Id>1786652622142</Id>
+					<Name><![CDATA[alpyneInstanciaVector]]></Name>
+					<X>-420</X><Y>1690</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" ModificatorType="STATIC">
+						<Type><![CDATA[double[]]]></Type>
+						<UnitType><![CDATA[NONE]]></UnitType>
+						<SdArray>false</SdArray>
+						<DefaultValue Class="CodeValue">
+							<Code><![CDATA[new double[0]]]></Code>
+						</DefaultValue>
+						<ParameterEditor>
+							<Id>1786652622140</Id>
+							<EditorContolType>TEXT_BOX</EditorContolType>
+							<MinSliderValue><![CDATA[0]]></MinSliderValue>
+							<MaxSliderValue><![CDATA[100]]></MaxSliderValue>
+							<DelimeterType>NO_DELIMETER</DelimeterType>
+						</ParameterEditor>
+					</Properties>                 
+				</Variable>
 			</Variables>
 			<Events>
 				<Event>
@@ -1963,6 +2161,91 @@ programarProximaLlegadaProveedor();]]></Action>
 						<Condition><![CDATA[false]]></Condition>
 					</Properties>
 					<Action><![CDATA[procesarFinAtencionesProveedor();]]></Action>
+				</Event>
+				<Event>
+					<Id>1786648252277</Id>
+					<Name><![CDATA[eventoDecisionAlpyne]]></Name>
+					<X>-1360</X><Y>100</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties TriggerType="timeout" Mode="occuresOnce">
+						<Timeout Class="CodeUnitValue">
+							<Code><![CDATA[1]]></Code>
+							<Unit Class="TimeUnits"><![CDATA[MINUTE]]></Unit>
+						</Timeout>
+						<Rate Class="CodeUnitValue">
+							<Code><![CDATA[1]]></Code>
+							<Unit Class="RateUnits"><![CDATA[PER_MINUTE]]></Unit>
+						</Rate>
+						<Id>1786648252275</Id>
+						<OccurrenceAtTime>true</OccurrenceAtTime>
+						<OccurrenceDate>1786694400000</OccurrenceDate>
+						<OccurrenceTime Class="CodeUnitValue">
+							<Code><![CDATA[0]]></Code>
+							<Unit Class="TimeUnits"><![CDATA[MINUTE]]></Unit>
+						</OccurrenceTime>
+						<RecurrenceCode Class="CodeUnitValue">
+							<Code><![CDATA[1]]></Code>
+							<Unit Class="TimeUnits"><![CDATA[MINUTE]]></Unit>
+						</RecurrenceCode>
+						<Condition><![CDATA[false]]></Condition>
+					</Properties>
+					<Action><![CDATA[if (
+    MODO_EJECUCION
+        == ModoEjecucion.RL_TRAINING
+
+    ||
+
+    MODO_EJECUCION
+        == ModoEjecucion.RL_EVALUATION
+) {
+
+    alpyneConfigurado =
+        true;
+
+    alpyneAccionRecibida =
+        false;
+
+    alpyneAccionCodigo =
+        0;
+
+    alpynePlanVector =
+        new double[0];
+
+    alpyneError =
+        false;
+
+    alpyneInstanciaAceptada =
+        false;
+
+    alpynePlanAceptado =
+        false;
+
+    alpyneCantidadPedidos =
+        0;
+
+    alpyneMensaje =
+    "ESPERANDO ACCIÓN";
+
+
+	traceln(
+	    "ALPYNE CONFIG | seed="
+	    + alpyneSeedEjecucion
+	    + " | instanciaVector.length="
+	    + (
+	        alpyneInstanciaVector == null
+	        ? -1
+	        : alpyneInstanciaVector.length
+	    )
+	);
+	
+	
+	AlpyneExperiment.takeAction(
+	    this
+	);
+}]]></Action>
 				</Event>
 			</Events>
 			<Functions>
@@ -2562,6 +2845,20 @@ if (
 
     resultadoActual =
     	construirResultadoTurno();
+    	
+   	if (
+    MODO_EJECUCION
+        == ModoEjecucion.RL_TRAINING
+
+    ||
+
+    MODO_EJECUCION
+        == ModoEjecucion.RL_EVALUATION
+	) {
+	
+	    alpyneMensaje =
+	        "EJECUCIÓN FINALIZADA";
+	}
 
 
     traceln("");
@@ -3001,7 +3298,7 @@ ViajePlan viaje02 =
 viaje02.numeroViaje = 2;
 
 viaje02.pedidoIds.add("P001");
-viaje01.pedidoIds.add("P003");
+viaje02.pedidoIds.add("P003");
 
 camion0.viajes.add(
     viaje02
@@ -3795,11 +4092,31 @@ ResultadoAtencionCliente resultado =
     new ResultadoAtencionCliente();
 
 
-double desde =
-    pedido.horaDesdeMin;
+double desde;
 
-double hasta =
-    pedido.horaHastaMin;
+double hasta;
+
+
+if (pedido.tieneVentanaEspecifica) {
+
+    desde =
+        pedido.horaDesdeMin;
+
+    hasta =
+        pedido.horaHastaMin;
+
+} else {
+
+    desde =
+        horaInicioTurno(
+            pedido.turno
+        );
+
+    hasta =
+        horaFinObjetivoTurno(
+            pedido.turno
+        );
+}
 
 
 // =====================================================
@@ -6309,6 +6626,1644 @@ traceln("=== COSTO PRELIMINAR ===");
 traceln(
     resultado.desgloseCosto
 );]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[InstanciaTurno]]></ReturnType>
+					<Id>1786648005413</Id>
+					<Name><![CDATA[crearInstanciaAlpyneHandshake]]></Name>
+					<X>-810</X><Y>1600</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[seed]]></Name>
+						<Type><![CDATA[int]]></Type>
+					</Parameter>
+					<Body><![CDATA[InstanciaTurno instancia =
+    new InstanciaTurno();
+
+
+instancia.instanciaId =
+    "ALPYNE-HANDSHAKE-"
+    + seed;
+
+instancia.fechaOperacion =
+    "2026-08-13";
+
+instancia.turno =
+    Turno.MANANA;
+
+
+instancia.latCorralon =
+    LAT_CORRALON;
+
+instancia.lonCorralon =
+    LON_CORRALON;
+
+
+instancia.capacidadCamion =
+    CAPACIDAD_CAMION;
+
+instancia.cantidadCamiones =
+    CANTIDAD_CAMIONES;
+
+
+instancia.horaInicioTurnoMin =
+    horaInicioTurno(
+        instancia.turno
+    );
+
+instancia.horaFinObjetivoMin =
+    horaFinObjetivoTurno(
+        instancia.turno
+    );
+
+instancia.horaFinToleranciaMin =
+    horaFinToleranciaTurno(
+        instancia.turno
+    );
+
+
+instancia.seedEscenario =
+    seed;
+
+instancia.seedEjecucion =
+    seed;
+
+
+// Pedido pequeño y cercano al corralón.
+// La intención es terminar el episodio
+// bastante antes de 60 minutos simulados.
+
+PedidoInput pedido =
+    crearPedidoPrueba(
+        "ALP-P001",
+        1,
+        false,
+        LAT_CORRALON + 0.001,
+        LON_CORRALON + 0.001
+    );
+
+
+pedido.cliente =
+    "Cliente handshake Alpyne";
+
+pedido.direccion =
+    "Ubicación de prueba";
+
+pedido.barrio =
+    "TEST_ALPYNE";
+
+
+instancia.pedidos.add(
+    pedido
+);
+
+
+return instancia;]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[PlanTurno]]></ReturnType>
+					<Id>1786648081442</Id>
+					<Name><![CDATA[crearPlanAlpyneHandshake]]></Name>
+					<X>-810</X><Y>1630</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[instancia]]></Name>
+						<Type><![CDATA[InstanciaTurno]]></Type>
+					</Parameter>
+					<Body><![CDATA[if (instancia == null) {
+
+    throw new IllegalArgumentException(
+        "La instancia Alpyne no puede ser null."
+    );
+}
+
+
+PlanTurno plan =
+    new PlanTurno();
+
+
+plan.instanciaId =
+    instancia.instanciaId;
+
+plan.algoritmo =
+    AlgoritmoPlanificacion.MANUAL_TEST;
+
+plan.costoEstimado =
+    0.0;
+
+plan.tiempoComputoMs =
+    0.0;
+
+
+// =====================================================
+// CAMIÓN 0
+// =====================================================
+
+PlanCamion camion0 =
+    new PlanCamion();
+
+camion0.camionId =
+    0;
+
+
+ViajePlan viaje0 =
+    new ViajePlan();
+
+viaje0.numeroViaje =
+    1;
+
+viaje0.pedidoIds.add(
+    "ALP-P001"
+);
+
+
+camion0.viajes.add(
+    viaje0
+);
+
+
+// =====================================================
+// CAMIÓN 1
+// =====================================================
+//
+// Se incluye porque el validador exige exactamente
+// CANTIDAD_CAMIONES elementos PlanCamion.
+// Puede tener cero viajes.
+
+PlanCamion camion1 =
+    new PlanCamion();
+
+camion1.camionId =
+    1;
+
+
+// =====================================================
+// PLAN COMPLETO
+// =====================================================
+
+plan.camiones.add(
+    camion0
+);
+
+plan.camiones.add(
+    camion1
+);
+
+
+return plan;]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1786648136315</Id>
+					<Name><![CDATA[procesarAccionAlpyne]]></Name>
+					<X>-810</X><Y>1660</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[accionCodigo]]></Name>
+						<Type><![CDATA[int]]></Type>
+					</Parameter>
+					<Body><![CDATA[alpyneAccionRecibida =
+    true;
+
+alpyneAccionCodigo =
+    accionCodigo;
+
+alpyneError =
+    false;
+
+alpyneInstanciaAceptada =
+    false;
+
+alpynePlanAceptado =
+    false;
+
+alpyneCantidadPedidos =
+    0;
+
+alpyneMensaje =
+    "ACCIÓN RECIBIDA";
+
+
+if (ejecucionEnCurso) {
+
+    alpyneError =
+        true;
+
+    alpyneMensaje =
+        "Ya existe una ejecución en curso.";
+
+    return;
+}
+
+
+try {
+
+    InstanciaTurno instancia;
+
+    PlanTurno plan;
+
+
+    if (accionCodigo == 1) {
+
+        instancia =
+            crearInstanciaAlpyneHandshake(
+                alpyneSeedEjecucion
+            );
+
+        plan =
+            crearPlanAlpyneHandshake(
+                instancia
+            );
+
+    } else if (accionCodigo == 2) {
+
+        instancia =
+            crearInstanciaAlpyneDinamica(
+                alpyneInstanciaVector,
+                alpyneSeedEjecucion
+            );
+
+        alpyneInstanciaAceptada =
+            true;
+
+        alpyneCantidadPedidos =
+            instancia.pedidos.size();
+
+
+        plan =
+            crearPlanAlpyneDinamico(
+                alpynePlanVector,
+                instancia
+            );
+
+    } else {
+
+        throw new IllegalArgumentException(
+            "Código de acción no soportado: "
+            + accionCodigo
+        );
+    }
+
+
+    alpyneInstanciaAceptada =
+        true;
+
+    alpyneCantidadPedidos =
+        instancia.pedidos.size();
+
+
+    ResultadoValidacionPlan validacion =
+        validarPlan(
+            instancia,
+            plan
+        );
+
+
+    if (!validacion.valido) {
+
+        alpyneError =
+            true;
+
+        alpyneMensaje =
+            "Plan Alpyne inválido: "
+            + validacion.errores;
+
+        return;
+    }
+
+
+    alpynePlanAceptado =
+        true;
+
+
+    boolean inicioCorrecto =
+        ejecutarPlan(
+            instancia,
+            plan
+        );
+
+
+    if (!inicioCorrecto) {
+
+        alpyneError =
+            true;
+
+        alpynePlanAceptado =
+            false;
+
+        alpyneMensaje =
+            "ejecutarPlan devolvió false.";
+
+        return;
+    }
+
+
+    alpyneMensaje =
+        accionCodigo == 1
+        ? "PLAN HANDSHAKE EN EJECUCIÓN"
+        : "PLAN DINÁMICO EN EJECUCIÓN";
+
+
+} catch (Exception ex) {
+
+    alpyneError =
+        true;
+
+    alpyneMensaje =
+        ex.getClass().getSimpleName()
+        + ": "
+        + ex.getMessage();
+
+
+    traceln(
+        "ERROR ALPYNE: "
+        + alpyneMensaje
+    );
+}]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[boolean]]></ReturnType>
+					<Id>1786648157977</Id>
+					<Name><![CDATA[esTerminalAlpyne]]></Name>
+					<X>-810</X><Y>1690</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[return alpyneError
+    || ejecucionFinalizada;]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1786648184825</Id>
+					<Name><![CDATA[costoTotalAlpyne]]></Name>
+					<X>-810</X><Y>1720</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[if (resultadoActual == null) {
+    return 0.0;
+}
+
+return resultadoActual.costoTotal;]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[int]]></ReturnType>
+					<Id>1786648201499</Id>
+					<Name><![CDATA[tareasEntregadasAlpyne]]></Name>
+					<X>-810</X><Y>1750</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[if (
+    resultadoActual == null
+    ||
+    resultadoActual.metricasGlobales == null
+) {
+    return 0;
+}
+
+return resultadoActual
+    .metricasGlobales
+    .tareasEntregadas;]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[int]]></ReturnType>
+					<Id>1786648216161</Id>
+					<Name><![CDATA[tareasNoEntregadasAlpyne]]></Name>
+					<X>-810</X><Y>1780</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[if (
+    resultadoActual == null
+    ||
+    resultadoActual.metricasGlobales == null
+) {
+    return 0;
+}
+
+return resultadoActual
+    .metricasGlobales
+    .tareasNoEntregadas;]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[int]]></ReturnType>
+					<Id>1786648231033</Id>
+					<Name><![CDATA[viajesTotalesAlpyne]]></Name>
+					<X>-810</X><Y>1810</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[if (
+    resultadoActual == null
+    ||
+    resultadoActual.metricasGlobales == null
+) {
+    return 0;
+}
+
+return resultadoActual
+    .metricasGlobales
+    .viajesTotales;]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[int]]></ReturnType>
+					<Id>1786650931745</Id>
+					<Name><![CDATA[enteroAlpyne]]></Name>
+					<X>-810</X><Y>1840</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[valor]]></Name>
+						<Type><![CDATA[double]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[campo]]></Name>
+						<Type><![CDATA[String]]></Type>
+					</Parameter>
+					<Body><![CDATA[if (!Double.isFinite(valor)) {
+
+    throw new IllegalArgumentException(
+        campo
+        + " debe ser finito."
+    );
+}
+
+
+double redondeado =
+    Math.rint(valor);
+
+
+if (
+    Math.abs(
+        valor
+        - redondeado
+    )
+    > 1e-9
+) {
+
+    throw new IllegalArgumentException(
+        campo
+        + " debe ser entero. Valor recibido: "
+        + valor
+    );
+}
+
+
+if (
+    redondeado
+    < Integer.MIN_VALUE
+
+    ||
+
+    redondeado
+    > Integer.MAX_VALUE
+) {
+
+    throw new IllegalArgumentException(
+        campo
+        + " está fuera del rango int."
+    );
+}
+
+
+return (int) redondeado;]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[boolean]]></ReturnType>
+					<Id>1786651010081</Id>
+					<Name><![CDATA[booleanoAlpyne]]></Name>
+					<X>-810</X><Y>1870</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[valor]]></Name>
+						<Type><![CDATA[double]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[campo]]></Name>
+						<Type><![CDATA[String]]></Type>
+					</Parameter>
+					<Body><![CDATA[int valorEntero =
+    enteroAlpyne(
+        valor,
+        campo
+    );
+
+
+if (
+    valorEntero != 0
+    &&
+    valorEntero != 1
+) {
+
+    throw new IllegalArgumentException(
+        campo
+        + " debe valer 0 o 1."
+    );
+}
+
+
+return valorEntero == 1;]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[AlgoritmoPlanificacion]]></ReturnType>
+					<Id>1786651039834</Id>
+					<Name><![CDATA[algoritmoAlpyne]]></Name>
+					<X>-810</X><Y>1900</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[codigo]]></Name>
+						<Type><![CDATA[int]]></Type>
+					</Parameter>
+					<Body><![CDATA[switch (codigo) {
+
+    case 0:
+        return AlgoritmoPlanificacion.RL;
+
+    case 1:
+        return AlgoritmoPlanificacion.GA;
+
+    case 2:
+        return AlgoritmoPlanificacion.GREEDY;
+
+    case 3:
+        return AlgoritmoPlanificacion.RANDOM;
+
+    case 4:
+        return AlgoritmoPlanificacion.MANUAL_TEST;
+
+    default:
+        throw new IllegalArgumentException(
+            "Código de algoritmo no soportado: "
+            + codigo
+        );
+}]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[InstanciaTurno]]></ReturnType>
+					<Id>1786651064713</Id>
+					<Name><![CDATA[crearInstanciaAlpyneDinamica]]></Name>
+					<X>-810</X><Y>1930</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[datos]]></Name>
+						<Type><![CDATA[double[]]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[seed]]></Name>
+						<Type><![CDATA[int]]></Type>
+					</Parameter>
+					<Body><![CDATA[final int TAMANO_CABECERA =
+    8;
+
+final int TAMANO_PEDIDO =
+    10;
+
+
+if (datos == null) {
+
+    throw new IllegalArgumentException(
+        "instanciaVector no puede ser null."
+    );
+}
+
+
+if (
+    datos.length
+    < TAMANO_CABECERA
+) {
+
+    throw new IllegalArgumentException(
+        "instanciaVector no contiene "
+        + "la cabecera completa."
+    );
+}
+
+
+int version =
+    enteroAlpyne(
+        datos[0],
+        "instancia.version"
+    );
+
+
+if (
+    version
+    != alpyneProtocoloVersion
+) {
+
+    throw new IllegalArgumentException(
+        "Versión de protocolo no soportada: "
+        + version
+    );
+}
+
+
+int turnoCodigo =
+    enteroAlpyne(
+        datos[1],
+        "instancia.turnoCodigo"
+    );
+
+
+Turno turno;
+
+
+if (turnoCodigo == 0) {
+
+    turno =
+        Turno.MANANA;
+
+} else if (turnoCodigo == 1) {
+
+    turno =
+        Turno.TARDE;
+
+} else {
+
+    throw new IllegalArgumentException(
+        "turnoCodigo debe ser 0 o 1."
+    );
+}
+
+
+int cantidadPedidos =
+    enteroAlpyne(
+        datos[2],
+        "instancia.cantidadPedidos"
+    );
+
+
+if (
+    cantidadPedidos <= 0
+    ||
+    cantidadPedidos > MAX_PEDIDOS_RL
+) {
+
+    throw new IllegalArgumentException(
+        "Cantidad de pedidos fuera de rango: "
+        + cantidadPedidos
+    );
+}
+
+
+int capacidadCamion =
+    enteroAlpyne(
+        datos[3],
+        "instancia.capacidadCamion"
+    );
+
+
+if (
+    capacidadCamion
+    != CAPACIDAD_CAMION
+) {
+
+    throw new IllegalArgumentException(
+        "La capacidad recibida es "
+        + capacidadCamion
+        + ", pero el modelo utiliza "
+        + CAPACIDAD_CAMION
+        + "."
+    );
+}
+
+
+int cantidadCamiones =
+    enteroAlpyne(
+        datos[4],
+        "instancia.cantidadCamiones"
+    );
+
+
+if (
+    cantidadCamiones
+    != CANTIDAD_CAMIONES
+) {
+
+    throw new IllegalArgumentException(
+        "La cantidad de camiones recibida es "
+        + cantidadCamiones
+        + ", pero el modelo utiliza "
+        + CANTIDAD_CAMIONES
+        + "."
+    );
+}
+
+
+double latCorralon =
+    datos[5];
+
+double lonCorralon =
+    datos[6];
+
+
+if (
+    !Double.isFinite(latCorralon)
+    ||
+    latCorralon < -90.0
+    ||
+    latCorralon > 90.0
+) {
+
+    throw new IllegalArgumentException(
+        "Latitud de corralón inválida."
+    );
+}
+
+
+if (
+    !Double.isFinite(lonCorralon)
+    ||
+    lonCorralon < -180.0
+    ||
+    lonCorralon > 180.0
+) {
+
+    throw new IllegalArgumentException(
+        "Longitud de corralón inválida."
+    );
+}
+
+
+int longitudEsperada =
+    TAMANO_CABECERA
+    +
+    cantidadPedidos
+    * TAMANO_PEDIDO;
+
+
+if (
+    datos.length
+    != longitudEsperada
+) {
+
+    throw new IllegalArgumentException(
+        "Longitud incorrecta de instanciaVector. "
+        + "Esperada="
+        + longitudEsperada
+        + ", recibida="
+        + datos.length
+    );
+}
+
+
+InstanciaTurno instancia =
+    new InstanciaTurno();
+
+
+instancia.instanciaId =
+    "ALPYNE-DYNAMIC-"
+    + seed;
+
+instancia.fechaOperacion =
+    "2026-08-13";
+
+instancia.turno =
+    turno;
+
+instancia.latCorralon =
+    latCorralon;
+
+instancia.lonCorralon =
+    lonCorralon;
+
+instancia.capacidadCamion =
+    capacidadCamion;
+
+instancia.cantidadCamiones =
+    cantidadCamiones;
+
+instancia.horaInicioTurnoMin =
+    horaInicioTurno(
+        turno
+    );
+
+instancia.horaFinObjetivoMin =
+    horaFinObjetivoTurno(
+        turno
+    );
+
+instancia.horaFinToleranciaMin =
+    horaFinToleranciaTurno(
+        turno
+    );
+
+instancia.seedEscenario =
+    seed;
+
+instancia.seedEjecucion =
+    seed;
+
+
+for (
+    int i = 0;
+    i < cantidadPedidos;
+    i++
+) {
+
+    int base =
+        TAMANO_CABECERA
+        +
+        i * TAMANO_PEDIDO;
+
+
+    int pedidoIndice =
+        enteroAlpyne(
+            datos[base],
+            "pedido[" + i + "].indice"
+        );
+
+
+    if (
+        pedidoIndice
+        != i
+    ) {
+
+        throw new IllegalArgumentException(
+            "Los pedidos deben estar indexados "
+            + "consecutivamente desde cero. "
+            + "Esperado="
+            + i
+            + ", recibido="
+            + pedidoIndice
+        );
+    }
+
+
+    int originalIndice =
+        enteroAlpyne(
+            datos[base + 1],
+            "pedido[" + i + "].originalIndice"
+        );
+
+
+    if (
+        originalIndice < 0
+        ||
+        originalIndice >= cantidadPedidos
+    ) {
+
+        throw new IllegalArgumentException(
+            "Índice original fuera de rango "
+            + "para pedido "
+            + i
+            + "."
+        );
+    }
+
+
+    int numeroParte =
+        enteroAlpyne(
+            datos[base + 2],
+            "pedido[" + i + "].numeroParte"
+        );
+
+
+    int totalPartes =
+        enteroAlpyne(
+            datos[base + 3],
+            "pedido[" + i + "].totalPartes"
+        );
+
+
+    if (
+        totalPartes <= 0
+        ||
+        numeroParte <= 0
+        ||
+        numeroParte > totalPartes
+    ) {
+
+        throw new IllegalArgumentException(
+            "Partición inválida para pedido "
+            + i
+            + ": "
+            + numeroParte
+            + "/"
+            + totalPartes
+        );
+    }
+
+
+    int unidades =
+        enteroAlpyne(
+            datos[base + 4],
+            "pedido[" + i + "].unidades"
+        );
+
+
+    if (
+        unidades <= 0
+        ||
+        unidades > capacidadCamion
+    ) {
+
+        throw new IllegalArgumentException(
+            "Unidades fuera de capacidad "
+            + "para pedido "
+            + i
+            + ": "
+            + unidades
+        );
+    }
+
+
+    boolean requiereVolcador =
+        booleanoAlpyne(
+            datos[base + 5],
+            "pedido[" + i + "].requiereVolcador"
+        );
+
+
+    double latitud =
+        datos[base + 6];
+
+    double longitud =
+        datos[base + 7];
+
+
+    if (
+        !Double.isFinite(latitud)
+        ||
+        latitud < -90.0
+        ||
+        latitud > 90.0
+    ) {
+
+        throw new IllegalArgumentException(
+            "Latitud inválida para pedido "
+            + i
+            + "."
+        );
+    }
+
+
+    if (
+        !Double.isFinite(longitud)
+        ||
+        longitud < -180.0
+        ||
+        longitud > 180.0
+    ) {
+
+        throw new IllegalArgumentException(
+            "Longitud inválida para pedido "
+            + i
+            + "."
+        );
+    }
+
+
+    int horaDesde =
+        enteroAlpyne(
+            datos[base + 8],
+            "pedido[" + i + "].horaDesde"
+        );
+
+
+    int horaHasta =
+        enteroAlpyne(
+            datos[base + 9],
+            "pedido[" + i + "].horaHasta"
+        );
+
+
+    boolean tieneVentana =
+        horaDesde != -1
+        ||
+        horaHasta != -1;
+
+
+    if (
+        (horaDesde == -1)
+        !=
+        (horaHasta == -1)
+    ) {
+
+        throw new IllegalArgumentException(
+            "La ventana del pedido "
+            + i
+            + " debe indicar ambos límites "
+            + "o utilizar -1 en ambos."
+        );
+    }
+
+
+    if (tieneVentana) {
+
+        if (
+            horaDesde
+            < instancia.horaInicioTurnoMin
+
+            ||
+
+            horaHasta
+            > instancia.horaFinObjetivoMin
+
+            ||
+
+            horaDesde
+            >= horaHasta
+        ) {
+
+            throw new IllegalArgumentException(
+                "Ventana inválida para pedido "
+                + i
+                + ": "
+                + horaDesde
+                + "-"
+                + horaHasta
+            );
+        }
+    }
+
+
+    PedidoInput pedido =
+        new PedidoInput();
+
+
+    pedido.pedidoId =
+        String.format(
+            "ALP-P%03d",
+            pedidoIndice + 1
+        );
+
+
+    pedido.pedidoOriginalId =
+        String.format(
+            "ALP-O%03d",
+            originalIndice + 1
+        );
+
+
+    pedido.numeroParte =
+        numeroParte;
+
+    pedido.totalPartes =
+        totalPartes;
+
+    pedido.turno =
+        turno;
+
+    pedido.latitud =
+        latitud;
+
+    pedido.longitud =
+        longitud;
+
+    pedido.unidadesCapacidad =
+        unidades;
+
+    pedido.requiereVolcador =
+        requiereVolcador;
+
+    pedido.tieneVentanaEspecifica =
+    tieneVentana;
+
+
+	if (tieneVentana) {
+	
+	    pedido.horaDesdeMin =
+	        horaDesde;
+	
+	    pedido.horaHastaMin =
+	        horaHasta;
+	
+	} else {
+	
+	    // Un pedido sin ventana específica puede
+	    // atenderse durante todo el horario normal
+	    // del turno.
+	
+	    pedido.horaDesdeMin =
+	        instancia.horaInicioTurnoMin;
+	
+	    pedido.horaHastaMin =
+	        instancia.horaFinObjetivoMin;
+	}
+
+
+    pedido.cliente =
+        "Cliente Alpyne "
+        + (pedidoIndice + 1);
+
+    pedido.direccion =
+        "Dirección dinámica "
+        + (pedidoIndice + 1);
+
+    pedido.barrio =
+        "TEST_ALPYNE";
+
+    pedido.observaciones =
+        "Instancia recibida desde Python.";
+
+
+    instancia.pedidos.add(
+        pedido
+    );
+}
+
+
+return instancia;]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[PlanTurno]]></ReturnType>
+					<Id>1786651122801</Id>
+					<Name><![CDATA[crearPlanAlpyneDinamico]]></Name>
+					<X>-810</X><Y>1960</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[datos]]></Name>
+						<Type><![CDATA[double[]]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[instancia]]></Name>
+						<Type><![CDATA[InstanciaTurno]]></Type>
+					</Parameter>
+					<Body><![CDATA[final int TAMANO_CABECERA =
+    5;
+
+final int TAMANO_ASIGNACION =
+    4;
+
+
+if (datos == null) {
+
+    throw new IllegalArgumentException(
+        "planVector no puede ser null."
+    );
+}
+
+
+if (instancia == null) {
+
+    throw new IllegalArgumentException(
+        "La instancia dinámica no puede ser null."
+    );
+}
+
+
+if (
+    datos.length
+    < TAMANO_CABECERA
+) {
+
+    throw new IllegalArgumentException(
+        "planVector no contiene "
+        + "la cabecera completa."
+    );
+}
+
+
+int version =
+    enteroAlpyne(
+        datos[0],
+        "plan.version"
+    );
+
+
+if (
+    version
+    != alpyneProtocoloVersion
+) {
+
+    throw new IllegalArgumentException(
+        "Versión de plan no soportada: "
+        + version
+    );
+}
+
+
+int cantidadAsignaciones =
+    enteroAlpyne(
+        datos[1],
+        "plan.cantidadAsignaciones"
+    );
+
+
+if (
+    cantidadAsignaciones
+    != instancia.pedidos.size()
+) {
+
+    throw new IllegalArgumentException(
+        "El plan debe asignar exactamente "
+        + instancia.pedidos.size()
+        + " pedidos, pero declara "
+        + cantidadAsignaciones
+        + "."
+    );
+}
+
+
+int algoritmoCodigo =
+    enteroAlpyne(
+        datos[2],
+        "plan.algoritmoCodigo"
+    );
+
+
+double costoEstimado =
+    datos[3];
+
+double tiempoComputoMs =
+    datos[4];
+
+
+if (
+    !Double.isFinite(costoEstimado)
+    ||
+    costoEstimado < 0.0
+) {
+
+    throw new IllegalArgumentException(
+        "costoEstimado inválido: "
+        + costoEstimado
+    );
+}
+
+
+if (
+    !Double.isFinite(tiempoComputoMs)
+    ||
+    tiempoComputoMs < 0.0
+) {
+
+    throw new IllegalArgumentException(
+        "tiempoComputoMs inválido: "
+        + tiempoComputoMs
+    );
+}
+
+
+int longitudEsperada =
+    TAMANO_CABECERA
+    +
+    cantidadAsignaciones
+    * TAMANO_ASIGNACION;
+
+
+if (
+    datos.length
+    != longitudEsperada
+) {
+
+    throw new IllegalArgumentException(
+        "Longitud incorrecta de planVector. "
+        + "Esperada="
+        + longitudEsperada
+        + ", recibida="
+        + datos.length
+    );
+}
+
+
+java.util.ArrayList<int[]> asignaciones =
+    new java.util.ArrayList<int[]>();
+
+java.util.HashSet<Integer> pedidosVistos =
+    new java.util.HashSet<Integer>();
+
+java.util.HashSet<String> posicionesVistas =
+    new java.util.HashSet<String>();
+
+
+for (
+    int i = 0;
+    i < cantidadAsignaciones;
+    i++
+) {
+
+    int base =
+        TAMANO_CABECERA
+        +
+        i * TAMANO_ASIGNACION;
+
+
+    int camionId =
+        enteroAlpyne(
+            datos[base],
+            "asignacion[" + i + "].camionId"
+        );
+
+
+    int numeroViaje =
+        enteroAlpyne(
+            datos[base + 1],
+            "asignacion[" + i + "].numeroViaje"
+        );
+
+
+    int ordenEnViaje =
+        enteroAlpyne(
+            datos[base + 2],
+            "asignacion[" + i + "].ordenEnViaje"
+        );
+
+
+    int pedidoIndice =
+        enteroAlpyne(
+            datos[base + 3],
+            "asignacion[" + i + "].pedidoIndice"
+        );
+
+
+    if (
+        camionId < 0
+        ||
+        camionId >= instancia.cantidadCamiones
+    ) {
+
+        throw new IllegalArgumentException(
+            "camionId fuera de rango: "
+            + camionId
+        );
+    }
+
+
+    if (numeroViaje <= 0) {
+
+        throw new IllegalArgumentException(
+            "numeroViaje debe ser mayor que cero."
+        );
+    }
+
+
+    if (ordenEnViaje <= 0) {
+
+        throw new IllegalArgumentException(
+            "ordenEnViaje debe comenzar en 1."
+        );
+    }
+
+
+    if (
+        pedidoIndice < 0
+        ||
+        pedidoIndice >= instancia.pedidos.size()
+    ) {
+
+        throw new IllegalArgumentException(
+            "pedidoIndice fuera de rango: "
+            + pedidoIndice
+        );
+    }
+
+
+    if (
+        !pedidosVistos.add(
+            pedidoIndice
+        )
+    ) {
+
+        throw new IllegalArgumentException(
+            "El pedido "
+            + pedidoIndice
+            + " aparece más de una vez."
+        );
+    }
+
+
+    String clavePosicion =
+        camionId
+        + ":"
+        + numeroViaje
+        + ":"
+        + ordenEnViaje;
+
+
+    if (
+        !posicionesVistas.add(
+            clavePosicion
+        )
+    ) {
+
+        throw new IllegalArgumentException(
+            "Posición duplicada en el plan: "
+            + clavePosicion
+        );
+    }
+
+
+    asignaciones.add(
+        new int[] {
+            camionId,
+            numeroViaje,
+            ordenEnViaje,
+            pedidoIndice
+        }
+    );
+}
+
+
+java.util.Collections.sort(
+    asignaciones,
+
+    new java.util.Comparator<int[]>() {
+
+        @Override
+        public int compare(
+            int[] a,
+            int[] b
+        ) {
+
+            if (a[0] != b[0]) {
+                return Integer.compare(
+                    a[0],
+                    b[0]
+                );
+            }
+
+            if (a[1] != b[1]) {
+                return Integer.compare(
+                    a[1],
+                    b[1]
+                );
+            }
+
+            return Integer.compare(
+                a[2],
+                b[2]
+            );
+        }
+    }
+);
+
+
+PlanTurno plan =
+    new PlanTurno();
+
+
+plan.instanciaId =
+    instancia.instanciaId;
+
+plan.algoritmo =
+    algoritmoAlpyne(
+        algoritmoCodigo
+    );
+
+plan.costoEstimado =
+    costoEstimado;
+
+plan.tiempoComputoMs =
+    tiempoComputoMs;
+
+
+for (
+    int camionId = 0;
+    camionId < instancia.cantidadCamiones;
+    camionId++
+) {
+
+    PlanCamion planCamion =
+        new PlanCamion();
+
+    planCamion.camionId =
+        camionId;
+
+    plan.camiones.add(
+        planCamion
+    );
+}
+
+
+int camionAnterior =
+    -1;
+
+int viajeAnterior =
+    -1;
+
+int ordenEsperado =
+    1;
+
+ViajePlan viajeActual =
+    null;
+
+
+for (
+    int[] asignacion
+    : asignaciones
+) {
+
+    int camionId =
+        asignacion[0];
+
+    int numeroViaje =
+        asignacion[1];
+
+    int ordenEnViaje =
+        asignacion[2];
+
+    int pedidoIndice =
+        asignacion[3];
+
+
+    boolean nuevoViaje =
+        camionId != camionAnterior
+        ||
+        numeroViaje != viajeAnterior;
+
+
+    if (nuevoViaje) {
+
+        ordenEsperado =
+            1;
+
+        viajeActual =
+            new ViajePlan();
+
+        viajeActual.numeroViaje =
+            numeroViaje;
+
+
+        plan.camiones
+            .get(camionId)
+            .viajes
+            .add(
+                viajeActual
+            );
+
+
+        camionAnterior =
+            camionId;
+
+        viajeAnterior =
+            numeroViaje;
+    }
+
+
+    if (
+        ordenEnViaje
+        != ordenEsperado
+    ) {
+
+        throw new IllegalArgumentException(
+            "Orden no consecutivo en camión "
+            + camionId
+            + ", viaje "
+            + numeroViaje
+            + ". Esperado="
+            + ordenEsperado
+            + ", recibido="
+            + ordenEnViaje
+        );
+    }
+
+
+    viajeActual.pedidoIds.add(
+        instancia.pedidos
+            .get(pedidoIndice)
+            .pedidoId
+    );
+
+
+    ordenEsperado++;
+}
+
+
+return plan;]]></Body>
 				</Function>
 			</Functions>
 			<AgentLinks>
@@ -9088,6 +11043,12 @@ unidadesActividadActual = 0;]]></Body>
 				<Parameter>
 					<ParameterName><![CDATA[COSTO_POR_MIN_DESBALANCE_FIN]]></ParameterName>
 				</Parameter>
+				<Parameter>
+					<ParameterName><![CDATA[alpyneSeedEjecucion]]></ParameterName>
+				</Parameter>
+				<Parameter>
+					<ParameterName><![CDATA[alpyneInstanciaVector]]></ParameterName>
+				</Parameter>
 			</Parameters>
 			<PresentationProperties>
 				<EnableZoomAndPanning>true</EnableZoomAndPanning>
@@ -9106,6 +11067,183 @@ unidadesActividadActual = 0;]]></Body>
 			</ModelTimeProperties>
 			<BypassInitialScreen>true</BypassInitialScreen>
 		</SimulationExperiment>	
+		<!--   =========  Reinforcemenet Learning Experiment   ========  -->
+		<ReinforcementLearningExperiment ActiveObjectClassId="1786555084415">
+			<Id>1786647207399</Id>
+			<Name><![CDATA[AlpyneExperiment]]></Name>
+			<MaximumMemory>512</MaximumMemory>
+			<RandomNumberGenerationType>fixedSeed</RandomNumberGenerationType>
+			<CustomGeneratorCode>new Random()</CustomGeneratorCode>
+			<SeedValue>1</SeedValue>
+			<ModelTimeProperties>
+				<StopOption><![CDATA[Stop at specified time]]></StopOption>
+				<InitialDate><![CDATA[1786492800000]]></InitialDate>	
+				<InitialTime><![CDATA[0.0]]></InitialTime>	
+				<FinalDate><![CDATA[1786496340000]]></FinalDate>	
+				<FinalTime><![CDATA[59.0]]></FinalTime>	
+			</ModelTimeProperties>
+			<ObservationField>
+				<Name><![CDATA[configurado]]></Name>
+				<Type><![CDATA[boolean]]></Type>
+			</ObservationField>
+			<ObservationField>
+				<Name><![CDATA[accionRecibida]]></Name>
+				<Type><![CDATA[boolean]]></Type>
+			</ObservationField>
+			<ObservationField>
+				<Name><![CDATA[ejecucionEnCurso]]></Name>
+				<Type><![CDATA[boolean]]></Type>
+			</ObservationField>
+			<ObservationField>
+				<Name><![CDATA[ejecucionFinalizada]]></Name>
+				<Type><![CDATA[boolean]]></Type>
+			</ObservationField>
+			<ObservationField>
+				<Name><![CDATA[error]]></Name>
+				<Type><![CDATA[boolean]]></Type>
+			</ObservationField>
+			<ObservationField>
+				<Name><![CDATA[mensaje]]></Name>
+				<Type><![CDATA[String]]></Type>
+			</ObservationField>
+			<ObservationField>
+				<Name><![CDATA[costoTotal]]></Name>
+				<Type><![CDATA[double]]></Type>
+			</ObservationField>
+			<ObservationField>
+				<Name><![CDATA[tareasEntregadas]]></Name>
+				<Type><![CDATA[int]]></Type>
+			</ObservationField>
+			<ObservationField>
+				<Name><![CDATA[tareasNoEntregadas]]></Name>
+				<Type><![CDATA[int]]></Type>
+			</ObservationField>
+			<ObservationField>
+				<Name><![CDATA[viajesTotales]]></Name>
+				<Type><![CDATA[int]]></Type>
+			</ObservationField>
+			<ObservationField>
+				<Name><![CDATA[tiempoSimuladoMin]]></Name>
+				<Type><![CDATA[double]]></Type>
+			</ObservationField>
+			<ObservationField>
+				<Name><![CDATA[protocoloVersion]]></Name>
+				<Type><![CDATA[int]]></Type>
+			</ObservationField>
+			<ObservationField>
+				<Name><![CDATA[instanciaAceptada]]></Name>
+				<Type><![CDATA[boolean]]></Type>
+			</ObservationField>
+			<ObservationField>
+				<Name><![CDATA[planAceptado]]></Name>
+				<Type><![CDATA[boolean]]></Type>
+			</ObservationField>
+			<ObservationField>
+				<Name><![CDATA[cantidadPedidos]]></Name>
+				<Type><![CDATA[int]]></Type>
+			</ObservationField>
+			<ObservationCode><![CDATA[protocoloVersion =
+    root.alpyneProtocoloVersion;
+
+configurado =
+    root.alpyneConfigurado;
+
+accionRecibida =
+    root.alpyneAccionRecibida;
+
+instanciaAceptada =
+    root.alpyneInstanciaAceptada;
+
+planAceptado =
+    root.alpynePlanAceptado;
+
+cantidadPedidos =
+    root.alpyneCantidadPedidos;
+
+ejecucionEnCurso =
+    root.ejecucionEnCurso;
+
+ejecucionFinalizada =
+    root.ejecucionFinalizada;
+
+error =
+    root.alpyneError;
+
+mensaje =
+    root.alpyneMensaje;
+
+costoTotal =
+    root.costoTotalAlpyne();
+
+tareasEntregadas =
+    root.tareasEntregadasAlpyne();
+
+tareasNoEntregadas =
+    root.tareasNoEntregadasAlpyne();
+
+viajesTotales =
+    root.viajesTotalesAlpyne();
+
+
+if (
+    root.resultadoActual == null
+    ||
+    root.resultadoActual.metricasGlobales == null
+) {
+
+    tiempoSimuladoMin =
+        0.0;
+
+} else {
+
+    tiempoSimuladoMin =
+        root.resultadoActual
+            .metricasGlobales
+            .duracionTurnoRealMin;
+}]]></ObservationCode>
+			<StopCondition><![CDATA[root.esTerminalAlpyne()]]></StopCondition>
+			<ActionField>
+				<Name><![CDATA[accionCodigo]]></Name>
+				<Type><![CDATA[int]]></Type>
+			</ActionField>
+			<ActionField>
+				<Name><![CDATA[planVector]]></Name>
+				<Type><![CDATA[double[]]]></Type>
+			</ActionField>
+			<ActionCode><![CDATA[root.alpynePlanVector =
+    planVector == null
+    ? new double[0]
+    : planVector.clone();
+
+
+root.procesarAccionAlpyne(
+    accionCodigo
+);]]></ActionCode>
+			<ConfigurationField>
+				<Name><![CDATA[seedEjecucion]]></Name>
+				<Type><![CDATA[int]]></Type>
+			</ConfigurationField>
+			<ConfigurationField>
+				<Name><![CDATA[instanciaVector]]></Name>
+				<Type><![CDATA[double[]]]></Type>
+			</ConfigurationField>
+			<ConfigurationCode><![CDATA[root.MODO_EJECUCION =
+    ModoEjecucion.RL_EVALUATION;
+
+
+root.PROVEEDORES_HABILITADOS =
+    false;
+
+
+root.alpyneSeedEjecucion =
+    seedEjecucion;
+
+
+root.alpyneInstanciaVector =
+    instanciaVector == null
+    ? new double[0]
+    : instanciaVector.clone();]]></ConfigurationCode>
+		</ReinforcementLearningExperiment>
 	</Experiments>
 	<JavaClasses>
 		<!--   =========   Java Class   ========  -->
@@ -10477,18 +12615,6 @@ public class DesgloseCostoTurno implements Serializable {
 		<VersionMajor>1</VersionMajor>
 		<VersionMinor>0</VersionMinor>
 		<VersionBuild>0</VersionBuild>
-    </RequiredLibraryReference>
-    <RequiredLibraryReference>
-		<LibraryName><![CDATA[com.anylogic.libraries.processmodeling]]></LibraryName>
-		<VersionMajor>8</VersionMajor>
-		<VersionMinor>0</VersionMinor>
-		<VersionBuild>5</VersionBuild>
-    </RequiredLibraryReference>
-    <RequiredLibraryReference>
-		<LibraryName><![CDATA[com.anylogic.libraries.processmodeling]]></LibraryName>
-		<VersionMajor>8</VersionMajor>
-		<VersionMinor>0</VersionMinor>
-		<VersionBuild>5</VersionBuild>
     </RequiredLibraryReference>
 </Model>
 <ConvertersApplied>

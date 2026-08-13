@@ -34,3 +34,6 @@ models/*
 
 # RL generated artifacts
 python/rl_artifacts/
+
+# Logs
+*.log
