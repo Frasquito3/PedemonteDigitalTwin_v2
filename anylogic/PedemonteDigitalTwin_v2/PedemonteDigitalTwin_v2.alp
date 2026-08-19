@@ -783,6 +783,366 @@
 						</InitialValue>
 					</Properties>
 				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787144565429</Id>
+					<Name><![CDATA[modoPlanificacionPypeline]]></Name>
+					<X>-1100</X><Y>1030</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA["HIBRIDO"]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787144586318</Id>
+					<Name><![CDATA[pypelineSelectorInicializado]]></Name>
+					<X>-1100</X><Y>1060</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[boolean]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[false]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787144633369</Id>
+					<Name><![CDATA[pypelineSolicitudEnCurso]]></Name>
+					<X>-1100</X><Y>1090</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[boolean]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[false]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787144671554</Id>
+					<Name><![CDATA[pypelineEstadoSelector]]></Name>
+					<X>-1100</X><Y>1120</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[""]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787145152174</Id>
+					<Name><![CDATA[instanciaInterfazActual]]></Name>
+					<X>-1100</X><Y>1150</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[InstanciaTurno]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[null]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787145165903</Id>
+					<Name><![CDATA[mensajeInterfazPlanificacion]]></Name>
+					<X>-1100</X><Y>1180</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA["Sin instancia cargada."]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787145175815</Id>
+					<Name><![CDATA[ultimoModoEjecutado]]></Name>
+					<X>-1100</X><Y>1210</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[""]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787146378794</Id>
+					<Name><![CDATA[pedidosFormulario]]></Name>
+					<X>-1100</X><Y>1240</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[java.util.ArrayList<PedidoInput>]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[new java.util.ArrayList<PedidoInput>()]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787146398418</Id>
+					<Name><![CDATA[turnoFormulario]]></Name>
+					<X>-1100</X><Y>1270</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA["MANANA"]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787146409596</Id>
+					<Name><![CDATA[fechaFormulario]]></Name>
+					<X>-1100</X><Y>1300</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[java.time.LocalDate.now().toString()]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787146421568</Id>
+					<Name><![CDATA[seedFormulario]]></Name>
+					<X>-1100</X><Y>1330</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[int]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[6001]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787146432624</Id>
+					<Name><![CDATA[pedidoIdFormulario]]></Name>
+					<X>-1100</X><Y>1360</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[""]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787146441449</Id>
+					<Name><![CDATA[clienteFormulario]]></Name>
+					<X>-1100</X><Y>1390</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[""]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787146449185</Id>
+					<Name><![CDATA[direccionFormulario]]></Name>
+					<X>-1100</X><Y>1420</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[""]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787146458369</Id>
+					<Name><![CDATA[barrioFormulario]]></Name>
+					<X>-1100</X><Y>1450</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[""]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787146467103</Id>
+					<Name><![CDATA[unidadesFormulario]]></Name>
+					<X>-1100</X><Y>1480</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA["1"]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787146478792</Id>
+					<Name><![CDATA[latitudFormulario]]></Name>
+					<X>-1100</X><Y>1510</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[Double.toString(LAT_CORRALON)]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787146492240</Id>
+					<Name><![CDATA[longitudFormulario]]></Name>
+					<X>-1100</X><Y>1540</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[Double.toString(LON_CORRALON)]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787146503840</Id>
+					<Name><![CDATA[requiereVolcadorFormulario]]></Name>
+					<X>-1100</X><Y>1570</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[boolean]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[false]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787146513576</Id>
+					<Name><![CDATA[tieneVentanaFormulario]]></Name>
+					<X>-1100</X><Y>1600</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[boolean]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[false]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787146522737</Id>
+					<Name><![CDATA[horaDesdeFormulario]]></Name>
+					<X>-1100</X><Y>1630</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA["450"]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787146532273</Id>
+					<Name><![CDATA[horaHastaFormulario]]></Name>
+					<X>-1100</X><Y>1660</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA["720"]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787146542402</Id>
+					<Name><![CDATA[mensajeFormulario]]></Name>
+					<X>-1100</X><Y>1690</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA["Sin pedidos cargados."]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787146552393</Id>
+					<Name><![CDATA[contadorPedidosFormulario]]></Name>
+					<X>-1100</X><Y>1720</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[int]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[1]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
 				<Variable Class="Parameter">
 					<Id>1786556369483</Id>
 					<Name><![CDATA[CAPACIDAD_CAMION]]></Name>
@@ -2322,6 +2682,48 @@ programarProximaLlegadaProveedor();]]></Action>
 	);
 }]]></Action>
 				</Event>
+				<Event>
+					<Id>1787146155965</Id>
+					<Name><![CDATA[eventoPausaInterfaz]]></Name>
+					<X>-1360</X><Y>130</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties TriggerType="timeout" Mode="occuresOnce">
+						<Timeout Class="CodeUnitValue">
+							<Code><![CDATA[1]]></Code>
+							<Unit Class="TimeUnits"><![CDATA[MINUTE]]></Unit>
+						</Timeout>
+						<Rate Class="CodeUnitValue">
+							<Code><![CDATA[1]]></Code>
+							<Unit Class="RateUnits"><![CDATA[PER_MINUTE]]></Unit>
+						</Rate>
+						<Id>1787146155963</Id>
+						<OccurrenceAtTime>true</OccurrenceAtTime>
+						<OccurrenceDate>1787212800000</OccurrenceDate>
+						<OccurrenceTime Class="CodeUnitValue">
+							<Code><![CDATA[0]]></Code>
+							<Unit Class="TimeUnits"><![CDATA[MINUTE]]></Unit>
+						</OccurrenceTime>
+						<RecurrenceCode Class="CodeUnitValue">
+							<Code><![CDATA[1]]></Code>
+							<Unit Class="TimeUnits"><![CDATA[MINUTE]]></Unit>
+						</RecurrenceCode>
+						<Condition><![CDATA[false]]></Condition>
+					</Properties>
+					<Action><![CDATA[if (
+    MODO_EJECUCION
+        == ModoEjecucion.SIMULACION
+) {
+
+    mensajeInterfazPlanificacion =
+        "Configure la instancia y seleccione "
+        + "el algoritmo.";
+
+    pauseSimulation();
+}]]></Action>
+				</Event>
 			</Events>
 			<Functions>
 				<Function AccessType="default" StaticFunction="false">
@@ -2920,6 +3322,30 @@ if (
 
     resultadoActual =
     	construirResultadoTurno();
+    	
+    mensajeInterfazPlanificacion =
+    	"Ejecución finalizada.";
+
+
+	if (
+	    resultadoActual != null
+	    &&
+	    resultadoActual.metricasGlobales
+	        != null
+	) {
+	
+	    mensajeInterfazPlanificacion +=
+	        " Entregadas: "
+	        + resultadoActual
+	            .metricasGlobales
+	            .tareasEntregadas
+	        + "/"
+	        + resultadoActual
+	            .metricasGlobales
+	            .tareasPlanificadas
+	        + ". Costo: "
+	        + resultadoActual.costoTotal;
+	}
     	
    	if (
     MODO_EJECUCION
@@ -5861,6 +6287,14 @@ return new java.util.ArrayList<ResumenPedidoOriginal>(
 }
 
 
+if (instanciaActual == null) {
+
+    throw new IllegalStateException(
+        "No existe instanciaActual."
+    );
+}
+
+
 MetricasGlobalesTurno global =
     new MetricasGlobalesTurno();
 
@@ -5892,6 +6326,12 @@ for (
     MetricasCamion m
     : resultado.metricasCamiones
 ) {
+
+    if (m == null) {
+
+        continue;
+    }
+
 
     global.viajesTotales +=
         m.viajesCompletados;
@@ -5972,8 +6412,26 @@ for (
     : pedidosRuntime.values()
 ) {
 
+    if (runtime == null) {
+
+        throw new IllegalStateException(
+            "pedidosRuntime contiene un "
+            + "PedidoRuntime null."
+        );
+    }
+
+
     PedidoInput pedido =
         runtime.input;
+
+
+    if (pedido == null) {
+
+        throw new IllegalStateException(
+            "Existe un PedidoRuntime sin "
+            + "PedidoInput asociado."
+        );
+    }
 
 
     global.tareasPlanificadas++;
@@ -5993,29 +6451,36 @@ for (
             pedido.unidadesCapacidad;
 
 
+        /*
+         * Toda tarea entregada debe pertenecer
+         * exactamente a una de estas categorías:
+         *
+         * 1. Aceptada antes de la ventana.
+         * 2. Entregada después de una llegada tardía
+         *    que el cliente aceptó.
+         * 3. Entregada normalmente dentro de la
+         *    ventana o después de esperar su apertura.
+         *
+         * En el tercer caso no debe usarse únicamente
+         * minutoLlegada, porque el camión puede llegar
+         * antes, esperar hasta la apertura de la ventana
+         * y efectuar correctamente la entrega.
+         */
+
         if (runtime.aceptadoAntes) {
 
             global.entregasAceptadasAntes++;
-        }
 
-        else if (runtime.llegadaTardia) {
+        } else if (runtime.llegadaTardia) {
 
             global.entregasTardiasAceptadas++;
-        }
 
-        else if (
-            runtime.minutoLlegada
-                >= pedido.horaDesdeMin
-            &&
-            runtime.minutoLlegada
-                <= pedido.horaHastaMin
-        ) {
+        } else {
 
             global.entregasEnVentana++;
         }
-    }
 
-    else {
+    } else {
 
         global.tareasNoEntregadas++;
 
@@ -6043,9 +6508,68 @@ for (
 }
 
 
+// =====================================================
+// VALIDACIÓN DE CLASIFICACIÓN DE ENTREGAS
+// =====================================================
+
+int entregasClasificadas =
+    global.entregasEnVentana
+    +
+    global.entregasAceptadasAntes
+    +
+    global.entregasTardiasAceptadas;
+
+
+if (
+    entregasClasificadas
+    != global.tareasEntregadas
+) {
+
+    throw new IllegalStateException(
+        "Inconsistencia en la clasificación "
+        + "de entregas. Entregadas="
+        + global.tareasEntregadas
+        + ", clasificadas="
+        + entregasClasificadas
+        + ", enVentana="
+        + global.entregasEnVentana
+        + ", aceptadasAntes="
+        + global.entregasAceptadasAntes
+        + ", tardiasAceptadas="
+        + global.entregasTardiasAceptadas
+        + "."
+    );
+}
+
+
+int tareasContabilizadas =
+    global.tareasEntregadas
+    +
+    global.tareasNoEntregadas;
+
+
+if (
+    tareasContabilizadas
+    != global.tareasPlanificadas
+) {
+
+    throw new IllegalStateException(
+        "Inconsistencia en el balance de tareas. "
+        + "Planificadas="
+        + global.tareasPlanificadas
+        + ", entregadas="
+        + global.tareasEntregadas
+        + ", no entregadas="
+        + global.tareasNoEntregadas
+        + "."
+    );
+}
+
+
 global.entregasSinTardanza =
     global.entregasEnVentana
-    + global.entregasAceptadasAntes;
+    +
+    global.entregasAceptadasAntes;
 
 
 // =====================================================
@@ -6056,6 +6580,12 @@ for (
     ResumenPedidoOriginal resumen
     : resultado.resumenesPedidosOriginales
 ) {
+
+    if (resumen == null) {
+
+        continue;
+    }
+
 
     global.pedidosOriginalesPlanificados++;
 
@@ -6126,6 +6656,7 @@ if (!resultado.metricasCamiones.isEmpty()) {
     global.minutoFinTurnoReal =
         mayorFinCamion;
 
+
     global.duracionTurnoRealMin =
         Math.max(
             0.0,
@@ -6151,18 +6682,27 @@ if (!resultado.metricasCamiones.isEmpty()) {
 
 
     global.diferenciaFinCamionesMin =
-        mayorFinCamion
-        - menorFinCamion;
+        Math.max(
+            0.0,
+            mayorFinCamion
+            - menorFinCamion
+        );
 
 
     global.diferenciaDistanciaCamionesKm =
-        mayorDistanciaKm
-        - menorDistanciaKm;
+        Math.max(
+            0.0,
+            mayorDistanciaKm
+            - menorDistanciaKm
+        );
 
 
     global.diferenciaTiempoActivoCamionesMin =
-        mayorTiempoActivo
-        - menorTiempoActivo;
+        Math.max(
+            0.0,
+            mayorTiempoActivo
+            - menorTiempoActivo
+        );
 }
 
 
@@ -6202,6 +6742,12 @@ for (
     : historialProveedores
 ) {
 
+    if (solicitud == null) {
+
+        continue;
+    }
+
+
     if (
         solicitud.empleadosRequeridos == 2
     ) {
@@ -6227,7 +6773,8 @@ for (
     }
 
 
-    double esperaProveedor = 0.0;
+    double esperaProveedor =
+        0.0;
 
 
     if (
@@ -6242,8 +6789,11 @@ for (
         solicitud.minutoFinReal >= 0.0
     ) {
 
-        // Nunca comenzó y quedó esperando
-        // hasta el cierre de la ejecución.
+        /*
+         * Nunca comenzó la atención y quedó
+         * esperando hasta el cierre de la
+         * ejecución.
+         */
 
         esperaProveedor =
             solicitud.minutoFinReal
@@ -6477,6 +7027,56 @@ resultado.metricasGlobales =
     );
 
 
+if (resultado.metricasGlobales == null) {
+
+    throw new IllegalStateException(
+        "construirMetricasGlobales devolvió null."
+    );
+}
+
+
+// =====================================================
+// VALIDACIÓN DEFENSIVA DE CLASIFICACIÓN
+// =====================================================
+
+int entregasClasificadas =
+    resultado.metricasGlobales
+        .entregasEnVentana
+    +
+    resultado.metricasGlobales
+        .entregasAceptadasAntes
+    +
+    resultado.metricasGlobales
+        .entregasTardiasAceptadas;
+
+
+if (
+    entregasClasificadas
+    != resultado.metricasGlobales
+        .tareasEntregadas
+) {
+
+    throw new IllegalStateException(
+        "Inconsistencia en la clasificación "
+        + "de entregas. Entregadas="
+        + resultado.metricasGlobales
+            .tareasEntregadas
+        + ", clasificadas="
+        + entregasClasificadas
+        + ", enVentana="
+        + resultado.metricasGlobales
+            .entregasEnVentana
+        + ", aceptadasAntes="
+        + resultado.metricasGlobales
+            .entregasAceptadasAntes
+        + ", tardiasAceptadas="
+        + resultado.metricasGlobales
+            .entregasTardiasAceptadas
+        + "."
+    );
+}
+
+
 // =====================================================
 // COSTO
 // =====================================================
@@ -6485,6 +7085,14 @@ resultado.desgloseCosto =
     evaluarCostoTurno(
         resultado.metricasGlobales
     );
+
+
+if (resultado.desgloseCosto == null) {
+
+    throw new IllegalStateException(
+        "evaluarCostoTurno devolvió null."
+    );
+}
 
 
 resultado.costoTotal =
@@ -9027,6 +9635,1242 @@ return crearInstanciaAlpyneDinamica(
     5001
 );]]></Body>
 				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[boolean]]></ReturnType>
+					<Id>1787144695860</Id>
+					<Name><![CDATA[inicializarSelectorPypeline]]></Name>
+					<X>-810</X><Y>2140</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[if (
+    pypelineSelectorInicializado
+) {
+
+    return true;
+}
+
+
+try {
+
+    String raizPython =
+        resolverRaizPythonPypeline();
+
+
+    java.io.File archivoModelo =
+        new java.io.File(
+            raizPython,
+            rutaModeloRLPypelineRelativa
+        ).getCanonicalFile();
+
+
+    if (!archivoModelo.isFile()) {
+
+        throw new IllegalStateException(
+            "No existe el modelo RL: "
+            + archivoModelo
+                .getCanonicalPath()
+        );
+    }
+
+
+    String raizLiteral =
+        pyCommunicator.toJson(
+            raizPython
+        );
+
+
+    String modeloLiteral =
+        pyCommunicator.toJson(
+            archivoModelo
+                .getCanonicalPath()
+        );
+
+
+    pyCommunicator.run(
+        "import sys",
+
+        "import importlib",
+
+        "pedemonte_root = "
+            + raizLiteral,
+
+        (
+            "sys.path.insert(0, pedemonte_root) "
+            + "if pedemonte_root not in sys.path "
+            + "else None"
+        ),
+
+        (
+            "from planner.integration "
+            + "import pypeline_selector_bridge "
+            + "as pedemonte_selector_bridge"
+        ),
+
+        (
+            "pedemonte_selector_bridge = "
+            + "importlib.reload("
+            + "pedemonte_selector_bridge)"
+        )
+    );
+
+
+    String estado =
+        pyCommunicator.runResults(
+            String.class,
+
+            (
+                "pedemonte_selector_bridge."
+                + "inicializar("
+                + modeloLiteral
+                + ", max_pedidos=30, "
+                + "deterministic=True)"
+            )
+        );
+
+
+    if (
+        estado == null
+        ||
+        !estado.startsWith(
+            "OK|"
+        )
+    ) {
+
+        throw new IllegalStateException(
+            "Respuesta inesperada al "
+            + "inicializar el selector: "
+            + estado
+        );
+    }
+
+
+    String modos =
+        pyCommunicator.runResults(
+            String.class,
+
+            (
+                "pedemonte_selector_bridge."
+                + "obtener_modos_disponibles()"
+            )
+        );
+
+
+    pypelineSelectorInicializado =
+        true;
+
+    pypelineEstadoSelector =
+        estado;
+
+
+    traceln(
+        "PYPELINE SELECTOR: "
+        + estado
+        + " | modos="
+        + modos
+    );
+
+
+    return true;
+
+
+} catch (Exception ex) {
+
+    pypelineSelectorInicializado =
+        false;
+
+    pypelineEstadoSelector =
+        ex.getClass()
+            .getSimpleName()
+        + ": "
+        + ex.getMessage();
+
+
+    traceln(
+        "ERROR PYPELINE SELECTOR: "
+        + pypelineEstadoSelector
+    );
+
+
+    ex.printStackTrace();
+
+
+    return false;
+}]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[PlanTurno]]></ReturnType>
+					<Id>1787144712140</Id>
+					<Name><![CDATA[generarPlanSeleccionadoPypeline]]></Name>
+					<X>-810</X><Y>2170</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[instancia]]></Name>
+						<Type><![CDATA[InstanciaTurno]]></Type>
+					</Parameter>
+					<Body><![CDATA[if (instancia == null) {
+
+    throw new IllegalArgumentException(
+        "instancia no puede ser null."
+    );
+}
+
+
+if (
+    !inicializarSelectorPypeline()
+) {
+
+    throw new IllegalStateException(
+        "No fue posible inicializar "
+        + "el selector Pypeline: "
+        + pypelineEstadoSelector
+    );
+}
+
+
+String modo =
+    modoPlanificacionPypeline == null
+    ? ""
+    : modoPlanificacionPypeline
+        .trim()
+        .toUpperCase();
+
+
+java.util.HashSet<String> modosValidos =
+    new java.util.HashSet<String>(
+        java.util.Arrays.asList(
+            "GREEDY",
+            "RANDOM",
+            "GA",
+            "RL",
+            "HIBRIDO"
+        )
+    );
+
+
+if (!modosValidos.contains(modo)) {
+
+    throw new IllegalArgumentException(
+        "Modo de planificación inválido: "
+        + modo
+    );
+}
+
+
+double[] instanciaVector =
+    construirVectorInstanciaPypeline(
+        instancia
+    );
+
+
+String vectorLiteral =
+    pyCommunicator.toJson(
+        instanciaVector
+    );
+
+
+String modoLiteral =
+    pyCommunicator.toJson(
+        modo
+    );
+
+
+String comando =
+    "pedemonte_selector_bridge."
+    + "planificar_vector("
+    + vectorLiteral
+    + ", "
+    + instancia.seedEscenario
+    + ", "
+    + instancia.seedEjecucion
+    + ", "
+    + modoLiteral
+    + ")";
+
+
+double[] planVector =
+    pyCommunicator.runResults(
+        double[].class,
+        comando
+    );
+
+
+if (
+    planVector == null
+    ||
+    planVector.length < 5
+) {
+
+    throw new IllegalStateException(
+        "Python devolvió un planVector "
+        + "vacío o incompleto."
+    );
+}
+
+
+pypelineUltimoPlanVector =
+    planVector.clone();
+
+
+PlanTurno plan =
+    crearPlanAlpyneDinamico(
+        planVector,
+        instancia
+    );
+
+
+ResultadoValidacionPlan validacion =
+    validarPlan(
+        instancia,
+        plan
+    );
+
+
+if (!validacion.valido) {
+
+    throw new IllegalStateException(
+        "El selector devolvió un "
+        + "plan inválido: "
+        + validacion.errores
+    );
+}
+
+
+String decision =
+    pyCommunicator.runResults(
+        String.class,
+
+        (
+            "pedemonte_selector_bridge."
+            + "obtener_ultima_decision()"
+        )
+    );
+
+
+pypelineEstadoSelector =
+    decision;
+
+
+traceln(
+    "PYPELINE SELECTOR DECISIÓN: "
+    + decision
+);
+
+
+return plan;]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[String]]></ReturnType>
+					<Id>1787145197425</Id>
+					<Name><![CDATA[resumenInstanciaInterfaz]]></Name>
+					<X>-810</X><Y>2200</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[if (instanciaInterfazActual == null) {
+
+    return "Sin instancia cargada.";
+}
+
+
+int unidadesTotales =
+    0;
+
+int pedidosVolcador =
+    0;
+
+int pedidosConVentana =
+    0;
+
+
+for (
+    PedidoInput pedido
+    : instanciaInterfazActual.pedidos
+) {
+
+    if (pedido == null) {
+        continue;
+    }
+
+
+    unidadesTotales +=
+        pedido.unidadesCapacidad;
+
+
+    if (pedido.requiereVolcador) {
+
+        pedidosVolcador++;
+    }
+
+
+    if (
+        pedido
+        .tieneVentanaEspecifica
+    ) {
+
+        pedidosConVentana++;
+    }
+}
+
+
+return
+    "Instancia: "
+    + instanciaInterfazActual.instanciaId
+    + " | Turno: "
+    + instanciaInterfazActual.turno
+    + " | Pedidos: "
+    + instanciaInterfazActual
+        .pedidos
+        .size()
+    + " | Unidades: "
+    + unidadesTotales
+    + " | Volcador: "
+    + pedidosVolcador
+    + " | Con ventana: "
+    + pedidosConVentana;]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[boolean]]></ReturnType>
+					<Id>1787145213281</Id>
+					<Name><![CDATA[cargarInstanciaDemoInterfaz]]></Name>
+					<X>-810</X><Y>2230</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[if (
+    ejecucionEnCurso
+    ||
+    pypelineSolicitudEnCurso
+) {
+
+    mensajeInterfazPlanificacion =
+        "No se puede cargar una instancia "
+        + "mientras existe una planificación "
+        + "o ejecución en curso.";
+
+    traceln(
+        mensajeInterfazPlanificacion
+    );
+
+    return false;
+}
+
+
+try {
+
+    InstanciaTurno nuevaInstancia =
+        crearInstanciaPruebaPypeline();
+
+
+    if (nuevaInstancia == null) {
+
+        throw new IllegalStateException(
+            "crearInstanciaPruebaPypeline "
+            + "devolvió null."
+        );
+    }
+
+
+    if (
+        nuevaInstancia.pedidos == null
+        ||
+        nuevaInstancia
+            .pedidos
+            .isEmpty()
+    ) {
+
+        throw new IllegalStateException(
+            "La instancia generada "
+            + "no contiene pedidos."
+        );
+    }
+
+
+    instanciaInterfazActual =
+        nuevaInstancia;
+
+
+    mensajeInterfazPlanificacion =
+        "Instancia cargada correctamente.";
+
+
+    traceln(
+        mensajeInterfazPlanificacion
+    );
+
+    traceln(
+        resumenInstanciaInterfaz()
+    );
+
+
+    return true;
+
+
+} catch (Exception ex) {
+
+    instanciaInterfazActual =
+        null;
+
+
+    mensajeInterfazPlanificacion =
+        "Error al cargar instancia: "
+        + ex.getClass()
+            .getSimpleName()
+        + ": "
+        + ex.getMessage();
+
+
+    traceln(
+        mensajeInterfazPlanificacion
+    );
+
+
+    ex.printStackTrace();
+
+
+    return false;
+}]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1787145227913</Id>
+					<Name><![CDATA[limpiarInstanciaInterfaz]]></Name>
+					<X>-810</X><Y>2260</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[if (
+    ejecucionEnCurso
+    ||
+    pypelineSolicitudEnCurso
+) {
+
+    traceln(
+        "No se puede limpiar la instancia "
+        + "mientras existe una planificación "
+        + "o ejecución en curso."
+    );
+
+    return;
+}
+
+
+instanciaInterfazActual =
+    null;
+
+
+mensajeInterfazPlanificacion =
+    "Sin instancia cargada.";
+
+
+traceln(
+    mensajeInterfazPlanificacion
+);]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[Turno]]></ReturnType>
+					<Id>1787146560681</Id>
+					<Name><![CDATA[obtenerTurnoFormulario]]></Name>
+					<X>-810</X><Y>2290</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[String valor =
+    turnoFormulario == null
+    ? ""
+    : turnoFormulario
+        .trim()
+        .toUpperCase();
+
+
+if (valor.equals("MANANA")) {
+
+    return Turno.MANANA;
+}
+
+
+if (valor.equals("TARDE")) {
+
+    return Turno.TARDE;
+}
+
+
+throw new IllegalArgumentException(
+    "Turno no soportado: "
+    + turnoFormulario
+);]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1787146580162</Id>
+					<Name><![CDATA[actualizarHorarioFormulario]]></Name>
+					<X>-810</X><Y>2320</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[Turno turno =
+    obtenerTurnoFormulario();
+
+
+horaDesdeFormulario =
+    Integer.toString(
+        horaInicioTurno(
+            turno
+        )
+    );
+
+
+horaHastaFormulario =
+    Integer.toString(
+        horaFinObjetivoTurno(
+            turno
+        )
+    );]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[boolean]]></ReturnType>
+					<Id>1787146590842</Id>
+					<Name><![CDATA[agregarPedidoFormulario]]></Name>
+					<X>-810</X><Y>2350</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[if (
+    ejecucionEnCurso
+    ||
+    pypelineSolicitudEnCurso
+) {
+
+    mensajeFormulario =
+        "No se pueden agregar pedidos "
+        + "durante una planificación "
+        + "o ejecución.";
+
+    return false;
+}
+
+
+try {
+
+    Turno turno =
+        obtenerTurnoFormulario();
+
+
+    String pedidoOriginalId =
+        pedidoIdFormulario == null
+        ? ""
+        : pedidoIdFormulario.trim();
+
+
+    if (pedidoOriginalId.isEmpty()) {
+
+        pedidoOriginalId =
+            String.format(
+                "PED-%03d",
+                contadorPedidosFormulario
+            );
+    }
+
+
+    for (
+        PedidoInput existente
+        : pedidosFormulario
+    ) {
+
+        if (
+            existente != null
+            &&
+            pedidoOriginalId.equals(
+                existente.pedidoOriginalId
+            )
+        ) {
+
+            throw new IllegalArgumentException(
+                "Ya existe el pedido original "
+                + pedidoOriginalId
+                + "."
+            );
+        }
+    }
+
+
+    int unidadesTotales =
+        Integer.parseInt(
+            unidadesFormulario.trim()
+        );
+
+
+    if (unidadesTotales <= 0) {
+
+        throw new IllegalArgumentException(
+            "Las unidades deben ser "
+            + "mayores que cero."
+        );
+    }
+
+
+    double latitud =
+        Double.parseDouble(
+            latitudFormulario.trim()
+        );
+
+
+    double longitud =
+        Double.parseDouble(
+            longitudFormulario.trim()
+        );
+
+
+    if (
+        !Double.isFinite(latitud)
+        ||
+        latitud < -90.0
+        ||
+        latitud > 90.0
+    ) {
+
+        throw new IllegalArgumentException(
+            "Latitud inválida."
+        );
+    }
+
+
+    if (
+        !Double.isFinite(longitud)
+        ||
+        longitud < -180.0
+        ||
+        longitud > 180.0
+    ) {
+
+        throw new IllegalArgumentException(
+            "Longitud inválida."
+        );
+    }
+
+
+    int horaDesde =
+        horaInicioTurno(
+            turno
+        );
+
+    int horaHasta =
+        horaFinObjetivoTurno(
+            turno
+        );
+
+
+    if (tieneVentanaFormulario) {
+
+        horaDesde =
+            Integer.parseInt(
+                horaDesdeFormulario.trim()
+            );
+
+        horaHasta =
+            Integer.parseInt(
+                horaHastaFormulario.trim()
+            );
+
+
+        if (
+            horaDesde
+            < horaInicioTurno(
+                turno
+            )
+
+            ||
+
+            horaHasta
+            > horaFinObjetivoTurno(
+                turno
+            )
+
+            ||
+
+            horaDesde
+            >= horaHasta
+        ) {
+
+            throw new IllegalArgumentException(
+                "La ventana debe quedar "
+                + "completamente dentro "
+                + "del horario normal "
+                + "del turno."
+            );
+        }
+    }
+
+
+    int totalPartes =
+        (
+            unidadesTotales
+            +
+            CAPACIDAD_CAMION
+            - 1
+        )
+        /
+        CAPACIDAD_CAMION;
+
+
+    if (totalPartes > 8) {
+
+        throw new IllegalArgumentException(
+            "El pedido requiere "
+            + totalPartes
+            + " partes. El máximo "
+            + "permitido es 8."
+        );
+    }
+
+
+    if (
+        pedidosFormulario.size()
+        + totalPartes
+        > MAX_PEDIDOS_RL
+    ) {
+
+        throw new IllegalArgumentException(
+            "La instancia superaría "
+            + "MAX_PEDIDOS_RL="
+            + MAX_PEDIDOS_RL
+            + " después del split."
+        );
+    }
+
+
+    int unidadesRestantes =
+        unidadesTotales;
+
+
+    for (
+        int numeroParte = 1;
+        numeroParte <= totalPartes;
+        numeroParte++
+    ) {
+
+        int unidadesParte =
+            Math.min(
+                CAPACIDAD_CAMION,
+                unidadesRestantes
+            );
+
+
+        PedidoInput pedido =
+            new PedidoInput();
+
+
+        pedido.pedidoOriginalId =
+            pedidoOriginalId;
+
+
+        pedido.pedidoId =
+            totalPartes == 1
+            ? pedidoOriginalId
+            : pedidoOriginalId
+                + "-P"
+                + numeroParte;
+
+
+        pedido.numeroParte =
+            numeroParte;
+
+        pedido.totalPartes =
+            totalPartes;
+
+        pedido.turno =
+            turno;
+
+        pedido.latitud =
+            latitud;
+
+        pedido.longitud =
+            longitud;
+
+        pedido.unidadesCapacidad =
+            unidadesParte;
+
+
+        // Todas las subentregas heredan
+        // el requisito de volcador.
+
+        pedido.requiereVolcador =
+            requiereVolcadorFormulario;
+
+
+        pedido.tieneVentanaEspecifica =
+            tieneVentanaFormulario;
+
+        pedido.horaDesdeMin =
+            horaDesde;
+
+        pedido.horaHastaMin =
+            horaHasta;
+
+        pedido.cliente =
+            clienteFormulario == null
+            ? ""
+            : clienteFormulario.trim();
+
+        pedido.direccion =
+            direccionFormulario == null
+            ? ""
+            : direccionFormulario.trim();
+
+        pedido.barrio =
+            barrioFormulario == null
+            ? ""
+            : barrioFormulario.trim();
+
+        pedido.observaciones =
+            totalPartes == 1
+            ? "Pedido cargado desde interfaz."
+            : "Parte "
+                + numeroParte
+                + "/"
+                + totalPartes
+                + " generada automáticamente.";
+
+
+        pedidosFormulario.add(
+            pedido
+        );
+
+
+        unidadesRestantes -=
+            unidadesParte;
+    }
+
+
+    contadorPedidosFormulario++;
+
+
+    mensajeFormulario =
+        "Pedido "
+        + pedidoOriginalId
+        + " agregado. Unidades="
+        + unidadesTotales
+        + ", partes="
+        + totalPartes
+        + ".";
+
+
+    pedidoIdFormulario =
+        "";
+
+    clienteFormulario =
+        "";
+
+    direccionFormulario =
+        "";
+
+    barrioFormulario =
+        "";
+
+    unidadesFormulario =
+        "1";
+
+    requiereVolcadorFormulario =
+        false;
+
+
+    traceln(
+        mensajeFormulario
+    );
+
+
+    return true;
+
+
+} catch (Exception ex) {
+
+    mensajeFormulario =
+        "Error al agregar pedido: "
+        + ex.getClass()
+            .getSimpleName()
+        + ": "
+        + ex.getMessage();
+
+
+    traceln(
+        mensajeFormulario
+    );
+
+
+    return false;
+}]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[boolean]]></ReturnType>
+					<Id>1787146608722</Id>
+					<Name><![CDATA[eliminarUltimoPedidoFormulario]]></Name>
+					<X>-810</X><Y>2380</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[if (pedidosFormulario.isEmpty()) {
+
+    mensajeFormulario =
+        "No hay pedidos para eliminar.";
+
+    return false;
+}
+
+
+String originalId =
+    pedidosFormulario
+        .get(
+            pedidosFormulario.size()
+            - 1
+        )
+        .pedidoOriginalId;
+
+
+int eliminados =
+    0;
+
+
+for (
+    int i =
+        pedidosFormulario.size()
+        - 1;
+
+    i >= 0;
+
+    i--
+) {
+
+    PedidoInput pedido =
+        pedidosFormulario.get(
+            i
+        );
+
+
+    if (
+        pedido != null
+        &&
+        originalId.equals(
+            pedido.pedidoOriginalId
+        )
+    ) {
+
+        pedidosFormulario.remove(
+            i
+        );
+
+        eliminados++;
+    }
+}
+
+
+mensajeFormulario =
+    "Pedido original "
+    + originalId
+    + " eliminado. Tareas quitadas="
+    + eliminados
+    + ".";
+
+
+traceln(
+    mensajeFormulario
+);
+
+
+return true;]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[String]]></ReturnType>
+					<Id>1787146622178</Id>
+					<Name><![CDATA[resumenPedidosFormulario]]></Name>
+					<X>-810</X><Y>2410</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[if (pedidosFormulario.isEmpty()) {
+
+    return "Sin pedidos cargados.";
+}
+
+
+java.util.HashSet<String> originales =
+    new java.util.HashSet<String>();
+
+
+int unidades =
+    0;
+
+int volcadores =
+    0;
+
+int ventanas =
+    0;
+
+
+for (
+    PedidoInput pedido
+    : pedidosFormulario
+) {
+
+    if (pedido == null) {
+        continue;
+    }
+
+
+    originales.add(
+        pedido.pedidoOriginalId
+    );
+
+
+    unidades +=
+        pedido.unidadesCapacidad;
+
+
+    if (pedido.requiereVolcador) {
+
+        volcadores++;
+    }
+
+
+    if (
+        pedido
+        .tieneVentanaEspecifica
+    ) {
+
+        ventanas++;
+    }
+}
+
+
+return
+    "Originales: "
+    + originales.size()
+    + " | Tareas finales: "
+    + pedidosFormulario.size()
+    + " | Unidades: "
+    + unidades
+    + " | Tareas con volcador: "
+    + volcadores
+    + " | Tareas con ventana: "
+    + ventanas;]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[InstanciaTurno]]></ReturnType>
+					<Id>1787146636450</Id>
+					<Name><![CDATA[construirInstanciaFormulario]]></Name>
+					<X>-810</X><Y>2440</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[if (pedidosFormulario.isEmpty()) {
+
+    throw new IllegalStateException(
+        "No hay pedidos cargados."
+    );
+}
+
+
+Turno turno =
+    obtenerTurnoFormulario();
+
+
+for (
+    PedidoInput pedido
+    : pedidosFormulario
+) {
+
+    if (pedido.turno != turno) {
+
+        throw new IllegalStateException(
+            "Todos los pedidos deben "
+            + "pertenecer al mismo turno."
+        );
+    }
+}
+
+
+InstanciaTurno instancia =
+    new InstanciaTurno();
+
+
+instancia.instanciaId =
+    "UI-"
+    + fechaFormulario
+    + "-"
+    + seedFormulario;
+
+instancia.fechaOperacion =
+    fechaFormulario;
+
+instancia.turno =
+    turno;
+
+instancia.latCorralon =
+    LAT_CORRALON;
+
+instancia.lonCorralon =
+    LON_CORRALON;
+
+instancia.capacidadCamion =
+    CAPACIDAD_CAMION;
+
+instancia.cantidadCamiones =
+    CANTIDAD_CAMIONES;
+
+instancia.horaInicioTurnoMin =
+    horaInicioTurno(
+        turno
+    );
+
+instancia.horaFinObjetivoMin =
+    horaFinObjetivoTurno(
+        turno
+    );
+
+instancia.horaFinToleranciaMin =
+    horaFinToleranciaTurno(
+        turno
+    );
+
+instancia.seedEscenario =
+    seedFormulario;
+
+instancia.seedEjecucion =
+    1000000L
+    +
+    seedFormulario;
+
+
+instancia.pedidos.addAll(
+    pedidosFormulario
+);
+
+
+return instancia;]]></Body>
+				</Function>
 			</Functions>
 			<AgentLinks>
 				<AgentLink>
@@ -9221,45 +11065,105 @@ return crearInstanciaAlpyneDinamica(
 				<Control Type="Button">
 				 	<EmbeddedIcon>false</EmbeddedIcon>				
 					<Id>1787143902718</Id>
-					<Name><![CDATA[button]]></Name>
-					<X>70</X><Y>60</Y>
+					<Name><![CDATA[btnPlanificarEjecutar]]></Name>
+					<X>45</X><Y>590</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<BasicProperties Width="250" Height="30">
+					<BasicProperties Width="195" Height="30">
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<TextColor>-16777216</TextColor>
 						<Enabled>true</Enabled>
-						<ActionCode><![CDATA[if (ejecucionEnCurso) {
+						<EnableExpression><![CDATA[instanciaInterfazActual != null
+&&
+!ejecucionEnCurso
+&&
+!pypelineSolicitudEnCurso]]></EnableExpression>
+						<ActionCode><![CDATA[if (
+    ejecucionEnCurso
+    ||
+    pypelineSolicitudEnCurso
+) {
 
     traceln(
-        "Ya existe una ejecución en curso."
+        "Ya existe una planificación "
+        + "o ejecución en curso."
     );
 
     return;
 }
 
 
+if (
+    instanciaInterfazActual == null
+) {
+
+    mensajeInterfazPlanificacion =
+        "Primero debe cargarse "
+        + "una instancia.";
+
+    traceln(
+        mensajeInterfazPlanificacion
+    );
+
+    return;
+}
+
+
+pypelineSolicitudEnCurso =
+    true;
+
+
 try {
 
     InstanciaTurno instancia =
-        crearInstanciaPruebaPypeline();
+        instanciaInterfazActual;
+
+
+    String modoSolicitado =
+        modoPlanificacionPypeline == null
+        ? ""
+        : modoPlanificacionPypeline
+            .trim()
+            .toUpperCase();
+
+
+    traceln(
+        "================================"
+    );
+
+    traceln(
+        "=== SOLICITUD DE PLANIFICACIÓN ="
+    );
+
+    traceln(
+        "================================"
+    );
+
+    traceln(
+        resumenInstanciaInterfaz()
+    );
+
+    traceln(
+        "MODO SOLICITADO: "
+        + modoSolicitado
+    );
 
 
     PlanTurno plan =
-        generarPlanHibridoPypeline(
+        generarPlanSeleccionadoPypeline(
             instancia
         );
 
 
     traceln(
-        "PLAN PYPELINE RECIBIDO"
+        "PLAN DEL SELECTOR RECIBIDO"
     );
 
     traceln(
-        "Algoritmo: "
+        "Algoritmo resultante: "
         + plan.algoritmo
     );
 
@@ -9276,32 +11180,79 @@ try {
 
 
     boolean iniciado =
-        ejecutarPlan(
-            instancia,
-            plan
-        );
+    ejecutarPlan(
+        instancia,
+        plan
+    );
 
 
-    if (!iniciado) {
+	if (!iniciado) {
+	
+	    throw new IllegalStateException(
+	        "ejecutarPlan devolvió false."
+	    );
+	}
+	
+	
+	mensajeInterfazPlanificacion =
+	    "Plan "
+	    + plan.algoritmo
+	    + " en ejecución.";
+	
+	
+	boolean simulacionReanudada =
+	    runSimulation();
+	
+	
+	if (!simulacionReanudada) {
+	
+	    throw new IllegalStateException(
+	        "No fue posible reanudar "
+	        + "la simulación."
+	    );
+	}
 
-        throw new IllegalStateException(
-            "ejecutarPlan devolvió false."
-        );
-    }
+
+    ultimoModoEjecutado =
+        modoSolicitado;
+
+
+    mensajeInterfazPlanificacion =
+        "Plan "
+        + plan.algoritmo
+        + " en ejecución.";
+
+
+    // La instancia deja de estar pendiente
+    // porque ya fue transferida a ejecutarPlan.
+
+    instanciaInterfazActual =
+        null;
 
 
 } catch (Exception ex) {
 
-    traceln(
-        "ERROR PRUEBA PYPELINE: "
+    mensajeInterfazPlanificacion =
+        "Error de planificación: "
         + ex.getClass()
             .getSimpleName()
         + ": "
-        + ex.getMessage()
+        + ex.getMessage();
+
+
+    traceln(
+        "ERROR SELECTOR PYPELINE: "
+        + mensajeInterfazPlanificacion
     );
 
 
     ex.printStackTrace();
+
+
+} finally {
+
+    pypelineSolicitudEnCurso =
+        false;
 }]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
@@ -9309,6 +11260,944 @@ try {
 						<LabelText><![CDATA[Planificar y ejecutar con Python]]></LabelText>
 					</ExtendedProperties>
 				</Control>
+				<Control Type="ComboBox">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1787145251499</Id>
+					<Name><![CDATA[comboModoPlanificacion]]></Name>
+					<X>45</X><Y>545</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="80" Height="20">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<FillColor>-1</FillColor>
+						<TextColor>-16777216</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[!ejecucionEnCurso
+&&
+!pypelineSolicitudEnCurso]]></EnableExpression>
+						<ActionCode><![CDATA[traceln(
+    "MODO SELECCIONADO: "
+    + modoPlanificacionPypeline
+);]]></ActionCode>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="Dialog" Size="11" Style="0"/>
+						<Editable>false</Editable>
+						<Button><![CDATA[HIBRIDO]]></Button>
+						<Button><![CDATA[GREEDY]]></Button>
+						<Button><![CDATA[RANDOM]]></Button>
+						<Button><![CDATA[GA]]></Button>
+						<Button><![CDATA[RL]]></Button>
+						<LinkTo>true</LinkTo>
+						<Link>modoPlanificacionPypeline</Link>
+					</ExtendedProperties>
+				</Control>
+				<Control Type="Button">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1787145329848</Id>
+					<Name><![CDATA[btnPrepararInstancia]]></Name>
+					<X>45</X><Y>490</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="165" Height="30">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<TextColor>-16777216</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[!pedidosFormulario.isEmpty()
+&&
+instanciaInterfazActual == null
+&&
+!ejecucionEnCurso
+&&
+!pypelineSolicitudEnCurso]]></EnableExpression>
+						<ActionCode><![CDATA[try {
+
+    instanciaInterfazActual =
+        construirInstanciaFormulario();
+
+
+    mensajeInterfazPlanificacion =
+        "Instancia preparada correctamente.";
+
+
+    traceln(
+        resumenInstanciaInterfaz()
+    );
+
+
+} catch (Exception ex) {
+
+    instanciaInterfazActual =
+        null;
+
+
+    mensajeInterfazPlanificacion =
+        "Error al preparar instancia: "
+        + ex.getClass()
+            .getSimpleName()
+        + ": "
+        + ex.getMessage();
+
+
+    traceln(
+        mensajeInterfazPlanificacion
+    );
+}]]></ActionCode>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="Dialog" Size="11" Style="0"/>
+						<LabelText><![CDATA[Preparar instancia]]></LabelText>
+					</ExtendedProperties>
+				</Control>
+				<Control Type="Button">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1787145354943</Id>
+					<Name><![CDATA[btnLimpiarInstancia]]></Name>
+					<X>260</X><Y>490</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="165" Height="30">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<TextColor>-16777216</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[instanciaInterfazActual != null
+&&
+!ejecucionEnCurso
+&&
+!pypelineSolicitudEnCurso]]></EnableExpression>
+						<ActionCode><![CDATA[limpiarInstanciaInterfaz();]]></ActionCode>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="Dialog" Size="11" Style="0"/>
+						<LabelText><![CDATA[Limpiar instancia]]></LabelText>
+					</ExtendedProperties>
+				</Control>
+				<Text>
+					<Id>1787145499669</Id>
+					<Name><![CDATA[txtResumenInstancia]]></Name>
+					<X>45</X><Y>670</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-16777216</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA[resumenInstanciaInterfaz()]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787145565869</Id>
+					<Name><![CDATA[text1]]></Name>
+					<X>45</X><Y>640</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-16777216</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA["Algoritmo seleccionado: "
++
+modoPlanificacionPypeline]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787145588319</Id>
+					<Name><![CDATA[txtEstadoPlanificacion]]></Name>
+					<X>45</X><Y>700</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-16777216</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA[mensajeInterfazPlanificacion]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787147071226</Id>
+					<Name><![CDATA[txtTituloFormulario]]></Name>
+					<X>45</X><Y>25</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-16777216</Color>
+					<Text><![CDATA[Carga de pedidos]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Control Type="ComboBox">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1787147098907</Id>
+					<Name><![CDATA[comboTurnoFormulario]]></Name>
+					<X>45</X><Y>55</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="100" Height="20">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<FillColor>-1</FillColor>
+						<TextColor>-16777216</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[pedidosFormulario.isEmpty()
+&&
+instanciaInterfazActual == null
+&&
+!ejecucionEnCurso
+&&
+!pypelineSolicitudEnCurso]]></EnableExpression>
+						<ActionCode><![CDATA[actualizarHorarioFormulario();
+
+mensajeFormulario =
+    "Turno seleccionado: "
+    + turnoFormulario
+    + ".";]]></ActionCode>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="Dialog" Size="11" Style="0"/>
+						<Editable>false</Editable>
+						<Button><![CDATA[MANANA]]></Button>
+						<Button><![CDATA[TARDE]]></Button>
+						<LinkTo>true</LinkTo>
+						<Link>turnoFormulario</Link>
+					</ExtendedProperties>
+				</Control>
+				<Control Type="EditBox">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1787147180077</Id>
+					<Name><![CDATA[editFechaFormulario]]></Name>
+					<X>225</X><Y>55</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="100" Height="20">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<FillColor>-1</FillColor>
+						<TextColor>-16777216</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[pedidosFormulario.isEmpty()
+&&
+instanciaInterfazActual == null
+&&
+!ejecucionEnCurso
+&&
+!pypelineSolicitudEnCurso]]></EnableExpression>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="Dialog" Size="11" Style="0"/>
+						<LinkTo>true</LinkTo>
+						<Link>fechaFormulario</Link>
+					</ExtendedProperties>
+				</Control>
+				<Text>
+					<Id>1787147218700</Id>
+					<Name><![CDATA[text3]]></Name>
+					<X>190</X><Y>60</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-16777216</Color>
+					<Text><![CDATA[Fecha]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Control Type="EditBox">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1787147286430</Id>
+					<Name><![CDATA[editSeedFormulario]]></Name>
+					<X>385</X><Y>55</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="100" Height="20">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<FillColor>-1</FillColor>
+						<TextColor>-16777216</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[pedidosFormulario.isEmpty()
+&&
+instanciaInterfazActual == null
+&&
+!ejecucionEnCurso
+&&
+!pypelineSolicitudEnCurso]]></EnableExpression>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="Dialog" Size="11" Style="0"/>
+						<MinValue><![CDATA[1]]></MinValue>
+						<MaxValue><![CDATA[2147483647]]></MaxValue>
+						<LinkTo>true</LinkTo>
+						<Link>seedFormulario</Link>
+					</ExtendedProperties>
+				</Control>
+				<Text>
+					<Id>1787147327820</Id>
+					<Name><![CDATA[text4]]></Name>
+					<X>355</X><Y>60</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-16777216</Color>
+					<Text><![CDATA[Seed]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Control Type="EditBox">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1787147369464</Id>
+					<Name><![CDATA[editPedidoIdFormulario]]></Name>
+					<X>135</X><Y>115</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="45" Height="20">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<FillColor>-1</FillColor>
+						<TextColor>-16777216</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[instanciaInterfazActual == null
+&&
+!ejecucionEnCurso
+&&
+!pypelineSolicitudEnCurso]]></EnableExpression>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="Dialog" Size="11" Style="0"/>
+						<LinkTo>true</LinkTo>
+						<Link>pedidoIdFormulario</Link>
+					</ExtendedProperties>
+				</Control>
+				<Text>
+					<Id>1787147404377</Id>
+					<Name><![CDATA[text5]]></Name>
+					<X>45</X><Y>120</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-16777216</Color>
+					<Text><![CDATA[ID del pedido]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Control Type="EditBox">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1787147447026</Id>
+					<Name><![CDATA[editClienteFormulario]]></Name>
+					<X>410</X><Y>115</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="125" Height="20">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<FillColor>-1</FillColor>
+						<TextColor>-16777216</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[instanciaInterfazActual == null
+&&
+!ejecucionEnCurso
+&&
+!pypelineSolicitudEnCurso]]></EnableExpression>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="Dialog" Size="11" Style="0"/>
+						<LinkTo>true</LinkTo>
+						<Link>clienteFormulario</Link>
+					</ExtendedProperties>
+				</Control>
+				<Text>
+					<Id>1787147485760</Id>
+					<Name><![CDATA[text6]]></Name>
+					<X>320</X><Y>120</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-16777216</Color>
+					<Text><![CDATA[Cliente]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Control Type="EditBox">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1787147516075</Id>
+					<Name><![CDATA[editDireccionFormulario]]></Name>
+					<X>135</X><Y>150</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="125" Height="20">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<FillColor>-1</FillColor>
+						<TextColor>-16777216</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[instanciaInterfazActual == null
+&&
+!ejecucionEnCurso
+&&
+!pypelineSolicitudEnCurso]]></EnableExpression>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="Dialog" Size="11" Style="0"/>
+						<LinkTo>true</LinkTo>
+						<Link>direccionFormulario</Link>
+					</ExtendedProperties>
+				</Control>
+				<Text>
+					<Id>1787147539250</Id>
+					<Name><![CDATA[text7]]></Name>
+					<X>45</X><Y>155</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-16777216</Color>
+					<Text><![CDATA[Dirección]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Control Type="EditBox">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1787147565436</Id>
+					<Name><![CDATA[editBarrioFormulario]]></Name>
+					<X>410</X><Y>150</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="125" Height="20">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<FillColor>-1</FillColor>
+						<TextColor>-16777216</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[instanciaInterfazActual == null
+&&
+!ejecucionEnCurso
+&&
+!pypelineSolicitudEnCurso]]></EnableExpression>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="Dialog" Size="11" Style="0"/>
+						<LinkTo>true</LinkTo>
+						<Link>barrioFormulario</Link>
+					</ExtendedProperties>
+				</Control>
+				<Text>
+					<Id>1787147624159</Id>
+					<Name><![CDATA[text8]]></Name>
+					<X>320</X><Y>155</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-16777216</Color>
+					<Text><![CDATA[Barrio]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Control Type="EditBox">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1787147701589</Id>
+					<Name><![CDATA[editUnidadesFormulario]]></Name>
+					<X>135</X><Y>190</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="45" Height="20">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<FillColor>-1</FillColor>
+						<TextColor>-16777216</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[instanciaInterfazActual == null
+&&
+!ejecucionEnCurso
+&&
+!pypelineSolicitudEnCurso]]></EnableExpression>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="Dialog" Size="11" Style="0"/>
+						<LinkTo>true</LinkTo>
+						<Link>unidadesFormulario</Link>
+					</ExtendedProperties>
+				</Control>
+				<Text>
+					<Id>1787147731282</Id>
+					<Name><![CDATA[text9]]></Name>
+					<X>45</X><Y>195</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-16777216</Color>
+					<Text><![CDATA[Unidades]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Control Type="EditBox">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1787147766511</Id>
+					<Name><![CDATA[editLatitudFormulario]]></Name>
+					<X>135</X><Y>230</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="125" Height="20">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<FillColor>-1</FillColor>
+						<TextColor>-16777216</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[instanciaInterfazActual == null
+&&
+!ejecucionEnCurso
+&&
+!pypelineSolicitudEnCurso]]></EnableExpression>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="Dialog" Size="11" Style="0"/>
+						<LinkTo>true</LinkTo>
+						<Link>latitudFormulario</Link>
+					</ExtendedProperties>
+				</Control>
+				<Text>
+					<Id>1787147786369</Id>
+					<Name><![CDATA[text10]]></Name>
+					<X>45</X><Y>235</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-16777216</Color>
+					<Text><![CDATA[Latitud]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Control Type="EditBox">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1787147812879</Id>
+					<Name><![CDATA[editLongitudFormulario]]></Name>
+					<X>410</X><Y>230</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="125" Height="20">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<FillColor>-1</FillColor>
+						<TextColor>-16777216</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[instanciaInterfazActual == null
+&&
+!ejecucionEnCurso
+&&
+!pypelineSolicitudEnCurso]]></EnableExpression>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="Dialog" Size="11" Style="0"/>
+						<LinkTo>true</LinkTo>
+						<Link>longitudFormulario</Link>
+					</ExtendedProperties>
+				</Control>
+				<Text>
+					<Id>1787147846854</Id>
+					<Name><![CDATA[text11]]></Name>
+					<X>320</X><Y>235</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-16777216</Color>
+					<Text><![CDATA[Longitud]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Control Type="CheckBox">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1787147879657</Id>
+					<Name><![CDATA[checkRequiereVolcadorFormulario]]></Name>
+					<X>40</X><Y>270</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="125" Height="20">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<TextColor>-16777216</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[instanciaInterfazActual == null
+&&
+!ejecucionEnCurso
+&&
+!pypelineSolicitudEnCurso]]></EnableExpression>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="Dialog" Size="11" Style="0"/>
+						<LabelText><![CDATA[Requiere volcador]]></LabelText>
+						<LinkTo>true</LinkTo>
+						<Link>requiereVolcadorFormulario</Link>
+	 				</ExtendedProperties>
+				</Control>
+				<Control Type="CheckBox">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1787147931769</Id>
+					<Name><![CDATA[checkTieneVentanaFormulario]]></Name>
+					<X>315</X><Y>270</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="165" Height="20">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<TextColor>-16777216</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[instanciaInterfazActual == null
+&&
+!ejecucionEnCurso
+&&
+!pypelineSolicitudEnCurso]]></EnableExpression>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="Dialog" Size="11" Style="0"/>
+						<LabelText><![CDATA[Tiene ventana específica]]></LabelText>
+						<LinkTo>true</LinkTo>
+						<Link>tieneVentanaFormulario</Link>
+	 				</ExtendedProperties>
+				</Control>
+				<Control Type="EditBox">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1787147975594</Id>
+					<Name><![CDATA[editHoraDesdeFormulario]]></Name>
+					<X>135</X><Y>305</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="100" Height="20">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<FillColor>-1</FillColor>
+						<TextColor>-16777216</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[tieneVentanaFormulario
+&&
+instanciaInterfazActual == null
+&&
+!ejecucionEnCurso
+&&
+!pypelineSolicitudEnCurso]]></EnableExpression>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="Dialog" Size="11" Style="0"/>
+						<LinkTo>true</LinkTo>
+						<Link>horaDesdeFormulario</Link>
+					</ExtendedProperties>
+				</Control>
+				<Text>
+					<Id>1787148003465</Id>
+					<Name><![CDATA[text12]]></Name>
+					<X>45</X><Y>310</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-16777216</Color>
+					<Text><![CDATA[Hora desde (min)]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Control Type="EditBox">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1787148037805</Id>
+					<Name><![CDATA[editHoraHastaFormulario]]></Name>
+					<X>410</X><Y>305</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="100" Height="20">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<FillColor>-1</FillColor>
+						<TextColor>-16777216</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[tieneVentanaFormulario
+&&
+instanciaInterfazActual == null
+&&
+!ejecucionEnCurso
+&&
+!pypelineSolicitudEnCurso]]></EnableExpression>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="Dialog" Size="11" Style="0"/>
+						<LinkTo>true</LinkTo>
+						<Link>horaHastaFormulario</Link>
+					</ExtendedProperties>
+				</Control>
+				<Text>
+					<Id>1787148037810</Id>
+					<Name><![CDATA[text13]]></Name>
+					<X>320</X><Y>310</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-16777216</Color>
+					<Text><![CDATA[Hora hasta (min)]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Control Type="Button">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1787148083269</Id>
+					<Name><![CDATA[btnAgregarPedidoFormulario]]></Name>
+					<X>45</X><Y>360</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="165" Height="30">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<TextColor>-16777216</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[instanciaInterfazActual == null
+&&
+!ejecucionEnCurso
+&&
+!pypelineSolicitudEnCurso]]></EnableExpression>
+						<ActionCode><![CDATA[agregarPedidoFormulario();]]></ActionCode>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="Dialog" Size="11" Style="0"/>
+						<LabelText><![CDATA[Agregar pedido]]></LabelText>
+					</ExtendedProperties>
+				</Control>
+				<Control Type="Button">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1787148140445</Id>
+					<Name><![CDATA[btnEliminarUltimoPedidoFormulario]]></Name>
+					<X>260</X><Y>360</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="165" Height="30">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<TextColor>-16777216</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[!pedidosFormulario.isEmpty()
+&&
+instanciaInterfazActual == null
+&&
+!ejecucionEnCurso
+&&
+!pypelineSolicitudEnCurso]]></EnableExpression>
+						<ActionCode><![CDATA[eliminarUltimoPedidoFormulario();]]></ActionCode>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="Dialog" Size="11" Style="0"/>
+						<LabelText><![CDATA[Eliminar último]]></LabelText>
+					</ExtendedProperties>
+				</Control>
+				<Text>
+					<Id>1787148307312</Id>
+					<Name><![CDATA[txtResumenPedidosFormulario]]></Name>
+					<X>45</X><Y>420</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-16777216</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA[resumenPedidosFormulario()]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787148338025</Id>
+					<Name><![CDATA[txtMensajeFormulario]]></Name>
+					<X>45</X><Y>450</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-16777216</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA[mensajeFormulario]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
 			</Presentation>
 
 				</Level>
@@ -11763,7 +14652,7 @@ unidadesActividadActual = 0;]]></Body>
 	<Frame>
 		<Id>1786555084413</Id>
 		<Width>1000</Width>
-		<Height>600</Height>
+		<Height>725</Height>
 	</Frame>
 	<Database>
 		<Id>1786555084412</Id>
