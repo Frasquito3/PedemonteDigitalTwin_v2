@@ -241,7 +241,7 @@
 						<Code><![CDATA[1.0]]></Code>
 						<Unit Class="TimeUnits"><![CDATA[SECOND]]></Unit>
 					</StepDurationCode>
-					<SpaceType>CONTINUOUS</SpaceType>
+					<SpaceType>GIS</SpaceType>
 					<WidthCode><![CDATA[500]]></WidthCode>
 					<HeightCode><![CDATA[500]]></HeightCode>
 					<ZHeightCode><![CDATA[0]]></ZHeightCode>
@@ -1140,6 +1140,222 @@
 						<Type><![CDATA[int]]></Type>        
 						<InitialValue Class="CodeValue">
 							<Code><![CDATA[1]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787150754058</Id>
+					<Name><![CDATA[puntoCorralonGIS]]></Name>
+					<X>-1100</X><Y>1750</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[com.anylogic.engine.markup.GISPoint]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[null]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787150771530</Id>
+					<Name><![CDATA[puntosPedidosGIS]]></Name>
+					<X>-1100</X><Y>1780</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[java.util.ArrayList<com.anylogic.engine.markup.GISPoint>]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[new java.util.ArrayList<com.anylogic.engine.markup.GISPoint>()]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787150787218</Id>
+					<Name><![CDATA[gisInicializado]]></Name>
+					<X>-1100</X><Y>1810</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[boolean]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[false]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787150797146</Id>
+					<Name><![CDATA[mensajeGIS]]></Name>
+					<X>-1100</X><Y>1840</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA["GIS no inicializado."]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787152400046</Id>
+					<Name><![CDATA[rutasPlanGIS]]></Name>
+					<X>-1100</X><Y>1870</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[java.util.ArrayList<com.anylogic.engine.markup.GISRoute>]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[new java.util.ArrayList<com.anylogic.engine.markup.GISRoute>()]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787152416349</Id>
+					<Name><![CDATA[mensajeRutasGIS]]></Name>
+					<X>-1100</X><Y>1900</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA["Sin plan representado en el mapa."]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787152428150</Id>
+					<Name><![CDATA[cantidadSegmentosPlanGIS]]></Name>
+					<X>-1100</X><Y>1930</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[int]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[0]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787153299944</Id>
+					<Name><![CDATA[marcadoresCamionesGIS]]></Name>
+					<X>-1100</X><Y>1960</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[java.util.LinkedHashMap<
+    Integer,
+    com.anylogic.engine.markup.GISPoint
+>]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[new java.util.LinkedHashMap<
+    Integer,
+    com.anylogic.engine.markup.GISPoint
+>()]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787153324656</Id>
+					<Name><![CDATA[estadosCamionesGIS]]></Name>
+					<X>-1100</X><Y>1990</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[java.util.LinkedHashMap<Integer, String>]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[new java.util.LinkedHashMap<Integer, String>()]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787153340680</Id>
+					<Name><![CDATA[mensajeCamionesGIS]]></Name>
+					<X>-1100</X><Y>2020</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA["Sin camiones representados en el mapa."]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787155827568</Id>
+					<Name><![CDATA[puntosPedidosPorOriginalGIS]]></Name>
+					<X>-1100</X><Y>2050</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[java.util.LinkedHashMap<String, com.anylogic.engine.markup.GISPoint>]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[new java.util.LinkedHashMap<String, com.anylogic.engine.markup.GISPoint>()]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787155842575</Id>
+					<Name><![CDATA[estadosPedidosGIS]]></Name>
+					<X>-1100</X><Y>2080</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[java.util.LinkedHashMap<String, String>]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[new java.util.LinkedHashMap<String, String>()]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787155859207</Id>
+					<Name><![CDATA[mensajeEstadosPedidosGIS]]></Name>
+					<X>-1100</X><Y>2110</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA["Sin estados operativos de pedidos."]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787158153438</Id>
+					<Name><![CDATA[mostrarMarcadoresDiagnosticoGIS]]></Name>
+					<X>-1100</X><Y>2140</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[boolean]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[false]]></Code>
 						</InitialValue>
 					</Properties>
 				</Variable>
@@ -2715,6 +2931,18 @@ programarProximaLlegadaProveedor();]]></Action>
 					<Action><![CDATA[if (
     MODO_EJECUCION
         == ModoEjecucion.SIMULACION
+    ||
+    MODO_EJECUCION
+        == ModoEjecucion.PRODUCCION
+) {
+
+    inicializarGIS();
+}
+
+
+if (
+    MODO_EJECUCION
+        == ModoEjecucion.SIMULACION
 ) {
 
     mensajeInterfazPlanificacion =
@@ -2723,6 +2951,62 @@ programarProximaLlegadaProveedor();]]></Action>
 
     pauseSimulation();
 }]]></Action>
+				</Event>
+				<Event>
+					<Id>1787156205719</Id>
+					<Name><![CDATA[eventoActualizarEstadosPedidosGIS]]></Name>
+					<X>-1360</X><Y>160</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties TriggerType="timeout" Mode="cyclic">
+						<Timeout Class="CodeUnitValue">
+							<Code><![CDATA[1]]></Code>
+							<Unit Class="TimeUnits"><![CDATA[MINUTE]]></Unit>
+						</Timeout>
+						<Rate Class="CodeUnitValue">
+							<Code><![CDATA[1]]></Code>
+							<Unit Class="RateUnits"><![CDATA[PER_MINUTE]]></Unit>
+						</Rate>
+						<Id>1787156205717</Id>
+						<OccurrenceAtTime>true</OccurrenceAtTime>
+						<OccurrenceDate>1787212800000</OccurrenceDate>
+						<OccurrenceTime Class="CodeUnitValue">
+							<Code><![CDATA[0.1]]></Code>
+							<Unit Class="TimeUnits"><![CDATA[MINUTE]]></Unit>
+						</OccurrenceTime>
+						<RecurrenceCode Class="CodeUnitValue">
+							<Code><![CDATA[0.1]]></Code>
+							<Unit Class="TimeUnits"><![CDATA[MINUTE]]></Unit>
+						</RecurrenceCode>
+						<Condition><![CDATA[false]]></Condition>
+					</Properties>
+					<Action><![CDATA[if (
+    MODO_EJECUCION
+        != ModoEjecucion.SIMULACION
+    &&
+    MODO_EJECUCION
+        != ModoEjecucion.PRODUCCION
+) {
+
+    return;
+}
+
+
+if (
+    !gisInicializado
+    ||
+    !ejecucionEnCurso
+    ||
+    pedidosRuntime.isEmpty()
+) {
+
+    return;
+}
+
+
+actualizarEstadosPedidosGIS();]]></Action>
 				</Event>
 			</Events>
 			<Functions>
@@ -3299,10 +3583,10 @@ throw new IllegalArgumentException(
 
 traceln(
     "Main recibió fin de Camión "
-    + camionId +
-    ". Finalizados: "
-    + camionesFinalizados +
-    "/"
+    + camionId
+    + ". Finalizados: "
+    + camionesFinalizados
+    + "/"
     + CANTIDAD_CAMIONES
 );
 
@@ -3312,69 +3596,106 @@ if (
     >= CANTIDAD_CAMIONES
 ) {
 
-    ejecucionEnCurso = false;
+    ejecucionEnCurso =
+        false;
 
-    ejecucionFinalizada = true;
+
+    ejecucionFinalizada =
+        true;
 
 
     cerrarSistemaProveedores();
 
 
     resultadoActual =
-    	construirResultadoTurno();
-    	
+        construirResultadoTurno();
+
+
     mensajeInterfazPlanificacion =
-    	"Ejecución finalizada.";
+        "Ejecución finalizada.";
 
 
-	if (
-	    resultadoActual != null
-	    &&
-	    resultadoActual.metricasGlobales
-	        != null
-	) {
-	
-	    mensajeInterfazPlanificacion +=
-	        " Entregadas: "
-	        + resultadoActual
-	            .metricasGlobales
-	            .tareasEntregadas
-	        + "/"
-	        + resultadoActual
-	            .metricasGlobales
-	            .tareasPlanificadas
-	        + ". Costo: "
-	        + resultadoActual.costoTotal;
-	}
-    	
-   	if (
-    MODO_EJECUCION
-        == ModoEjecucion.RL_TRAINING
+    if (
+        resultadoActual != null
+        &&
+        resultadoActual.metricasGlobales
+            != null
+    ) {
 
-    ||
+        mensajeInterfazPlanificacion +=
+            " Entregadas: "
+            + resultadoActual
+                .metricasGlobales
+                .tareasEntregadas
+            + "/"
+            + resultadoActual
+                .metricasGlobales
+                .tareasPlanificadas
+            + ". Costo: "
+            + resultadoActual.costoTotal;
+    }
 
-    MODO_EJECUCION
-        == ModoEjecucion.RL_EVALUATION
-	) {
-	
-	    alpyneMensaje =
-	        "EJECUCIÓN FINALIZADA";
-	}
+
+    if (
+        MODO_EJECUCION
+            == ModoEjecucion.RL_TRAINING
+
+        ||
+
+        MODO_EJECUCION
+            == ModoEjecucion.RL_EVALUATION
+    ) {
+
+        alpyneMensaje =
+            "EJECUCIÓN FINALIZADA";
+    }
 
 
     traceln("");
-    traceln("==============================");
-    traceln("=== EJECUCIÓN FINALIZADA =====");
-    traceln("==============================");
+
+    traceln(
+        "=============================="
+    );
+
+    traceln(
+        "=== EJECUCIÓN FINALIZADA ====="
+    );
+
+    traceln(
+        "=============================="
+    );
 
 
     imprimirMetricasCamiones(
         resultadoActual
     );
-    
+
+
     imprimirMetricasGlobales(
-    	resultadoActual
-	);
+        resultadoActual
+    );
+
+
+    /*
+     * En la simulación interactiva pausamos el
+     * experimento exactamente cuando terminó la
+     * operación real.
+     *
+     * Esto conserva visible el resultado final en
+     * el mapa y evita esperar hasta el horizonte
+     * máximo de seguridad configurado.
+     *
+     * No se aplica durante entrenamiento ni
+     * evaluación RL.
+     */
+
+    if (
+        MODO_EJECUCION
+            == ModoEjecucion.SIMULACION
+    ) {
+
+        pauseSimulation();
+    }
 }]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
@@ -10171,6 +10492,15 @@ instanciaInterfazActual =
     null;
 
 
+limpiarRutasPlanGIS();
+
+
+limpiarMarcadoresCamionesGIS();
+
+
+limpiarPedidosGIS();
+
+
 mensajeInterfazPlanificacion =
     "Sin instancia cargada.";
 
@@ -10871,6 +11201,3262 @@ instancia.pedidos.addAll(
 
 return instancia;]]></Body>
 				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1787150808306</Id>
+					<Name><![CDATA[inicializarGIS]]></Name>
+					<X>-810</X><Y>2470</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[if (mapaGIS == null) {
+
+    throw new IllegalStateException(
+        "No existe el elemento mapaGIS."
+    );
+}
+
+
+// Aseguramos que el mapa esté visible.
+
+mapaGIS.setVisible(
+    true
+);
+
+
+// Si ya existía un punto del corralón,
+// lo retiramos antes de volver a crearlo.
+
+if (puntoCorralonGIS != null) {
+
+    mapaGIS.remove(
+        puntoCorralonGIS
+    );
+
+    puntoCorralonGIS =
+        null;
+}
+
+
+// Creamos el punto geográfico.
+
+puntoCorralonGIS =
+    new com.anylogic.engine.markup.GISPoint(
+        mapaGIS,
+        false,
+        LAT_CORRALON,
+        LON_CORRALON
+    );
+
+
+puntoCorralonGIS.setTitle(
+    "Pedemonte Materiales | Corralón"
+);
+
+
+puntoCorralonGIS.setRadius(
+    10.0
+);
+
+
+puntoCorralonGIS.setFillColor(
+    new java.awt.Color(
+        211,
+        47,
+        47
+    )
+);
+
+
+puntoCorralonGIS.setLineColor(
+    java.awt.Color.BLACK
+);
+
+
+puntoCorralonGIS.setLineWidth(
+    2.0
+);
+
+
+puntoCorralonGIS.setVisible(
+    true
+);
+
+
+// IMPORTANTE:
+//
+// Crear el GISPoint no alcanza para que
+// aparezca dinámicamente en la animación.
+// Debemos agregarlo al conjunto de dibujo
+// del mapa.
+
+mapaGIS.add(
+    puntoCorralonGIS
+);
+
+
+// Centramos y damos un encuadre inicial
+// alrededor del corralón.
+
+mapaGIS.fitBounds(
+    LAT_CORRALON - 0.004,
+    LON_CORRALON - 0.004,
+    LAT_CORRALON + 0.004,
+    LON_CORRALON + 0.004
+);
+
+
+gisInicializado =
+    true;
+
+
+mensajeGIS =
+    "GIS inicializado. Corralón visible en "
+    + LAT_CORRALON
+    + ", "
+    + LON_CORRALON
+    + ".";
+
+
+traceln(
+    mensajeGIS
+);
+
+
+traceln(
+    "GIS CORRALÓN AGREGADO | lat="
+    + LAT_CORRALON
+    + " | lon="
+    + LON_CORRALON
+    + " | visible="
+    + puntoCorralonGIS.isVisible()
+);]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1787150823890</Id>
+					<Name><![CDATA[limpiarPedidosGIS]]></Name>
+					<X>-810</X><Y>2500</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[if (mapaGIS == null) {
+
+    puntosPedidosGIS.clear();
+
+    puntosPedidosPorOriginalGIS.clear();
+
+    estadosPedidosGIS.clear();
+
+    mensajeGIS =
+        "GIS no disponible.";
+
+    mensajeEstadosPedidosGIS =
+        "Sin estados operativos de pedidos.";
+
+    return;
+}
+
+
+for (
+    com.anylogic.engine.markup.GISPoint punto
+    : puntosPedidosGIS
+) {
+
+    if (punto != null) {
+
+        mapaGIS.remove(
+            punto
+        );
+    }
+}
+
+
+puntosPedidosGIS.clear();
+
+puntosPedidosPorOriginalGIS.clear();
+
+estadosPedidosGIS.clear();
+
+
+mensajeGIS =
+    gisInicializado
+    ? "GIS sin clientes cargados."
+    : "GIS no inicializado.";
+
+
+mensajeEstadosPedidosGIS =
+    "Sin estados operativos de pedidos.";
+
+
+traceln(
+    mensajeGIS
+);]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1787150836307</Id>
+					<Name><![CDATA[mostrarInstanciaEnGIS]]></Name>
+					<X>-810</X><Y>2530</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[instancia]]></Name>
+						<Type><![CDATA[InstanciaTurno]]></Type>
+					</Parameter>
+					<Body><![CDATA[if (instancia == null) {
+
+    throw new IllegalArgumentException(
+        "instancia no puede ser null."
+    );
+}
+
+
+if (
+    instancia.pedidos == null
+    ||
+    instancia.pedidos.isEmpty()
+) {
+
+    throw new IllegalArgumentException(
+        "La instancia no contiene pedidos."
+    );
+}
+
+
+if (!gisInicializado) {
+
+    inicializarGIS();
+}
+
+
+limpiarRutasPlanGIS();
+
+limpiarMarcadoresCamionesGIS();
+
+limpiarPedidosGIS();
+
+
+// =====================================================
+// AGRUPAR TAREAS POR PEDIDO ORIGINAL
+// =====================================================
+//
+// Las partes de un pedido dividido comparten
+// ubicación. Mostramos un solo punto por pedido
+// original para evitar puntos superpuestos.
+
+java.util.LinkedHashMap<
+    String,
+    java.util.ArrayList<PedidoInput>
+> gruposOriginales =
+    new java.util.LinkedHashMap<
+        String,
+        java.util.ArrayList<PedidoInput>
+    >();
+
+
+for (
+    PedidoInput pedido
+    : instancia.pedidos
+) {
+
+    if (pedido == null) {
+
+        throw new IllegalStateException(
+            "La instancia contiene un pedido null."
+        );
+    }
+
+
+    String originalId =
+        pedido.pedidoOriginalId;
+
+
+    if (
+        originalId == null
+        ||
+        originalId.trim().isEmpty()
+    ) {
+
+        originalId =
+            pedido.pedidoId;
+    }
+
+
+    java.util.ArrayList<PedidoInput> grupo =
+        gruposOriginales.get(
+            originalId
+        );
+
+
+    if (grupo == null) {
+
+        grupo =
+            new java.util.ArrayList<PedidoInput>();
+
+        gruposOriginales.put(
+            originalId,
+            grupo
+        );
+    }
+
+
+    grupo.add(
+        pedido
+    );
+}
+
+
+// =====================================================
+// LÍMITES PARA AJUSTAR AUTOMÁTICAMENTE EL MAPA
+// =====================================================
+
+double latitudMinima =
+    instancia.latCorralon;
+
+double latitudMaxima =
+    instancia.latCorralon;
+
+double longitudMinima =
+    instancia.lonCorralon;
+
+double longitudMaxima =
+    instancia.lonCorralon;
+
+
+// =====================================================
+// CREAR LOS PUNTOS DE LOS CLIENTES
+// =====================================================
+
+for (
+    java.util.Map.Entry<
+        String,
+        java.util.ArrayList<PedidoInput>
+    > entrada
+    : gruposOriginales.entrySet()
+) {
+
+    String originalId =
+        entrada.getKey();
+
+
+    java.util.ArrayList<PedidoInput> partes =
+        entrada.getValue();
+
+
+    if (
+        partes == null
+        ||
+        partes.isEmpty()
+    ) {
+
+        continue;
+    }
+
+
+    PedidoInput primerPedido =
+        partes.get(
+            0
+        );
+
+
+    double latitud =
+        primerPedido.latitud;
+
+    double longitud =
+        primerPedido.longitud;
+
+
+    if (
+        !Double.isFinite(
+            latitud
+        )
+        ||
+        latitud < -90.0
+        ||
+        latitud > 90.0
+    ) {
+
+        throw new IllegalArgumentException(
+            "Latitud GIS inválida para "
+            + originalId
+            + ": "
+            + latitud
+        );
+    }
+
+
+    if (
+        !Double.isFinite(
+            longitud
+        )
+        ||
+        longitud < -180.0
+        ||
+        longitud > 180.0
+    ) {
+
+        throw new IllegalArgumentException(
+            "Longitud GIS inválida para "
+            + originalId
+            + ": "
+            + longitud
+        );
+    }
+
+
+    int unidadesTotales =
+        0;
+
+    boolean requiereVolcador =
+        false;
+
+    boolean tieneVentana =
+        false;
+
+
+    for (
+        PedidoInput parte
+        : partes
+    ) {
+
+        if (parte == null) {
+
+            throw new IllegalStateException(
+                "El pedido original "
+                + originalId
+                + " contiene una parte null."
+            );
+        }
+
+
+        // Todas las partes del pedido original
+        // deberían compartir las coordenadas.
+
+        if (
+            Math.abs(
+                parte.latitud
+                - latitud
+            ) > 0.000000001
+
+            ||
+
+            Math.abs(
+                parte.longitud
+                - longitud
+            ) > 0.000000001
+        ) {
+
+            throw new IllegalStateException(
+                "Las partes del pedido original "
+                + originalId
+                + " no comparten ubicación."
+            );
+        }
+
+
+        unidadesTotales +=
+            parte.unidadesCapacidad;
+
+
+        requiereVolcador =
+            requiereVolcador
+            ||
+            parte.requiereVolcador;
+
+
+        tieneVentana =
+            tieneVentana
+            ||
+            parte.tieneVentanaEspecifica;
+    }
+
+
+    // =================================================
+    // COLOR DEL PUNTO
+    // =================================================
+
+    java.awt.Color colorRelleno;
+
+
+    if (
+        requiereVolcador
+        &&
+        tieneVentana
+    ) {
+
+        // Magenta:
+        // ventana y volcador.
+
+        colorRelleno =
+            new java.awt.Color(
+                194,
+                24,
+                91
+            );
+
+    } else if (requiereVolcador) {
+
+        // Naranja:
+        // requiere volcador.
+
+        colorRelleno =
+            new java.awt.Color(
+                251,
+                140,
+                0
+            );
+
+    } else if (tieneVentana) {
+
+        // Violeta:
+        // tiene ventana específica.
+
+        colorRelleno =
+            new java.awt.Color(
+                103,
+                58,
+                183
+            );
+
+    } else {
+
+        // Azul:
+        // pedido normal.
+
+        colorRelleno =
+            new java.awt.Color(
+                30,
+                136,
+                229
+            );
+    }
+
+
+    // =================================================
+    // CREACIÓN DEL GISPOINT
+    // =================================================
+
+    com.anylogic.engine.markup.GISPoint punto =
+        new com.anylogic.engine.markup.GISPoint(
+            mapaGIS,
+            false,
+            latitud,
+            longitud
+        );
+
+
+    punto.setRadius(
+        9.0
+    );
+
+
+    punto.setFillColor(
+        colorRelleno
+    );
+
+
+    punto.setLineColor(
+        java.awt.Color.BLACK
+    );
+
+
+    punto.setLineWidth(
+        2.0
+    );
+
+
+    String titulo =
+        originalId
+        + " | unidades="
+        + unidadesTotales
+        + " | tareas="
+        + partes.size()
+        + " | volcador="
+        + requiereVolcador
+        + " | ventana="
+        + tieneVentana;
+
+
+    if (
+        primerPedido.cliente != null
+        &&
+        !primerPedido.cliente
+            .trim()
+            .isEmpty()
+    ) {
+
+        titulo +=
+            " | cliente="
+            + primerPedido.cliente.trim();
+    }
+
+
+    punto.setTitle(
+        titulo
+    );
+
+
+    punto.setVisible(
+        true
+    );
+
+
+    // IMPORTANTE:
+    //
+    // Esta llamada agrega el punto al conjunto
+    // de elementos que el mapa debe representar.
+
+    mapaGIS.add(
+        punto
+    );
+
+
+    puntosPedidosGIS.add(
+        punto
+    );
+
+
+    // Actualizamos los límites para encuadrar
+    // automáticamente todos los puntos.
+
+    latitudMinima =
+        Math.min(
+            latitudMinima,
+            latitud
+        );
+
+    latitudMaxima =
+        Math.max(
+            latitudMaxima,
+            latitud
+        );
+
+    longitudMinima =
+        Math.min(
+            longitudMinima,
+            longitud
+        );
+
+    longitudMaxima =
+        Math.max(
+            longitudMaxima,
+            longitud
+        );
+
+
+    traceln(
+        "GIS CLIENTE AGREGADO | id="
+        + originalId
+        + " | lat="
+        + latitud
+        + " | lon="
+        + longitud
+        + " | visible="
+        + punto.isVisible()
+        + " | color="
+        + (
+            requiereVolcador
+            && tieneVentana
+            ? "MAGENTA"
+            : requiereVolcador
+                ? "NARANJA"
+                : tieneVentana
+                    ? "VIOLETA"
+                    : "AZUL"
+        )
+    );
+}
+
+
+// =====================================================
+// AJUSTAR ENCUADRE DEL MAPA
+// =====================================================
+
+double diferenciaLatitud =
+    latitudMaxima
+    - latitudMinima;
+
+double diferenciaLongitud =
+    longitudMaxima
+    - longitudMinima;
+
+
+// Margen mínimo para evitar que un punto quede
+// pegado al borde o que el mapa intente ajustar
+// un rectángulo de tamaño cero.
+
+double margenLatitud =
+    Math.max(
+        0.0015,
+        diferenciaLatitud
+        * 0.25
+    );
+
+double margenLongitud =
+    Math.max(
+        0.0015,
+        diferenciaLongitud
+        * 0.25
+    );
+
+
+mapaGIS.fitBounds(
+    latitudMinima
+        - margenLatitud,
+
+    longitudMinima
+        - margenLongitud,
+
+    latitudMaxima
+        + margenLatitud,
+
+    longitudMaxima
+        + margenLongitud
+);
+
+
+// =====================================================
+// ESTADO FINAL
+// =====================================================
+
+mensajeGIS =
+    "GIS actualizado: corralón + "
+    + puntosPedidosGIS.size()
+    + " cliente(s).";
+
+
+traceln(
+    mensajeGIS
+);
+
+
+traceln(
+    "GIS LÍMITES | sur="
+    + (
+        latitudMinima
+        - margenLatitud
+    )
+    + " | oeste="
+    + (
+        longitudMinima
+        - margenLongitud
+    )
+    + " | norte="
+    + (
+        latitudMaxima
+        + margenLatitud
+    )
+    + " | este="
+    + (
+        longitudMaxima
+        + margenLongitud
+    )
+);]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1787152438918</Id>
+					<Name><![CDATA[limpiarRutasPlanGIS]]></Name>
+					<X>-810</X><Y>2560</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[if (mapaGIS == null) {
+
+    rutasPlanGIS.clear();
+
+    cantidadSegmentosPlanGIS =
+        0;
+
+    mensajeRutasGIS =
+        "Mapa GIS no disponible.";
+
+    return;
+}
+
+
+for (
+    com.anylogic.engine.markup.GISRoute ruta
+    : rutasPlanGIS
+) {
+
+    if (ruta != null) {
+
+        mapaGIS.remove(
+            ruta
+        );
+    }
+}
+
+
+rutasPlanGIS.clear();
+
+
+cantidadSegmentosPlanGIS =
+    0;
+
+
+mensajeRutasGIS =
+    "Sin plan representado en el mapa.";
+
+
+traceln(
+    "GIS RUTAS LIMPIADAS"
+);]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[PedidoInput]]></ReturnType>
+					<Id>1787152450702</Id>
+					<Name><![CDATA[buscarPedidoParaGIS]]></Name>
+					<X>-810</X><Y>2590</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[instancia]]></Name>
+						<Type><![CDATA[InstanciaTurno]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[pedidoId]]></Name>
+						<Type><![CDATA[String]]></Type>
+					</Parameter>
+					<Body><![CDATA[if (instancia == null) {
+
+    throw new IllegalArgumentException(
+        "instancia no puede ser null."
+    );
+}
+
+
+if (
+    pedidoId == null
+    ||
+    pedidoId.trim().isEmpty()
+) {
+
+    throw new IllegalArgumentException(
+        "pedidoId no puede estar vacío."
+    );
+}
+
+
+if (instancia.pedidos == null) {
+
+    throw new IllegalStateException(
+        "La instancia no contiene "
+        + "una lista de pedidos."
+    );
+}
+
+
+for (
+    PedidoInput pedido
+    : instancia.pedidos
+) {
+
+    if (
+        pedido != null
+        &&
+        pedidoId.equals(
+            pedido.pedidoId
+        )
+    ) {
+
+        return pedido;
+    }
+}
+
+
+throw new IllegalArgumentException(
+    "El plan referencia un pedido "
+    + "inexistente: "
+    + pedidoId
+    + "."
+);]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[java.awt.Color]]></ReturnType>
+					<Id>1787152497798</Id>
+					<Name><![CDATA[colorRutaCamionGIS]]></Name>
+					<X>-810</X><Y>2620</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[camionId]]></Name>
+						<Type><![CDATA[int]]></Type>
+					</Parameter>
+					<Body><![CDATA[if (camionId == 0) {
+
+    // Verde fuerte.
+
+    return new java.awt.Color(
+        46,
+        125,
+        50
+    );
+}
+
+
+if (camionId == 1) {
+
+    // Violeta oscuro.
+    // Se diferencia claramente del verde
+    // incluso cuando las rutas se cruzan.
+
+    return new java.awt.Color(
+        123,
+        31,
+        162
+    );
+}
+
+
+// Colores defensivos para posibles
+// camiones adicionales.
+
+int indice =
+    Math.abs(
+        camionId
+    )
+    %
+    4;
+
+
+if (indice == 0) {
+
+    return new java.awt.Color(
+        21,
+        101,
+        192
+    );
+}
+
+
+if (indice == 1) {
+
+    return new java.awt.Color(
+        230,
+        81,
+        0
+    );
+}
+
+
+if (indice == 2) {
+
+    return new java.awt.Color(
+        0,
+        121,
+        107
+    );
+}
+
+
+return new java.awt.Color(
+    84,
+    110,
+    122
+);]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[com.anylogic.engine.markup.GISRoute]]></ReturnType>
+					<Id>1787152531694</Id>
+					<Name><![CDATA[crearSegmentoRutaGIS]]></Name>
+					<X>-810</X><Y>2650</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[latitudOrigen]]></Name>
+						<Type><![CDATA[double]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[longitudOrigen]]></Name>
+						<Type><![CDATA[double]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[latitudDestino]]></Name>
+						<Type><![CDATA[double]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[longitudDestino]]></Name>
+						<Type><![CDATA[double]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[colorRuta]]></Name>
+						<Type><![CDATA[java.awt.Color]]></Type>
+					</Parameter>
+					<Body><![CDATA[if (mapaGIS == null) {
+
+    throw new IllegalStateException(
+        "No existe mapaGIS."
+    );
+}
+
+
+if (colorRuta == null) {
+
+    throw new IllegalArgumentException(
+        "colorRuta no puede ser null."
+    );
+}
+
+
+if (
+    !Double.isFinite(
+        latitudOrigen
+    )
+    ||
+    latitudOrigen < -90.0
+    ||
+    latitudOrigen > 90.0
+) {
+
+    throw new IllegalArgumentException(
+        "Latitud de origen inválida: "
+        + latitudOrigen
+        + "."
+    );
+}
+
+
+if (
+    !Double.isFinite(
+        longitudOrigen
+    )
+    ||
+    longitudOrigen < -180.0
+    ||
+    longitudOrigen > 180.0
+) {
+
+    throw new IllegalArgumentException(
+        "Longitud de origen inválida: "
+        + longitudOrigen
+        + "."
+    );
+}
+
+
+if (
+    !Double.isFinite(
+        latitudDestino
+    )
+    ||
+    latitudDestino < -90.0
+    ||
+    latitudDestino > 90.0
+) {
+
+    throw new IllegalArgumentException(
+        "Latitud de destino inválida: "
+        + latitudDestino
+        + "."
+    );
+}
+
+
+if (
+    !Double.isFinite(
+        longitudDestino
+    )
+    ||
+    longitudDestino < -180.0
+    ||
+    longitudDestino > 180.0
+) {
+
+    throw new IllegalArgumentException(
+        "Longitud de destino inválida: "
+        + longitudDestino
+        + "."
+    );
+}
+
+
+// Un segmento entre dos coordenadas
+// exactamente iguales no sería visible.
+
+if (
+    Math.abs(
+        latitudOrigen
+        - latitudDestino
+    ) < 0.000000001
+
+    &&
+
+    Math.abs(
+        longitudOrigen
+        - longitudDestino
+    ) < 0.000000001
+) {
+
+    return null;
+}
+
+
+com.anylogic.engine.markup.GISRoute ruta =
+    mapaGIS.getRoute(
+        latitudOrigen,
+        longitudOrigen,
+        latitudDestino,
+        longitudDestino
+    );
+
+
+if (ruta == null) {
+
+    throw new IllegalStateException(
+        "mapaGIS.getRoute devolvió null."
+    );
+}
+
+
+ruta.setLineColor(
+    colorRuta
+);
+
+
+ruta.setLineWidth(
+    4.0
+);
+
+
+rutasPlanGIS.add(
+    ruta
+);
+
+
+cantidadSegmentosPlanGIS++;
+
+
+return ruta;]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1787152600926</Id>
+					<Name><![CDATA[mostrarPlanEnGIS]]></Name>
+					<X>-810</X><Y>2680</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[instancia]]></Name>
+						<Type><![CDATA[InstanciaTurno]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[plan]]></Name>
+						<Type><![CDATA[PlanTurno]]></Type>
+					</Parameter>
+					<Body><![CDATA[if (instancia == null) {
+
+    throw new IllegalArgumentException(
+        "instancia no puede ser null."
+    );
+}
+
+
+if (plan == null) {
+
+    throw new IllegalArgumentException(
+        "plan no puede ser null."
+    );
+}
+
+
+if (!gisInicializado) {
+
+    inicializarGIS();
+}
+
+
+ResultadoValidacionPlan validacion =
+    validarPlan(
+        instancia,
+        plan
+    );
+
+
+if (!validacion.valido) {
+
+    throw new IllegalArgumentException(
+        "No se puede representar un "
+        + "plan inválido en GIS: "
+        + validacion.errores
+    );
+}
+
+
+limpiarRutasPlanGIS();
+
+
+int viajesRepresentados =
+    0;
+
+int camionesConRuta =
+    0;
+
+
+for (
+    PlanCamion planCamion
+    : plan.camiones
+) {
+
+    if (planCamion == null) {
+
+        throw new IllegalStateException(
+            "El plan contiene un "
+            + "PlanCamion null."
+        );
+    }
+
+
+    if (
+        planCamion.viajes == null
+        ||
+        planCamion.viajes.isEmpty()
+    ) {
+
+        traceln(
+            "GIS PLAN | camion="
+            + planCamion.camionId
+            + " | sin viajes"
+        );
+
+        continue;
+    }
+
+
+    camionesConRuta++;
+
+
+    java.awt.Color colorRuta =
+        colorRutaCamionGIS(
+            planCamion.camionId
+        );
+
+
+    for (
+        ViajePlan viaje
+        : planCamion.viajes
+    ) {
+
+        if (viaje == null) {
+
+            throw new IllegalStateException(
+                "El camión "
+                + planCamion.camionId
+                + " contiene un viaje null."
+            );
+        }
+
+
+        if (
+            viaje.pedidoIds == null
+            ||
+            viaje.pedidoIds.isEmpty()
+        ) {
+
+            traceln(
+                "GIS PLAN | camion="
+                + planCamion.camionId
+                + " | viaje="
+                + viaje.numeroViaje
+                + " | sin pedidos"
+            );
+
+            continue;
+        }
+
+
+        viajesRepresentados++;
+
+
+        double latitudActual =
+            instancia.latCorralon;
+
+        double longitudActual =
+            instancia.lonCorralon;
+
+
+        String origenActual =
+            "CORRALON";
+
+
+        int numeroTramo =
+            1;
+
+
+        for (
+            String pedidoId
+            : viaje.pedidoIds
+        ) {
+
+            PedidoInput pedido =
+                buscarPedidoParaGIS(
+                    instancia,
+                    pedidoId
+                );
+
+
+            com.anylogic.engine.markup.GISRoute ruta =
+                crearSegmentoRutaGIS(
+                    latitudActual,
+                    longitudActual,
+                    pedido.latitud,
+                    pedido.longitud,
+                    colorRuta
+                );
+
+
+            if (ruta == null) {
+
+                traceln(
+                    "GIS PLAN | camion="
+                    + planCamion.camionId
+                    + " | viaje="
+                    + viaje.numeroViaje
+                    + " | tramo="
+                    + numeroTramo
+                    + " | "
+                    + origenActual
+                    + " -> "
+                    + pedidoId
+                    + " | omitido por "
+                    + "coordenadas iguales"
+                );
+
+            } else {
+
+                traceln(
+                    "GIS PLAN | camion="
+                    + planCamion.camionId
+                    + " | viaje="
+                    + viaje.numeroViaje
+                    + " | tramo="
+                    + numeroTramo
+                    + " | "
+                    + origenActual
+                    + " -> "
+                    + pedidoId
+                );
+            }
+
+
+            latitudActual =
+                pedido.latitud;
+
+            longitudActual =
+                pedido.longitud;
+
+            origenActual =
+                pedidoId;
+
+            numeroTramo++;
+        }
+
+
+        com.anylogic.engine.markup.GISRoute rutaRetorno =
+            crearSegmentoRutaGIS(
+                latitudActual,
+                longitudActual,
+                instancia.latCorralon,
+                instancia.lonCorralon,
+                colorRuta
+            );
+
+
+        if (rutaRetorno == null) {
+
+            traceln(
+                "GIS PLAN | camion="
+                + planCamion.camionId
+                + " | viaje="
+                + viaje.numeroViaje
+                + " | retorno omitido por "
+                + "coordenadas iguales"
+            );
+
+        } else {
+
+            traceln(
+                "GIS PLAN | camion="
+                + planCamion.camionId
+                + " | viaje="
+                + viaje.numeroViaje
+                + " | tramo="
+                + numeroTramo
+                + " | "
+                + origenActual
+                + " -> CORRALON"
+            );
+        }
+    }
+}
+
+// Los marcadores se agregan después
+// de las rutas para que queden visibles
+// por encima de las líneas.
+
+inicializarMarcadoresCamionesGIS(
+    instancia
+);
+
+mensajeRutasGIS =
+    "Plan GIS: "
+    + cantidadSegmentosPlanGIS
+    + " segmento(s), "
+    + viajesRepresentados
+    + " viaje(s), "
+    + camionesConRuta
+    + " camión(es) con recorrido.";
+
+
+traceln(
+    mensajeRutasGIS
+);]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1787153354543</Id>
+					<Name><![CDATA[limpiarMarcadoresCamionesGIS]]></Name>
+					<X>-810</X><Y>2710</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[if (mapaGIS == null) {
+
+    marcadoresCamionesGIS.clear();
+
+    estadosCamionesGIS.clear();
+
+    mensajeCamionesGIS =
+        "Mapa GIS no disponible.";
+
+    return;
+}
+
+
+for (
+    com.anylogic.engine.markup.GISPoint marcador
+    : marcadoresCamionesGIS.values()
+) {
+
+    if (marcador != null) {
+
+        mapaGIS.remove(
+            marcador
+        );
+    }
+}
+
+
+marcadoresCamionesGIS.clear();
+
+estadosCamionesGIS.clear();
+
+
+mensajeCamionesGIS =
+    "Sin camiones representados en el mapa.";
+
+
+traceln(
+    "GIS MARCADORES DE CAMIONES LIMPIADOS"
+);]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1787153367753</Id>
+					<Name><![CDATA[actualizarMarcadorCamionGIS]]></Name>
+					<X>-810</X><Y>2740</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[camionId]]></Name>
+						<Type><![CDATA[int]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[latitud]]></Name>
+						<Type><![CDATA[double]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[longitud]]></Name>
+						<Type><![CDATA[double]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[estado]]></Name>
+						<Type><![CDATA[String]]></Type>
+					</Parameter>
+					<Body><![CDATA[if (mapaGIS == null) {
+
+    throw new IllegalStateException(
+        "No existe mapaGIS."
+    );
+}
+
+
+if (camionId < 0) {
+
+    throw new IllegalArgumentException(
+        "camionId no puede ser negativo."
+    );
+}
+
+
+if (
+    !Double.isFinite(
+        latitud
+    )
+    ||
+    latitud < -90.0
+    ||
+    latitud > 90.0
+) {
+
+    throw new IllegalArgumentException(
+        "Latitud inválida para el camión "
+        + camionId
+        + ": "
+        + latitud
+        + "."
+    );
+}
+
+
+if (
+    !Double.isFinite(
+        longitud
+    )
+    ||
+    longitud < -180.0
+    ||
+    longitud > 180.0
+) {
+
+    throw new IllegalArgumentException(
+        "Longitud inválida para el camión "
+        + camionId
+        + ": "
+        + longitud
+        + "."
+    );
+}
+
+
+String estadoNormalizado =
+    estado == null
+    ? "SIN_ESTADO"
+    : estado.trim();
+
+
+if (estadoNormalizado.isEmpty()) {
+
+    estadoNormalizado =
+        "SIN_ESTADO";
+}
+
+
+// =====================================================
+// ELIMINAR EL MARCADOR ANTERIOR
+// =====================================================
+
+com.anylogic.engine.markup.GISPoint marcadorAnterior =
+    marcadoresCamionesGIS.get(
+        camionId
+    );
+
+
+if (marcadorAnterior != null) {
+
+    mapaGIS.remove(
+        marcadorAnterior
+    );
+}
+
+
+marcadoresCamionesGIS.remove(
+    camionId
+);
+
+
+// =====================================================
+// CONSERVAR EL ESTADO TEXTUAL
+// =====================================================
+
+estadosCamionesGIS.put(
+    camionId,
+    estadoNormalizado
+);
+
+
+mensajeCamionesGIS =
+    "Camión "
+    + camionId
+    + ": "
+    + estadoNormalizado
+    + ".";
+
+
+// =====================================================
+// MARCADOR CIRCULAR OPCIONAL
+// =====================================================
+
+if (!mostrarMarcadoresDiagnosticoGIS) {
+
+    return;
+}
+
+
+com.anylogic.engine.markup.GISPoint marcadorNuevo =
+    new com.anylogic.engine.markup.GISPoint(
+        mapaGIS,
+        false,
+        latitud,
+        longitud
+    );
+
+
+marcadorNuevo.setTitle(
+    "Diagnóstico Camión "
+    + camionId
+    + " | "
+    + estadoNormalizado
+);
+
+
+marcadorNuevo.setRadius(
+    13.0
+);
+
+
+marcadorNuevo.setFillColor(
+    colorRutaCamionGIS(
+        camionId
+    )
+);
+
+
+marcadorNuevo.setLineColor(
+    java.awt.Color.WHITE
+);
+
+
+marcadorNuevo.setLineWidth(
+    4.0
+);
+
+
+marcadorNuevo.setVisible(
+    true
+);
+
+
+mapaGIS.add(
+    marcadorNuevo
+);
+
+
+marcadoresCamionesGIS.put(
+    camionId,
+    marcadorNuevo
+);
+
+
+traceln(
+    "GIS MARCADOR DIAGNÓSTICO"
+    + " | camion="
+    + camionId
+    + " | estado="
+    + estadoNormalizado
+    + " | lat="
+    + latitud
+    + " | lon="
+    + longitud
+);]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1787153409871</Id>
+					<Name><![CDATA[inicializarMarcadoresCamionesGIS]]></Name>
+					<X>-810</X><Y>2770</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[instancia]]></Name>
+						<Type><![CDATA[InstanciaTurno]]></Type>
+					</Parameter>
+					<Body><![CDATA[if (instancia == null) {
+
+    throw new IllegalArgumentException(
+        "instancia no puede ser null."
+    );
+}
+
+
+if (instancia.cantidadCamiones <= 0) {
+
+    throw new IllegalArgumentException(
+        "La cantidad de camiones debe ser "
+        + "mayor que cero."
+    );
+}
+
+
+if (!gisInicializado) {
+
+    inicializarGIS();
+}
+
+
+limpiarMarcadoresCamionesGIS();
+
+
+for (
+    int camionId = 0;
+    camionId < instancia.cantidadCamiones;
+    camionId++
+) {
+
+    double centroIndice =
+        (
+            instancia.cantidadCamiones
+            - 1
+        )
+        /
+        2.0;
+
+
+    double desplazamientoLatitud =
+        (
+            camionId
+            - centroIndice
+        )
+        *
+        0.00012;
+
+
+    actualizarMarcadorCamionGIS(
+        camionId,
+        instancia.latCorralon
+            + desplazamientoLatitud,
+        instancia.lonCorralon,
+        "EN_CORRALON"
+    );
+}
+
+
+mensajeCamionesGIS =
+    "Camiones 2D inicializados: "
+    + estadosCamionesGIS.size()
+    + ".";
+
+
+if (mostrarMarcadoresDiagnosticoGIS) {
+
+    mensajeCamionesGIS +=
+        " Marcadores diagnósticos visibles.";
+
+} else {
+
+    mensajeCamionesGIS +=
+        " Marcadores diagnósticos ocultos.";
+}
+
+
+traceln(
+    mensajeCamionesGIS
+);]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1787154132647</Id>
+					<Name><![CDATA[actualizarEstadoCamionGISOperativo]]></Name>
+					<X>-810</X><Y>2800</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[camionId]]></Name>
+						<Type><![CDATA[int]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[latitud]]></Name>
+						<Type><![CDATA[double]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[longitud]]></Name>
+						<Type><![CDATA[double]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[estado]]></Name>
+						<Type><![CDATA[String]]></Type>
+					</Parameter>
+					<Body><![CDATA[/*
+ * Punto único de entrada desde los agentes Camion
+ * hacia la representación GIS.
+ *
+ * Las coordenadas recibidas representan la posición
+ * operativa real. Las coordenadas visuales pueden
+ * recibir un pequeño desplazamiento para impedir
+ * que el marcador quede oculto detrás de un cliente
+ * o del corralón.
+ */
+
+if (
+    MODO_EJECUCION
+        != ModoEjecucion.SIMULACION
+    &&
+    MODO_EJECUCION
+        != ModoEjecucion.PRODUCCION
+) {
+
+    return;
+}
+
+
+if (
+    !gisInicializado
+    ||
+    mapaGIS == null
+) {
+
+    return;
+}
+
+
+if (camionId < 0) {
+
+    throw new IllegalArgumentException(
+        "camionId no puede ser negativo."
+    );
+}
+
+
+if (
+    !Double.isFinite(
+        latitud
+    )
+    ||
+    latitud < -90.0
+    ||
+    latitud > 90.0
+) {
+
+    throw new IllegalArgumentException(
+        "Latitud operativa inválida para "
+        + "el camión "
+        + camionId
+        + ": "
+        + latitud
+        + "."
+    );
+}
+
+
+if (
+    !Double.isFinite(
+        longitud
+    )
+    ||
+    longitud < -180.0
+    ||
+    longitud > 180.0
+) {
+
+    throw new IllegalArgumentException(
+        "Longitud operativa inválida para "
+        + "el camión "
+        + camionId
+        + ": "
+        + longitud
+        + "."
+    );
+}
+
+
+String estadoNormalizado =
+    estado == null
+    ? "SIN_ESTADO"
+    : estado.trim();
+
+
+if (estadoNormalizado.isEmpty()) {
+
+    estadoNormalizado =
+        "SIN_ESTADO";
+}
+
+
+// =====================================================
+// COORDENADAS REALES Y VISUALES
+// =====================================================
+
+double latitudVisual =
+    latitud;
+
+double longitudVisual =
+    longitud;
+
+
+boolean estaEnCorralon =
+    Math.abs(
+        latitud
+        - LAT_CORRALON
+    ) < 0.000000001
+    &&
+    Math.abs(
+        longitud
+        - LON_CORRALON
+    ) < 0.000000001;
+
+
+// =====================================================
+// SEPARACIÓN VISUAL EN EL CORRALÓN
+// =====================================================
+
+if (estaEnCorralon) {
+
+    int cantidadCamionesVisual =
+        CANTIDAD_CAMIONES;
+
+
+    if (
+        instanciaActual != null
+        &&
+        instanciaActual.cantidadCamiones > 0
+    ) {
+
+        cantidadCamionesVisual =
+            instanciaActual.cantidadCamiones;
+    }
+
+
+    double centroIndice =
+        (
+            cantidadCamionesVisual
+            - 1
+        )
+        /
+        2.0;
+
+
+    double desplazamientoLatitud =
+        (
+            camionId
+            - centroIndice
+        )
+        *
+        0.00012;
+
+
+    latitudVisual +=
+        desplazamientoLatitud;
+
+
+// =====================================================
+// SEPARACIÓN VISUAL EN CLIENTES
+// =====================================================
+
+} else {
+
+    /*
+     * El camión se encuentra exactamente en las
+     * coordenadas de un cliente.
+     *
+     * Aplicamos un desplazamiento de aproximadamente
+     * diez a veinte metros para que el marcador no
+     * quede tapado por el GISPoint del pedido.
+     *
+     * La coordenada operativa real no se modifica.
+     */
+
+    double separacionBase =
+        0.00014;
+
+
+    int posicionVisual =
+        Math.floorMod(
+            camionId,
+            4
+        );
+
+
+    if (posicionVisual == 0) {
+
+        // Camión 0:
+        // arriba y a la derecha.
+
+        latitudVisual +=
+            separacionBase;
+
+        longitudVisual +=
+            separacionBase;
+
+    } else if (posicionVisual == 1) {
+
+        // Camión 1:
+        // abajo y a la izquierda.
+
+        latitudVisual -=
+            separacionBase;
+
+        longitudVisual -=
+            separacionBase;
+
+    } else if (posicionVisual == 2) {
+
+        // Camión adicional:
+        // arriba y a la izquierda.
+
+        latitudVisual +=
+            separacionBase;
+
+        longitudVisual -=
+            separacionBase;
+
+    } else {
+
+        // Camión adicional:
+        // abajo y a la derecha.
+
+        latitudVisual -=
+            separacionBase;
+
+        longitudVisual +=
+            separacionBase;
+    }
+}
+
+
+// =====================================================
+// ACTUALIZAR EL MARCADOR
+// =====================================================
+
+actualizarMarcadorCamionGIS(
+    camionId,
+    latitudVisual,
+    longitudVisual,
+    estadoNormalizado
+);
+
+
+// =====================================================
+// DIAGNÓSTICO
+// =====================================================
+
+traceln(
+    "GIS POSICIÓN OPERATIVA"
+    + " | camion="
+    + camionId
+    + " | estado="
+    + estadoNormalizado
+    + " | latReal="
+    + latitud
+    + " | lonReal="
+    + longitud
+    + " | latVisual="
+    + latitudVisual
+    + " | lonVisual="
+    + longitudVisual
+);]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[String]]></ReturnType>
+					<Id>1787154178558</Id>
+					<Name><![CDATA[resumenEstadosCamionesGIS]]></Name>
+					<X>-810</X><Y>2830</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[if (estadosCamionesGIS.isEmpty()) {
+
+    return mensajeCamionesGIS;
+}
+
+
+StringBuilder resumen =
+    new StringBuilder();
+
+
+for (
+    java.util.Map.Entry<
+        Integer,
+        String
+    > entrada
+    : estadosCamionesGIS.entrySet()
+) {
+
+    if (resumen.length() > 0) {
+
+        resumen.append(
+            " | "
+        );
+    }
+
+
+    resumen.append(
+        "Camión "
+    );
+
+    resumen.append(
+        entrada.getKey()
+    );
+
+    resumen.append(
+        ": "
+    );
+
+    resumen.append(
+        entrada.getValue()
+    );
+}
+
+
+return resumen.toString();]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[String]]></ReturnType>
+					<Id>1787155874135</Id>
+					<Name><![CDATA[obtenerPedidoOriginalIdGIS]]></Name>
+					<X>-810</X><Y>2860</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[pedido]]></Name>
+						<Type><![CDATA[PedidoInput]]></Type>
+					</Parameter>
+					<Body><![CDATA[if (pedido == null) {
+
+    throw new IllegalArgumentException(
+        "pedido no puede ser null."
+    );
+}
+
+
+String originalId =
+    pedido.pedidoOriginalId;
+
+
+if (
+    originalId == null
+    ||
+    originalId.trim().isEmpty()
+) {
+
+    originalId =
+        pedido.pedidoId;
+}
+
+
+if (
+    originalId == null
+    ||
+    originalId.trim().isEmpty()
+) {
+
+    throw new IllegalStateException(
+        "El pedido no tiene identificador."
+    );
+}
+
+
+return originalId.trim();]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[java.awt.Color]]></ReturnType>
+					<Id>1787155911927</Id>
+					<Name><![CDATA[colorBasePedidoGIS]]></Name>
+					<X>-810</X><Y>2890</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[pedido]]></Name>
+						<Type><![CDATA[PedidoInput]]></Type>
+					</Parameter>
+					<Body><![CDATA[if (pedido == null) {
+
+    throw new IllegalArgumentException(
+        "pedido no puede ser null."
+    );
+}
+
+
+if (
+    pedido.requiereVolcador
+    &&
+    pedido.tieneVentanaEspecifica
+) {
+
+    // Magenta:
+    // ventana y volcador.
+
+    return new java.awt.Color(
+        194,
+        24,
+        91
+    );
+}
+
+
+if (pedido.requiereVolcador) {
+
+    // Naranja:
+    // requiere volcador.
+
+    return new java.awt.Color(
+        251,
+        140,
+        0
+    );
+}
+
+
+if (
+    pedido.tieneVentanaEspecifica
+) {
+
+    // Violeta:
+    // ventana específica.
+
+    return new java.awt.Color(
+        103,
+        58,
+        183
+    );
+}
+
+
+// Azul:
+// pedido normal.
+
+return new java.awt.Color(
+    30,
+    136,
+    229
+);]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[java.awt.Color]]></ReturnType>
+					<Id>1787155951559</Id>
+					<Name><![CDATA[colorEstadoPedidoGIS]]></Name>
+					<X>-810</X><Y>2920</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[estado]]></Name>
+						<Type><![CDATA[String]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[colorBase]]></Name>
+						<Type><![CDATA[java.awt.Color]]></Type>
+					</Parameter>
+					<Body><![CDATA[String valor =
+    estado == null
+    ? "PENDIENTE"
+    : estado.trim().toUpperCase();
+
+
+if (valor.equals("PENDIENTE")) {
+
+    return colorBase == null
+        ? java.awt.Color.GRAY
+        : colorBase;
+}
+
+
+if (valor.equals("PLANIFICADO")) {
+
+    return new java.awt.Color(
+        96,
+        125,
+        139
+    );
+}
+
+
+if (valor.equals("CARGADO")) {
+
+    return new java.awt.Color(
+        25,
+        118,
+        210
+    );
+}
+
+
+if (valor.equals("EN_TRANSITO")) {
+
+    return new java.awt.Color(
+        0,
+        188,
+        212
+    );
+}
+
+
+if (valor.equals("ESPERANDO")) {
+
+    return new java.awt.Color(
+        251,
+        192,
+        45
+    );
+}
+
+
+if (valor.equals("PARCIAL")) {
+
+    return new java.awt.Color(
+        124,
+        179,
+        66
+    );
+}
+
+
+if (valor.equals("ENTREGADO")) {
+
+    return new java.awt.Color(
+        46,
+        125,
+        50
+    );
+}
+
+
+if (valor.equals("NO_ENTREGADO")) {
+
+    return new java.awt.Color(
+        211,
+        47,
+        47
+    );
+}
+
+
+if (
+    valor.equals(
+        "PENDIENTE_DIA_SIGUIENTE"
+    )
+) {
+
+    return new java.awt.Color(
+        121,
+        85,
+        72
+    );
+}
+
+
+return new java.awt.Color(
+    117,
+    117,
+    117
+);]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[String]]></ReturnType>
+					<Id>1787155990847</Id>
+					<Name><![CDATA[estadoAgregadoPedidoOriginalGIS]]></Name>
+					<X>-810</X><Y>2950</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[originalId]]></Name>
+						<Type><![CDATA[String]]></Type>
+					</Parameter>
+					<Body><![CDATA[if (
+    originalId == null
+    ||
+    originalId.trim().isEmpty()
+) {
+
+    throw new IllegalArgumentException(
+        "originalId no puede estar vacío."
+    );
+}
+
+
+int totalPartes =
+    0;
+
+int partesEntregadas =
+    0;
+
+
+boolean existeNoEntregado =
+    false;
+
+boolean existePendienteDiaSiguiente =
+    false;
+
+boolean existeEsperando =
+    false;
+
+boolean existeEnTransito =
+    false;
+
+boolean existeCargado =
+    false;
+
+boolean existePlanificado =
+    false;
+
+
+for (
+    PedidoRuntime runtime
+    : pedidosRuntime.values()
+) {
+
+    if (
+        runtime == null
+        ||
+        runtime.input == null
+    ) {
+
+        continue;
+    }
+
+
+    String runtimeOriginalId =
+        obtenerPedidoOriginalIdGIS(
+            runtime.input
+        );
+
+
+    if (
+        !originalId.equals(
+            runtimeOriginalId
+        )
+    ) {
+
+        continue;
+    }
+
+
+    totalPartes++;
+
+
+    if (
+        runtime.estado
+        == EstadoPedido.ENTREGADO
+    ) {
+
+        partesEntregadas++;
+
+    } else if (
+        runtime.estado
+        == EstadoPedido.NO_ENTREGADO
+    ) {
+
+        existeNoEntregado =
+            true;
+
+    } else if (
+        runtime.estado
+        == EstadoPedido
+            .PENDIENTE_DIA_SIGUIENTE
+    ) {
+
+        existePendienteDiaSiguiente =
+            true;
+
+    } else if (
+        runtime.estado
+        == EstadoPedido.ESPERANDO
+    ) {
+
+        existeEsperando =
+            true;
+
+    } else if (
+        runtime.estado
+        == EstadoPedido.EN_TRANSITO
+    ) {
+
+        existeEnTransito =
+            true;
+
+    } else if (
+        runtime.estado
+        == EstadoPedido.CARGADO
+    ) {
+
+        existeCargado =
+            true;
+
+    } else if (
+        runtime.estado
+        == EstadoPedido.PLANIFICADO
+    ) {
+
+        existePlanificado =
+            true;
+    }
+}
+
+
+if (totalPartes == 0) {
+
+    return "PENDIENTE";
+}
+
+
+if (
+    partesEntregadas
+    == totalPartes
+) {
+
+    return "ENTREGADO";
+}
+
+
+if (existeNoEntregado) {
+
+    return "NO_ENTREGADO";
+}
+
+
+if (
+    existePendienteDiaSiguiente
+) {
+
+    return "PENDIENTE_DIA_SIGUIENTE";
+}
+
+
+if (partesEntregadas > 0) {
+
+    return "PARCIAL";
+}
+
+
+if (existeEsperando) {
+
+    return "ESPERANDO";
+}
+
+
+if (existeEnTransito) {
+
+    return "EN_TRANSITO";
+}
+
+
+if (existeCargado) {
+
+    return "CARGADO";
+}
+
+
+if (existePlanificado) {
+
+    return "PLANIFICADO";
+}
+
+
+return "PENDIENTE";]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1787156018343</Id>
+					<Name><![CDATA[indexarPuntosPedidosGIS]]></Name>
+					<X>-810</X><Y>2980</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[instancia]]></Name>
+						<Type><![CDATA[InstanciaTurno]]></Type>
+					</Parameter>
+					<Body><![CDATA[if (instancia == null) {
+
+    throw new IllegalArgumentException(
+        "instancia no puede ser null."
+    );
+}
+
+
+puntosPedidosPorOriginalGIS.clear();
+
+estadosPedidosGIS.clear();
+
+
+java.util.LinkedHashSet<String> originales =
+    new java.util.LinkedHashSet<String>();
+
+
+for (
+    PedidoInput pedido
+    : instancia.pedidos
+) {
+
+    if (pedido == null) {
+
+        continue;
+    }
+
+
+    originales.add(
+        obtenerPedidoOriginalIdGIS(
+            pedido
+        )
+    );
+}
+
+
+if (
+    originales.size()
+    != puntosPedidosGIS.size()
+) {
+
+    throw new IllegalStateException(
+        "No coincide la cantidad de pedidos "
+        + "originales con los puntos GIS. "
+        + "Originales="
+        + originales.size()
+        + ", puntos="
+        + puntosPedidosGIS.size()
+        + "."
+    );
+}
+
+
+int indice =
+    0;
+
+
+for (
+    String originalId
+    : originales
+) {
+
+    com.anylogic.engine.markup.GISPoint punto =
+        puntosPedidosGIS.get(
+            indice
+        );
+
+
+    puntosPedidosPorOriginalGIS.put(
+        originalId,
+        punto
+    );
+
+
+    estadosPedidosGIS.put(
+        originalId,
+        "PENDIENTE"
+    );
+
+
+    indice++;
+}
+
+
+mensajeEstadosPedidosGIS =
+    "Pedidos GIS indexados: "
+    + puntosPedidosPorOriginalGIS.size()
+    + ".";
+
+
+traceln(
+    mensajeEstadosPedidosGIS
+);]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1787156039551</Id>
+					<Name><![CDATA[actualizarPuntoPedidoOriginalGIS]]></Name>
+					<X>-810</X><Y>3010</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[originalId]]></Name>
+						<Type><![CDATA[String]]></Type>
+					</Parameter>
+					<Body><![CDATA[if (
+    !gisInicializado
+    ||
+    mapaGIS == null
+) {
+
+    return;
+}
+
+
+InstanciaTurno instanciaFuente =
+    instanciaActual != null
+    ? instanciaActual
+    : instanciaInterfazActual;
+
+
+if (instanciaFuente == null) {
+
+    return;
+}
+
+
+PedidoInput primerPedido =
+    null;
+
+
+int unidadesTotales =
+    0;
+
+int cantidadPartes =
+    0;
+
+int partesEntregadas =
+    0;
+
+
+boolean requiereVolcador =
+    false;
+
+boolean tieneVentana =
+    false;
+
+
+for (
+    PedidoInput pedido
+    : instanciaFuente.pedidos
+) {
+
+    if (pedido == null) {
+
+        continue;
+    }
+
+
+    String pedidoOriginalId =
+        obtenerPedidoOriginalIdGIS(
+            pedido
+        );
+
+
+    if (
+        !originalId.equals(
+            pedidoOriginalId
+        )
+    ) {
+
+        continue;
+    }
+
+
+    if (primerPedido == null) {
+
+        primerPedido =
+            pedido;
+    }
+
+
+    cantidadPartes++;
+
+    unidadesTotales +=
+        pedido.unidadesCapacidad;
+
+    requiereVolcador =
+        requiereVolcador
+        ||
+        pedido.requiereVolcador;
+
+    tieneVentana =
+        tieneVentana
+        ||
+        pedido.tieneVentanaEspecifica;
+
+
+    PedidoRuntime runtime =
+        pedidosRuntime.get(
+            pedido.pedidoId
+        );
+
+
+    if (
+        runtime != null
+        &&
+        runtime.estado
+            == EstadoPedido.ENTREGADO
+    ) {
+
+        partesEntregadas++;
+    }
+}
+
+
+if (primerPedido == null) {
+
+    throw new IllegalArgumentException(
+        "No existe el pedido original "
+        + originalId
+        + "."
+    );
+}
+
+
+String estadoNuevo =
+    estadoAgregadoPedidoOriginalGIS(
+        originalId
+    );
+
+
+String estadoAnterior =
+    estadosPedidosGIS.get(
+        originalId
+    );
+
+
+com.anylogic.engine.markup.GISPoint puntoAnterior =
+    puntosPedidosPorOriginalGIS.get(
+        originalId
+    );
+
+
+if (
+    estadoNuevo.equals(
+        estadoAnterior
+    )
+    &&
+    puntoAnterior != null
+) {
+
+    return;
+}
+
+
+// =====================================================
+// ELIMINAR EL PUNTO ANTERIOR
+// =====================================================
+
+if (puntoAnterior != null) {
+
+    mapaGIS.remove(
+        puntoAnterior
+    );
+
+
+    puntosPedidosGIS.remove(
+        puntoAnterior
+    );
+}
+
+
+// =====================================================
+// COLORES
+// =====================================================
+
+java.awt.Color colorBase =
+    colorBasePedidoGIS(
+        primerPedido
+    );
+
+
+java.awt.Color colorEstado =
+    colorEstadoPedidoGIS(
+        estadoNuevo,
+        colorBase
+    );
+
+
+java.awt.Color colorBorde =
+    estadoNuevo.equals(
+        "PENDIENTE"
+    )
+    ? java.awt.Color.BLACK
+    : colorBase;
+
+
+// =====================================================
+// CREAR EL NUEVO PUNTO
+// =====================================================
+
+com.anylogic.engine.markup.GISPoint puntoNuevo =
+    new com.anylogic.engine.markup.GISPoint(
+        mapaGIS,
+        false,
+        primerPedido.latitud,
+        primerPedido.longitud
+    );
+
+
+double radio =
+    9.0;
+
+
+if (
+    estadoNuevo.equals("CARGADO")
+    ||
+    estadoNuevo.equals("EN_TRANSITO")
+    ||
+    estadoNuevo.equals("ESPERANDO")
+) {
+
+    radio =
+        11.0;
+
+} else if (
+    estadoNuevo.equals("ENTREGADO")
+    ||
+    estadoNuevo.equals("NO_ENTREGADO")
+    ||
+    estadoNuevo.equals("PARCIAL")
+) {
+
+    radio =
+        10.0;
+}
+
+
+puntoNuevo.setRadius(
+    radio
+);
+
+
+puntoNuevo.setFillColor(
+    colorEstado
+);
+
+
+puntoNuevo.setLineColor(
+    colorBorde
+);
+
+
+puntoNuevo.setLineWidth(
+    estadoNuevo.equals("PENDIENTE")
+    ? 2.0
+    : 3.0
+);
+
+
+String titulo =
+    originalId
+    + " | estado="
+    + estadoNuevo
+    + " | unidades="
+    + unidadesTotales
+    + " | partes="
+    + cantidadPartes
+    + " | entregadas="
+    + partesEntregadas
+    + "/"
+    + cantidadPartes
+    + " | volcador="
+    + requiereVolcador
+    + " | ventana="
+    + tieneVentana;
+
+
+if (
+    primerPedido.cliente != null
+    &&
+    !primerPedido.cliente
+        .trim()
+        .isEmpty()
+) {
+
+    titulo +=
+        " | cliente="
+        + primerPedido.cliente.trim();
+}
+
+
+puntoNuevo.setTitle(
+    titulo
+);
+
+
+puntoNuevo.setVisible(
+    true
+);
+
+
+mapaGIS.add(
+    puntoNuevo
+);
+
+
+puntosPedidosGIS.add(
+    puntoNuevo
+);
+
+
+puntosPedidosPorOriginalGIS.put(
+    originalId,
+    puntoNuevo
+);
+
+
+estadosPedidosGIS.put(
+    originalId,
+    estadoNuevo
+);
+
+
+traceln(
+    "GIS PEDIDO ACTUALIZADO"
+    + " | original="
+    + originalId
+    + " | estadoAnterior="
+    + estadoAnterior
+    + " | estadoNuevo="
+    + estadoNuevo
+    + " | entregadas="
+    + partesEntregadas
+    + "/"
+    + cantidadPartes
+);]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[String]]></ReturnType>
+					<Id>1787156068879</Id>
+					<Name><![CDATA[resumenEstadosPedidosGIS]]></Name>
+					<X>-810</X><Y>3040</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[if (estadosPedidosGIS.isEmpty()) {
+
+    return mensajeEstadosPedidosGIS;
+}
+
+
+int pendientes =
+    0;
+
+int planificados =
+    0;
+
+int cargados =
+    0;
+
+int enTransito =
+    0;
+
+int esperando =
+    0;
+
+int parciales =
+    0;
+
+int entregados =
+    0;
+
+int noEntregados =
+    0;
+
+int siguienteDia =
+    0;
+
+
+for (
+    String estado
+    : estadosPedidosGIS.values()
+) {
+
+    if (estado == null) {
+
+        continue;
+    }
+
+
+    if (estado.equals("PENDIENTE")) {
+
+        pendientes++;
+
+    } else if (
+        estado.equals("PLANIFICADO")
+    ) {
+
+        planificados++;
+
+    } else if (
+        estado.equals("CARGADO")
+    ) {
+
+        cargados++;
+
+    } else if (
+        estado.equals("EN_TRANSITO")
+    ) {
+
+        enTransito++;
+
+    } else if (
+        estado.equals("ESPERANDO")
+    ) {
+
+        esperando++;
+
+    } else if (
+        estado.equals("PARCIAL")
+    ) {
+
+        parciales++;
+
+    } else if (
+        estado.equals("ENTREGADO")
+    ) {
+
+        entregados++;
+
+    } else if (
+        estado.equals("NO_ENTREGADO")
+    ) {
+
+        noEntregados++;
+
+    } else if (
+        estado.equals(
+            "PENDIENTE_DIA_SIGUIENTE"
+        )
+    ) {
+
+        siguienteDia++;
+    }
+}
+
+
+return
+    "Pedidos GIS"
+    + " | pendientes="
+    + pendientes
+    + " | planificados="
+    + planificados
+    + " | cargados="
+    + cargados
+    + " | en tránsito="
+    + enTransito
+    + " | esperando="
+    + esperando
+    + " | parciales="
+    + parciales
+    + " | entregados="
+    + entregados
+    + " | no entregados="
+    + noEntregados
+    + " | día siguiente="
+    + siguienteDia;]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1787156087048</Id>
+					<Name><![CDATA[actualizarEstadosPedidosGIS]]></Name>
+					<X>-810</X><Y>3070</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[if (
+    !gisInicializado
+    ||
+    mapaGIS == null
+    ||
+    puntosPedidosPorOriginalGIS.isEmpty()
+) {
+
+    return;
+}
+
+
+InstanciaTurno instanciaFuente =
+    instanciaActual != null
+    ? instanciaActual
+    : instanciaInterfazActual;
+
+
+if (instanciaFuente == null) {
+
+    return;
+}
+
+
+java.util.LinkedHashSet<String> originales =
+    new java.util.LinkedHashSet<String>();
+
+
+for (
+    PedidoInput pedido
+    : instanciaFuente.pedidos
+) {
+
+    if (pedido != null) {
+
+        originales.add(
+            obtenerPedidoOriginalIdGIS(
+                pedido
+            )
+        );
+    }
+}
+
+
+for (
+    String originalId
+    : originales
+) {
+
+    actualizarPuntoPedidoOriginalGIS(
+        originalId
+    );
+}
+
+
+mensajeEstadosPedidosGIS =
+    resumenEstadosPedidosGIS();]]></Body>
+				</Function>
 			</Functions>
 			<AgentLinks>
 				<AgentLink>
@@ -11179,11 +14765,20 @@ try {
     );
 
 
-    boolean iniciado =
-    ejecutarPlan(
+    // Representamos el plan antes de
+    // comenzar la ejecución operativa.
+
+    mostrarPlanEnGIS(
         instancia,
         plan
     );
+
+
+    boolean iniciado =
+	    ejecutarPlan(
+	        instancia,
+	        plan
+    	);
 
 
 	if (!iniciado) {
@@ -11194,27 +14789,10 @@ try {
 	}
 	
 	
-	mensajeInterfazPlanificacion =
-	    "Plan "
-	    + plan.algoritmo
-	    + " en ejecución.";
+	// ejecutarPlan ya creó pedidosRuntime
+	// y marcó las asignaciones como PLANIFICADO.
 	
-	
-	boolean simulacionReanudada =
-	    runSimulation();
-	
-	
-	if (!simulacionReanudada) {
-	
-	    throw new IllegalStateException(
-	        "No fue posible reanudar "
-	        + "la simulación."
-	    );
-	}
-
-
-    ultimoModoEjecutado =
-        modoSolicitado;
+	actualizarEstadosPedidosGIS();
 
 
     mensajeInterfazPlanificacion =
@@ -11223,8 +14801,22 @@ try {
         + " en ejecución.";
 
 
-    // La instancia deja de estar pendiente
-    // porque ya fue transferida a ejecutarPlan.
+    boolean simulacionReanudada =
+        runSimulation();
+
+
+    if (!simulacionReanudada) {
+
+        throw new IllegalStateException(
+            "No fue posible reanudar "
+            + "la simulación."
+        );
+    }
+
+
+    ultimoModoEjecutado =
+        modoSolicitado;
+
 
     instanciaInterfazActual =
         null;
@@ -11318,8 +14910,21 @@ instanciaInterfazActual == null
 !pypelineSolicitudEnCurso]]></EnableExpression>
 						<ActionCode><![CDATA[try {
 
-    instanciaInterfazActual =
+    InstanciaTurno nuevaInstancia =
         construirInstanciaFormulario();
+
+
+    mostrarInstanciaEnGIS(
+        nuevaInstancia
+    );
+    
+    indexarPuntosPedidosGIS(
+	    nuevaInstancia
+	);
+
+
+    instanciaInterfazActual =
+        nuevaInstancia;
 
 
     mensajeInterfazPlanificacion =
@@ -11337,6 +14942,9 @@ instanciaInterfazActual == null
         null;
 
 
+    limpiarPedidosGIS();
+
+
     mensajeInterfazPlanificacion =
         "Error al preparar instancia: "
         + ex.getClass()
@@ -11348,6 +14956,9 @@ instanciaInterfazActual == null
     traceln(
         mensajeInterfazPlanificacion
     );
+
+
+    ex.printStackTrace();
 }]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
@@ -11374,7 +14985,7 @@ instanciaInterfazActual == null
 !ejecucionEnCurso
 &&
 !pypelineSolicitudEnCurso]]></EnableExpression>
-						<ActionCode><![CDATA[limpiarInstanciaInterfaz();]]></ActionCode>
+						<ActionCode><![CDATA[limpiarInstanciaInterfaz()]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
 						<Font Name="Dialog" Size="11" Style="0"/>
@@ -11620,7 +15231,7 @@ instanciaInterfazActual == null
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<BasicProperties Width="45" Height="20">
+					<BasicProperties Width="125" Height="20">
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<FillColor>-1</FillColor>
 						<TextColor>-16777216</TextColor>
@@ -12198,6 +15809,780 @@ instanciaInterfazActual == null
 					</Font>
 					<Alignment>LEFT</Alignment>
 				</Text>
+				<GISMap>
+					<Id>1787150445148</Id>
+					<Name><![CDATA[mapaGIS]]></Name>
+					<X>600</X><Y>50</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Width>700</Width>
+					<Height>550</Height>
+					<GISShapes>
+					</GISShapes>
+					<Latitude>-32.85583600364033</Latitude>
+					<Longitude>-60.716852344629736</Longitude>
+					<Scale>30000</Scale>
+					<BorderColor>-4144960</BorderColor>
+					<FillColor>-1</FillColor>
+					<ShowTiles>true</ShowTiles>
+					<CustomTileURL>false</CustomTileURL>
+					<TileURL><![CDATA[https://a.tile.openstreetmap.org/[zoom]/[x]/[y].png]]></TileURL>				
+					<RouteProviderType>STRAIGHT</RouteProviderType>
+					<RouteNotFound>CREATE_STRAIGHT_LINE</RouteNotFound>
+					<TransportType>CAR</TransportType>
+					<RoutingMethod>FASTEST</RoutingMethod>
+					<PathfindingAlgorithm>DIJKSTRABI</PathfindingAlgorithm>
+					<CustomRouteProvider>false</CustomRouteProvider>
+					<RouteSourceResourceReference>
+					</RouteSourceResourceReference>
+					<RouteGraphResourceReference>
+					</RouteGraphResourceReference>	
+					<MapScaleBasedGeneralization>true</MapScaleBasedGeneralization>
+					<AbsolutePrecisionGeneralization>1000</AbsolutePrecisionGeneralization>
+
+
+				</GISMap>
+				<Text>
+					<Id>1787150964843</Id>
+					<Name><![CDATA[txtEstadoGIS]]></Name>
+					<X>630</X><Y>620</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-16777216</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA[mensajeGIS]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Rectangle>
+					<Id>1787151011716</Id>
+					<Name><![CDATA[rectangle]]></Name>
+					<X>625</X><Y>755</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-16777216</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>25</Width>
+					<Height>25</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-16776961</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Rectangle>
+					<Id>1787151059751</Id>
+					<Name><![CDATA[rectangle1]]></Name>
+					<X>725</X><Y>755</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-16777216</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>25</Width>
+					<Height>25</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-1146130</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Rectangle>
+					<Id>1787151071048</Id>
+					<Name><![CDATA[rectangle2]]></Name>
+					<X>825</X><Y>755</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-16777216</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>25</Width>
+					<Height>25</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-23296</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Rectangle>
+					<Id>1787151118943</Id>
+					<Name><![CDATA[rectangle3]]></Name>
+					<X>925</X><Y>755</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-16777216</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>25</Width>
+					<Height>25</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-65281</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Rectangle>
+					<Id>1787151140130</Id>
+					<Name><![CDATA[rectangle4]]></Name>
+					<X>1025</X><Y>755</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-16777216</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>25</Width>
+					<Height>25</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-65536</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Text>
+					<Id>1787151154148</Id>
+					<Name><![CDATA[text]]></Name>
+					<X>605</X><Y>790</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-16777216</Color>
+					<Text><![CDATA[Pedido normal]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787151177484</Id>
+					<Name><![CDATA[text2]]></Name>
+					<X>705</X><Y>790</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-16777216</Color>
+					<Text><![CDATA[Con ventana]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787151202564</Id>
+					<Name><![CDATA[text14]]></Name>
+					<X>795</X><Y>790</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-16777216</Color>
+					<Text><![CDATA[Requiere volcador]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787151210100</Id>
+					<Name><![CDATA[text15]]></Name>
+					<X>895</X><Y>790</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-16777216</Color>
+					<Text><![CDATA[Ventana + volcador]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787151215740</Id>
+					<Name><![CDATA[text16]]></Name>
+					<X>1017</X><Y>790</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-16777216</Color>
+					<Text><![CDATA[Corralón]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787152715608</Id>
+					<Name><![CDATA[txtEstadoRutasGIS]]></Name>
+					<X>630</X><Y>650</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-16777216</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA[mensajeRutasGIS]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Line>
+					<Id>1787152759639</Id>
+					<Name><![CDATA[lineaLeyendaCamion0]]></Name>
+					<X>625</X><Y>830</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>4</LineWidth>
+					<LineColor>-13730510</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<BeginArrowSize>1</BeginArrowSize>
+					<BeginArrowStyle>0</BeginArrowStyle>
+					<EndArrowSize>1</EndArrowSize>
+					<EndArrowStyle>0</EndArrowStyle>
+					<Dx>25</Dx>
+					<Dy>0</Dy>
+					<Dz>0</Dz>
+				</Line>
+				<Text>
+					<Id>1787152819448</Id>
+					<Name><![CDATA[text17]]></Name>
+					<X>605</X><Y>845</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-16777216</Color>
+					<Text><![CDATA[Ruta Camión 0]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Line>
+					<Id>1787152829951</Id>
+					<Name><![CDATA[lineaLeyendaCamion1]]></Name>
+					<X>725</X><Y>830</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>4</LineWidth>
+					<LineColor>-8708190</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<BeginArrowSize>1</BeginArrowSize>
+					<BeginArrowStyle>0</BeginArrowStyle>
+					<EndArrowSize>1</EndArrowSize>
+					<EndArrowStyle>0</EndArrowStyle>
+					<Dx>25</Dx>
+					<Dy>0</Dy>
+					<Dz>0</Dz>
+				</Line>
+				<Text>
+					<Id>1787152829953</Id>
+					<Name><![CDATA[text18]]></Name>
+					<X>705</X><Y>845</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-16777216</Color>
+					<Text><![CDATA[Ruta Camión 1]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787153559449</Id>
+					<Name><![CDATA[txtEstadoCamionesGIS]]></Name>
+					<X>630</X><Y>680</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-16777216</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA[resumenEstadosCamionesGIS()]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787156269463</Id>
+					<Name><![CDATA[txtEstadosPedidosGIS]]></Name>
+					<X>630</X><Y>710</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-16777216</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA[resumenEstadosPedidosGIS()]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Rectangle>
+					<Id>1787156342841</Id>
+					<Name><![CDATA[rectangle5]]></Name>
+					<X>625</X><Y>885</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-16777216</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>25</Width>
+					<Height>25</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-10453621</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Text>
+					<Id>1787156342843</Id>
+					<Name><![CDATA[text19]]></Name>
+					<X>720</X><Y>920</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-16777216</Color>
+					<Text><![CDATA[Cargado]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787156342845</Id>
+					<Name><![CDATA[text20]]></Name>
+					<X>610</X><Y>920</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-16777216</Color>
+					<Text><![CDATA[Planificado]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Rectangle>
+					<Id>1787156342847</Id>
+					<Name><![CDATA[rectangle6]]></Name>
+					<X>725</X><Y>885</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-16777216</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>25</Width>
+					<Height>25</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-15108398</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Text>
+					<Id>1787156342853</Id>
+					<Name><![CDATA[text22]]></Name>
+					<X>815</X><Y>920</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-16777216</Color>
+					<Text><![CDATA[En transito]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Rectangle>
+					<Id>1787156342855</Id>
+					<Name><![CDATA[rectangle8]]></Name>
+					<X>925</X><Y>885</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-16777216</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>25</Width>
+					<Height>25</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-278483</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Rectangle>
+					<Id>1787156342857</Id>
+					<Name><![CDATA[rectangle9]]></Name>
+					<X>825</X><Y>885</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-16777216</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>25</Width>
+					<Height>25</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-16728876</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Text>
+					<Id>1787156342859</Id>
+					<Name><![CDATA[text23]]></Name>
+					<X>912</X><Y>920</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-16777216</Color>
+					<Text><![CDATA[Esperando]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Rectangle>
+					<Id>1787156575635</Id>
+					<Name><![CDATA[rectangle10]]></Name>
+					<X>1025</X><Y>885</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-16777216</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>25</Width>
+					<Height>25</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-8604862</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Text>
+					<Id>1787156575637</Id>
+					<Name><![CDATA[text24]]></Name>
+					<X>1020</X><Y>920</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-16777216</Color>
+					<Text><![CDATA[Parcial]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Rectangle>
+					<Id>1787156631554</Id>
+					<Name><![CDATA[rectangle11]]></Name>
+					<X>1125</X><Y>885</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-16777216</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>25</Width>
+					<Height>25</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-13730510</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Text>
+					<Id>1787156631556</Id>
+					<Name><![CDATA[text25]]></Name>
+					<X>1115</X><Y>920</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-16777216</Color>
+					<Text><![CDATA[Entregado]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Rectangle>
+					<Id>1787156679086</Id>
+					<Name><![CDATA[rectangle12]]></Name>
+					<X>1225</X><Y>885</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-16777216</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>25</Width>
+					<Height>25</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-2937041</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Text>
+					<Id>1787156679088</Id>
+					<Name><![CDATA[text26]]></Name>
+					<X>1205</X><Y>920</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-16777216</Color>
+					<Text><![CDATA[No entregado]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Rectangle>
+					<Id>1787156744254</Id>
+					<Name><![CDATA[rectangle13]]></Name>
+					<X>1325</X><Y>885</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-16777216</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>25</Width>
+					<Height>25</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-8825528</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Text>
+					<Id>1787156744256</Id>
+					<Name><![CDATA[text27]]></Name>
+					<X>1285</X><Y>920</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-16777216</Color>
+					<Text><![CDATA[Pendiente dia siguiente]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
 			</Presentation>
 
 				</Level>
@@ -12226,19 +16611,38 @@ instanciaInterfazActual == null
 		<ActiveObjectClass>
 			<Id>1786559212049</Id>
 			<Name><![CDATA[Camion]]></Name>
-			<StartupCode><![CDATA[camionId = getIndex();
+			<StartupCode><![CDATA[camionId =
+    getIndex();
+
 
 Main main =
     (Main) getRootAgent();
 
+
 latActual =
     main.LAT_CORRALON;
 
+
 lonActual =
     main.LON_CORRALON;
-    
+
+
 nodoActualId =
     main.ID_NODO_CORRALON;
+
+
+/*
+ * El agente vive en el espacio GIS de Main.
+ *
+ * Al iniciar lo ubicamos junto al corralón.
+ * La separación es solamente visual.
+ */
+
+jumpTo(
+    latitudVisualCorralon2D(),
+    main.LON_CORRALON
+);
+
 
 traceln(
     "Camión creado. camionId="
@@ -13375,78 +17779,162 @@ evaluarClienteActual();]]></Action>
 						<Name><![CDATA[plan]]></Name>
 						<Type><![CDATA[PlanCamion]]></Type>
 					</Parameter>
-					<Body><![CDATA[planAsignado = plan;
+					<Body><![CDATA[if (plan == null) {
+
+    throw new IllegalArgumentException(
+        "plan no puede ser null."
+    );
+}
+
+
+planAsignado =
+    plan;
+
 
 nodoActualId =
     mainModel().ID_NODO_CORRALON;
 
+
 duracionViajeActualMin =
     0.0;
+
 
 distanciaViajeActualMetros =
     0.0;
 
+
 historialActividades.clear();
 
-actividadActual = null;
 
-inicioActividadActualMin = -1.0;
+actividadActual =
+    null;
 
-pedidoIdActividadActual = "";
 
-distanciaActividadActualMetros = 0.0;
+inicioActividadActualMin =
+    -1.0;
 
-personasActividadActual = 0;
 
-unidadesActividadActual = 0;
+pedidoIdActividadActual =
+    "";
 
-minutoFinPlan = -1.0;
 
-enCalle = false;
+distanciaActividadActualMetros =
+    0.0;
 
-abortarViajeActual = false;
+
+personasActividadActual =
+    0;
+
+
+unidadesActividadActual =
+    0;
+
+
+minutoFinPlan =
+    -1.0;
+
+
+enCalle =
+    false;
+
+
+abortarViajeActual =
+    false;
+
 
 decisionClienteActual =
-    DecisionAtencionCliente.DESCARGAR_AHORA;
+    DecisionAtencionCliente
+        .DESCARGAR_AHORA;
+
 
 duracionEsperaClienteActualMin =
     0.0;
 
+
 duracionDescargaActualMin =
     0.0;
+
 
 unidadesRetornadasCorralon =
     0;
 
-cargandoAhora = false;
+
+cargandoAhora =
+    false;
+
 
 trabajadoresCarga.clear();
 
-personasCargaActual = 0;
 
-duracionCargaActualMin = 0.0;
+personasCargaActual =
+    0;
 
-indiceViaje = 0;
-indicePedido = 0;
 
-viajeActual = null;
-pedidoActual = null;
+duracionCargaActualMin =
+    0.0;
 
-unidadesViajeActual = 0;
-cargaActual = 0;
 
-turnoFinalizado = false;
+indiceViaje =
+    0;
+
+
+indicePedido =
+    0;
+
+
+viajeActual =
+    null;
+
+
+pedidoActual =
+    null;
+
+
+unidadesViajeActual =
+    0;
+
+
+cargaActual =
+    0;
+
+
+turnoFinalizado =
+    false;
+
 
 latActual =
     mainModel().LAT_CORRALON;
+
 
 lonActual =
     mainModel().LON_CORRALON;
 
 
+/*
+ * Reiniciamos también la posición visual
+ * del modelo lorry.
+ */
+
+if (debeAnimarCamionGIS()) {
+
+    jumpTo(
+        latitudVisualCorralon2D(),
+        mainModel().LON_CORRALON
+    );
+
+} else {
+
+    jumpTo(
+        mainModel().LAT_CORRALON,
+        mainModel().LON_CORRALON
+    );
+}
+
+
 traceln(
-    "Camión " + camionId +
-    " recibió su plan: "
+    "Camión "
+    + camionId
+    + " recibió su plan: "
     + plan.viajes.size()
     + " viaje(s)."
 );]]></Body>
@@ -13612,10 +18100,21 @@ String pedidoId =
 
 pedidoActual =
     mainModel()
-    .obtenerPedidoRuntime(
-        pedidoId
+        .obtenerPedidoRuntime(
+            pedidoId
+        );
+
+
+if (pedidoActual == null) {
+
+    throw new IllegalStateException(
+        "No existe PedidoRuntime para "
+        + pedidoId
+        + "."
     );
-    
+}
+
+
 duracionViajeActualMin =
     mainModel()
         .obtenerTiempoViajeMin(
@@ -13631,6 +18130,7 @@ distanciaViajeActualMetros =
             pedidoId
         );
 
+
 iniciarActividad(
     TipoActividadCamion.VIAJE_CLIENTE,
     pedidoId,
@@ -13639,26 +18139,83 @@ iniciarActividad(
     0
 );
 
+
 pedidoActual.estado =
     EstadoPedido.EN_TRANSITO;
+
 
 pedidoActual.minutoSalida =
     mainModel().minutoDiaActual();
 
-enCalle = true;
+
+enCalle =
+    true;
+
 
 decisionClienteActual =
-    DecisionAtencionCliente.DESCARGAR_AHORA;
+    DecisionAtencionCliente
+        .DESCARGAR_AHORA;
+
 
 duracionEsperaClienteActualMin =
     0.0;
 
+
 duracionDescargaActualMin =
     0.0;
 
+
+// =====================================================
+// MOVIMIENTO CONTINUO DEL MODELO LORRY
+// =====================================================
+
+if (debeAnimarCamionGIS()) {
+
+    /*
+     * Quitamos el desplazamiento visual utilizado
+     * mientras el camión estaba estacionado.
+     */
+
+    jumpTo(
+        latActual,
+        lonActual
+    );
+
+
+    if (duracionViajeActualMin > 0.0) {
+
+        moveToInTime(
+            pedidoActual.input.latitud,
+            pedidoActual.input.longitud,
+            duracionViajeActualMin
+        );
+
+    } else {
+
+        jumpTo(
+            pedidoActual.input.latitud,
+            pedidoActual.input.longitud
+        );
+    }
+}
+
+
+mainModel()
+    .actualizarEstadoCamionGISOperativo(
+        camionId,
+        latActual,
+        lonActual,
+        "VIAJANDO_A_"
+            + pedidoActual.input.pedidoId
+    );
+
+
 traceln(
-    "[" + mainModel().minutoDiaActual() + "] "
-    + "Camión " + camionId
+    "["
+    + mainModel().minutoDiaActual()
+    + "] "
+    + "Camión "
+    + camionId
     + " sale hacia "
     + pedidoActual.input.pedidoId
     + ". Distancia="
@@ -13679,25 +18236,68 @@ traceln(
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>true</ShowLabel>
-					<Body><![CDATA[cerrarActividadActual();
+					<Body><![CDATA[if (pedidoActual == null) {
+
+    throw new IllegalStateException(
+        "pedidoActual es null al "
+        + "registrar la llegada."
+    );
+}
+
+
+cerrarActividadActual();
+
 
 latActual =
     pedidoActual.input.latitud;
 
+
 lonActual =
     pedidoActual.input.longitud;
-    
+
+
 nodoActualId =
     pedidoActual.input.pedidoId;
+
 
 pedidoActual.minutoLlegada =
     mainModel().minutoDiaActual();
 
 
+/*
+ * moveToInTime debería finalizar exactamente
+ * en este momento.
+ *
+ * jumpTo elimina cualquier diferencia numérica
+ * residual y deja el modelo sobre el cliente.
+ */
+
+if (debeAnimarCamionGIS()) {
+
+    jumpTo(
+        latActual,
+        lonActual
+    );
+}
+
+
+mainModel()
+    .actualizarEstadoCamionGISOperativo(
+        camionId,
+        latActual,
+        lonActual,
+        "EN_CLIENTE_"
+            + pedidoActual.input.pedidoId
+    );
+
+
 traceln(
-    "[" + mainModel().minutoDiaActual() + "] " +
-    "Camión " + camionId +
-    " llegó a "
+    "["
+    + mainModel().minutoDiaActual()
+    + "] "
+    + "Camión "
+    + camionId
+    + " llegó a "
     + pedidoActual.input.pedidoId
 );]]></Body>
 				</Function>
@@ -13808,46 +18408,94 @@ pedidoActual = null;]]></Body>
 					<ShowLabel>true</ShowLabel>
 					<Body><![CDATA[cerrarActividadActual();
 
+
 latActual =
     mainModel().LAT_CORRALON;
 
+
 lonActual =
     mainModel().LON_CORRALON;
-    
+
+
 nodoActualId =
     mainModel().ID_NODO_CORRALON;
-    
-enCalle = false;  
+
+
+enCalle =
+    false;
+
+
+/*
+ * El recorrido terminó en las coordenadas reales
+ * del corralón.
+ *
+ * Volvemos a separar visualmente los camiones
+ * estacionados.
+ */
+
+if (debeAnimarCamionGIS()) {
+
+    jumpTo(
+        latitudVisualCorralon2D(),
+        mainModel().LON_CORRALON
+    );
+}
+
+
+mainModel()
+    .actualizarEstadoCamionGISOperativo(
+        camionId,
+        latActual,
+        lonActual,
+        "EN_CORRALON"
+    );
+
 
 if (cargaActual > 0) {
 
     unidadesRetornadasCorralon +=
         cargaActual;
 
+
     traceln(
-        "[" + mainModel().minutoDiaActual() + "] "
-        + "Camión " + camionId
+        "["
+        + mainModel().minutoDiaActual()
+        + "] "
+        + "Camión "
+        + camionId
         + " regresa con "
         + cargaActual
         + " unidad(es) no entregadas."
     );
-}  
+}
 
-cargaActual = 0;
+
+cargaActual =
+    0;
+
 
 traceln(
-    "[" + mainModel().minutoDiaActual() + "] " +
-    "Camión " + camionId +
-    " regresó al corralón del viaje "
+    "["
+    + mainModel().minutoDiaActual()
+    + "] "
+    + "Camión "
+    + camionId
+    + " regresó al corralón del viaje "
     + viajeActual.numeroViaje
 );
 
 
-viajeActual = null;
+viajeActual =
+    null;
 
-pedidoActual = null;
 
-indicePedido = 0;
+pedidoActual =
+    null;
+
+
+indicePedido =
+    0;
+
 
 indiceViaje++;]]></Body>
 				</Function>
@@ -13862,22 +18510,80 @@ indiceViaje++;]]></Body>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>true</ShowLabel>
 					<Body><![CDATA[if (turnoFinalizado) {
+
     return;
 }
 
-// Defensa: no debería quedar una actividad abierta.
+
+// Defensa: no debería quedar
+// una actividad abierta.
+
 cerrarActividadActual();
+
 
 minutoFinPlan =
     mainModel().minutoDiaActual();
 
-turnoFinalizado = true;
+
+turnoFinalizado =
+    true;
+
+
+/*
+ * Un plan normal termina en el corralón.
+ *
+ * El camión sin viajes también permanece allí.
+ */
+
+if (debeAnimarCamionGIS()) {
+
+    boolean estaEnCorralon =
+        Math.abs(
+            latActual
+            - mainModel().LAT_CORRALON
+        ) < 0.000000001
+
+        &&
+
+        Math.abs(
+            lonActual
+            - mainModel().LON_CORRALON
+        ) < 0.000000001;
+
+
+    if (estaEnCorralon) {
+
+        jumpTo(
+            latitudVisualCorralon2D(),
+            mainModel().LON_CORRALON
+        );
+
+    } else {
+
+        jumpTo(
+            latActual,
+            lonActual
+        );
+    }
+}
+
+
+mainModel()
+    .actualizarEstadoCamionGISOperativo(
+        camionId,
+        latActual,
+        lonActual,
+        "PLAN_FINALIZADO"
+    );
 
 
 traceln(
-    "[" + mainModel().minutoDiaActual() + "] " +
-    "Camión " + camionId +
-    " FINALIZÓ su plan."
+    "["
+    + mainModel().minutoDiaActual()
+    + "] "
+    + "Camión "
+    + camionId
+    + " FINALIZÓ su plan."
 );
 
 
@@ -14333,6 +19039,7 @@ distanciaViajeActualMetros =
             mainModel().ID_NODO_CORRALON
         );
 
+
 iniciarActividad(
     TipoActividadCamion.REGRESO_CORRALON,
     "",
@@ -14341,9 +19048,52 @@ iniciarActividad(
     0
 );
 
+
+// =====================================================
+// MOVIMIENTO CONTINUO DE REGRESO
+// =====================================================
+
+if (debeAnimarCamionGIS()) {
+
+    jumpTo(
+        latActual,
+        lonActual
+    );
+
+
+    if (duracionViajeActualMin > 0.0) {
+
+        moveToInTime(
+            mainModel().LAT_CORRALON,
+            mainModel().LON_CORRALON,
+            duracionViajeActualMin
+        );
+
+    } else {
+
+        jumpTo(
+            mainModel().LAT_CORRALON,
+            mainModel().LON_CORRALON
+        );
+    }
+}
+
+
+mainModel()
+    .actualizarEstadoCamionGISOperativo(
+        camionId,
+        latActual,
+        lonActual,
+        "REGRESANDO_CORRALON"
+    );
+
+
 traceln(
-    "[" + mainModel().minutoDiaActual() + "] "
-    + "Camión " + camionId
+    "["
+    + mainModel().minutoDiaActual()
+    + "] "
+    + "Camión "
+    + camionId
     + " regresa al corralón. Distancia="
     + distanciaViajeActualMetros
     + " m"
@@ -14539,6 +19289,97 @@ personasActividadActual = 0;
 
 unidadesActividadActual = 0;]]></Body>
 				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[boolean]]></ReturnType>
+					<Id>1787158215902</Id>
+					<Name><![CDATA[debeAnimarCamionGIS]]></Name>
+					<X>-320</X><Y>740</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[Main main =
+    mainModel();
+
+
+if (main == null) {
+
+    return false;
+}
+
+
+boolean modoVisual =
+    main.MODO_EJECUCION
+        == ModoEjecucion.SIMULACION
+
+    ||
+
+    main.MODO_EJECUCION
+        == ModoEjecucion.PRODUCCION;
+
+
+return
+    modoVisual
+    &&
+    main.gisInicializado
+    &&
+    main.mapaGIS != null;]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1787158232262</Id>
+					<Name><![CDATA[latitudVisualCorralon2D]]></Name>
+					<X>-320</X><Y>770</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[Main main =
+    mainModel();
+
+
+int cantidadCamiones =
+    main.CANTIDAD_CAMIONES;
+
+
+if (
+    main.instanciaActual != null
+    &&
+    main.instanciaActual
+        .cantidadCamiones > 0
+) {
+
+    cantidadCamiones =
+        main.instanciaActual
+            .cantidadCamiones;
+}
+
+
+double centroIndice =
+    (
+        cantidadCamiones
+        - 1
+    )
+    /
+    2.0;
+
+
+double desplazamientoLatitud =
+    (
+        camionId
+        - centroIndice
+    )
+    *
+    0.00012;
+
+
+return
+    main.LAT_CORRALON
+    +
+    desplazamientoLatitud;]]></Body>
+				</Function>
 			</Functions>
 			<AgentLinks>
 				<AgentLink>
@@ -14651,8 +19492,8 @@ unidadesActividadActual = 0;]]></Body>
 	<TimeAccuracy>1.0E-5</TimeAccuracy>
 	<Frame>
 		<Id>1786555084413</Id>
-		<Width>1000</Width>
-		<Height>725</Height>
+		<Width>1420</Width>
+		<Height>950</Height>
 	</Frame>
 	<Database>
 		<Id>1786555084412</Id>
@@ -14909,8 +19750,8 @@ unidadesActividadActual = 0;]]></Body>
 				<StopOption><![CDATA[Stop at specified time]]></StopOption>
 				<InitialDate><![CDATA[1786492800000]]></InitialDate>
 				<InitialTime><![CDATA[0.0]]></InitialTime>
-				<FinalDate><![CDATA[1786500000000]]></FinalDate>
-				<FinalTime><![CDATA[120.0]]></FinalTime>
+				<FinalDate><![CDATA[1786528800000]]></FinalDate>
+				<FinalTime><![CDATA[600.0]]></FinalTime>
 			</ModelTimeProperties>
 			<BypassInitialScreen>true</BypassInitialScreen>
 		</SimulationExperiment>	
