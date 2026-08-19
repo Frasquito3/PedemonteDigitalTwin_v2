@@ -708,6 +708,81 @@
 						</InitialValue>
 					</Properties>
 				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787143677625</Id>
+					<Name><![CDATA[rutaPythonProyectoPypeline]]></Name>
+					<X>-1100</X><Y>880</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[""]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787143695026</Id>
+					<Name><![CDATA[rutaModeloRLPypelineRelativa]]></Name>
+					<X>-1100</X><Y>910</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA["models/rl/pedemonte_maskable_ppo.zip"]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787143712306</Id>
+					<Name><![CDATA[pypelinePlanificadorInicializado]]></Name>
+					<X>-1100</X><Y>940</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[boolean]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[false]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787143722923</Id>
+					<Name><![CDATA[pypelineEstadoPlanificador]]></Name>
+					<X>-1100</X><Y>970</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[""]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787143733300</Id>
+					<Name><![CDATA[pypelineUltimoPlanVector]]></Name>
+					<X>-1100</X><Y>1000</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[double[]]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[new double[0]]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
 				<Variable Class="Parameter">
 					<Id>1786556369483</Id>
 					<Name><![CDATA[CAPACIDAD_CAMION]]></Name>
@@ -8265,6 +8340,693 @@ for (
 
 return plan;]]></Body>
 				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[String]]></ReturnType>
+					<Id>1787143749925</Id>
+					<Name><![CDATA[resolverRaizPythonPypeline]]></Name>
+					<X>-810</X><Y>1990</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[java.util.ArrayList<java.io.File> candidatos =
+    new java.util.ArrayList<java.io.File>();
+
+
+if (
+    rutaPythonProyectoPypeline != null
+    &&
+    !rutaPythonProyectoPypeline
+        .trim()
+        .isEmpty()
+) {
+
+    candidatos.add(
+        new java.io.File(
+            rutaPythonProyectoPypeline
+        )
+    );
+}
+
+
+java.io.File actual =
+    new java.io.File(
+        System.getProperty(
+            "user.dir"
+        )
+    );
+
+
+for (
+    int nivel = 0;
+    nivel < 7
+    &&
+    actual != null;
+    nivel++
+) {
+
+    candidatos.add(
+        actual
+    );
+
+    candidatos.add(
+        new java.io.File(
+            actual,
+            "python"
+        )
+    );
+
+    actual =
+        actual.getParentFile();
+}
+
+
+for (
+    java.io.File candidato
+    : candidatos
+) {
+
+    try {
+
+        java.io.File raiz =
+            candidato
+            .getCanonicalFile();
+
+
+        java.io.File planner =
+            new java.io.File(
+                raiz,
+                "planner"
+            );
+
+
+        java.io.File pyrefly =
+            new java.io.File(
+                raiz,
+                "pyrefly.toml"
+            );
+
+
+        if (
+            planner.isDirectory()
+            &&
+            pyrefly.isFile()
+        ) {
+
+            return raiz
+                .getCanonicalPath();
+        }
+
+    } catch (
+        java.io.IOException ex
+    ) {
+
+        // Probamos el siguiente candidato.
+    }
+}
+
+
+throw new IllegalStateException(
+    "No se encontró la carpeta python "
+    + "del proyecto. user.dir="
+    + System.getProperty(
+        "user.dir"
+    )
+    + ". También puede indicarse manualmente "
+    + "en rutaPythonProyectoPypeline."
+);]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[double[]]]></ReturnType>
+					<Id>1787143770742</Id>
+					<Name><![CDATA[construirVectorInstanciaPypeline]]></Name>
+					<X>-810</X><Y>2020</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[instancia]]></Name>
+						<Type><![CDATA[InstanciaTurno]]></Type>
+					</Parameter>
+					<Body><![CDATA[final int TAMANO_CABECERA =
+    8;
+
+final int TAMANO_PEDIDO =
+    10;
+
+
+if (instancia == null) {
+
+    throw new IllegalArgumentException(
+        "instancia no puede ser null."
+    );
+}
+
+
+if (
+    instancia.pedidos == null
+    ||
+    instancia.pedidos.isEmpty()
+) {
+
+    throw new IllegalArgumentException(
+        "La instancia debe contener pedidos."
+    );
+}
+
+
+if (
+    instancia.pedidos.size()
+    > MAX_PEDIDOS_RL
+) {
+
+    throw new IllegalArgumentException(
+        "La instancia supera MAX_PEDIDOS_RL."
+    );
+}
+
+
+int cantidad =
+    instancia.pedidos.size();
+
+
+double[] vector =
+    new double[
+        TAMANO_CABECERA
+        +
+        cantidad
+        * TAMANO_PEDIDO
+    ];
+
+
+int turnoCodigo;
+
+
+if (
+    instancia.turno
+        == Turno.MANANA
+) {
+
+    turnoCodigo = 0;
+
+} else if (
+    instancia.turno
+        == Turno.TARDE
+) {
+
+    turnoCodigo = 1;
+
+} else {
+
+    throw new IllegalArgumentException(
+        "Turno no soportado."
+    );
+}
+
+
+vector[0] =
+    alpyneProtocoloVersion;
+
+vector[1] =
+    turnoCodigo;
+
+vector[2] =
+    cantidad;
+
+vector[3] =
+    instancia.capacidadCamion;
+
+vector[4] =
+    instancia.cantidadCamiones;
+
+vector[5] =
+    instancia.latCorralon;
+
+vector[6] =
+    instancia.lonCorralon;
+
+vector[7] =
+    0.0;
+
+
+java.util.LinkedHashMap<
+    String,
+    Integer
+> indicesOriginales =
+    new java.util.LinkedHashMap<
+        String,
+        Integer
+    >();
+
+
+for (
+    int i = 0;
+    i < cantidad;
+    i++
+) {
+
+    PedidoInput pedido =
+        instancia.pedidos.get(
+            i
+        );
+
+
+    if (pedido == null) {
+
+        throw new IllegalArgumentException(
+            "Pedido null en índice "
+            + i
+            + "."
+        );
+    }
+
+
+    String originalId =
+        pedido.pedidoOriginalId;
+
+
+    if (
+        originalId == null
+        ||
+        originalId
+            .trim()
+            .isEmpty()
+    ) {
+
+        originalId =
+            pedido.pedidoId;
+    }
+
+
+    Integer originalIndice =
+        indicesOriginales.get(
+            originalId
+        );
+
+
+    if (
+        originalIndice == null
+    ) {
+
+        originalIndice =
+            indicesOriginales.size();
+
+        indicesOriginales.put(
+            originalId,
+            originalIndice
+        );
+    }
+
+
+    int base =
+        TAMANO_CABECERA
+        +
+        i
+        * TAMANO_PEDIDO;
+
+
+    vector[base] =
+        i;
+
+    vector[base + 1] =
+        originalIndice;
+
+    vector[base + 2] =
+        pedido.numeroParte;
+
+    vector[base + 3] =
+        pedido.totalPartes;
+
+    vector[base + 4] =
+        pedido.unidadesCapacidad;
+
+    vector[base + 5] =
+        pedido.requiereVolcador
+        ? 1.0
+        : 0.0;
+
+    vector[base + 6] =
+        pedido.latitud;
+
+    vector[base + 7] =
+        pedido.longitud;
+
+
+    if (
+        pedido
+        .tieneVentanaEspecifica
+    ) {
+
+        vector[base + 8] =
+            pedido.horaDesdeMin;
+
+        vector[base + 9] =
+            pedido.horaHastaMin;
+
+    } else {
+
+        vector[base + 8] =
+            -1.0;
+
+        vector[base + 9] =
+            -1.0;
+    }
+}
+
+
+return vector;]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[boolean]]></ReturnType>
+					<Id>1787143803487</Id>
+					<Name><![CDATA[inicializarPlanificadorPypeline]]></Name>
+					<X>-810</X><Y>2050</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[if (
+    pypelinePlanificadorInicializado
+) {
+
+    return true;
+}
+
+
+try {
+
+    String raizPython =
+        resolverRaizPythonPypeline();
+
+
+    java.io.File archivoModelo =
+        new java.io.File(
+            raizPython,
+            rutaModeloRLPypelineRelativa
+        ).getCanonicalFile();
+
+
+    if (!archivoModelo.isFile()) {
+
+        throw new IllegalStateException(
+            "No existe el modelo RL: "
+            + archivoModelo
+                .getCanonicalPath()
+        );
+    }
+
+
+    String raizLiteral =
+        pyCommunicator.toJson(
+            raizPython
+        );
+
+
+    String modeloLiteral =
+        pyCommunicator.toJson(
+            archivoModelo
+                .getCanonicalPath()
+        );
+
+
+    pyCommunicator.run(
+        "import sys",
+
+        "import importlib",
+
+        "pedemonte_root = "
+            + raizLiteral,
+
+        (
+            "sys.path.insert(0, pedemonte_root) "
+            + "if pedemonte_root not in sys.path "
+            + "else None"
+        ),
+
+        (
+            "from planner.integration "
+            + "import pypeline_bridge "
+            + "as pedemonte_bridge"
+        ),
+
+        (
+            "pedemonte_bridge = "
+            + "importlib.reload("
+            + "pedemonte_bridge)"
+        )
+    );
+
+
+    String estado =
+        pyCommunicator.runResults(
+            String.class,
+
+            (
+                "pedemonte_bridge.inicializar("
+                + modeloLiteral
+                + ", max_pedidos=30, "
+                + "deterministic=True)"
+            )
+        );
+
+
+    if (
+        estado == null
+        ||
+        !estado.startsWith(
+            "OK|"
+        )
+    ) {
+
+        throw new IllegalStateException(
+            "Respuesta inesperada al "
+            + "inicializar Pypeline: "
+            + estado
+        );
+    }
+
+
+    pypelinePlanificadorInicializado =
+        true;
+
+    pypelineEstadoPlanificador =
+        estado;
+
+
+    traceln(
+        "PYPELINE PLANNER: "
+        + estado
+    );
+
+
+    return true;
+
+
+} catch (Exception ex) {
+
+    pypelinePlanificadorInicializado =
+        false;
+
+    pypelineEstadoPlanificador =
+        ex.getClass()
+            .getSimpleName()
+        + ": "
+        + ex.getMessage();
+
+
+    traceln(
+        "ERROR PYPELINE PLANNER: "
+        + pypelineEstadoPlanificador
+    );
+
+
+    ex.printStackTrace();
+
+
+    return false;
+}]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[PlanTurno]]></ReturnType>
+					<Id>1787143833955</Id>
+					<Name><![CDATA[generarPlanHibridoPypeline]]></Name>
+					<X>-810</X><Y>2080</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[instancia]]></Name>
+						<Type><![CDATA[InstanciaTurno]]></Type>
+					</Parameter>
+					<Body><![CDATA[if (instancia == null) {
+
+    throw new IllegalArgumentException(
+        "instancia no puede ser null."
+    );
+}
+
+
+if (
+    !inicializarPlanificadorPypeline()
+) {
+
+    throw new IllegalStateException(
+        "No fue posible inicializar "
+        + "el planificador Pypeline: "
+        + pypelineEstadoPlanificador
+    );
+}
+
+
+double[] instanciaVector =
+    construirVectorInstanciaPypeline(
+        instancia
+    );
+
+
+String vectorLiteral =
+    pyCommunicator.toJson(
+        instanciaVector
+    );
+
+
+String comando =
+    "pedemonte_bridge.planificar_vector("
+    + vectorLiteral
+    + ", "
+    + instancia.seedEscenario
+    + ", "
+    + instancia.seedEjecucion
+    + ")";
+
+
+double[] planVector =
+    pyCommunicator.runResults(
+        double[].class,
+        comando
+    );
+
+
+if (
+    planVector == null
+    ||
+    planVector.length < 5
+) {
+
+    throw new IllegalStateException(
+        "Python devolvió un planVector "
+        + "vacío o incompleto."
+    );
+}
+
+
+pypelineUltimoPlanVector =
+    planVector.clone();
+
+
+PlanTurno plan =
+    crearPlanAlpyneDinamico(
+        planVector,
+        instancia
+    );
+
+
+ResultadoValidacionPlan validacion =
+    validarPlan(
+        instancia,
+        plan
+    );
+
+
+if (!validacion.valido) {
+
+    throw new IllegalStateException(
+        "El plan devuelto por Pypeline "
+        + "es inválido: "
+        + validacion.errores
+    );
+}
+
+
+String decision =
+    pyCommunicator.runResults(
+        String.class,
+        (
+            "pedemonte_bridge."
+            + "obtener_ultima_decision()"
+        )
+    );
+
+
+pypelineEstadoPlanificador =
+    decision;
+
+
+traceln(
+    "PYPELINE DECISIÓN: "
+    + decision
+);
+
+
+return plan;]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[InstanciaTurno]]></ReturnType>
+					<Id>1787143863563</Id>
+					<Name><![CDATA[crearInstanciaPruebaPypeline]]></Name>
+					<X>-810</X><Y>2110</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[double[] vector =
+    new double[] {
+
+        1.0,
+        0.0,
+        2.0,
+        8.0,
+        2.0,
+        LAT_CORRALON,
+        LON_CORRALON,
+        0.0,
+
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        5.0,
+        0.0,
+        LAT_CORRALON + 0.0008,
+        LON_CORRALON + 0.0005,
+        -1.0,
+        -1.0,
+
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        3.0,
+        0.0,
+        LAT_CORRALON - 0.0007,
+        LON_CORRALON - 0.0006,
+        -1.0,
+        -1.0
+    };
+
+
+return crearInstanciaAlpyneDinamica(
+    vector,
+    5001
+);]]></Body>
+				</Function>
 			</Functions>
 			<AgentLinks>
 				<AgentLink>
@@ -8337,6 +9099,109 @@ return plan;]]></Body>
 					<QuantityColumn>
 					</QuantityColumn>
 				</EmbeddedObject>
+				<EmbeddedObject>
+					<Id>1787142315949</Id>
+					<Name><![CDATA[pyCommunicator]]></Name>
+					<X>-1680</X><Y>60</Y>
+					<Label><X>-45</X><Y>-15</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<ActiveObjectClass>
+						<PackageName><![CDATA[com.anylogic.libraries.pypeline]]></PackageName>
+						<ClassName><![CDATA[PyCommunicator]]></ClassName>
+					</ActiveObjectClass>
+					<GenericParameterSubstitute>
+						<GenericParameterSubstituteReference>
+							<PackageName><![CDATA[com.anylogic.libraries.pypeline]]></PackageName>
+							<ClassName><![CDATA[PyCommunicator]]></ClassName>
+							<ItemName><![CDATA[1569858524853]]></ItemName>
+						</GenericParameterSubstituteReference>
+					</GenericParameterSubstitute>
+					<Parameters>
+						<Parameter>
+							<Name><![CDATA[enable]]></Name>
+						</Parameter>
+						<Parameter>
+							<Name><![CDATA[loadLastWorkingConfig]]></Name>
+						</Parameter>
+						<Parameter>
+							<Name><![CDATA[pythonCommandType]]></Name>
+							<Value Class="CodeValue">
+								<Code><![CDATA[self.PYTHON_PATH]]></Code>
+							</Value>
+						</Parameter>
+						<Parameter>
+							<Name><![CDATA[pythonCommand]]></Name>
+						</Parameter>
+						<Parameter>
+							<Name><![CDATA[pythonExecPath]]></Name>
+							<Value Class="CodeValue">
+								<Code><![CDATA["C:/Users/franc/OneDrive/Documentos/PedemonteDigitalTwin_v2/.venv/Scripts/python.exe"]]></Code>
+							</Value>
+						</Parameter>
+						<Parameter>
+							<Name><![CDATA[throwErrorOnFailedAttempt]]></Name>
+						</Parameter>
+						<Parameter>
+							<Name><![CDATA[redirectPyOutput]]></Name>
+						</Parameter>
+						<Parameter>
+							<Name><![CDATA[isBlacklistMode]]></Name>
+						</Parameter>
+						<Parameter>
+							<Name><![CDATA[isCustomConfiguration]]></Name>
+						</Parameter>
+						<Parameter>
+							<Name><![CDATA[includeAutogeneratedsBL]]></Name>
+						</Parameter>
+						<Parameter>
+							<Name><![CDATA[includeAutogeneratedsWL]]></Name>
+						</Parameter>
+						<Parameter>
+							<Name><![CDATA[includedPackagesBL]]></Name>
+						</Parameter>
+						<Parameter>
+							<Name><![CDATA[includedPackagesWL]]></Name>
+						</Parameter>
+						<Parameter>
+							<Name><![CDATA[includedClassesBL]]></Name>
+						</Parameter>
+						<Parameter>
+							<Name><![CDATA[includedClassesWL]]></Name>
+						</Parameter>
+						<Parameter>
+							<Name><![CDATA[includedNamesBL]]></Name>
+						</Parameter>
+						<Parameter>
+							<Name><![CDATA[includedNamesWL]]></Name>
+						</Parameter>
+					</Parameters>
+					<ReplicationFlag>false</ReplicationFlag>
+					<Replication Class="CodeValue">
+						<Code><![CDATA[100]]></Code>
+					</Replication>
+					<CollectionType>ARRAY_LIST_BASED</CollectionType>
+					<InitialLocationType>XYZ</InitialLocationType>
+					<ColumnCode Class="CodeValue">
+						<Code><![CDATA[0]]></Code>
+					</ColumnCode>
+					<RowCode Class="CodeValue">
+						<Code><![CDATA[0]]></Code>
+					</RowCode>
+					<LocationNameCode Class="CodeValue">
+						<Code><![CDATA[""]]></Code>
+					</LocationNameCode>
+					<InitializationType>SPECIFIED_NUMBER</InitializationType>
+					<InitializationDatabaseTableQuery>
+						<Id>1787142315947</Id>
+						<TableReference>
+						</TableReference>
+					</InitializationDatabaseTableQuery>
+					<InitializationDatabaseType>ONE_AGENT_PER_DATABASE_RECORD</InitializationDatabaseType>
+					<QuantityColumn>
+					</QuantityColumn>
+				</EmbeddedObject>
 			</EmbeddedObjects>
 
 			<Presentation>
@@ -8352,6 +9217,99 @@ return plan;]]></Body>
 					<Z>0</Z>
 					<LevelVisibility>DIM_NON_CURRENT</LevelVisibility>
 
+			<Presentation>
+				<Control Type="Button">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1787143902718</Id>
+					<Name><![CDATA[button]]></Name>
+					<X>70</X><Y>60</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="250" Height="30">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<TextColor>-16777216</TextColor>
+						<Enabled>true</Enabled>
+						<ActionCode><![CDATA[if (ejecucionEnCurso) {
+
+    traceln(
+        "Ya existe una ejecución en curso."
+    );
+
+    return;
+}
+
+
+try {
+
+    InstanciaTurno instancia =
+        crearInstanciaPruebaPypeline();
+
+
+    PlanTurno plan =
+        generarPlanHibridoPypeline(
+            instancia
+        );
+
+
+    traceln(
+        "PLAN PYPELINE RECIBIDO"
+    );
+
+    traceln(
+        "Algoritmo: "
+        + plan.algoritmo
+    );
+
+    traceln(
+        "Costo estimado: "
+        + plan.costoEstimado
+    );
+
+    traceln(
+        "Tiempo cómputo: "
+        + plan.tiempoComputoMs
+        + " ms"
+    );
+
+
+    boolean iniciado =
+        ejecutarPlan(
+            instancia,
+            plan
+        );
+
+
+    if (!iniciado) {
+
+        throw new IllegalStateException(
+            "ejecutarPlan devolvió false."
+        );
+    }
+
+
+} catch (Exception ex) {
+
+    traceln(
+        "ERROR PRUEBA PYPELINE: "
+        + ex.getClass()
+            .getSimpleName()
+        + ": "
+        + ex.getMessage()
+    );
+
+
+    ex.printStackTrace();
+}]]></ActionCode>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="Dialog" Size="11" Style="0"/>
+						<LabelText><![CDATA[Planificar y ejecutar con Python]]></LabelText>
+					</ExtendedProperties>
+				</Control>
+			</Presentation>
 
 				</Level>
 				<EmbeddedObjectPresentation>
@@ -12615,6 +13573,12 @@ public class DesgloseCostoTurno implements Serializable {
 		<VersionMajor>1</VersionMajor>
 		<VersionMinor>0</VersionMinor>
 		<VersionBuild>0</VersionBuild>
+    </RequiredLibraryReference>
+    <RequiredLibraryReference>
+		<LibraryName><![CDATA[com.anylogic.libraries.pypeline]]></LibraryName>
+		<VersionMajor>1</VersionMajor>
+		<VersionMinor>9</VersionMinor>
+		<VersionBuild>6</VersionBuild>
     </RequiredLibraryReference>
 </Model>
 <ConvertersApplied>
