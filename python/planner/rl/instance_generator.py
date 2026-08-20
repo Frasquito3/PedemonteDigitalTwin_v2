@@ -1,15 +1,40 @@
-from dataclasses import dataclass, replace
-from random import Random
+from __future__ import annotations
 
-from planner.domain.preprocess import preprocesar_instancia
+from dataclasses import dataclass, replace
+from enum import Enum
+from pathlib import Path
+from random import Random
 
 from planner.core.schema import (
     InstanciaTurno,
     PedidoInput,
     Turno,
 )
-
+from planner.data.real_demand import (
+    CatalogoDemandaReal,
+    DivisionDemandaReal,
+    ParticionDemandaReal,
+    PuntoDemandaReal,
+    SEED_DIVISION_DEMANDA_REAL_V1,
+)
+from planner.domain.preprocess import preprocesar_instancia
 from planner.domain.validator import validar_instancia
+
+
+LAT_CORRALON = -32.8495006
+LON_CORRALON = -60.722653
+
+RUTA_DEMANDA_REAL_POR_DEFECTO = (
+    Path(__file__).resolve().parents[2]
+    / "data"
+    / "processed"
+    / "demanda_geografica_v1.csv"
+)
+
+
+class ModoDemandaGeografica(str, Enum):
+    SINTETICA = "SINTETICA"
+    REAL = "REAL"
 
 
 @dataclass(frozen=True)
@@ -38,6 +63,19 @@ class ConfiguracionGeneradorInstancias:
 
     max_intentos_generacion: int = 500
 
+    modo_demanda_geografica: ModoDemandaGeografica = (
+        ModoDemandaGeografica.SINTETICA
+    )
+
+    ruta_demanda_real: str = ""
+
+    muestreo_demanda_real_con_reemplazo: bool = False
+
+    particion_demanda_real: ParticionDemandaReal | None = None
+
+    seed_division_demanda_real: int = (
+        SEED_DIVISION_DEMANDA_REAL_V1
+    )
 
     def __post_init__(self) -> None:
         if self.min_pedidos_finales <= 0:
@@ -108,6 +146,42 @@ class ConfiguracionGeneradorInstancias:
                 "menor que ancho_ventana_min."
             )
 
+        if self.max_intentos_generacion <= 0:
+            raise ValueError(
+                "max_intentos_generacion debe ser > 0."
+            )
+
+        if not isinstance(
+            self.modo_demanda_geografica,
+            ModoDemandaGeografica,
+        ):
+            raise ValueError(
+                "modo_demanda_geografica debe ser una "
+                "instancia de ModoDemandaGeografica."
+            )
+
+        if (
+            self.particion_demanda_real is not None
+            and not isinstance(
+                self.particion_demanda_real,
+                ParticionDemandaReal,
+            )
+        ):
+            raise ValueError(
+                "particion_demanda_real debe ser None o una "
+                "instancia de ParticionDemandaReal."
+            )
+
+        if (
+            self.modo_demanda_geografica
+            == ModoDemandaGeografica.SINTETICA
+            and self.particion_demanda_real is not None
+        ):
+            raise ValueError(
+                "particion_demanda_real sólo puede utilizarse "
+                "cuando el modo de demanda geográfica es REAL."
+            )
+
 
 class GeneradorInstanciasRL:
     def __init__(
@@ -115,12 +189,80 @@ class GeneradorInstanciasRL:
         configuracion:
             ConfiguracionGeneradorInstancias
             | None = None,
+        catalogo_demanda_real:
+            CatalogoDemandaReal
+            | None = None,
     ) -> None:
         self.configuracion = (
             configuracion
             if configuracion is not None
             else ConfiguracionGeneradorInstancias()
         )
+
+        self._catalogo_demanda_real: (
+            CatalogoDemandaReal
+            | None
+        ) = None
+
+        self._catalogo_demanda_real_completo: (
+            CatalogoDemandaReal
+            | None
+        ) = None
+
+        self._division_demanda_real: (
+            DivisionDemandaReal
+            | None
+        ) = None
+
+        self._ruta_demanda_real_resuelta: (
+            Path
+            | None
+        ) = None
+
+        if (
+            self.configuracion
+            .modo_demanda_geografica
+            == ModoDemandaGeografica.REAL
+        ):
+            self._inicializar_demanda_real(
+                catalogo_demanda_real
+            )
+        elif catalogo_demanda_real is not None:
+            raise ValueError(
+                "catalogo_demanda_real sólo puede "
+                "utilizarse cuando el modo de demanda "
+                "geográfica es REAL."
+            )
+
+    @property
+    def catalogo_demanda_real(
+        self,
+    ) -> CatalogoDemandaReal | None:
+        return self._catalogo_demanda_real
+
+    @property
+    def catalogo_demanda_real_completo(
+        self,
+    ) -> CatalogoDemandaReal | None:
+        return self._catalogo_demanda_real_completo
+
+    @property
+    def division_demanda_real(
+        self,
+    ) -> DivisionDemandaReal | None:
+        return self._division_demanda_real
+
+    @property
+    def particion_demanda_real(
+        self,
+    ) -> ParticionDemandaReal | None:
+        return self.configuracion.particion_demanda_real
+
+    @property
+    def ruta_demanda_real_resuelta(
+        self,
+    ) -> Path | None:
+        return self._ruta_demanda_real_resuelta
 
     def generar(
         self,
@@ -189,15 +331,124 @@ class GeneradorInstanciasRL:
             "intentos."
         )
 
+    def _inicializar_demanda_real(
+        self,
+        catalogo_recibido:
+            CatalogoDemandaReal
+            | None,
+    ) -> None:
+        if catalogo_recibido is not None:
+            catalogo_completo = catalogo_recibido
+            ruta_resuelta = (
+                catalogo_recibido.ruta_fuente
+            )
+        else:
+            ruta_resuelta = (
+                self._resolver_ruta_demanda_real()
+            )
+
+            catalogo_completo = (
+                CatalogoDemandaReal.desde_csv(
+                    ruta_resuelta
+                )
+            )
+
+        particion = (
+            self.configuracion
+            .particion_demanda_real
+        )
+
+        division: DivisionDemandaReal | None = None
+        catalogo_efectivo = catalogo_completo
+
+        if particion is not None:
+            division = (
+                catalogo_completo
+                .dividir_por_direccion_fuente(
+                    seed=(
+                        self.configuracion
+                        .seed_division_demanda_real
+                    )
+                )
+            )
+
+            division.validar_sin_fuga()
+
+            catalogo_efectivo = (
+                division.catalogo_para(
+                    particion
+                )
+            )
+
+        if (
+            not self.configuracion
+            .muestreo_demanda_real_con_reemplazo
+            and self.configuracion
+            .max_pedidos_finales
+            > len(catalogo_efectivo)
+        ):
+            descripcion_particion = (
+                particion.value
+                if particion is not None
+                else "CATALOGO_COMPLETO"
+            )
+
+            raise ValueError(
+                "El catálogo de demanda real no tiene "
+                "suficientes registros para muestrear "
+                "sin reemplazo. "
+                f"Partición={descripcion_particion}, "
+                "registros disponibles="
+                f"{len(catalogo_efectivo)}, "
+                "máximo solicitado="
+                f"{self.configuracion.max_pedidos_finales}."
+            )
+
+        self._catalogo_demanda_real_completo = (
+            catalogo_completo
+        )
+        self._division_demanda_real = division
+        self._catalogo_demanda_real = (
+            catalogo_efectivo
+        )
+        self._ruta_demanda_real_resuelta = (
+            ruta_resuelta
+        )
+
+    def _resolver_ruta_demanda_real(
+        self,
+    ) -> Path:
+        ruta_configurada = (
+            self.configuracion
+            .ruta_demanda_real
+            .strip()
+        )
+
+        if ruta_configurada:
+            ruta = Path(
+                ruta_configurada
+            )
+
+            if not ruta.is_absolute():
+                ruta = (
+                    Path(__file__)
+                    .resolve()
+                    .parents[2]
+                    / ruta
+                )
+        else:
+            ruta = (
+                RUTA_DEMANDA_REAL_POR_DEFECTO
+            )
+
+        return ruta.resolve()
+
     def _generar_instancia_raw(
         self,
         seed: int,
         intento: int,
         rng: Random,
     ) -> InstanciaTurno:
-        lat_corralon = -32.8495006
-        lon_corralon = -60.722653
-
         turno = (
             Turno.MANANA
             if rng.random() < 0.5
@@ -224,6 +475,13 @@ class GeneradorInstanciasRL:
             .max_pedidos_finales,
         )
 
+        puntos_demanda_real = (
+            self._muestrear_puntos_demanda_real(
+                cantidad=cantidad_raw,
+                rng=rng,
+            )
+        )
+
         pedidos: list[PedidoInput] = []
 
         for indice in range(
@@ -246,12 +504,24 @@ class GeneradorInstanciasRL:
                 .probabilidad_volcador
             )
 
-            latitud, longitud = (
-                self._generar_coordenadas(
-                    lat_corralon,
-                    lon_corralon,
-                    rng,
-                )
+            punto_demanda_real = (
+                puntos_demanda_real[indice]
+                if puntos_demanda_real
+                is not None
+                else None
+            )
+
+            (
+                latitud,
+                longitud,
+                direccion,
+                barrio,
+                observaciones,
+            ) = self._generar_ubicacion(
+                punto_demanda_real=(
+                    punto_demanda_real
+                ),
+                rng=rng,
             )
 
             (
@@ -293,6 +563,12 @@ class GeneradorInstanciasRL:
                     hora_desde_min=hora_desde,
 
                     hora_hasta_min=hora_hasta,
+
+                    direccion=direccion,
+
+                    barrio=barrio,
+
+                    observaciones=observaciones,
                 )
             )
 
@@ -310,9 +586,9 @@ class GeneradorInstanciasRL:
 
             pedidos=pedidos,
 
-            lat_corralon=lat_corralon,
+            lat_corralon=LAT_CORRALON,
 
-            lon_corralon=lon_corralon,
+            lon_corralon=LON_CORRALON,
 
             capacidad_camion=(
                 self.configuracion
@@ -343,6 +619,84 @@ class GeneradorInstanciasRL:
             ),
         )
 
+    def _muestrear_puntos_demanda_real(
+        self,
+        cantidad: int,
+        rng: Random,
+    ) -> list[PuntoDemandaReal] | None:
+        if (
+            self.configuracion
+            .modo_demanda_geografica
+            == ModoDemandaGeografica.SINTETICA
+        ):
+            return None
+
+        catalogo = (
+            self._catalogo_demanda_real
+        )
+
+        if catalogo is None:
+            raise RuntimeError(
+                "El modo REAL requiere un catálogo "
+                "de demanda inicializado."
+            )
+
+        return catalogo.muestrear(
+            cantidad=cantidad,
+            rng=rng,
+            con_reemplazo=(
+                self.configuracion
+                .muestreo_demanda_real_con_reemplazo
+            ),
+        )
+
+    def _generar_ubicacion(
+        self,
+        punto_demanda_real:
+            PuntoDemandaReal
+            | None,
+        rng: Random,
+    ) -> tuple[
+        float,
+        float,
+        str,
+        str,
+        str,
+    ]:
+        if punto_demanda_real is None:
+            latitud, longitud = (
+                self._generar_coordenadas_sinteticas(
+                    LAT_CORRALON,
+                    LON_CORRALON,
+                    rng,
+                )
+            )
+
+            return (
+                latitud,
+                longitud,
+                "",
+                "",
+                "",
+            )
+
+        observaciones = (
+            "FUENTE_DEMANDA_REAL="
+            f"{punto_demanda_real.registro_id}; "
+            "CIUDAD="
+            f"{punto_demanda_real.ciudad}; "
+            "FRECUENCIA_FUENTE="
+            f"{punto_demanda_real.frecuencia_direccion_fuente}"
+        )
+
+        return (
+            punto_demanda_real.latitud,
+            punto_demanda_real.longitud,
+            punto_demanda_real.direccion_corta,
+            punto_demanda_real.barrio,
+            observaciones,
+        )
+
     def _generar_unidades(
         self,
         rng: Random,
@@ -367,7 +721,7 @@ class GeneradorInstanciasRL:
             .capacidad_camion,
         )
 
-    def _generar_coordenadas(
+    def _generar_coordenadas_sinteticas(
         self,
         lat_corralon: float,
         lon_corralon: float,

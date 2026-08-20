@@ -1,0 +1,3 @@
+registro_id,calle,altura,ciudad,barrio,latitud,longitud,distancia_corralon_km,direccion_osm,clave_direccion_fuente,frecuencia_direccion_fuente,estado_calidad,motivo_revision
+DG-0122,Seco,870,Arroyo Seco,No especificado,-33.1546140,-60.5082223,39.381546,"Arroyo Seco, Municipio de Arroyo Seco, Gran Rosario, Departamento Rosario, Santa Fe, Argentina",seco|870|arroyo seco,1,REVISAR_DISTANCIA,Distancia al corralón superior a 30.0 km.
+DG-0232,Joaquin V. Gonzalez,1856,Rafaela,Italia,-31.2414936,-61.4720621,192.246324,"Joaquín V. González, Italia, Rafaela, Municipio de Rafaela, Departamento Castellanos, Santa Fe, S2300, Argentina",joaquin v. gonzalez|1856|rafaela,1,REVISAR_DISTANCIA,Distancia al corralón superior a 30.0 km.

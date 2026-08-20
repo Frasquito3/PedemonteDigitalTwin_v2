@@ -1,0 +1,61 @@
+{
+  "archivo_fuente": "direcciones_geolocalizadas.csv",
+  "ciudades_aptas_entrenamiento": {
+    "Alvear": 1,
+    "Capitán Bermúdez": 4,
+    "Fray Luis Beltrán": 3,
+    "Funes": 14,
+    "Granadero Baigorria": 566,
+    "Ibarlucea": 11,
+    "Piñero": 1,
+    "Pueblo Esther": 1,
+    "Pérez": 1,
+    "Roldán": 9,
+    "Rosario": 105,
+    "San Lorenzo": 6,
+    "Zavalla": 1
+  },
+  "ciudades_todos_los_registros": {
+    "Alvear": 1,
+    "Arroyo Seco": 1,
+    "Capitán Bermúdez": 4,
+    "Fray Luis Beltrán": 3,
+    "Funes": 14,
+    "Granadero Baigorria": 566,
+    "Ibarlucea": 11,
+    "Piñero": 1,
+    "Pueblo Esther": 1,
+    "Pérez": 1,
+    "Rafaela": 1,
+    "Roldán": 9,
+    "Rosario": 105,
+    "San Lorenzo": 6,
+    "Zavalla": 1
+  },
+  "conteos": {
+    "direcciones_fuente_unicas": 612,
+    "registros_aptos_entrenamiento": 723,
+    "registros_revision": 2,
+    "registros_totales": 725
+  },
+  "corralon": {
+    "latitud": -32.8495006,
+    "longitud": -60.722653
+  },
+  "criterio_calidad": {
+    "distancia_max_entrenamiento_km": 30.0,
+    "registros_lejanos": "Se conservan en el dataset, pero quedan marcados para revisión y no deben usarse en entrenamiento hasta ser validados."
+  },
+  "dataset": "demanda_geografica_real_pedemonte",
+  "distancias_km": {
+    "maximo": 192.246324,
+    "mediana": 1.552132,
+    "minimo": 0.145656,
+    "p90": 11.73501,
+    "p95": 15.008141,
+    "p99": 20.64616
+  },
+  "regla_frecuencia": "Cada fila representa una aparición en la fuente. Las repeticiones se conservan para mantener la frecuencia empírica de demanda.",
+  "sha256_fuente": "bab1a687bdc2aa81516fc2bf198869a8e1f1a7363f9282a10037654efb002222",
+  "version": "1.0.0"
+}
