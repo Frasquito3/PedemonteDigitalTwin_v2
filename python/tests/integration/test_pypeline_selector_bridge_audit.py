@@ -117,7 +117,7 @@ class PypelineSelectorBridgeAuditTest(
         decision = bridge.obtener_ultima_decision()
 
         self.assertIn(
-            "version=estimacion-costo-v2",
+            "version=estimacion-costo-v3",
             auditoria,
         )
         self.assertIn(
@@ -125,7 +125,7 @@ class PypelineSelectorBridgeAuditTest(
             auditoria,
         )
         self.assertIn(
-            "auditoria_estimacion=version=estimacion-costo-v2",
+            "auditoria_estimacion=version=estimacion-costo-v3",
             decision,
         )
         self.assertIn(

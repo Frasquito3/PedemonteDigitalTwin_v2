@@ -13,8 +13,8 @@ from planner.algorithms.ga import (
 from planner.algorithms.greedy import (
     generar_plan_greedy,
 )
-from planner.algorithms.hybrid_rl_greedy import (
-    HybridRLGreedyPlanner,
+from planner.algorithms.hybrid_rl_ga_greedy import (
+    HybridRLGAGreedyPlanner,
 )
 from planner.algorithms.random_feasible import (
     generar_plan_random,
@@ -148,7 +148,7 @@ class SelectorPlanificadores:
         )
 
         self._planner_hibrido: (
-            HybridRLGreedyPlanner
+            HybridRLGAGreedyPlanner
             | None
         ) = None
 
@@ -274,15 +274,39 @@ class SelectorPlanificadores:
                 decision_hibrida
                 is not None
             ):
+                errores_ga = (
+                    ";".join(
+                        decision_hibrida.errores_ga
+                    )
+                    if decision_hibrida.errores_ga
+                    else "NINGUNO"
+                )
+
+                errores_rl = (
+                    ";".join(
+                        decision_hibrida.errores_rl
+                    )
+                    if decision_hibrida.errores_rl
+                    else "NINGUNO"
+                )
+
                 detalle = (
                     "fuente="
                     f"{decision_hibrida.fuente_seleccionada.value}"
                     "|motivo="
                     f"{decision_hibrida.motivo.value}"
+                    "|seed_ga="
+                    f"{decision_hibrida.seed_ga}"
                     "|costo_rl="
                     f"{decision_hibrida.costo_rl}"
+                    "|costo_ga="
+                    f"{decision_hibrida.costo_ga}"
                     "|costo_greedy="
                     f"{decision_hibrida.costo_greedy}"
+                    "|errores_ga="
+                    f"{errores_ga}"
+                    "|errores_rl="
+                    f"{errores_rl}"
                 )
 
         validacion = validar_plan(
@@ -385,13 +409,13 @@ class SelectorPlanificadores:
 
     def _obtener_planner_hibrido(
         self,
-    ) -> HybridRLGreedyPlanner:
+    ) -> HybridRLGAGreedyPlanner:
         if (
             self._planner_hibrido
             is None
         ):
             self._planner_hibrido = (
-                HybridRLGreedyPlanner(
+                HybridRLGAGreedyPlanner(
                     planner_rl=(
                         self
                         ._obtener_planner_rl()

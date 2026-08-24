@@ -12,6 +12,9 @@ from planner.routing.objective import (
     tiempo_carga_estimado_min,
     tiempo_descarga_estimado_min,
 )
+from planner.routing.operational import (
+    simular_plan_operativo_estimado,
+)
 
 from planner.core.schema import (
     AlgoritmoPlanificacion,
@@ -384,11 +387,54 @@ class GreedyFeasiblePlanner(
                     for pedido_id in viaje
                 ),
 
+                # Desempate operacional tipo LPT:
+                # cuando varios viajes tienen la misma urgencia y
+                # ocupación, se asigna primero el de mayor duración
+                # estimada de referencia. Esto reduce el desbalance y
+                # evita que el resultado dependa del nombre arbitrario
+                # de los pedido_id.
+                -self._duracion_referencia_viaje(
+                    viaje,
+                    instancia,
+                    pedidos_por_id,
+                    matriz,
+                ),
+
+                # El ID queda únicamente como último desempate estable
+                # cuando los viajes son operacionalmente equivalentes.
                 tuple(viaje),
             )
         )
 
         return viajes
+
+    def _duracion_referencia_viaje(
+        self,
+        pedido_ids: list[str],
+        instancia: InstanciaTurno,
+        pedidos_por_id:
+            dict[str, PedidoInput],
+        matriz: MatrizViaje,
+    ) -> float:
+        """
+        Devuelve una duración determinística de referencia para ordenar
+        viajes candidatos con iguales prioridades duras.
+
+        No reemplaza la simulación operativa dinámica usada por la
+        función objetivo final. Su único propósito es aplicar un
+        desempate operacional estable, equivalente a priorizar primero
+        los trabajos más largos (LPT), antes de recurrir al pedido_id.
+        """
+        inicio = float(
+            instancia.hora_inicio_turno_min
+        )
+        fin = self._estimar_fin_viaje(
+            pedido_ids,
+            inicio,
+            pedidos_por_id,
+            matriz,
+        )
+        return fin - inicio
 
     def _secuenciar_normales(
         self,
@@ -582,18 +628,29 @@ class GreedyFeasiblePlanner(
                 )
             )
 
-            disponibilidad[
-                camion_id
-            ] = self._estimar_fin_viaje(
-                pedido_ids,
+            plan_parcial = PlanTurno(
+                instancia_id=(
+                    instancia.instancia_id
+                ),
+                algoritmo=(
+                    AlgoritmoPlanificacion
+                    .GREEDY
+                ),
+                camiones=planes_camion,
+            )
 
-                disponibilidad[
-                    camion_id
-                ],
+            resultado_operativo = (
+                simular_plan_operativo_estimado(
+                    instancia,
+                    plan_parcial,
+                    matriz,
+                    self.configuracion,
+                )
+            )
 
-                pedidos_por_id,
-
-                matriz,
+            disponibilidad = list(
+                resultado_operativo
+                .finales_camiones_min
             )
 
         return PlanTurno(

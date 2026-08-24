@@ -1359,6 +1359,201 @@
 						</InitialValue>
 					</Properties>
 				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787586609882</Id>
+					<Name><![CDATA[rutasActivasPorCamionGIS]]></Name>
+					<X>-1100</X><Y>2170</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[java.util.LinkedHashMap<Integer, java.util.ArrayList<com.anylogic.engine.markup.GISRoute>>]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[new java.util.LinkedHashMap<Integer, java.util.ArrayList<com.anylogic.engine.markup.GISRoute>>()]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787598514855</Id>
+					<Name><![CDATA[uiSelectorModoSolicitado]]></Name>
+					<X>-1100</X><Y>2200</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA["SIN PLANIFICAR"]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787598524567</Id>
+					<Name><![CDATA[uiSelectorFuente]]></Name>
+					<X>-1100</X><Y>2230</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA["—"]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787598540454</Id>
+					<Name><![CDATA[uiSelectorMotivo]]></Name>
+					<X>-1100</X><Y>2260</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA["Sin decisión disponible"]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787598556991</Id>
+					<Name><![CDATA[uiSelectorEstado]]></Name>
+					<X>-1100</X><Y>2290</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA["ESPERANDO"]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787598567718</Id>
+					<Name><![CDATA[uiSelectorAviso]]></Name>
+					<X>-1100</X><Y>2320</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[""]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787598577855</Id>
+					<Name><![CDATA[uiSelectorCostoGreedy]]></Name>
+					<X>-1100</X><Y>2350</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[double]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[Double.NaN]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787598588127</Id>
+					<Name><![CDATA[uiSelectorCostoGA]]></Name>
+					<X>-1100</X><Y>2380</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[double]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[Double.NaN]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787598595991</Id>
+					<Name><![CDATA[uiSelectorCostoRL]]></Name>
+					<X>-1100</X><Y>2410</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[double]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[Double.NaN]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787598599846</Id>
+					<Name><![CDATA[uiSelectorCostoElegido]]></Name>
+					<X>-1100</X><Y>2440</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[double]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[Double.NaN]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787598602615</Id>
+					<Name><![CDATA[uiSelectorMejoraGreedyPct]]></Name>
+					<X>-1100</X><Y>2470</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[double]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[Double.NaN]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787598627959</Id>
+					<Name><![CDATA[uiSelectorTiempoMs]]></Name>
+					<X>-1100</X><Y>2500</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[double]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[Double.NaN]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787598664254</Id>
+					<Name><![CDATA[uiSelectorSeedGA]]></Name>
+					<X>-1100</X><Y>2530</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[long]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[-1L]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
 				<Variable Class="Parameter">
 					<Id>1786556369483</Id>
 					<Name><![CDATA[CAPACIDAD_CAMION]]></Name>
@@ -3612,6 +3807,8 @@ if (
 
     resultadoActual =
         construirResultadoTurno();
+        
+    marcarSelectorFinalizadoVisual();
 
 
     mensajeInterfazPlanificacion =
@@ -3872,6 +4069,7 @@ traceln(
     + plan.algoritmo
 );
 traceln("");
+marcarSelectorEnEjecucionVisual();
 
 for (Camion camion : camiones) {
 
@@ -10660,6 +10858,9 @@ traceln(
     + decision
 );
 
+registrarDecisionSelectorVisual(
+    decision
+);
 
 return plan;]]></Body>
 				</Function>
@@ -12355,6 +12556,8 @@ traceln(
 
     rutasPlanGIS.clear();
 
+    rutasActivasPorCamionGIS.clear();
+
     cantidadSegmentosPlanGIS =
         0;
 
@@ -12382,12 +12585,15 @@ for (
 rutasPlanGIS.clear();
 
 
+rutasActivasPorCamionGIS.clear();
+
+
 cantidadSegmentosPlanGIS =
     0;
 
 
 mensajeRutasGIS =
-    "Sin plan representado en el mapa.";
+    "Sin viajes activos en el mapa.";
 
 
 traceln(
@@ -12821,13 +13027,26 @@ if (!validacion.valido) {
 }
 
 
+/*
+ * Ya no dibujamos el plan completo.
+ *
+ * Cada agente Camion solicitará la representación
+ * de su viaje actual al comenzar la carga y la
+ * eliminará cuando vuelva al corralón.
+ */
+
 limpiarRutasPlanGIS();
 
 
-int viajesRepresentados =
+int viajesPlanificados =
     0;
 
-int camionesConRuta =
+
+int camionesConViajes =
+    0;
+
+
+int tramosPlanificados =
     0;
 
 
@@ -12861,13 +13080,7 @@ for (
     }
 
 
-    camionesConRuta++;
-
-
-    java.awt.Color colorRuta =
-        colorRutaCamionGIS(
-            planCamion.camionId
-        );
+    camionesConViajes++;
 
 
     for (
@@ -12903,14 +13116,7 @@ for (
         }
 
 
-        viajesRepresentados++;
-
-
-        double latitudActual =
-            instancia.latCorralon;
-
-        double longitudActual =
-            instancia.lonCorralon;
+        viajesPlanificados++;
 
 
         String origenActual =
@@ -12926,92 +13132,11 @@ for (
             : viaje.pedidoIds
         ) {
 
-            PedidoInput pedido =
-                buscarPedidoParaGIS(
-                    instancia,
-                    pedidoId
-                );
-
-
-            com.anylogic.engine.markup.GISRoute ruta =
-                crearSegmentoRutaGIS(
-                    latitudActual,
-                    longitudActual,
-                    pedido.latitud,
-                    pedido.longitud,
-                    colorRuta
-                );
-
-
-            if (ruta == null) {
-
-                traceln(
-                    "GIS PLAN | camion="
-                    + planCamion.camionId
-                    + " | viaje="
-                    + viaje.numeroViaje
-                    + " | tramo="
-                    + numeroTramo
-                    + " | "
-                    + origenActual
-                    + " -> "
-                    + pedidoId
-                    + " | omitido por "
-                    + "coordenadas iguales"
-                );
-
-            } else {
-
-                traceln(
-                    "GIS PLAN | camion="
-                    + planCamion.camionId
-                    + " | viaje="
-                    + viaje.numeroViaje
-                    + " | tramo="
-                    + numeroTramo
-                    + " | "
-                    + origenActual
-                    + " -> "
-                    + pedidoId
-                );
-            }
-
-
-            latitudActual =
-                pedido.latitud;
-
-            longitudActual =
-                pedido.longitud;
-
-            origenActual =
-                pedidoId;
-
-            numeroTramo++;
-        }
-
-
-        com.anylogic.engine.markup.GISRoute rutaRetorno =
-            crearSegmentoRutaGIS(
-                latitudActual,
-                longitudActual,
-                instancia.latCorralon,
-                instancia.lonCorralon,
-                colorRuta
+            buscarPedidoParaGIS(
+                instancia,
+                pedidoId
             );
 
-
-        if (rutaRetorno == null) {
-
-            traceln(
-                "GIS PLAN | camion="
-                + planCamion.camionId
-                + " | viaje="
-                + viaje.numeroViaje
-                + " | retorno omitido por "
-                + "coordenadas iguales"
-            );
-
-        } else {
 
             traceln(
                 "GIS PLAN | camion="
@@ -13022,33 +13147,75 @@ for (
                 + numeroTramo
                 + " | "
                 + origenActual
-                + " -> CORRALON"
+                + " -> "
+                + pedidoId
+                + " | dibujo diferido"
             );
+
+
+            origenActual =
+                pedidoId;
+
+
+            numeroTramo++;
+
+
+            tramosPlanificados++;
         }
+
+
+        traceln(
+            "GIS PLAN | camion="
+            + planCamion.camionId
+            + " | viaje="
+            + viaje.numeroViaje
+            + " | tramo="
+            + numeroTramo
+            + " | "
+            + origenActual
+            + " -> CORRALON"
+            + " | dibujo diferido"
+        );
+
+
+        tramosPlanificados++;
     }
 }
 
-// Los marcadores se agregan después
-// de las rutas para que queden visibles
-// por encima de las líneas.
+
+// Los marcadores se preparan desde el inicio.
+// Las rutas aparecerán cuando cada camión inicie
+// su viaje correspondiente.
 
 inicializarMarcadoresCamionesGIS(
     instancia
 );
 
+
 mensajeRutasGIS =
-    "Plan GIS: "
-    + cantidadSegmentosPlanGIS
-    + " segmento(s), "
-    + viajesRepresentados
+    "Plan preparado: "
+    + viajesPlanificados
     + " viaje(s), "
-    + camionesConRuta
-    + " camión(es) con recorrido.";
+    + tramosPlanificados
+    + " tramo(s). "
+    + "Se mostrará solo el viaje activo.";
 
 
 traceln(
     mensajeRutasGIS
-);]]></Body>
+);
+
+
+traceln(
+    "GIS PLAN DINÁMICO"
+    + " | viajesPlanificados="
+    + viajesPlanificados
+    + " | tramosPlanificados="
+    + tramosPlanificados
+    + " | camionesConViajes="
+    + camionesConViajes
+);
+]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>VOID</ReturnModificator>
@@ -16035,6 +16202,1302 @@ try {
     return false;
 }]]></Body>
 				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1787586633994</Id>
+					<Name><![CDATA[limpiarRutaActivaCamionGIS]]></Name>
+					<X>-810</X><Y>3220</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[camionId]]></Name>
+						<Type><![CDATA[int]]></Type>
+					</Parameter>
+					<Body><![CDATA[if (camionId < 0) {
+
+    throw new IllegalArgumentException(
+        "camionId no puede ser negativo."
+    );
+}
+
+
+java.util.ArrayList<
+    com.anylogic.engine.markup.GISRoute
+> rutasCamion =
+    rutasActivasPorCamionGIS.remove(
+        camionId
+    );
+
+
+if (
+    rutasCamion == null
+    ||
+    rutasCamion.isEmpty()
+) {
+
+    return;
+}
+
+
+int segmentosEliminados =
+    0;
+
+
+for (
+    com.anylogic.engine.markup.GISRoute ruta
+    : rutasCamion
+) {
+
+    if (ruta == null) {
+        continue;
+    }
+
+
+    if (mapaGIS != null) {
+
+        mapaGIS.remove(
+            ruta
+        );
+    }
+
+
+    rutasPlanGIS.remove(
+        ruta
+    );
+
+
+    segmentosEliminados++;
+}
+
+
+rutasCamion.clear();
+
+
+cantidadSegmentosPlanGIS =
+    rutasPlanGIS.size();
+
+
+if (cantidadSegmentosPlanGIS == 0) {
+
+    mensajeRutasGIS =
+        "Sin viajes activos en el mapa.";
+
+} else {
+
+    mensajeRutasGIS =
+        "Rutas activas: "
+        + cantidadSegmentosPlanGIS
+        + " segmento(s).";
+}
+
+
+traceln(
+    "GIS VIAJE ACTIVO LIMPIADO"
+    + " | camion="
+    + camionId
+    + " | segmentosEliminados="
+    + segmentosEliminados
+    + " | segmentosActivos="
+    + cantidadSegmentosPlanGIS
+);]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1787586663225</Id>
+					<Name><![CDATA[mostrarViajeActivoCamionGIS]]></Name>
+					<X>-810</X><Y>3250</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[camionId]]></Name>
+						<Type><![CDATA[int]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[viaje]]></Name>
+						<Type><![CDATA[ViajePlan]]></Type>
+					</Parameter>
+					<Body><![CDATA[if (
+    MODO_EJECUCION
+        != ModoEjecucion.SIMULACION
+    &&
+    MODO_EJECUCION
+        != ModoEjecucion.PRODUCCION
+) {
+
+    return;
+}
+
+
+if (camionId < 0) {
+
+    throw new IllegalArgumentException(
+        "camionId no puede ser negativo."
+    );
+}
+
+
+if (viaje == null) {
+
+    throw new IllegalArgumentException(
+        "viaje no puede ser null."
+    );
+}
+
+
+if (
+    viaje.pedidoIds == null
+    ||
+    viaje.pedidoIds.isEmpty()
+) {
+
+    limpiarRutaActivaCamionGIS(
+        camionId
+    );
+
+    traceln(
+        "GIS VIAJE ACTIVO"
+        + " | camion="
+        + camionId
+        + " | viaje="
+        + viaje.numeroViaje
+        + " | sin pedidos"
+    );
+
+    return;
+}
+
+
+if (instanciaActual == null) {
+
+    throw new IllegalStateException(
+        "No existe instanciaActual para "
+        + "representar el viaje activo."
+    );
+}
+
+
+if (!gisInicializado) {
+
+    inicializarGIS();
+}
+
+
+if (mapaGIS == null) {
+
+    throw new IllegalStateException(
+        "No existe mapaGIS."
+    );
+}
+
+
+limpiarRutaActivaCamionGIS(
+    camionId
+);
+
+
+java.util.ArrayList<
+    com.anylogic.engine.markup.GISRoute
+> rutasCamion =
+    new java.util.ArrayList<
+        com.anylogic.engine.markup.GISRoute
+    >();
+
+
+rutasActivasPorCamionGIS.put(
+    camionId,
+    rutasCamion
+);
+
+
+try {
+
+    java.awt.Color colorRuta =
+        colorRutaCamionGIS(
+            camionId
+        );
+
+
+    double latitudActual =
+        instanciaActual.latCorralon;
+
+
+    double longitudActual =
+        instanciaActual.lonCorralon;
+
+
+    String origenActual =
+        "CORRALON";
+
+
+    int numeroTramo =
+        1;
+
+
+    for (
+        String pedidoId
+        : viaje.pedidoIds
+    ) {
+
+        PedidoInput pedido =
+            buscarPedidoParaGIS(
+                instanciaActual,
+                pedidoId
+            );
+
+
+        com.anylogic.engine.markup.GISRoute ruta =
+            crearSegmentoRutaGIS(
+                latitudActual,
+                longitudActual,
+                pedido.latitud,
+                pedido.longitud,
+                colorRuta
+            );
+
+
+        if (ruta == null) {
+
+            traceln(
+                "GIS VIAJE ACTIVO"
+                + " | camion="
+                + camionId
+                + " | viaje="
+                + viaje.numeroViaje
+                + " | tramo="
+                + numeroTramo
+                + " | "
+                + origenActual
+                + " -> "
+                + pedidoId
+                + " | omitido por "
+                + "coordenadas iguales"
+            );
+
+        } else {
+
+            rutasCamion.add(
+                ruta
+            );
+
+
+            traceln(
+                "GIS VIAJE ACTIVO"
+                + " | camion="
+                + camionId
+                + " | viaje="
+                + viaje.numeroViaje
+                + " | tramo="
+                + numeroTramo
+                + " | "
+                + origenActual
+                + " -> "
+                + pedidoId
+            );
+        }
+
+
+        latitudActual =
+            pedido.latitud;
+
+
+        longitudActual =
+            pedido.longitud;
+
+
+        origenActual =
+            pedidoId;
+
+
+        numeroTramo++;
+    }
+
+
+    com.anylogic.engine.markup.GISRoute rutaRetorno =
+        crearSegmentoRutaGIS(
+            latitudActual,
+            longitudActual,
+            instanciaActual.latCorralon,
+            instanciaActual.lonCorralon,
+            colorRuta
+        );
+
+
+    if (rutaRetorno == null) {
+
+        traceln(
+            "GIS VIAJE ACTIVO"
+            + " | camion="
+            + camionId
+            + " | viaje="
+            + viaje.numeroViaje
+            + " | retorno omitido por "
+            + "coordenadas iguales"
+        );
+
+    } else {
+
+        rutasCamion.add(
+            rutaRetorno
+        );
+
+
+        traceln(
+            "GIS VIAJE ACTIVO"
+            + " | camion="
+            + camionId
+            + " | viaje="
+            + viaje.numeroViaje
+            + " | tramo="
+            + numeroTramo
+            + " | "
+            + origenActual
+            + " -> CORRALON"
+        );
+    }
+
+
+    if (rutasCamion.isEmpty()) {
+
+        rutasActivasPorCamionGIS.remove(
+            camionId
+        );
+    }
+
+
+    cantidadSegmentosPlanGIS =
+        rutasPlanGIS.size();
+
+
+    mensajeRutasGIS =
+        "Rutas activas: "
+        + cantidadSegmentosPlanGIS
+        + " segmento(s).";
+
+
+    traceln(
+        "GIS VIAJE ACTIVO MOSTRADO"
+        + " | camion="
+        + camionId
+        + " | viaje="
+        + viaje.numeroViaje
+        + " | segmentosCamion="
+        + rutasCamion.size()
+        + " | segmentosActivos="
+        + cantidadSegmentosPlanGIS
+    );
+
+} catch (Exception ex) {
+
+    limpiarRutaActivaCamionGIS(
+        camionId
+    );
+
+    throw ex;
+}]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[String]]></ReturnType>
+					<Id>1787598691463</Id>
+					<Name><![CDATA[campoDecisionSelector]]></Name>
+					<X>-810</X><Y>3280</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[decision]]></Name>
+						<Type><![CDATA[String]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[clave]]></Name>
+						<Type><![CDATA[String]]></Type>
+					</Parameter>
+					<Body><![CDATA[if (
+    decision == null
+    || decision.trim().isEmpty()
+    || clave == null
+    || clave.trim().isEmpty()
+) {
+    return "";
+}
+
+String prefijo = clave.trim() + "=";
+
+String[] partes = decision.split("\\|");
+
+for (String parte : partes) {
+
+    if (parte == null) {
+        continue;
+    }
+
+    String candidata = parte.trim();
+
+    /*
+     * En las decisiones híbridas, el primer campo
+     * interno aparece como:
+     *
+     * detalle=fuente=GA
+     *
+     * Se elimina "detalle=" para poder recuperar
+     * correctamente el campo "fuente".
+     */
+    if (candidata.startsWith("detalle=")) {
+        candidata = candidata.substring(
+            "detalle=".length()
+        );
+    }
+
+    if (candidata.startsWith(prefijo)) {
+        return candidata.substring(
+            prefijo.length()
+        ).trim();
+    }
+}
+
+return "";]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1787598720614</Id>
+					<Name><![CDATA[numeroDecisionSelector]]></Name>
+					<X>-810</X><Y>3310</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[decision]]></Name>
+						<Type><![CDATA[String]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[clave]]></Name>
+						<Type><![CDATA[String]]></Type>
+					</Parameter>
+					<Body><![CDATA[String valor = campoDecisionSelector(
+    decision,
+    clave
+);
+
+if (
+    valor == null
+    || valor.trim().isEmpty()
+) {
+    return Double.NaN;
+}
+
+try {
+
+    return Double.parseDouble(
+        valor.trim()
+    );
+
+} catch (Exception ex) {
+
+    return Double.NaN;
+}]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[long]]></ReturnType>
+					<Id>1787598754878</Id>
+					<Name><![CDATA[longDecisionSelector]]></Name>
+					<X>-810</X><Y>3340</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[decision]]></Name>
+						<Type><![CDATA[String]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[clave]]></Name>
+						<Type><![CDATA[String]]></Type>
+					</Parameter>
+					<Body><![CDATA[String valor = campoDecisionSelector(
+    decision,
+    clave
+);
+
+if (
+    valor == null
+    || valor.trim().isEmpty()
+) {
+    return -1L;
+}
+
+try {
+
+    return Long.parseLong(
+        valor.trim()
+    );
+
+} catch (Exception ex) {
+
+    return -1L;
+}]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1787598783253</Id>
+					<Name><![CDATA[reiniciarPanelSelectorVisual]]></Name>
+					<X>-810</X><Y>3370</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[modoSolicitado]]></Name>
+						<Type><![CDATA[String]]></Type>
+					</Parameter>
+					<Body><![CDATA[uiSelectorModoSolicitado =
+    modoSolicitado == null
+    || modoSolicitado.trim().isEmpty()
+    ? "—"
+    : modoSolicitado.trim().toUpperCase();
+
+uiSelectorFuente = "—";
+
+uiSelectorMotivo =
+    "Comparando alternativas de planificación";
+
+uiSelectorEstado = "PLANIFICANDO";
+
+uiSelectorAviso = "";
+
+uiSelectorCostoGreedy = Double.NaN;
+uiSelectorCostoGA = Double.NaN;
+uiSelectorCostoRL = Double.NaN;
+uiSelectorCostoElegido = Double.NaN;
+
+uiSelectorMejoraGreedyPct =
+    Double.NaN;
+
+uiSelectorTiempoMs =
+    Double.NaN;
+
+uiSelectorSeedGA =
+    -1L;
+    
+actualizarColoresSelectorVisual();]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1787598804926</Id>
+					<Name><![CDATA[registrarDecisionSelectorVisual]]></Name>
+					<X>-810</X><Y>3400</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[decision]]></Name>
+						<Type><![CDATA[String]]></Type>
+					</Parameter>
+					<Body><![CDATA[if (
+    decision == null
+    || decision.trim().isEmpty()
+) {
+
+    marcarSelectorErrorVisual(
+        "La decisión del selector está vacía."
+    );
+
+    return;
+}
+
+
+// =====================================================
+// DATOS GENERALES
+// =====================================================
+
+String modo = campoDecisionSelector(
+    decision,
+    "modo"
+);
+
+String algoritmo = campoDecisionSelector(
+    decision,
+    "algoritmo"
+);
+
+String fuente = campoDecisionSelector(
+    decision,
+    "fuente"
+);
+
+String motivo = campoDecisionSelector(
+    decision,
+    "motivo"
+);
+
+
+if (!modo.isEmpty()) {
+    uiSelectorModoSolicitado =
+        modo.toUpperCase();
+}
+
+
+if (!fuente.isEmpty()) {
+
+    uiSelectorFuente =
+        fuente.toUpperCase();
+
+} else if (!algoritmo.isEmpty()) {
+
+    /*
+     * En los modos directos GREEDY, GA, RANDOM o RL
+     * no siempre existe el campo "fuente".
+     */
+    uiSelectorFuente =
+        algoritmo.toUpperCase();
+
+} else {
+
+    uiSelectorFuente = "—";
+}
+
+
+if (!motivo.isEmpty()) {
+
+    uiSelectorMotivo =
+        motivo.toUpperCase();
+
+} else {
+
+    uiSelectorMotivo =
+        "MODO_DIRECTO";
+}
+
+
+// =====================================================
+// COSTOS
+// =====================================================
+
+uiSelectorCostoElegido =
+    numeroDecisionSelector(
+        decision,
+        "costo"
+    );
+
+uiSelectorCostoGreedy =
+    numeroDecisionSelector(
+        decision,
+        "costo_greedy"
+    );
+
+uiSelectorCostoGA =
+    numeroDecisionSelector(
+        decision,
+        "costo_ga"
+    );
+
+uiSelectorCostoRL =
+    numeroDecisionSelector(
+        decision,
+        "costo_rl"
+    );
+
+
+// =====================================================
+// MODOS DIRECTOS
+// =====================================================
+
+if (
+    !"HIBRIDO".equals(
+        uiSelectorModoSolicitado
+    )
+) {
+
+    if (
+        "GREEDY".equals(uiSelectorFuente)
+        && Double.isNaN(uiSelectorCostoGreedy)
+    ) {
+        uiSelectorCostoGreedy =
+            uiSelectorCostoElegido;
+    }
+
+    if (
+        "GA".equals(uiSelectorFuente)
+        && Double.isNaN(uiSelectorCostoGA)
+    ) {
+        uiSelectorCostoGA =
+            uiSelectorCostoElegido;
+    }
+
+    if (
+        "RL".equals(uiSelectorFuente)
+        && Double.isNaN(uiSelectorCostoRL)
+    ) {
+        uiSelectorCostoRL =
+            uiSelectorCostoElegido;
+    }
+}
+
+
+// =====================================================
+// TIEMPO Y SEMILLA
+// =====================================================
+
+uiSelectorTiempoMs =
+    numeroDecisionSelector(
+        decision,
+        "tiempo_selector_ms"
+    );
+
+if (Double.isNaN(uiSelectorTiempoMs)) {
+
+    uiSelectorTiempoMs =
+        numeroDecisionSelector(
+            decision,
+            "tiempo_plan_ms"
+        );
+}
+
+uiSelectorSeedGA =
+    longDecisionSelector(
+        decision,
+        "seed_ga"
+    );
+
+
+// =====================================================
+// MEJORA FRENTE A GREEDY
+// =====================================================
+
+if (
+    !Double.isNaN(uiSelectorCostoGreedy)
+    && !Double.isInfinite(uiSelectorCostoGreedy)
+    && uiSelectorCostoGreedy > 0.0
+    && !Double.isNaN(uiSelectorCostoElegido)
+    && !Double.isInfinite(uiSelectorCostoElegido)
+) {
+
+    uiSelectorMejoraGreedyPct =
+        (
+            uiSelectorCostoGreedy
+            - uiSelectorCostoElegido
+        )
+        / uiSelectorCostoGreedy
+        * 100.0;
+
+} else {
+
+    uiSelectorMejoraGreedyPct =
+        Double.NaN;
+}
+
+
+// =====================================================
+// ERRORES DE CANDIDATOS
+// =====================================================
+
+String errorGA = campoDecisionSelector(
+    decision,
+    "errores_ga"
+);
+
+String errorRL = campoDecisionSelector(
+    decision,
+    "errores_rl"
+);
+
+boolean avisoGA =
+    !errorGA.isEmpty()
+    && !"NINGUNO".equalsIgnoreCase(errorGA);
+
+boolean avisoRL =
+    !errorRL.isEmpty()
+    && !"NINGUNO".equalsIgnoreCase(errorRL);
+
+
+uiSelectorAviso = "";
+
+if (avisoGA) {
+    uiSelectorAviso =
+        "GA: " + errorGA;
+}
+
+if (avisoRL) {
+
+    if (!uiSelectorAviso.isEmpty()) {
+        uiSelectorAviso += " | ";
+    }
+
+    uiSelectorAviso +=
+        "RL: " + errorRL;
+}
+
+
+// =====================================================
+// ESTADO
+// =====================================================
+
+uiSelectorEstado =
+    uiSelectorAviso.isEmpty()
+    ? "PLAN LISTO"
+    : "PLAN LISTO CON AVISO";
+    
+actualizarColoresSelectorVisual();]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1787598824903</Id>
+					<Name><![CDATA[marcarSelectorEnEjecucionVisual]]></Name>
+					<X>-810</X><Y>3430</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[uiSelectorEstado =
+    "EN EJECUCIÓN";
+
+
+actualizarColoresSelectorVisual();]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1787598837550</Id>
+					<Name><![CDATA[marcarSelectorFinalizadoVisual]]></Name>
+					<X>-810</X><Y>3460</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[uiSelectorEstado =
+    "FINALIZADO";
+
+
+actualizarColoresSelectorVisual();]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1787598847063</Id>
+					<Name><![CDATA[marcarSelectorErrorVisual]]></Name>
+					<X>-810</X><Y>3490</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[mensaje]]></Name>
+						<Type><![CDATA[String]]></Type>
+					</Parameter>
+					<Body><![CDATA[uiSelectorEstado = "ERROR";
+
+uiSelectorAviso =
+    mensaje == null
+    || mensaje.trim().isEmpty()
+    ? "Error no especificado"
+    : mensaje.trim();
+
+uiSelectorMotivo =
+    "PLANIFICACIÓN INTERRUMPIDA";
+
+actualizarColoresSelectorVisual();]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[String]]></ReturnType>
+					<Id>1787598867562</Id>
+					<Name><![CDATA[formatoCostoSelector]]></Name>
+					<X>-810</X><Y>3520</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[valor]]></Name>
+						<Type><![CDATA[double]]></Type>
+					</Parameter>
+					<Body><![CDATA[if (
+    Double.isNaN(valor)
+    || Double.isInfinite(valor)
+) {
+    return "—";
+}
+
+return String.format(
+    java.util.Locale.US,
+    "%.2f",
+    valor
+);]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[String]]></ReturnType>
+					<Id>1787598885734</Id>
+					<Name><![CDATA[textoMejoraSelector]]></Name>
+					<X>-810</X><Y>3550</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[if (
+    Double.isNaN(uiSelectorMejoraGreedyPct)
+    || Double.isInfinite(
+        uiSelectorMejoraGreedyPct
+    )
+) {
+    return "Comparación no disponible";
+}
+
+if (
+    Math.abs(uiSelectorMejoraGreedyPct)
+    < 0.005
+) {
+    return "Sin diferencia frente a Greedy";
+}
+
+if (uiSelectorMejoraGreedyPct > 0.0) {
+
+    return String.format(
+        java.util.Locale.US,
+        "Ahorro estimado: %.2f %% vs Greedy",
+        uiSelectorMejoraGreedyPct
+    );
+}
+
+return String.format(
+    java.util.Locale.US,
+    "Costo %.2f %% mayor que Greedy",
+    Math.abs(uiSelectorMejoraGreedyPct)
+);]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[String]]></ReturnType>
+					<Id>1787598898527</Id>
+					<Name><![CDATA[textoTiempoSelector]]></Name>
+					<X>-810</X><Y>3580</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[if (
+    Double.isNaN(uiSelectorTiempoMs)
+    || Double.isInfinite(uiSelectorTiempoMs)
+) {
+    return "Tiempo: —";
+}
+
+return String.format(
+    java.util.Locale.US,
+    "Tiempo: %.2f ms",
+    uiSelectorTiempoMs
+);]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[String]]></ReturnType>
+					<Id>1787598911264</Id>
+					<Name><![CDATA[textoMotivoSelector]]></Name>
+					<X>-810</X><Y>3610</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[if (
+    uiSelectorMotivo == null
+    || uiSelectorMotivo.trim().isEmpty()
+) {
+    return "Sin motivo disponible";
+}
+
+if (
+    "GA_MENOR_COSTO".equals(
+        uiSelectorMotivo
+    )
+) {
+    return "GA elegido por menor costo";
+}
+
+if (
+    "GREEDY_MENOR_O_IGUAL".equals(
+        uiSelectorMotivo
+    )
+) {
+    return "Greedy elegido por mínimo o empate";
+}
+
+if (
+    "RL_MENOR_COSTO".equals(
+        uiSelectorMotivo
+    )
+) {
+    return "RL elegido por menor costo";
+}
+
+if (
+    "MODO_DIRECTO".equals(
+        uiSelectorMotivo
+    )
+) {
+    return "Planificación en modo directo";
+}
+
+return uiSelectorMotivo.replace(
+    '_',
+    ' '
+);]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[java.awt.Color]]></ReturnType>
+					<Id>1787598925703</Id>
+					<Name><![CDATA[colorFuenteSelector]]></Name>
+					<X>-810</X><Y>3640</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[if ("GREEDY".equals(uiSelectorFuente)) {
+    return new java.awt.Color(
+        14,
+        165,
+        233
+    );
+}
+
+if ("GA".equals(uiSelectorFuente)) {
+    return new java.awt.Color(
+        99,
+        102,
+        241
+    );
+}
+
+if ("RL".equals(uiSelectorFuente)) {
+    return new java.awt.Color(
+        16,
+        185,
+        129
+    );
+}
+
+if ("RANDOM".equals(uiSelectorFuente)) {
+    return new java.awt.Color(
+        245,
+        158,
+        11
+    );
+}
+
+return new java.awt.Color(
+    100,
+    116,
+    139
+);]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[java.awt.Color]]></ReturnType>
+					<Id>1787598952895</Id>
+					<Name><![CDATA[colorEstadoSelector]]></Name>
+					<X>-810</X><Y>3670</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[if ("FINALIZADO".equals(uiSelectorEstado)) {
+    return new java.awt.Color(
+        22,
+        163,
+        74
+    );
+}
+
+if ("EN EJECUCIÓN".equals(uiSelectorEstado)) {
+    return new java.awt.Color(
+        124,
+        58,
+        237
+    );
+}
+
+if ("PLANIFICANDO".equals(uiSelectorEstado)) {
+    return new java.awt.Color(
+        245,
+        158,
+        11
+    );
+}
+
+if (
+    "PLAN LISTO".equals(uiSelectorEstado)
+) {
+    return new java.awt.Color(
+        37,
+        99,
+        235
+    );
+}
+
+if (
+    "PLAN LISTO CON AVISO".equals(
+        uiSelectorEstado
+    )
+) {
+    return new java.awt.Color(
+        234,
+        88,
+        12
+    );
+}
+
+if ("ERROR".equals(uiSelectorEstado)) {
+    return new java.awt.Color(
+        220,
+        38,
+        38
+    );
+}
+
+return new java.awt.Color(
+    100,
+    116,
+    139
+);]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1787602030699</Id>
+					<Name><![CDATA[actualizarColoresSelectorVisual]]></Name>
+					<X>-810</X><Y>3700</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[// =====================================================
+// COLOR DE LA FUENTE ELEGIDA
+// =====================================================
+
+rectFuenteSelectorVisual.setFillColor(
+    colorFuenteSelector()
+);
+
+
+// =====================================================
+// COLOR DEL ESTADO
+// =====================================================
+
+rectEstadoSelectorVisual.setFillColor(
+    colorEstadoSelector()
+);
+
+
+// =====================================================
+// COLOR DE LA MEJORA FRENTE A GREEDY
+// =====================================================
+
+java.awt.Color colorMejora;
+
+
+if (
+    Double.isNaN(
+        uiSelectorMejoraGreedyPct
+    )
+    ||
+    Double.isInfinite(
+        uiSelectorMejoraGreedyPct
+    )
+) {
+
+    colorMejora =
+        new java.awt.Color(
+            100,
+            116,
+            139
+        );
+
+} else if (
+    uiSelectorMejoraGreedyPct > 0.005
+) {
+
+    colorMejora =
+        new java.awt.Color(
+            22,
+            163,
+            74
+        );
+
+} else if (
+    uiSelectorMejoraGreedyPct < -0.005
+) {
+
+    colorMejora =
+        new java.awt.Color(
+            220,
+            38,
+            38
+        );
+
+} else {
+
+    colorMejora =
+        new java.awt.Color(
+            100,
+            116,
+            139
+        );
+}
+
+
+txtMejoraSelectorVisual.setColor(
+    colorMejora
+);
+
+
+// =====================================================
+// COLOR DEL PIE O AVISO
+// =====================================================
+
+java.awt.Color colorPie;
+
+
+if (
+    uiSelectorAviso != null
+    &&
+    !uiSelectorAviso.isEmpty()
+) {
+
+    colorPie =
+        new java.awt.Color(
+            194,
+            65,
+            12
+        );
+
+} else {
+
+    colorPie =
+        new java.awt.Color(
+            100,
+            116,
+            139
+        );
+}
+
+
+txtPieSelectorVisual.setColor(
+    colorPie
+);]]></Body>
+				</Function>
 			</Functions>
 			<AgentLinks>
 				<AgentLink>
@@ -16383,10 +17846,10 @@ try {
 				<Rectangle>
 					<Id>1787526115137</Id>
 					<Name><![CDATA[rectEstadoPlanificacion]]></Name>
-					<X>1370</X><Y>407</Y>
+					<X>1620</X><Y>410</Y>
 					<Label><X>10</X><Y>10</Y></Label>
 					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
+					<PresentationFlag>false</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
 					<EmbeddedIcon>false</EmbeddedIcon>
@@ -16531,7 +17994,7 @@ try {
 				 	<EmbeddedIcon>false</EmbeddedIcon>				
 					<Id>1787145251499</Id>
 					<Name><![CDATA[comboModoPlanificacion]]></Name>
-					<X>1370</X><Y>200</Y>
+					<X>1370</X><Y>191</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -17287,10 +18750,10 @@ instanciaInterfazActual == null
 				<Text>
 					<Id>1787145499669</Id>
 					<Name><![CDATA[txtResumenInstancia]]></Name>
-					<X>1370</X><Y>300</Y>
+					<X>1620</X><Y>300</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
+					<PresentationFlag>false</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<DrawMode>SHAPE_DRAW_2D</DrawMode>
 					<EmbeddedIcon>false</EmbeddedIcon>
@@ -17309,10 +18772,10 @@ instanciaInterfazActual == null
 				<Text>
 					<Id>1787145565869</Id>
 					<Name><![CDATA[text1]]></Name>
-					<X>1370</X><Y>233</Y>
+					<X>1640</X><Y>250</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
+					<PresentationFlag>false</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<DrawMode>SHAPE_DRAW_2D</DrawMode>
 					<EmbeddedIcon>false</EmbeddedIcon>
@@ -17333,10 +18796,10 @@ modoPlanificacionPypeline]]></TextCode>
 				<Text>
 					<Id>1787145588319</Id>
 					<Name><![CDATA[txtEstadoPlanificacion]]></Name>
-					<X>1380</X><Y>414</Y>
+					<X>1630</X><Y>420</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
+					<PresentationFlag>false</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<DrawMode>SHAPE_DRAW_2D</DrawMode>
 					<EmbeddedIcon>false</EmbeddedIcon>
@@ -17881,7 +19344,7 @@ modoPlanificacionPypeline]]></TextCode>
 				 	<EmbeddedIcon>false</EmbeddedIcon>				
 					<Id>1787143902718</Id>
 					<Name><![CDATA[btnPlanificarEjecutar]]></Name>
-					<X>1370</X><Y>365</Y>
+					<X>1370</X><Y>226</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -17960,6 +19423,10 @@ try {
     traceln(
         resumenInstanciaInterfaz()
     );
+    
+    reiniciarPanelSelectorVisual(
+	    modoSolicitado
+	);
 
     traceln(
         "MODO SOLICITADO: "
@@ -18060,6 +19527,10 @@ try {
         + String.valueOf(
             ex.getMessage()
         );
+        
+    marcarSelectorErrorVisual(
+	    detalleError
+	);
 
 
     String detalleNormalizado =
@@ -18596,7 +20067,7 @@ mensajeFormulario =
 				<Text>
 					<Id>1787517232141</Id>
 					<Name><![CDATA[txtFaseDashboard]]></Name>
-					<X>1490</X><Y>50</Y>
+					<X>1435</X><Y>50</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -18606,7 +20077,7 @@ mensajeFormulario =
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
 					<Color>-1</Color>
-					<Text><![CDATA[FASE 15B]]></Text>
+					<Text><![CDATA[DIGITAL TWIN LOGÍSTICO]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>11</Size>
@@ -18725,7 +20196,7 @@ mensajeFormulario =
 				<Text>
 					<Id>1787520949028</Id>
 					<Name><![CDATA[txtTituloPlanificacion]]></Name>
-					<X>1370</X><Y>148</Y>
+					<X>1370</X><Y>146</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -18746,7 +20217,7 @@ mensajeFormulario =
 				<Text>
 					<Id>1787520985108</Id>
 					<Name><![CDATA[txtLabelAlgoritmo]]></Name>
-					<X>1370</X><Y>183</Y>
+					<X>1370</X><Y>176</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -18756,10 +20227,10 @@ mensajeFormulario =
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
 					<Color>-12102553</Color>
-					<Text><![CDATA[Algoritmo]]></Text>
+					<Text><![CDATA[Modo solicitado]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>9</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -18767,7 +20238,7 @@ mensajeFormulario =
 				<Line>
 					<Id>1787521116236</Id>
 					<Name><![CDATA[lineaSeparadoraPlanificacion1]]></Name>
-					<X>1370</X><Y>260</Y>
+					<X>1370</X><Y>272</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -18791,10 +20262,10 @@ mensajeFormulario =
 				<Text>
 					<Id>1787521153436</Id>
 					<Name><![CDATA[txtLabelEstadoInstancia]]></Name>
-					<X>1370</X><Y>280</Y>
+					<X>1620</X><Y>280</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
+					<PresentationFlag>false</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<DrawMode>SHAPE_DRAW_2D</DrawMode>
 					<EmbeddedIcon>false</EmbeddedIcon>
@@ -18812,10 +20283,10 @@ mensajeFormulario =
 				<Line>
 					<Id>1787521205716</Id>
 					<Name><![CDATA[lineaSeparadoraPlanificacion2]]></Name>
-					<X>1370</X><Y>356</Y>
+					<X>1620</X><Y>360</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
+					<PresentationFlag>false</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
 					<EmbeddedIcon>false</EmbeddedIcon>
@@ -19443,7 +20914,7 @@ String.format(
 				 	<EmbeddedIcon>false</EmbeddedIcon>				
 					<Id>1787574102944</Id>
 					<Name><![CDATA[btnExportarCacheVial]]></Name>
-					<X>1200</X><Y>98</Y>
+					<X>1190</X><Y>95</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -19465,6 +20936,275 @@ String.format(
 						<LabelText><![CDATA[Exportar matriz vial]]></LabelText>
 					</ExtendedProperties>
 				</Control>
+				<Text>
+					<Id>1787600236993</Id>
+					<Name><![CDATA[txtTituloDecisionSelector]]></Name>
+					<X>1370</X><Y>287</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-12102295</Color>
+					<Text><![CDATA[DECISIÓN DEL SELECTOR]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Rectangle>
+					<Id>1787600296427</Id>
+					<Name><![CDATA[rectFuenteSelectorVisual]]></Name>
+					<X>1370</X><Y>305</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>0</LineWidth>
+					<LineColor>-460036</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>90</Width>
+					<Height>28</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-10193781</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Text>
+					<Id>1787600363937</Id>
+					<Name><![CDATA[txtFuenteSelectorVisual]]></Name>
+					<X>1415</X><Y>312</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-460036</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA[uiSelectorFuente]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>CENTER</Alignment>
+				</Text>
+				<Rectangle>
+					<Id>1787600405096</Id>
+					<Name><![CDATA[rectEstadoSelectorVisual]]></Name>
+					<X>1470</X><Y>305</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>0</LineWidth>
+					<LineColor>-460036</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>90</Width>
+					<Height>28</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-10063739</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Text>
+					<Id>1787600465266</Id>
+					<Name><![CDATA[txtEstadoSelectorVisual]]></Name>
+					<X>1515</X><Y>312</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-460036</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA["PLAN LISTO CON AVISO".equals(
+    uiSelectorEstado
+)
+? "LISTO C/AVISO"
+: (
+    "EN EJECUCIÓN".equals(
+        uiSelectorEstado
+    )
+    ? "EJECUTANDO"
+    : uiSelectorEstado
+)]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>8</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>CENTER</Alignment>
+				</Text>
+				<Text>
+					<Id>1787600498721</Id>
+					<Name><![CDATA[txtModoSelectorVisual]]></Name>
+					<X>1370</X><Y>341</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-10193781</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA["Modo: "
++ uiSelectorModoSolicitado]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>8</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787600543978</Id>
+					<Name><![CDATA[txtCostosSelectorVisual1]]></Name>
+					<X>1370</X><Y>359</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-15788246</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA["Greedy "
++ formatoCostoSelector(
+    uiSelectorCostoGreedy
+)
++ "    GA "
++ formatoCostoSelector(
+    uiSelectorCostoGA
+)]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787600587313</Id>
+					<Name><![CDATA[txtCostosSelectorVisual2]]></Name>
+					<X>1370</X><Y>377</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-15788246</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA["RL "
++ formatoCostoSelector(
+    uiSelectorCostoRL
+)
++ "    Elegido "
++ formatoCostoSelector(
+    uiSelectorCostoElegido
+)]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787600624545</Id>
+					<Name><![CDATA[txtMejoraSelectorVisual]]></Name>
+					<X>1370</X><Y>396</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-10063739</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA[textoMejoraSelector()]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787600676369</Id>
+					<Name><![CDATA[txtMotivoSelectorVisual]]></Name>
+					<X>1370</X><Y>414</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-12102295</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA[textoMotivoSelector()]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>8</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787600725808</Id>
+					<Name><![CDATA[txtPieSelectorVisual]]></Name>
+					<X>1370</X><Y>433</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-10063739</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA[uiSelectorAviso != null
+&& !uiSelectorAviso.isEmpty()
+? uiSelectorAviso
+: textoTiempoSelector()]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>8</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
 			</Presentation>
 
 				</Level>
@@ -20859,7 +22599,9 @@ viajeActual =
         indiceViaje
     );
 
+
 indicePedido = 0;
+
 
 unidadesViajeActual = 0;
 
@@ -20888,7 +22630,26 @@ if (
     );
 }
 
-abortarViajeActual = false;
+
+abortarViajeActual =
+    false;
+
+
+/*
+ * El viaje se vuelve visible desde el inicio de
+ * la carga. Permanecerá dibujado hasta que el
+ * camión vuelva al corralón.
+ */
+
+if (debeAnimarCamionGIS()) {
+
+    mainModel()
+        .mostrarViajeActivoCamionGIS(
+            camionId,
+            viajeActual
+        );
+}
+
 
 traceln(
     "[" + mainModel().minutoDiaActual() + "] " +
@@ -21331,6 +23092,21 @@ mainModel()
         lonActual,
         "EN_CORRALON"
     );
+
+
+/*
+ * La ruta permanece visible durante el regreso.
+ * Se elimina recién cuando el camión llegó al
+ * corralón.
+ */
+
+if (debeAnimarCamionGIS()) {
+
+    mainModel()
+        .limpiarRutaActivaCamionGIS(
+            camionId
+        );
+}
 
 
 if (cargaActual > 0) {

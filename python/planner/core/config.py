@@ -8,7 +8,11 @@ class ConfiguracionPlanificacion:
     factor_urbano_distancia: float = 1.30
     velocidad_base_kmh: float = 25.0
 
+    # Se conserva por compatibilidad con estimadores unitarios y
+    # heurísticas incrementales. La evaluación final del plan ya no
+    # usa una cantidad fija: simula la disponibilidad operativa.
     personas_carga_estimadas: int = 2
+    cantidad_empleados_corralon: int = 2
     carga_setup_min: float = 2.0
     carga_min_por_unidad_1_persona: float = 2.5
     carga_eficiencia_persona_adicional: float = 0.70
@@ -58,6 +62,21 @@ class ConfiguracionPlanificacion:
         if self.personas_carga_estimadas <= 0:
             raise ValueError(
                 "personas_carga_estimadas debe ser > 0."
+            )
+
+        if self.cantidad_empleados_corralon < 0:
+            raise ValueError(
+                "cantidad_empleados_corralon no puede ser negativa."
+            )
+
+        if self.carga_setup_min < 0.0:
+            raise ValueError(
+                "carga_setup_min no puede ser negativa."
+            )
+
+        if self.carga_min_por_unidad_1_persona < 0.0:
+            raise ValueError(
+                "carga_min_por_unidad_1_persona no puede ser negativa."
             )
 
         if self.carga_eficiencia_persona_adicional < 0.0:

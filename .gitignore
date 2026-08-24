@@ -1,39 +1,130 @@
-# Python
+# =====================================================
+# PYTHON
+# =====================================================
+
 __pycache__/
 *.py[cod]
 *.pyo
+*$py.class
 
-# Python environments
+.pytest_cache/
+.mypy_cache/
+.pyright/
+.ruff_cache/
+.pytype/
+.pyre/
+
+.coverage
+.coverage.*
+htmlcov/
+
+
+# =====================================================
+# PYTHON ENVIRONMENTS AND LOCAL CONFIGURATION
+# =====================================================
+
 .venv/
 venv/
 env/
+ENV/
 
-# Environment files
 .env
+.env.*
+!.env.example
 
-# IDEs
+
+# =====================================================
+# PYTHON BUILD AND PACKAGING
+# =====================================================
+
+build/
+dist/
+*.egg-info/
+pip-wheel-metadata/
+
+
+# =====================================================
+# IDE AND OPERATING SYSTEM
+# =====================================================
+
 .vscode/
 .idea/
+*.iml
 
-# Operating system
 .DS_Store
 Thumbs.db
+desktop.ini
 
-# Java generated files
+
+# =====================================================
+# LOGS, TEMPORARY FILES AND BACKUPS
+# =====================================================
+
+*.log
+*.tmp
+*.temp
+*.bak
+*.swp
+*~
+
+git_audit_*.txt
+
+
+# =====================================================
+# JAVA GENERATED FILES
+# =====================================================
+
 *.class
 
-# Runtime-generated project data
-data/cache/*
-!data/cache/.gitkeep
 
-results/*
-!results/.gitkeep
+# =====================================================
+# ANYLOGIC GENERATED CACHE
+# =====================================================
 
-models/*
-!models/.gitkeep
+/anylogic/**/cache/
 
-# RL generated artifacts
-python/rl_artifacts/
 
-# Logs
-*.log
+# =====================================================
+# ANYLOGIC GENERATED EXPORTS
+# =====================================================
+
+/python/anylogic_export/
+
+
+# =====================================================
+# GENERATED BENCHMARK AND SIMULATION RESULTS
+# =====================================================
+
+/python/results/
+/python/logs/
+/python/runs/
+/python/checkpoints/
+/python/tensorboard/
+
+
+# =====================================================
+# RL TRAINING ARTIFACTS
+# =====================================================
+
+/python/rl_artifacts/
+
+
+# =====================================================
+# RUNTIME DATA CACHE
+# =====================================================
+
+/python/data/cache/
+
+/data/cache/*
+!/data/cache/.gitkeep
+
+
+# =====================================================
+# OPTIONAL ROOT OUTPUT DIRECTORIES
+# =====================================================
+
+/results/*
+!/results/.gitkeep
+
+/models/*
+!/models/.gitkeep

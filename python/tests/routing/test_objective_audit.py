@@ -108,7 +108,15 @@ class ObjectiveAuditTest(unittest.TestCase):
 
         self.assertAlmostEqual(
             estimacion.tiempo_carga_total_min,
-            4.9411764705882355,
+            3.612903225806452,
+        )
+        self.assertEqual(
+            len(estimacion.cargas_estimadas),
+            1,
+        )
+        self.assertEqual(
+            estimacion.cargas_estimadas[0].personas_estimadas,
+            4,
         )
         self.assertAlmostEqual(
             estimacion.tiempo_viaje_total_min,
@@ -116,7 +124,7 @@ class ObjectiveAuditTest(unittest.TestCase):
         )
         self.assertAlmostEqual(
             estimacion.tiempo_espera_ventana_total_min,
-            3.058823529411768,
+            4.387096774193537,
         )
         self.assertAlmostEqual(
             estimacion
@@ -176,6 +184,10 @@ class ObjectiveAuditTest(unittest.TestCase):
         )
         self.assertIn(
             "espera_respuesta_cliente_min=3.333333",
+            resumen,
+        )
+        self.assertIn(
+            "cargas=c0-v1-u2-t450.000000-p4-d3.612903",
             resumen,
         )
         self.assertIn(

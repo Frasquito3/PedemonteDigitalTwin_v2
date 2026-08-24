@@ -249,6 +249,26 @@ class PlannerSelectorTest(
             ModoPlanificacion.HIBRIDO,
         )
 
+        self.assertIn(
+            "fuente=",
+            decision.detalle,
+        )
+
+        self.assertIn(
+            "costo_ga=",
+            decision.detalle,
+        )
+
+        self.assertIn(
+            "costo_greedy=",
+            decision.detalle,
+        )
+
+        self.assertIn(
+            "costo_rl=",
+            decision.detalle,
+        )
+
     def test_rechaza_modo_desconocido(
         self,
     ) -> None:

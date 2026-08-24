@@ -5,6 +5,9 @@ from planner.routing.objective import (
     tiempo_carga_estimado_min,
     tiempo_descarga_estimado_min,
 )
+from planner.routing.operational import (
+    simular_plan_operativo_estimado,
+)
 
 from planner.core.schema import (
     AlgoritmoPlanificacion,
@@ -301,14 +304,24 @@ def decodificar_plan_permutacion(
             )
         )
 
-        disponibilidad[
-            camion_id
-        ] = estimar_fin_viaje(
-            pedido_ids,
-            disponibilidad[camion_id],
-            pedidos_por_id,
-            matriz,
-            configuracion,
+        plan_parcial = PlanTurno(
+            instancia_id=instancia.instancia_id,
+            algoritmo=algoritmo,
+            camiones=planes_camion,
+        )
+
+        resultado_operativo = (
+            simular_plan_operativo_estimado(
+                instancia,
+                plan_parcial,
+                matriz,
+                configuracion,
+            )
+        )
+
+        disponibilidad = list(
+            resultado_operativo
+            .finales_camiones_min
         )
 
     plan = PlanTurno(
