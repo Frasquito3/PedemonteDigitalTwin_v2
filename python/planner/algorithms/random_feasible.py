@@ -21,6 +21,7 @@ from planner.core.schema import (
 )
 
 from planner.routing.travel import (
+    ProveedorViaje,
     construir_matriz_viaje,
 )
 
@@ -39,6 +40,9 @@ class RandomFeasiblePlanner(
             ConfiguracionPlanificacion
             | None = None,
         seed: int | None = None,
+        proveedor_viaje:
+            ProveedorViaje
+            | None = None,
     ) -> None:
         self.configuracion = (
             configuracion
@@ -47,6 +51,8 @@ class RandomFeasiblePlanner(
         )
 
         self.seed = seed
+
+        self.proveedor_viaje = proveedor_viaje
 
         self.ultima_seed_utilizada: int | None = None
 
@@ -86,6 +92,7 @@ class RandomFeasiblePlanner(
         matriz = construir_matriz_viaje(
             instancia,
             self.configuracion,
+            proveedor=self.proveedor_viaje,
         )
 
         viajes = (
@@ -379,8 +386,12 @@ def generar_plan_random(
     configuracion:
         ConfiguracionPlanificacion
         | None = None,
+    proveedor_viaje:
+        ProveedorViaje
+        | None = None,
 ) -> PlanTurno:
     return RandomFeasiblePlanner(
         configuracion=configuracion,
         seed=seed,
+        proveedor_viaje=proveedor_viaje,
     ).generar_plan(instancia)

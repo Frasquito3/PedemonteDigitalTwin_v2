@@ -13,6 +13,10 @@ class ConfiguracionPlanificacion:
     carga_min_por_unidad_1_persona: float = 2.5
     carga_eficiencia_persona_adicional: float = 0.70
 
+    cliente_espera_respuesta_min: float = 0.0
+    cliente_espera_respuesta_moda: float = 2.0
+    cliente_espera_respuesta_max: float = 8.0
+
     descarga_setup_min: float = 1.0
     descarga_min_por_unidad: float = 1.2
 
@@ -60,4 +64,32 @@ class ConfiguracionPlanificacion:
             raise ValueError(
                 "carga_eficiencia_persona_adicional "
                 "no puede ser negativa."
+            )
+
+        if self.cliente_espera_respuesta_min < 0.0:
+            raise ValueError(
+                "cliente_espera_respuesta_min "
+                "no puede ser negativa."
+            )
+
+        if self.cliente_espera_respuesta_moda < 0.0:
+            raise ValueError(
+                "cliente_espera_respuesta_moda "
+                "no puede ser negativa."
+            )
+
+        if self.cliente_espera_respuesta_max < 0.0:
+            raise ValueError(
+                "cliente_espera_respuesta_max "
+                "no puede ser negativa."
+            )
+
+        if not (
+            self.cliente_espera_respuesta_min
+            <= self.cliente_espera_respuesta_moda
+            <= self.cliente_espera_respuesta_max
+        ):
+            raise ValueError(
+                "La espera triangular del cliente debe cumplir "
+                "min <= moda <= max."
             )

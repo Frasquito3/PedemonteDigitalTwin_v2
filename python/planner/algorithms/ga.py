@@ -26,6 +26,7 @@ from planner.core.schema import (
 
 from planner.routing.travel import (
     MatrizViaje,
+    ProveedorViaje,
     construir_matriz_viaje,
 )
 
@@ -132,6 +133,9 @@ class GeneticAlgorithmPlanner(
             ConfiguracionGA
             | None = None,
         seed: int | None = None,
+        proveedor_viaje:
+            ProveedorViaje
+            | None = None,
     ) -> None:
         self.configuracion = (
             configuracion
@@ -146,6 +150,8 @@ class GeneticAlgorithmPlanner(
         )
 
         self.seed = seed
+
+        self.proveedor_viaje = proveedor_viaje
 
         self.ultima_seed_utilizada: int | None = None
 
@@ -193,6 +199,7 @@ class GeneticAlgorithmPlanner(
         matriz = construir_matriz_viaje(
             instancia,
             self.configuracion,
+            proveedor=self.proveedor_viaje,
         )
 
         pedidos_por_id = {
@@ -383,6 +390,7 @@ class GeneticAlgorithmPlanner(
         plan_greedy = generar_plan_greedy(
             instancia,
             configuracion=self.configuracion,
+            proveedor_viaje=self.proveedor_viaje,
         )
 
         cromosoma_greedy = tuple(
@@ -891,6 +899,9 @@ def generar_plan_ga(
     configuracion_ga:
         ConfiguracionGA
         | None = None,
+    proveedor_viaje:
+        ProveedorViaje
+        | None = None,
 ) -> PlanTurno:
     return GeneticAlgorithmPlanner(
         configuracion=configuracion,
@@ -900,4 +911,6 @@ def generar_plan_ga(
         ),
 
         seed=seed,
+
+        proveedor_viaje=proveedor_viaje,
     ).generar_plan(instancia)

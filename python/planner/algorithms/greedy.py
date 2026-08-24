@@ -7,6 +7,7 @@ from planner.core.config import (
 )
 
 from planner.routing.objective import (
+    estimar_espera_cliente,
     evaluar_plan_estimado,
     tiempo_carga_estimado_min,
     tiempo_descarga_estimado_min,
@@ -23,6 +24,7 @@ from planner.core.schema import (
 
 from planner.routing.travel import (
     MatrizViaje,
+    ProveedorViaje,
     construir_matriz_viaje,
     tiempo_viaje_esperado_min,
 )
@@ -41,12 +43,17 @@ class GreedyFeasiblePlanner(
         configuracion:
             ConfiguracionPlanificacion
             | None = None,
+        proveedor_viaje:
+            ProveedorViaje
+            | None = None,
     ) -> None:
         self.configuracion = (
             configuracion
             if configuracion is not None
             else ConfiguracionPlanificacion()
         )
+
+        self.proveedor_viaje = proveedor_viaje
 
     def generar_plan(
         self,
@@ -69,6 +76,7 @@ class GreedyFeasiblePlanner(
         matriz = construir_matriz_viaje(
             instancia,
             self.configuracion,
+            proveedor=self.proveedor_viaje,
         )
 
         pedidos_por_id = {
@@ -432,13 +440,18 @@ class GreedyFeasiblePlanner(
                 )
             )
 
-            if (
-                minuto_actual
-                < elegido.hora_desde_min
-            ):
-                minuto_actual = (
-                    elegido.hora_desde_min
+            estimacion_espera = (
+                estimar_espera_cliente(
+                    elegido,
+                    minuto_actual,
+                    self.configuracion,
                 )
+            )
+
+            minuto_actual = (
+                estimacion_espera
+                .minuto_inicio_descarga
+            )
 
             minuto_actual += (
                 tiempo_descarga_estimado_min(
@@ -639,13 +652,18 @@ class GreedyFeasiblePlanner(
                 )
             )
 
-            if (
-                minuto_actual
-                < pedido.hora_desde_min
-            ):
-                minuto_actual = (
-                    pedido.hora_desde_min
+            estimacion_espera = (
+                estimar_espera_cliente(
+                    pedido,
+                    minuto_actual,
+                    self.configuracion,
                 )
+            )
+
+            minuto_actual = (
+                estimacion_espera
+                .minuto_inicio_descarga
+            )
 
             minuto_actual += (
                 tiempo_descarga_estimado_min(
@@ -679,7 +697,11 @@ def generar_plan_greedy(
     configuracion:
         ConfiguracionPlanificacion
         | None = None,
+    proveedor_viaje:
+        ProveedorViaje
+        | None = None,
 ) -> PlanTurno:
     return GreedyFeasiblePlanner(
         configuracion=configuracion,
+        proveedor_viaje=proveedor_viaje,
     ).generar_plan(instancia)

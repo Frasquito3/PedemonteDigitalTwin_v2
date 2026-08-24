@@ -19,11 +19,15 @@ from planner.algorithms.hybrid_rl_greedy import (
 from planner.algorithms.random_feasible import (
     generar_plan_random,
 )
+from planner.core.config import ConfiguracionPlanificacion
+
 from planner.core.schema import (
     AlgoritmoPlanificacion,
     InstanciaTurno,
     PlanTurno,
 )
+from planner.routing.travel import ProveedorViaje
+
 from planner.domain.validator import (
     validar_plan,
 )
@@ -87,6 +91,12 @@ class SelectorPlanificadores:
         planner_rl:
             PlanificadorCompatible
             | None = None,
+        configuracion:
+            ConfiguracionPlanificacion
+            | None = None,
+        proveedor_viaje:
+            ProveedorViaje
+            | None = None,
         max_pedidos: int = 30,
         deterministic: bool = True,
     ) -> None:
@@ -94,6 +104,14 @@ class SelectorPlanificadores:
             raise ValueError(
                 "max_pedidos debe ser > 0."
             )
+
+        self.configuracion = (
+            configuracion
+            if configuracion is not None
+            else ConfiguracionPlanificacion()
+        )
+
+        self.proveedor_viaje = proveedor_viaje
 
         self.max_pedidos = (
             max_pedidos
@@ -177,7 +195,9 @@ class SelectorPlanificadores:
             == ModoPlanificacion.GREEDY
         ):
             plan = generar_plan_greedy(
-                instancia
+                instancia,
+                configuracion=self.configuracion,
+                proveedor_viaje=self.proveedor_viaje,
             )
 
         elif (
@@ -192,6 +212,8 @@ class SelectorPlanificadores:
             plan = generar_plan_random(
                 instancia,
                 seed=seed,
+                configuracion=self.configuracion,
+                proveedor_viaje=self.proveedor_viaje,
             )
 
             detalle = (
@@ -210,6 +232,8 @@ class SelectorPlanificadores:
             plan = generar_plan_ga(
                 instancia,
                 seed=seed,
+                configuracion=self.configuracion,
+                proveedor_viaje=self.proveedor_viaje,
             )
 
             detalle = (
@@ -349,6 +373,12 @@ class SelectorPlanificadores:
             deterministic=(
                 self.deterministic
             ),
+            configuracion=(
+                self.configuracion
+            ),
+            proveedor_viaje=(
+                self.proveedor_viaje
+            ),
         )
 
         return self._planner_rl
@@ -365,7 +395,13 @@ class SelectorPlanificadores:
                     planner_rl=(
                         self
                         ._obtener_planner_rl()
-                    )
+                    ),
+                    configuracion_planificacion=(
+                        self.configuracion
+                    ),
+                    proveedor_viaje=(
+                        self.proveedor_viaje
+                    ),
                 )
             )
 

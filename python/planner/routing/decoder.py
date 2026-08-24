@@ -1,6 +1,7 @@
 from planner.core.config import ConfiguracionPlanificacion
 
 from planner.routing.objective import (
+    estimar_espera_cliente,
     tiempo_carga_estimado_min,
     tiempo_descarga_estimado_min,
 )
@@ -185,13 +186,18 @@ def estimar_fin_viaje(
             )
         )
 
-        if (
-            minuto_actual
-            < pedido.hora_desde_min
-        ):
-            minuto_actual = (
-                pedido.hora_desde_min
+        estimacion_espera = (
+            estimar_espera_cliente(
+                pedido,
+                minuto_actual,
+                configuracion,
             )
+        )
+
+        minuto_actual = (
+            estimacion_espera
+            .minuto_inicio_descarga
+        )
 
         minuto_actual += (
             tiempo_descarga_estimado_min(

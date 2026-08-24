@@ -36,6 +36,7 @@ from planner.core.schema import (
 
 from planner.routing.travel import (
     MatrizViaje,
+    ProveedorViaje,
     construir_matriz_viaje,
 )
 
@@ -59,6 +60,9 @@ class PedemontePlanEnv(
         configuracion:
             ConfiguracionPlanificacion
             | None = None,
+        proveedor_viaje:
+            ProveedorViaje
+            | None = None,
         max_pedidos: int = 30,
         escala_reward: float = 100.0,
         configuracion_reward:
@@ -77,6 +81,8 @@ class PedemontePlanEnv(
         )
 
         self.instancia = instancia
+
+        self.proveedor_viaje = proveedor_viaje
 
         errores = validar_instancia(
             instancia
@@ -165,6 +171,7 @@ class PedemontePlanEnv(
             construir_matriz_viaje(
                 instancia,
                 self.configuracion,
+                proveedor=self.proveedor_viaje,
             )
         )
 
@@ -181,6 +188,9 @@ class PedemontePlanEnv(
                     instancia,
                     configuracion=(
                         self.configuracion
+                    ),
+                    proveedor_viaje=(
+                        self.proveedor_viaje
                     ),
                 )
             )

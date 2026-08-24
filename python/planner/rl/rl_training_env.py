@@ -15,6 +15,8 @@ from planner.rl.instance_generator import (
 
 from planner.routing.objective import EstimacionPlan
 
+from planner.routing.travel import ProveedorViaje
+
 from planner.rl.rl_env import PedemontePlanEnv
 
 from planner.rl.rl_reward import (
@@ -41,6 +43,9 @@ class PedemonteTrainingEnv(
             | None = None,
         configuracion:
             ConfiguracionPlanificacion
+            | None = None,
+        proveedor_viaje:
+            ProveedorViaje
             | None = None,
         seed_base: int = 91_000,
         semillas_fijas:
@@ -75,6 +80,8 @@ class PedemonteTrainingEnv(
             if configuracion is not None
             else ConfiguracionPlanificacion()
         )
+
+        self.proveedor_viaje = proveedor_viaje
 
         self.seed_base = int(
             seed_base
@@ -160,6 +167,10 @@ class PedemonteTrainingEnv(
 
             configuracion=(
                 self.configuracion
+            ),
+
+            proveedor_viaje=(
+                self.proveedor_viaje
             ),
 
             max_pedidos=(

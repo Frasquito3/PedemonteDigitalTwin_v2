@@ -6,6 +6,8 @@ from math import isfinite
 from time import perf_counter
 from typing import Callable, Protocol
 
+from ..core.config import ConfiguracionPlanificacion
+
 from ..core.schema import (
     InstanciaTurno,
     PlanTurno,
@@ -18,6 +20,8 @@ from ..domain.validator import (
 from .greedy import (
     generar_plan_greedy,
 )
+
+from ..routing.travel import ProveedorViaje
 
 
 class PlanificadorCompatible(
@@ -133,6 +137,12 @@ class HybridRLGreedyPlanner:
         generador_greedy:
             GeneradorPlanGreedy
             | None = None,
+        configuracion_planificacion:
+            ConfiguracionPlanificacion
+            | None = None,
+        proveedor_viaje:
+            ProveedorViaje
+            | None = None,
     ) -> None:
         self.planner_rl = planner_rl
 
@@ -142,11 +152,15 @@ class HybridRLGreedyPlanner:
             else ConfiguracionHibrida()
         )
 
-        self.generador_greedy = (
-            generador_greedy
-            if generador_greedy is not None
-            else generar_plan_greedy
+        self.generador_greedy = generador_greedy
+
+        self.configuracion_planificacion = (
+            configuracion_planificacion
+            if configuracion_planificacion is not None
+            else ConfiguracionPlanificacion()
         )
+
+        self.proveedor_viaje = proveedor_viaje
 
         self.ultima_decision: DecisionHibrida | None = None
 
@@ -158,11 +172,22 @@ class HybridRLGreedyPlanner:
 
         inicio_greedy = perf_counter()
 
-        plan_greedy = (
-            self.generador_greedy(
-                instancia
+        if self.generador_greedy is not None:
+            plan_greedy = (
+                self.generador_greedy(
+                    instancia
+                )
             )
-        )
+        else:
+            plan_greedy = generar_plan_greedy(
+                instancia,
+                configuracion=(
+                    self.configuracion_planificacion
+                ),
+                proveedor_viaje=(
+                    self.proveedor_viaje
+                ),
+            )
 
         tiempo_greedy_ms = (
             perf_counter()

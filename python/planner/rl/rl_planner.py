@@ -14,6 +14,8 @@ from planner.core.config import (
 
 from planner.rl.rl_env import PedemontePlanEnv
 
+from planner.routing.travel import ProveedorViaje
+
 from planner.core.schema import (
     InstanciaTurno,
     PlanTurno,
@@ -30,6 +32,9 @@ class RLPlanner(
         model_path: str | Path,
         configuracion:
             ConfiguracionPlanificacion
+            | None = None,
+        proveedor_viaje:
+            ProveedorViaje
             | None = None,
         max_pedidos: int = 30,
         deterministic: bool = True,
@@ -49,6 +54,8 @@ class RLPlanner(
             if configuracion is not None
             else ConfiguracionPlanificacion()
         )
+
+        self.proveedor_viaje = proveedor_viaje
 
         self.max_pedidos = max_pedidos
 
@@ -73,6 +80,10 @@ class RLPlanner(
 
             configuracion=(
                 self.configuracion
+            ),
+
+            proveedor_viaje=(
+                self.proveedor_viaje
             ),
 
             max_pedidos=(

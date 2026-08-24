@@ -5832,9 +5832,294 @@ if (
 }
 
 
-// =====================================================
-// Nodos alineados por índice
-// =====================================================
+final String VERSION_CACHE =
+    "pedemonte-vial-v1";
+
+final String ENCABEZADO_CACHE =
+    "version_cache,"
+    + "lat_origen,"
+    + "lon_origen,"
+    + "lat_destino,"
+    + "lon_destino,"
+    + "distancia_metros,"
+    + "tiempo_base_min,"
+    + "fuente_distancia,"
+    + "fuente_tiempo";
+
+
+String raizPython =
+    resolverRaizPythonPypeline();
+
+
+java.io.File archivoCache =
+    new java.io.File(
+        raizPython,
+        "data/routing/cache_vial_v1.csv"
+    ).getAbsoluteFile();
+
+
+if (!archivoCache.isFile()) {
+
+    throw new IllegalStateException(
+        "No existe la caché vial: "
+        + archivoCache
+            .getAbsolutePath()
+        + "."
+    );
+}
+
+
+java.util.List<String> lineas;
+
+
+try {
+
+    lineas =
+        java.nio.file.Files.readAllLines(
+            archivoCache.toPath(),
+            java.nio.charset
+                .StandardCharsets
+                .UTF_8
+        );
+
+} catch (
+    java.io.IOException exLectura
+) {
+
+    throw new IllegalStateException(
+        "No se pudo leer la caché vial: "
+        + archivoCache.getAbsolutePath(),
+        exLectura
+    );
+}
+
+
+if (lineas.isEmpty()) {
+
+    throw new IllegalStateException(
+        "La caché vial está vacía."
+    );
+}
+
+
+String encabezado =
+    lineas.get(0)
+        .replace(
+            "\uFEFF",
+            ""
+        )
+        .trim();
+
+
+if (
+    !ENCABEZADO_CACHE.equals(
+        encabezado
+    )
+) {
+
+    throw new IllegalStateException(
+        "El encabezado de la caché vial "
+        + "no es compatible."
+    );
+}
+
+
+java.util.HashMap<String, double[]>
+    tramosViales =
+        new java.util.HashMap<
+            String,
+            double[]
+        >();
+
+
+for (
+    int numeroLinea = 1;
+    numeroLinea < lineas.size();
+    numeroLinea++
+) {
+
+    String linea =
+        lineas.get(numeroLinea)
+            .trim();
+
+
+    if (linea.isEmpty()) {
+        continue;
+    }
+
+
+    String[] columnas =
+        linea.split(
+            ",",
+            -1
+        );
+
+
+    if (columnas.length != 9) {
+
+        throw new IllegalStateException(
+            "Fila inválida en la línea "
+            + (numeroLinea + 1)
+            + "."
+        );
+    }
+
+
+    String versionFila =
+        columnas[0].trim();
+
+
+    if (
+        !VERSION_CACHE.equals(
+            versionFila
+        )
+    ) {
+
+        throw new IllegalStateException(
+            "Versión de caché incompatible "
+            + "en la línea "
+            + (numeroLinea + 1)
+            + ": "
+            + versionFila
+            + "."
+        );
+    }
+
+
+    double latOrigen =
+        Double.parseDouble(
+            columnas[1].trim()
+        );
+
+    double lonOrigen =
+        Double.parseDouble(
+            columnas[2].trim()
+        );
+
+    double latDestino =
+        Double.parseDouble(
+            columnas[3].trim()
+        );
+
+    double lonDestino =
+        Double.parseDouble(
+            columnas[4].trim()
+        );
+
+    double distanciaMetros =
+        Double.parseDouble(
+            columnas[5].trim()
+        );
+
+
+    if (
+        !Double.isFinite(
+            distanciaMetros
+        )
+        ||
+        distanciaMetros <= 0.0
+    ) {
+
+        throw new IllegalStateException(
+            "Distancia vial inválida en "
+            + "la línea "
+            + (numeroLinea + 1)
+            + "."
+        );
+    }
+
+
+    String tiempoTexto =
+        columnas[6].trim();
+
+
+    double tiempoBaseMin;
+
+
+    if (tiempoTexto.isEmpty()) {
+
+        tiempoBaseMin =
+            distanciaMetros
+            / 1000.0
+            / TRAFICO_VELOCIDAD_BASE_KMH
+            * 60.0;
+
+    } else {
+
+        tiempoBaseMin =
+            Double.parseDouble(
+                tiempoTexto
+            );
+    }
+
+
+    if (
+        !Double.isFinite(
+            tiempoBaseMin
+        )
+        ||
+        tiempoBaseMin < 0.0
+    ) {
+
+        throw new IllegalStateException(
+            "Tiempo vial inválido en la línea "
+            + (numeroLinea + 1)
+            + "."
+        );
+    }
+
+
+    String clave =
+        String.format(
+            java.util.Locale.US,
+            "%.6f,%.6f,%.6f,%.6f",
+            latOrigen,
+            lonOrigen,
+            latDestino,
+            lonDestino
+        );
+
+
+    double[] anterior =
+        tramosViales.get(
+            clave
+        );
+
+
+    if (
+        anterior != null
+        &&
+        (
+            Math.abs(
+                anterior[0]
+                - distanciaMetros
+            ) > 0.000001
+            ||
+            Math.abs(
+                anterior[1]
+                - tiempoBaseMin
+            ) > 0.000001
+        )
+    ) {
+
+        throw new IllegalStateException(
+            "La caché contiene tramos "
+            + "conflictivos para "
+            + clave
+            + "."
+        );
+    }
+
+
+    tramosViales.put(
+        clave,
+        new double[] {
+            distanciaMetros,
+            tiempoBaseMin
+        }
+    );
+}
+
 
 java.util.ArrayList<String> ids =
     new java.util.ArrayList<String>();
@@ -5845,8 +6130,6 @@ java.util.ArrayList<Double> latitudes =
 java.util.ArrayList<Double> longitudes =
     new java.util.ArrayList<Double>();
 
-
-// DEPOT siempre ocupa el índice técnico 0.
 
 ids.add(
     ID_NODO_CORRALON
@@ -5860,8 +6143,6 @@ longitudes.add(
     instancia.lonCorralon
 );
 
-
-// Pedidos
 
 for (
     PedidoInput pedido
@@ -5882,17 +6163,13 @@ for (
 }
 
 
-// =====================================================
-// Crear matriz
-// =====================================================
-
 MatrizTiemposViaje matriz =
     new MatrizTiemposViaje();
 
 
 matriz.matrizId =
     instancia.instanciaId
-    + "-BASE";
+    + "-VIAL-CACHE-v1";
 
 
 matriz.inicializar(
@@ -5902,6 +6179,9 @@ matriz.inicializar(
 
 int n =
     ids.size();
+
+int tramosLeidos =
+    0;
 
 
 for (
@@ -5916,7 +6196,30 @@ for (
         j++
     ) {
 
-        if (i == j) {
+        String origenTexto =
+            String.format(
+                java.util.Locale.US,
+                "%.6f,%.6f",
+                latitudes.get(i),
+                longitudes.get(i)
+            );
+
+        String destinoTexto =
+            String.format(
+                java.util.Locale.US,
+                "%.6f,%.6f",
+                latitudes.get(j),
+                longitudes.get(j)
+            );
+
+
+        if (
+            i == j
+            ||
+            origenTexto.equals(
+                destinoTexto
+            )
+        ) {
 
             matriz.distanciaMetros[i][j] =
                 0.0;
@@ -5928,46 +6231,62 @@ for (
         }
 
 
-        double distanciaGeodesica =
-            calcularDistanciaHaversineMetros(
-                latitudes.get(i),
-                longitudes.get(i),
-                latitudes.get(j),
-                longitudes.get(j)
+        String clave =
+            origenTexto
+            + ","
+            + destinoTexto;
+
+
+        double[] tramo =
+            tramosViales.get(
+                clave
             );
 
 
-        double distanciaAjustada =
-            distanciaGeodesica
-            * TRAFICO_FACTOR_URBANO_DISTANCIA;
+        if (tramo == null) {
 
-
-        double distanciaKm =
-            distanciaAjustada
-            / 1000.0;
-
-
-        double tiempoHoras =
-            distanciaKm
-            / TRAFICO_VELOCIDAD_BASE_KMH;
-
-
-        double tiempoMin =
-            tiempoHoras
-            * 60.0;
+            throw new IllegalStateException(
+                "La caché vial no contiene el "
+                + "tramo dirigido "
+                + ids.get(i)
+                + " -> "
+                + ids.get(j)
+                + " | "
+                + clave
+                + ". Volvé a exportar la matriz "
+                + "vial para la instancia actual."
+            );
+        }
 
 
         matriz.distanciaMetros[i][j] =
-            distanciaAjustada;
-
+            tramo[0];
 
         matriz.tiempoBaseMin[i][j] =
-            tiempoMin;
+            tramo[1];
+
+        tramosLeidos++;
     }
 }
 
 
-return matriz;]]></Body>
+traceln(
+    "MATRIZ VIAL ANYLOGIC | "
+    + "archivo="
+    + archivoCache
+        .getAbsolutePath()
+    + " | nodos="
+    + matriz.cantidadNodos()
+    + " | tramos="
+    + tramosLeidos
+    + " | velocidadBase="
+    + TRAFICO_VELOCIDAD_BASE_KMH
+    + " km/h"
+);
+
+
+return matriz;
+]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>VOID</ReturnModificator>
@@ -10005,6 +10324,25 @@ try {
     }
 
 
+    java.io.File archivoCacheVial =
+        new java.io.File(
+            raizPython,
+            "data/routing/cache_vial_v1.csv"
+        ).getCanonicalFile();
+
+
+    if (!archivoCacheVial.isFile()) {
+
+        throw new IllegalStateException(
+            "No existe la caché vial: "
+            + archivoCacheVial
+                .getCanonicalPath()
+            + ". Prepará la instancia y pulsá "
+            + "Exportar matriz vial antes de planificar."
+        );
+    }
+
+
     String raizLiteral =
         pyCommunicator.toJson(
             raizPython
@@ -10014,6 +10352,13 @@ try {
     String modeloLiteral =
         pyCommunicator.toJson(
             archivoModelo
+                .getCanonicalPath()
+        );
+
+
+    String cacheLiteral =
+        pyCommunicator.toJson(
+            archivoCacheVial
                 .getCanonicalPath()
         );
 
@@ -10055,7 +10400,12 @@ try {
                 + "inicializar("
                 + modeloLiteral
                 + ", max_pedidos=30, "
-                + "deterministic=True)"
+                + "deterministic=True, "
+                + "cache_vial_path="
+                + cacheLiteral
+                + ", version_cache_vial="
+                + "'pedemonte-vial-v1', "
+                + "permitir_fallback_vial=False)"
             )
         );
 
@@ -10071,6 +10421,24 @@ try {
         throw new IllegalStateException(
             "Respuesta inesperada al "
             + "inicializar el selector: "
+            + estado
+        );
+    }
+
+
+    if (
+        !estado.contains(
+            "proveedor=VIAL_CACHE"
+        )
+        ||
+        !estado.contains(
+            "fallback=ESTRICTO"
+        )
+    ) {
+
+        throw new IllegalStateException(
+            "El selector no confirmó el uso "
+            + "estricto de la caché vial: "
             + estado
         );
     }
@@ -10127,7 +10495,8 @@ try {
 
 
     return false;
-}]]></Body>
+}
+]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
@@ -14503,6 +14872,1169 @@ for (
 mensajeEstadosPedidosGIS =
     resumenEstadosPedidosGIS();]]></Body>
 				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[String]]></ReturnType>
+					<Id>1787569775337</Id>
+					<Name><![CDATA[estadoCamionDashboard]]></Name>
+					<X>-810</X><Y>3100</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[camionId]]></Name>
+						<Type><![CDATA[int]]></Type>
+					</Parameter>
+					<Body><![CDATA[String estado =
+    estadosCamionesGIS.get(
+        camionId
+    );
+
+
+if (
+    estado == null
+    ||
+    estado.trim().isEmpty()
+) {
+
+    return "Sin plan";
+}
+
+
+estado =
+    estado.trim();
+
+
+if (
+    estado.equals(
+        "EN_CORRALON"
+    )
+) {
+
+    return "En corralón";
+}
+
+
+if (
+    estado.equals(
+        "PLAN_FINALIZADO"
+    )
+) {
+
+    return "Plan\nfinalizado";
+}
+
+
+if (
+    estado.equals(
+        "REGRESANDO_CORRALON"
+    )
+) {
+
+    return "Regresando\nal corralón";
+}
+
+
+if (
+    estado.startsWith(
+        "VIAJANDO_A_"
+    )
+) {
+
+    return "Viajando\na cliente";
+}
+
+
+if (
+    estado.startsWith(
+        "EN_CLIENTE_"
+    )
+) {
+
+    return "En cliente";
+}
+
+
+return estado.replace(
+    '_',
+    ' '
+);]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1787574032157</Id>
+					<Name><![CDATA[diagnosticarDistanciaVial]]></Name>
+					<X>-810</X><Y>3130</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[latOrigen]]></Name>
+						<Type><![CDATA[double]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[lonOrigen]]></Name>
+						<Type><![CDATA[double]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[latDestino]]></Name>
+						<Type><![CDATA[double]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[lonDestino]]></Name>
+						<Type><![CDATA[double]]></Type>
+					</Parameter>
+					<Body><![CDATA[double distanciaGeodesica =
+    calcularDistanciaHaversineMetros(
+        latOrigen,
+        lonOrigen,
+        latDestino,
+        lonDestino
+    );
+
+
+double distanciaAjustadaActual =
+    distanciaGeodesica
+    * TRAFICO_FACTOR_URBANO_DISTANCIA;
+
+
+try {
+
+    double distanciaVial =
+        mapaGIS.getDistanceByRoute(
+            latOrigen,
+            lonOrigen,
+            latDestino,
+            lonDestino
+        );
+
+
+    traceln(
+        "================================"
+    );
+
+    traceln(
+        "=== DIAGNÓSTICO RUTA VIAL ====="
+    );
+
+    traceln(
+        "================================"
+    );
+
+    traceln(
+        "Origen: "
+        + latOrigen
+        + ", "
+        + lonOrigen
+    );
+
+    traceln(
+        "Destino: "
+        + latDestino
+        + ", "
+        + lonDestino
+    );
+
+    traceln(
+        "Distancia Haversine: "
+        + String.format(
+            java.util.Locale.US,
+            "%.2f",
+            distanciaGeodesica
+        )
+        + " m"
+    );
+
+    traceln(
+        "Distancia actual ajustada: "
+        + String.format(
+            java.util.Locale.US,
+            "%.2f",
+            distanciaAjustadaActual
+        )
+        + " m"
+    );
+
+    if (
+        Double.isFinite(
+            distanciaVial
+        )
+        &&
+        distanciaVial > 0.0
+    ) {
+
+        traceln(
+            "Distancia vial: "
+            + String.format(
+                java.util.Locale.US,
+                "%.2f",
+                distanciaVial
+            )
+            + " m"
+        );
+
+
+        traceln(
+            "Factor vial/Haversine: "
+            + String.format(
+                java.util.Locale.US,
+                "%.4f",
+                distanciaVial
+                / distanciaGeodesica
+            )
+        );
+
+
+        traceln(
+            "Diferencia vial vs actual: "
+            + String.format(
+                java.util.Locale.US,
+                "%.2f",
+                distanciaVial
+                - distanciaAjustadaActual
+            )
+            + " m"
+        );
+
+    } else {
+
+        traceln(
+            "No se obtuvo una distancia vial válida."
+        );
+    }
+
+
+    traceln(
+        "================================"
+    );
+
+} catch (
+    Exception excepcion
+) {
+
+    traceln(
+        "ERROR AL CONSULTAR DISTANCIA VIAL: "
+        + excepcion.getClass().getSimpleName()
+        + " | "
+        + excepcion.getMessage()
+    );
+}]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1787574211865</Id>
+					<Name><![CDATA[diagnosticarMuestraRutasViales]]></Name>
+					<X>-810</X><Y>3160</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[traceln(
+    ""
+);
+
+traceln(
+    "########################################"
+);
+
+traceln(
+    "### MUESTRA DE DISTANCIAS VIALES ######"
+);
+
+traceln(
+    "########################################"
+);
+
+
+// Punto norte / noreste.
+
+diagnosticarDistanciaVial(
+    LAT_CORRALON,
+    LON_CORRALON,
+    -32.8395006,
+    -60.712653
+);
+
+
+// Punto norte.
+
+diagnosticarDistanciaVial(
+    LAT_CORRALON,
+    LON_CORRALON,
+    -32.8345006,
+    -60.717653
+);
+
+
+// Punto este / sudeste.
+
+diagnosticarDistanciaVial(
+    LAT_CORRALON,
+    LON_CORRALON,
+    -32.8595006,
+    -60.702653
+);
+
+
+// Punto sur / sudoeste.
+
+diagnosticarDistanciaVial(
+    LAT_CORRALON,
+    LON_CORRALON,
+    -32.8645006,
+    -60.732653
+);
+
+
+// Punto oeste.
+
+diagnosticarDistanciaVial(
+    LAT_CORRALON,
+    LON_CORRALON,
+    -32.8445006,
+    -60.740653
+);
+
+
+traceln(
+    "########################################"
+);
+
+traceln(
+    "### FIN DE LA MUESTRA #################"
+);
+
+traceln(
+    "########################################"
+);]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[boolean]]></ReturnType>
+					<Id>1787578289378</Id>
+					<Name><![CDATA[exportarCacheVialInstanciaActual]]></Name>
+					<X>-810</X><Y>3190</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[final String VERSION_CACHE =
+    "pedemonte-vial-v1";
+
+final String ENCABEZADO_CACHE =
+    "version_cache,"
+    + "lat_origen,"
+    + "lon_origen,"
+    + "lat_destino,"
+    + "lon_destino,"
+    + "distancia_metros,"
+    + "tiempo_base_min,"
+    + "fuente_distancia,"
+    + "fuente_tiempo";
+
+
+java.nio.file.Path rutaTemporal =
+    null;
+
+
+try {
+
+    if (instanciaInterfazActual == null) {
+
+        throw new IllegalStateException(
+            "No existe una instancia preparada."
+        );
+    }
+
+
+    if (
+        instanciaInterfazActual.pedidos == null
+        ||
+        instanciaInterfazActual.pedidos.isEmpty()
+    ) {
+
+        throw new IllegalStateException(
+            "La instancia no contiene pedidos."
+        );
+    }
+
+
+    if (mapaGIS == null) {
+
+        throw new IllegalStateException(
+            "No existe mapaGIS."
+        );
+    }
+
+
+    double latCorralon =
+        instanciaInterfazActual.latCorralon;
+
+    double lonCorralon =
+        instanciaInterfazActual.lonCorralon;
+
+
+    if (
+        !Double.isFinite(latCorralon)
+        ||
+        !Double.isFinite(lonCorralon)
+        ||
+        latCorralon < -90.0
+        ||
+        latCorralon > 90.0
+        ||
+        lonCorralon < -180.0
+        ||
+        lonCorralon > 180.0
+    ) {
+
+        throw new IllegalArgumentException(
+            "Las coordenadas del corralón "
+            + "no son válidas."
+        );
+    }
+
+
+    /*
+     * Las coordenadas se normalizan a seis
+     * decimales, igual que el proveedor Python.
+     *
+     * LinkedHashMap conserva un orden estable
+     * y elimina ubicaciones duplicadas.
+     */
+
+    java.util.LinkedHashMap<String, double[]>
+        coordenadasUnicas =
+            new java.util.LinkedHashMap<
+                String,
+                double[]
+            >();
+
+
+    String claveCorralon =
+        String.format(
+            java.util.Locale.US,
+            "%.6f,%.6f",
+            latCorralon,
+            lonCorralon
+        );
+
+
+    coordenadasUnicas.put(
+        claveCorralon,
+        new double[] {
+            latCorralon,
+            lonCorralon
+        }
+    );
+
+
+    for (
+        PedidoInput pedido
+        : instanciaInterfazActual.pedidos
+    ) {
+
+        if (pedido == null) {
+            continue;
+        }
+
+
+        if (
+            !Double.isFinite(pedido.latitud)
+            ||
+            !Double.isFinite(pedido.longitud)
+            ||
+            pedido.latitud < -90.0
+            ||
+            pedido.latitud > 90.0
+            ||
+            pedido.longitud < -180.0
+            ||
+            pedido.longitud > 180.0
+        ) {
+
+            throw new IllegalArgumentException(
+                "Coordenadas inválidas en el pedido "
+                + pedido.pedidoId
+                + "."
+            );
+        }
+
+
+        String clavePedido =
+            String.format(
+                java.util.Locale.US,
+                "%.6f,%.6f",
+                pedido.latitud,
+                pedido.longitud
+            );
+
+
+        if (
+            !coordenadasUnicas.containsKey(
+                clavePedido
+            )
+        ) {
+
+            coordenadasUnicas.put(
+                clavePedido,
+                new double[] {
+                    pedido.latitud,
+                    pedido.longitud
+                }
+            );
+        }
+    }
+
+
+    if (coordenadasUnicas.size() < 2) {
+
+        throw new IllegalStateException(
+            "Se necesitan al menos dos "
+            + "ubicaciones diferentes."
+        );
+    }
+
+
+    String raizPython =
+        resolverRaizPythonPypeline();
+
+
+    java.io.File directorioRouting =
+        new java.io.File(
+            raizPython,
+            "data/routing"
+        );
+
+
+    if (
+        !directorioRouting.isDirectory()
+        &&
+        !directorioRouting.mkdirs()
+    ) {
+
+        throw new java.io.IOException(
+            "No se pudo crear el directorio "
+            + directorioRouting
+                .getCanonicalPath()
+            + "."
+        );
+    }
+
+
+    java.io.File archivoCache =
+        new java.io.File(
+            directorioRouting,
+            "cache_vial_v1.csv"
+        );
+
+
+    /*
+     * Las filas existentes se leen y normalizan.
+     * No se pierden tramos exportados anteriormente.
+     */
+
+    java.util.TreeMap<String, String>
+        filasCache =
+            new java.util.TreeMap<
+                String,
+                String
+            >();
+
+
+    if (archivoCache.isFile()) {
+
+        java.util.List<String> lineas =
+            java.nio.file.Files.readAllLines(
+                archivoCache.toPath(),
+                java.nio.charset
+                    .StandardCharsets
+                    .UTF_8
+            );
+
+
+        if (!lineas.isEmpty()) {
+
+            String encabezadoExistente =
+                lineas.get(0)
+                    .replace(
+                        "\uFEFF",
+                        ""
+                    )
+                    .trim();
+
+
+            if (
+                !ENCABEZADO_CACHE.equals(
+                    encabezadoExistente
+                )
+            ) {
+
+                throw new IllegalStateException(
+                    "El encabezado de la caché "
+                    + "vial no es compatible."
+                );
+            }
+        }
+
+
+        for (
+            int indice = 1;
+            indice < lineas.size();
+            indice++
+        ) {
+
+            String linea =
+                lineas.get(indice)
+                    .trim();
+
+
+            if (linea.isEmpty()) {
+                continue;
+            }
+
+
+            String[] columnas =
+                linea.split(
+                    ",",
+                    -1
+                );
+
+
+            if (columnas.length != 9) {
+
+                throw new IllegalStateException(
+                    "Fila CSV inválida en la línea "
+                    + (indice + 1)
+                    + "."
+                );
+            }
+
+
+            String versionFila =
+                columnas[0].trim();
+
+
+            if (
+                !VERSION_CACHE.equals(
+                    versionFila
+                )
+            ) {
+
+                throw new IllegalStateException(
+                    "Versión incompatible en la "
+                    + "línea "
+                    + (indice + 1)
+                    + ": "
+                    + versionFila
+                    + "."
+                );
+            }
+
+
+            double latOrigenExistente =
+                Double.parseDouble(
+                    columnas[1].trim()
+                );
+
+            double lonOrigenExistente =
+                Double.parseDouble(
+                    columnas[2].trim()
+                );
+
+            double latDestinoExistente =
+                Double.parseDouble(
+                    columnas[3].trim()
+                );
+
+            double lonDestinoExistente =
+                Double.parseDouble(
+                    columnas[4].trim()
+                );
+
+            double distanciaExistente =
+                Double.parseDouble(
+                    columnas[5].trim()
+                );
+
+
+            if (
+                !Double.isFinite(
+                    distanciaExistente
+                )
+                ||
+                distanciaExistente <= 0.0
+            ) {
+
+                throw new IllegalStateException(
+                    "Distancia inválida en la línea "
+                    + (indice + 1)
+                    + "."
+                );
+            }
+
+
+            String claveExistente =
+                String.format(
+                    java.util.Locale.US,
+                    "%.6f,%.6f,%.6f,%.6f",
+                    latOrigenExistente,
+                    lonOrigenExistente,
+                    latDestinoExistente,
+                    lonDestinoExistente
+                );
+
+
+            String filaAnterior =
+                filasCache.get(
+                    claveExistente
+                );
+
+
+            if (
+                filaAnterior != null
+                &&
+                !filaAnterior.equals(linea)
+            ) {
+
+                throw new IllegalStateException(
+                    "La caché contiene filas "
+                    + "conflictivas para el tramo "
+                    + claveExistente
+                    + "."
+                );
+            }
+
+
+            filasCache.put(
+                claveExistente,
+                linea
+            );
+        }
+    }
+
+
+    java.util.ArrayList<double[]> puntos =
+        new java.util.ArrayList<double[]>(
+            coordenadasUnicas.values()
+        );
+
+
+    int cantidadPuntos =
+        puntos.size();
+
+    int cantidadTramosInstancia =
+        cantidadPuntos
+        * (cantidadPuntos - 1);
+
+    int tramosConsultados =
+        0;
+
+    int tramosNuevos =
+        0;
+
+    int tramosReutilizados =
+        0;
+
+
+    java.util.TreeMap<String, String>
+        nuevasFilas =
+            new java.util.TreeMap<
+                String,
+                String
+            >();
+
+
+    traceln(
+        "================================"
+    );
+
+    traceln(
+        "=== EXPORTACIÓN CACHÉ VIAL ===="
+    );
+
+    traceln(
+        "================================"
+    );
+
+    traceln(
+        "Ubicaciones únicas: "
+        + cantidadPuntos
+    );
+
+    traceln(
+        "Tramos dirigidos requeridos: "
+        + cantidadTramosInstancia
+    );
+
+
+    for (
+        int indiceOrigen = 0;
+        indiceOrigen < puntos.size();
+        indiceOrigen++
+    ) {
+
+        double[] origen =
+            puntos.get(
+                indiceOrigen
+            );
+
+
+        for (
+            int indiceDestino = 0;
+            indiceDestino < puntos.size();
+            indiceDestino++
+        ) {
+
+            if (
+                indiceOrigen
+                == indiceDestino
+            ) {
+
+                continue;
+            }
+
+
+            double[] destino =
+                puntos.get(
+                    indiceDestino
+                );
+
+
+            String latOrigenTexto =
+                String.format(
+                    java.util.Locale.US,
+                    "%.6f",
+                    origen[0]
+                );
+
+            String lonOrigenTexto =
+                String.format(
+                    java.util.Locale.US,
+                    "%.6f",
+                    origen[1]
+                );
+
+            String latDestinoTexto =
+                String.format(
+                    java.util.Locale.US,
+                    "%.6f",
+                    destino[0]
+                );
+
+            String lonDestinoTexto =
+                String.format(
+                    java.util.Locale.US,
+                    "%.6f",
+                    destino[1]
+                );
+
+
+            String claveTramo =
+                latOrigenTexto
+                + ","
+                + lonOrigenTexto
+                + ","
+                + latDestinoTexto
+                + ","
+                + lonDestinoTexto;
+
+
+            tramosConsultados++;
+
+
+            if (
+                filasCache.containsKey(
+                    claveTramo
+                )
+                ||
+                nuevasFilas.containsKey(
+                    claveTramo
+                )
+            ) {
+
+                tramosReutilizados++;
+
+                traceln(
+                    "CACHE VIAL | tramo="
+                    + tramosConsultados
+                    + "/"
+                    + cantidadTramosInstancia
+                    + " | REUTILIZADO | "
+                    + claveTramo
+                );
+
+                continue;
+            }
+
+
+            traceln(
+                "CACHE VIAL | tramo="
+                + tramosConsultados
+                + "/"
+                + cantidadTramosInstancia
+                + " | CONSULTANDO | "
+                + claveTramo
+            );
+
+
+            double distanciaVial =
+                mapaGIS.getDistanceByRoute(
+                    origen[0],
+                    origen[1],
+                    destino[0],
+                    destino[1]
+                );
+
+
+            if (
+                !Double.isFinite(
+                    distanciaVial
+                )
+                ||
+                distanciaVial <= 0.0
+            ) {
+
+                throw new IllegalStateException(
+                    "El proveedor vial no devolvió "
+                    + "una distancia válida para "
+                    + claveTramo
+                    + ". Valor="
+                    + distanciaVial
+                    + "."
+                );
+            }
+
+
+            String distanciaTexto =
+                String.format(
+                    java.util.Locale.US,
+                    "%.6f",
+                    distanciaVial
+                );
+
+
+            /*
+             * tiempo_base_min queda vacío.
+             * Python lo derivará utilizando
+             * velocidad_base_kmh.
+             */
+
+            String nuevaFila =
+                VERSION_CACHE
+                + ","
+                + claveTramo
+                + ","
+                + distanciaTexto
+                + ","
+                + ""
+                + ","
+                + "ANYLOGIC_ROUTE_PROVIDER"
+                + ","
+                + "VELOCIDAD_BASE_CONFIG";
+
+
+            nuevasFilas.put(
+                claveTramo,
+                nuevaFila
+            );
+
+
+            tramosNuevos++;
+
+
+            traceln(
+                "CACHE VIAL | tramo="
+                + tramosConsultados
+                + "/"
+                + cantidadTramosInstancia
+                + " | AGREGADO | distancia="
+                + distanciaTexto
+                + " m"
+            );
+        }
+    }
+
+
+    /*
+     * Ningún archivo se modifica hasta que todas
+     * las consultas necesarias hayan finalizado.
+     */
+
+    filasCache.putAll(
+        nuevasFilas
+    );
+
+
+    rutaTemporal =
+        new java.io.File(
+            directorioRouting,
+            "cache_vial_v1.csv.tmp"
+        ).toPath();
+
+
+    try (
+        java.io.BufferedWriter escritor =
+            java.nio.file.Files.newBufferedWriter(
+                rutaTemporal,
+                java.nio.charset
+                    .StandardCharsets
+                    .UTF_8,
+                java.nio.file
+                    .StandardOpenOption
+                    .CREATE,
+                java.nio.file
+                    .StandardOpenOption
+                    .TRUNCATE_EXISTING
+            )
+    ) {
+
+        escritor.write(
+            ENCABEZADO_CACHE
+        );
+
+        escritor.newLine();
+
+
+        for (
+            String fila
+            : filasCache.values()
+        ) {
+
+            escritor.write(
+                fila
+            );
+
+            escritor.newLine();
+        }
+    }
+
+
+    try {
+
+        java.nio.file.Files.move(
+            rutaTemporal,
+            archivoCache.toPath(),
+            java.nio.file
+                .StandardCopyOption
+                .REPLACE_EXISTING,
+            java.nio.file
+                .StandardCopyOption
+                .ATOMIC_MOVE
+        );
+
+    } catch (
+        java.nio.file
+            .AtomicMoveNotSupportedException ex
+    ) {
+
+        java.nio.file.Files.move(
+            rutaTemporal,
+            archivoCache.toPath(),
+            java.nio.file
+                .StandardCopyOption
+                .REPLACE_EXISTING
+        );
+    }
+
+
+    mensajeInterfazPlanificacion =
+        "Caché vial actualizada."
+        + "\nNuevos: "
+        + tramosNuevos
+        + " | Existentes: "
+        + tramosReutilizados
+        + "\nTotal almacenado: "
+        + filasCache.size();
+
+
+    traceln(
+        "Archivo: "
+        + archivoCache
+            .getCanonicalPath()
+    );
+
+    traceln(
+        "Tramos nuevos: "
+        + tramosNuevos
+    );
+
+    traceln(
+        "Tramos reutilizados: "
+        + tramosReutilizados
+    );
+
+    traceln(
+        "Tramos totales almacenados: "
+        + filasCache.size()
+    );
+
+    traceln(
+        "=== EXPORTACIÓN COMPLETADA ==="
+    );
+
+	pypelineSelectorInicializado =
+	    false;
+	
+	pypelineEstadoSelector =
+	    "CACHE_VIAL_ACTUALIZADA_REINICIALIZAR";
+	
+    return true;
+
+
+} catch (
+    Exception ex
+) {
+
+    mensajeInterfazPlanificacion =
+        "Error al exportar caché vial."
+        + "\n"
+        + ex.getClass()
+            .getSimpleName()
+        + "\nRevisá la consola.";
+
+
+    traceln(
+        "ERROR EXPORTANDO CACHÉ VIAL: "
+        + ex.getClass()
+            .getSimpleName()
+        + " | "
+        + ex.getMessage()
+    );
+
+
+    ex.printStackTrace();
+
+
+    if (rutaTemporal != null) {
+
+        try {
+
+            java.nio.file.Files
+                .deleteIfExists(
+                    rutaTemporal
+                );
+
+        } catch (
+            Exception exLimpieza
+        ) {
+
+            traceln(
+                "No se pudo eliminar el archivo "
+                + "temporal: "
+                + exLimpieza.getMessage()
+            );
+        }
+    }
+
+
+    return false;
+}]]></Body>
+				</Function>
 			</Functions>
 			<AgentLinks>
 				<AgentLink>
@@ -14739,6 +16271,50 @@ mensajeEstadosPedidosGIS =
 					<FillMaterial>null</FillMaterial>
 				</Rectangle>
 				<Rectangle>
+					<Id>1787570191206</Id>
+					<Name><![CDATA[rectEstadoCamion1]]></Name>
+					<X>1470</X><Y>612</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-2497812</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>90</Width>
+					<Height>68</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-460036</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Rectangle>
+					<Id>1787569984046</Id>
+					<Name><![CDATA[rectEstadoCamion0]]></Name>
+					<X>1370</X><Y>612</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-2497812</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>90</Width>
+					<Height>68</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-460036</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Rectangle>
 					<Id>1787521542544</Id>
 					<Name><![CDATA[rectPanelGIS]]></Name>
 					<X>610</X><Y>125</Y>
@@ -14936,7 +16512,7 @@ mensajeEstadosPedidosGIS =
 					<ShowTiles>true</ShowTiles>
 					<CustomTileURL>false</CustomTileURL>
 					<TileURL><![CDATA[https://a.tile.openstreetmap.org/[zoom]/[x]/[y].png]]></TileURL>				
-					<RouteProviderType>STRAIGHT</RouteProviderType>
+					<RouteProviderType>WEB_SERVICE</RouteProviderType>
 					<RouteNotFound>CREATE_STRAIGHT_LINE</RouteNotFound>
 					<TransportType>CAR</TransportType>
 					<RoutingMethod>FASTEST</RoutingMethod>
@@ -16428,24 +18004,24 @@ try {
 
 
     boolean iniciado =
-	    ejecutarPlan(
-	        instancia,
-	        plan
-    	);
+        ejecutarPlan(
+            instancia,
+            plan
+        );
 
 
-	if (!iniciado) {
-	
-	    throw new IllegalStateException(
-	        "ejecutarPlan devolvió false."
-	    );
-	}
-	
-	
-	// ejecutarPlan ya creó pedidosRuntime
-	// y marcó las asignaciones como PLANIFICADO.
-	
-	actualizarEstadosPedidosGIS();
+    if (!iniciado) {
+
+        throw new IllegalStateException(
+            "ejecutarPlan devolvió false."
+        );
+    }
+
+
+    // ejecutarPlan ya creó pedidosRuntime
+    // y marcó las asignaciones como PLANIFICADO.
+
+    actualizarEstadosPedidosGIS();
 
 
     mensajeInterfazPlanificacion =
@@ -16477,17 +18053,58 @@ try {
 
 } catch (Exception ex) {
 
-    mensajeInterfazPlanificacion =
-        "Error de planificación: "
-        + ex.getClass()
+    String detalleError =
+        ex.getClass()
             .getSimpleName()
         + ": "
-        + ex.getMessage();
+        + String.valueOf(
+            ex.getMessage()
+        );
 
+
+    String detalleNormalizado =
+        detalleError.toLowerCase(
+            java.util.Locale.ROOT
+        );
+
+
+    boolean faltaTramoCacheVial =
+        detalleNormalizado.contains(
+            "no contiene el tramo dirigido"
+        )
+        ||
+        (
+            detalleNormalizado.contains(
+                "keyerror"
+            )
+            &&
+            detalleNormalizado.contains(
+                "vial"
+            )
+        );
+
+
+    if (faltaTramoCacheVial) {
+
+        mensajeInterfazPlanificacion =
+            "Faltan rutas viales."
+            + "\nExportá la matriz vial"
+            + "\ny volvé a planificar.";
+
+    } else {
+
+        mensajeInterfazPlanificacion =
+            "Error de planificación."
+            + "\nRevisá la consola.";
+    }
+
+
+    // El detalle completo queda disponible
+    // en la consola para diagnóstico técnico.
 
     traceln(
         "ERROR SELECTOR PYPELINE: "
-        + mensajeInterfazPlanificacion
+        + detalleError
     );
 
 
@@ -17426,8 +19043,11 @@ mensajeFormulario =
 					<Color>-14735049</Color>
 					<Text><![CDATA[text]]></Text>
 					<TextCode><![CDATA[planActual == null
-? "Sin plan cargado."
-: "Plan disponible."]]></TextCode>
+?
+"Sin plan cargado.\nAlgoritmo: -"
+:
+"Plan disponible.\nAlgoritmo: "
++ planActual.algoritmo]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>9</Size>
@@ -17438,7 +19058,7 @@ mensajeFormulario =
 				<Line>
 					<Id>1787523706702</Id>
 					<Name><![CDATA[lineaSeparadoraEstado1]]></Name>
-					<X>1370</X><Y>575</Y>
+					<X>1370</X><Y>578</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -17462,10 +19082,10 @@ mensajeFormulario =
 				<Text>
 					<Id>1787523738581</Id>
 					<Name><![CDATA[txtLabelPlanAplicado]]></Name>
-					<X>1370</X><Y>592</Y>
+					<X>1650</X><Y>590</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
+					<PresentationFlag>false</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<DrawMode>SHAPE_DRAW_2D</DrawMode>
 					<EmbeddedIcon>false</EmbeddedIcon>
@@ -17483,10 +19103,10 @@ mensajeFormulario =
 				<Text>
 					<Id>1787523765485</Id>
 					<Name><![CDATA[txtPlanAplicadoDinamico]]></Name>
-					<X>1370</X><Y>612</Y>
+					<X>1650</X><Y>610</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
+					<PresentationFlag>false</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<DrawMode>SHAPE_DRAW_2D</DrawMode>
 					<EmbeddedIcon>false</EmbeddedIcon>
@@ -17507,7 +19127,7 @@ mensajeFormulario =
 				<Line>
 					<Id>1787523794390</Id>
 					<Name><![CDATA[lineaSeparadoraEstado2]]></Name>
-					<X>1370</X><Y>645</Y>
+					<X>1370</X><Y>692</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -17531,7 +19151,7 @@ mensajeFormulario =
 				<Text>
 					<Id>1787523821542</Id>
 					<Name><![CDATA[txtLabelResumenTurno]]></Name>
-					<X>1370</X><Y>662</Y>
+					<X>1370</X><Y>710</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -17541,7 +19161,7 @@ mensajeFormulario =
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
 					<Color>-12102553</Color>
-					<Text><![CDATA[Resumen del turno]]></Text>
+					<Text><![CDATA[Resumen final]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>10</Size>
@@ -17552,7 +19172,7 @@ mensajeFormulario =
 				<Text>
 					<Id>1787523847078</Id>
 					<Name><![CDATA[txtTareasEntregadas]]></Name>
-					<X>1370</X><Y>684</Y>
+					<X>1370</X><Y>732</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -17574,7 +19194,7 @@ mensajeFormulario =
 				<Text>
 					<Id>1787523896525</Id>
 					<Name><![CDATA[txtTareasNoEntregadas]]></Name>
-					<X>1370</X><Y>704</Y>
+					<X>1370</X><Y>750</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -17596,7 +19216,7 @@ mensajeFormulario =
 				<Text>
 					<Id>1787523938734</Id>
 					<Name><![CDATA[txtViajesTotales]]></Name>
-					<X>1370</X><Y>724</Y>
+					<X>1370</X><Y>768</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -17618,7 +19238,7 @@ mensajeFormulario =
 				<Text>
 					<Id>1787523964021</Id>
 					<Name><![CDATA[txtCostoTotal]]></Name>
-					<X>1370</X><Y>744</Y>
+					<X>1370</X><Y>786</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -17646,10 +19266,10 @@ String.format(
 				<Text>
 					<Id>1787524000398</Id>
 					<Name><![CDATA[txtAyudaEstadoOperativo]]></Name>
-					<X>1370</X><Y>785</Y>
+					<X>1640</X><Y>790</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
+					<PresentationFlag>false</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<DrawMode>SHAPE_DRAW_2D</DrawMode>
 					<EmbeddedIcon>false</EmbeddedIcon>
@@ -17664,6 +19284,187 @@ String.format(
 					</Font>
 					<Alignment>LEFT</Alignment>
 				</Text>
+				<Text>
+					<Id>1787569925870</Id>
+					<Name><![CDATA[txtLabelCamionesOperativos]]></Name>
+					<X>1370</X><Y>596</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-12102553</Color>
+					<Text><![CDATA[Camiones]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Rectangle>
+					<Id>1787570024365</Id>
+					<Name><![CDATA[rectIndicadorCamion0]]></Name>
+					<X>1370</X><Y>612</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>0</LineWidth>
+					<LineColor>-13730510</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>90</Width>
+					<Height>4</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-13730510</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Text>
+					<Id>1787570115270</Id>
+					<Name><![CDATA[txtNombreCamion0]]></Name>
+					<X>1380</X><Y>636</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-14735049</Color>
+					<Text><![CDATA[Camión 0]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787570151909</Id>
+					<Name><![CDATA[txtEstadoCamion0Dashboard]]></Name>
+					<X>1380</X><Y>652</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-10063739</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA[estadoCamionDashboard(
+    0
+)]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>8</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Rectangle>
+					<Id>1787570238382</Id>
+					<Name><![CDATA[rectIndicadorCamion1]]></Name>
+					<X>1470</X><Y>612</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>0</LineWidth>
+					<LineColor>-8708190</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>90</Width>
+					<Height>4</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-8708190</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Text>
+					<Id>1787570280366</Id>
+					<Name><![CDATA[txtNombreCamion1]]></Name>
+					<X>1480</X><Y>636</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-14735049</Color>
+					<Text><![CDATA[Camión 1]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787570323094</Id>
+					<Name><![CDATA[txtEstadoCamion1Dashboard]]></Name>
+					<X>1480</X><Y>652</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-10063739</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA[estadoCamionDashboard(
+    1
+)]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>8</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Control Type="Button">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1787574102944</Id>
+					<Name><![CDATA[btnExportarCacheVial]]></Name>
+					<X>1200</X><Y>98</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="150" Height="22">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<TextColor>-16777216</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[instanciaInterfazActual != null
+&&
+!ejecucionEnCurso
+&&
+!pypelineSolicitudEnCurso]]></EnableExpression>
+						<ActionCode><![CDATA[exportarCacheVialInstanciaActual();]]></ActionCode>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="Dialog" Size="11" Style="0"/>
+						<LabelText><![CDATA[Exportar matriz vial]]></LabelText>
+					</ExtendedProperties>
+				</Control>
 			</Presentation>
 
 				</Level>

@@ -1,8 +1,107 @@
 from dataclasses import dataclass
-from math import atan2, cos, radians, sin, sqrt
+from enum import Enum
+from math import (
+    atan2,
+    cos,
+    isfinite,
+    radians,
+    sin,
+    sqrt,
+)
+from typing import Protocol
 
 from planner.core.config import ConfiguracionPlanificacion
 from planner.core.schema import InstanciaTurno
+
+
+Coordenada = tuple[float, float]
+
+
+class FuenteMatrizViaje(str, Enum):
+    HAVERSINE_AJUSTADA = "HAVERSINE_AJUSTADA"
+    VIAL_CACHE = "VIAL_CACHE"
+    VIAL_LOCAL = "VIAL_LOCAL"
+
+
+@dataclass(frozen=True)
+class ResultadoTramoViaje:
+    distancia_metros: float
+    tiempo_base_min: float
+    fuente: FuenteMatrizViaje
+    uso_fallback: bool = False
+    advertencia: str = ""
+
+
+class ProveedorViaje(Protocol):
+    @property
+    def fuente(self) -> FuenteMatrizViaje:
+        ...
+
+    @property
+    def version(self) -> str:
+        ...
+
+    def calcular_tramo(
+        self,
+        origen: Coordenada,
+        destino: Coordenada,
+        configuracion: ConfiguracionPlanificacion,
+    ) -> ResultadoTramoViaje:
+        ...
+
+
+@dataclass(frozen=True)
+class ProveedorHaversineAjustado:
+    """
+    Proveedor baseline utilizado por el proyecto hasta la Fase 15R.
+
+    Conserva exactamente la lógica histórica:
+
+    distancia = Haversine * factor_urbano_distancia
+    tiempo = distancia / velocidad_base_kmh
+
+    Se mantiene como proveedor predeterminado para que esta
+    refactorización no altere planes, costos ni modelos RL existentes.
+    """
+
+    @property
+    def fuente(self) -> FuenteMatrizViaje:
+        return FuenteMatrizViaje.HAVERSINE_AJUSTADA
+
+    @property
+    def version(self) -> str:
+        return "haversine-ajustada-v1"
+
+    def calcular_tramo(
+        self,
+        origen: Coordenada,
+        destino: Coordenada,
+        configuracion: ConfiguracionPlanificacion,
+    ) -> ResultadoTramoViaje:
+        distancia_geodesica = distancia_haversine_metros(
+            origen[0],
+            origen[1],
+            destino[0],
+            destino[1],
+        )
+
+        distancia_ajustada = (
+            distancia_geodesica
+            * configuracion.factor_urbano_distancia
+        )
+
+        tiempo_base_min = (
+            distancia_ajustada
+            / 1000.0
+            / configuracion.velocidad_base_kmh
+            * 60.0
+        )
+
+        return ResultadoTramoViaje(
+            distancia_metros=distancia_ajustada,
+            tiempo_base_min=tiempo_base_min,
+            fuente=self.fuente,
+        )
 
 
 @dataclass(frozen=True)
@@ -14,6 +113,16 @@ class MatrizViaje:
     distancia_metros: list[list[float]]
 
     tiempo_base_min: list[list[float]]
+
+    fuente: FuenteMatrizViaje = (
+        FuenteMatrizViaje.HAVERSINE_AJUSTADA
+    )
+
+    version_fuente: str = "haversine-ajustada-v1"
+
+    cantidad_fallbacks: int = 0
+
+    advertencias: tuple[str, ...] = ()
 
     def distancia(
         self,
@@ -34,6 +143,17 @@ class MatrizViaje:
         j = self._indice(destino_id)
 
         return self.tiempo_base_min[i][j]
+
+    @property
+    def usa_fallback(self) -> bool:
+        return self.cantidad_fallbacks > 0
+
+    def resumen_fuente(self) -> str:
+        return (
+            f"fuente={self.fuente.value}"
+            f"|version={self.version_fuente}"
+            f"|fallbacks={self.cantidad_fallbacks}"
+        )
 
     def _indice(
         self,
@@ -81,7 +201,14 @@ def distancia_haversine_metros(
 def construir_matriz_viaje(
     instancia: InstanciaTurno,
     configuracion: ConfiguracionPlanificacion,
+    proveedor: ProveedorViaje | None = None,
 ) -> MatrizViaje:
+    proveedor_efectivo = (
+        proveedor
+        if proveedor is not None
+        else ProveedorHaversineAjustado()
+    )
+
     nodo_ids = [
         configuracion.id_nodo_corralon,
         *[
@@ -96,7 +223,7 @@ def construir_matriz_viaje(
             "existen IDs de nodo duplicados."
         )
 
-    coordenadas = [
+    coordenadas: list[Coordenada] = [
         (
             instancia.lat_corralon,
             instancia.lon_corralon,
@@ -128,35 +255,45 @@ def construir_matriz_viaje(
         for _ in range(cantidad_nodos)
     ]
 
+    cantidad_fallbacks = 0
+    advertencias: list[str] = []
+
     for i in range(cantidad_nodos):
         for j in range(cantidad_nodos):
             if i == j:
                 continue
 
-            distancia_geodesica = (
-                distancia_haversine_metros(
-                    *coordenadas[i],
-                    *coordenadas[j],
-                )
+            resultado = proveedor_efectivo.calcular_tramo(
+                coordenadas[i],
+                coordenadas[j],
+                configuracion,
             )
 
-            distancia_ajustada = (
-                distancia_geodesica
-                * configuracion.factor_urbano_distancia
-            )
-
-            tiempo_min = (
-                distancia_ajustada
-                / 1000.0
-                / configuracion.velocidad_base_kmh
-                * 60.0
+            _validar_resultado_tramo(
+                resultado,
+                nodo_ids[i],
+                nodo_ids[j],
             )
 
             distancias[i][j] = (
-                distancia_ajustada
+                resultado.distancia_metros
             )
 
-            tiempos[i][j] = tiempo_min
+            tiempos[i][j] = (
+                resultado.tiempo_base_min
+            )
+
+            if resultado.uso_fallback:
+                cantidad_fallbacks += 1
+
+            if (
+                resultado.advertencia
+                and resultado.advertencia
+                not in advertencias
+            ):
+                advertencias.append(
+                    resultado.advertencia
+                )
 
     return MatrizViaje(
         nodo_ids=nodo_ids,
@@ -170,7 +307,41 @@ def construir_matriz_viaje(
         distancia_metros=distancias,
 
         tiempo_base_min=tiempos,
+
+        fuente=proveedor_efectivo.fuente,
+
+        version_fuente=proveedor_efectivo.version,
+
+        cantidad_fallbacks=cantidad_fallbacks,
+
+        advertencias=tuple(advertencias),
     )
+
+
+def _validar_resultado_tramo(
+    resultado: ResultadoTramoViaje,
+    origen_id: str,
+    destino_id: str,
+) -> None:
+    if (
+        not isfinite(resultado.distancia_metros)
+        or resultado.distancia_metros < 0.0
+    ):
+        raise ValueError(
+            "El proveedor devolvió una distancia inválida "
+            f"para {origen_id} -> {destino_id}: "
+            f"{resultado.distancia_metros}."
+        )
+
+    if (
+        not isfinite(resultado.tiempo_base_min)
+        or resultado.tiempo_base_min < 0.0
+    ):
+        raise ValueError(
+            "El proveedor devolvió un tiempo inválido "
+            f"para {origen_id} -> {destino_id}: "
+            f"{resultado.tiempo_base_min}."
+        )
 
 
 def factor_trafico_esperado(
