@@ -3615,28 +3615,33 @@ if (
 
 
     mensajeInterfazPlanificacion =
-        "Ejecución finalizada.";
-
-
-    if (
-        resultadoActual != null
-        &&
-        resultadoActual.metricasGlobales
-            != null
-    ) {
-
-        mensajeInterfazPlanificacion +=
-            " Entregadas: "
-            + resultadoActual
-                .metricasGlobales
-                .tareasEntregadas
-            + "/"
-            + resultadoActual
-                .metricasGlobales
-                .tareasPlanificadas
-            + ". Costo: "
-            + resultadoActual.costoTotal;
-    }
+	    "Ejecución finalizada.";
+	
+	
+	if (
+	    resultadoActual != null
+	    &&
+	    resultadoActual.metricasGlobales
+	        != null
+	) {
+	
+	    mensajeInterfazPlanificacion =
+	        "Ejecución finalizada."
+	        + "\nEntregadas: "
+	        + resultadoActual
+	            .metricasGlobales
+	            .tareasEntregadas
+	        + "/"
+	        + resultadoActual
+	            .metricasGlobales
+	            .tareasPlanificadas
+	        + "\nCosto total: "
+	        + String.format(
+	            java.util.Locale.US,
+	            "%.2f",
+	            resultadoActual.costoTotal
+	        );
+	}
 
 
     if (
@@ -10337,7 +10342,7 @@ for (
 
     if (
         pedido
-        .tieneVentanaEspecifica
+            .tieneVentanaEspecifica
     ) {
 
         pedidosConVentana++;
@@ -10348,17 +10353,20 @@ for (
 return
     "Instancia: "
     + instanciaInterfazActual.instanciaId
-    + " | Turno: "
+
+    + "\nTurno: "
     + instanciaInterfazActual.turno
     + " | Pedidos: "
     + instanciaInterfazActual
         .pedidos
         .size()
-    + " | Unidades: "
+
+    + "\nUnidades: "
     + unidadesTotales
     + " | Volcador: "
     + pedidosVolcador
-    + " | Con ventana: "
+
+    + "\nCon ventana: "
     + pedidosConVentana;]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
@@ -12332,13 +12340,48 @@ if (ruta == null) {
 }
 
 
+// El Camión 1 utiliza una línea violeta más ancha.
+// El Camión 0 utiliza una línea verde más fina.
+//
+// Cuando ambas rutas coinciden, la verde queda
+// visible en el centro y la violeta permanece
+// visible en los bordes.
+
+double anchoRuta =
+    4.0;
+
+
+if (
+    colorRuta.equals(
+        colorRutaCamionGIS(
+            0
+        )
+    )
+) {
+
+    anchoRuta =
+        3.0;
+
+} else if (
+    colorRuta.equals(
+        colorRutaCamionGIS(
+            1
+        )
+    )
+) {
+
+    anchoRuta =
+        7.0;
+}
+
+
 ruta.setLineColor(
     colorRuta
 );
 
 
 ruta.setLineWidth(
-    4.0
+    anchoRuta
 );
 
 
@@ -14651,17 +14694,1624 @@ mensajeEstadosPedidosGIS =
 					<LevelVisibility>DIM_NON_CURRENT</LevelVisibility>
 
 			<Presentation>
-				<Control Type="Button">
-				 	<EmbeddedIcon>false</EmbeddedIcon>				
-					<Id>1787143902718</Id>
-					<Name><![CDATA[btnPlanificarEjecutar]]></Name>
-					<X>45</X><Y>590</Y>
+				<Rectangle>
+					<Id>1787517007554</Id>
+					<Name><![CDATA[rectFondoDashboard]]></Name>
+					<X>0</X><Y>0</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>0</LineWidth>
+					<LineColor>-722949</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>1600</Width>
+					<Height>840</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-722949</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Rectangle>
+					<Id>1787523552829</Id>
+					<Name><![CDATA[rectPanelEstadoOperativo]]></Name>
+					<X>1350</X><Y>465</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-2497812</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>230</Width>
+					<Height>360</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-1</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Rectangle>
+					<Id>1787521542544</Id>
+					<Name><![CDATA[rectPanelGIS]]></Name>
+					<X>610</X><Y>125</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-2497812</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>730</Width>
+					<Height>700</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-1</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Rectangle>
+					<Id>1787521582719</Id>
+					<Name><![CDATA[rectCabeceraGIS]]></Name>
+					<X>610</X><Y>125</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-2497812</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>730</Width>
+					<Height>35</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-460036</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Rectangle>
+					<Id>1787520901844</Id>
+					<Name><![CDATA[rectPanelPlanificacion]]></Name>
+					<X>1350</X><Y>125</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-2497812</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>230</Width>
+					<Height>330</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-1</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Rectangle>
+					<Id>1787526115137</Id>
+					<Name><![CDATA[rectEstadoPlanificacion]]></Name>
+					<X>1370</X><Y>407</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-2497812</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>190</Width>
+					<Height>40</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-460036</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Rectangle>
+					<Id>1787520437877</Id>
+					<Name><![CDATA[rectPanelInstancia]]></Name>
+					<X>90</X><Y>635</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-2497812</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>500</Width>
+					<Height>190</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-1</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Rectangle>
+					<Id>1787519403168</Id>
+					<Name><![CDATA[rectPanelPedido]]></Name>
+					<X>90</X><Y>245</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-2497812</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>500</Width>
+					<Height>360</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-1</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Rectangle>
+					<Id>1787518808614</Id>
+					<Name><![CDATA[rectPanelTurno]]></Name>
+					<X>90</X><Y>125</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-2497812</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>500</Width>
+					<Height>105</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-1</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Text>
+					<Id>1787148338025</Id>
+					<Name><![CDATA[txtMensajeFormulario]]></Name>
+					<X>110</X><Y>731</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-10063739</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA[mensajeFormulario]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<GISMap>
+					<Id>1787150445148</Id>
+					<Name><![CDATA[mapaGIS]]></Name>
+					<X>625</X><Y>160</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<BasicProperties Width="195" Height="30">
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Width>700</Width>
+					<Height>405</Height>
+					<GISShapes>
+					</GISShapes>
+					<Latitude>-32.85583600364033</Latitude>
+					<Longitude>-60.716852344629736</Longitude>
+					<Scale>30000</Scale>
+					<BorderColor>-4144960</BorderColor>
+					<FillColor>-1</FillColor>
+					<ShowTiles>true</ShowTiles>
+					<CustomTileURL>false</CustomTileURL>
+					<TileURL><![CDATA[https://a.tile.openstreetmap.org/[zoom]/[x]/[y].png]]></TileURL>				
+					<RouteProviderType>STRAIGHT</RouteProviderType>
+					<RouteNotFound>CREATE_STRAIGHT_LINE</RouteNotFound>
+					<TransportType>CAR</TransportType>
+					<RoutingMethod>FASTEST</RoutingMethod>
+					<PathfindingAlgorithm>DIJKSTRABI</PathfindingAlgorithm>
+					<CustomRouteProvider>false</CustomRouteProvider>
+					<RouteSourceResourceReference>
+					</RouteSourceResourceReference>
+					<RouteGraphResourceReference>
+					</RouteGraphResourceReference>	
+					<MapScaleBasedGeneralization>true</MapScaleBasedGeneralization>
+					<AbsolutePrecisionGeneralization>1000</AbsolutePrecisionGeneralization>
+
+
+				</GISMap>
+				<Control Type="ComboBox">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1787145251499</Id>
+					<Name><![CDATA[comboModoPlanificacion]]></Name>
+					<X>1370</X><Y>200</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="190" Height="24">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<FillColor>-1</FillColor>
+						<TextColor>-16777216</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[!ejecucionEnCurso
+&&
+!pypelineSolicitudEnCurso]]></EnableExpression>
+						<ActionCode><![CDATA[traceln(
+    "MODO SELECCIONADO: "
+    + modoPlanificacionPypeline
+);]]></ActionCode>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="10" Style="0"/>
+						<Editable>false</Editable>
+						<Button><![CDATA[HIBRIDO]]></Button>
+						<Button><![CDATA[GREEDY]]></Button>
+						<Button><![CDATA[RANDOM]]></Button>
+						<Button><![CDATA[GA]]></Button>
+						<Button><![CDATA[RL]]></Button>
+						<LinkTo>true</LinkTo>
+						<Link>modoPlanificacionPypeline</Link>
+					</ExtendedProperties>
+				</Control>
+				<Control Type="Button">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1787145329848</Id>
+					<Name><![CDATA[btnPrepararInstancia]]></Name>
+					<X>110</X><Y>775</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="205" Height="32">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<TextColor>-16777216</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[!pedidosFormulario.isEmpty()
+&&
+instanciaInterfazActual == null
+&&
+!ejecucionEnCurso
+&&
+!pypelineSolicitudEnCurso]]></EnableExpression>
+						<ActionCode><![CDATA[try {
+
+    InstanciaTurno nuevaInstancia =
+        construirInstanciaFormulario();
+
+
+    mostrarInstanciaEnGIS(
+        nuevaInstancia
+    );
+    
+    indexarPuntosPedidosGIS(
+	    nuevaInstancia
+	);
+
+
+    instanciaInterfazActual =
+        nuevaInstancia;
+
+
+    mensajeInterfazPlanificacion =
+        "Instancia preparada correctamente.";
+
+
+    traceln(
+        resumenInstanciaInterfaz()
+    );
+
+
+} catch (Exception ex) {
+
+    instanciaInterfazActual =
+        null;
+
+
+    limpiarPedidosGIS();
+
+
+    mensajeInterfazPlanificacion =
+        "Error al preparar instancia: "
+        + ex.getClass()
+            .getSimpleName()
+        + ": "
+        + ex.getMessage();
+
+
+    traceln(
+        mensajeInterfazPlanificacion
+    );
+
+
+    ex.printStackTrace();
+}]]></ActionCode>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="10" Style="1"/>
+						<LabelText><![CDATA[Preparar instancia]]></LabelText>
+					</ExtendedProperties>
+				</Control>
+				<Control Type="Button">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1787145354943</Id>
+					<Name><![CDATA[btnLimpiarInstancia]]></Name>
+					<X>350</X><Y>775</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="210" Height="32">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<TextColor>-16777216</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[instanciaInterfazActual != null
+&&
+!ejecucionEnCurso
+&&
+!pypelineSolicitudEnCurso]]></EnableExpression>
+						<ActionCode><![CDATA[limpiarInstanciaInterfaz()]]></ActionCode>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="10" Style="1"/>
+						<LabelText><![CDATA[Limpiar instancia]]></LabelText>
+					</ExtendedProperties>
+				</Control>
+				<Control Type="Button">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1787148083269</Id>
+					<Name><![CDATA[btnAgregarPedidoFormulario]]></Name>
+					<X>110</X><Y>553</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="205" Height="32">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<TextColor>-16777216</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[instanciaInterfazActual == null
+&&
+!ejecucionEnCurso
+&&
+!pypelineSolicitudEnCurso]]></EnableExpression>
+						<ActionCode><![CDATA[boolean pedidoAgregado =
+    agregarPedidoFormulario();
+
+
+if (pedidoAgregado) {
+
+    // Restablecer las variables del formulario.
+
+    pedidoIdFormulario = "";
+
+    clienteFormulario = "";
+
+    direccionFormulario = "";
+
+    barrioFormulario = "";
+
+    unidadesFormulario = "1";
+
+    latitudFormulario = "";
+
+    longitudFormulario = "";
+
+    requiereVolcadorFormulario = false;
+
+    tieneVentanaFormulario = false;
+
+
+    // Recuperar el horario normal del turno actual.
+
+    actualizarHorarioFormulario();
+
+
+    // Sincronizar visualmente los campos de texto.
+
+    editPedidoIdFormulario.setText(
+        pedidoIdFormulario
+    );
+
+    editClienteFormulario.setText(
+        clienteFormulario
+    );
+
+    editDireccionFormulario.setText(
+        direccionFormulario
+    );
+
+    editBarrioFormulario.setText(
+        barrioFormulario
+    );
+
+    editUnidadesFormulario.setText(
+        unidadesFormulario
+    );
+
+    editLatitudFormulario.setText(
+        latitudFormulario
+    );
+
+    editLongitudFormulario.setText(
+        longitudFormulario
+    );
+
+
+    // Restablecer los controles booleanos.
+
+    checkRequiereVolcadorFormulario
+        .setSelected(
+            false
+        );
+
+    checkTieneVentanaFormulario
+        .setSelected(
+            false
+        );
+
+
+    // Sincronizar los horarios restaurados.
+
+    editHoraDesdeFormulario.setText(
+        horaDesdeFormulario
+    );
+
+    editHoraHastaFormulario.setText(
+        horaHastaFormulario
+    );
+}]]></ActionCode>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="10" Style="1"/>
+						<LabelText><![CDATA[Agregar pedido]]></LabelText>
+					</ExtendedProperties>
+				</Control>
+				<Control Type="Button">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1787148140445</Id>
+					<Name><![CDATA[btnEliminarUltimoPedidoFormulario]]></Name>
+					<X>350</X><Y>553</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="210" Height="32">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<TextColor>-16777216</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[!pedidosFormulario.isEmpty()
+&&
+instanciaInterfazActual == null
+&&
+!ejecucionEnCurso
+&&
+!pypelineSolicitudEnCurso]]></EnableExpression>
+						<ActionCode><![CDATA[eliminarUltimoPedidoFormulario();]]></ActionCode>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="10" Style="1"/>
+						<LabelText><![CDATA[Eliminar último]]></LabelText>
+					</ExtendedProperties>
+				</Control>
+				<Text>
+					<Id>1787148307312</Id>
+					<Name><![CDATA[txtResumenPedidosFormulario]]></Name>
+					<X>110</X><Y>708</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-14735049</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA[resumenPedidosFormulario()]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Control Type="EditBox">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1787147766511</Id>
+					<Name><![CDATA[editLatitudFormulario]]></Name>
+					<X>205</X><Y>417</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="150" Height="22">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<FillColor>-1</FillColor>
+						<TextColor>-16777216</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[instanciaInterfazActual == null
+&&
+!ejecucionEnCurso
+&&
+!pypelineSolicitudEnCurso]]></EnableExpression>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="10" Style="0"/>
+						<LinkTo>true</LinkTo>
+						<Link>latitudFormulario</Link>
+					</ExtendedProperties>
+				</Control>
+				<Text>
+					<Id>1787147786369</Id>
+					<Name><![CDATA[text10]]></Name>
+					<X>205</X><Y>400</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-12102553</Color>
+					<Text><![CDATA[Latitud]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787148003465</Id>
+					<Name><![CDATA[text12]]></Name>
+					<X>110</X><Y>490</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-12102553</Color>
+					<Text><![CDATA[Hora desde (min)]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Control Type="EditBox">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1787148037805</Id>
+					<Name><![CDATA[editHoraHastaFormulario]]></Name>
+					<X>350</X><Y>507</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="140" Height="22">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<FillColor>-1</FillColor>
+						<TextColor>-16777216</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[tieneVentanaFormulario
+&&
+instanciaInterfazActual == null
+&&
+!ejecucionEnCurso
+&&
+!pypelineSolicitudEnCurso]]></EnableExpression>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="10" Style="0"/>
+						<LinkTo>true</LinkTo>
+						<Link>horaHastaFormulario</Link>
+					</ExtendedProperties>
+				</Control>
+				<Rectangle>
+					<Id>1787156342847</Id>
+					<Name><![CDATA[rectangle6]]></Name>
+					<X>800</X><Y>782</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-16777216</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>12</Width>
+					<Height>12</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-15108398</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Text>
+					<Id>1787156342853</Id>
+					<Name><![CDATA[text22]]></Name>
+					<X>988</X><Y>784</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-14735049</Color>
+					<Text><![CDATA[En transito]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>8</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Rectangle>
+					<Id>1787156342855</Id>
+					<Name><![CDATA[rectangle8]]></Name>
+					<X>1140</X><Y>782</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-16777216</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>12</Width>
+					<Height>12</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-278483</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Text>
+					<Id>1787156575637</Id>
+					<Name><![CDATA[text24]]></Name>
+					<X>648</X><Y>806</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-14735049</Color>
+					<Text><![CDATA[Parcial]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>8</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Rectangle>
+					<Id>1787156631554</Id>
+					<Name><![CDATA[rectangle11]]></Name>
+					<X>800</X><Y>804</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-16777216</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>12</Width>
+					<Height>12</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-13730510</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Text>
+					<Id>1787156631556</Id>
+					<Name><![CDATA[text25]]></Name>
+					<X>818</X><Y>806</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-14735049</Color>
+					<Text><![CDATA[Entregado]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>8</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Rectangle>
+					<Id>1787151059751</Id>
+					<Name><![CDATA[rectangle1]]></Name>
+					<X>800</X><Y>701</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-16777216</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>14</Width>
+					<Height>14</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-1146130</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Rectangle>
+					<Id>1787151071048</Id>
+					<Name><![CDATA[rectangle2]]></Name>
+					<X>970</X><Y>701</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-16777216</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>14</Width>
+					<Height>14</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-23296</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Control Type="CheckBox">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1787147931769</Id>
+					<Name><![CDATA[checkTieneVentanaFormulario]]></Name>
+					<X>350</X><Y>458</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="165" Height="20">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<TextColor>-14735049</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[instanciaInterfazActual == null
+&&
+!ejecucionEnCurso
+&&
+!pypelineSolicitudEnCurso]]></EnableExpression>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="10" Style="0"/>
+						<LabelText><![CDATA[Tiene ventana específica]]></LabelText>
+						<LinkTo>true</LinkTo>
+						<Link>tieneVentanaFormulario</Link>
+	 				</ExtendedProperties>
+				</Control>
+				<Control Type="EditBox">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1787147975594</Id>
+					<Name><![CDATA[editHoraDesdeFormulario]]></Name>
+					<X>110</X><Y>507</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="140" Height="22">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<FillColor>-1</FillColor>
+						<TextColor>-16777216</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[tieneVentanaFormulario
+&&
+instanciaInterfazActual == null
+&&
+!ejecucionEnCurso
+&&
+!pypelineSolicitudEnCurso]]></EnableExpression>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="10" Style="0"/>
+						<LinkTo>true</LinkTo>
+						<Link>horaDesdeFormulario</Link>
+					</ExtendedProperties>
+				</Control>
+				<Text>
+					<Id>1787151215740</Id>
+					<Name><![CDATA[text16]]></Name>
+					<X>650</X><Y>728</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-14735049</Color>
+					<Text><![CDATA[Corralón]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>8</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787152715608</Id>
+					<Name><![CDATA[txtEstadoRutasGIS]]></Name>
+					<X>630</X><Y>618</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-14735049</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA[mensajeRutasGIS]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787156269463</Id>
+					<Name><![CDATA[txtEstadosPedidosGIS]]></Name>
+					<X>630</X><Y>654</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-14735049</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA[resumenEstadosPedidosGIS()]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Rectangle>
+					<Id>1787156342841</Id>
+					<Name><![CDATA[rectangle5]]></Name>
+					<X>630</X><Y>782</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-16777216</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>12</Width>
+					<Height>12</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-10453621</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Text>
+					<Id>1787156342843</Id>
+					<Name><![CDATA[text19]]></Name>
+					<X>818</X><Y>784</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-14735049</Color>
+					<Text><![CDATA[Cargado]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>8</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787156342845</Id>
+					<Name><![CDATA[text20]]></Name>
+					<X>648</X><Y>784</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-14735049</Color>
+					<Text><![CDATA[Planificado]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>8</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787145499669</Id>
+					<Name><![CDATA[txtResumenInstancia]]></Name>
+					<X>1370</X><Y>300</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-14735049</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA[resumenInstanciaInterfaz()]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787145565869</Id>
+					<Name><![CDATA[text1]]></Name>
+					<X>1370</X><Y>233</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-10063739</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA["Algoritmo seleccionado: "
++
+modoPlanificacionPypeline]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787145588319</Id>
+					<Name><![CDATA[txtEstadoPlanificacion]]></Name>
+					<X>1380</X><Y>414</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-10063739</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA[mensajeInterfazPlanificacion]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>8</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Control Type="EditBox">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1787147447026</Id>
+					<Name><![CDATA[editClienteFormulario]]></Name>
+					<X>350</X><Y>317</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="210" Height="22">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<FillColor>-1</FillColor>
+						<TextColor>-16777216</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[instanciaInterfazActual == null
+&&
+!ejecucionEnCurso
+&&
+!pypelineSolicitudEnCurso]]></EnableExpression>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="10" Style="0"/>
+						<LinkTo>true</LinkTo>
+						<Link>clienteFormulario</Link>
+					</ExtendedProperties>
+				</Control>
+				<Text>
+					<Id>1787147485760</Id>
+					<Name><![CDATA[text6]]></Name>
+					<X>350</X><Y>300</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-12102553</Color>
+					<Text><![CDATA[Cliente]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Control Type="EditBox">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1787147516075</Id>
+					<Name><![CDATA[editDireccionFormulario]]></Name>
+					<X>110</X><Y>367</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="205" Height="22">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<FillColor>-1</FillColor>
+						<TextColor>-16777216</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[instanciaInterfazActual == null
+&&
+!ejecucionEnCurso
+&&
+!pypelineSolicitudEnCurso]]></EnableExpression>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="10" Style="0"/>
+						<LinkTo>true</LinkTo>
+						<Link>direccionFormulario</Link>
+					</ExtendedProperties>
+				</Control>
+				<Line>
+					<Id>1787152829951</Id>
+					<Name><![CDATA[lineaLeyendaCamion1]]></Name>
+					<X>970</X><Y>733</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>7</LineWidth>
+					<LineColor>-8708190</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<BeginArrowSize>1</BeginArrowSize>
+					<BeginArrowStyle>0</BeginArrowStyle>
+					<EndArrowSize>1</EndArrowSize>
+					<EndArrowStyle>0</EndArrowStyle>
+					<Dx>28</Dx>
+					<Dy>0</Dy>
+					<Dz>0</Dz>
+				</Line>
+				<Text>
+					<Id>1787152829953</Id>
+					<Name><![CDATA[text18]]></Name>
+					<X>1005</X><Y>728</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-14735049</Color>
+					<Text><![CDATA[Ruta Camión 1]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>8</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787153559449</Id>
+					<Name><![CDATA[txtEstadoCamionesGIS]]></Name>
+					<X>630</X><Y>636</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-14735049</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA[resumenEstadosCamionesGIS()]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Control Type="EditBox">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1787147812879</Id>
+					<Name><![CDATA[editLongitudFormulario]]></Name>
+					<X>390</X><Y>417</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="150" Height="22">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<FillColor>-1</FillColor>
+						<TextColor>-16777216</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[instanciaInterfazActual == null
+&&
+!ejecucionEnCurso
+&&
+!pypelineSolicitudEnCurso]]></EnableExpression>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="10" Style="0"/>
+						<LinkTo>true</LinkTo>
+						<Link>longitudFormulario</Link>
+					</ExtendedProperties>
+				</Control>
+				<Text>
+					<Id>1787150964843</Id>
+					<Name><![CDATA[txtEstadoGIS]]></Name>
+					<X>630</X><Y>600</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-14735049</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA[mensajeGIS]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Rectangle>
+					<Id>1787151011716</Id>
+					<Name><![CDATA[rectangle]]></Name>
+					<X>630</X><Y>701</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-16777216</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>14</Width>
+					<Height>14</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-16776961</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Rectangle>
+					<Id>1787151118943</Id>
+					<Name><![CDATA[rectangle3]]></Name>
+					<X>1140</X><Y>701</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-16777216</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>14</Width>
+					<Height>14</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-65281</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Rectangle>
+					<Id>1787151140130</Id>
+					<Name><![CDATA[rectangle4]]></Name>
+					<X>630</X><Y>726</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-16777216</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>14</Width>
+					<Height>14</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-65536</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Text>
+					<Id>1787147539250</Id>
+					<Name><![CDATA[text7]]></Name>
+					<X>110</X><Y>350</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-12102553</Color>
+					<Text><![CDATA[Dirección]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Control Type="EditBox">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1787147701589</Id>
+					<Name><![CDATA[editUnidadesFormulario]]></Name>
+					<X>110</X><Y>417</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="70" Height="22">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<FillColor>-1</FillColor>
+						<TextColor>-16777216</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[instanciaInterfazActual == null
+&&
+!ejecucionEnCurso
+&&
+!pypelineSolicitudEnCurso]]></EnableExpression>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="10" Style="0"/>
+						<LinkTo>true</LinkTo>
+						<Link>unidadesFormulario</Link>
+					</ExtendedProperties>
+				</Control>
+				<Text>
+					<Id>1787147731282</Id>
+					<Name><![CDATA[text9]]></Name>
+					<X>110</X><Y>400</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-12102553</Color>
+					<Text><![CDATA[Unidades]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Rectangle>
+					<Id>1787156744254</Id>
+					<Name><![CDATA[rectangle13]]></Name>
+					<X>1140</X><Y>804</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-16777216</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>12</Width>
+					<Height>12</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-8825528</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Text>
+					<Id>1787156744256</Id>
+					<Name><![CDATA[text27]]></Name>
+					<X>1158</X><Y>806</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-14735049</Color>
+					<Text><![CDATA[Pendiente dia siguiente]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>8</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787151154148</Id>
+					<Name><![CDATA[text]]></Name>
+					<X>650</X><Y>703</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-14735049</Color>
+					<Text><![CDATA[Pedido normal]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>8</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787151177484</Id>
+					<Name><![CDATA[text2]]></Name>
+					<X>820</X><Y>703</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-14735049</Color>
+					<Text><![CDATA[Con ventana]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>8</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Line>
+					<Id>1787152759639</Id>
+					<Name><![CDATA[lineaLeyendaCamion0]]></Name>
+					<X>800</X><Y>733</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>3</LineWidth>
+					<LineColor>-13730510</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<BeginArrowSize>1</BeginArrowSize>
+					<BeginArrowStyle>0</BeginArrowStyle>
+					<EndArrowSize>1</EndArrowSize>
+					<EndArrowStyle>0</EndArrowStyle>
+					<Dx>28</Dx>
+					<Dy>0</Dy>
+					<Dz>0</Dz>
+				</Line>
+				<Text>
+					<Id>1787152819448</Id>
+					<Name><![CDATA[text17]]></Name>
+					<X>835</X><Y>728</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-14735049</Color>
+					<Text><![CDATA[Ruta Camión 0]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>8</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Control Type="EditBox">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1787147565436</Id>
+					<Name><![CDATA[editBarrioFormulario]]></Name>
+					<X>350</X><Y>367</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="205" Height="22">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<FillColor>-1</FillColor>
+						<TextColor>-16777216</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[instanciaInterfazActual == null
+&&
+!ejecucionEnCurso
+&&
+!pypelineSolicitudEnCurso]]></EnableExpression>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="10" Style="0"/>
+						<LinkTo>true</LinkTo>
+						<Link>barrioFormulario</Link>
+					</ExtendedProperties>
+				</Control>
+				<Text>
+					<Id>1787147624159</Id>
+					<Name><![CDATA[text8]]></Name>
+					<X>350</X><Y>350</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-12102553</Color>
+					<Text><![CDATA[Barrio]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787147071226</Id>
+					<Name><![CDATA[txtTituloFormulario]]></Name>
+					<X>110</X><Y>145</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-14735049</Color>
+					<Text><![CDATA[Configuración del turno]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>14</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Control Type="Button">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1787143902718</Id>
+					<Name><![CDATA[btnPlanificarEjecutar]]></Name>
+					<X>1370</X><Y>365</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="190" Height="34">
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<TextColor>-16777216</TextColor>
 						<Enabled>true</Enabled>
@@ -14851,154 +16501,186 @@ try {
 }]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="Dialog" Size="11" Style="0"/>
+						<Font Name="SansSerif" Size="10" Style="1"/>
 						<LabelText><![CDATA[Planificar y ejecutar con Python]]></LabelText>
 					</ExtendedProperties>
 				</Control>
-				<Control Type="ComboBox">
+				<Text>
+					<Id>1787147327820</Id>
+					<Name><![CDATA[text4]]></Name>
+					<X>410</X><Y>172</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-12102553</Color>
+					<Text><![CDATA[Semilla]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Control Type="EditBox">
 				 	<EmbeddedIcon>false</EmbeddedIcon>				
-					<Id>1787145251499</Id>
-					<Name><![CDATA[comboModoPlanificacion]]></Name>
-					<X>45</X><Y>545</Y>
+					<Id>1787147369464</Id>
+					<Name><![CDATA[editPedidoIdFormulario]]></Name>
+					<X>110</X><Y>317</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<BasicProperties Width="80" Height="20">
+					<BasicProperties Width="205" Height="20">
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<FillColor>-1</FillColor>
 						<TextColor>-16777216</TextColor>
 						<Enabled>true</Enabled>
-						<EnableExpression><![CDATA[!ejecucionEnCurso
+						<EnableExpression><![CDATA[instanciaInterfazActual == null
+&&
+!ejecucionEnCurso
 &&
 !pypelineSolicitudEnCurso]]></EnableExpression>
-						<ActionCode><![CDATA[traceln(
-    "MODO SELECCIONADO: "
-    + modoPlanificacionPypeline
-);]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="Dialog" Size="11" Style="0"/>
-						<Editable>false</Editable>
-						<Button><![CDATA[HIBRIDO]]></Button>
-						<Button><![CDATA[GREEDY]]></Button>
-						<Button><![CDATA[RANDOM]]></Button>
-						<Button><![CDATA[GA]]></Button>
-						<Button><![CDATA[RL]]></Button>
+						<Font Name="SansSerif" Size="10" Style="0"/>
 						<LinkTo>true</LinkTo>
-						<Link>modoPlanificacionPypeline</Link>
+						<Link>pedidoIdFormulario</Link>
 					</ExtendedProperties>
 				</Control>
-				<Control Type="Button">
+				<Control Type="EditBox">
 				 	<EmbeddedIcon>false</EmbeddedIcon>				
-					<Id>1787145329848</Id>
-					<Name><![CDATA[btnPrepararInstancia]]></Name>
-					<X>45</X><Y>490</Y>
+					<Id>1787147180077</Id>
+					<Name><![CDATA[editFechaFormulario]]></Name>
+					<X>255</X><Y>187</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<BasicProperties Width="165" Height="30">
+					<BasicProperties Width="130" Height="22">
                         <EmbeddedIcon>false</EmbeddedIcon>	
+						<FillColor>-1</FillColor>
 						<TextColor>-16777216</TextColor>
 						<Enabled>true</Enabled>
-						<EnableExpression><![CDATA[!pedidosFormulario.isEmpty()
+						<EnableExpression><![CDATA[pedidosFormulario.isEmpty()
 &&
 instanciaInterfazActual == null
 &&
 !ejecucionEnCurso
 &&
 !pypelineSolicitudEnCurso]]></EnableExpression>
-						<ActionCode><![CDATA[try {
-
-    InstanciaTurno nuevaInstancia =
-        construirInstanciaFormulario();
-
-
-    mostrarInstanciaEnGIS(
-        nuevaInstancia
-    );
-    
-    indexarPuntosPedidosGIS(
-	    nuevaInstancia
-	);
-
-
-    instanciaInterfazActual =
-        nuevaInstancia;
-
-
-    mensajeInterfazPlanificacion =
-        "Instancia preparada correctamente.";
-
-
-    traceln(
-        resumenInstanciaInterfaz()
-    );
-
-
-} catch (Exception ex) {
-
-    instanciaInterfazActual =
-        null;
-
-
-    limpiarPedidosGIS();
-
-
-    mensajeInterfazPlanificacion =
-        "Error al preparar instancia: "
-        + ex.getClass()
-            .getSimpleName()
-        + ": "
-        + ex.getMessage();
-
-
-    traceln(
-        mensajeInterfazPlanificacion
-    );
-
-
-    ex.printStackTrace();
-}]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="Dialog" Size="11" Style="0"/>
-						<LabelText><![CDATA[Preparar instancia]]></LabelText>
+						<Font Name="SansSerif" Size="10" Style="0"/>
+						<LinkTo>true</LinkTo>
+						<Link>fechaFormulario</Link>
 					</ExtendedProperties>
 				</Control>
-				<Control Type="Button">
+				<Text>
+					<Id>1787147218700</Id>
+					<Name><![CDATA[text3]]></Name>
+					<X>255</X><Y>172</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-12102553</Color>
+					<Text><![CDATA[Fecha]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Rectangle>
+					<Id>1787156679086</Id>
+					<Name><![CDATA[rectangle12]]></Name>
+					<X>970</X><Y>804</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-16777216</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>12</Width>
+					<Height>12</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-2937041</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Text>
+					<Id>1787156679088</Id>
+					<Name><![CDATA[text26]]></Name>
+					<X>988</X><Y>806</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-14735049</Color>
+					<Text><![CDATA[No entregado]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>8</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Control Type="EditBox">
 				 	<EmbeddedIcon>false</EmbeddedIcon>				
-					<Id>1787145354943</Id>
-					<Name><![CDATA[btnLimpiarInstancia]]></Name>
-					<X>260</X><Y>490</Y>
+					<Id>1787147286430</Id>
+					<Name><![CDATA[editSeedFormulario]]></Name>
+					<X>410</X><Y>187</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<BasicProperties Width="165" Height="30">
+					<BasicProperties Width="110" Height="22">
                         <EmbeddedIcon>false</EmbeddedIcon>	
+						<FillColor>-1</FillColor>
 						<TextColor>-16777216</TextColor>
 						<Enabled>true</Enabled>
-						<EnableExpression><![CDATA[instanciaInterfazActual != null
+						<EnableExpression><![CDATA[pedidosFormulario.isEmpty()
+&&
+instanciaInterfazActual == null
 &&
 !ejecucionEnCurso
 &&
 !pypelineSolicitudEnCurso]]></EnableExpression>
-						<ActionCode><![CDATA[limpiarInstanciaInterfaz()]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="Dialog" Size="11" Style="0"/>
-						<LabelText><![CDATA[Limpiar instancia]]></LabelText>
+						<Font Name="SansSerif" Size="10" Style="0"/>
+						<MinValue><![CDATA[1]]></MinValue>
+						<MaxValue><![CDATA[2147483647]]></MaxValue>
+						<LinkTo>true</LinkTo>
+						<Link>seedFormulario</Link>
 					</ExtendedProperties>
 				</Control>
 				<Text>
-					<Id>1787145499669</Id>
-					<Name><![CDATA[txtResumenInstancia]]></Name>
-					<X>45</X><Y>670</Y>
+					<Id>1787147846854</Id>
+					<Name><![CDATA[text11]]></Name>
+					<X>390</X><Y>400</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -15007,20 +16689,67 @@ instanciaInterfazActual == null
 					<EmbeddedIcon>false</EmbeddedIcon>
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
-					<Color>-16777216</Color>
-					<Text><![CDATA[text]]></Text>
-					<TextCode><![CDATA[resumenInstanciaInterfaz()]]></TextCode>
+					<Color>-12102553</Color>
+					<Text><![CDATA[Longitud]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>10</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Control Type="CheckBox">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1787147879657</Id>
+					<Name><![CDATA[checkRequiereVolcadorFormulario]]></Name>
+					<X>110</X><Y>458</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="125" Height="20">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<TextColor>-14735049</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[instanciaInterfazActual == null
+&&
+!ejecucionEnCurso
+&&
+!pypelineSolicitudEnCurso]]></EnableExpression>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="10" Style="0"/>
+						<LabelText><![CDATA[Requiere volcador]]></LabelText>
+						<LinkTo>true</LinkTo>
+						<Link>requiereVolcadorFormulario</Link>
+	 				</ExtendedProperties>
+				</Control>
+				<Text>
+					<Id>1787151202564</Id>
+					<Name><![CDATA[text14]]></Name>
+					<X>990</X><Y>703</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-14735049</Color>
+					<Text><![CDATA[Requiere volcador]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>8</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
 				</Text>
 				<Text>
-					<Id>1787145565869</Id>
-					<Name><![CDATA[text1]]></Name>
-					<X>45</X><Y>640</Y>
+					<Id>1787151210100</Id>
+					<Name><![CDATA[text15]]></Name>
+					<X>1160</X><Y>703</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -15029,22 +16758,19 @@ instanciaInterfazActual == null
 					<EmbeddedIcon>false</EmbeddedIcon>
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
-					<Color>-16777216</Color>
-					<Text><![CDATA[text]]></Text>
-					<TextCode><![CDATA["Algoritmo seleccionado: "
-+
-modoPlanificacionPypeline]]></TextCode>
+					<Color>-14735049</Color>
+					<Text><![CDATA[Ventana + volcador]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>8</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
 				</Text>
 				<Text>
-					<Id>1787145588319</Id>
-					<Name><![CDATA[txtEstadoPlanificacion]]></Name>
-					<X>45</X><Y>700</Y>
+					<Id>1787148037810</Id>
+					<Name><![CDATA[text13]]></Name>
+					<X>350</X><Y>490</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -15053,34 +16779,12 @@ modoPlanificacionPypeline]]></TextCode>
 					<EmbeddedIcon>false</EmbeddedIcon>
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
-					<Color>-16777216</Color>
-					<Text><![CDATA[text]]></Text>
-					<TextCode><![CDATA[mensajeInterfazPlanificacion]]></TextCode>
+					<Color>-12102553</Color>
+					<Text><![CDATA[Hora hasta (min)]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>10</Size>
-						<Style>0</Style>
-					</Font>
-					<Alignment>LEFT</Alignment>
-				</Text>
-				<Text>
-					<Id>1787147071226</Id>
-					<Name><![CDATA[txtTituloFormulario]]></Name>
-					<X>45</X><Y>25</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<Rotation>0.0</Rotation>
-					<Color>-16777216</Color>
-					<Text><![CDATA[Carga de pedidos]]></Text>
-					<Font>
-						<Name>SansSerif</Name>
-						<Size>10</Size>
-						<Style>0</Style>
+						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
 				</Text>
@@ -15088,13 +16792,13 @@ modoPlanificacionPypeline]]></TextCode>
 				 	<EmbeddedIcon>false</EmbeddedIcon>				
 					<Id>1787147098907</Id>
 					<Name><![CDATA[comboTurnoFormulario]]></Name>
-					<X>45</X><Y>55</Y>
+					<X>110</X><Y>187</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<BasicProperties Width="100" Height="20">
+					<BasicProperties Width="120" Height="22">
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<FillColor>-1</FillColor>
 						<TextColor>-16777216</TextColor>
@@ -15114,7 +16818,7 @@ mensajeFormulario =
     + ".";]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="Dialog" Size="11" Style="0"/>
+						<Font Name="SansSerif" Size="9" Style="0"/>
 						<Editable>false</Editable>
 						<Button><![CDATA[MANANA]]></Button>
 						<Button><![CDATA[TARDE]]></Button>
@@ -15122,1259 +16826,10 @@ mensajeFormulario =
 						<Link>turnoFormulario</Link>
 					</ExtendedProperties>
 				</Control>
-				<Control Type="EditBox">
-				 	<EmbeddedIcon>false</EmbeddedIcon>				
-					<Id>1787147180077</Id>
-					<Name><![CDATA[editFechaFormulario]]></Name>
-					<X>225</X><Y>55</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<BasicProperties Width="100" Height="20">
-                        <EmbeddedIcon>false</EmbeddedIcon>	
-						<FillColor>-1</FillColor>
-						<TextColor>-16777216</TextColor>
-						<Enabled>true</Enabled>
-						<EnableExpression><![CDATA[pedidosFormulario.isEmpty()
-&&
-instanciaInterfazActual == null
-&&
-!ejecucionEnCurso
-&&
-!pypelineSolicitudEnCurso]]></EnableExpression>
-					</BasicProperties>
-					<ExtendedProperties>
-						<Font Name="Dialog" Size="11" Style="0"/>
-						<LinkTo>true</LinkTo>
-						<Link>fechaFormulario</Link>
-					</ExtendedProperties>
-				</Control>
-				<Text>
-					<Id>1787147218700</Id>
-					<Name><![CDATA[text3]]></Name>
-					<X>190</X><Y>60</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<Rotation>0.0</Rotation>
-					<Color>-16777216</Color>
-					<Text><![CDATA[Fecha]]></Text>
-					<Font>
-						<Name>SansSerif</Name>
-						<Size>10</Size>
-						<Style>0</Style>
-					</Font>
-					<Alignment>LEFT</Alignment>
-				</Text>
-				<Control Type="EditBox">
-				 	<EmbeddedIcon>false</EmbeddedIcon>				
-					<Id>1787147286430</Id>
-					<Name><![CDATA[editSeedFormulario]]></Name>
-					<X>385</X><Y>55</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<BasicProperties Width="100" Height="20">
-                        <EmbeddedIcon>false</EmbeddedIcon>	
-						<FillColor>-1</FillColor>
-						<TextColor>-16777216</TextColor>
-						<Enabled>true</Enabled>
-						<EnableExpression><![CDATA[pedidosFormulario.isEmpty()
-&&
-instanciaInterfazActual == null
-&&
-!ejecucionEnCurso
-&&
-!pypelineSolicitudEnCurso]]></EnableExpression>
-					</BasicProperties>
-					<ExtendedProperties>
-						<Font Name="Dialog" Size="11" Style="0"/>
-						<MinValue><![CDATA[1]]></MinValue>
-						<MaxValue><![CDATA[2147483647]]></MaxValue>
-						<LinkTo>true</LinkTo>
-						<Link>seedFormulario</Link>
-					</ExtendedProperties>
-				</Control>
-				<Text>
-					<Id>1787147327820</Id>
-					<Name><![CDATA[text4]]></Name>
-					<X>355</X><Y>60</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<Rotation>0.0</Rotation>
-					<Color>-16777216</Color>
-					<Text><![CDATA[Seed]]></Text>
-					<Font>
-						<Name>SansSerif</Name>
-						<Size>10</Size>
-						<Style>0</Style>
-					</Font>
-					<Alignment>LEFT</Alignment>
-				</Text>
-				<Control Type="EditBox">
-				 	<EmbeddedIcon>false</EmbeddedIcon>				
-					<Id>1787147369464</Id>
-					<Name><![CDATA[editPedidoIdFormulario]]></Name>
-					<X>135</X><Y>115</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<BasicProperties Width="125" Height="20">
-                        <EmbeddedIcon>false</EmbeddedIcon>	
-						<FillColor>-1</FillColor>
-						<TextColor>-16777216</TextColor>
-						<Enabled>true</Enabled>
-						<EnableExpression><![CDATA[instanciaInterfazActual == null
-&&
-!ejecucionEnCurso
-&&
-!pypelineSolicitudEnCurso]]></EnableExpression>
-					</BasicProperties>
-					<ExtendedProperties>
-						<Font Name="Dialog" Size="11" Style="0"/>
-						<LinkTo>true</LinkTo>
-						<Link>pedidoIdFormulario</Link>
-					</ExtendedProperties>
-				</Control>
-				<Text>
-					<Id>1787147404377</Id>
-					<Name><![CDATA[text5]]></Name>
-					<X>45</X><Y>120</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<Rotation>0.0</Rotation>
-					<Color>-16777216</Color>
-					<Text><![CDATA[ID del pedido]]></Text>
-					<Font>
-						<Name>SansSerif</Name>
-						<Size>10</Size>
-						<Style>0</Style>
-					</Font>
-					<Alignment>LEFT</Alignment>
-				</Text>
-				<Control Type="EditBox">
-				 	<EmbeddedIcon>false</EmbeddedIcon>				
-					<Id>1787147447026</Id>
-					<Name><![CDATA[editClienteFormulario]]></Name>
-					<X>410</X><Y>115</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<BasicProperties Width="125" Height="20">
-                        <EmbeddedIcon>false</EmbeddedIcon>	
-						<FillColor>-1</FillColor>
-						<TextColor>-16777216</TextColor>
-						<Enabled>true</Enabled>
-						<EnableExpression><![CDATA[instanciaInterfazActual == null
-&&
-!ejecucionEnCurso
-&&
-!pypelineSolicitudEnCurso]]></EnableExpression>
-					</BasicProperties>
-					<ExtendedProperties>
-						<Font Name="Dialog" Size="11" Style="0"/>
-						<LinkTo>true</LinkTo>
-						<Link>clienteFormulario</Link>
-					</ExtendedProperties>
-				</Control>
-				<Text>
-					<Id>1787147485760</Id>
-					<Name><![CDATA[text6]]></Name>
-					<X>320</X><Y>120</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<Rotation>0.0</Rotation>
-					<Color>-16777216</Color>
-					<Text><![CDATA[Cliente]]></Text>
-					<Font>
-						<Name>SansSerif</Name>
-						<Size>10</Size>
-						<Style>0</Style>
-					</Font>
-					<Alignment>LEFT</Alignment>
-				</Text>
-				<Control Type="EditBox">
-				 	<EmbeddedIcon>false</EmbeddedIcon>				
-					<Id>1787147516075</Id>
-					<Name><![CDATA[editDireccionFormulario]]></Name>
-					<X>135</X><Y>150</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<BasicProperties Width="125" Height="20">
-                        <EmbeddedIcon>false</EmbeddedIcon>	
-						<FillColor>-1</FillColor>
-						<TextColor>-16777216</TextColor>
-						<Enabled>true</Enabled>
-						<EnableExpression><![CDATA[instanciaInterfazActual == null
-&&
-!ejecucionEnCurso
-&&
-!pypelineSolicitudEnCurso]]></EnableExpression>
-					</BasicProperties>
-					<ExtendedProperties>
-						<Font Name="Dialog" Size="11" Style="0"/>
-						<LinkTo>true</LinkTo>
-						<Link>direccionFormulario</Link>
-					</ExtendedProperties>
-				</Control>
-				<Text>
-					<Id>1787147539250</Id>
-					<Name><![CDATA[text7]]></Name>
-					<X>45</X><Y>155</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<Rotation>0.0</Rotation>
-					<Color>-16777216</Color>
-					<Text><![CDATA[Dirección]]></Text>
-					<Font>
-						<Name>SansSerif</Name>
-						<Size>10</Size>
-						<Style>0</Style>
-					</Font>
-					<Alignment>LEFT</Alignment>
-				</Text>
-				<Control Type="EditBox">
-				 	<EmbeddedIcon>false</EmbeddedIcon>				
-					<Id>1787147565436</Id>
-					<Name><![CDATA[editBarrioFormulario]]></Name>
-					<X>410</X><Y>150</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<BasicProperties Width="125" Height="20">
-                        <EmbeddedIcon>false</EmbeddedIcon>	
-						<FillColor>-1</FillColor>
-						<TextColor>-16777216</TextColor>
-						<Enabled>true</Enabled>
-						<EnableExpression><![CDATA[instanciaInterfazActual == null
-&&
-!ejecucionEnCurso
-&&
-!pypelineSolicitudEnCurso]]></EnableExpression>
-					</BasicProperties>
-					<ExtendedProperties>
-						<Font Name="Dialog" Size="11" Style="0"/>
-						<LinkTo>true</LinkTo>
-						<Link>barrioFormulario</Link>
-					</ExtendedProperties>
-				</Control>
-				<Text>
-					<Id>1787147624159</Id>
-					<Name><![CDATA[text8]]></Name>
-					<X>320</X><Y>155</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<Rotation>0.0</Rotation>
-					<Color>-16777216</Color>
-					<Text><![CDATA[Barrio]]></Text>
-					<Font>
-						<Name>SansSerif</Name>
-						<Size>10</Size>
-						<Style>0</Style>
-					</Font>
-					<Alignment>LEFT</Alignment>
-				</Text>
-				<Control Type="EditBox">
-				 	<EmbeddedIcon>false</EmbeddedIcon>				
-					<Id>1787147701589</Id>
-					<Name><![CDATA[editUnidadesFormulario]]></Name>
-					<X>135</X><Y>190</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<BasicProperties Width="45" Height="20">
-                        <EmbeddedIcon>false</EmbeddedIcon>	
-						<FillColor>-1</FillColor>
-						<TextColor>-16777216</TextColor>
-						<Enabled>true</Enabled>
-						<EnableExpression><![CDATA[instanciaInterfazActual == null
-&&
-!ejecucionEnCurso
-&&
-!pypelineSolicitudEnCurso]]></EnableExpression>
-					</BasicProperties>
-					<ExtendedProperties>
-						<Font Name="Dialog" Size="11" Style="0"/>
-						<LinkTo>true</LinkTo>
-						<Link>unidadesFormulario</Link>
-					</ExtendedProperties>
-				</Control>
-				<Text>
-					<Id>1787147731282</Id>
-					<Name><![CDATA[text9]]></Name>
-					<X>45</X><Y>195</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<Rotation>0.0</Rotation>
-					<Color>-16777216</Color>
-					<Text><![CDATA[Unidades]]></Text>
-					<Font>
-						<Name>SansSerif</Name>
-						<Size>10</Size>
-						<Style>0</Style>
-					</Font>
-					<Alignment>LEFT</Alignment>
-				</Text>
-				<Control Type="EditBox">
-				 	<EmbeddedIcon>false</EmbeddedIcon>				
-					<Id>1787147766511</Id>
-					<Name><![CDATA[editLatitudFormulario]]></Name>
-					<X>135</X><Y>230</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<BasicProperties Width="125" Height="20">
-                        <EmbeddedIcon>false</EmbeddedIcon>	
-						<FillColor>-1</FillColor>
-						<TextColor>-16777216</TextColor>
-						<Enabled>true</Enabled>
-						<EnableExpression><![CDATA[instanciaInterfazActual == null
-&&
-!ejecucionEnCurso
-&&
-!pypelineSolicitudEnCurso]]></EnableExpression>
-					</BasicProperties>
-					<ExtendedProperties>
-						<Font Name="Dialog" Size="11" Style="0"/>
-						<LinkTo>true</LinkTo>
-						<Link>latitudFormulario</Link>
-					</ExtendedProperties>
-				</Control>
-				<Text>
-					<Id>1787147786369</Id>
-					<Name><![CDATA[text10]]></Name>
-					<X>45</X><Y>235</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<Rotation>0.0</Rotation>
-					<Color>-16777216</Color>
-					<Text><![CDATA[Latitud]]></Text>
-					<Font>
-						<Name>SansSerif</Name>
-						<Size>10</Size>
-						<Style>0</Style>
-					</Font>
-					<Alignment>LEFT</Alignment>
-				</Text>
-				<Control Type="EditBox">
-				 	<EmbeddedIcon>false</EmbeddedIcon>				
-					<Id>1787147812879</Id>
-					<Name><![CDATA[editLongitudFormulario]]></Name>
-					<X>410</X><Y>230</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<BasicProperties Width="125" Height="20">
-                        <EmbeddedIcon>false</EmbeddedIcon>	
-						<FillColor>-1</FillColor>
-						<TextColor>-16777216</TextColor>
-						<Enabled>true</Enabled>
-						<EnableExpression><![CDATA[instanciaInterfazActual == null
-&&
-!ejecucionEnCurso
-&&
-!pypelineSolicitudEnCurso]]></EnableExpression>
-					</BasicProperties>
-					<ExtendedProperties>
-						<Font Name="Dialog" Size="11" Style="0"/>
-						<LinkTo>true</LinkTo>
-						<Link>longitudFormulario</Link>
-					</ExtendedProperties>
-				</Control>
-				<Text>
-					<Id>1787147846854</Id>
-					<Name><![CDATA[text11]]></Name>
-					<X>320</X><Y>235</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<Rotation>0.0</Rotation>
-					<Color>-16777216</Color>
-					<Text><![CDATA[Longitud]]></Text>
-					<Font>
-						<Name>SansSerif</Name>
-						<Size>10</Size>
-						<Style>0</Style>
-					</Font>
-					<Alignment>LEFT</Alignment>
-				</Text>
-				<Control Type="CheckBox">
-				 	<EmbeddedIcon>false</EmbeddedIcon>				
-					<Id>1787147879657</Id>
-					<Name><![CDATA[checkRequiereVolcadorFormulario]]></Name>
-					<X>40</X><Y>270</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<BasicProperties Width="125" Height="20">
-                        <EmbeddedIcon>false</EmbeddedIcon>	
-						<TextColor>-16777216</TextColor>
-						<Enabled>true</Enabled>
-						<EnableExpression><![CDATA[instanciaInterfazActual == null
-&&
-!ejecucionEnCurso
-&&
-!pypelineSolicitudEnCurso]]></EnableExpression>
-					</BasicProperties>
-					<ExtendedProperties>
-						<Font Name="Dialog" Size="11" Style="0"/>
-						<LabelText><![CDATA[Requiere volcador]]></LabelText>
-						<LinkTo>true</LinkTo>
-						<Link>requiereVolcadorFormulario</Link>
-	 				</ExtendedProperties>
-				</Control>
-				<Control Type="CheckBox">
-				 	<EmbeddedIcon>false</EmbeddedIcon>				
-					<Id>1787147931769</Id>
-					<Name><![CDATA[checkTieneVentanaFormulario]]></Name>
-					<X>315</X><Y>270</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<BasicProperties Width="165" Height="20">
-                        <EmbeddedIcon>false</EmbeddedIcon>	
-						<TextColor>-16777216</TextColor>
-						<Enabled>true</Enabled>
-						<EnableExpression><![CDATA[instanciaInterfazActual == null
-&&
-!ejecucionEnCurso
-&&
-!pypelineSolicitudEnCurso]]></EnableExpression>
-					</BasicProperties>
-					<ExtendedProperties>
-						<Font Name="Dialog" Size="11" Style="0"/>
-						<LabelText><![CDATA[Tiene ventana específica]]></LabelText>
-						<LinkTo>true</LinkTo>
-						<Link>tieneVentanaFormulario</Link>
-	 				</ExtendedProperties>
-				</Control>
-				<Control Type="EditBox">
-				 	<EmbeddedIcon>false</EmbeddedIcon>				
-					<Id>1787147975594</Id>
-					<Name><![CDATA[editHoraDesdeFormulario]]></Name>
-					<X>135</X><Y>305</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<BasicProperties Width="100" Height="20">
-                        <EmbeddedIcon>false</EmbeddedIcon>	
-						<FillColor>-1</FillColor>
-						<TextColor>-16777216</TextColor>
-						<Enabled>true</Enabled>
-						<EnableExpression><![CDATA[tieneVentanaFormulario
-&&
-instanciaInterfazActual == null
-&&
-!ejecucionEnCurso
-&&
-!pypelineSolicitudEnCurso]]></EnableExpression>
-					</BasicProperties>
-					<ExtendedProperties>
-						<Font Name="Dialog" Size="11" Style="0"/>
-						<LinkTo>true</LinkTo>
-						<Link>horaDesdeFormulario</Link>
-					</ExtendedProperties>
-				</Control>
-				<Text>
-					<Id>1787148003465</Id>
-					<Name><![CDATA[text12]]></Name>
-					<X>45</X><Y>310</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<Rotation>0.0</Rotation>
-					<Color>-16777216</Color>
-					<Text><![CDATA[Hora desde (min)]]></Text>
-					<Font>
-						<Name>SansSerif</Name>
-						<Size>10</Size>
-						<Style>0</Style>
-					</Font>
-					<Alignment>LEFT</Alignment>
-				</Text>
-				<Control Type="EditBox">
-				 	<EmbeddedIcon>false</EmbeddedIcon>				
-					<Id>1787148037805</Id>
-					<Name><![CDATA[editHoraHastaFormulario]]></Name>
-					<X>410</X><Y>305</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<BasicProperties Width="100" Height="20">
-                        <EmbeddedIcon>false</EmbeddedIcon>	
-						<FillColor>-1</FillColor>
-						<TextColor>-16777216</TextColor>
-						<Enabled>true</Enabled>
-						<EnableExpression><![CDATA[tieneVentanaFormulario
-&&
-instanciaInterfazActual == null
-&&
-!ejecucionEnCurso
-&&
-!pypelineSolicitudEnCurso]]></EnableExpression>
-					</BasicProperties>
-					<ExtendedProperties>
-						<Font Name="Dialog" Size="11" Style="0"/>
-						<LinkTo>true</LinkTo>
-						<Link>horaHastaFormulario</Link>
-					</ExtendedProperties>
-				</Control>
-				<Text>
-					<Id>1787148037810</Id>
-					<Name><![CDATA[text13]]></Name>
-					<X>320</X><Y>310</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<Rotation>0.0</Rotation>
-					<Color>-16777216</Color>
-					<Text><![CDATA[Hora hasta (min)]]></Text>
-					<Font>
-						<Name>SansSerif</Name>
-						<Size>10</Size>
-						<Style>0</Style>
-					</Font>
-					<Alignment>LEFT</Alignment>
-				</Text>
-				<Control Type="Button">
-				 	<EmbeddedIcon>false</EmbeddedIcon>				
-					<Id>1787148083269</Id>
-					<Name><![CDATA[btnAgregarPedidoFormulario]]></Name>
-					<X>45</X><Y>360</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<BasicProperties Width="165" Height="30">
-                        <EmbeddedIcon>false</EmbeddedIcon>	
-						<TextColor>-16777216</TextColor>
-						<Enabled>true</Enabled>
-						<EnableExpression><![CDATA[instanciaInterfazActual == null
-&&
-!ejecucionEnCurso
-&&
-!pypelineSolicitudEnCurso]]></EnableExpression>
-						<ActionCode><![CDATA[agregarPedidoFormulario();]]></ActionCode>
-					</BasicProperties>
-					<ExtendedProperties>
-						<Font Name="Dialog" Size="11" Style="0"/>
-						<LabelText><![CDATA[Agregar pedido]]></LabelText>
-					</ExtendedProperties>
-				</Control>
-				<Control Type="Button">
-				 	<EmbeddedIcon>false</EmbeddedIcon>				
-					<Id>1787148140445</Id>
-					<Name><![CDATA[btnEliminarUltimoPedidoFormulario]]></Name>
-					<X>260</X><Y>360</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<BasicProperties Width="165" Height="30">
-                        <EmbeddedIcon>false</EmbeddedIcon>	
-						<TextColor>-16777216</TextColor>
-						<Enabled>true</Enabled>
-						<EnableExpression><![CDATA[!pedidosFormulario.isEmpty()
-&&
-instanciaInterfazActual == null
-&&
-!ejecucionEnCurso
-&&
-!pypelineSolicitudEnCurso]]></EnableExpression>
-						<ActionCode><![CDATA[eliminarUltimoPedidoFormulario();]]></ActionCode>
-					</BasicProperties>
-					<ExtendedProperties>
-						<Font Name="Dialog" Size="11" Style="0"/>
-						<LabelText><![CDATA[Eliminar último]]></LabelText>
-					</ExtendedProperties>
-				</Control>
-				<Text>
-					<Id>1787148307312</Id>
-					<Name><![CDATA[txtResumenPedidosFormulario]]></Name>
-					<X>45</X><Y>420</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<Rotation>0.0</Rotation>
-					<Color>-16777216</Color>
-					<Text><![CDATA[text]]></Text>
-					<TextCode><![CDATA[resumenPedidosFormulario()]]></TextCode>
-					<Font>
-						<Name>SansSerif</Name>
-						<Size>10</Size>
-						<Style>0</Style>
-					</Font>
-					<Alignment>LEFT</Alignment>
-				</Text>
-				<Text>
-					<Id>1787148338025</Id>
-					<Name><![CDATA[txtMensajeFormulario]]></Name>
-					<X>45</X><Y>450</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<Rotation>0.0</Rotation>
-					<Color>-16777216</Color>
-					<Text><![CDATA[text]]></Text>
-					<TextCode><![CDATA[mensajeFormulario]]></TextCode>
-					<Font>
-						<Name>SansSerif</Name>
-						<Size>10</Size>
-						<Style>0</Style>
-					</Font>
-					<Alignment>LEFT</Alignment>
-				</Text>
-				<GISMap>
-					<Id>1787150445148</Id>
-					<Name><![CDATA[mapaGIS]]></Name>
-					<X>600</X><Y>50</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Width>700</Width>
-					<Height>550</Height>
-					<GISShapes>
-					</GISShapes>
-					<Latitude>-32.85583600364033</Latitude>
-					<Longitude>-60.716852344629736</Longitude>
-					<Scale>30000</Scale>
-					<BorderColor>-4144960</BorderColor>
-					<FillColor>-1</FillColor>
-					<ShowTiles>true</ShowTiles>
-					<CustomTileURL>false</CustomTileURL>
-					<TileURL><![CDATA[https://a.tile.openstreetmap.org/[zoom]/[x]/[y].png]]></TileURL>				
-					<RouteProviderType>STRAIGHT</RouteProviderType>
-					<RouteNotFound>CREATE_STRAIGHT_LINE</RouteNotFound>
-					<TransportType>CAR</TransportType>
-					<RoutingMethod>FASTEST</RoutingMethod>
-					<PathfindingAlgorithm>DIJKSTRABI</PathfindingAlgorithm>
-					<CustomRouteProvider>false</CustomRouteProvider>
-					<RouteSourceResourceReference>
-					</RouteSourceResourceReference>
-					<RouteGraphResourceReference>
-					</RouteGraphResourceReference>	
-					<MapScaleBasedGeneralization>true</MapScaleBasedGeneralization>
-					<AbsolutePrecisionGeneralization>1000</AbsolutePrecisionGeneralization>
-
-
-				</GISMap>
-				<Text>
-					<Id>1787150964843</Id>
-					<Name><![CDATA[txtEstadoGIS]]></Name>
-					<X>630</X><Y>620</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<Rotation>0.0</Rotation>
-					<Color>-16777216</Color>
-					<Text><![CDATA[text]]></Text>
-					<TextCode><![CDATA[mensajeGIS]]></TextCode>
-					<Font>
-						<Name>SansSerif</Name>
-						<Size>10</Size>
-						<Style>0</Style>
-					</Font>
-					<Alignment>LEFT</Alignment>
-				</Text>
-				<Rectangle>
-					<Id>1787151011716</Id>
-					<Name><![CDATA[rectangle]]></Name>
-					<X>625</X><Y>755</Y>
-					<Label><X>10</X><Y>10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<ZHeight>10</ZHeight>
-					<LineWidth>1</LineWidth>
-					<LineColor>-16777216</LineColor>
-					<LineMaterial>null</LineMaterial>
-					<LineStyle>SOLID</LineStyle>
-					<Width>25</Width>
-					<Height>25</Height>
-					<Rotation>0.0</Rotation>
-					<FillColor>-16776961</FillColor>
-					<FillMaterial>null</FillMaterial>
-				</Rectangle>
-				<Rectangle>
-					<Id>1787151059751</Id>
-					<Name><![CDATA[rectangle1]]></Name>
-					<X>725</X><Y>755</Y>
-					<Label><X>10</X><Y>10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<ZHeight>10</ZHeight>
-					<LineWidth>1</LineWidth>
-					<LineColor>-16777216</LineColor>
-					<LineMaterial>null</LineMaterial>
-					<LineStyle>SOLID</LineStyle>
-					<Width>25</Width>
-					<Height>25</Height>
-					<Rotation>0.0</Rotation>
-					<FillColor>-1146130</FillColor>
-					<FillMaterial>null</FillMaterial>
-				</Rectangle>
-				<Rectangle>
-					<Id>1787151071048</Id>
-					<Name><![CDATA[rectangle2]]></Name>
-					<X>825</X><Y>755</Y>
-					<Label><X>10</X><Y>10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<ZHeight>10</ZHeight>
-					<LineWidth>1</LineWidth>
-					<LineColor>-16777216</LineColor>
-					<LineMaterial>null</LineMaterial>
-					<LineStyle>SOLID</LineStyle>
-					<Width>25</Width>
-					<Height>25</Height>
-					<Rotation>0.0</Rotation>
-					<FillColor>-23296</FillColor>
-					<FillMaterial>null</FillMaterial>
-				</Rectangle>
-				<Rectangle>
-					<Id>1787151118943</Id>
-					<Name><![CDATA[rectangle3]]></Name>
-					<X>925</X><Y>755</Y>
-					<Label><X>10</X><Y>10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<ZHeight>10</ZHeight>
-					<LineWidth>1</LineWidth>
-					<LineColor>-16777216</LineColor>
-					<LineMaterial>null</LineMaterial>
-					<LineStyle>SOLID</LineStyle>
-					<Width>25</Width>
-					<Height>25</Height>
-					<Rotation>0.0</Rotation>
-					<FillColor>-65281</FillColor>
-					<FillMaterial>null</FillMaterial>
-				</Rectangle>
-				<Rectangle>
-					<Id>1787151140130</Id>
-					<Name><![CDATA[rectangle4]]></Name>
-					<X>1025</X><Y>755</Y>
-					<Label><X>10</X><Y>10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<ZHeight>10</ZHeight>
-					<LineWidth>1</LineWidth>
-					<LineColor>-16777216</LineColor>
-					<LineMaterial>null</LineMaterial>
-					<LineStyle>SOLID</LineStyle>
-					<Width>25</Width>
-					<Height>25</Height>
-					<Rotation>0.0</Rotation>
-					<FillColor>-65536</FillColor>
-					<FillMaterial>null</FillMaterial>
-				</Rectangle>
-				<Text>
-					<Id>1787151154148</Id>
-					<Name><![CDATA[text]]></Name>
-					<X>605</X><Y>790</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<Rotation>0.0</Rotation>
-					<Color>-16777216</Color>
-					<Text><![CDATA[Pedido normal]]></Text>
-					<Font>
-						<Name>SansSerif</Name>
-						<Size>10</Size>
-						<Style>0</Style>
-					</Font>
-					<Alignment>LEFT</Alignment>
-				</Text>
-				<Text>
-					<Id>1787151177484</Id>
-					<Name><![CDATA[text2]]></Name>
-					<X>705</X><Y>790</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<Rotation>0.0</Rotation>
-					<Color>-16777216</Color>
-					<Text><![CDATA[Con ventana]]></Text>
-					<Font>
-						<Name>SansSerif</Name>
-						<Size>10</Size>
-						<Style>0</Style>
-					</Font>
-					<Alignment>LEFT</Alignment>
-				</Text>
-				<Text>
-					<Id>1787151202564</Id>
-					<Name><![CDATA[text14]]></Name>
-					<X>795</X><Y>790</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<Rotation>0.0</Rotation>
-					<Color>-16777216</Color>
-					<Text><![CDATA[Requiere volcador]]></Text>
-					<Font>
-						<Name>SansSerif</Name>
-						<Size>10</Size>
-						<Style>0</Style>
-					</Font>
-					<Alignment>LEFT</Alignment>
-				</Text>
-				<Text>
-					<Id>1787151210100</Id>
-					<Name><![CDATA[text15]]></Name>
-					<X>895</X><Y>790</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<Rotation>0.0</Rotation>
-					<Color>-16777216</Color>
-					<Text><![CDATA[Ventana + volcador]]></Text>
-					<Font>
-						<Name>SansSerif</Name>
-						<Size>10</Size>
-						<Style>0</Style>
-					</Font>
-					<Alignment>LEFT</Alignment>
-				</Text>
-				<Text>
-					<Id>1787151215740</Id>
-					<Name><![CDATA[text16]]></Name>
-					<X>1017</X><Y>790</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<Rotation>0.0</Rotation>
-					<Color>-16777216</Color>
-					<Text><![CDATA[Corralón]]></Text>
-					<Font>
-						<Name>SansSerif</Name>
-						<Size>10</Size>
-						<Style>0</Style>
-					</Font>
-					<Alignment>LEFT</Alignment>
-				</Text>
-				<Text>
-					<Id>1787152715608</Id>
-					<Name><![CDATA[txtEstadoRutasGIS]]></Name>
-					<X>630</X><Y>650</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<Rotation>0.0</Rotation>
-					<Color>-16777216</Color>
-					<Text><![CDATA[text]]></Text>
-					<TextCode><![CDATA[mensajeRutasGIS]]></TextCode>
-					<Font>
-						<Name>SansSerif</Name>
-						<Size>10</Size>
-						<Style>0</Style>
-					</Font>
-					<Alignment>LEFT</Alignment>
-				</Text>
-				<Line>
-					<Id>1787152759639</Id>
-					<Name><![CDATA[lineaLeyendaCamion0]]></Name>
-					<X>625</X><Y>830</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<ZHeight>10</ZHeight>
-					<LineWidth>4</LineWidth>
-					<LineColor>-13730510</LineColor>
-					<LineMaterial>null</LineMaterial>
-					<LineStyle>SOLID</LineStyle>
-					<BeginArrowSize>1</BeginArrowSize>
-					<BeginArrowStyle>0</BeginArrowStyle>
-					<EndArrowSize>1</EndArrowSize>
-					<EndArrowStyle>0</EndArrowStyle>
-					<Dx>25</Dx>
-					<Dy>0</Dy>
-					<Dz>0</Dz>
-				</Line>
-				<Text>
-					<Id>1787152819448</Id>
-					<Name><![CDATA[text17]]></Name>
-					<X>605</X><Y>845</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<Rotation>0.0</Rotation>
-					<Color>-16777216</Color>
-					<Text><![CDATA[Ruta Camión 0]]></Text>
-					<Font>
-						<Name>SansSerif</Name>
-						<Size>10</Size>
-						<Style>0</Style>
-					</Font>
-					<Alignment>LEFT</Alignment>
-				</Text>
-				<Line>
-					<Id>1787152829951</Id>
-					<Name><![CDATA[lineaLeyendaCamion1]]></Name>
-					<X>725</X><Y>830</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<ZHeight>10</ZHeight>
-					<LineWidth>4</LineWidth>
-					<LineColor>-8708190</LineColor>
-					<LineMaterial>null</LineMaterial>
-					<LineStyle>SOLID</LineStyle>
-					<BeginArrowSize>1</BeginArrowSize>
-					<BeginArrowStyle>0</BeginArrowStyle>
-					<EndArrowSize>1</EndArrowSize>
-					<EndArrowStyle>0</EndArrowStyle>
-					<Dx>25</Dx>
-					<Dy>0</Dy>
-					<Dz>0</Dz>
-				</Line>
-				<Text>
-					<Id>1787152829953</Id>
-					<Name><![CDATA[text18]]></Name>
-					<X>705</X><Y>845</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<Rotation>0.0</Rotation>
-					<Color>-16777216</Color>
-					<Text><![CDATA[Ruta Camión 1]]></Text>
-					<Font>
-						<Name>SansSerif</Name>
-						<Size>10</Size>
-						<Style>0</Style>
-					</Font>
-					<Alignment>LEFT</Alignment>
-				</Text>
-				<Text>
-					<Id>1787153559449</Id>
-					<Name><![CDATA[txtEstadoCamionesGIS]]></Name>
-					<X>630</X><Y>680</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<Rotation>0.0</Rotation>
-					<Color>-16777216</Color>
-					<Text><![CDATA[text]]></Text>
-					<TextCode><![CDATA[resumenEstadosCamionesGIS()]]></TextCode>
-					<Font>
-						<Name>SansSerif</Name>
-						<Size>10</Size>
-						<Style>0</Style>
-					</Font>
-					<Alignment>LEFT</Alignment>
-				</Text>
-				<Text>
-					<Id>1787156269463</Id>
-					<Name><![CDATA[txtEstadosPedidosGIS]]></Name>
-					<X>630</X><Y>710</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<Rotation>0.0</Rotation>
-					<Color>-16777216</Color>
-					<Text><![CDATA[text]]></Text>
-					<TextCode><![CDATA[resumenEstadosPedidosGIS()]]></TextCode>
-					<Font>
-						<Name>SansSerif</Name>
-						<Size>10</Size>
-						<Style>0</Style>
-					</Font>
-					<Alignment>LEFT</Alignment>
-				</Text>
-				<Rectangle>
-					<Id>1787156342841</Id>
-					<Name><![CDATA[rectangle5]]></Name>
-					<X>625</X><Y>885</Y>
-					<Label><X>10</X><Y>10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<ZHeight>10</ZHeight>
-					<LineWidth>1</LineWidth>
-					<LineColor>-16777216</LineColor>
-					<LineMaterial>null</LineMaterial>
-					<LineStyle>SOLID</LineStyle>
-					<Width>25</Width>
-					<Height>25</Height>
-					<Rotation>0.0</Rotation>
-					<FillColor>-10453621</FillColor>
-					<FillMaterial>null</FillMaterial>
-				</Rectangle>
-				<Text>
-					<Id>1787156342843</Id>
-					<Name><![CDATA[text19]]></Name>
-					<X>720</X><Y>920</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<Rotation>0.0</Rotation>
-					<Color>-16777216</Color>
-					<Text><![CDATA[Cargado]]></Text>
-					<Font>
-						<Name>SansSerif</Name>
-						<Size>10</Size>
-						<Style>0</Style>
-					</Font>
-					<Alignment>LEFT</Alignment>
-				</Text>
-				<Text>
-					<Id>1787156342845</Id>
-					<Name><![CDATA[text20]]></Name>
-					<X>610</X><Y>920</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<Rotation>0.0</Rotation>
-					<Color>-16777216</Color>
-					<Text><![CDATA[Planificado]]></Text>
-					<Font>
-						<Name>SansSerif</Name>
-						<Size>10</Size>
-						<Style>0</Style>
-					</Font>
-					<Alignment>LEFT</Alignment>
-				</Text>
-				<Rectangle>
-					<Id>1787156342847</Id>
-					<Name><![CDATA[rectangle6]]></Name>
-					<X>725</X><Y>885</Y>
-					<Label><X>10</X><Y>10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<ZHeight>10</ZHeight>
-					<LineWidth>1</LineWidth>
-					<LineColor>-16777216</LineColor>
-					<LineMaterial>null</LineMaterial>
-					<LineStyle>SOLID</LineStyle>
-					<Width>25</Width>
-					<Height>25</Height>
-					<Rotation>0.0</Rotation>
-					<FillColor>-15108398</FillColor>
-					<FillMaterial>null</FillMaterial>
-				</Rectangle>
-				<Text>
-					<Id>1787156342853</Id>
-					<Name><![CDATA[text22]]></Name>
-					<X>815</X><Y>920</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<Rotation>0.0</Rotation>
-					<Color>-16777216</Color>
-					<Text><![CDATA[En transito]]></Text>
-					<Font>
-						<Name>SansSerif</Name>
-						<Size>10</Size>
-						<Style>0</Style>
-					</Font>
-					<Alignment>LEFT</Alignment>
-				</Text>
-				<Rectangle>
-					<Id>1787156342855</Id>
-					<Name><![CDATA[rectangle8]]></Name>
-					<X>925</X><Y>885</Y>
-					<Label><X>10</X><Y>10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<ZHeight>10</ZHeight>
-					<LineWidth>1</LineWidth>
-					<LineColor>-16777216</LineColor>
-					<LineMaterial>null</LineMaterial>
-					<LineStyle>SOLID</LineStyle>
-					<Width>25</Width>
-					<Height>25</Height>
-					<Rotation>0.0</Rotation>
-					<FillColor>-278483</FillColor>
-					<FillMaterial>null</FillMaterial>
-				</Rectangle>
 				<Rectangle>
 					<Id>1787156342857</Id>
 					<Name><![CDATA[rectangle9]]></Name>
-					<X>825</X><Y>885</Y>
+					<X>970</X><Y>782</Y>
 					<Label><X>10</X><Y>10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -16387,8 +16842,8 @@ instanciaInterfazActual == null
 					<LineColor>-16777216</LineColor>
 					<LineMaterial>null</LineMaterial>
 					<LineStyle>SOLID</LineStyle>
-					<Width>25</Width>
-					<Height>25</Height>
+					<Width>12</Width>
+					<Height>12</Height>
 					<Rotation>0.0</Rotation>
 					<FillColor>-16728876</FillColor>
 					<FillMaterial>null</FillMaterial>
@@ -16396,7 +16851,7 @@ instanciaInterfazActual == null
 				<Text>
 					<Id>1787156342859</Id>
 					<Name><![CDATA[text23]]></Name>
-					<X>912</X><Y>920</Y>
+					<X>1158</X><Y>784</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -16405,11 +16860,11 @@ instanciaInterfazActual == null
 					<EmbeddedIcon>false</EmbeddedIcon>
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
-					<Color>-16777216</Color>
+					<Color>-14735049</Color>
 					<Text><![CDATA[Esperando]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>8</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -16417,7 +16872,7 @@ instanciaInterfazActual == null
 				<Rectangle>
 					<Id>1787156575635</Id>
 					<Name><![CDATA[rectangle10]]></Name>
-					<X>1025</X><Y>885</Y>
+					<X>630</X><Y>806</Y>
 					<Label><X>10</X><Y>10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -16430,16 +16885,16 @@ instanciaInterfazActual == null
 					<LineColor>-16777216</LineColor>
 					<LineMaterial>null</LineMaterial>
 					<LineStyle>SOLID</LineStyle>
-					<Width>25</Width>
-					<Height>25</Height>
+					<Width>12</Width>
+					<Height>12</Height>
 					<Rotation>0.0</Rotation>
 					<FillColor>-8604862</FillColor>
 					<FillMaterial>null</FillMaterial>
 				</Rectangle>
 				<Text>
-					<Id>1787156575637</Id>
-					<Name><![CDATA[text24]]></Name>
-					<X>1020</X><Y>920</Y>
+					<Id>1787147404377</Id>
+					<Name><![CDATA[text5]]></Name>
+					<X>110</X><Y>300</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -16448,19 +16903,19 @@ instanciaInterfazActual == null
 					<EmbeddedIcon>false</EmbeddedIcon>
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
-					<Color>-16777216</Color>
-					<Text><![CDATA[Parcial]]></Text>
+					<Color>-12102553</Color>
+					<Text><![CDATA[ID del pedido]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>10</Size>
-						<Style>0</Style>
+						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
 				</Text>
 				<Rectangle>
-					<Id>1787156631554</Id>
-					<Name><![CDATA[rectangle11]]></Name>
-					<X>1125</X><Y>885</Y>
+					<Id>1787517087349</Id>
+					<Name><![CDATA[rectEncabezadoDashboard]]></Name>
+					<X>20</X><Y>15</Y>
 					<Label><X>10</X><Y>10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -16470,19 +16925,19 @@ instanciaInterfazActual == null
 					<Z>0</Z>
 					<ZHeight>10</ZHeight>
 					<LineWidth>1</LineWidth>
-					<LineColor>-16777216</LineColor>
+					<LineColor>-15257011</LineColor>
 					<LineMaterial>null</LineMaterial>
 					<LineStyle>SOLID</LineStyle>
-					<Width>25</Width>
-					<Height>25</Height>
+					<Width>1560</Width>
+					<Height>65</Height>
 					<Rotation>0.0</Rotation>
-					<FillColor>-13730510</FillColor>
+					<FillColor>-15257011</FillColor>
 					<FillMaterial>null</FillMaterial>
 				</Rectangle>
 				<Text>
-					<Id>1787156631556</Id>
-					<Name><![CDATA[text25]]></Name>
-					<X>1115</X><Y>920</Y>
+					<Id>1787517142957</Id>
+					<Name><![CDATA[txtTituloDashboard]]></Name>
+					<X>45</X><Y>36</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -16491,20 +16946,146 @@ instanciaInterfazActual == null
 					<EmbeddedIcon>false</EmbeddedIcon>
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
-					<Color>-16777216</Color>
-					<Text><![CDATA[Entregado]]></Text>
+					<Color>-1</Color>
+					<Text><![CDATA[Pedemonte Digital Twin]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>22</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787517186637</Id>
+					<Name><![CDATA[txtSubtituloDashboard]]></Name>
+					<X>45</X><Y>63</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-2300176</Color>
+					<Text><![CDATA[Simulación y optimización logística del corralón · GIS 2D]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>11</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
 				</Text>
-				<Rectangle>
-					<Id>1787156679086</Id>
-					<Name><![CDATA[rectangle12]]></Name>
-					<X>1225</X><Y>885</Y>
-					<Label><X>10</X><Y>10</Y></Label>
+				<Text>
+					<Id>1787517232141</Id>
+					<Name><![CDATA[txtFaseDashboard]]></Name>
+					<X>1490</X><Y>50</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-1</Color>
+					<Text><![CDATA[FASE 15B]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>11</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787519067014</Id>
+					<Name><![CDATA[txtLabelTurno]]></Name>
+					<X>110</X><Y>172</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-12102553</Color>
+					<Text><![CDATA[Turno]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787519444609</Id>
+					<Name><![CDATA[txtTituloDatosPedido]]></Name>
+					<X>110</X><Y>267</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-14735049</Color>
+					<Text><![CDATA[Datos del pedido]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>14</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787520481133</Id>
+					<Name><![CDATA[txtTituloInstancia]]></Name>
+					<X>110</X><Y>657</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-14735049</Color>
+					<Text><![CDATA[Pedidos e instancia]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>14</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787520511733</Id>
+					<Name><![CDATA[txtLabelResumenPedidos]]></Name>
+					<X>110</X><Y>688</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-12102553</Color>
+					<Text><![CDATA[Resumen de la carga]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Line>
+					<Id>1787520668660</Id>
+					<Name><![CDATA[lineaSeparadoraInstancia]]></Name>
+					<X>110</X><Y>760</Y>
+					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
@@ -16513,19 +17094,21 @@ instanciaInterfazActual == null
 					<Z>0</Z>
 					<ZHeight>10</ZHeight>
 					<LineWidth>1</LineWidth>
-					<LineColor>-16777216</LineColor>
+					<LineColor>-2497812</LineColor>
 					<LineMaterial>null</LineMaterial>
 					<LineStyle>SOLID</LineStyle>
-					<Width>25</Width>
-					<Height>25</Height>
-					<Rotation>0.0</Rotation>
-					<FillColor>-2937041</FillColor>
-					<FillMaterial>null</FillMaterial>
-				</Rectangle>
+					<BeginArrowSize>1</BeginArrowSize>
+					<BeginArrowStyle>0</BeginArrowStyle>
+					<EndArrowSize>1</EndArrowSize>
+					<EndArrowStyle>0</EndArrowStyle>
+					<Dx>460</Dx>
+					<Dy>0</Dy>
+					<Dz>0</Dz>
+				</Line>
 				<Text>
-					<Id>1787156679088</Id>
-					<Name><![CDATA[text26]]></Name>
-					<X>1205</X><Y>920</Y>
+					<Id>1787520949028</Id>
+					<Name><![CDATA[txtTituloPlanificacion]]></Name>
+					<X>1370</X><Y>148</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -16534,20 +17117,41 @@ instanciaInterfazActual == null
 					<EmbeddedIcon>false</EmbeddedIcon>
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
-					<Color>-16777216</Color>
-					<Text><![CDATA[No entregado]]></Text>
+					<Color>-14735049</Color>
+					<Text><![CDATA[Planificación y ejecución]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
-						<Style>0</Style>
+						<Size>13</Size>
+						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
 				</Text>
-				<Rectangle>
-					<Id>1787156744254</Id>
-					<Name><![CDATA[rectangle13]]></Name>
-					<X>1325</X><Y>885</Y>
-					<Label><X>10</X><Y>10</Y></Label>
+				<Text>
+					<Id>1787520985108</Id>
+					<Name><![CDATA[txtLabelAlgoritmo]]></Name>
+					<X>1370</X><Y>183</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-12102553</Color>
+					<Text><![CDATA[Algoritmo]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Line>
+					<Id>1787521116236</Id>
+					<Name><![CDATA[lineaSeparadoraPlanificacion1]]></Name>
+					<X>1370</X><Y>260</Y>
+					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
@@ -16556,19 +17160,21 @@ instanciaInterfazActual == null
 					<Z>0</Z>
 					<ZHeight>10</ZHeight>
 					<LineWidth>1</LineWidth>
-					<LineColor>-16777216</LineColor>
+					<LineColor>-2497812</LineColor>
 					<LineMaterial>null</LineMaterial>
 					<LineStyle>SOLID</LineStyle>
-					<Width>25</Width>
-					<Height>25</Height>
-					<Rotation>0.0</Rotation>
-					<FillColor>-8825528</FillColor>
-					<FillMaterial>null</FillMaterial>
-				</Rectangle>
+					<BeginArrowSize>1</BeginArrowSize>
+					<BeginArrowStyle>0</BeginArrowStyle>
+					<EndArrowSize>1</EndArrowSize>
+					<EndArrowStyle>0</EndArrowStyle>
+					<Dx>190</Dx>
+					<Dy>0</Dy>
+					<Dz>0</Dz>
+				</Line>
 				<Text>
-					<Id>1787156744256</Id>
-					<Name><![CDATA[text27]]></Name>
-					<X>1285</X><Y>920</Y>
+					<Id>1787521153436</Id>
+					<Name><![CDATA[txtLabelEstadoInstancia]]></Name>
+					<X>1370</X><Y>280</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -16577,11 +17183,483 @@ instanciaInterfazActual == null
 					<EmbeddedIcon>false</EmbeddedIcon>
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
-					<Color>-16777216</Color>
-					<Text><![CDATA[Pendiente dia siguiente]]></Text>
+					<Color>-12102553</Color>
+					<Text><![CDATA[Estado de la instancia]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>10</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Line>
+					<Id>1787521205716</Id>
+					<Name><![CDATA[lineaSeparadoraPlanificacion2]]></Name>
+					<X>1370</X><Y>356</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-2497812</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<BeginArrowSize>1</BeginArrowSize>
+					<BeginArrowStyle>0</BeginArrowStyle>
+					<EndArrowSize>1</EndArrowSize>
+					<EndArrowStyle>0</EndArrowStyle>
+					<Dx>190</Dx>
+					<Dy>0</Dy>
+					<Dz>0</Dz>
+				</Line>
+				<Text>
+					<Id>1787521660527</Id>
+					<Name><![CDATA[txtTituloGIS]]></Name>
+					<X>630</X><Y>135</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-14735049</Color>
+					<Text><![CDATA[Mapa operativo GIS]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>13</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787521700079</Id>
+					<Name><![CDATA[txtModoGIS]]></Name>
+					<X>1280</X><Y>138</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-10063739</Color>
+					<Text><![CDATA[GIS 2D]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787522075219</Id>
+					<Name><![CDATA[txtTituloEstadoMapa]]></Name>
+					<X>630</X><Y>582</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-12102553</Color>
+					<Text><![CDATA[Estado del mapa]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Line>
+					<Id>1787522160380</Id>
+					<Name><![CDATA[lineaSeparadoraGIS1]]></Name>
+					<X>630</X><Y>673</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-2497812</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<BeginArrowSize>1</BeginArrowSize>
+					<BeginArrowStyle>0</BeginArrowStyle>
+					<EndArrowSize>1</EndArrowSize>
+					<EndArrowStyle>0</EndArrowStyle>
+					<Dx>690</Dx>
+					<Dy>0</Dy>
+					<Dz>0</Dz>
+				</Line>
+				<Text>
+					<Id>1787522238107</Id>
+					<Name><![CDATA[txtTituloReferenciasGIS]]></Name>
+					<X>630</X><Y>685</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-12102553</Color>
+					<Text><![CDATA[Referencias del mapa]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Line>
+					<Id>1787522747949</Id>
+					<Name><![CDATA[lineaSeparadoraGIS2]]></Name>
+					<X>630</X><Y>752</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-2497812</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<BeginArrowSize>1</BeginArrowSize>
+					<BeginArrowStyle>0</BeginArrowStyle>
+					<EndArrowSize>1</EndArrowSize>
+					<EndArrowStyle>0</EndArrowStyle>
+					<Dx>690</Dx>
+					<Dy>0</Dy>
+					<Dz>0</Dz>
+				</Line>
+				<Text>
+					<Id>1787522782733</Id>
+					<Name><![CDATA[txtTituloEstadosOperativos]]></Name>
+					<X>630</X><Y>763</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-12102553</Color>
+					<Text><![CDATA[Estados operativos]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787523587254</Id>
+					<Name><![CDATA[txtTituloEstadoOperativo]]></Name>
+					<X>1370</X><Y>488</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-14735049</Color>
+					<Text><![CDATA[Estado operativo]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>13</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787523632853</Id>
+					<Name><![CDATA[txtLabelEstadoGeneral]]></Name>
+					<X>1370</X><Y>522</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-12102553</Color>
+					<Text><![CDATA[Estado general]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787523659150</Id>
+					<Name><![CDATA[txtEstadoGeneralDinamico]]></Name>
+					<X>1370</X><Y>542</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-14735049</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA[planActual == null
+? "Sin plan cargado."
+: "Plan disponible."]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Line>
+					<Id>1787523706702</Id>
+					<Name><![CDATA[lineaSeparadoraEstado1]]></Name>
+					<X>1370</X><Y>575</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-2497812</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<BeginArrowSize>1</BeginArrowSize>
+					<BeginArrowStyle>0</BeginArrowStyle>
+					<EndArrowSize>1</EndArrowSize>
+					<EndArrowStyle>0</EndArrowStyle>
+					<Dx>190</Dx>
+					<Dy>0</Dy>
+					<Dz>0</Dz>
+				</Line>
+				<Text>
+					<Id>1787523738581</Id>
+					<Name><![CDATA[txtLabelPlanAplicado]]></Name>
+					<X>1370</X><Y>592</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-12102553</Color>
+					<Text><![CDATA[Plan aplicado]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787523765485</Id>
+					<Name><![CDATA[txtPlanAplicadoDinamico]]></Name>
+					<X>1370</X><Y>612</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-14735049</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA[planActual == null
+? "Algoritmo: -"
+: "Algoritmo: " + planActual.algoritmo]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Line>
+					<Id>1787523794390</Id>
+					<Name><![CDATA[lineaSeparadoraEstado2]]></Name>
+					<X>1370</X><Y>645</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-2497812</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<BeginArrowSize>1</BeginArrowSize>
+					<BeginArrowStyle>0</BeginArrowStyle>
+					<EndArrowSize>1</EndArrowSize>
+					<EndArrowStyle>0</EndArrowStyle>
+					<Dx>190</Dx>
+					<Dy>0</Dy>
+					<Dz>0</Dz>
+				</Line>
+				<Text>
+					<Id>1787523821542</Id>
+					<Name><![CDATA[txtLabelResumenTurno]]></Name>
+					<X>1370</X><Y>662</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-12102553</Color>
+					<Text><![CDATA[Resumen del turno]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787523847078</Id>
+					<Name><![CDATA[txtTareasEntregadas]]></Name>
+					<X>1370</X><Y>684</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-14735049</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA["Tareas entregadas: " + tareasEntregadasAlpyne()]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787523896525</Id>
+					<Name><![CDATA[txtTareasNoEntregadas]]></Name>
+					<X>1370</X><Y>704</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-14735049</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA["Tareas no entregadas: " + tareasNoEntregadasAlpyne()]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787523938734</Id>
+					<Name><![CDATA[txtViajesTotales]]></Name>
+					<X>1370</X><Y>724</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-14735049</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA["Viajes totales: " + viajesTotalesAlpyne()]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787523964021</Id>
+					<Name><![CDATA[txtCostoTotal]]></Name>
+					<X>1370</X><Y>744</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-14735049</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA["Costo total: "
++
+String.format(
+    java.util.Locale.US,
+    "%.2f",
+    costoTotalAlpyne()
+)]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787524000398</Id>
+					<Name><![CDATA[txtAyudaEstadoOperativo]]></Name>
+					<X>1370</X><Y>785</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-10063739</Color>
+					<Text><![CDATA[Los valores se actualizan al ejecutar una planificación.]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>8</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -19495,8 +20573,8 @@ return
 	<TimeAccuracy>1.0E-5</TimeAccuracy>
 	<Frame>
 		<Id>1786555084413</Id>
-		<Width>1420</Width>
-		<Height>950</Height>
+		<Width>1600</Width>
+		<Height>840</Height>
 	</Frame>
 	<Database>
 		<Id>1786555084412</Id>
