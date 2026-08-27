@@ -734,7 +734,7 @@
 					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
 						<Type><![CDATA[String]]></Type>        
 						<InitialValue Class="CodeValue">
-							<Code><![CDATA["models/rl/pedemonte_maskable_ppo.zip"]]></Code>
+							<Code><![CDATA["models/rl/pedemonte_temporal_v4_operational.json"]]></Code>
 						</InitialValue>
 					</Properties>
 				</Variable>
