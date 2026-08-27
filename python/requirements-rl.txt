@@ -4,3 +4,4 @@ stable-baselines3>=2.7,<3.0
 sb3-contrib>=2.7,<3.0
 pyrefly>=1.0,<2.0
 anylogic-alpyne==1.2.0
+openpyxl>=3.1,<4.0

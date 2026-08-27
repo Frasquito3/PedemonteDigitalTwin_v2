@@ -1094,7 +1094,7 @@
 					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
 						<Type><![CDATA[String]]></Type>        
 						<InitialValue Class="CodeValue">
-							<Code><![CDATA["450"]]></Code>
+							<Code><![CDATA["07:30"]]></Code>
 						</InitialValue>
 					</Properties>
 				</Variable>
@@ -1109,7 +1109,7 @@
 					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
 						<Type><![CDATA[String]]></Type>        
 						<InitialValue Class="CodeValue">
-							<Code><![CDATA["720"]]></Code>
+							<Code><![CDATA["12:00"]]></Code>
 						</InitialValue>
 					</Properties>
 				</Variable>
@@ -1551,6 +1551,156 @@
 						<Type><![CDATA[long]]></Type>        
 						<InitialValue Class="CodeValue">
 							<Code><![CDATA[-1L]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787861948190</Id>
+					<Name><![CDATA[rutaArchivoExcelSubido]]></Name>
+					<X>-1100</X><Y>2560</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[""]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787863419077</Id>
+					<Name><![CDATA[cacheVialInstanciaCompleta]]></Name>
+					<X>-1100</X><Y>2590</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[boolean]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[false]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787863430685</Id>
+					<Name><![CDATA[cacheVialTramosRequeridos]]></Name>
+					<X>-1100</X><Y>2620</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[int]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[0]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787863438653</Id>
+					<Name><![CDATA[cacheVialTramosFaltantes]]></Name>
+					<X>-1100</X><Y>2650</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[int]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[0]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787863446517</Id>
+					<Name><![CDATA[cacheVialEstadoInterfaz]]></Name>
+					<X>-1100</X><Y>2680</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA["SIN INSTANCIA"]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787863459821</Id>
+					<Name><![CDATA[uiSelectorPoliticaOperacional]]></Name>
+					<X>-1100</X><Y>2710</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[boolean]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[false]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787863468469</Id>
+					<Name><![CDATA[uiSelectorLineaExtension]]></Name>
+					<X>-1100</X><Y>2740</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA["EXT —"]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787863478237</Id>
+					<Name><![CDATA[uiSelectorLineaFull]]></Name>
+					<X>-1100</X><Y>2770</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA["FULL —"]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787863487813</Id>
+					<Name><![CDATA[uiSelectorLineaGreedy]]></Name>
+					<X>-1100</X><Y>2800</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA["GRD —"]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1787863497733</Id>
+					<Name><![CDATA[uiSelectorLineaElegido]]></Name>
+					<X>-1100</X><Y>2830</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA["Sin decisión operacional"]]></Code>
 						</InitialValue>
 					</Properties>
 				</Variable>
@@ -3789,119 +3939,10 @@ traceln(
 );
 
 
-if (
-    camionesFinalizados
-    >= CANTIDAD_CAMIONES
-) {
+// La función central decide si puede cerrar
+// inmediatamente o si debe esperar proveedores.
 
-    ejecucionEnCurso =
-        false;
-
-
-    ejecucionFinalizada =
-        true;
-
-
-    cerrarSistemaProveedores();
-
-
-    resultadoActual =
-        construirResultadoTurno();
-        
-    marcarSelectorFinalizadoVisual();
-
-
-    mensajeInterfazPlanificacion =
-	    "Ejecución finalizada.";
-	
-	
-	if (
-	    resultadoActual != null
-	    &&
-	    resultadoActual.metricasGlobales
-	        != null
-	) {
-	
-	    mensajeInterfazPlanificacion =
-	        "Ejecución finalizada."
-	        + "\nEntregadas: "
-	        + resultadoActual
-	            .metricasGlobales
-	            .tareasEntregadas
-	        + "/"
-	        + resultadoActual
-	            .metricasGlobales
-	            .tareasPlanificadas
-	        + "\nCosto total: "
-	        + String.format(
-	            java.util.Locale.US,
-	            "%.2f",
-	            resultadoActual.costoTotal
-	        );
-	}
-
-
-    if (
-        MODO_EJECUCION
-            == ModoEjecucion.RL_TRAINING
-
-        ||
-
-        MODO_EJECUCION
-            == ModoEjecucion.RL_EVALUATION
-    ) {
-
-        alpyneMensaje =
-            "EJECUCIÓN FINALIZADA";
-    }
-
-
-    traceln("");
-
-    traceln(
-        "=============================="
-    );
-
-    traceln(
-        "=== EJECUCIÓN FINALIZADA ====="
-    );
-
-    traceln(
-        "=============================="
-    );
-
-
-    imprimirMetricasCamiones(
-        resultadoActual
-    );
-
-
-    imprimirMetricasGlobales(
-        resultadoActual
-    );
-
-
-    /*
-     * En la simulación interactiva pausamos el
-     * experimento exactamente cuando terminó la
-     * operación real.
-     *
-     * Esto conserva visible el resultado final en
-     * el mapa y evita esperar hasta el horizonte
-     * máximo de seguridad configurado.
-     *
-     * No se aplica durante entrenamiento ni
-     * evaluación RL.
-     */
-
-    if (
-        MODO_EJECUCION
-            == ModoEjecucion.SIMULACION
-    ) {
-
-        pauseSimulation();
-    }
-}]]></Body>
+intentarFinalizarEjecucion();]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
@@ -5825,7 +5866,14 @@ for (
 
 // Puede haber un proveedor esperando
 // justamente por estos empleados.
-intentarAtenderProveedoresPendientes();]]></Body>
+
+intentarAtenderProveedoresPendientes();
+
+
+// Si los camiones ya finalizaron, esta atención
+// podría haber sido la última actividad pendiente.
+
+intentarFinalizarEjecucion();]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>VOID</ReturnModificator>
@@ -11199,7 +11247,7 @@ throw new IllegalArgumentException(
 
 
 horaDesdeFormulario =
-    Integer.toString(
+    formatearHoraFormulario(
         horaInicioTurno(
             turno
         )
@@ -11207,11 +11255,27 @@ horaDesdeFormulario =
 
 
 horaHastaFormulario =
-    Integer.toString(
+    formatearHoraFormulario(
         horaFinObjetivoTurno(
             turno
         )
-    );]]></Body>
+    );
+
+
+if (editHoraDesdeFormulario != null) {
+
+    editHoraDesdeFormulario.setText(
+        horaDesdeFormulario
+    );
+}
+
+
+if (editHoraHastaFormulario != null) {
+
+    editHoraHastaFormulario.setText(
+        horaHastaFormulario
+    );
+}]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
@@ -11245,18 +11309,32 @@ try {
 
 
     String pedidoOriginalId =
-        pedidoIdFormulario == null
-        ? ""
-        : pedidoIdFormulario.trim();
+        textoLimpioFormulario(
+            pedidoIdFormulario
+        );
 
 
     if (pedidoOriginalId.isEmpty()) {
 
         pedidoOriginalId =
             String.format(
+                java.util.Locale.US,
                 "PED-%03d",
                 contadorPedidosFormulario
             );
+    }
+
+
+    if (
+        !pedidoOriginalId.matches(
+            "[A-Za-z0-9._-]+"
+        )
+    ) {
+
+        throw new IllegalArgumentException(
+            "El ID solo puede contener letras, "
+            + "números, punto, guion y guion bajo."
+        );
     }
 
 
@@ -11268,7 +11346,7 @@ try {
         if (
             existente != null
             &&
-            pedidoOriginalId.equals(
+            pedidoOriginalId.equalsIgnoreCase(
                 existente.pedidoOriginalId
             )
         ) {
@@ -11283,56 +11361,61 @@ try {
 
 
     int unidadesTotales =
-        Integer.parseInt(
-            unidadesFormulario.trim()
+        parsearEnteroPositivoFormulario(
+            unidadesFormulario,
+            "Unidades"
         );
-
-
-    if (unidadesTotales <= 0) {
-
-        throw new IllegalArgumentException(
-            "Las unidades deben ser "
-            + "mayores que cero."
-        );
-    }
 
 
     double latitud =
-        Double.parseDouble(
-            latitudFormulario.trim()
+        parsearDecimalFormulario(
+            latitudFormulario,
+            "Latitud"
         );
 
 
     double longitud =
-        Double.parseDouble(
-            longitudFormulario.trim()
+        parsearDecimalFormulario(
+            longitudFormulario,
+            "Longitud"
         );
 
 
     if (
-        !Double.isFinite(latitud)
-        ||
         latitud < -90.0
         ||
         latitud > 90.0
     ) {
 
         throw new IllegalArgumentException(
-            "Latitud inválida."
+            "La latitud debe estar entre "
+            + "-90 y 90."
         );
     }
 
 
     if (
-        !Double.isFinite(longitud)
-        ||
         longitud < -180.0
         ||
         longitud > 180.0
     ) {
 
         throw new IllegalArgumentException(
-            "Longitud inválida."
+            "La longitud debe estar entre "
+            + "-180 y 180."
+        );
+    }
+
+
+    if (
+        Math.abs(latitud) < 0.000001
+        &&
+        Math.abs(longitud) < 0.000001
+    ) {
+
+        throw new IllegalArgumentException(
+            "Las coordenadas 0, 0 "
+            + "no son válidas para este proyecto."
         );
     }
 
@@ -11341,6 +11424,7 @@ try {
         horaInicioTurno(
             turno
         );
+
 
     int horaHasta =
         horaFinObjetivoTurno(
@@ -11351,13 +11435,14 @@ try {
     if (tieneVentanaFormulario) {
 
         horaDesde =
-            Integer.parseInt(
-                horaDesdeFormulario.trim()
+            parsearHoraFormulario(
+                horaDesdeFormulario
             );
 
+
         horaHasta =
-            Integer.parseInt(
-                horaHastaFormulario.trim()
+            parsearHoraFormulario(
+                horaHastaFormulario
             );
 
 
@@ -11366,25 +11451,37 @@ try {
             < horaInicioTurno(
                 turno
             )
+        ) {
 
-            ||
+            throw new IllegalArgumentException(
+                "La hora desde no puede ser "
+                + "anterior al inicio del turno."
+            );
+        }
 
+
+        if (
             horaHasta
             > horaFinObjetivoTurno(
                 turno
             )
+        ) {
 
-            ||
+            throw new IllegalArgumentException(
+                "La hora hasta no puede superar "
+                + "el final normal del turno."
+            );
+        }
 
+
+        if (
             horaDesde
             >= horaHasta
         ) {
 
             throw new IllegalArgumentException(
-                "La ventana debe quedar "
-                + "completamente dentro "
-                + "del horario normal "
-                + "del turno."
+                "La hora desde debe ser "
+                + "anterior a la hora hasta."
             );
         }
     }
@@ -11406,8 +11503,7 @@ try {
         throw new IllegalArgumentException(
             "El pedido requiere "
             + totalPartes
-            + " partes. El máximo "
-            + "permitido es 8."
+            + " partes. El máximo permitido es 8."
         );
     }
 
@@ -11419,12 +11515,35 @@ try {
     ) {
 
         throw new IllegalArgumentException(
-            "La instancia superaría "
-            + "MAX_PEDIDOS_RL="
+            "La instancia tendría "
+            + (
+                pedidosFormulario.size()
+                + totalPartes
+            )
+            + " tareas después del split, "
+            + "pero el máximo permitido es "
             + MAX_PEDIDOS_RL
-            + " después del split."
+            + "."
         );
     }
+
+
+    String cliente =
+        textoLimpioFormulario(
+            clienteFormulario
+        );
+
+
+    String direccion =
+        textoLimpioFormulario(
+            direccionFormulario
+        );
+
+
+    String barrio =
+        textoLimpioFormulario(
+            barrioFormulario
+        );
 
 
     int unidadesRestantes =
@@ -11479,8 +11598,7 @@ try {
             unidadesParte;
 
 
-        // Todas las subentregas heredan
-        // el requisito de volcador.
+        // Cada parte hereda el volcador.
 
         pedido.requiereVolcador =
             requiereVolcadorFormulario;
@@ -11496,19 +11614,14 @@ try {
             horaHasta;
 
         pedido.cliente =
-            clienteFormulario == null
-            ? ""
-            : clienteFormulario.trim();
+            cliente;
 
         pedido.direccion =
-            direccionFormulario == null
-            ? ""
-            : direccionFormulario.trim();
+            direccion;
 
         pedido.barrio =
-            barrioFormulario == null
-            ? ""
-            : barrioFormulario.trim();
+            barrio;
+
 
         pedido.observaciones =
             totalPartes == 1
@@ -11534,13 +11647,13 @@ try {
 
 
     mensajeFormulario =
-        "Pedido "
+        "OK: Pedido "
         + pedidoOriginalId
-        + " agregado. Unidades="
+        + " agregado. "
         + unidadesTotales
-        + ", partes="
+        + " unidad(es), "
         + totalPartes
-        + ".";
+        + " tarea(s).";
 
 
     pedidoIdFormulario =
@@ -11570,18 +11683,37 @@ try {
     return true;
 
 
-} catch (Exception ex) {
+} catch (
+    IllegalArgumentException ex
+) {
 
     mensajeFormulario =
-        "Error al agregar pedido: "
-        + ex.getClass()
-            .getSimpleName()
-        + ": "
+        "Revisá el pedido: "
         + ex.getMessage();
 
 
     traceln(
         mensajeFormulario
+    );
+
+
+    return false;
+
+
+} catch (Exception ex) {
+
+    mensajeFormulario =
+        "No se pudo agregar el pedido. "
+        + "Revisá los datos ingresados.";
+
+
+    traceln(
+        "ERROR FORMULARIO PEDIDO"
+        + " | tipo="
+        + ex.getClass()
+            .getSimpleName()
+        + " | detalle="
+        + ex.getMessage()
     );
 
 
@@ -15148,7 +15280,7 @@ if (
     )
 ) {
 
-    return "Plan\nfinalizado";
+    return "Finalizado";
 }
 
 
@@ -15158,7 +15290,7 @@ if (
     )
 ) {
 
-    return "Regresando\nal corralón";
+    return "Regresando";
 }
 
 
@@ -15168,7 +15300,7 @@ if (
     )
 ) {
 
-    return "Viajando\na cliente";
+    return "En ruta";
 }
 
 
@@ -15182,10 +15314,31 @@ if (
 }
 
 
-return estado.replace(
-    '_',
-    ' '
-);]]></Body>
+if (
+    estado.contains(
+        "CARGA"
+    )
+) {
+
+    return "Cargando";
+}
+
+
+if (
+    estado.contains(
+        "ESPERA"
+    )
+) {
+
+    return "Esperando";
+}
+
+
+return estado
+    .replace(
+        '_',
+        ' '
+    );]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>VOID</ReturnModificator>
@@ -16206,10 +16359,30 @@ try {
 	pypelineSelectorInicializado =
 	    false;
 	
+	
 	pypelineEstadoSelector =
 	    "CACHE_VIAL_ACTUALIZADA_REINICIALIZAR";
 	
-    return true;
+	
+	boolean matrizLista =
+	    verificarCacheVialInstanciaActual();
+	
+	
+	if (matrizLista) {
+	
+	    mensajeInterfazPlanificacion +=
+	        "\nMatriz lista para planificar.";
+	
+	} else {
+	
+	    mensajeInterfazPlanificacion +=
+	        "\nVerificación: "
+	        + cacheVialEstadoInterfaz
+	        + ".";
+	}
+	
+	
+	return true;
 
 
 } catch (
@@ -16821,33 +16994,78 @@ try {
 					</Parameter>
 					<Body><![CDATA[uiSelectorModoSolicitado =
     modoSolicitado == null
-    || modoSolicitado.trim().isEmpty()
+    ||
+    modoSolicitado.trim().isEmpty()
     ? "—"
-    : modoSolicitado.trim().toUpperCase();
+    : modoSolicitado
+        .trim()
+        .toUpperCase();
 
-uiSelectorFuente = "—";
+
+uiSelectorFuente =
+    "—";
+
 
 uiSelectorMotivo =
     "Comparando alternativas de planificación";
 
-uiSelectorEstado = "PLANIFICANDO";
 
-uiSelectorAviso = "";
+uiSelectorEstado =
+    "PLANIFICANDO";
 
-uiSelectorCostoGreedy = Double.NaN;
-uiSelectorCostoGA = Double.NaN;
-uiSelectorCostoRL = Double.NaN;
-uiSelectorCostoElegido = Double.NaN;
+
+uiSelectorAviso =
+    "";
+
+
+uiSelectorCostoGreedy =
+    Double.NaN;
+
+
+uiSelectorCostoGA =
+    Double.NaN;
+
+
+uiSelectorCostoRL =
+    Double.NaN;
+
+
+uiSelectorCostoElegido =
+    Double.NaN;
+
 
 uiSelectorMejoraGreedyPct =
     Double.NaN;
 
+
 uiSelectorTiempoMs =
     Double.NaN;
 
+
 uiSelectorSeedGA =
     -1L;
-    
+
+
+uiSelectorPoliticaOperacional =
+    false;
+
+
+uiSelectorLineaExtension =
+    "EXT —";
+
+
+uiSelectorLineaFull =
+    "FULL —";
+
+
+uiSelectorLineaGreedy =
+    "GRD —";
+
+
+uiSelectorLineaElegido =
+    "Comparando política operacional";
+
+
 actualizarColoresSelectorVisual();]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
@@ -16866,7 +17084,8 @@ actualizarColoresSelectorVisual();]]></Body>
 					</Parameter>
 					<Body><![CDATA[if (
     decision == null
-    || decision.trim().isEmpty()
+    ||
+    decision.trim().isEmpty()
 ) {
 
     marcarSelectorErrorVisual(
@@ -16881,28 +17100,62 @@ actualizarColoresSelectorVisual();]]></Body>
 // DATOS GENERALES
 // =====================================================
 
-String modo = campoDecisionSelector(
-    decision,
-    "modo"
-);
+String modo =
+    campoDecisionSelector(
+        decision,
+        "modo"
+    );
 
-String algoritmo = campoDecisionSelector(
-    decision,
-    "algoritmo"
-);
 
-String fuente = campoDecisionSelector(
-    decision,
-    "fuente"
-);
+String algoritmo =
+    campoDecisionSelector(
+        decision,
+        "algoritmo"
+    );
 
-String motivo = campoDecisionSelector(
-    decision,
-    "motivo"
-);
+
+String fuente =
+    campoDecisionSelector(
+        decision,
+        "fuente"
+    );
+
+
+String motivo =
+    campoDecisionSelector(
+        decision,
+        "motivo"
+    );
+
+
+String version =
+    campoDecisionSelector(
+        decision,
+        "version"
+    );
+
+
+String candidatos =
+    campoDecisionSelector(
+        decision,
+        "candidatos"
+    );
+
+
+uiSelectorPoliticaOperacional =
+    version != null
+    &&
+    version.startsWith(
+        "pedemonte-rl-temporal-v4-operational"
+    )
+    &&
+    candidatos != null
+    &&
+    !candidatos.trim().isEmpty();
 
 
 if (!modo.isEmpty()) {
+
     uiSelectorModoSolicitado =
         modo.toUpperCase();
 }
@@ -16915,20 +17168,22 @@ if (!fuente.isEmpty()) {
 
 } else if (!algoritmo.isEmpty()) {
 
-    /*
-     * En los modos directos GREEDY, GA, RANDOM o RL
-     * no siempre existe el campo "fuente".
-     */
     uiSelectorFuente =
         algoritmo.toUpperCase();
 
 } else {
 
-    uiSelectorFuente = "—";
+    uiSelectorFuente =
+        "—";
 }
 
 
-if (!motivo.isEmpty()) {
+if (uiSelectorPoliticaOperacional) {
+
+    uiSelectorMotivo =
+        "POLITICA_OPERACIONAL_TEMPORAL";
+
+} else if (!motivo.isEmpty()) {
 
     uiSelectorMotivo =
         motivo.toUpperCase();
@@ -16941,7 +17196,7 @@ if (!motivo.isEmpty()) {
 
 
 // =====================================================
-// COSTOS
+// COSTOS GENERALES
 // =====================================================
 
 uiSelectorCostoElegido =
@@ -16950,17 +17205,20 @@ uiSelectorCostoElegido =
         "costo"
     );
 
+
 uiSelectorCostoGreedy =
     numeroDecisionSelector(
         decision,
         "costo_greedy"
     );
 
+
 uiSelectorCostoGA =
     numeroDecisionSelector(
         decision,
         "costo_ga"
     );
+
 
 uiSelectorCostoRL =
     numeroDecisionSelector(
@@ -16970,37 +17228,180 @@ uiSelectorCostoRL =
 
 
 // =====================================================
-// MODOS DIRECTOS
+// POLÍTICA OPERACIONAL RL TEMPORAL V4
 // =====================================================
 
-if (
-    !"HIBRIDO".equals(
-        uiSelectorModoSolicitado
-    )
-) {
+if (uiSelectorPoliticaOperacional) {
 
-    if (
-        "GREEDY".equals(uiSelectorFuente)
-        && Double.isNaN(uiSelectorCostoGreedy)
-    ) {
+    uiSelectorLineaExtension =
+        textoCandidatoSelector(
+            "EXT",
+            "EXTENSION",
+            candidatos
+        );
+
+
+    uiSelectorLineaFull =
+        textoCandidatoSelector(
+            "FULL",
+            "FULL",
+            candidatos
+        );
+
+
+    uiSelectorLineaGreedy =
+        textoCandidatoSelector(
+            "GRD",
+            "GREEDY",
+            candidatos
+        );
+
+
+    String costoGreedyTexto =
+        campoCandidatoSelector(
+            candidatos,
+            "GREEDY",
+            "costo"
+        );
+
+
+    try {
+
         uiSelectorCostoGreedy =
-            uiSelectorCostoElegido;
+            Double.parseDouble(
+                costoGreedyTexto
+            );
+
+    } catch (Exception ex) {
+
+        uiSelectorCostoGreedy =
+            Double.NaN;
     }
 
-    if (
-        "GA".equals(uiSelectorFuente)
-        && Double.isNaN(uiSelectorCostoGA)
-    ) {
-        uiSelectorCostoGA =
-            uiSelectorCostoElegido;
-    }
+
+    uiSelectorCostoRL =
+        uiSelectorCostoElegido;
+
+
+    uiSelectorCostoGA =
+        Double.NaN;
+
+
+    long tardiosElegido =
+        longDecisionSelector(
+            decision,
+            "tardios"
+        );
+
+
+    double tardanzaElegida =
+        numeroDecisionSelector(
+            decision,
+            "tardanza"
+        );
+
+
+    String tardiosVisible =
+        tardiosElegido < 0
+        ? "—"
+        : String.valueOf(
+            tardiosElegido
+        );
+
+
+    String tardanzaVisible =
+        Double.isNaN(
+            tardanzaElegida
+        )
+        ||
+        Double.isInfinite(
+            tardanzaElegida
+        )
+        ? "—"
+        : String.format(
+            java.util.Locale.US,
+            "%.2f",
+            tardanzaElegida
+        );
+
+
+    uiSelectorLineaElegido =
+        "Elegido "
+        + uiSelectorFuente
+        + " | "
+        + tardiosVisible
+        + "t | "
+        + tardanzaVisible
+        + "m";
+
+
+} else {
+
+    uiSelectorLineaExtension =
+        "EXT —";
+
+
+    uiSelectorLineaFull =
+        "FULL —";
+
+
+    uiSelectorLineaGreedy =
+        "GRD —";
+
+
+    uiSelectorLineaElegido =
+        "Sin política operacional";
+
 
     if (
-        "RL".equals(uiSelectorFuente)
-        && Double.isNaN(uiSelectorCostoRL)
+        !"HIBRIDO".equals(
+            uiSelectorModoSolicitado
+        )
     ) {
-        uiSelectorCostoRL =
-            uiSelectorCostoElegido;
+
+        if (
+            "GREEDY".equals(
+                uiSelectorFuente
+            )
+            &&
+            Double.isNaN(
+                uiSelectorCostoGreedy
+            )
+        ) {
+
+            uiSelectorCostoGreedy =
+                uiSelectorCostoElegido;
+        }
+
+
+        if (
+            "GA".equals(
+                uiSelectorFuente
+            )
+            &&
+            Double.isNaN(
+                uiSelectorCostoGA
+            )
+        ) {
+
+            uiSelectorCostoGA =
+                uiSelectorCostoElegido;
+        }
+
+
+        if (
+            "RL".equals(
+                uiSelectorFuente
+            )
+            &&
+            Double.isNaN(
+                uiSelectorCostoRL
+            )
+        ) {
+
+            uiSelectorCostoRL =
+                uiSelectorCostoElegido;
+        }
     }
 }
 
@@ -17015,6 +17416,7 @@ uiSelectorTiempoMs =
         "tiempo_selector_ms"
     );
 
+
 if (Double.isNaN(uiSelectorTiempoMs)) {
 
     uiSelectorTiempoMs =
@@ -17024,6 +17426,7 @@ if (Double.isNaN(uiSelectorTiempoMs)) {
         );
 }
 
+
 uiSelectorSeedGA =
     longDecisionSelector(
         decision,
@@ -17032,15 +17435,27 @@ uiSelectorSeedGA =
 
 
 // =====================================================
-// MEJORA FRENTE A GREEDY
+// COMPARACIÓN CONTRA GREEDY
 // =====================================================
 
 if (
-    !Double.isNaN(uiSelectorCostoGreedy)
-    && !Double.isInfinite(uiSelectorCostoGreedy)
-    && uiSelectorCostoGreedy > 0.0
-    && !Double.isNaN(uiSelectorCostoElegido)
-    && !Double.isInfinite(uiSelectorCostoElegido)
+    !Double.isNaN(
+        uiSelectorCostoGreedy
+    )
+    &&
+    !Double.isInfinite(
+        uiSelectorCostoGreedy
+    )
+    &&
+    uiSelectorCostoGreedy > 0.0
+    &&
+    !Double.isNaN(
+        uiSelectorCostoElegido
+    )
+    &&
+    !Double.isInfinite(
+        uiSelectorCostoElegido
+    )
 ) {
 
     uiSelectorMejoraGreedyPct =
@@ -17059,43 +17474,86 @@ if (
 
 
 // =====================================================
-// ERRORES DE CANDIDATOS
+// AVISOS Y ERRORES
 // =====================================================
 
-String errorGA = campoDecisionSelector(
-    decision,
-    "errores_ga"
-);
-
-String errorRL = campoDecisionSelector(
-    decision,
-    "errores_rl"
-);
-
-boolean avisoGA =
-    !errorGA.isEmpty()
-    && !"NINGUNO".equalsIgnoreCase(errorGA);
-
-boolean avisoRL =
-    !errorRL.isEmpty()
-    && !"NINGUNO".equalsIgnoreCase(errorRL);
+uiSelectorAviso =
+    "";
 
 
-uiSelectorAviso = "";
+if (uiSelectorPoliticaOperacional) {
 
-if (avisoGA) {
-    uiSelectorAviso =
-        "GA: " + errorGA;
-}
+    String erroresOperacionales =
+        campoDecisionSelector(
+            decision,
+            "errores"
+        );
 
-if (avisoRL) {
 
-    if (!uiSelectorAviso.isEmpty()) {
-        uiSelectorAviso += " | ";
+    if (
+        !erroresOperacionales.isEmpty()
+        &&
+        !"NINGUNO".equalsIgnoreCase(
+            erroresOperacionales
+        )
+    ) {
+
+        uiSelectorAviso =
+            erroresOperacionales;
     }
 
-    uiSelectorAviso +=
-        "RL: " + errorRL;
+
+} else {
+
+    String errorGA =
+        campoDecisionSelector(
+            decision,
+            "errores_ga"
+        );
+
+
+    String errorRL =
+        campoDecisionSelector(
+            decision,
+            "errores_rl"
+        );
+
+
+    boolean avisoGA =
+        !errorGA.isEmpty()
+        &&
+        !"NINGUNO".equalsIgnoreCase(
+            errorGA
+        );
+
+
+    boolean avisoRL =
+        !errorRL.isEmpty()
+        &&
+        !"NINGUNO".equalsIgnoreCase(
+            errorRL
+        );
+
+
+    if (avisoGA) {
+
+        uiSelectorAviso =
+            "GA: " + errorGA;
+    }
+
+
+    if (avisoRL) {
+
+        if (!uiSelectorAviso.isEmpty()) {
+
+            uiSelectorAviso +=
+                " | ";
+        }
+
+
+        uiSelectorAviso +=
+            "RL: " + errorRL;
+    }
 }
 
 
@@ -17107,7 +17565,8 @@ uiSelectorEstado =
     uiSelectorAviso.isEmpty()
     ? "PLAN LISTO"
     : "PLAN LISTO CON AVISO";
-    
+
+
 actualizarColoresSelectorVisual();]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
@@ -17324,7 +17783,40 @@ return uiSelectorMotivo.replace(
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>true</ShowLabel>
-					<Body><![CDATA[if ("GREEDY".equals(uiSelectorFuente)) {
+					<Body><![CDATA[if (
+    "EXTENSION".equals(
+        uiSelectorFuente
+    )
+) {
+
+    return new java.awt.Color(
+        37,
+        99,
+        235
+    );
+}
+
+
+if (
+    "FULL".equals(
+        uiSelectorFuente
+    )
+) {
+
+    return new java.awt.Color(
+        22,
+        163,
+        74
+    );
+}
+
+
+if (
+    "GREEDY".equals(
+        uiSelectorFuente
+    )
+) {
+
     return new java.awt.Color(
         14,
         165,
@@ -17332,7 +17824,13 @@ return uiSelectorMotivo.replace(
     );
 }
 
-if ("GA".equals(uiSelectorFuente)) {
+
+if (
+    "GA".equals(
+        uiSelectorFuente
+    )
+) {
+
     return new java.awt.Color(
         99,
         102,
@@ -17340,7 +17838,13 @@ if ("GA".equals(uiSelectorFuente)) {
     );
 }
 
-if ("RL".equals(uiSelectorFuente)) {
+
+if (
+    "RL".equals(
+        uiSelectorFuente
+    )
+) {
+
     return new java.awt.Color(
         16,
         185,
@@ -17348,13 +17852,20 @@ if ("RL".equals(uiSelectorFuente)) {
     );
 }
 
-if ("RANDOM".equals(uiSelectorFuente)) {
+
+if (
+    "RANDOM".equals(
+        uiSelectorFuente
+    )
+) {
+
     return new java.awt.Color(
         245,
         158,
         11
     );
 }
+
 
 return new java.awt.Color(
     100,
@@ -17442,89 +17953,147 @@ return new java.awt.Color(
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>true</ShowLabel>
-					<Body><![CDATA[// =====================================================
-// COLOR DE LA FUENTE ELEGIDA
-// =====================================================
-
-rectFuenteSelectorVisual.setFillColor(
+					<Body><![CDATA[rectFuenteSelectorVisual.setFillColor(
     colorFuenteSelector()
 );
 
-
-// =====================================================
-// COLOR DEL ESTADO
-// =====================================================
 
 rectEstadoSelectorVisual.setFillColor(
     colorEstadoSelector()
 );
 
 
-// =====================================================
-// COLOR DE LA MEJORA FRENTE A GREEDY
-// =====================================================
+java.awt.Color colorNormal =
+    new java.awt.Color(
+        51,
+        65,
+        85
+    );
 
-java.awt.Color colorMejora;
+
+java.awt.Color colorSeleccionado =
+    new java.awt.Color(
+        22,
+        163,
+        74
+    );
 
 
-if (
-    Double.isNaN(
-        uiSelectorMejoraGreedyPct
-    )
-    ||
-    Double.isInfinite(
-        uiSelectorMejoraGreedyPct
-    )
-) {
+if (uiSelectorPoliticaOperacional) {
 
-    colorMejora =
-        new java.awt.Color(
-            100,
-            116,
-            139
-        );
+    txtCostosSelectorVisual1.setColor(
+        "EXTENSION".equals(
+            uiSelectorFuente
+        )
+        ? colorSeleccionado
+        : colorNormal
+    );
 
-} else if (
-    uiSelectorMejoraGreedyPct > 0.005
-) {
 
-    colorMejora =
-        new java.awt.Color(
-            22,
-            163,
-            74
-        );
+    txtCostosSelectorVisual2.setColor(
+        "FULL".equals(
+            uiSelectorFuente
+        )
+        ? colorSeleccionado
+        : colorNormal
+    );
 
-} else if (
-    uiSelectorMejoraGreedyPct < -0.005
-) {
 
-    colorMejora =
-        new java.awt.Color(
-            220,
-            38,
-            38
-        );
+    txtMejoraSelectorVisual.setColor(
+        "GREEDY".equals(
+            uiSelectorFuente
+        )
+        ? colorSeleccionado
+        : colorNormal
+    );
+
+
+    txtMotivoSelectorVisual.setColor(
+        colorSeleccionado
+    );
+
 
 } else {
 
-    colorMejora =
+    txtCostosSelectorVisual1.setColor(
+        colorNormal
+    );
+
+
+    txtCostosSelectorVisual2.setColor(
+        colorNormal
+    );
+
+
+    java.awt.Color colorMejora;
+
+
+    if (
+        Double.isNaN(
+            uiSelectorMejoraGreedyPct
+        )
+        ||
+        Double.isInfinite(
+            uiSelectorMejoraGreedyPct
+        )
+    ) {
+
+        colorMejora =
+            new java.awt.Color(
+                100,
+                116,
+                139
+            );
+
+    } else if (
+        uiSelectorMejoraGreedyPct
+        > 0.005
+    ) {
+
+        colorMejora =
+            new java.awt.Color(
+                22,
+                163,
+                74
+            );
+
+    } else if (
+        uiSelectorMejoraGreedyPct
+        < -0.005
+    ) {
+
+        colorMejora =
+            new java.awt.Color(
+                220,
+                38,
+                38
+            );
+
+    } else {
+
+        colorMejora =
+            new java.awt.Color(
+                100,
+                116,
+                139
+            );
+    }
+
+
+    txtMejoraSelectorVisual.setColor(
+        colorMejora
+    );
+
+
+    txtMotivoSelectorVisual.setColor(
         new java.awt.Color(
-            100,
-            116,
-            139
-        );
+            71,
+            85,
+            105
+        )
+    );
 }
 
-
-txtMejoraSelectorVisual.setColor(
-    colorMejora
-);
-
-
-// =====================================================
-// COLOR DEL PIE O AVISO
-// =====================================================
 
 java.awt.Color colorPie;
 
@@ -17556,6 +18125,1918 @@ if (
 txtPieSelectorVisual.setColor(
     colorPie
 );]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[String]]></ReturnType>
+					<Id>1787861058276</Id>
+					<Name><![CDATA[formatearHoraFormulario]]></Name>
+					<X>-810</X><Y>3730</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[minutos]]></Name>
+						<Type><![CDATA[int]]></Type>
+					</Parameter>
+					<Body><![CDATA[if (
+    minutos < 0
+    ||
+    minutos >= 24 * 60
+) {
+
+    throw new IllegalArgumentException(
+        "Minutos fuera de rango: "
+        + minutos
+    );
+}
+
+
+return String.format(
+    "%02d:%02d",
+    minutos / 60,
+    minutos % 60
+);]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[int]]></ReturnType>
+					<Id>1787861083489</Id>
+					<Name><![CDATA[parsearHoraFormulario]]></Name>
+					<X>-810</X><Y>3760</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[valor]]></Name>
+						<Type><![CDATA[String]]></Type>
+					</Parameter>
+					<Body><![CDATA[String texto =
+    valor == null
+    ? ""
+    : valor.trim();
+
+
+if (texto.isEmpty()) {
+
+    throw new IllegalArgumentException(
+        "La hora no puede quedar vacía. "
+        + "Use HH:mm, por ejemplo 07:30."
+    );
+}
+
+
+// Conserva compatibilidad con valores antiguos en minutos.
+
+if (texto.matches("\\d+")) {
+
+    int minutos =
+        Integer.parseInt(texto);
+
+
+    if (
+        minutos < 0
+        ||
+        minutos >= 24 * 60
+    ) {
+
+        throw new IllegalArgumentException(
+            "Hora fuera de rango: "
+            + texto
+        );
+    }
+
+
+    return minutos;
+}
+
+
+if (
+    !texto.matches(
+        "(?:[01]?\\d|2[0-3]):[0-5]\\d"
+    )
+) {
+
+    throw new IllegalArgumentException(
+        "Formato horario inválido: "
+        + texto
+        + ". Use HH:mm, por ejemplo 07:30."
+    );
+}
+
+
+String[] partes =
+    texto.split(":");
+
+
+int hora =
+    Integer.parseInt(
+        partes[0]
+    );
+
+int minuto =
+    Integer.parseInt(
+        partes[1]
+    );
+
+
+return hora * 60 + minuto;]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[String]]></ReturnType>
+					<Id>1787861235713</Id>
+					<Name><![CDATA[decodificarCampoImportacionExcel]]></Name>
+					<X>-810</X><Y>3790</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[valor]]></Name>
+						<Type><![CDATA[String]]></Type>
+					</Parameter>
+					<Body><![CDATA[try {
+
+    return java.net.URLDecoder.decode(
+        valor == null ? "" : valor,
+        "UTF-8"
+    );
+
+} catch (Exception ex) {
+
+    throw new RuntimeException(
+        "No fue posible decodificar "
+        + "un campo importado.",
+        ex
+    );
+}]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[java.io.File]]></ReturnType>
+					<Id>1787861255017</Id>
+					<Name><![CDATA[seleccionarArchivoPedidosExcel]]></Name>
+					<X>-810</X><Y>3820</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[String ruta =
+    rutaArchivoExcelSubido == null
+    ? ""
+    : rutaArchivoExcelSubido.trim();
+
+
+if (ruta.isEmpty()) {
+
+    mensajeFormulario =
+        "Todavía no se seleccionó "
+        + "ninguna planilla Excel.";
+
+    return null;
+}
+
+
+try {
+
+    java.io.File archivo =
+        new java.io.File(
+            ruta
+        ).getCanonicalFile();
+
+
+    traceln(
+        "ARCHIVO EXCEL RESUELTO"
+        + " | valor="
+        + ruta
+        + " | ruta="
+        + archivo.getAbsolutePath()
+        + " | existe="
+        + archivo.isFile()
+    );
+
+
+    if (!archivo.isFile()) {
+
+        throw new IllegalArgumentException(
+            "El archivo subido no está disponible: "
+            + archivo.getAbsolutePath()
+        );
+    }
+
+
+    return archivo;
+
+
+} catch (Exception ex) {
+
+    throw new RuntimeException(
+        "No fue posible resolver "
+        + "la planilla Excel: "
+        + ex.getMessage(),
+        ex
+    );
+}]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[boolean]]></ReturnType>
+					<Id>1787861273624</Id>
+					<Name><![CDATA[importarPedidosExcel]]></Name>
+					<X>-810</X><Y>3850</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[if (
+    ejecucionEnCurso
+    ||
+    pypelineSolicitudEnCurso
+) {
+
+    mensajeFormulario =
+        "No se puede importar durante "
+        + "una planificación o ejecución.";
+
+    return false;
+}
+
+
+if (instanciaInterfazActual != null) {
+
+    mensajeFormulario =
+        "Limpie la instancia preparada "
+        + "antes de importar otra planilla.";
+
+    return false;
+}
+
+
+java.io.File archivo =
+    seleccionarArchivoPedidosExcel();
+
+
+if (archivo == null) {
+
+    mensajeFormulario =
+        "Importación cancelada.";
+
+    return false;
+}
+
+
+java.util.ArrayList<PedidoInput> respaldo =
+    new java.util.ArrayList<PedidoInput>(
+        pedidosFormulario
+    );
+
+
+int contadorRespaldo =
+    contadorPedidosFormulario;
+
+
+try {
+
+    String raizPython =
+        resolverRaizPythonPypeline();
+
+
+    String raizLiteral =
+        pyCommunicator.toJson(
+            raizPython
+        );
+
+
+    String archivoLiteral =
+        pyCommunicator.toJson(
+            archivo.getCanonicalPath()
+        );
+
+
+    String turnoLiteral =
+        pyCommunicator.toJson(
+            obtenerTurnoFormulario()
+                .toString()
+        );
+
+
+    pyCommunicator.run(
+        "import sys",
+        "import importlib",
+        "pedemonte_root = "
+            + raizLiteral,
+        (
+            "sys.path.insert(0, pedemonte_root) "
+            + "if pedemonte_root not in sys.path "
+            + "else None"
+        ),
+        (
+            "from planner.integration "
+            + "import pypeline_order_import_bridge "
+            + "as pedemonte_excel_bridge"
+        ),
+        (
+            "pedemonte_excel_bridge = "
+            + "importlib.reload("
+            + "pedemonte_excel_bridge)"
+        )
+    );
+
+
+    String comando =
+        "pedemonte_excel_bridge."
+        + "importar_pedidos_excel_pypeline("
+        + archivoLiteral
+        + ", "
+        + turnoLiteral
+        + ", "
+        + CAPACIDAD_CAMION
+        + ", "
+        + MAX_PEDIDOS_RL
+        + ")";
+
+
+    String respuesta =
+        pyCommunicator.runResults(
+            String.class,
+            comando
+        );
+
+
+    if (
+        respuesta == null
+        ||
+        respuesta.trim().isEmpty()
+    ) {
+
+        throw new IllegalStateException(
+            "Python devolvió una respuesta vacía."
+        );
+    }
+
+
+    String[] lineas =
+        respuesta.split(
+            "\\r?\\n"
+        );
+
+
+    String[] cabecera =
+        lineas[0].split(
+            "\\|",
+            -1
+        );
+
+
+    if (
+        cabecera.length < 3
+        ||
+        !"PEDXLSX1".equals(
+            cabecera[0]
+        )
+    ) {
+
+        throw new IllegalStateException(
+            "Protocolo de importación "
+            + "no reconocido."
+        );
+    }
+
+
+    if (
+        "ERROR".equals(
+            cabecera[1]
+        )
+    ) {
+
+        StringBuilder errores =
+            new StringBuilder();
+
+
+        for (
+            int i = 1;
+            i < lineas.length;
+            i++
+        ) {
+
+            String[] partes =
+                lineas[i].split(
+                    "\\|",
+                    -1
+                );
+
+
+            if (
+                partes.length >= 4
+                &&
+                "E".equals(partes[0])
+            ) {
+
+                if (errores.length() > 0) {
+
+                    errores.append(" | ");
+                }
+
+
+                errores
+                    .append("Fila ")
+                    .append(partes[1])
+                    .append(" - ")
+                    .append(
+                        decodificarCampoImportacionExcel(
+                            partes[2]
+                        )
+                    )
+                    .append(": ")
+                    .append(
+                        decodificarCampoImportacionExcel(
+                            partes[3]
+                        )
+                    );
+            }
+        }
+
+
+        throw new IllegalArgumentException(
+            "Planilla inválida: "
+            + errores.toString()
+        );
+    }
+
+
+    if (!"OK".equals(cabecera[1])) {
+
+        throw new IllegalStateException(
+            "Estado de importación desconocido: "
+            + cabecera[1]
+        );
+    }
+
+
+    pedidosFormulario.clear();
+
+    contadorPedidosFormulario = 1;
+
+
+    int originalesImportados = 0;
+
+
+    for (
+        int i = 1;
+        i < lineas.length;
+        i++
+    ) {
+
+        String[] partes =
+            lineas[i].split(
+                "\\|",
+                -1
+            );
+
+
+        if (
+            partes.length < 14
+            ||
+            !"P".equals(partes[0])
+        ) {
+
+            throw new IllegalStateException(
+                "Registro de pedido inválido "
+                + "en la línea "
+                + (i + 1)
+                + "."
+            );
+        }
+
+
+        String originalId =
+            decodificarCampoImportacionExcel(
+                partes[2]
+            );
+
+
+        pedidoIdFormulario =
+            originalId;
+
+        clienteFormulario =
+            decodificarCampoImportacionExcel(
+                partes[3]
+            );
+
+        direccionFormulario =
+            decodificarCampoImportacionExcel(
+                partes[4]
+            );
+
+        barrioFormulario =
+            decodificarCampoImportacionExcel(
+                partes[5]
+            );
+
+        unidadesFormulario =
+            partes[6];
+
+        latitudFormulario =
+            partes[7];
+
+        longitudFormulario =
+            partes[8];
+
+        requiereVolcadorFormulario =
+            "1".equals(
+                partes[9]
+            );
+
+        tieneVentanaFormulario =
+            "1".equals(
+                partes[10]
+            );
+
+        horaDesdeFormulario =
+            formatearHoraFormulario(
+                Integer.parseInt(
+                    partes[11]
+                )
+            );
+
+        horaHastaFormulario =
+            formatearHoraFormulario(
+                Integer.parseInt(
+                    partes[12]
+                )
+            );
+
+
+        String observacionesImportadas =
+            decodificarCampoImportacionExcel(
+                partes[13]
+            );
+
+
+        boolean agregado =
+            agregarPedidoFormulario();
+
+
+        if (!agregado) {
+
+            throw new IllegalStateException(
+                mensajeFormulario
+            );
+        }
+
+
+        if (
+            observacionesImportadas != null
+            &&
+            !observacionesImportadas
+                .trim()
+                .isEmpty()
+        ) {
+
+            for (
+                PedidoInput pedido
+                : pedidosFormulario
+            ) {
+
+                if (
+                    pedido != null
+                    &&
+                    originalId.equals(
+                        pedido.pedidoOriginalId
+                    )
+                ) {
+
+                    pedido.observaciones =
+                        observacionesImportadas.trim();
+                }
+            }
+        }
+
+
+        originalesImportados++;
+    }
+
+
+    pedidoIdFormulario = "";
+
+    clienteFormulario = "";
+
+    direccionFormulario = "";
+
+    barrioFormulario = "";
+
+    unidadesFormulario = "1";
+
+    latitudFormulario = "";
+
+    longitudFormulario = "";
+
+    requiereVolcadorFormulario = false;
+
+    tieneVentanaFormulario = false;
+
+
+    actualizarHorarioFormulario();
+
+
+    editPedidoIdFormulario.setText(
+        pedidoIdFormulario
+    );
+
+    editClienteFormulario.setText(
+        clienteFormulario
+    );
+
+    editDireccionFormulario.setText(
+        direccionFormulario
+    );
+
+    editBarrioFormulario.setText(
+        barrioFormulario
+    );
+
+    editUnidadesFormulario.setText(
+        unidadesFormulario
+    );
+
+    editLatitudFormulario.setText(
+        latitudFormulario
+    );
+
+    editLongitudFormulario.setText(
+        longitudFormulario
+    );
+
+    checkRequiereVolcadorFormulario
+        .setSelected(false);
+
+    checkTieneVentanaFormulario
+        .setSelected(false);
+
+    editHoraDesdeFormulario.setText(
+        horaDesdeFormulario
+    );
+
+    editHoraHastaFormulario.setText(
+        horaHastaFormulario
+    );
+
+
+    mensajeFormulario =
+        "Importación completada: "
+        + originalesImportados
+        + " pedido(s) original(es), "
+        + pedidosFormulario.size()
+        + " tarea(s) después del split.";
+
+
+    traceln(
+        mensajeFormulario
+    );
+
+
+    return true;
+
+
+} catch (Exception ex) {
+
+    pedidosFormulario.clear();
+
+    pedidosFormulario.addAll(
+        respaldo
+    );
+
+    contadorPedidosFormulario =
+        contadorRespaldo;
+
+
+    mensajeFormulario =
+        "Error al importar Excel: "
+        + ex.getMessage();
+
+
+    traceln(
+        mensajeFormulario
+    );
+
+
+    return false;
+}]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1787862666671</Id>
+					<Name><![CDATA[intentarFinalizarEjecucion]]></Name>
+					<X>-810</X><Y>3880</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[if (
+    !ejecucionEnCurso
+    ||
+    ejecucionFinalizada
+) {
+
+    return;
+}
+
+
+// Los camiones todavía siguen operando.
+
+if (
+    camionesFinalizados
+    < CANTIDAD_CAMIONES
+) {
+
+    return;
+}
+
+
+// Desde este momento no deben llegar
+// nuevos proveedores.
+
+eventoLlegadaProveedor.reset();
+
+
+// Si había proveedores pendientes y ahora
+// existen empleados libres, se inicia su atención.
+
+intentarAtenderProveedoresPendientes();
+
+
+// La ejecución no termina mientras exista
+// algún proveedor esperando o siendo atendido.
+
+if (
+    !proveedoresPendientes.isEmpty()
+    ||
+    !proveedoresEnAtencion.isEmpty()
+) {
+
+    mensajeInterfazPlanificacion =
+        "Camiones finalizados."
+        + "\nEsperando cierre de proveedores."
+        + "\nPendientes: "
+        + proveedoresPendientes.size()
+        + " | En atención: "
+        + proveedoresEnAtencion.size();
+
+
+    traceln(
+        "CIERRE DIFERIDO"
+        + " | camiones_finalizados="
+        + camionesFinalizados
+        + "/"
+        + CANTIDAD_CAMIONES
+        + " | proveedores_pendientes="
+        + proveedoresPendientes.size()
+        + " | proveedores_en_atencion="
+        + proveedoresEnAtencion.size()
+    );
+
+
+    reprogramarFinProveedor();
+
+    return;
+}
+
+
+// =====================================================
+// CIERRE DEFINITIVO
+// =====================================================
+
+ejecucionEnCurso =
+    false;
+
+
+ejecucionFinalizada =
+    true;
+
+
+// En este punto las listas deberían estar vacías.
+// La función conserva su responsabilidad de
+// limpiar eventos y recursos remanentes.
+
+cerrarSistemaProveedores();
+
+
+resultadoActual =
+    construirResultadoTurno();
+
+
+marcarSelectorFinalizadoVisual();
+
+
+mensajeInterfazPlanificacion =
+    "Ejecución finalizada.";
+
+
+if (
+    resultadoActual != null
+    &&
+    resultadoActual.metricasGlobales
+        != null
+) {
+
+    mensajeInterfazPlanificacion =
+        "Ejecución finalizada."
+        + "\nEntregadas: "
+        + resultadoActual
+            .metricasGlobales
+            .tareasEntregadas
+        + "/"
+        + resultadoActual
+            .metricasGlobales
+            .tareasPlanificadas
+        + "\nCosto total: "
+        + String.format(
+            java.util.Locale.US,
+            "%.2f",
+            resultadoActual.costoTotal
+        );
+}
+
+
+if (
+    MODO_EJECUCION
+        == ModoEjecucion.RL_TRAINING
+
+    ||
+
+    MODO_EJECUCION
+        == ModoEjecucion.RL_EVALUATION
+) {
+
+    alpyneMensaje =
+        "EJECUCIÓN FINALIZADA";
+}
+
+
+traceln("");
+
+
+traceln(
+    "=============================="
+);
+
+
+traceln(
+    "=== EJECUCIÓN FINALIZADA ====="
+);
+
+
+traceln(
+    "=============================="
+);
+
+
+imprimirMetricasCamiones(
+    resultadoActual
+);
+
+
+imprimirMetricasGlobales(
+    resultadoActual
+);
+
+
+if (
+    MODO_EJECUCION
+        == ModoEjecucion.SIMULACION
+) {
+
+    pauseSimulation();
+}]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[String]]></ReturnType>
+					<Id>1787863525477</Id>
+					<Name><![CDATA[campoCandidatoSelector]]></Name>
+					<X>-810</X><Y>3910</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[candidatos]]></Name>
+						<Type><![CDATA[String]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[nombreCandidato]]></Name>
+						<Type><![CDATA[String]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[clave]]></Name>
+						<Type><![CDATA[String]]></Type>
+					</Parameter>
+					<Body><![CDATA[if (
+    candidatos == null
+    ||
+    candidatos.trim().isEmpty()
+    ||
+    nombreCandidato == null
+    ||
+    nombreCandidato.trim().isEmpty()
+    ||
+    clave == null
+    ||
+    clave.trim().isEmpty()
+) {
+
+    return "";
+}
+
+
+String nombreBuscado =
+    nombreCandidato
+        .trim()
+        .toUpperCase(
+            java.util.Locale.ROOT
+        );
+
+
+String claveBuscada =
+    clave.trim() + "=";
+
+
+String[] bloques =
+    candidatos.split(";");
+
+
+for (
+    String bloque
+    : bloques
+) {
+
+    if (
+        bloque == null
+        ||
+        bloque.trim().isEmpty()
+    ) {
+
+        continue;
+    }
+
+
+    String[] partesBloque =
+        bloque.trim().split(
+            ":",
+            2
+        );
+
+
+    if (partesBloque.length != 2) {
+
+        continue;
+    }
+
+
+    String nombreActual =
+        partesBloque[0]
+            .trim()
+            .toUpperCase(
+                java.util.Locale.ROOT
+            );
+
+
+    if (
+        !nombreBuscado.equals(
+            nombreActual
+        )
+    ) {
+
+        continue;
+    }
+
+
+    String[] campos =
+        partesBloque[1].split(",");
+
+
+    for (
+        String campo
+        : campos
+    ) {
+
+        if (campo == null) {
+
+            continue;
+        }
+
+
+        String campoNormalizado =
+            campo.trim();
+
+
+        if (
+            campoNormalizado.startsWith(
+                claveBuscada
+            )
+        ) {
+
+            return campoNormalizado.substring(
+                claveBuscada.length()
+            ).trim();
+        }
+    }
+}
+
+
+return "";]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[String]]></ReturnType>
+					<Id>1787863567348</Id>
+					<Name><![CDATA[textoCandidatoSelector]]></Name>
+					<X>-810</X><Y>3940</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[etiqueta]]></Name>
+						<Type><![CDATA[String]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[nombreCandidato]]></Name>
+						<Type><![CDATA[String]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[candidatos]]></Name>
+						<Type><![CDATA[String]]></Type>
+					</Parameter>
+					<Body><![CDATA[String tardios =
+    campoCandidatoSelector(
+        candidatos,
+        nombreCandidato,
+        "tardios"
+    );
+
+
+String tardanzaTexto =
+    campoCandidatoSelector(
+        candidatos,
+        nombreCandidato,
+        "tardanza"
+    );
+
+
+String costoTexto =
+    campoCandidatoSelector(
+        candidatos,
+        nombreCandidato,
+        "costo"
+    );
+
+
+if (
+    tardios.isEmpty()
+    &&
+    tardanzaTexto.isEmpty()
+    &&
+    costoTexto.isEmpty()
+) {
+
+    return etiqueta + " —";
+}
+
+
+double tardanza =
+    Double.NaN;
+
+
+double costo =
+    Double.NaN;
+
+
+try {
+
+    tardanza =
+        Double.parseDouble(
+            tardanzaTexto
+        );
+
+} catch (Exception ex) {
+
+    tardanza =
+        Double.NaN;
+}
+
+
+try {
+
+    costo =
+        Double.parseDouble(
+            costoTexto
+        );
+
+} catch (Exception ex) {
+
+    costo =
+        Double.NaN;
+}
+
+
+String tardiosVisible =
+    tardios.isEmpty()
+    ? "—"
+    : tardios;
+
+
+String tardanzaVisible =
+    Double.isNaN(tardanza)
+    ||
+    Double.isInfinite(tardanza)
+    ? "—"
+    : String.format(
+        java.util.Locale.US,
+        "%.2f",
+        tardanza
+    );
+
+
+return etiqueta
+    + " "
+    + tardiosVisible
+    + "t | "
+    + tardanzaVisible
+    + "m | "
+    + formatoCostoSelector(
+        costo
+    );]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[boolean]]></ReturnType>
+					<Id>1787863599500</Id>
+					<Name><![CDATA[verificarCacheVialInstanciaActual]]></Name>
+					<X>-810</X><Y>3970</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[cacheVialInstanciaCompleta =
+    false;
+
+
+cacheVialTramosRequeridos =
+    0;
+
+
+cacheVialTramosFaltantes =
+    0;
+
+
+if (instanciaInterfazActual == null) {
+
+    cacheVialEstadoInterfaz =
+        "SIN INSTANCIA";
+
+    return false;
+}
+
+
+try {
+
+    java.util.LinkedHashMap<
+        String,
+        double[]
+    > coordenadasUnicas =
+        new java.util.LinkedHashMap<
+            String,
+            double[]
+        >();
+
+
+    String claveCorralon =
+        String.format(
+            java.util.Locale.US,
+            "%.6f,%.6f",
+            instanciaInterfazActual
+                .latCorralon,
+            instanciaInterfazActual
+                .lonCorralon
+        );
+
+
+    coordenadasUnicas.put(
+        claveCorralon,
+        new double[] {
+            instanciaInterfazActual
+                .latCorralon,
+
+            instanciaInterfazActual
+                .lonCorralon
+        }
+    );
+
+
+    for (
+        PedidoInput pedido
+        : instanciaInterfazActual.pedidos
+    ) {
+
+        if (pedido == null) {
+
+            continue;
+        }
+
+
+        String clavePedido =
+            String.format(
+                java.util.Locale.US,
+                "%.6f,%.6f",
+                pedido.latitud,
+                pedido.longitud
+            );
+
+
+        if (
+            !coordenadasUnicas
+                .containsKey(
+                    clavePedido
+                )
+        ) {
+
+            coordenadasUnicas.put(
+                clavePedido,
+                new double[] {
+                    pedido.latitud,
+                    pedido.longitud
+                }
+            );
+        }
+    }
+
+
+    java.util.ArrayList<double[]>
+        puntos =
+            new java.util.ArrayList<double[]>(
+                coordenadasUnicas.values()
+            );
+
+
+    int cantidadPuntos =
+        puntos.size();
+
+
+    cacheVialTramosRequeridos =
+        cantidadPuntos
+        * (cantidadPuntos - 1);
+
+
+    String raizPython =
+        resolverRaizPythonPypeline();
+
+
+    java.io.File archivoCache =
+        new java.io.File(
+            raizPython,
+            "data/routing/cache_vial_v1.csv"
+        ).getCanonicalFile();
+
+
+    if (!archivoCache.isFile()) {
+
+        cacheVialTramosFaltantes =
+            cacheVialTramosRequeridos;
+
+
+        cacheVialEstadoInterfaz =
+            "FALTAN "
+            + cacheVialTramosFaltantes;
+
+
+        traceln(
+            "VERIFICACION CACHE VIAL"
+            + " | estado="
+            + cacheVialEstadoInterfaz
+            + " | archivo_inexistente="
+            + archivoCache.getCanonicalPath()
+        );
+
+
+        return false;
+    }
+
+
+    java.util.HashSet<String>
+        clavesDisponibles =
+            new java.util.HashSet<String>();
+
+
+    java.util.List<String> lineas =
+        java.nio.file.Files.readAllLines(
+            archivoCache.toPath(),
+            java.nio.charset
+                .StandardCharsets
+                .UTF_8
+        );
+
+
+    for (
+        int indice = 1;
+        indice < lineas.size();
+        indice++
+    ) {
+
+        String linea =
+            lineas.get(indice)
+                .trim();
+
+
+        if (linea.isEmpty()) {
+
+            continue;
+        }
+
+
+        String[] columnas =
+            linea.split(
+                ",",
+                -1
+            );
+
+
+        if (columnas.length != 9) {
+
+            continue;
+        }
+
+
+        if (
+            !"pedemonte-vial-v1".equals(
+                columnas[0].trim()
+            )
+        ) {
+
+            continue;
+        }
+
+
+        double latOrigen =
+            Double.parseDouble(
+                columnas[1].trim()
+            );
+
+
+        double lonOrigen =
+            Double.parseDouble(
+                columnas[2].trim()
+            );
+
+
+        double latDestino =
+            Double.parseDouble(
+                columnas[3].trim()
+            );
+
+
+        double lonDestino =
+            Double.parseDouble(
+                columnas[4].trim()
+            );
+
+
+        String clave =
+            String.format(
+                java.util.Locale.US,
+                "%.6f,%.6f,%.6f,%.6f",
+                latOrigen,
+                lonOrigen,
+                latDestino,
+                lonDestino
+            );
+
+
+        clavesDisponibles.add(
+            clave
+        );
+    }
+
+
+    int faltantes =
+        0;
+
+
+    for (
+        int indiceOrigen = 0;
+        indiceOrigen < puntos.size();
+        indiceOrigen++
+    ) {
+
+        for (
+            int indiceDestino = 0;
+            indiceDestino < puntos.size();
+            indiceDestino++
+        ) {
+
+            if (
+                indiceOrigen
+                == indiceDestino
+            ) {
+
+                continue;
+            }
+
+
+            double[] origen =
+                puntos.get(
+                    indiceOrigen
+                );
+
+
+            double[] destino =
+                puntos.get(
+                    indiceDestino
+                );
+
+
+            String clave =
+                String.format(
+                    java.util.Locale.US,
+                    "%.6f,%.6f,%.6f,%.6f",
+                    origen[0],
+                    origen[1],
+                    destino[0],
+                    destino[1]
+                );
+
+
+            if (
+                !clavesDisponibles.contains(
+                    clave
+                )
+            ) {
+
+                faltantes++;
+            }
+        }
+    }
+
+
+    cacheVialTramosFaltantes =
+        faltantes;
+
+
+    cacheVialInstanciaCompleta =
+        faltantes == 0;
+
+
+    cacheVialEstadoInterfaz =
+        cacheVialInstanciaCompleta
+        ? "LISTA"
+        : "FALTAN " + faltantes;
+
+
+    traceln(
+        "VERIFICACION CACHE VIAL"
+        + " | requeridos="
+        + cacheVialTramosRequeridos
+        + " | faltantes="
+        + cacheVialTramosFaltantes
+        + " | estado="
+        + cacheVialEstadoInterfaz
+    );
+
+
+    return cacheVialInstanciaCompleta;
+
+
+} catch (Exception ex) {
+
+    cacheVialInstanciaCompleta =
+        false;
+
+
+    cacheVialEstadoInterfaz =
+        "ERROR";
+
+
+    traceln(
+        "ERROR VERIFICANDO CACHE VIAL"
+        + " | "
+        + ex.getClass()
+            .getSimpleName()
+        + ": "
+        + ex.getMessage()
+    );
+
+
+    return false;
+}]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[String]]></ReturnType>
+					<Id>1787864569015</Id>
+					<Name><![CDATA[textoLimpioFormulario]]></Name>
+					<X>-810</X><Y>4000</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[valor]]></Name>
+						<Type><![CDATA[String]]></Type>
+					</Parameter>
+					<Body><![CDATA[return valor == null
+    ? ""
+    : valor.trim();]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[int]]></ReturnType>
+					<Id>1787864597120</Id>
+					<Name><![CDATA[parsearEnteroPositivoFormulario]]></Name>
+					<X>-810</X><Y>4030</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[valor]]></Name>
+						<Type><![CDATA[String]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[nombreCampo]]></Name>
+						<Type><![CDATA[String]]></Type>
+					</Parameter>
+					<Body><![CDATA[String texto =
+    textoLimpioFormulario(
+        valor
+    );
+
+
+if (texto.isEmpty()) {
+
+    throw new IllegalArgumentException(
+        "Completá el campo "
+        + nombreCampo
+        + "."
+    );
+}
+
+
+if (!texto.matches("\\d+")) {
+
+    throw new IllegalArgumentException(
+        nombreCampo
+        + " debe contener un número entero."
+    );
+}
+
+
+int resultado;
+
+
+try {
+
+    resultado =
+        Integer.parseInt(
+            texto
+        );
+
+} catch (Exception ex) {
+
+    throw new IllegalArgumentException(
+        nombreCampo
+        + " contiene un valor demasiado grande."
+    );
+}
+
+
+if (resultado <= 0) {
+
+    throw new IllegalArgumentException(
+        nombreCampo
+        + " debe ser mayor que cero."
+    );
+}
+
+
+return resultado;]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1787864624416</Id>
+					<Name><![CDATA[parsearDecimalFormulario]]></Name>
+					<X>-810</X><Y>4060</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[valor]]></Name>
+						<Type><![CDATA[String]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[nombreCampo]]></Name>
+						<Type><![CDATA[String]]></Type>
+					</Parameter>
+					<Body><![CDATA[String texto =
+    textoLimpioFormulario(
+        valor
+    );
+
+
+if (texto.isEmpty()) {
+
+    throw new IllegalArgumentException(
+        "Completá el campo "
+        + nombreCampo
+        + "."
+    );
+}
+
+
+// Permite escribir decimales con punto o coma.
+
+texto =
+    texto.replace(
+        ',',
+        '.'
+    );
+
+
+double resultado;
+
+
+try {
+
+    resultado =
+        Double.parseDouble(
+            texto
+        );
+
+} catch (Exception ex) {
+
+    throw new IllegalArgumentException(
+        nombreCampo
+        + " debe contener un número decimal válido."
+    );
+}
+
+
+if (!Double.isFinite(resultado)) {
+
+    throw new IllegalArgumentException(
+        nombreCampo
+        + " no contiene un valor finito."
+    );
+}
+
+
+return resultado;]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[java.awt.Color]]></ReturnType>
+					<Id>1787864649912</Id>
+					<Name><![CDATA[colorMensajeFormulario]]></Name>
+					<X>-810</X><Y>4090</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[String mensaje =
+    mensajeFormulario == null
+    ? ""
+    : mensajeFormulario.trim();
+
+
+if (
+    mensaje.startsWith(
+        "Revisá"
+    )
+    ||
+    mensaje.startsWith(
+        "No se puede"
+    )
+    ||
+    mensaje.startsWith(
+        "No se pudo"
+    )
+    ||
+    mensaje.startsWith(
+        "Error"
+    )
+) {
+
+    return new java.awt.Color(
+        185,
+        28,
+        28
+    );
+}
+
+
+if (
+    mensaje.startsWith(
+        "OK:"
+    )
+    ||
+    mensaje.startsWith(
+        "Importación completada"
+    )
+    ||
+    mensaje.contains(
+        "agregado"
+    )
+) {
+
+    return new java.awt.Color(
+        22,
+        101,
+        52
+    );
+}
+
+
+return new java.awt.Color(
+    100,
+    116,
+    139
+);]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[String]]></ReturnType>
+					<Id>1787864834583</Id>
+					<Name><![CDATA[abreviarTextoDashboard]]></Name>
+					<X>-810</X><Y>4120</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[valor]]></Name>
+						<Type><![CDATA[String]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[maximo]]></Name>
+						<Type><![CDATA[int]]></Type>
+					</Parameter>
+					<Body><![CDATA[String texto =
+    valor == null
+    ? ""
+    : valor.trim();
+
+
+if (
+    texto.length()
+    <= maximo
+) {
+
+    return texto;
+}
+
+
+if (maximo <= 1) {
+
+    return "…";
+}
+
+
+return texto.substring(
+    0,
+    maximo - 1
+)
++ "…";]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[String]]></ReturnType>
+					<Id>1787864860247</Id>
+					<Name><![CDATA[detalleCamionDashboard]]></Name>
+					<X>-810</X><Y>4150</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[camionId]]></Name>
+						<Type><![CDATA[int]]></Type>
+					</Parameter>
+					<Body><![CDATA[String estado =
+    estadosCamionesGIS.get(
+        camionId
+    );
+
+
+if (
+    estado == null
+    ||
+    estado.trim().isEmpty()
+) {
+
+    return "Sin actividad";
+}
+
+
+estado =
+    estado.trim();
+
+
+if (
+    estado.equals(
+        "EN_CORRALON"
+    )
+) {
+
+    return "Disponible";
+}
+
+
+if (
+    estado.equals(
+        "PLAN_FINALIZADO"
+    )
+) {
+
+    return "Sin pendientes";
+}
+
+
+if (
+    estado.equals(
+        "REGRESANDO_CORRALON"
+    )
+) {
+
+    return "Hacia corralón";
+}
+
+
+if (
+    estado.startsWith(
+        "VIAJANDO_A_"
+    )
+) {
+
+    String destino =
+        estado.substring(
+            "VIAJANDO_A_".length()
+        );
+
+
+    return "Hacia "
+	    + abreviarTextoDashboard(
+	        destino,
+	        9
+	    );
+}
+
+
+if (
+    estado.startsWith(
+        "EN_CLIENTE_"
+    )
+) {
+
+    String cliente =
+        estado.substring(
+            "EN_CLIENTE_".length()
+        );
+
+
+    return "Atiende "
+	    + abreviarTextoDashboard(
+	        cliente,
+	        8
+	    );
+}
+
+
+if (
+    estado.contains(
+        "CARGA"
+    )
+) {
+
+    return "Preparando salida";
+}
+
+
+if (
+    estado.contains(
+        "ESPERA"
+    )
+) {
+
+    return "En espera";
+}
+
+
+return "Estado operativo";]]></Body>
 				</Function>
 			</Functions>
 			<AgentLinks>
@@ -18003,11 +20484,12 @@ txtPieSelectorVisual.setColor(
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
 					<Color>-10063739</Color>
+					<ColorCode><![CDATA[colorMensajeFormulario()]]></ColorCode>
 					<Text><![CDATA[text]]></Text>
 					<TextCode><![CDATA[mensajeFormulario]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>8</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -18094,7 +20576,7 @@ txtPieSelectorVisual.setColor(
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<BasicProperties Width="205" Height="32">
+					<BasicProperties Width="140" Height="32">
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<TextColor>-16777216</TextColor>
 						<Enabled>true</Enabled>
@@ -18114,18 +20596,37 @@ instanciaInterfazActual == null
     mostrarInstanciaEnGIS(
         nuevaInstancia
     );
-    
+
+
     indexarPuntosPedidosGIS(
-	    nuevaInstancia
-	);
+        nuevaInstancia
+    );
 
 
     instanciaInterfazActual =
         nuevaInstancia;
 
 
-    mensajeInterfazPlanificacion =
-        "Instancia preparada correctamente.";
+    boolean matrizLista =
+        verificarCacheVialInstanciaActual();
+
+
+    if (matrizLista) {
+
+        mensajeInterfazPlanificacion =
+            "Instancia preparada."
+            + "\nMatriz vial lista."
+            + "\nPuede planificar.";
+
+    } else {
+
+        mensajeInterfazPlanificacion =
+            "Instancia preparada."
+            + "\nFaltan "
+            + cacheVialTramosFaltantes
+            + " tramos viales."
+            + "\nExporte la matriz.";
+    }
 
 
     traceln(
@@ -18137,6 +20638,22 @@ instanciaInterfazActual == null
 
     instanciaInterfazActual =
         null;
+
+
+    cacheVialInstanciaCompleta =
+        false;
+
+
+    cacheVialTramosRequeridos =
+        0;
+
+
+    cacheVialTramosFaltantes =
+        0;
+
+
+    cacheVialEstadoInterfaz =
+        "ERROR";
 
 
     limpiarPedidosGIS();
@@ -18167,13 +20684,13 @@ instanciaInterfazActual == null
 				 	<EmbeddedIcon>false</EmbeddedIcon>				
 					<Id>1787145354943</Id>
 					<Name><![CDATA[btnLimpiarInstancia]]></Name>
-					<X>350</X><Y>775</Y>
+					<X>270</X><Y>775</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<BasicProperties Width="210" Height="32">
+					<BasicProperties Width="140" Height="32">
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<TextColor>-16777216</TextColor>
 						<Enabled>true</Enabled>
@@ -18182,7 +20699,58 @@ instanciaInterfazActual == null
 !ejecucionEnCurso
 &&
 !pypelineSolicitudEnCurso]]></EnableExpression>
-						<ActionCode><![CDATA[limpiarInstanciaInterfaz()]]></ActionCode>
+						<ActionCode><![CDATA[if (
+    ejecucionEnCurso
+    ||
+    pypelineSolicitudEnCurso
+) {
+
+    traceln(
+        "No se puede limpiar la instancia "
+        + "mientras existe una planificación "
+        + "o ejecución en curso."
+    );
+
+    return;
+}
+
+
+instanciaInterfazActual =
+    null;
+
+
+cacheVialInstanciaCompleta =
+    false;
+
+
+cacheVialTramosRequeridos =
+    0;
+
+
+cacheVialTramosFaltantes =
+    0;
+
+
+cacheVialEstadoInterfaz =
+    "SIN INSTANCIA";
+
+
+limpiarRutasPlanGIS();
+
+
+limpiarMarcadoresCamionesGIS();
+
+
+limpiarPedidosGIS();
+
+
+mensajeInterfazPlanificacion =
+    "Sin instancia cargada.";
+
+
+traceln(
+    mensajeInterfazPlanificacion
+);]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
 						<Font Name="SansSerif" Size="10" Style="1"/>
@@ -18411,7 +20979,7 @@ instanciaInterfazActual == null
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
 					<Color>-12102553</Color>
-					<Text><![CDATA[Hora desde (min)]]></Text>
+					<Text><![CDATA[Hora desde (HH:mm)]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>10</Size>
@@ -19415,6 +21983,8 @@ modoPlanificacionPypeline]]></TextCode>
 						<Enabled>true</Enabled>
 						<EnableExpression><![CDATA[instanciaInterfazActual != null
 &&
+cacheVialInstanciaCompleta
+&&
 !ejecucionEnCurso
 &&
 !pypelineSolicitudEnCurso]]></EnableExpression>
@@ -19448,6 +22018,25 @@ if (
     return;
 }
 
+if (
+    !verificarCacheVialInstanciaActual()
+) {
+
+    mensajeInterfazPlanificacion =
+        "Matriz vial incompleta."
+        + "\nFaltan "
+        + cacheVialTramosFaltantes
+        + " tramos."
+        + "\nExporte la matriz vial.";
+
+
+    traceln(
+        mensajeInterfazPlanificacion
+    );
+
+
+    return;
+}
 
 pypelineSolicitudEnCurso =
     true;
@@ -19927,7 +22516,7 @@ instanciaInterfazActual == null
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
 					<Color>-12102553</Color>
-					<Text><![CDATA[Hora hasta (min)]]></Text>
+					<Text><![CDATA[Hora hasta (HH:mm)]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>10</Size>
@@ -20860,7 +23449,7 @@ String.format(
 				<Text>
 					<Id>1787570115270</Id>
 					<Name><![CDATA[txtNombreCamion0]]></Name>
-					<X>1380</X><Y>636</Y>
+					<X>1380</X><Y>623</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -20869,11 +23458,11 @@ String.format(
 					<EmbeddedIcon>false</EmbeddedIcon>
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
-					<Color>-14735049</Color>
+					<Color>-14800581</Color>
 					<Text><![CDATA[Camión 0]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>8</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -20881,7 +23470,7 @@ String.format(
 				<Text>
 					<Id>1787570151909</Id>
 					<Name><![CDATA[txtEstadoCamion0Dashboard]]></Name>
-					<X>1380</X><Y>652</Y>
+					<X>1380</X><Y>641</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -20890,7 +23479,7 @@ String.format(
 					<EmbeddedIcon>false</EmbeddedIcon>
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
-					<Color>-10063739</Color>
+					<Color>-13418155</Color>
 					<Text><![CDATA[text]]></Text>
 					<TextCode><![CDATA[estadoCamionDashboard(
     0
@@ -20898,7 +23487,7 @@ String.format(
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>8</Size>
-						<Style>0</Style>
+						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
 				</Text>
@@ -20927,7 +23516,7 @@ String.format(
 				<Text>
 					<Id>1787570280366</Id>
 					<Name><![CDATA[txtNombreCamion1]]></Name>
-					<X>1480</X><Y>636</Y>
+					<X>1480</X><Y>623</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -20940,7 +23529,7 @@ String.format(
 					<Text><![CDATA[Camión 1]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>8</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -20948,7 +23537,7 @@ String.format(
 				<Text>
 					<Id>1787570323094</Id>
 					<Name><![CDATA[txtEstadoCamion1Dashboard]]></Name>
-					<X>1480</X><Y>652</Y>
+					<X>1480</X><Y>641</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -20957,7 +23546,7 @@ String.format(
 					<EmbeddedIcon>false</EmbeddedIcon>
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
-					<Color>-10063739</Color>
+					<Color>-13418155</Color>
 					<Text><![CDATA[text]]></Text>
 					<TextCode><![CDATA[estadoCamionDashboard(
     1
@@ -20965,7 +23554,7 @@ String.format(
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>8</Size>
-						<Style>0</Style>
+						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
 				</Text>
@@ -20984,6 +23573,8 @@ String.format(
 						<TextColor>-16777216</TextColor>
 						<Enabled>true</Enabled>
 						<EnableExpression><![CDATA[instanciaInterfazActual != null
+&&
+!cacheVialInstanciaCompleta
 &&
 !ejecucionEnCurso
 &&
@@ -21129,7 +23720,16 @@ String.format(
 					<Color>-10193781</Color>
 					<Text><![CDATA[text]]></Text>
 					<TextCode><![CDATA["Modo: "
-+ uiSelectorModoSolicitado]]></TextCode>
++
+(
+    modoPlanificacionPypeline == null
+    ? "—"
+    : modoPlanificacionPypeline
+)
++
+" | Vial: "
++
+cacheVialEstadoInterfaz]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>8</Size>
@@ -21151,17 +23751,23 @@ String.format(
 					<Rotation>0.0</Rotation>
 					<Color>-15788246</Color>
 					<Text><![CDATA[text]]></Text>
-					<TextCode><![CDATA["Greedy "
-+ formatoCostoSelector(
-    uiSelectorCostoGreedy
-)
-+ "    GA "
-+ formatoCostoSelector(
-    uiSelectorCostoGA
+					<TextCode><![CDATA[uiSelectorPoliticaOperacional
+?
+uiSelectorLineaExtension
+:
+(
+    "Greedy "
+    + formatoCostoSelector(
+        uiSelectorCostoGreedy
+    )
+    + "    GA "
+    + formatoCostoSelector(
+        uiSelectorCostoGA
+    )
 )]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>8</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -21180,17 +23786,23 @@ String.format(
 					<Rotation>0.0</Rotation>
 					<Color>-15788246</Color>
 					<Text><![CDATA[text]]></Text>
-					<TextCode><![CDATA["RL "
-+ formatoCostoSelector(
-    uiSelectorCostoRL
-)
-+ "    Elegido "
-+ formatoCostoSelector(
-    uiSelectorCostoElegido
+					<TextCode><![CDATA[uiSelectorPoliticaOperacional
+?
+uiSelectorLineaFull
+:
+(
+    "RL "
+    + formatoCostoSelector(
+        uiSelectorCostoRL
+    )
+    + "    Elegido "
+    + formatoCostoSelector(
+        uiSelectorCostoElegido
+    )
 )]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>8</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -21209,10 +23821,14 @@ String.format(
 					<Rotation>0.0</Rotation>
 					<Color>-10063739</Color>
 					<Text><![CDATA[text]]></Text>
-					<TextCode><![CDATA[textoMejoraSelector()]]></TextCode>
+					<TextCode><![CDATA[uiSelectorPoliticaOperacional
+?
+uiSelectorLineaGreedy
+:
+textoMejoraSelector()]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>8</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -21231,11 +23847,15 @@ String.format(
 					<Rotation>0.0</Rotation>
 					<Color>-12102295</Color>
 					<Text><![CDATA[text]]></Text>
-					<TextCode><![CDATA[textoMotivoSelector()]]></TextCode>
+					<TextCode><![CDATA[uiSelectorPoliticaOperacional
+?
+uiSelectorLineaElegido
+:
+textoMotivoSelector()]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>8</Size>
-						<Style>0</Style>
+						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
 				</Text>
@@ -21260,6 +23880,105 @@ String.format(
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>8</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Control Type="FileChooser">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1787862007175</Id>
+					<Name><![CDATA[fileChooserPedidosExcel]]></Name>
+					<X>430</X><Y>775</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="140" Height="32">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<FillColor>-1</FillColor>
+						<TextColor>-16777216</TextColor>
+						<Enabled>true</Enabled>
+						<ActionCode><![CDATA[rutaArchivoExcelSubido =
+    value;
+
+
+traceln(
+    "ARCHIVO EXCEL SUBIDO"
+    + " | value="
+    + value
+);
+
+
+boolean importado =
+    importarPedidosExcel();
+
+
+if (importado) {
+
+    traceln(
+        "IMPORTACION EXCEL OK"
+        + " | "
+        + mensajeFormulario
+    );
+
+} else {
+
+    traceln(
+        "IMPORTACION EXCEL FALLIDA"
+        + " | "
+        + mensajeFormulario
+    );
+}]]></ActionCode>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="10" Style="1"/>
+						<Title><![CDATA[Importar Excel]]></Title>
+						<Type>UPLOAD</Type>
+						<Filters>.xlsx, .xls</Filters>
+						<FileName>file.txt</FileName>
+					</ExtendedProperties>
+				</Control>
+				<Text>
+					<Id>1787864963351</Id>
+					<Name><![CDATA[txtDetalleCamion0Dashboard]]></Name>
+					<X>1380</X><Y>658</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-10193781</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA[detalleCamionDashboard(0)]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>7</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1787865027351</Id>
+					<Name><![CDATA[txtDetalleCamion1Dashboard]]></Name>
+					<X>1480</X><Y>658</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-10193781</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA[detalleCamionDashboard(1)]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>7</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
