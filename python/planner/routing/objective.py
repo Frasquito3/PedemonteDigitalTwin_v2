@@ -36,6 +36,7 @@ class EstimacionPlan:
     tiempo_espera_respuesta_cliente_total_min: float
     tiempo_descarga_total_min: float
     tardanza_total_min: float
+    pedidos_tardios: int
 
     minuto_fin_estimado: float
     duracion_operacion_min: float
@@ -180,6 +181,7 @@ def evaluar_plan_estimado(
         tardanza_total_min=(
             operacion.tardanza_total_min
         ),
+        pedidos_tardios=operacion.pedidos_tardios,
         minuto_fin_estimado=minuto_fin_estimado,
         duracion_operacion_min=(
             duracion_operacion_min
@@ -240,6 +242,7 @@ def serializar_auditoria_estimacion(
         f"|duracion_operacion_min={estimacion.duracion_operacion_min:.6f}"
         f"|fin_estimado_min={estimacion.minuto_fin_estimado:.6f}"
         f"|tardanza_min={estimacion.tardanza_total_min:.6f}"
+        f"|pedidos_tardios={estimacion.pedidos_tardios}"
         f"|exceso_tolerancia_min={estimacion.exceso_tolerancia_min:.6f}"
         "|desbalance_fin_min="
         f"{estimacion.diferencia_fin_camiones_min:.6f}"

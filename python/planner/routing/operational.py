@@ -81,6 +81,7 @@ class ResultadoOperacionEstimada:
     tiempo_espera_respuesta_cliente_total_min: float
     tiempo_descarga_total_min: float
     tardanza_total_min: float
+    pedidos_tardios: int
     viajes_totales: int
 
 
@@ -107,6 +108,7 @@ class _ResultadoViaje:
     tiempo_espera_respuesta_min: float
     tiempo_descarga_min: float
     tardanza_min: float
+    pedidos_tardios: int
 
 
 def tiempo_carga_estimado_min(
@@ -230,6 +232,7 @@ def _simular_viaje_despues_carga(
     tiempo_espera_respuesta_min = 0.0
     tiempo_descarga_min = 0.0
     tardanza_min = 0.0
+    pedidos_tardios = 0
 
     for pedido_id in viaje.pedido_ids:
         pedido = pedidos_por_id[pedido_id]
@@ -250,10 +253,13 @@ def _simular_viaje_despues_carga(
         tiempo_viaje_min += tiempo_tramo
         minuto_actual += tiempo_tramo
 
-        tardanza_min += max(
+        tardanza_pedido_min = max(
             0.0,
             minuto_actual - pedido.hora_hasta_min,
         )
+        tardanza_min += tardanza_pedido_min
+        if tardanza_pedido_min > _TOLERANCIA_TIEMPO:
+            pedidos_tardios += 1
 
         espera = estimar_espera_cliente(
             pedido,
@@ -307,6 +313,7 @@ def _simular_viaje_despues_carga(
         ),
         tiempo_descarga_min=tiempo_descarga_min,
         tardanza_min=tardanza_min,
+        pedidos_tardios=pedidos_tardios,
     )
 
 
@@ -447,6 +454,7 @@ def simular_plan_operativo_estimado(
     tiempo_espera_respuesta_total_min = 0.0
     tiempo_descarga_total_min = 0.0
     tardanza_total_min = 0.0
+    pedidos_tardios = 0
     viajes_totales = 0
 
     while eventos:
@@ -667,6 +675,7 @@ def simular_plan_operativo_estimado(
             tardanza_total_min += (
                 resultado_viaje.tardanza_min
             )
+            pedidos_tardios += resultado_viaje.pedidos_tardios
 
     finales_camiones = tuple(
         estados[camion_id].minuto_fin
@@ -691,5 +700,6 @@ def simular_plan_operativo_estimado(
             tiempo_descarga_total_min
         ),
         tardanza_total_min=tardanza_total_min,
+        pedidos_tardios=pedidos_tardios,
         viajes_totales=viajes_totales,
     )

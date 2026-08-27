@@ -9808,6 +9808,37 @@ return plan;]]></Body>
     new java.util.ArrayList<java.io.File>();
 
 
+// =====================================================
+// RUTA CONSERVADA POR EL EXPERIMENTO ALPYNE
+// =====================================================
+
+String rutaPropiedadSistema =
+    System.getProperty(
+        "pedemonte.python.root",
+        ""
+    );
+
+
+if (
+    rutaPropiedadSistema != null
+    &&
+    !rutaPropiedadSistema
+        .trim()
+        .isEmpty()
+) {
+
+    candidatos.add(
+        new java.io.File(
+            rutaPropiedadSistema.trim()
+        )
+    );
+}
+
+
+// =====================================================
+// RUTA CONFIGURADA DIRECTAMENTE EN MAIN
+// =====================================================
+
 if (
     rutaPythonProyectoPypeline != null
     &&
@@ -9818,11 +9849,15 @@ if (
 
     candidatos.add(
         new java.io.File(
-            rutaPythonProyectoPypeline
+            rutaPythonProyectoPypeline.trim()
         )
     );
 }
 
+
+// =====================================================
+// BÚSQUEDA RELATIVA DESDE user.dir
+// =====================================================
 
 java.io.File actual =
     new java.io.File(
@@ -9856,10 +9891,18 @@ for (
 }
 
 
+// =====================================================
+// VALIDACIÓN DE CANDIDATOS
+// =====================================================
+
 for (
     java.io.File candidato
     : candidatos
 ) {
+
+    if (candidato == null) {
+        continue;
+    }
 
     try {
 
@@ -9888,24 +9931,40 @@ for (
             pyrefly.isFile()
         ) {
 
-            return raiz
-                .getCanonicalPath();
+            /*
+             * Se conserva también en Main para que el
+             * resto de la ejecución pueda consultarla.
+             */
+            rutaPythonProyectoPypeline =
+                raiz.getCanonicalPath();
+
+
+            return rutaPythonProyectoPypeline;
         }
 
     } catch (
         java.io.IOException ex
     ) {
 
-        // Probamos el siguiente candidato.
+        // Se prueba el siguiente candidato.
     }
 }
 
+
+// =====================================================
+// ERROR EXPLÍCITO
+// =====================================================
 
 throw new IllegalStateException(
     "No se encontró la carpeta python "
     + "del proyecto. user.dir="
     + System.getProperty(
         "user.dir"
+    )
+    + ", propiedad pedemonte.python.root="
+    + System.getProperty(
+        "pedemonte.python.root",
+        ""
     )
     + ". También puede indicarse manualmente "
     + "en rutaPythonProyectoPypeline."
@@ -24425,8 +24484,8 @@ return
 				<StopOption><![CDATA[Stop at specified time]]></StopOption>
 				<InitialDate><![CDATA[1786492800000]]></InitialDate>	
 				<InitialTime><![CDATA[0.0]]></InitialTime>	
-				<FinalDate><![CDATA[1786496340000]]></FinalDate>	
-				<FinalTime><![CDATA[59.0]]></FinalTime>	
+				<FinalDate><![CDATA[1786510800000]]></FinalDate>	
+				<FinalTime><![CDATA[300.0]]></FinalTime>	
 			</ModelTimeProperties>
 			<ObservationField>
 				<Name><![CDATA[configurado]]></Name>
@@ -24573,12 +24632,49 @@ root.procesarAccionAlpyne(
 				<Name><![CDATA[instanciaVector]]></Name>
 				<Type><![CDATA[double[]]]></Type>
 			</ConfigurationField>
+			<ConfigurationField>
+				<Name><![CDATA[rutaPythonProyectoPypeline]]></Name>
+				<Type><![CDATA[String]]></Type>
+			</ConfigurationField>
 			<ConfigurationCode><![CDATA[root.MODO_EJECUCION =
     ModoEjecucion.RL_EVALUATION;
 
 
 root.PROVEEDORES_HABILITADOS =
     false;
+
+
+/*
+ * El modelo exportado se ejecuta dentro de una carpeta
+ * temporal de Alpyne.
+ *
+ * La ruta recibida se guarda también como propiedad
+ * del proceso Java porque las variables normales de
+ * Main se inicializan nuevamente durante el arranque.
+ */
+String rutaPythonConfigurada =
+    rutaPythonProyectoPypeline == null
+    ? ""
+    : rutaPythonProyectoPypeline.trim();
+
+
+if (rutaPythonConfigurada.isEmpty()) {
+
+    System.clearProperty(
+        "pedemonte.python.root"
+    );
+
+} else {
+
+    System.setProperty(
+        "pedemonte.python.root",
+        rutaPythonConfigurada
+    );
+}
+
+
+root.rutaPythonProyectoPypeline =
+    rutaPythonConfigurada;
 
 
 root.alpyneSeedEjecucion =
