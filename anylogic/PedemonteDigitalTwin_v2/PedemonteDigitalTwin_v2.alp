@@ -15897,19 +15897,19 @@ if (
 ) {
 
     uiSelectorLineaPrincipal =
-        "Política RL —";
+        "Costo estimado —";
 
 
     uiSelectorLineaSecundaria =
-        "Máscara temporal —";
+        "Restricciones horarias —";
 
 
     uiSelectorLineaDetalle =
-        "RL puro | sin Greedy";
+        "Generando plan con RL";
 
 
     uiSelectorLineaResultado =
-        "Ejecutando política única";
+        "Esperando resultado";
 
 
 } else if (
@@ -15919,19 +15919,19 @@ if (
 ) {
 
     uiSelectorLineaPrincipal =
-        "Semilla RL —";
+        "Plan inicial RL —";
 
 
     uiSelectorLineaSecundaria =
-        "GA refinado —";
+        "Mejora con GA —";
 
 
     uiSelectorLineaDetalle =
-        "Esperando refinamiento";
+        "Comparando alternativas";
 
 
     uiSelectorLineaResultado =
-        "Ejecutando RL → GA";
+        "Esperando resultado";
 
 
 } else {
@@ -16137,10 +16137,10 @@ uiSelectorAviso =
 
 if (esRLPuro) {
 
+    // El protocolo conserva POLITICA_UNICA para auditoría,
+    // pero el dashboard muestra el nombre comprensible del método.
     uiSelectorFuente =
-        fuente.isEmpty()
-        ? "POLITICA_UNICA"
-        : fuente.toUpperCase();
+        "RL";
 
 
     uiSelectorMotivo =
@@ -16167,24 +16167,30 @@ if (esRLPuro) {
 
 
     uiSelectorLineaPrincipal =
-        "Política RL | "
+        "Costo estimado | "
         + formatoCostoSelector(
             uiSelectorCostoRL
         );
 
 
     uiSelectorLineaSecundaria =
-        "Máscara temporal | "
+        "Restricciones horarias | "
         +
         (
-            mascaraTemporal.isEmpty()
-            ? "—"
-            : mascaraTemporal.toUpperCase()
+            "DURA".equalsIgnoreCase(
+                mascaraTemporal
+            )
+            ? "ACTIVAS"
+            : (
+                mascaraTemporal.isEmpty()
+                ? "—"
+                : mascaraTemporal.toUpperCase()
+            )
         );
 
 
     uiSelectorLineaDetalle =
-        "RL puro | sin Greedy";
+        "Plan generado por RL";
 
 
     long tardiosElegido =
@@ -16225,12 +16231,32 @@ if (esRLPuro) {
         );
 
 
-    uiSelectorLineaResultado =
-        "Resultado RL | "
-        + tardiosVisible
-        + "t | "
-        + tardanzaVisible
-        + "m";
+    if (
+        tardiosElegido == 0
+        &&
+        !Double.isNaN(
+            tardanzaElegida
+        )
+        &&
+        !Double.isInfinite(
+            tardanzaElegida
+        )
+        &&
+        tardanzaElegida <= 0.000001
+    ) {
+
+        uiSelectorLineaResultado =
+            "Resultado | Sin retrasos";
+
+    } else {
+
+        uiSelectorLineaResultado =
+            "Pedidos tardíos: "
+            + tardiosVisible
+            + " | Retraso: "
+            + tardanzaVisible
+            + " min";
+    }
 
 
     String erroresRL =
@@ -16249,7 +16275,7 @@ if (esRLPuro) {
     ) {
 
         uiSelectorAviso =
-            erroresRL;
+            "El plan RL finalizó con una advertencia.";
     }
 
 
@@ -16331,48 +16357,15 @@ if (esRLPuro) {
         : motivo.toUpperCase();
 
 
-    if (
-        "REFINADO_GA".equalsIgnoreCase(
-            resultado
-        )
-    ) {
-
-        uiSelectorFuente =
-            "GA";
-
-    } else if (
-        !fuenteRL.isEmpty()
-    ) {
-
-        uiSelectorFuente =
-            fuenteRL.toUpperCase();
-
-    } else if (
-        !algoritmo.isEmpty()
-    ) {
-
-        uiSelectorFuente =
-            algoritmo.toUpperCase();
-
-    } else {
-
-        uiSelectorFuente =
-            "RL";
-    }
+    // El resultado sigue auditando si GA refinó o se conservó RL,
+    // pero el modo visible para el usuario es HÍBRIDO.
+    uiSelectorFuente =
+        "HÍBRIDO";
 
 
     uiSelectorLineaPrincipal =
-        "Semilla "
-        +
-        (
-            fuenteRL.isEmpty()
-            ? "RL"
-            : fuenteRL.toUpperCase()
-        )
-        +
-        " | "
-        +
-        formatoCostoSelector(
+        "Plan inicial RL | "
+        + formatoCostoSelector(
             costoSemilla
         );
 
@@ -16394,15 +16387,14 @@ if (esRLPuro) {
 
 
     uiSelectorLineaSecundaria =
-        "GA refinado | "
-        +
-        (
-            refinamientoDisponible
-            ? formatoCostoSelector(
+        refinamientoDisponible
+        ? (
+            "Plan evaluado por GA | "
+            + formatoCostoSelector(
                 costoRefinado
             )
-            : "—"
-        );
+        )
+        : "Mejora con GA | No disponible";
 
 
     if (
@@ -16420,9 +16412,8 @@ if (esRLPuro) {
         uiSelectorLineaDetalle =
             String.format(
                 java.util.Locale.US,
-                "Mejora GA: %.2f %% | %d gen.",
-                mejoraPct,
-                generacionesGA
+                "Mejora del costo | %.2f %%",
+                mejoraPct
             );
 
     } else if (
@@ -16432,12 +16423,12 @@ if (esRLPuro) {
     ) {
 
         uiSelectorLineaDetalle =
-            "GA no ejecutable | se conserva RL";
+            "GA no pudo evaluar una mejora";
 
     } else {
 
         uiSelectorLineaDetalle =
-            "GA no mejoró la semilla RL";
+            "GA no encontró una mejora";
     }
 
 
@@ -16448,12 +16439,12 @@ if (esRLPuro) {
     ) {
 
         uiSelectorLineaResultado =
-            "Resultado: GA refinado";
+            "Resultado | GA mejoró el plan RL";
 
     } else {
 
         uiSelectorLineaResultado =
-            "Resultado: RL conservado";
+            "Resultado | Se conserva el plan RL";
     }
 
 
@@ -16473,7 +16464,7 @@ if (esRLPuro) {
     ) {
 
         uiSelectorAviso =
-            "GA: " + errorGA;
+            "La mejora con GA no pudo completarse.";
     }
 
 
@@ -16500,23 +16491,23 @@ if (esRLPuro) {
 
 
     uiSelectorLineaPrincipal =
-        "Costo del modo | "
+        "Costo estimado | "
         + formatoCostoSelector(
             uiSelectorCostoElegido
         );
 
 
     uiSelectorLineaSecundaria =
-        "Comparación no aplicable";
+        "Método aplicado | "
+        + uiSelectorFuente;
 
 
     uiSelectorLineaDetalle =
-        "Planificación directa";
+        "Plan generado directamente";
 
 
     uiSelectorLineaResultado =
-        "Resultado: "
-        + uiSelectorFuente;
+        "Resultado | Plan disponible";
 
 
     if (
@@ -16597,7 +16588,7 @@ if (esRLPuro) {
     if (avisoGA) {
 
         uiSelectorAviso =
-            "GA: " + errorGA;
+            "El método GA finalizó con una advertencia.";
     }
 
 
@@ -16613,7 +16604,7 @@ if (esRLPuro) {
 
 
         uiSelectorAviso +=
-            "RL: " + errorRL;
+            "El método RL finalizó con una advertencia.";
     }
 }
 
@@ -16768,17 +16759,25 @@ return String.format(
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>true</ShowLabel>
 					<Body><![CDATA[if (
-    Double.isNaN(uiSelectorTiempoMs)
-    || Double.isInfinite(uiSelectorTiempoMs)
+    Double.isNaN(
+        uiSelectorTiempoMs
+    )
+    ||
+    Double.isInfinite(
+        uiSelectorTiempoMs
+    )
 ) {
-    return "Tiempo: —";
+
+    return "Cálculo: —";
 }
+
 
 return String.format(
     java.util.Locale.US,
-    "Tiempo: %.2f ms",
+    "Cálculo: %.2f ms",
     uiSelectorTiempoMs
-);]]></Body>
+);
+]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
@@ -16876,16 +16875,26 @@ if (
     "RL".equals(
         uiSelectorFuente
     )
-    ||
-    "POLITICA_UNICA".equals(
-        uiSelectorFuente
-    )
 ) {
 
     return new java.awt.Color(
         16,
         185,
         129
+    );
+}
+
+
+if (
+    "HÍBRIDO".equals(
+        uiSelectorFuente
+    )
+) {
+
+    return new java.awt.Color(
+        79,
+        70,
+        229
     );
 }
 
@@ -21101,7 +21110,7 @@ try {
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
 					<Color>-12102553</Color>
-					<Text><![CDATA[Semilla]]></Text>
+					<Text><![CDATA[Semilla de simulación]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>10</Size>
@@ -21562,7 +21571,7 @@ mensajeFormulario =
 				<Text>
 					<Id>1787517232141</Id>
 					<Name><![CDATA[txtMarcaDashboard]]></Name>
-					<X>1435</X><Y>50</Y>
+					<X>1415</X><Y>50</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -21722,7 +21731,7 @@ mensajeFormulario =
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
 					<Color>-12102553</Color>
-					<Text><![CDATA[Modo solicitado]]></Text>
+					<Text><![CDATA[Método seleccionado]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>9</Size>
@@ -22010,10 +22019,13 @@ mensajeFormulario =
 					<Text><![CDATA[text]]></Text>
 					<TextCode><![CDATA[planActual == null
 ?
-"Sin plan cargado.\nAlgoritmo: -"
+"Sin plan disponible.\nMétodo aplicado: —"
 :
-"Plan disponible.\nAlgoritmo: "
-+ planActual.algoritmo]]></TextCode>
+(
+    "Plan disponible.\nMétodo aplicado: "
+    + planActual.algoritmo
+)
+]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>9</Size>
@@ -22081,8 +22093,14 @@ mensajeFormulario =
 					<Color>-14735049</Color>
 					<Text><![CDATA[text]]></Text>
 					<TextCode><![CDATA[planActual == null
-? "Algoritmo: -"
-: "Algoritmo: " + planActual.algoritmo]]></TextCode>
+?
+"Método aplicado: —"
+:
+(
+    "Método aplicado: "
+    + planActual.algoritmo
+)
+]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>9</Size>
@@ -22446,7 +22464,7 @@ String.format(
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
 					<Color>-12102295</Color>
-					<Text><![CDATA[DECISIÓN DEL SELECTOR]]></Text>
+					<Text><![CDATA[RESULTADO DE PLANIFICACIÓN]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>9</Size>
@@ -22537,14 +22555,15 @@ String.format(
 					<TextCode><![CDATA["PLAN LISTO CON AVISO".equals(
     uiSelectorEstado
 )
-? "LISTO C/AVISO"
+? "CON AVISO"
 : (
     "EN EJECUCIÓN".equals(
         uiSelectorEstado
     )
     ? "EJECUTANDO"
     : uiSelectorEstado
-)]]></TextCode>
+)
+]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>8</Size>
@@ -22566,17 +22585,35 @@ String.format(
 					<Rotation>0.0</Rotation>
 					<Color>-10193781</Color>
 					<Text><![CDATA[text]]></Text>
-					<TextCode><![CDATA["Modo: "
-+
-(
+					<TextCode><![CDATA["Método: "
++ (
     modoPlanificacionPypeline == null
+    ||
+    modoPlanificacionPypeline.trim().isEmpty()
     ? "—"
-    : modoPlanificacionPypeline
+    : (
+        "HIBRIDO".equalsIgnoreCase(
+            modoPlanificacionPypeline
+        )
+        ? "HÍBRIDO"
+        : modoPlanificacionPypeline
+    )
 )
-+
-" | Vial: "
-+
-cacheVialEstadoInterfaz]]></TextCode>
++ " | Rutas: "
++ (
+    cacheVialEstadoInterfaz == null
+    ||
+    cacheVialEstadoInterfaz.trim().isEmpty()
+    ? "—"
+    : (
+        "LISTA".equalsIgnoreCase(
+            cacheVialEstadoInterfaz
+        )
+        ? "disponibles"
+        : cacheVialEstadoInterfaz.toLowerCase()
+    )
+)
+]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>8</Size>
