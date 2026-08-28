@@ -1640,7 +1640,7 @@
 					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
 						<Type><![CDATA[String]]></Type>        
 						<InitialValue Class="CodeValue">
-							<Code><![CDATA["FULL —"]]></Code>
+							<Code><![CDATA["Comparación no aplicable"]]></Code>
 						</InitialValue>
 					</Properties>
 				</Variable>
@@ -14422,173 +14422,11 @@ return estado
     );]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
-					<ReturnModificator>VOID</ReturnModificator>
-					<ReturnType><![CDATA[double]]></ReturnType>
-					<Id>1787574032157</Id>
-					<Name><![CDATA[diagnosticarDistanciaVial]]></Name>
-					<X>-810</X><Y>2830</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<Parameter>
-						<Name><![CDATA[latOrigen]]></Name>
-						<Type><![CDATA[double]]></Type>
-					</Parameter>
-					<Parameter>
-						<Name><![CDATA[lonOrigen]]></Name>
-						<Type><![CDATA[double]]></Type>
-					</Parameter>
-					<Parameter>
-						<Name><![CDATA[latDestino]]></Name>
-						<Type><![CDATA[double]]></Type>
-					</Parameter>
-					<Parameter>
-						<Name><![CDATA[lonDestino]]></Name>
-						<Type><![CDATA[double]]></Type>
-					</Parameter>
-					<Body><![CDATA[double distanciaGeodesica =
-    calcularDistanciaHaversineMetros(
-        latOrigen,
-        lonOrigen,
-        latDestino,
-        lonDestino
-    );
-
-
-double distanciaAjustadaActual =
-    distanciaGeodesica
-    * TRAFICO_FACTOR_URBANO_DISTANCIA;
-
-
-try {
-
-    double distanciaVial =
-        mapaGIS.getDistanceByRoute(
-            latOrigen,
-            lonOrigen,
-            latDestino,
-            lonDestino
-        );
-
-
-    traceln(
-        "================================"
-    );
-
-    traceln(
-        "=== DIAGNÓSTICO RUTA VIAL ====="
-    );
-
-    traceln(
-        "================================"
-    );
-
-    traceln(
-        "Origen: "
-        + latOrigen
-        + ", "
-        + lonOrigen
-    );
-
-    traceln(
-        "Destino: "
-        + latDestino
-        + ", "
-        + lonDestino
-    );
-
-    traceln(
-        "Distancia Haversine: "
-        + String.format(
-            java.util.Locale.US,
-            "%.2f",
-            distanciaGeodesica
-        )
-        + " m"
-    );
-
-    traceln(
-        "Distancia actual ajustada: "
-        + String.format(
-            java.util.Locale.US,
-            "%.2f",
-            distanciaAjustadaActual
-        )
-        + " m"
-    );
-
-    if (
-        Double.isFinite(
-            distanciaVial
-        )
-        &&
-        distanciaVial > 0.0
-    ) {
-
-        traceln(
-            "Distancia vial: "
-            + String.format(
-                java.util.Locale.US,
-                "%.2f",
-                distanciaVial
-            )
-            + " m"
-        );
-
-
-        traceln(
-            "Factor vial/Haversine: "
-            + String.format(
-                java.util.Locale.US,
-                "%.4f",
-                distanciaVial
-                / distanciaGeodesica
-            )
-        );
-
-
-        traceln(
-            "Diferencia vial vs actual: "
-            + String.format(
-                java.util.Locale.US,
-                "%.2f",
-                distanciaVial
-                - distanciaAjustadaActual
-            )
-            + " m"
-        );
-
-    } else {
-
-        traceln(
-            "No se obtuvo una distancia vial válida."
-        );
-    }
-
-
-    traceln(
-        "================================"
-    );
-
-} catch (
-    Exception excepcion
-) {
-
-    traceln(
-        "ERROR AL CONSULTAR DISTANCIA VIAL: "
-        + excepcion.getClass().getSimpleName()
-        + " | "
-        + excepcion.getMessage()
-    );
-}]]></Body>
-				</Function>
-				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
 					<ReturnType><![CDATA[boolean]]></ReturnType>
 					<Id>1787578289378</Id>
 					<Name><![CDATA[exportarCacheVialInstanciaActual]]></Name>
-					<X>-810</X><Y>2860</Y>
+					<X>-810</X><Y>2830</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -15431,7 +15269,7 @@ try {
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1787586633994</Id>
 					<Name><![CDATA[limpiarRutaActivaCamionGIS]]></Name>
-					<X>-810</X><Y>2890</Y>
+					<X>-810</X><Y>2860</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -15533,7 +15371,7 @@ traceln(
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1787586663225</Id>
 					<Name><![CDATA[mostrarViajeActivoCamionGIS]]></Name>
-					<X>-810</X><Y>2920</Y>
+					<X>-810</X><Y>2890</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -15830,7 +15668,7 @@ try {
 					<ReturnType><![CDATA[String]]></ReturnType>
 					<Id>1787598691463</Id>
 					<Name><![CDATA[campoDecisionSelector]]></Name>
-					<X>-810</X><Y>2950</Y>
+					<X>-810</X><Y>2920</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -15893,7 +15731,7 @@ return "";]]></Body>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1787598720614</Id>
 					<Name><![CDATA[numeroDecisionSelector]]></Name>
-					<X>-810</X><Y>2980</Y>
+					<X>-810</X><Y>2950</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -15934,7 +15772,7 @@ try {
 					<ReturnType><![CDATA[long]]></ReturnType>
 					<Id>1787598754878</Id>
 					<Name><![CDATA[longDecisionSelector]]></Name>
-					<X>-810</X><Y>3010</Y>
+					<X>-810</X><Y>2980</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -15975,7 +15813,7 @@ try {
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1787598783253</Id>
 					<Name><![CDATA[reiniciarPanelSelectorVisual]]></Name>
-					<X>-810</X><Y>3040</Y>
+					<X>-810</X><Y>3010</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -16122,7 +15960,7 @@ actualizarColoresSelectorVisual();]]></Body>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1787598804926</Id>
 					<Name><![CDATA[registrarDecisionSelectorVisual]]></Name>
-					<X>-810</X><Y>3070</Y>
+					<X>-810</X><Y>3040</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -16797,7 +16635,7 @@ actualizarColoresSelectorVisual();]]></Body>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1787598824903</Id>
 					<Name><![CDATA[marcarSelectorEnEjecucionVisual]]></Name>
-					<X>-810</X><Y>3100</Y>
+					<X>-810</X><Y>3070</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -16813,7 +16651,7 @@ actualizarColoresSelectorVisual();]]></Body>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1787598837550</Id>
 					<Name><![CDATA[marcarSelectorFinalizadoVisual]]></Name>
-					<X>-810</X><Y>3130</Y>
+					<X>-810</X><Y>3100</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -16829,7 +16667,7 @@ actualizarColoresSelectorVisual();]]></Body>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1787598847063</Id>
 					<Name><![CDATA[marcarSelectorErrorVisual]]></Name>
-					<X>-810</X><Y>3160</Y>
+					<X>-810</X><Y>3130</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -16856,7 +16694,7 @@ actualizarColoresSelectorVisual();]]></Body>
 					<ReturnType><![CDATA[String]]></ReturnType>
 					<Id>1787598867562</Id>
 					<Name><![CDATA[formatoCostoSelector]]></Name>
-					<X>-810</X><Y>3190</Y>
+					<X>-810</X><Y>3160</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -16883,7 +16721,7 @@ return String.format(
 					<ReturnType><![CDATA[String]]></ReturnType>
 					<Id>1787598885734</Id>
 					<Name><![CDATA[textoMejoraSelector]]></Name>
-					<X>-810</X><Y>3220</Y>
+					<X>-810</X><Y>3190</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -16924,7 +16762,7 @@ return String.format(
 					<ReturnType><![CDATA[String]]></ReturnType>
 					<Id>1787598898527</Id>
 					<Name><![CDATA[textoTiempoSelector]]></Name>
-					<X>-810</X><Y>3250</Y>
+					<X>-810</X><Y>3220</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -16947,7 +16785,7 @@ return String.format(
 					<ReturnType><![CDATA[String]]></ReturnType>
 					<Id>1787598911264</Id>
 					<Name><![CDATA[textoMotivoSelector]]></Name>
-					<X>-810</X><Y>3280</Y>
+					<X>-810</X><Y>3250</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -17001,7 +16839,7 @@ return uiSelectorMotivo.replace(
 					<ReturnType><![CDATA[java.awt.Color]]></ReturnType>
 					<Id>1787598925703</Id>
 					<Name><![CDATA[colorFuenteSelector]]></Name>
-					<X>-810</X><Y>3310</Y>
+					<X>-810</X><Y>3280</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -17077,7 +16915,7 @@ return new java.awt.Color(
 					<ReturnType><![CDATA[java.awt.Color]]></ReturnType>
 					<Id>1787598952895</Id>
 					<Name><![CDATA[colorEstadoSelector]]></Name>
-					<X>-810</X><Y>3340</Y>
+					<X>-810</X><Y>3310</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -17147,7 +16985,7 @@ return new java.awt.Color(
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1787602030699</Id>
 					<Name><![CDATA[actualizarColoresSelectorVisual]]></Name>
-					<X>-810</X><Y>3370</Y>
+					<X>-810</X><Y>3340</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -17399,7 +17237,7 @@ txtPieSelectorVisual.setColor(
 					<ReturnType><![CDATA[String]]></ReturnType>
 					<Id>1787861058276</Id>
 					<Name><![CDATA[formatearHoraFormulario]]></Name>
-					<X>-810</X><Y>3400</Y>
+					<X>-810</X><Y>3370</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -17432,7 +17270,7 @@ return String.format(
 					<ReturnType><![CDATA[int]]></ReturnType>
 					<Id>1787861083489</Id>
 					<Name><![CDATA[parsearHoraFormulario]]></Name>
-					<X>-810</X><Y>3430</Y>
+					<X>-810</X><Y>3400</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -17517,7 +17355,7 @@ return hora * 60 + minuto;]]></Body>
 					<ReturnType><![CDATA[String]]></ReturnType>
 					<Id>1787861235713</Id>
 					<Name><![CDATA[decodificarCampoImportacionExcel]]></Name>
-					<X>-810</X><Y>3460</Y>
+					<X>-810</X><Y>3430</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -17547,7 +17385,7 @@ return hora * 60 + minuto;]]></Body>
 					<ReturnType><![CDATA[java.io.File]]></ReturnType>
 					<Id>1787861255017</Id>
 					<Name><![CDATA[seleccionarArchivoPedidosExcel]]></Name>
-					<X>-810</X><Y>3490</Y>
+					<X>-810</X><Y>3460</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -17614,7 +17452,7 @@ try {
 					<ReturnType><![CDATA[boolean]]></ReturnType>
 					<Id>1787861273624</Id>
 					<Name><![CDATA[importarPedidosExcel]]></Name>
-					<X>-810</X><Y>3520</Y>
+					<X>-810</X><Y>3490</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -18099,7 +17937,7 @@ try {
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1787862666671</Id>
 					<Name><![CDATA[intentarFinalizarEjecucion]]></Name>
-					<X>-810</X><Y>3550</Y>
+					<X>-810</X><Y>3520</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -18286,7 +18124,7 @@ if (
 					<ReturnType><![CDATA[boolean]]></ReturnType>
 					<Id>1787863599500</Id>
 					<Name><![CDATA[verificarCacheVialInstanciaActual]]></Name>
-					<X>-810</X><Y>3580</Y>
+					<X>-810</X><Y>3550</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -18647,7 +18485,7 @@ try {
 					<ReturnType><![CDATA[String]]></ReturnType>
 					<Id>1787864569015</Id>
 					<Name><![CDATA[textoLimpioFormulario]]></Name>
-					<X>-810</X><Y>3610</Y>
+					<X>-810</X><Y>3580</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -18665,7 +18503,7 @@ try {
 					<ReturnType><![CDATA[int]]></ReturnType>
 					<Id>1787864597120</Id>
 					<Name><![CDATA[parsearEnteroPositivoFormulario]]></Name>
-					<X>-810</X><Y>3640</Y>
+					<X>-810</X><Y>3610</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -18738,7 +18576,7 @@ return resultado;]]></Body>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1787864624416</Id>
 					<Name><![CDATA[parsearDecimalFormulario]]></Name>
-					<X>-810</X><Y>3670</Y>
+					<X>-810</X><Y>3640</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -18811,7 +18649,7 @@ return resultado;]]></Body>
 					<ReturnType><![CDATA[java.awt.Color]]></ReturnType>
 					<Id>1787864649912</Id>
 					<Name><![CDATA[colorMensajeFormulario]]></Name>
-					<X>-810</X><Y>3700</Y>
+					<X>-810</X><Y>3670</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -18881,7 +18719,7 @@ return new java.awt.Color(
 					<ReturnType><![CDATA[String]]></ReturnType>
 					<Id>1787864834583</Id>
 					<Name><![CDATA[abreviarTextoDashboard]]></Name>
-					<X>-810</X><Y>3730</Y>
+					<X>-810</X><Y>3700</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -18926,7 +18764,7 @@ return texto.substring(
 					<ReturnType><![CDATA[String]]></ReturnType>
 					<Id>1787864860247</Id>
 					<Name><![CDATA[detalleCamionDashboard]]></Name>
-					<X>-810</X><Y>3760</Y>
+					<X>-810</X><Y>3730</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -26807,7 +26645,7 @@ public class TrabajadorRuntime implements Serializable {
 	// -1 significa que no está cargando ningún camión.
 	public int cargandoCamionId = -1;
 
-	// Lo utilizaremos en Fase 4C.
+	// Indica si un proveedor ocupa temporalmente el recurso de carga.
 	public boolean ocupadoProveedor = false;
 
 
