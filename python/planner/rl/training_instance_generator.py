@@ -10,7 +10,7 @@ from planner.rl.instance_generator import GeneradorInstanciasRL
 
 
 @dataclass(frozen=True)
-class ConfiguracionGeneradorTemporalV4:
+class ConfiguracionGeneradorPoliticaRL:
     probabilidad_patron_ventanas_conflictivas: float = 0.75
     unidades_por_pedido_patron: int = 2
 
@@ -24,26 +24,26 @@ class ConfiguracionGeneradorTemporalV4:
             raise ValueError("unidades_por_pedido_patron debe ser > 0.")
 
 
-class GeneradorV4Protocol(Protocol):
+class GeneradorInstanciasProtocol(Protocol):
     def generar(self, seed: int) -> InstanciaTurno:
         ...
 
 
-class GeneradorInstanciasTemporalV4RL:
-    """Genera el patrón temprano/medio/tardío identificado como v4."""
+class GeneradorInstanciasPoliticaRL:
+    """Genera el patrón conflictivo temprano/medio/tardío."""
 
-    MARCA_PATRON = "PATRON_TEMPORAL_CONFLICTIVO_V4"
+    MARCA_PATRON = "PATRON_CONFLICTIVO_POLITICA_RL"
 
     def __init__(
         self,
         generador_base: GeneradorInstanciasRL,
-        configuracion: ConfiguracionGeneradorTemporalV4 | None = None,
+        configuracion: ConfiguracionGeneradorPoliticaRL | None = None,
     ) -> None:
         self.generador_base = generador_base
         self.configuracion = (
             configuracion
             if configuracion is not None
-            else ConfiguracionGeneradorTemporalV4()
+            else ConfiguracionGeneradorPoliticaRL()
         )
 
     def generar(self, seed: int) -> InstanciaTurno:
@@ -141,14 +141,14 @@ class GeneradorInstanciasTemporalV4RL:
 
         instancia_temporal = replace(
             instancia,
-            instancia_id=f"{instancia.instancia_id}-TEMPORAL-V4",
+            instancia_id=f"{instancia.instancia_id}-POLITICA-RL",
             pedidos=pedidos_nuevos,
         )
         errores = validar_instancia(instancia_temporal)
 
         if errores:
             raise RuntimeError(
-                "El generador temporal v4 produjo una instancia inválida: "
+                "El generador de la política RL produjo una instancia inválida: "
                 + " | ".join(errores)
             )
 
@@ -164,13 +164,13 @@ class GeneradorInstanciasTemporalV4RL:
         return delta_lat * delta_lat + delta_lon * delta_lon
 
 
-class GeneradorMixtoTemporalV4RL:
+class GeneradorMixtoPoliticaRL:
     """Mezcla la etapa actual con replay de casos temporales básicos."""
 
     def __init__(
         self,
-        generador_actual: GeneradorV4Protocol,
-        generador_core: GeneradorV4Protocol,
+        generador_actual: GeneradorInstanciasProtocol,
+        generador_core: GeneradorInstanciasProtocol,
         probabilidad_replay_core: float,
     ) -> None:
         if not 0.0 <= probabilidad_replay_core <= 1.0:

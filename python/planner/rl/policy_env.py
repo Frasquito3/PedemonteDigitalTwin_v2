@@ -6,30 +6,30 @@ import numpy as np
 
 from planner.core.config import ConfiguracionPlanificacion
 from planner.core.schema import InstanciaTurno
-from planner.rl.rl_env import PedemontePlanEnv
-from planner.rl.rl_reward import ConfiguracionRewardRL
-from planner.rl.policy_config import ConfiguracionTemporalV4RL
-from planner.rl.temporal_estimator import (
+from planner.rl.base_env import PedemontePlanEnv
+from planner.rl.reward import ConfiguracionRewardRL
+from planner.rl.policy_config import ConfiguracionPoliticaRL
+from planner.rl.schedule_estimator import (
     ResumenTemporalPrefijo,
     analizar_prefijo_temporal,
 )
 from planner.rl.policy_estimator import (
-    ConsecuenciaTemporalAccionV4,
-    ResultadoArrepentimientoLocalV4,
-    calcular_arrepentimiento_local_v4,
-    calcular_reward_terminal_v4,
-    proyectar_consecuencias_segundo_orden_v4,
-    seleccionar_mejor_consecuencia_v4,
+    ConsecuenciaAccionRL,
+    ResultadoArrepentimientoLocal,
+    calcular_arrepentimiento_local,
+    calcular_reward_terminal,
+    proyectar_consecuencias_segundo_orden,
+    seleccionar_mejor_consecuencia,
 )
 from planner.routing.travel import ProveedorViaje
 
 
-class PedemonteTemporalV4PlanEnv(PedemontePlanEnv):
-    """Entorno v4 con consecuencias de segundo orden y reward jerárquico."""
+class EntornoPlanificacionRL(PedemontePlanEnv):
+    """Entorno productivo con consecuencias de segundo orden y reward jerárquico."""
 
     FEATURES_POR_PEDIDO = 23
     FEATURES_GLOBALES = 12
-    VERSION_ENTORNO = "pedemonte-rl-temporal-v4"
+    VERSION_ENTORNO = "pedemonte-rl-policy"
 
     def __init__(
         self,
@@ -39,22 +39,22 @@ class PedemonteTemporalV4PlanEnv(PedemontePlanEnv):
         max_pedidos: int = 30,
         escala_reward: float = 100.0,
         configuracion_reward: ConfiguracionRewardRL | None = None,
-        configuracion_temporal: ConfiguracionTemporalV4RL | None = None,
+        configuracion_temporal: ConfiguracionPoliticaRL | None = None,
         penalizacion_accion_invalida: float = 1.0,
         max_acciones_invalidas: int = 10,
     ) -> None:
-        self.configuracion_temporal_v4 = (
+        self.configuracion_politica = (
             configuracion_temporal
             if configuracion_temporal is not None
-            else ConfiguracionTemporalV4RL()
+            else ConfiguracionPoliticaRL()
         )
-        self._cache_prefijo_v4: tuple[str, ...] | None = None
-        self._cache_resumen_v4: ResumenTemporalPrefijo | None = None
-        self._cache_consecuencias_v4: (
-            dict[str, ConsecuenciaTemporalAccionV4] | None
+        self._cache_prefijo: tuple[str, ...] | None = None
+        self._cache_resumen: ResumenTemporalPrefijo | None = None
+        self._cache_consecuencias: (
+            dict[str, ConsecuenciaAccionRL] | None
         ) = None
-        self._cache_arrepentimientos_v4: (
-            dict[str, ResultadoArrepentimientoLocalV4] | None
+        self._cache_arrepentimientos: (
+            dict[str, ResultadoArrepentimientoLocal] | None
         ) = None
 
         super().__init__(
@@ -68,15 +68,15 @@ class PedemonteTemporalV4PlanEnv(PedemontePlanEnv):
             max_acciones_invalidas=max_acciones_invalidas,
         )
 
-    def _invalidar_cache_v4(self) -> None:
-        self._cache_prefijo_v4 = None
-        self._cache_resumen_v4 = None
-        self._cache_consecuencias_v4 = None
-        self._cache_arrepentimientos_v4 = None
+    def _invalidar_cache(self) -> None:
+        self._cache_prefijo = None
+        self._cache_resumen = None
+        self._cache_consecuencias = None
+        self._cache_arrepentimientos = None
 
     def _reiniciar_estado(self) -> None:
         super()._reiniciar_estado()
-        self._invalidar_cache_v4()
+        self._invalidar_cache()
 
     def _aplicar_pedido_a_estado_parcial(
         self,
@@ -89,27 +89,27 @@ class PedemonteTemporalV4PlanEnv(PedemontePlanEnv):
             unidades=unidades,
             requiere_volcador=requiere_volcador,
         )
-        self._invalidar_cache_v4()
+        self._invalidar_cache()
 
-    def _obtener_estado_v4(
+    def _obtener_estado(
         self,
     ) -> tuple[
         ResumenTemporalPrefijo,
-        dict[str, ConsecuenciaTemporalAccionV4],
-        dict[str, ResultadoArrepentimientoLocalV4],
+        dict[str, ConsecuenciaAccionRL],
+        dict[str, ResultadoArrepentimientoLocal],
     ]:
         prefijo = tuple(self._permutacion)
 
         if (
-            self._cache_prefijo_v4 == prefijo
-            and self._cache_resumen_v4 is not None
-            and self._cache_consecuencias_v4 is not None
-            and self._cache_arrepentimientos_v4 is not None
+            self._cache_prefijo == prefijo
+            and self._cache_resumen is not None
+            and self._cache_consecuencias is not None
+            and self._cache_arrepentimientos is not None
         ):
             return (
-                self._cache_resumen_v4,
-                self._cache_consecuencias_v4,
-                self._cache_arrepentimientos_v4,
+                self._cache_resumen,
+                self._cache_consecuencias,
+                self._cache_arrepentimientos,
             )
 
         resumen = analizar_prefijo_temporal(
@@ -118,48 +118,48 @@ class PedemonteTemporalV4PlanEnv(PedemontePlanEnv):
             self.configuracion,
             prefijo,
         )
-        consecuencias = proyectar_consecuencias_segundo_orden_v4(
+        consecuencias = proyectar_consecuencias_segundo_orden(
             self.instancia,
             self.matriz,
             self.configuracion,
             prefijo,
         )
         arrepentimientos = {
-            pedido_id: calcular_arrepentimiento_local_v4(
+            pedido_id: calcular_arrepentimiento_local(
                 consecuencias,
                 pedido_id,
-                self.configuracion_temporal_v4,
+                self.configuracion_politica,
             )
             for pedido_id in consecuencias
         }
 
-        self._cache_prefijo_v4 = prefijo
-        self._cache_resumen_v4 = resumen
-        self._cache_consecuencias_v4 = consecuencias
-        self._cache_arrepentimientos_v4 = arrepentimientos
+        self._cache_prefijo = prefijo
+        self._cache_resumen = resumen
+        self._cache_consecuencias = consecuencias
+        self._cache_arrepentimientos = arrepentimientos
 
         return resumen, consecuencias, arrepentimientos
 
     @property
     def resumen_temporal_actual(self) -> ResumenTemporalPrefijo:
-        return self._obtener_estado_v4()[0]
+        return self._obtener_estado()[0]
 
     @property
     def consecuencias_temporales_actuales(
         self,
-    ) -> dict[str, ConsecuenciaTemporalAccionV4]:
-        return dict(self._obtener_estado_v4()[1])
+    ) -> dict[str, ConsecuenciaAccionRL]:
+        return dict(self._obtener_estado()[1])
 
     def action_masks(self) -> np.ndarray:
         mascara = super().action_masks()
 
         if (
-            not self.configuracion_temporal_v4.usar_mascara_temporal_dura
+            not self.configuracion_politica.usar_mascara_temporal_dura
             or self._episodio_finalizado
         ):
             return mascara
 
-        _, consecuencias, _ = self._obtener_estado_v4()
+        _, consecuencias, _ = self._obtener_estado()
         indices_validos = [
             indice
             for indice in range(self.cantidad_pedidos)
@@ -193,14 +193,14 @@ class PedemonteTemporalV4PlanEnv(PedemontePlanEnv):
     ) -> tuple[np.ndarray, float, bool, bool, dict[str, Any]]:
         accion = int(action)
         mascara_antes = self.action_masks()
-        resultado_local: ResultadoArrepentimientoLocalV4 | None = None
+        resultado_local: ResultadoArrepentimientoLocal | None = None
 
         if (
             0 <= accion < self.cantidad_pedidos
             and bool(mascara_antes[accion])
         ):
             pedido_id = self.pedidos[accion].pedido_id
-            _, _, arrepentimientos = self._obtener_estado_v4()
+            _, _, arrepentimientos = self._obtener_estado()
             resultado_local = arrepentimientos[pedido_id]
 
         (
@@ -220,17 +220,17 @@ class PedemonteTemporalV4PlanEnv(PedemontePlanEnv):
                 "No se calculó el arrepentimiento de una acción válida."
             )
 
-        resumen_despues, _, _ = self._obtener_estado_v4()
+        resumen_despues, _, _ = self._obtener_estado()
         reward_terminal = 0.0
         componente_factibilidad = 0.0
         componente_costo = 0.0
         factible_terminal: bool | None = None
 
         if terminado:
-            terminal = calcular_reward_terminal_v4(
+            terminal = calcular_reward_terminal(
                 resumen_despues,
                 float(reward_base),
-                self.configuracion_temporal_v4,
+                self.configuracion_politica,
             )
             reward_terminal = terminal.reward_terminal_total
             componente_factibilidad = terminal.componente_factibilidad
@@ -255,7 +255,7 @@ class PedemonteTemporalV4PlanEnv(PedemontePlanEnv):
                 "accion_elegida_es_mejor_local": (
                     resultado_local.es_mejor_accion
                 ),
-                "reward_terminal_v4": reward_terminal,
+                "reward_terminal": reward_terminal,
                 "componente_terminal_factibilidad": (
                     componente_factibilidad
                 ),
@@ -273,7 +273,7 @@ class PedemonteTemporalV4PlanEnv(PedemontePlanEnv):
 
     def _construir_observacion(self) -> np.ndarray:
         observacion = super()._construir_observacion()
-        resumen, consecuencias, arrepentimientos = self._obtener_estado_v4()
+        resumen, consecuencias, arrepentimientos = self._obtener_estado()
 
         horizonte = max(
             1.0,
@@ -330,18 +330,18 @@ class PedemonteTemporalV4PlanEnv(PedemontePlanEnv):
             )
             observacion[base + 17] = float(
                 consecuencia.perdida_holgura_total_min
-                / self.configuracion_temporal_v4.escala_perdida_holgura_min
+                / self.configuracion_politica.escala_perdida_holgura_min
             )
             observacion[base + 18] = float(
                 max(0.0, consecuencia.holgura_minima_final_min) / horizonte
             )
             observacion[base + 19] = float(
                 consecuencia.espera_apertura_total_final_min
-                / self.configuracion_temporal_v4.escala_espera_min
+                / self.configuracion_politica.escala_espera_min
             )
             observacion[base + 20] = float(
                 consecuencia.duracion_operacion_final_min
-                / self.configuracion_temporal_v4.escala_duracion_min
+                / self.configuracion_politica.escala_duracion_min
             )
             observacion[base + 21] = float(
                 arrepentimiento.arrepentimiento_normalizado
@@ -365,7 +365,7 @@ class PedemonteTemporalV4PlanEnv(PedemontePlanEnv):
         )
 
         if consecuencias:
-            mejor = seleccionar_mejor_consecuencia_v4(consecuencias)
+            mejor = seleccionar_mejor_consecuencia(consecuencias)
             sin_riesgo = sum(
                 1
                 for consecuencia in consecuencias.values()

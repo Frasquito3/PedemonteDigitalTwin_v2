@@ -11,12 +11,12 @@ from typing import Protocol
 from planner.core.config import ConfiguracionPlanificacion
 from planner.core.schema import InstanciaTurno, PlanTurno
 from planner.domain.validator import validar_plan
-from planner.rl.policy_config import ConfiguracionTemporalV4RL
+from planner.rl.policy_config import ConfiguracionPoliticaRL
 from planner.routing.objective import EstimacionPlan, evaluar_plan_estimado
 from planner.routing.travel import ProveedorViaje, construir_matriz_viaje
 
 
-VERSION_OPERACIONAL = "pedemonte-rl-single-policy-v1"
+VERSION_RUNTIME = "pedemonte-rl-single-policy-v1"
 FUENTE_RL_UNICA = "POLITICA_UNICA"
 TOLERANCIA = 1e-9
 
@@ -53,7 +53,7 @@ class DecisionOperacionRL:
     def serializar(self) -> str:
         mascara = "DURA" if self.mascara_temporal_dura else "NORMAL"
         return (
-            f"version={VERSION_OPERACIONAL}"
+            f"version={VERSION_RUNTIME}"
             f"|arquitectura=RL_PURO_POLITICA_UNICA"
             f"|pedidos={self.cantidad_pedidos}"
             f"|fuente={self.fuente_seleccionada}"
@@ -92,10 +92,10 @@ def cargar_configuracion_operacional(
 
     datos = loads(manifest.read_text(encoding="utf-8"))
     version = str(datos.get("version", ""))
-    if version != VERSION_OPERACIONAL:
+    if version != VERSION_RUNTIME:
         raise ValueError(
             "Versión de manifiesto RL no soportada: "
-            f"{version!r}. Esperada: {VERSION_OPERACIONAL!r}."
+            f"{version!r}. Esperada: {VERSION_RUNTIME!r}."
         )
 
     modelo = _resolver_ruta(manifest.parent, str(datos["modelo"]))
@@ -125,7 +125,7 @@ def cargar_configuracion_operacional(
     )
 
 
-class RLPolicyOperationalPlanner:
+class PlanificadorOperativoRL:
     """
     Planificador RL productivo con una única política.
 
@@ -166,13 +166,13 @@ class RLPolicyOperationalPlanner:
         self.configuracion_operacional = configuracion_operacional
 
         if planner_rl is None:
-            from planner.rl.policy_planner import RLTemporalV4Planner
+            from planner.rl.policy_planner import PlanificadorPoliticaRL
 
-            planner_rl = RLTemporalV4Planner(
+            planner_rl = PlanificadorPoliticaRL(
                 model_path=configuracion_operacional.modelo,
                 configuracion=self.configuracion,
                 proveedor_viaje=self.proveedor_viaje,
-                configuracion_temporal=ConfiguracionTemporalV4RL(
+                configuracion_temporal=ConfiguracionPoliticaRL(
                     usar_mascara_temporal_dura=(
                         configuracion_operacional
                         .usar_mascara_temporal_dura

@@ -2,7 +2,7 @@ from __future__ import annotations
 import unittest
 from planner.core.config import ConfiguracionPlanificacion
 from planner.core.schema import AlgoritmoPlanificacion, InstanciaTurno, PedidoInput, PlanCamion, PlanTurno, Turno, ViajePlan
-from planner.routing.operational import ReservaEmpleadosCorralon, simular_plan_operativo_estimado, tiempo_carga_estimado_min
+from planner.routing.operations import ReservaEmpleadosCorralon, simular_plan_operativo_estimado, tiempo_carga_estimado_min
 from planner.routing.travel import FuenteMatrizViaje, MatrizViaje
 
 class LoadingResourceEstimationTest(unittest.TestCase):

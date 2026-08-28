@@ -13,20 +13,20 @@ from planner.core.base import PlanificadorTurno
 from planner.core.config import ConfiguracionPlanificacion
 from planner.core.schema import InstanciaTurno, PlanTurno
 from planner.domain.validator import validar_plan
-from planner.rl.policy_config import ConfiguracionTemporalV4RL
-from planner.rl.policy_env import PedemonteTemporalV4PlanEnv
+from planner.rl.policy_config import ConfiguracionPoliticaRL
+from planner.rl.policy_env import EntornoPlanificacionRL
 from planner.routing.travel import ProveedorViaje
 
 
-class RLTemporalV4Planner(PlanificadorTurno):
-    VERSION_PLANIFICADOR = "RL_TEMPORAL_V4"
+class PlanificadorPoliticaRL(PlanificadorTurno):
+    VERSION_PLANIFICADOR = "RL_POLITICA"
 
     def __init__(
         self,
         model_path: str | Path,
         configuracion: ConfiguracionPlanificacion | None = None,
         proveedor_viaje: ProveedorViaje | None = None,
-        configuracion_temporal: ConfiguracionTemporalV4RL | None = None,
+        configuracion_temporal: ConfiguracionPoliticaRL | None = None,
         max_pedidos: int = 30,
         deterministic: bool = True,
     ) -> None:
@@ -34,7 +34,7 @@ class RLTemporalV4Planner(PlanificadorTurno):
 
         if not self.model_path.exists():
             raise FileNotFoundError(
-                "No existe el modelo RL temporal v4: "
+                "No existe el modelo RL de la política RL: "
                 f"{self.model_path}"
             )
 
@@ -47,7 +47,7 @@ class RLTemporalV4Planner(PlanificadorTurno):
         self.configuracion_temporal = (
             configuracion_temporal
             if configuracion_temporal is not None
-            else ConfiguracionTemporalV4RL()
+            else ConfiguracionPoliticaRL()
         )
         self.max_pedidos = max_pedidos
         self.deterministic = deterministic
@@ -57,7 +57,7 @@ class RLTemporalV4Planner(PlanificadorTurno):
 
     def generar_plan(self, instancia: InstanciaTurno) -> PlanTurno:
         inicio_computo = perf_counter()
-        env = PedemonteTemporalV4PlanEnv(
+        env = EntornoPlanificacionRL(
             instancia=instancia,
             configuracion=self.configuracion,
             proveedor_viaje=self.proveedor_viaje,
@@ -76,7 +76,7 @@ class RLTemporalV4Planner(PlanificadorTurno):
             if forma_modelo != forma_entorno:
                 raise RuntimeError(
                     "El modelo no es compatible con el entorno temporal "
-                    f"v4. Observación modelo={forma_modelo}, "
+                    f"actual. Observación modelo={forma_modelo}, "
                     f"entorno={forma_entorno}."
                 )
 
@@ -103,20 +103,20 @@ class RLTemporalV4Planner(PlanificadorTurno):
 
                 if truncado:
                     raise RuntimeError(
-                        "La política RL temporal v4 produjo un episodio "
+                        "La política RL de la política RL produjo un episodio "
                         "truncado."
                     )
 
             plan = env.ultimo_plan
             if plan is None:
                 raise RuntimeError(
-                    "El entorno temporal v4 finalizó sin producir un plan."
+                    "El entorno de la política RL finalizó sin producir un plan."
                 )
 
             validacion = validar_plan(instancia, plan)
             if not validacion.valido:
                 raise RuntimeError(
-                    "La política RL temporal v4 produjo un plan inválido: "
+                    "La política RL de la política RL produjo un plan inválido: "
                     + " | ".join(validacion.errores)
                 )
 

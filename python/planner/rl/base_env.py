@@ -23,7 +23,7 @@ from planner.routing.objective import (
     evaluar_plan_estimado,
 )
 
-from planner.rl.rl_reward import (
+from planner.rl.reward import (
     ConfiguracionRewardRL,
     ModoRewardRL,
 )
@@ -138,7 +138,7 @@ class PedemontePlanEnv(
         )
 
         # Compatibilidad con los tests y scripts
-        # desarrollados durante la Fase 9A.
+        # requeridos por la codificación estable del entorno.
         self.escala_reward = (
             self.configuracion_reward
             .escala_absoluta

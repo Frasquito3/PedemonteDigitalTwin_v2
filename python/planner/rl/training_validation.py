@@ -7,14 +7,14 @@ from typing import Any, Iterable
 import numpy as np
 
 from planner.core.schema import InstanciaTurno
-from planner.rl.rl_reward import ConfiguracionRewardRL, ModoRewardRL
-from planner.rl.policy_config import ConfiguracionTemporalV4RL
-from planner.rl.policy_env import PedemonteTemporalV4PlanEnv
+from planner.rl.reward import ConfiguracionRewardRL, ModoRewardRL
+from planner.rl.policy_config import ConfiguracionPoliticaRL
+from planner.rl.policy_env import EntornoPlanificacionRL
 from planner.routing.travel import ProveedorViaje
 
 
 @dataclass(frozen=True)
-class ResultadoCasoValidacionV4:
+class ResultadoCasoValidacionRL:
     caso_id: str
     pedidos_tardios: int
     tardanza_total_min: float
@@ -29,7 +29,7 @@ class ResultadoCasoValidacionV4:
 
 
 @dataclass(frozen=True)
-class ResumenValidacionExternaV4:
+class ResumenValidacionExternaRL:
     timestep: int
     b04_pedidos_tardios: int
     b04_tardanza_min: float
@@ -40,28 +40,28 @@ class ResumenValidacionExternaV4:
     tardanza_sintetica_total_min: float
     tardanza_sintetica_mediana_min: float
     gap_costo_mediano_vs_greedy_pct: float
-    casos: tuple[ResultadoCasoValidacionV4, ...]
+    casos: tuple[ResultadoCasoValidacionRL, ...]
 
     def como_dict(self) -> dict[str, Any]:
         contenido = asdict(self)
         contenido["clave_seleccion"] = list(
-            clave_seleccion_externa_v4(self)
+            clave_seleccion_externa(self)
         )
         return contenido
 
 
-def ejecutar_validacion_instancia_v4(
+def ejecutar_validacion_instancia(
     model: Any,
     instancia: InstanciaTurno,
     *,
     proveedor_viaje: ProveedorViaje | None,
-    configuracion_temporal: ConfiguracionTemporalV4RL,
-) -> ResultadoCasoValidacionV4:
+    configuracion_temporal: ConfiguracionPoliticaRL,
+) -> ResultadoCasoValidacionRL:
     reward = ConfiguracionRewardRL(
         modo=ModoRewardRL.VENTAJA_GREEDY_RELATIVA,
         denominador_relativo_minimo=1.0,
     )
-    env = PedemonteTemporalV4PlanEnv(
+    env = EntornoPlanificacionRL(
         instancia=instancia,
         proveedor_viaje=proveedor_viaje,
         configuracion_reward=reward,
@@ -93,13 +93,13 @@ def ejecutar_validacion_instancia_v4(
 
             if truncado:
                 raise RuntimeError(
-                    "La validación externa v4 produjo un episodio truncado."
+                    "La validación externa produjo un episodio truncado."
                 )
 
         plan = env.ultimo_plan
         if plan is None:
             raise RuntimeError(
-                "La validación externa v4 finalizó sin plan."
+                "La validación externa finalizó sin plan."
             )
 
         costo_greedy = float(
@@ -107,13 +107,13 @@ def ejecutar_validacion_instancia_v4(
         )
         if costo_greedy <= 0.0:
             raise RuntimeError(
-                "La validación externa v4 no recibió costo Greedy."
+                "La validación externa no recibió costo Greedy."
             )
 
         costo = float(plan.costo_estimado)
         gap = 100.0 * (costo - costo_greedy) / costo_greedy
 
-        return ResultadoCasoValidacionV4(
+        return ResultadoCasoValidacionRL(
             caso_id=instancia.instancia_id,
             pedidos_tardios=int(
                 info_final.get("pedidos_tardios_prefijo", -1)
@@ -130,23 +130,23 @@ def ejecutar_validacion_instancia_v4(
         env.close()
 
 
-def evaluar_modelo_externamente_v4(
+def evaluar_modelo_externamente(
     model: Any,
     *,
     timestep: int,
     instancia_b04: InstanciaTurno,
     proveedor_b04: ProveedorViaje,
     instancias_sinteticas: Iterable[InstanciaTurno],
-    configuracion_temporal: ConfiguracionTemporalV4RL,
-) -> ResumenValidacionExternaV4:
-    b04 = ejecutar_validacion_instancia_v4(
+    configuracion_temporal: ConfiguracionPoliticaRL,
+) -> ResumenValidacionExternaRL:
+    b04 = ejecutar_validacion_instancia(
         model,
         instancia_b04,
         proveedor_viaje=proveedor_b04,
         configuracion_temporal=configuracion_temporal,
     )
     sinteticos = tuple(
-        ejecutar_validacion_instancia_v4(
+        ejecutar_validacion_instancia(
             model,
             instancia,
             proveedor_viaje=None,
@@ -165,7 +165,7 @@ def evaluar_modelo_externamente_v4(
     tardanzas = [caso.tardanza_total_min for caso in sinteticos]
     gaps = [caso.gap_costo_vs_greedy for caso in sinteticos]
 
-    return ResumenValidacionExternaV4(
+    return ResumenValidacionExternaRL(
         timestep=int(timestep),
         b04_pedidos_tardios=b04.pedidos_tardios,
         b04_tardanza_min=b04.tardanza_total_min,
@@ -180,8 +180,8 @@ def evaluar_modelo_externamente_v4(
     )
 
 
-def clave_seleccion_externa_v4(
-    resumen: ResumenValidacionExternaV4,
+def clave_seleccion_externa(
+    resumen: ResumenValidacionExternaRL,
 ) -> tuple[float, ...]:
     """Clave minimizable: B04, factibilidad general, tardanza y costo."""
 
@@ -194,12 +194,12 @@ def clave_seleccion_externa_v4(
     )
 
 
-def es_mejor_validacion_externa_v4(
-    candidata: ResumenValidacionExternaV4,
-    actual: ResumenValidacionExternaV4 | None,
+def es_mejor_validacion_externa(
+    candidata: ResumenValidacionExternaRL,
+    actual: ResumenValidacionExternaRL | None,
 ) -> bool:
     if actual is None:
         return True
-    return clave_seleccion_externa_v4(candidata) < (
-        clave_seleccion_externa_v4(actual)
+    return clave_seleccion_externa(candidata) < (
+        clave_seleccion_externa(actual)
     )

@@ -8,7 +8,7 @@ from planner.core.schema import (
     PlanTurno,
 )
 from planner.domain.validator import validar_plan
-from planner.routing.operational import (
+from planner.routing.operations import (
     EstimacionCargaViaje,
     EstimacionEsperaCliente,
     ReservaEmpleadosCorralon,

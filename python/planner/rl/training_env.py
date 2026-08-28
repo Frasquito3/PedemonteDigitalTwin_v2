@@ -9,24 +9,24 @@ import numpy as np
 
 from planner.core.config import ConfiguracionPlanificacion
 from planner.core.schema import InstanciaTurno, PlanTurno
-from planner.rl.rl_reward import ConfiguracionRewardRL
-from planner.rl.policy_config import ConfiguracionTemporalV4RL
-from planner.rl.policy_env import PedemonteTemporalV4PlanEnv
+from planner.rl.reward import ConfiguracionRewardRL
+from planner.rl.policy_config import ConfiguracionPoliticaRL
+from planner.rl.policy_env import EntornoPlanificacionRL
 from planner.routing.objective import EstimacionPlan
 from planner.routing.travel import ProveedorViaje
 
 
-class GeneradorInstanciasV4Protocol(Protocol):
+class GeneradorEntrenamientoProtocol(Protocol):
     def generar(self, seed: int) -> InstanciaTurno:
         ...
 
 
-class PedemonteTemporalV4TrainingEnv(gym.Env[np.ndarray, int]):
+class EntornoEntrenamientoRL(gym.Env[np.ndarray, int]):
     metadata = {"render_modes": []}
 
     def __init__(
         self,
-        generador: GeneradorInstanciasV4Protocol,
+        generador: GeneradorEntrenamientoProtocol,
         configuracion: ConfiguracionPlanificacion | None = None,
         proveedor_viaje: ProveedorViaje | None = None,
         seed_base: int = 164_000,
@@ -34,7 +34,7 @@ class PedemonteTemporalV4TrainingEnv(gym.Env[np.ndarray, int]):
         max_pedidos: int = 30,
         escala_reward: float = 100.0,
         configuracion_reward: ConfiguracionRewardRL | None = None,
-        configuracion_temporal: ConfiguracionTemporalV4RL | None = None,
+        configuracion_temporal: ConfiguracionPoliticaRL | None = None,
     ) -> None:
         super().__init__()
 
@@ -86,8 +86,8 @@ class PedemonteTemporalV4TrainingEnv(gym.Env[np.ndarray, int]):
     def _crear_entorno(
         self,
         instancia: InstanciaTurno,
-    ) -> PedemonteTemporalV4PlanEnv:
-        return PedemonteTemporalV4PlanEnv(
+    ) -> EntornoPlanificacionRL:
+        return EntornoPlanificacionRL(
             instancia=instancia,
             configuracion=self.configuracion,
             proveedor_viaje=self.proveedor_viaje,
@@ -140,13 +140,13 @@ class PedemonteTemporalV4TrainingEnv(gym.Env[np.ndarray, int]):
         if nuevo_env.action_space != self.action_space:
             nuevo_env.close()
             raise RuntimeError(
-                "El action_space cambió entre instancias temporales v4."
+                "El action_space cambió entre instancias de entrenamiento."
             )
 
         if nuevo_env.observation_space != self.observation_space:
             nuevo_env.close()
             raise RuntimeError(
-                "El observation_space cambió entre instancias temporales v4."
+                "El observation_space cambió entre instancias de entrenamiento."
             )
 
         self._env = nuevo_env
@@ -158,7 +158,7 @@ class PedemonteTemporalV4TrainingEnv(gym.Env[np.ndarray, int]):
         info["seed_instancia"] = seed_instancia
         info["instancia_id"] = instancia.instancia_id
         info["version_entorno_rl"] = (
-            PedemonteTemporalV4PlanEnv.VERSION_ENTORNO
+            EntornoPlanificacionRL.VERSION_ENTORNO
         )
         return observacion, info
 

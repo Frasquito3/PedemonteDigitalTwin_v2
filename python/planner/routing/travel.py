@@ -53,7 +53,7 @@ class ProveedorViaje(Protocol):
 @dataclass(frozen=True)
 class ProveedorHaversineAjustado:
     """
-    Proveedor baseline utilizado por el proyecto hasta la Fase 15R.
+    Proveedor geométrico base utilizado cuando no se inyecta una caché vial.
 
     Conserva exactamente la lógica histórica:
 

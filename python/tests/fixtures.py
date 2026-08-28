@@ -72,7 +72,7 @@ def crear_instancia_demo() -> InstanciaTurno:
     ]
 
     return InstanciaTurno(
-        instancia_id="FASE6-TEST-001",
+        instancia_id="TEST-001",
 
         fecha_operacion="2026-08-13",
 

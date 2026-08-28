@@ -1,7 +1,7 @@
 import unittest
 from typing import Any
-from planner.rl.rl_env import PedemontePlanEnv
-from planner.rl.rl_reward import ConfiguracionRewardRL, ModoRewardRL
+from planner.rl.base_env import PedemontePlanEnv
+from planner.rl.reward import ConfiguracionRewardRL, ModoRewardRL
 from tests.fixtures import crear_instancia_demo
 
 def ejecutar_secuencia(env: PedemontePlanEnv, secuencia: list[str]) -> tuple[float, dict[str, Any]]:

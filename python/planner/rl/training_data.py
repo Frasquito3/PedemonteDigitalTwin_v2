@@ -17,19 +17,19 @@ ESTADO_APTO_ENTRENAMIENTO: Final[str] = (
     "APTO_ENTRENAMIENTO"
 )
 
-SEED_DIVISION_DEMANDA_REAL_V1: Final[int] = (
+SEED_DIVISION_DEMANDA_REAL: Final[int] = (
     15_2026
 )
 
-PROPORCION_ENTRENAMIENTO_V1: Final[float] = (
+PROPORCION_ENTRENAMIENTO: Final[float] = (
     0.80
 )
 
-PROPORCION_VALIDACION_V1: Final[float] = (
+PROPORCION_VALIDACION: Final[float] = (
     0.10
 )
 
-PROPORCION_PRUEBA_V1: Final[float] = (
+PROPORCION_PRUEBA: Final[float] = (
     0.10
 )
 
@@ -427,15 +427,15 @@ class CatalogoDemandaReal:
 
     def dividir_por_direccion_fuente(
         self,
-        seed: int = SEED_DIVISION_DEMANDA_REAL_V1,
+        seed: int = SEED_DIVISION_DEMANDA_REAL,
         proporcion_entrenamiento: float = (
-            PROPORCION_ENTRENAMIENTO_V1
+            PROPORCION_ENTRENAMIENTO
         ),
         proporcion_validacion: float = (
-            PROPORCION_VALIDACION_V1
+            PROPORCION_VALIDACION
         ),
         proporcion_prueba: float = (
-            PROPORCION_PRUEBA_V1
+            PROPORCION_PRUEBA
         ),
     ) -> DivisionDemandaReal:
         """

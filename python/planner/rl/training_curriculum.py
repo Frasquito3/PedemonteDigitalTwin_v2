@@ -4,7 +4,7 @@ from dataclasses import dataclass
 
 
 @dataclass(frozen=True)
-class EtapaCurriculumTemporalV4RL:
+class EtapaEntrenamientoRL:
     nombre: str
     min_pedidos_finales: int
     max_pedidos_finales: int
@@ -57,11 +57,11 @@ class EtapaCurriculumTemporalV4RL:
                 raise ValueError(f"{nombre} debe estar entre 0 y 1.")
 
 
-def crear_curriculum_temporal_v4(
-) -> list[EtapaCurriculumTemporalV4RL]:
+def crear_curriculum_entrenamiento(
+) -> list[EtapaEntrenamientoRL]:
     return [
-        EtapaCurriculumTemporalV4RL(
-            nombre="stage_01_second_order_core_3_5",
+        EtapaEntrenamientoRL(
+            nombre="refuerzo_base_3_5",
             min_pedidos_finales=3,
             max_pedidos_finales=5,
             timesteps=50_000,
@@ -75,8 +75,8 @@ def crear_curriculum_temporal_v4(
             ancho_ventana_min=45,
             ancho_ventana_max=90,
         ),
-        EtapaCurriculumTemporalV4RL(
-            nombre="stage_02_second_order_mixed_4_8",
+        EtapaEntrenamientoRL(
+            nombre="ampliacion_operativa_4_8",
             min_pedidos_finales=4,
             max_pedidos_finales=8,
             timesteps=100_000,
@@ -90,8 +90,8 @@ def crear_curriculum_temporal_v4(
             ancho_ventana_min=45,
             ancho_ventana_max=120,
         ),
-        EtapaCurriculumTemporalV4RL(
-            nombre="stage_03_second_order_operational_4_12",
+        EtapaEntrenamientoRL(
+            nombre="estabilizacion_operativa_4_12",
             min_pedidos_finales=4,
             max_pedidos_finales=12,
             timesteps=200_000,
@@ -108,11 +108,11 @@ def crear_curriculum_temporal_v4(
     ]
 
 
-def crear_curriculum_temporal_v4_rapido(
-) -> list[EtapaCurriculumTemporalV4RL]:
+def crear_curriculum_entrenamiento_rapido(
+) -> list[EtapaEntrenamientoRL]:
     return [
-        EtapaCurriculumTemporalV4RL(
-            nombre="stage_01_second_order_core_3_5",
+        EtapaEntrenamientoRL(
+            nombre="refuerzo_base_3_5",
             min_pedidos_finales=3,
             max_pedidos_finales=5,
             timesteps=3_000,
@@ -126,8 +126,8 @@ def crear_curriculum_temporal_v4_rapido(
             ancho_ventana_min=45,
             ancho_ventana_max=90,
         ),
-        EtapaCurriculumTemporalV4RL(
-            nombre="stage_02_second_order_mixed_4_8",
+        EtapaEntrenamientoRL(
+            nombre="ampliacion_operativa_4_8",
             min_pedidos_finales=4,
             max_pedidos_finales=8,
             timesteps=6_000,
@@ -141,8 +141,8 @@ def crear_curriculum_temporal_v4_rapido(
             ancho_ventana_min=45,
             ancho_ventana_max=120,
         ),
-        EtapaCurriculumTemporalV4RL(
-            nombre="stage_03_second_order_operational_4_12",
+        EtapaEntrenamientoRL(
+            nombre="estabilizacion_operativa_4_12",
             min_pedidos_finales=4,
             max_pedidos_finales=12,
             timesteps=12_000,

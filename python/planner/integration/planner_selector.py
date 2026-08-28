@@ -410,10 +410,10 @@ class SelectorPlanificadores:
             )
 
         from planner.rl.policy_runtime import (
-            RLPolicyOperationalPlanner,
+            PlanificadorOperativoRL,
         )
 
-        self._planner_rl = RLPolicyOperationalPlanner(
+        self._planner_rl = PlanificadorOperativoRL(
             manifest_path=self.model_path_rl,
             max_pedidos=self.max_pedidos,
             deterministic=self.deterministic,

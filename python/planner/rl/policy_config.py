@@ -4,19 +4,17 @@ from dataclasses import dataclass
 
 
 @dataclass(frozen=True)
-class ConfiguracionTemporalV4RL:
+class ConfiguracionPoliticaRL:
     """
-    Parámetros de la formulación temporal v4.
+    Parámetros de la política RL productiva.
 
-    La v4 no reemplaza ni modifica los entornos histórico o temporal v3.
-    Su señal densa se basa en arrepentimiento local de segundo orden:
-    cada acción candidata se completa con una heurística temporal común y
-    se compara contra la mejor alternativa disponible en el mismo estado.
+    La señal densa usa arrepentimiento local de segundo orden: cada acción
+    candidata se completa con una heurística temporal común y se compara con
+    la mejor alternativa disponible en el mismo estado.
 
-    La recompensa terminal usa bandas jerárquicas. Un plan sin llegadas
-    tardías pertenece siempre a la banda factible; un plan con tardanzas
-    pertenece a la banda no factible. El costo sólo interviene como tercer
-    criterio, mediante un término acotado.
+    La recompensa terminal separa primero la factibilidad temporal y luego
+    utiliza un término de costo acotado. La máscara temporal dura forma parte
+    de la configuración validada del checkpoint productivo actual.
     """
 
     # Escalas de normalización de las consecuencias temporales.
@@ -38,14 +36,13 @@ class ConfiguracionTemporalV4RL:
     # Bandas terminales. Se mantienen deliberadamente separadas.
     bonificacion_terminal_factible: float = 20.0
     penalizacion_terminal_no_factible: float = 20.0
-    penalizacion_terminal_por_pedido_tardio: float = 5.0
+    penalizacion_terminal_por_pedido_tardio: float = 15.0
     penalizacion_terminal_tardanza_max: float = 2.0
     peso_terminal_costo_acotado: float = 0.50
 
-    # La máscara dura sigue desactivada por defecto. Si se activa, sólo
-    # elimina acciones con más pedidos tardíos proyectados que la mejor
-    # alternativa y nunca deja el espacio de acciones vacío.
-    usar_mascara_temporal_dura: bool = False
+    # La máscara dura elimina acciones con más pedidos tardíos proyectados
+    # que la mejor alternativa y nunca deja el espacio de acciones vacío.
+    usar_mascara_temporal_dura: bool = True
 
     # Tolerancias numéricas.
     epsilon_tiempo: float = 1e-9

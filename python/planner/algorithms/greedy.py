@@ -12,7 +12,7 @@ from planner.routing.objective import (
     tiempo_carga_estimado_min,
     tiempo_descarga_estimado_min,
 )
-from planner.routing.operational import (
+from planner.routing.operations import (
     simular_plan_operativo_estimado,
 )
 

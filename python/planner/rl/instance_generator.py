@@ -10,12 +10,12 @@ from planner.core.schema import (
     PedidoInput,
     Turno,
 )
-from planner.data.real_demand import (
+from planner.rl.training_data import (
     CatalogoDemandaReal,
     DivisionDemandaReal,
     ParticionDemandaReal,
     PuntoDemandaReal,
-    SEED_DIVISION_DEMANDA_REAL_V1,
+    SEED_DIVISION_DEMANDA_REAL,
 )
 from planner.domain.preprocess import preprocesar_instancia
 from planner.domain.validator import validar_instancia
@@ -74,7 +74,7 @@ class ConfiguracionGeneradorInstancias:
     particion_demanda_real: ParticionDemandaReal | None = None
 
     seed_division_demanda_real: int = (
-        SEED_DIVISION_DEMANDA_REAL_V1
+        SEED_DIVISION_DEMANDA_REAL
     )
 
     def __post_init__(self) -> None:

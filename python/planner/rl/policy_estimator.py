@@ -6,8 +6,8 @@ from typing import Iterable
 
 from planner.core.config import ConfiguracionPlanificacion
 from planner.core.schema import InstanciaTurno, PedidoInput
-from planner.rl.policy_config import ConfiguracionTemporalV4RL
-from planner.rl.temporal_estimator import (
+from planner.rl.policy_config import ConfiguracionPoliticaRL
+from planner.rl.schedule_estimator import (
     ProyeccionTemporalAccion,
     RegistroTemporalPedido,
     ResumenTemporalPrefijo,
@@ -18,7 +18,7 @@ from planner.routing.travel import MatrizViaje
 
 
 @dataclass(frozen=True)
-class ConsecuenciaTemporalAccionV4:
+class ConsecuenciaAccionRL:
     """Consecuencia de elegir una acción y completar los pendientes."""
 
     pedido_id: str
@@ -40,7 +40,7 @@ class ConsecuenciaTemporalAccionV4:
 
 
 @dataclass(frozen=True)
-class ResultadoArrepentimientoLocalV4:
+class ResultadoArrepentimientoLocal:
     pedido_elegido_id: str
     mejor_pedido_id: str
     arrepentimiento_normalizado: float
@@ -49,7 +49,7 @@ class ResultadoArrepentimientoLocalV4:
 
 
 @dataclass(frozen=True)
-class ResultadoTerminalV4:
+class ResultadoTerminalRL:
     factible_temporalmente: bool
     pedidos_tardios: int
     tardanza_total_min: float
@@ -67,7 +67,7 @@ def _pedidos_por_id(
     }
 
 
-def completar_prefijo_temporal_v4(
+def completar_prefijo_temporal(
     instancia: InstanciaTurno,
     matriz: MatrizViaje,
     configuracion: ConfiguracionPlanificacion,
@@ -111,12 +111,12 @@ def completar_prefijo_temporal_v4(
     return tuple(secuencia), resumen_final
 
 
-def proyectar_consecuencias_segundo_orden_v4(
+def proyectar_consecuencias_segundo_orden(
     instancia: InstanciaTurno,
     matriz: MatrizViaje,
     configuracion: ConfiguracionPlanificacion,
     prefijo: Iterable[str],
-) -> dict[str, ConsecuenciaTemporalAccionV4]:
+) -> dict[str, ConsecuenciaAccionRL]:
     """
     Proyecta cada acción pendiente más allá de su llegada inmediata.
 
@@ -144,7 +144,7 @@ def proyectar_consecuencias_segundo_orden_v4(
         configuracion,
         prefijo_tuple,
     )
-    consecuencias: dict[str, ConsecuenciaTemporalAccionV4] = {}
+    consecuencias: dict[str, ConsecuenciaAccionRL] = {}
 
     for candidato_id in pendientes:
         resumen_inmediato = analizar_prefijo_temporal(
@@ -166,7 +166,7 @@ def proyectar_consecuencias_segundo_orden_v4(
             for pedido_id in pendientes
             if pedido_id != candidato_id
         ]
-        secuencia_final, resumen_final = completar_prefijo_temporal_v4(
+        secuencia_final, resumen_final = completar_prefijo_temporal(
             instancia,
             matriz,
             configuracion,
@@ -226,10 +226,10 @@ def proyectar_consecuencias_segundo_orden_v4(
 
         if not all(isfinite(valor) for valor in valores):
             raise RuntimeError(
-                "La proyección temporal v4 produjo valores no finitos."
+                "La proyección de la política RL produjo valores no finitos."
             )
 
-        consecuencias[candidato_id] = ConsecuenciaTemporalAccionV4(
+        consecuencias[candidato_id] = ConsecuenciaAccionRL(
             pedido_id=candidato_id,
             registro_inmediato=registro_inmediato,
             secuencia_completada=secuencia_final,
@@ -248,8 +248,8 @@ def proyectar_consecuencias_segundo_orden_v4(
     return consecuencias
 
 
-def clave_lexicografica_consecuencia_v4(
-    consecuencia: ConsecuenciaTemporalAccionV4,
+def clave_lexicografica_consecuencia(
+    consecuencia: ConsecuenciaAccionRL,
 ) -> tuple[float | str, ...]:
     return (
         float(consecuencia.pedidos_tardios_finales),
@@ -262,15 +262,15 @@ def clave_lexicografica_consecuencia_v4(
     )
 
 
-def seleccionar_mejor_consecuencia_v4(
-    consecuencias: dict[str, ConsecuenciaTemporalAccionV4],
-) -> ConsecuenciaTemporalAccionV4:
+def seleccionar_mejor_consecuencia(
+    consecuencias: dict[str, ConsecuenciaAccionRL],
+) -> ConsecuenciaAccionRL:
     if not consecuencias:
         raise ValueError("No hay consecuencias candidatas.")
 
     return min(
         consecuencias.values(),
-        key=clave_lexicografica_consecuencia_v4,
+        key=clave_lexicografica_consecuencia,
     )
 
 
@@ -282,11 +282,11 @@ def _diferencia_normalizada(
     return min(1.0, max(0.0, elegido - mejor) / escala)
 
 
-def calcular_arrepentimiento_local_v4(
-    consecuencias: dict[str, ConsecuenciaTemporalAccionV4],
+def calcular_arrepentimiento_local(
+    consecuencias: dict[str, ConsecuenciaAccionRL],
     pedido_elegido_id: str,
-    configuracion: ConfiguracionTemporalV4RL,
-) -> ResultadoArrepentimientoLocalV4:
+    configuracion: ConfiguracionPoliticaRL,
+) -> ResultadoArrepentimientoLocal:
     try:
         elegido = consecuencias[pedido_elegido_id]
     except KeyError as exc:
@@ -295,7 +295,7 @@ def calcular_arrepentimiento_local_v4(
             f"{pedido_elegido_id}."
         ) from exc
 
-    mejor = seleccionar_mejor_consecuencia_v4(consecuencias)
+    mejor = seleccionar_mejor_consecuencia(consecuencias)
     cantidad = max(1, len(consecuencias))
 
     diferencia_tardios = min(
@@ -358,7 +358,7 @@ def calcular_arrepentimiento_local_v4(
         * arrepentimiento
     )
 
-    return ResultadoArrepentimientoLocalV4(
+    return ResultadoArrepentimientoLocal(
         pedido_elegido_id=pedido_elegido_id,
         mejor_pedido_id=mejor.pedido_id,
         arrepentimiento_normalizado=arrepentimiento,
@@ -367,11 +367,11 @@ def calcular_arrepentimiento_local_v4(
     )
 
 
-def calcular_reward_terminal_v4(
+def calcular_reward_terminal(
     resumen_final: ResumenTemporalPrefijo,
     reward_costo_base: float,
-    configuracion: ConfiguracionTemporalV4RL,
-) -> ResultadoTerminalV4:
+    configuracion: ConfiguracionPoliticaRL,
+) -> ResultadoTerminalRL:
     """Convierte la tupla temporal-costo en bandas escalares separadas."""
 
     componente_costo = (
@@ -403,9 +403,9 @@ def calcular_reward_terminal_v4(
         factible = False
 
     if not isfinite(total):
-        raise RuntimeError("El reward terminal v4 no es finito.")
+        raise RuntimeError("El reward terminal no es finito.")
 
-    return ResultadoTerminalV4(
+    return ResultadoTerminalRL(
         factible_temporalmente=factible,
         pedidos_tardios=resumen_final.pedidos_tardios,
         tardanza_total_min=resumen_final.tardanza_total_min,

@@ -46,12 +46,12 @@ if str(PYTHON_ROOT) not in sys.path:
     sys.path.insert(0, str(PYTHON_ROOT))
 
 
-from planner.data.real_demand import (  # noqa: E402
+from planner.rl.training_data import (  # noqa: E402
     CatalogoDemandaReal,
     ParticionDemandaReal,
-    SEED_DIVISION_DEMANDA_REAL_V1,
+    SEED_DIVISION_DEMANDA_REAL,
 )
-from planner.evaluation.classic_instances import (  # noqa: E402
+from planner.rl.training_cases import (  # noqa: E402
     crear_casos_benchmark_clasico,
 )
 from planner.rl.instance_generator import (  # noqa: E402
@@ -59,30 +59,30 @@ from planner.rl.instance_generator import (  # noqa: E402
     GeneradorInstanciasRL,
     ModoDemandaGeografica,
 )
-from planner.rl.rl_reward import (  # noqa: E402
+from planner.rl.reward import (  # noqa: E402
     ConfiguracionRewardRL,
     ModoRewardRL,
 )
 from planner.rl.policy_config import (  # noqa: E402
-    ConfiguracionTemporalV4RL,
+    ConfiguracionPoliticaRL,
 )
-from planner.rl.policy_curriculum import (  # noqa: E402
-    EtapaCurriculumTemporalV4RL,
-    crear_curriculum_temporal_v4,
-    crear_curriculum_temporal_v4_rapido,
+from planner.rl.training_curriculum import (  # noqa: E402
+    EtapaEntrenamientoRL,
+    crear_curriculum_entrenamiento,
+    crear_curriculum_entrenamiento_rapido,
 )
-from planner.rl.policy_training_env import (  # noqa: E402
-    PedemonteTemporalV4TrainingEnv,
+from planner.rl.training_env import (  # noqa: E402
+    EntornoEntrenamientoRL,
 )
-from planner.rl.policy_validation import (  # noqa: E402
-    ResumenValidacionExternaV4,
-    es_mejor_validacion_externa_v4,
-    evaluar_modelo_externamente_v4,
+from planner.rl.training_validation import (  # noqa: E402
+    ResumenValidacionExternaRL,
+    es_mejor_validacion_externa,
+    evaluar_modelo_externamente,
 )
-from planner.rl.policy_instance_generator import (  # noqa: E402
-    ConfiguracionGeneradorTemporalV4,
-    GeneradorInstanciasTemporalV4RL,
-    GeneradorMixtoTemporalV4RL,
+from planner.rl.training_instance_generator import (  # noqa: E402
+    ConfiguracionGeneradorPoliticaRL,
+    GeneradorInstanciasPoliticaRL,
+    GeneradorMixtoPoliticaRL,
 )
 from planner.routing.vial_cache import (  # noqa: E402
     ProveedorVialCachePersistente,
@@ -99,13 +99,13 @@ INFO_KEYWORDS = (
     "tardanza_prefijo_min",
     "reward_arrepentimiento_local",
     "arrepentimiento_local_normalizado",
-    "reward_terminal_v4",
+    "reward_terminal",
     "componente_terminal_factibilidad",
     "componente_terminal_costo_acotado",
 )
 
 
-class ValidacionExternaV4Callback(BaseCallback):
+class ValidacionExternaCallback(BaseCallback):
     def __init__(
         self,
         *,
@@ -114,7 +114,7 @@ class ValidacionExternaV4Callback(BaseCallback):
         instancia_b04: Any,
         proveedor_b04: Any,
         instancias_sinteticas: tuple[Any, ...],
-        configuracion_temporal: ConfiguracionTemporalV4RL,
+        configuracion_temporal: ConfiguracionPoliticaRL,
         verbose: int = 1,
     ) -> None:
         super().__init__(verbose=verbose)
@@ -133,7 +133,7 @@ class ValidacionExternaV4Callback(BaseCallback):
         self.external_dir.mkdir(parents=True, exist_ok=True)
         self.best_dir.mkdir(parents=True, exist_ok=True)
         self.historial_csv = self.external_dir / "history.csv"
-        self.best_summary: ResumenValidacionExternaV4 | None = None
+        self.best_summary: ResumenValidacionExternaRL | None = None
 
     @property
     def best_model_path(self) -> Path:
@@ -141,7 +141,7 @@ class ValidacionExternaV4Callback(BaseCallback):
 
     def _guardar_historial(
         self,
-        resumen: ResumenValidacionExternaV4,
+        resumen: ResumenValidacionExternaRL,
         mejorado: bool,
     ) -> None:
         fila = {
@@ -186,8 +186,8 @@ class ValidacionExternaV4Callback(BaseCallback):
         self,
         model: Any,
         timestep: int,
-    ) -> ResumenValidacionExternaV4:
-        resumen = evaluar_modelo_externamente_v4(
+    ) -> ResumenValidacionExternaRL:
+        resumen = evaluar_modelo_externamente(
             model,
             timestep=int(timestep),
             instancia_b04=self.instancia_b04,
@@ -195,7 +195,7 @@ class ValidacionExternaV4Callback(BaseCallback):
             instancias_sinteticas=self.instancias_sinteticas,
             configuracion_temporal=self.configuracion_temporal,
         )
-        mejorado = es_mejor_validacion_externa_v4(
+        mejorado = es_mejor_validacion_externa(
             resumen,
             self.best_summary,
         )
@@ -213,7 +213,7 @@ class ValidacionExternaV4Callback(BaseCallback):
         if self.verbose:
             marca = "NUEVO_MEJOR" if mejorado else "sin_mejora"
             print(
-                "External V4 "
+                "Validación externa "
                 f"t={resumen.timestep} | "
                 f"B04 tardíos={resumen.b04_pedidos_tardios} "
                 f"tardanza={resumen.b04_tardanza_min:.3f} | "
@@ -224,7 +224,7 @@ class ValidacionExternaV4Callback(BaseCallback):
 
         return resumen
 
-    def evaluar_y_guardar(self) -> ResumenValidacionExternaV4:
+    def evaluar_y_guardar(self) -> ResumenValidacionExternaRL:
         return self.evaluar_modelo_y_guardar(
             self.model,
             int(self.num_timesteps),
@@ -241,21 +241,21 @@ class ValidacionExternaV4Callback(BaseCallback):
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
-            "Entrena MaskablePPO con la formulación temporal v4, "
-            "selección externa fija y replay entre etapas."
+            "Continúa o entrena la política RL actual con máscara temporal "
+            "dura, validación externa fija y replay entre etapas."
         )
     )
     parser.add_argument(
         "--run-name",
-        default="policy_base",
-        help="Nombre dentro de python/rl_artifacts.",
+        default="policy_training",
+        help="Nombre estable dentro de python/rl_artifacts.",
     )
-    parser.add_argument("--seed", type=int, default=164_000)
+    parser.add_argument("--seed", type=int, default=410_000)
     parser.add_argument("--n-envs", type=int, default=4)
     parser.add_argument(
         "--quick",
         action="store_true",
-        help="Ejecuta el currículo smoke de 21.000 pasos nominales.",
+        help="Ejecuta un entrenamiento breve de comprobación.",
     )
     parser.add_argument(
         "--demand-mode",
@@ -266,26 +266,43 @@ def parse_args() -> argparse.Namespace:
         default=ModoDemandaGeografica.SINTETICA.value,
     )
     parser.add_argument("--demand-dataset", default="")
-    parser.add_argument("--promote", action="store_true")
-    parser.add_argument("--overwrite-promoted", action="store_true")
+    parser.add_argument(
+        "--initial-model",
+        default=str(
+            PYTHON_ROOT / "models" / "rl" / "rl_policy.zip"
+        ),
+        help=(
+            "Checkpoint desde el que continúa el entrenamiento. "
+            "Por defecto usa la política productiva actual."
+        ),
+    )
+    parser.add_argument(
+        "--from-scratch",
+        action="store_true",
+        help="Crea un modelo nuevo en lugar de continuar el checkpoint actual.",
+    )
+    parser.add_argument(
+        "--learning-rate",
+        type=float,
+        default=2e-5,
+    )
     args = parser.parse_args()
 
     if not args.run_name.strip():
         parser.error("--run-name no puede estar vacío.")
     if args.n_envs <= 0:
         parser.error("--n-envs debe ser > 0.")
-    if args.overwrite_promoted and not args.promote:
-        parser.error("--overwrite-promoted requiere --promote.")
-    if args.quick and args.promote:
-        parser.error("Un entrenamiento --quick no puede promoverse.")
+    if args.learning_rate <= 0.0:
+        parser.error("--learning-rate debe ser > 0.")
+    if not args.from_scratch and not args.initial_model.strip():
+        parser.error("--initial-model no puede estar vacío.")
 
     return args
 
 
-
 def crear_configuracion_generador(
     args: argparse.Namespace,
-    etapa: EtapaCurriculumTemporalV4RL,
+    etapa: EtapaEntrenamientoRL,
     particion: ParticionDemandaReal | None,
 ) -> ConfiguracionGeneradorInstancias:
     modo = ModoDemandaGeografica(args.demand_mode)
@@ -308,7 +325,7 @@ def crear_configuracion_generador(
             if modo == ModoDemandaGeografica.REAL
             else None
         ),
-        seed_division_demanda_real=SEED_DIVISION_DEMANDA_REAL_V1,
+        seed_division_demanda_real=SEED_DIVISION_DEMANDA_REAL,
     )
 
 
@@ -333,14 +350,14 @@ def crear_configuracion_core(
             if modo == ModoDemandaGeografica.REAL
             else None
         ),
-        seed_division_demanda_real=SEED_DIVISION_DEMANDA_REAL_V1,
+        seed_division_demanda_real=SEED_DIVISION_DEMANDA_REAL,
     )
 
 
 
 def preparar_catalogo_real(
     args: argparse.Namespace,
-    etapa: EtapaCurriculumTemporalV4RL,
+    etapa: EtapaEntrenamientoRL,
 ) -> CatalogoDemandaReal | None:
     if args.demand_mode == ModoDemandaGeografica.SINTETICA.value:
         return None
@@ -362,30 +379,30 @@ def crear_generador_mixto(
     *,
     configuracion_actual: ConfiguracionGeneradorInstancias,
     configuracion_core: ConfiguracionGeneradorInstancias,
-    etapa: EtapaCurriculumTemporalV4RL,
+    etapa: EtapaEntrenamientoRL,
     catalogo_real: CatalogoDemandaReal | None,
-) -> GeneradorMixtoTemporalV4RL:
-    actual = GeneradorInstanciasTemporalV4RL(
+) -> GeneradorMixtoPoliticaRL:
+    actual = GeneradorInstanciasPoliticaRL(
         GeneradorInstanciasRL(
             configuracion=configuracion_actual,
             catalogo_demanda_real=catalogo_real,
         ),
-        ConfiguracionGeneradorTemporalV4(
+        ConfiguracionGeneradorPoliticaRL(
             probabilidad_patron_ventanas_conflictivas=(
                 etapa.probabilidad_patron_conflictivo
             )
         ),
     )
-    core = GeneradorInstanciasTemporalV4RL(
+    core = GeneradorInstanciasPoliticaRL(
         GeneradorInstanciasRL(
             configuracion=configuracion_core,
             catalogo_demanda_real=catalogo_real,
         ),
-        ConfiguracionGeneradorTemporalV4(
+        ConfiguracionGeneradorPoliticaRL(
             probabilidad_patron_ventanas_conflictivas=0.95
         ),
     )
-    return GeneradorMixtoTemporalV4RL(
+    return GeneradorMixtoPoliticaRL(
         generador_actual=actual,
         generador_core=core,
         probabilidad_replay_core=etapa.probabilidad_replay_core,
@@ -399,9 +416,9 @@ def crear_env_factory(
     seed_base: int,
     configuracion_actual: ConfiguracionGeneradorInstancias,
     configuracion_core: ConfiguracionGeneradorInstancias,
-    etapa: EtapaCurriculumTemporalV4RL,
+    etapa: EtapaEntrenamientoRL,
     configuracion_reward: ConfiguracionRewardRL,
-    configuracion_temporal: ConfiguracionTemporalV4RL,
+    configuracion_temporal: ConfiguracionPoliticaRL,
     catalogo_real: CatalogoDemandaReal | None,
     semillas_fijas: list[int] | None = None,
 ) -> Callable[[], gym.Env]:
@@ -412,7 +429,7 @@ def crear_env_factory(
             etapa=etapa,
             catalogo_real=catalogo_real,
         )
-        env = PedemonteTemporalV4TrainingEnv(
+        env = EntornoEntrenamientoRL(
             generador=generador,
             seed_base=seed_base + rank * 100_000,
             semillas_fijas=semillas_fijas,
@@ -426,11 +443,15 @@ def crear_env_factory(
 
 
 
-def crear_modelo(env: DummyVecEnv, seed: int) -> MaskablePPO:
+def crear_modelo(
+    env: DummyVecEnv,
+    seed: int,
+    learning_rate: float,
+) -> MaskablePPO:
     return MaskablePPO(
         policy="MlpPolicy",
         env=env,
-        learning_rate=2e-4,
+        learning_rate=learning_rate,
         n_steps=256,
         batch_size=256,
         n_epochs=10,
@@ -494,7 +515,7 @@ def crear_validacion_fija(
     )
     configuracion_base = ConfiguracionGeneradorInstancias(
         min_pedidos_finales=3,
-        max_pedidos_finales=8,
+        max_pedidos_finales=12,
         probabilidad_volcador=0.05,
         probabilidad_ventana_especifica=0.95,
         probabilidad_pedido_mayor_capacidad=0.0,
@@ -502,48 +523,35 @@ def crear_validacion_fija(
         ancho_ventana_max=120,
         modo_demanda_geografica=ModoDemandaGeografica.SINTETICA,
     )
-    generador = GeneradorInstanciasTemporalV4RL(
+    generador = GeneradorInstanciasPoliticaRL(
         GeneradorInstanciasRL(configuracion_base),
-        ConfiguracionGeneradorTemporalV4(
+        ConfiguracionGeneradorPoliticaRL(
             probabilidad_patron_ventanas_conflictivas=0.90
         ),
     )
-    cantidad = 12 if quick else 30
+    cantidad = 24 if quick else 60
     semillas = tuple(range(265_000, 265_000 + cantidad))
     instancias = tuple(generador.generar(seed) for seed in semillas)
     return b04, proveedor, instancias, semillas
 
 
 
-def promover_modelo(
-    modelo_final: Path,
-    permitir_reemplazo: bool,
-) -> Path:
-    destino = (
-        PYTHON_ROOT
-        / "models"
-        / "rl"
-        / "rl_policy_base.zip"
-    )
-    destino.parent.mkdir(parents=True, exist_ok=True)
-
-    if destino.exists() and not permitir_reemplazo:
-        raise FileExistsError(
-            "Ya existe el modelo temporal v4 promovido. Use "
-            "--overwrite-promoted para reemplazarlo."
-        )
-
-    shutil.copy2(modelo_final, destino)
-    return destino
-
-
-
 def main() -> None:
     args = parse_args()
+    modelo_inicial = (
+        None
+        if args.from_scratch
+        else Path(args.initial_model).expanduser().resolve()
+    )
+    if modelo_inicial is not None and not modelo_inicial.is_file():
+        raise FileNotFoundError(
+            f"No existe el checkpoint inicial: {modelo_inicial}"
+        )
+
     etapas = (
-        crear_curriculum_temporal_v4_rapido()
+        crear_curriculum_entrenamiento_rapido()
         if args.quick
-        else crear_curriculum_temporal_v4()
+        else crear_curriculum_entrenamiento()
     )
     run_dir = PYTHON_ROOT / "rl_artifacts" / args.run_name.strip()
     run_dir.mkdir(parents=True, exist_ok=True)
@@ -552,7 +560,7 @@ def main() -> None:
         modo=ModoRewardRL.VENTAJA_GREEDY_RELATIVA,
         denominador_relativo_minimo=1.0,
     )
-    configuracion_temporal = ConfiguracionTemporalV4RL()
+    configuracion_temporal = ConfiguracionPoliticaRL()
     catalogo_real = preparar_catalogo_real(args, etapas[0])
     b04, proveedor_b04, validacion_sintetica, semillas_validacion = (
         crear_validacion_fija(args.quick)
@@ -561,7 +569,9 @@ def main() -> None:
     guardar_json(
         run_dir / "policy_config.json",
         {
-            "version_entorno": "pedemonte-rl-temporal-v4",
+            "version_entorno": "pedemonte-rl-policy",
+            "modelo_inicial": modelo_inicial,
+            "learning_rate": args.learning_rate,
             "run_name": args.run_name,
             "seed": args.seed,
             "n_envs": args.n_envs,
@@ -583,18 +593,19 @@ def main() -> None:
                 ],
             },
             "continuacion_entre_etapas": "EXTERNAL_BEST",
-            "modelo_historico_sobrescrito": False,
-            "modelo_v3_sobrescrito": False,
+            "modelo_productivo_modificado": False,
         },
     )
 
-    print("=== ENTRENAMIENTO RL TEMPORAL V4 ===")
+    print("=== ENTRENAMIENTO DE POLÍTICA RL ===")
     print(f"Directorio: {run_dir}")
     print(f"Seed: {args.seed}")
     print(f"Entornos: {args.n_envs}")
     print(f"Currículo rápido: {args.quick}")
     print("Selección entre etapas: EXTERNAL_BEST")
-    print("Modelos histórico y v3: NO SE MODIFICAN")
+    print(f"Modelo inicial: {modelo_inicial or 'DESDE_CERO'}")
+    print(f"Learning rate: {args.learning_rate}")
+    print("Modelo productivo: NO SE MODIFICA")
 
     model: MaskablePPO | None = None
     selected_model_path: Path | None = None
@@ -700,16 +711,32 @@ def main() -> None:
             )
 
             if model is None:
-                model = crear_modelo(train_env, args.seed)
+                if modelo_inicial is None:
+                    model = crear_modelo(
+                        train_env,
+                        args.seed,
+                        args.learning_rate,
+                    )
+                else:
+                    model = MaskablePPO.load(
+                        str(modelo_inicial),
+                        env=train_env,
+                        custom_objects={
+                            "learning_rate": args.learning_rate,
+                        },
+                    )
             elif selected_model_path is not None:
                 model = MaskablePPO.load(
                     str(selected_model_path),
                     env=train_env,
+                    custom_objects={
+                        "learning_rate": args.learning_rate,
+                    },
                 )
             else:
                 model.set_env(train_env)
 
-            callback_externo = ValidacionExternaV4Callback(
+            callback_externo = ValidacionExternaCallback(
                 eval_freq=max(etapa.eval_freq // args.n_envs, 1),
                 stage_dir=stage_dir,
                 instancia_b04=b04,
@@ -803,7 +830,7 @@ def main() -> None:
             eval_env = None
 
         if selected_model_path is None or not selected_model_path.exists():
-            raise RuntimeError("No se seleccionó un modelo temporal v4.")
+            raise RuntimeError("No se seleccionó un modelo de la política RL.")
 
         ruta_final = run_dir / "final_model.zip"
         shutil.copy2(selected_model_path, ruta_final)
@@ -812,21 +839,16 @@ def main() -> None:
             {
                 "modelo_final": ruta_final,
                 "origen_external_best": selected_model_path,
-                "criterio": "VALIDACION_EXTERNA_LEXICOGRAFICA_V4",
+                "criterio": "VALIDACION_EXTERNA_LEXICOGRAFICA",
                 "modelo_promovido": False,
             },
         )
 
         print("")
-        print("Entrenamiento temporal v4 finalizado.")
+        print("Entrenamiento de la política RL finalizado.")
         print(f"Modelo final seleccionado: {ruta_final}")
 
-        if args.promote:
-            destino = promover_modelo(
-                ruta_final,
-                permitir_reemplazo=args.overwrite_promoted,
-            )
-            print(f"Modelo promovido: {destino}")
+        print("El modelo productivo no fue modificado.")
 
     except KeyboardInterrupt:
         if model is not None:

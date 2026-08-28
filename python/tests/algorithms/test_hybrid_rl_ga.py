@@ -11,7 +11,7 @@ class PlannerRLFalso:
     def __init__(self, delta: float=0.0, error: Exception | None=None) -> None:
         self.delta = delta
         self.error = error
-        self.ultima_decision = SimpleNamespace(fuente_seleccionada='EXTENSION')
+        self.ultima_decision = SimpleNamespace(fuente_seleccionada='POLITICA_UNICA')
 
     def generar_plan(self, instancia: InstanciaTurno) -> PlanTurno:
         if self.error is not None:
@@ -52,7 +52,7 @@ class HybridRLGAPlannerTest(unittest.TestCase):
         self.assertEqual(decision.motivo, MotivoResultadoHibrido.GA_MEJORA_SEMILLA_RL)
         self.assertEqual(plan.algoritmo, AlgoritmoPlanificacion.GA)
         self.assertGreater(decision.mejora_absoluta, 0.0)
-        self.assertEqual(decision.fuente_rl, 'EXTENSION')
+        self.assertEqual(decision.fuente_rl, 'POLITICA_UNICA')
         self.assertEqual(len(cromosomas_recibidos), 1)
         self.assertEqual(set(cromosomas_recibidos[0]), {'P001', 'P002'})
         self.exigir_valido(instancia, plan)

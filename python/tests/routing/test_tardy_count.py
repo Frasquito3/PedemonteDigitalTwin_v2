@@ -5,7 +5,7 @@ from planner.core.schema import AlgoritmoPlanificacion, InstanciaTurno, PedidoIn
 from planner.routing.objective import evaluar_plan_estimado, serializar_auditoria_estimacion
 from planner.routing.travel import construir_matriz_viaje
 
-class TestOperationalTardyCount(unittest.TestCase):
+class TestTardyCount(unittest.TestCase):
 
     def _evaluar(self, hora_hasta_min: int):
         pedido = PedidoInput(pedido_id='P1', pedido_original_id='P1', numero_parte=1, total_partes=1, turno=Turno.MANANA, latitud=-32.8495006, longitud=-60.722653, unidades_capacidad=1, requiere_volcador=False, tiene_ventana_especifica=True, hora_desde_min=450, hora_hasta_min=hora_hasta_min)

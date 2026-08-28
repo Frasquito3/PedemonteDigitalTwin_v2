@@ -7,7 +7,7 @@ COORDENADA_NORTE = (-32.831, -60.719)
 COORDENADA_ESTE = (-32.8595006, -60.702653)
 COORDENADA_CERCANA = (-32.841, -60.721)
 
-class GreedyOperationalTieBreakTest(unittest.TestCase):
+class GreedyTieBreakTest(unittest.TestCase):
 
     def _pedido(self, pedido_id: str, coordenada: tuple[float, float]) -> PedidoInput:
         return PedidoInput(pedido_id=pedido_id, pedido_original_id=pedido_id, numero_parte=1, total_partes=1, turno=Turno.MANANA, latitud=coordenada[0], longitud=coordenada[1], unidades_capacidad=8, requiere_volcador=False, tiene_ventana_especifica=False, hora_desde_min=450, hora_hasta_min=720, cliente=pedido_id, direccion=f'Dirección {pedido_id}', barrio='Prueba desempate operacional', observaciones='')

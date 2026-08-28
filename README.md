@@ -4,33 +4,31 @@ Gemelo digital para la planificación y simulación de repartos de Pedemonte.
 
 ## Arquitectura operativa
 
-El modelo AnyLogic importa pedidos desde Excel, construye la instancia de
-planificación y delega el plan a `planner.integration.selector_bridge`.
+AnyLogic importa los pedidos, construye la instancia y solicita el plan a
+Python mediante `planner.integration.selector_bridge`.
 
 Modos disponibles:
 
 - `RL`: política RL única con máscara temporal dura.
-- `HIBRIDO`: RL genera la semilla y GA intenta mejorarla.
-- `GA`, `GREEDY` y `RANDOM`: algoritmos complementarios.
+- `HIBRIDO`: la política RL genera la semilla y GA intenta mejorarla.
+- `GA`, `GREEDY` y `RANDOM`: métodos complementarios.
 
-El híbrido no reemplaza RL con Greedy. Si la política RL falla, el híbrido
-informa el error.
+El Híbrido no sustituye RL con Greedy. Si la política RL falla, el error se
+informa explícitamente.
 
-## Estructura principal
+## Estructura de Python
 
-- `anylogic/PedemonteDigitalTwin_v2`: simulación e interfaz.
-- `python/planner/algorithms`: algoritmos de decisión.
-- `python/planner/core`: contratos y estructuras compartidas.
-- `python/planner/domain`: validación y preprocesamiento.
-- `python/planner/integration`: integración AnyLogic–Python e importación Excel.
-- `python/planner/rl`: inferencia y entrenamiento de la política actual.
-- `python/planner/routing`: tiempos, costos, ventanas y caché vial.
-- `python/models/rl`: manifiesto y checkpoint productivo.
-- `python/data/processed/demanda_geografica.csv`: dataset usado por el
+- `planner/algorithms`: Greedy, Random, GA e Híbrido RL→GA.
+- `planner/core`: contratos, configuración y estructuras compartidas.
+- `planner/domain`: split y validación de instancias y planes.
+- `planner/integration`: importación Excel y puentes AnyLogic–Python.
+- `planner/routing`: matriz vial, operaciones estimadas y función objetivo.
+- `planner/rl/policy_*`: inferencia de la política productiva.
+- `planner/rl/training_*`: datos, generación, entorno y validación del
   entrenamiento actual.
-- `python/data/routing/cache_vial.csv`: matriz vial productiva.
-- `python/scripts/training/train_rl_policy.py`: entrenamiento reproducible.
-- `python/tests`: pruebas de regresión mantenidas.
+- `scripts/training/train_rl_policy.py`: único punto de entrada versionado
+  para continuar o reiniciar el entrenamiento.
+- `tests`: suite esencial de regresión.
 
 ## Política RL activa
 
@@ -39,20 +37,32 @@ python/models/rl/rl_policies.json
 python/models/rl/rl_policy.zip
 ```
 
-La inferencia usa máscara temporal dura y está validada hasta 12 pedidos.
+La política está validada hasta 12 pedidos y utiliza máscara temporal dura.
 
 ## Entrenamiento
 
-El único punto de entrada versionado para entrenar la política actual es:
+El entrenamiento continúa por defecto desde el checkpoint productivo actual:
 
-```text
-python/scripts/training/train_rl_policy.py
+```powershell
+$py = (Resolve-Path "..\.venv\Scripts\python.exe").Path
+
+& $py scripts\training\train_rl_policy.py `
+    --run-name policy_training
 ```
 
-Los checkpoints intermedios y resultados se guardan fuera del control de
-versiones según `.gitignore`.
+Para comenzar desde cero debe indicarse explícitamente:
 
-## Validación Python
+```powershell
+& $py scripts\training\train_rl_policy.py `
+    --from-scratch `
+    --run-name policy_training_from_scratch
+```
+
+Los resultados se guardan en `python/rl_artifacts` y nunca reemplazan
+automáticamente el checkpoint productivo. Toda promoción requiere una
+validación y una decisión técnica separadas.
+
+## Validación
 
 Desde `python`:
 
@@ -63,8 +73,12 @@ $py = (Resolve-Path "..\.venv\Scripts\python.exe").Path
 & $py -m pytest -q --tb=short
 ```
 
-## Comparación para el informe
+Resultado esperado de la suite esencial:
 
-La comparación experimental final se construirá sobre el selector productivo
-actual. No se conserva la infraestructura histórica de contratos y suites de
-fases anteriores.
+```text
+76 passed
+```
+
+Los identificadores de versión que permanecen dentro de manifiestos,
+protocolos o metadatos describen formatos técnicos. No se utilizan versiones
+de desarrollo en nombres de archivos.

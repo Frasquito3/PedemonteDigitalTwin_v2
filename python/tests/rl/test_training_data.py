@@ -4,7 +4,7 @@ import random
 import tempfile
 import unittest
 from pathlib import Path
-from planner.data.real_demand import CatalogoDemandaReal, ParticionDemandaReal
+from planner.rl.training_data import CatalogoDemandaReal, ParticionDemandaReal
 COLUMNAS = ['registro_id', 'calle', 'altura', 'ciudad', 'barrio', 'latitud', 'longitud', 'distancia_corralon_km', 'direccion_osm', 'clave_direccion_fuente', 'frecuencia_direccion_fuente', 'estado_calidad', 'motivo_revision']
 
 class RealDemandTest(unittest.TestCase):
