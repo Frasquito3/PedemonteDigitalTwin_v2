@@ -1,14 +1,24 @@
 {
-  "version": "pedemonte-rl-temporal-v4-operational-v2-pure-rl",
-  "modelo_extension": "rl_policy_balanced.zip",
-  "sha256_extension": "066d610ae75fdd070e77cb2c2c6d1358438f8340f1cb018dfc9e8745398d80a7",
-  "modelo_full": "rl_policy_high_demand.zip",
-  "sha256_full": "9f591daf61c396b0878b4a0d7a1ba2be2ac8ca31e3e90dd3246e0e5ab62d7cde",
+  "version": "pedemonte-rl-single-policy-v1",
+  "modelo": "rl_policy.zip",
+  "sha256_modelo": "7d2838963f578656919822ee258e9c87c38257829ea801bbd3b41fcf26d20da4",
   "max_pedidos_rl_validado": 12,
-  "fuentes_habilitadas": [
-    "EXTENSION",
-    "FULL"
-  ],
-  "preferencia_empate_hasta_10": "EXTENSION",
-  "preferencia_empate_desde_11": "FULL"
+  "usar_mascara_temporal_dura": true,
+  "validacion": {
+    "casos": 246,
+    "sin_riesgo": 231,
+    "pedidos_tardios": 22,
+    "tardanza_total_min": 215.97676315239744,
+    "segmentos": {
+      "pedidos_3_8": "124/124",
+      "pedidos_9_10": "55/60",
+      "pedidos_11_12": "50/60"
+    },
+    "decision": "COMPROMISO_OPERATIVO_DOCUMENTADO",
+    "referencia_selector_doble": {
+      "sin_riesgo": 229,
+      "pedidos_tardios": 21,
+      "tardanza_total_min": 247.06632441906618
+    }
+  }
 }

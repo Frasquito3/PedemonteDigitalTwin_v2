@@ -16605,11 +16605,11 @@ if (
 ) {
 
     uiSelectorLineaExtension =
-        "EXT —";
+        "Política RL —";
 
 
     uiSelectorLineaFull =
-        "FULL —";
+        "Máscara temporal —";
 
 
     uiSelectorLineaGreedy =
@@ -16617,7 +16617,7 @@ if (
 
 
     uiSelectorLineaElegido =
-        "Comparando checkpoints RL";
+        "Ejecutando política única";
 
 
 } else if (
@@ -16745,7 +16745,7 @@ String candidatos =
 
 
 boolean esRLPuro =
-    "RL_PURO_MULTI_CHECKPOINT".equalsIgnoreCase(
+    "RL_PURO_POLITICA_UNICA".equalsIgnoreCase(
         arquitectura
     )
     ||
@@ -16753,12 +16753,8 @@ boolean esRLPuro =
         version != null
         &&
         version.startsWith(
-            "pedemonte-rl-temporal-v4-operational"
+            "pedemonte-rl-single-policy"
         )
-        &&
-        candidatos != null
-        &&
-        !candidatos.trim().isEmpty()
     );
 
 
@@ -16857,11 +16853,7 @@ if (esRLPuro) {
 
     uiSelectorFuente =
         fuente.isEmpty()
-        ? (
-            algoritmo.isEmpty()
-            ? "RL"
-            : algoritmo.toUpperCase()
-        )
+        ? "POLITICA_UNICA"
         : fuente.toUpperCase();
 
 
@@ -16869,61 +16861,8 @@ if (esRLPuro) {
         "RL_PURO";
 
 
-    uiSelectorLineaExtension =
-        textoCandidatoSelector(
-            "EXT",
-            "EXTENSION",
-            candidatos
-        );
-
-
-    uiSelectorLineaFull =
-        textoCandidatoSelector(
-            "FULL",
-            "FULL",
-            candidatos
-        );
-
-
-    /*
-     * Greedy ya no participa dentro del modo RL.
-     */
-    uiSelectorLineaGreedy =
-        "RL puro | sin Greedy";
-
-
-    String costoExtensionTexto =
-        campoCandidatoSelector(
-            candidatos,
-            "EXTENSION",
-            "costo"
-        );
-
-
-    String costoFullTexto =
-        campoCandidatoSelector(
-            candidatos,
-            "FULL",
-            "costo"
-        );
-
-
-    try {
-
-        uiSelectorCostoRL =
-            Double.parseDouble(
-                "EXTENSION".equals(
-                    uiSelectorFuente
-                )
-                ? costoExtensionTexto
-                : costoFullTexto
-            );
-
-    } catch (Exception ex) {
-
-        uiSelectorCostoRL =
-            uiSelectorCostoElegido;
-    }
+    uiSelectorCostoRL =
+        uiSelectorCostoElegido;
 
 
     uiSelectorCostoGA =
@@ -16932,6 +16871,34 @@ if (esRLPuro) {
 
     uiSelectorCostoGreedy =
         Double.NaN;
+
+
+    String mascaraTemporal =
+        campoDecisionSelector(
+            decision,
+            "mascara_temporal"
+        );
+
+
+    uiSelectorLineaExtension =
+        "Política RL | "
+        + formatoCostoSelector(
+            uiSelectorCostoRL
+        );
+
+
+    uiSelectorLineaFull =
+        "Máscara temporal | "
+        +
+        (
+            mascaraTemporal.isEmpty()
+            ? "—"
+            : mascaraTemporal.toUpperCase()
+        );
+
+
+    uiSelectorLineaGreedy =
+        "RL puro | sin Greedy";
 
 
     long tardiosElegido =
@@ -16973,9 +16940,7 @@ if (esRLPuro) {
 
 
     uiSelectorLineaElegido =
-        "Elegido "
-        + uiSelectorFuente
-        + " | "
+        "Resultado RL | "
         + tardiosVisible
         + "t | "
         + tardanzaVisible
@@ -17655,6 +17620,10 @@ if (
     "RL".equals(
         uiSelectorFuente
     )
+    ||
+    "POLITICA_UNICA".equals(
+        uiSelectorFuente
+    )
 ) {
 
     return new java.awt.Color(
@@ -17826,20 +17795,12 @@ if (
 ) {
 
     txtCostosSelectorVisual1.setColor(
-        "EXTENSION".equals(
-            uiSelectorFuente
-        )
-        ? colorSeleccionado
-        : colorNormal
+        colorSeleccionado
     );
 
 
     txtCostosSelectorVisual2.setColor(
-        "FULL".equals(
-            uiSelectorFuente
-        )
-        ? colorSeleccionado
-        : colorNormal
+        colorSecundario
     );
 
 

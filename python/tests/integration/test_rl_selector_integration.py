@@ -18,7 +18,7 @@ def test_selector_detecta_manifiesto_json(monkeypatch, tmp_path: Path):
             return SimpleNamespace()
 
     monkeypatch.setattr(
-        "planner.rl.policy_runtime.RLTemporalV4OperationalPlanner",
+        "planner.rl.policy_runtime.RLPolicyOperationalPlanner",
         PlannerFalso,
     )
 

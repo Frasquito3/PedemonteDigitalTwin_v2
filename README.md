@@ -10,8 +10,8 @@ planificación y delega la generación del plan a Python mediante
 
 Modos disponibles:
 
-- `RL`: selección pura entre las políticas RL habilitadas.
-- `HIBRIDO`: semilla RL obligatoria y refinamiento posterior mediante GA.
+- `RL`: una única política RL productiva con máscara temporal dura.
+- `HIBRIDO`: la política RL genera la semilla y GA intenta refinarla.
 - `GA`, `GREEDY` y `RANDOM`: algoritmos complementarios de comparación.
 
 El híbrido no utiliza Greedy como sustituto de RL. Si RL falla, el híbrido
@@ -20,28 +20,38 @@ informa un error explícito.
 ## Estructura principal
 
 - `anylogic/PedemonteDigitalTwin_v2`: modelo de simulación y presentación.
-- `python/planner`: lógica de planificación, integración y evaluación.
-- `python/models/rl`: manifiesto y checkpoints utilizados en producción.
+- `python/planner`: lógica de planificación e integración.
+- `python/models/rl`: manifiesto y política RL productiva.
 - `python/data`: demanda geográfica y caché vial.
-- `python/scripts/training`: entrenamiento reproducible de las políticas.
+- `python/scripts/training`: entrenamiento reproducible de la política actual.
 - `python/scripts/evaluation`: comparación y validación para el informe.
 - `python/tests`: regresión automatizada.
 - `python/templates`: plantillas de importación de pedidos.
 
-## Modelos activos
+## Política RL activa
 
-El manifiesto operativo es:
+Manifiesto:
 
 ```text
 python/models/rl/rl_policies.json
 ```
 
-Checkpoints:
+Checkpoint:
 
 ```text
-python/models/rl/rl_policy_balanced.zip
-python/models/rl/rl_policy_high_demand.zip
+python/models/rl/rl_policy.zip
 ```
+
+La inferencia utiliza máscara temporal dura y está validada para instancias de
+hasta 12 pedidos. La decisión de promoción conserva documentado el compromiso
+frente al selector anterior de dos checkpoints:
+
+- política única: 231/246 casos sin riesgo, 22 pedidos tardíos y 215,977 min;
+- selector anterior: 229/246 casos sin riesgo, 21 pedidos tardíos y 247,066 min.
+
+Se priorizó la política única porque aumenta los casos completamente libres de
+tardanza y reduce la tardanza total, aceptando un pedido tardío acumulado
+adicional en el holdout.
 
 ## Caché vial
 
@@ -62,14 +72,8 @@ $py = (Resolve-Path "..\.venv\Scripts\python.exe").Path
 & $py -m pytest -q --tb=short
 ```
 
-Resultado de referencia de la limpieza técnica:
-
-```text
-210 passed, 6 subtests passed
-```
-
 ## Artefactos locales
 
-Los resultados, cachés, corridas, checkpoints de entrenamiento y archivos
-subidos desde la interfaz no se versionan. Las reglas correspondientes se
-encuentran en `.gitignore`.
+Los resultados, cachés, corridas, checkpoints intermedios de entrenamiento y
+archivos subidos desde la interfaz no se versionan. Las reglas correspondientes
+se encuentran en `.gitignore`.
