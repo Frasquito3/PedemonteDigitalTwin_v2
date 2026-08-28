@@ -431,10 +431,22 @@ def _extraer_fuente_y_motivo(
 
     detalle = decision.detalle if decision is not None else ""
     campos = _campos_detalle(detalle)
-    return (
-        campos.get("fuente", plan.algoritmo.value),
-        campos.get("motivo", ""),
-    )
+
+    # En el híbrido actual, ``resultado`` identifica qué plan terminó
+    # ejecutándose: la semilla RL o el refinamiento GA. ``fuente_rl`` indica
+    # solamente qué checkpoint originó la semilla y queda preservado dentro
+    # de detalle_decision.
+    resultado = campos.get("resultado", "").strip().upper()
+    if resultado == "REFINADO_GA":
+        fuente = "GA"
+    elif resultado == "SEMILLA_RL":
+        fuente = "RL"
+    else:
+        # Compatibilidad de lectura con contratos históricos y defensa ante
+        # decisiones incompletas.
+        fuente = campos.get("fuente", plan.algoritmo.value)
+
+    return fuente, campos.get("motivo", "")
 
 
 def _campos_detalle(detalle: str) -> dict[str, str]:

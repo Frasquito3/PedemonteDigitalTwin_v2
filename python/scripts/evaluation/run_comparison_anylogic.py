@@ -33,7 +33,7 @@ DEFAULT_CONTRACT = (
 DEFAULT_MODEL = (
     PYTHON_ROOT
     / "anylogic_export"
-    / "phase16b_comparison"
+    / "comparison"
     / "PedemonteDigitalTwin_v2.zip"
 )
 
@@ -128,7 +128,7 @@ def main() -> int:
         timeout_segundos=args.timeout,
         max_server_await_time=args.max_server_await,
         limite_ple_min=args.ple_limit,
-        log_id_base="phase16b",
+        log_id_base="comparison",
         habilitar_logs=not args.no_logs,
     )
 

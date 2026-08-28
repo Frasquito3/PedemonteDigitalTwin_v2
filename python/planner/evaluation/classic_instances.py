@@ -61,7 +61,7 @@ def _pedido(
         cliente=cliente or pedido_id,
         direccion=f"Dirección de prueba {pedido_id}",
         barrio="Benchmark vial",
-        observaciones="Caso reproducible Fase 15R.5A",
+        observaciones="Caso reproducible de comparación",
     )
 
 
@@ -94,7 +94,7 @@ def crear_casos_benchmark_clasico(
     Crea una batería estable de instancias pequeñas y auditables.
 
     Todas las ubicaciones pertenecen al conjunto vial validado en las
-    Fases 15R.3H–15R.4F. Los casos de split reutilizan coordenadas, por
+    validaciones históricas del proyecto. Los casos de split reutilizan coordenadas, por
     lo que no requieren tramos viales adicionales.
     """
     simple = CasoBenchmarkClasico(

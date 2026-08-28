@@ -27,7 +27,7 @@ class TemporalEstimatorTest(unittest.TestCase):
         )
         self.configuracion = ConfiguracionPlanificacion()
         self.proveedor = ProveedorVialCachePersistente(
-            PYTHON_ROOT / "data" / "routing" / "cache_vial_v1.csv",
+            PYTHON_ROOT / "data" / "routing" / "cache_vial.csv",
             version_cache_esperada="pedemonte-vial-v1",
             permitir_fallback=False,
         )

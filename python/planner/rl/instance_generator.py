@@ -28,7 +28,7 @@ RUTA_DEMANDA_REAL_POR_DEFECTO = (
     Path(__file__).resolve().parents[2]
     / "data"
     / "processed"
-    / "demanda_geografica_v1.csv"
+    / "demanda_geografica.csv"
 )
 
 

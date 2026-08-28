@@ -329,7 +329,7 @@ class GeneradorInstanciasRLTest(
                 ),
                 ruta_demanda_real=(
                     "data/processed/"
-                    "demanda_geografica_v1.csv"
+                    "demanda_geografica.csv"
                 ),
             )
         )

@@ -42,20 +42,20 @@ DEFAULT_RL_MODEL = (
     PYTHON_ROOT
     / "models"
     / "rl"
-    / "pedemonte_maskable_ppo.zip"
+    / "rl_policies.json"
 )
 
 DEFAULT_CACHE = (
     PYTHON_ROOT
     / "data"
     / "routing"
-    / "cache_vial_v1.csv"
+    / "cache_vial.csv"
 )
 
 DEFAULT_ANYLOGIC_MODEL = (
     PYTHON_ROOT
     / "anylogic_export"
-    / "phase16b_comparison"
+    / "comparison"
     / "PedemonteDigitalTwin_v2.zip"
 )
 
@@ -63,7 +63,7 @@ DEFAULT_OUTPUT = (
     PYTHON_ROOT
     / "results"
     / "comparison_anylogic"
-    / "16C"
+    / "suite"
 )
 
 
@@ -71,7 +71,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
             "Prepara y ejecuta en AnyLogic los cinco modos para los "
-            "seis casos controlados de la Fase 16C."
+            "seis casos controlados de la suite de comparación."
         )
     )
     parser.add_argument(
@@ -85,7 +85,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--rl-model",
         default=str(DEFAULT_RL_MODEL),
-        help="Modelo RL histórico utilizado por el selector.",
+        help="Manifiesto de políticas RL utilizado por el selector.",
     )
     parser.add_argument(
         "--cache",
@@ -206,7 +206,7 @@ def main() -> int:
         timeout_segundos=args.timeout,
         max_server_await_time=args.max_server_await,
         limite_ple_min=args.ple_limit,
-        log_id_base="phase16c",
+        log_id_base="comparison_suite",
         habilitar_logs=not args.no_logs,
     )
 

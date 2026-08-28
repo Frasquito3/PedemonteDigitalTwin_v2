@@ -126,16 +126,33 @@ class TestContratoComparacion(unittest.TestCase):
                 ("GA", self.instancia.seed_escenario + 8001),
             ],
         )
-        self.assertEqual(
-            por_modo["HIBRIDO"].fuente_seleccionada,
+        hibrido = por_modo["HIBRIDO"]
+        self.assertNotEqual(
+            hibrido.fuente_seleccionada,
             "GREEDY",
         )
-        self.assertEqual(
-            por_modo["HIBRIDO"].motivo_seleccion,
-            "GREEDY_MENOR_O_IGUAL",
+        self.assertIn(
+            hibrido.fuente_seleccionada,
+            {"RL", "GA"},
+        )
+        self.assertIn(
+            hibrido.motivo_seleccion,
+            {
+                "GA_MEJORA_SEMILLA_RL",
+                "SEMILLA_RL_CONSERVADA",
+                "GA_NO_EJECUTABLE",
+            },
+        )
+        self.assertIn(
+            "arquitectura=RL_GA_SEEDED",
+            hibrido.detalle_decision,
+        )
+        self.assertIn(
+            "fuente_rl=RL",
+            hibrido.detalle_decision,
         )
 
-    def test_error_rl_no_impide_preparar_el_resto(self) -> None:
+    def test_error_rl_impide_hibrido_pero_no_los_clasicos(self) -> None:
         contrato = preparar_contrato_comparacion(
             self.instancia,
             selector=self._selector(_PlannerRLConError()),
@@ -148,13 +165,25 @@ class TestContratoComparacion(unittest.TestCase):
 
         self.assertEqual(por_modo["RL"].estado, "ERROR")
         self.assertIn("fallo RL controlado", por_modo["RL"].error)
-        self.assertEqual(por_modo["HIBRIDO"].estado, "OK")
+
+        # El híbrido vigente necesita una semilla RL ejecutable. Si RL falla,
+        # el híbrido también debe fallar de forma explícita y nunca recurrir a
+        # Greedy como sustituto silencioso.
+        self.assertEqual(por_modo["HIBRIDO"].estado, "ERROR")
         self.assertIn(
-            por_modo["HIBRIDO"].fuente_seleccionada,
-            {"GREEDY", "GA"},
+            "No se pudo obtener la semilla RL del híbrido",
+            por_modo["HIBRIDO"].error,
         )
-        self.assertEqual(contrato.planes_ok, 4)
-        self.assertEqual(contrato.planes_error, 1)
+        self.assertIn(
+            "fallo RL controlado",
+            por_modo["HIBRIDO"].error,
+        )
+
+        for modo_clasico in ("GA", "GREEDY", "RANDOM"):
+            self.assertEqual(por_modo[modo_clasico].estado, "OK")
+
+        self.assertEqual(contrato.planes_ok, 3)
+        self.assertEqual(contrato.planes_error, 2)
 
     def test_escribe_json_y_csv(self) -> None:
         contrato = preparar_contrato_comparacion(

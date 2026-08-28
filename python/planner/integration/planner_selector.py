@@ -13,7 +13,7 @@ from planner.algorithms.ga import (
 from planner.algorithms.greedy import (
     generar_plan_greedy,
 )
-from planner.algorithms.hybrid_rl_ga_greedy import (
+from planner.algorithms.hybrid_rl_ga import (
     HybridRLGAPlanner,
 )
 from planner.algorithms.random_feasible import (
@@ -78,9 +78,7 @@ class SelectorPlanificadores:
     Fachada común para seleccionar el algoritmo
     encargado de generar el plan.
 
-    El modelo RL se carga de forma diferida. Si model_path_rl apunta
-    a un manifiesto JSON, se utiliza la política operacional temporal v4;
-    si apunta a un ZIP, se conserva el planificador RL histórico.
+    El modo RL se carga de forma diferida desde un manifiesto JSON.
     GREEDY, RANDOM y GA no necesitan cargarlo.
     """
 
@@ -405,56 +403,23 @@ class SelectorPlanificadores:
                 "planner_rl inyectado."
             )
 
-        if (
-            self.model_path_rl.suffix.lower()
-            == ".json"
-        ):
-            from planner.rl.rl_temporal_v4_operational import (
-                RLTemporalV4OperationalPlanner,
+        if self.model_path_rl.suffix.lower() != ".json":
+            raise ValueError(
+                "El modo RL requiere el manifiesto JSON de políticas: "
+                f"{self.model_path_rl}"
             )
 
-            self._planner_rl = (
-                RLTemporalV4OperationalPlanner(
-                    manifest_path=(
-                        self.model_path_rl
-                    ),
-                    max_pedidos=(
-                        self.max_pedidos
-                    ),
-                    deterministic=(
-                        self.deterministic
-                    ),
-                    configuracion=(
-                        self.configuracion
-                    ),
-                    proveedor_viaje=(
-                        self.proveedor_viaje
-                    ),
-                )
-            )
+        from planner.rl.policy_runtime import (
+            RLTemporalV4OperationalPlanner,
+        )
 
-        else:
-            from planner.rl.planner import (
-                RLPlanner,
-            )
-
-            self._planner_rl = RLPlanner(
-                model_path=(
-                    self.model_path_rl
-                ),
-                max_pedidos=(
-                    self.max_pedidos
-                ),
-                deterministic=(
-                    self.deterministic
-                ),
-                configuracion=(
-                    self.configuracion
-                ),
-                proveedor_viaje=(
-                    self.proveedor_viaje
-                ),
-            )
+        self._planner_rl = RLTemporalV4OperationalPlanner(
+            manifest_path=self.model_path_rl,
+            max_pedidos=self.max_pedidos,
+            deterministic=self.deterministic,
+            configuracion=self.configuracion,
+            proveedor_viaje=self.proveedor_viaje,
+        )
 
         return self._planner_rl
 

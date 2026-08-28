@@ -734,44 +734,14 @@
 					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
 						<Type><![CDATA[String]]></Type>        
 						<InitialValue Class="CodeValue">
-							<Code><![CDATA["models/rl/pedemonte_temporal_v4_operational.json"]]></Code>
-						</InitialValue>
-					</Properties>
-				</Variable>
-				<Variable Class="PlainVariable">
-					<Id>1787143712306</Id>
-					<Name><![CDATA[pypelinePlanificadorInicializado]]></Name>
-					<X>-1100</X><Y>940</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
-						<Type><![CDATA[boolean]]></Type>        
-						<InitialValue Class="CodeValue">
-							<Code><![CDATA[false]]></Code>
-						</InitialValue>
-					</Properties>
-				</Variable>
-				<Variable Class="PlainVariable">
-					<Id>1787143722923</Id>
-					<Name><![CDATA[pypelineEstadoPlanificador]]></Name>
-					<X>-1100</X><Y>970</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
-						<Type><![CDATA[String]]></Type>        
-						<InitialValue Class="CodeValue">
-							<Code><![CDATA[""]]></Code>
+							<Code><![CDATA["models/rl/rl_policies.json"]]></Code>
 						</InitialValue>
 					</Properties>
 				</Variable>
 				<Variable Class="PlainVariable">
 					<Id>1787143733300</Id>
 					<Name><![CDATA[pypelineUltimoPlanVector]]></Name>
-					<X>-1100</X><Y>1000</Y>
+					<X>-1100</X><Y>940</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -786,7 +756,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787144565429</Id>
 					<Name><![CDATA[modoPlanificacionPypeline]]></Name>
-					<X>-1100</X><Y>1030</Y>
+					<X>-1100</X><Y>970</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -801,7 +771,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787144586318</Id>
 					<Name><![CDATA[pypelineSelectorInicializado]]></Name>
-					<X>-1100</X><Y>1060</Y>
+					<X>-1100</X><Y>1000</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -816,7 +786,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787144633369</Id>
 					<Name><![CDATA[pypelineSolicitudEnCurso]]></Name>
-					<X>-1100</X><Y>1090</Y>
+					<X>-1100</X><Y>1030</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -831,7 +801,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787144671554</Id>
 					<Name><![CDATA[pypelineEstadoSelector]]></Name>
-					<X>-1100</X><Y>1120</Y>
+					<X>-1100</X><Y>1060</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -846,7 +816,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787145152174</Id>
 					<Name><![CDATA[instanciaInterfazActual]]></Name>
-					<X>-1100</X><Y>1150</Y>
+					<X>-1100</X><Y>1090</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -861,7 +831,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787145165903</Id>
 					<Name><![CDATA[mensajeInterfazPlanificacion]]></Name>
-					<X>-1100</X><Y>1180</Y>
+					<X>-1100</X><Y>1120</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -876,7 +846,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787145175815</Id>
 					<Name><![CDATA[ultimoModoEjecutado]]></Name>
-					<X>-1100</X><Y>1210</Y>
+					<X>-1100</X><Y>1150</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -891,7 +861,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787146378794</Id>
 					<Name><![CDATA[pedidosFormulario]]></Name>
-					<X>-1100</X><Y>1240</Y>
+					<X>-1100</X><Y>1180</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -906,7 +876,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787146398418</Id>
 					<Name><![CDATA[turnoFormulario]]></Name>
-					<X>-1100</X><Y>1270</Y>
+					<X>-1100</X><Y>1210</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -921,7 +891,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787146409596</Id>
 					<Name><![CDATA[fechaFormulario]]></Name>
-					<X>-1100</X><Y>1300</Y>
+					<X>-1100</X><Y>1240</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -936,7 +906,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787146421568</Id>
 					<Name><![CDATA[seedFormulario]]></Name>
-					<X>-1100</X><Y>1330</Y>
+					<X>-1100</X><Y>1270</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -951,7 +921,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787146432624</Id>
 					<Name><![CDATA[pedidoIdFormulario]]></Name>
-					<X>-1100</X><Y>1360</Y>
+					<X>-1100</X><Y>1300</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -966,7 +936,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787146441449</Id>
 					<Name><![CDATA[clienteFormulario]]></Name>
-					<X>-1100</X><Y>1390</Y>
+					<X>-1100</X><Y>1330</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -981,7 +951,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787146449185</Id>
 					<Name><![CDATA[direccionFormulario]]></Name>
-					<X>-1100</X><Y>1420</Y>
+					<X>-1100</X><Y>1360</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -996,7 +966,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787146458369</Id>
 					<Name><![CDATA[barrioFormulario]]></Name>
-					<X>-1100</X><Y>1450</Y>
+					<X>-1100</X><Y>1390</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1011,7 +981,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787146467103</Id>
 					<Name><![CDATA[unidadesFormulario]]></Name>
-					<X>-1100</X><Y>1480</Y>
+					<X>-1100</X><Y>1420</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1026,7 +996,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787146478792</Id>
 					<Name><![CDATA[latitudFormulario]]></Name>
-					<X>-1100</X><Y>1510</Y>
+					<X>-1100</X><Y>1450</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1041,7 +1011,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787146492240</Id>
 					<Name><![CDATA[longitudFormulario]]></Name>
-					<X>-1100</X><Y>1540</Y>
+					<X>-1100</X><Y>1480</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1056,7 +1026,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787146503840</Id>
 					<Name><![CDATA[requiereVolcadorFormulario]]></Name>
-					<X>-1100</X><Y>1570</Y>
+					<X>-1100</X><Y>1510</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1071,7 +1041,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787146513576</Id>
 					<Name><![CDATA[tieneVentanaFormulario]]></Name>
-					<X>-1100</X><Y>1600</Y>
+					<X>-1100</X><Y>1540</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1086,7 +1056,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787146522737</Id>
 					<Name><![CDATA[horaDesdeFormulario]]></Name>
-					<X>-1100</X><Y>1630</Y>
+					<X>-1100</X><Y>1570</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1101,7 +1071,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787146532273</Id>
 					<Name><![CDATA[horaHastaFormulario]]></Name>
-					<X>-1100</X><Y>1660</Y>
+					<X>-1100</X><Y>1600</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1116,7 +1086,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787146542402</Id>
 					<Name><![CDATA[mensajeFormulario]]></Name>
-					<X>-1100</X><Y>1690</Y>
+					<X>-1100</X><Y>1630</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1131,7 +1101,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787146552393</Id>
 					<Name><![CDATA[contadorPedidosFormulario]]></Name>
-					<X>-1100</X><Y>1720</Y>
+					<X>-1100</X><Y>1660</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1146,7 +1116,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787150754058</Id>
 					<Name><![CDATA[puntoCorralonGIS]]></Name>
-					<X>-1100</X><Y>1750</Y>
+					<X>-1100</X><Y>1690</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1161,7 +1131,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787150771530</Id>
 					<Name><![CDATA[puntosPedidosGIS]]></Name>
-					<X>-1100</X><Y>1780</Y>
+					<X>-1100</X><Y>1720</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1176,7 +1146,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787150787218</Id>
 					<Name><![CDATA[gisInicializado]]></Name>
-					<X>-1100</X><Y>1810</Y>
+					<X>-1100</X><Y>1750</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1191,7 +1161,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787150797146</Id>
 					<Name><![CDATA[mensajeGIS]]></Name>
-					<X>-1100</X><Y>1840</Y>
+					<X>-1100</X><Y>1780</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1206,7 +1176,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787152400046</Id>
 					<Name><![CDATA[rutasPlanGIS]]></Name>
-					<X>-1100</X><Y>1870</Y>
+					<X>-1100</X><Y>1810</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1221,7 +1191,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787152416349</Id>
 					<Name><![CDATA[mensajeRutasGIS]]></Name>
-					<X>-1100</X><Y>1900</Y>
+					<X>-1100</X><Y>1840</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1236,7 +1206,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787152428150</Id>
 					<Name><![CDATA[cantidadSegmentosPlanGIS]]></Name>
-					<X>-1100</X><Y>1930</Y>
+					<X>-1100</X><Y>1870</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1251,7 +1221,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787153299944</Id>
 					<Name><![CDATA[marcadoresCamionesGIS]]></Name>
-					<X>-1100</X><Y>1960</Y>
+					<X>-1100</X><Y>1900</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1272,7 +1242,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787153324656</Id>
 					<Name><![CDATA[estadosCamionesGIS]]></Name>
-					<X>-1100</X><Y>1990</Y>
+					<X>-1100</X><Y>1930</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1287,7 +1257,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787153340680</Id>
 					<Name><![CDATA[mensajeCamionesGIS]]></Name>
-					<X>-1100</X><Y>2020</Y>
+					<X>-1100</X><Y>1960</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1302,7 +1272,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787155827568</Id>
 					<Name><![CDATA[puntosPedidosPorOriginalGIS]]></Name>
-					<X>-1100</X><Y>2050</Y>
+					<X>-1100</X><Y>1990</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1317,7 +1287,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787155842575</Id>
 					<Name><![CDATA[estadosPedidosGIS]]></Name>
-					<X>-1100</X><Y>2080</Y>
+					<X>-1100</X><Y>2020</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1332,7 +1302,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787155859207</Id>
 					<Name><![CDATA[mensajeEstadosPedidosGIS]]></Name>
-					<X>-1100</X><Y>2110</Y>
+					<X>-1100</X><Y>2050</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1347,7 +1317,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787158153438</Id>
 					<Name><![CDATA[mostrarMarcadoresDiagnosticoGIS]]></Name>
-					<X>-1100</X><Y>2140</Y>
+					<X>-1100</X><Y>2080</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1362,7 +1332,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787586609882</Id>
 					<Name><![CDATA[rutasActivasPorCamionGIS]]></Name>
-					<X>-1100</X><Y>2170</Y>
+					<X>-1100</X><Y>2110</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1377,7 +1347,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787598514855</Id>
 					<Name><![CDATA[uiSelectorModoSolicitado]]></Name>
-					<X>-1100</X><Y>2200</Y>
+					<X>-1100</X><Y>2140</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1392,7 +1362,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787598524567</Id>
 					<Name><![CDATA[uiSelectorFuente]]></Name>
-					<X>-1100</X><Y>2230</Y>
+					<X>-1100</X><Y>2170</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1407,7 +1377,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787598540454</Id>
 					<Name><![CDATA[uiSelectorMotivo]]></Name>
-					<X>-1100</X><Y>2260</Y>
+					<X>-1100</X><Y>2200</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1422,7 +1392,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787598556991</Id>
 					<Name><![CDATA[uiSelectorEstado]]></Name>
-					<X>-1100</X><Y>2290</Y>
+					<X>-1100</X><Y>2230</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1437,7 +1407,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787598567718</Id>
 					<Name><![CDATA[uiSelectorAviso]]></Name>
-					<X>-1100</X><Y>2320</Y>
+					<X>-1100</X><Y>2260</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1452,7 +1422,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787598577855</Id>
 					<Name><![CDATA[uiSelectorCostoGreedy]]></Name>
-					<X>-1100</X><Y>2350</Y>
+					<X>-1100</X><Y>2290</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1467,7 +1437,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787598588127</Id>
 					<Name><![CDATA[uiSelectorCostoGA]]></Name>
-					<X>-1100</X><Y>2380</Y>
+					<X>-1100</X><Y>2320</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1482,7 +1452,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787598595991</Id>
 					<Name><![CDATA[uiSelectorCostoRL]]></Name>
-					<X>-1100</X><Y>2410</Y>
+					<X>-1100</X><Y>2350</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1497,7 +1467,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787598599846</Id>
 					<Name><![CDATA[uiSelectorCostoElegido]]></Name>
-					<X>-1100</X><Y>2440</Y>
+					<X>-1100</X><Y>2380</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1512,7 +1482,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787598602615</Id>
 					<Name><![CDATA[uiSelectorMejoraGreedyPct]]></Name>
-					<X>-1100</X><Y>2470</Y>
+					<X>-1100</X><Y>2410</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1527,7 +1497,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787598627959</Id>
 					<Name><![CDATA[uiSelectorTiempoMs]]></Name>
-					<X>-1100</X><Y>2500</Y>
+					<X>-1100</X><Y>2440</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1542,7 +1512,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787598664254</Id>
 					<Name><![CDATA[uiSelectorSeedGA]]></Name>
-					<X>-1100</X><Y>2530</Y>
+					<X>-1100</X><Y>2470</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1557,7 +1527,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787861948190</Id>
 					<Name><![CDATA[rutaArchivoExcelSubido]]></Name>
-					<X>-1100</X><Y>2560</Y>
+					<X>-1100</X><Y>2500</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1572,7 +1542,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787863419077</Id>
 					<Name><![CDATA[cacheVialInstanciaCompleta]]></Name>
-					<X>-1100</X><Y>2590</Y>
+					<X>-1100</X><Y>2530</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1587,7 +1557,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787863430685</Id>
 					<Name><![CDATA[cacheVialTramosRequeridos]]></Name>
-					<X>-1100</X><Y>2620</Y>
+					<X>-1100</X><Y>2560</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1602,7 +1572,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787863438653</Id>
 					<Name><![CDATA[cacheVialTramosFaltantes]]></Name>
-					<X>-1100</X><Y>2650</Y>
+					<X>-1100</X><Y>2590</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1617,7 +1587,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787863446517</Id>
 					<Name><![CDATA[cacheVialEstadoInterfaz]]></Name>
-					<X>-1100</X><Y>2680</Y>
+					<X>-1100</X><Y>2620</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1632,7 +1602,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787863459821</Id>
 					<Name><![CDATA[uiSelectorPoliticaOperacional]]></Name>
-					<X>-1100</X><Y>2710</Y>
+					<X>-1100</X><Y>2650</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1647,7 +1617,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787863468469</Id>
 					<Name><![CDATA[uiSelectorLineaExtension]]></Name>
-					<X>-1100</X><Y>2740</Y>
+					<X>-1100</X><Y>2680</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1662,7 +1632,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787863478237</Id>
 					<Name><![CDATA[uiSelectorLineaFull]]></Name>
-					<X>-1100</X><Y>2770</Y>
+					<X>-1100</X><Y>2710</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1677,7 +1647,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787863487813</Id>
 					<Name><![CDATA[uiSelectorLineaGreedy]]></Name>
-					<X>-1100</X><Y>2800</Y>
+					<X>-1100</X><Y>2740</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1692,7 +1662,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1787863497733</Id>
 					<Name><![CDATA[uiSelectorLineaElegido]]></Name>
-					<X>-1100</X><Y>2830</Y>
+					<X>-1100</X><Y>2770</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -6100,7 +6070,7 @@ String raizPython =
 java.io.File archivoCache =
     new java.io.File(
         raizPython,
-        "data/routing/cache_vial_v1.csv"
+        "data/routing/cache_vial.csv"
     ).getAbsoluteFile();
 
 
@@ -10263,337 +10233,9 @@ return vector;]]></Body>
 				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
 					<ReturnType><![CDATA[boolean]]></ReturnType>
-					<Id>1787143803487</Id>
-					<Name><![CDATA[inicializarPlanificadorPypeline]]></Name>
-					<X>-810</X><Y>2050</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<Body><![CDATA[if (
-    pypelinePlanificadorInicializado
-) {
-
-    return true;
-}
-
-
-try {
-
-    String raizPython =
-        resolverRaizPythonPypeline();
-
-
-    java.io.File archivoModelo =
-        new java.io.File(
-            raizPython,
-            rutaModeloRLPypelineRelativa
-        ).getCanonicalFile();
-
-
-    if (!archivoModelo.isFile()) {
-
-        throw new IllegalStateException(
-            "No existe el modelo RL: "
-            + archivoModelo
-                .getCanonicalPath()
-        );
-    }
-
-
-    String raizLiteral =
-        pyCommunicator.toJson(
-            raizPython
-        );
-
-
-    String modeloLiteral =
-        pyCommunicator.toJson(
-            archivoModelo
-                .getCanonicalPath()
-        );
-
-
-    pyCommunicator.run(
-        "import sys",
-
-        "import importlib",
-
-        "pedemonte_root = "
-            + raizLiteral,
-
-        (
-            "sys.path.insert(0, pedemonte_root) "
-            + "if pedemonte_root not in sys.path "
-            + "else None"
-        ),
-
-        (
-            "from planner.integration "
-            + "import pypeline_bridge "
-            + "as pedemonte_bridge"
-        ),
-
-        (
-            "pedemonte_bridge = "
-            + "importlib.reload("
-            + "pedemonte_bridge)"
-        )
-    );
-
-
-    String estado =
-        pyCommunicator.runResults(
-            String.class,
-
-            (
-                "pedemonte_bridge.inicializar("
-                + modeloLiteral
-                + ", max_pedidos=30, "
-                + "deterministic=True)"
-            )
-        );
-
-
-    if (
-        estado == null
-        ||
-        !estado.startsWith(
-            "OK|"
-        )
-    ) {
-
-        throw new IllegalStateException(
-            "Respuesta inesperada al "
-            + "inicializar Pypeline: "
-            + estado
-        );
-    }
-
-
-    pypelinePlanificadorInicializado =
-        true;
-
-    pypelineEstadoPlanificador =
-        estado;
-
-
-    traceln(
-        "PYPELINE PLANNER: "
-        + estado
-    );
-
-
-    return true;
-
-
-} catch (Exception ex) {
-
-    pypelinePlanificadorInicializado =
-        false;
-
-    pypelineEstadoPlanificador =
-        ex.getClass()
-            .getSimpleName()
-        + ": "
-        + ex.getMessage();
-
-
-    traceln(
-        "ERROR PYPELINE PLANNER: "
-        + pypelineEstadoPlanificador
-    );
-
-
-    ex.printStackTrace();
-
-
-    return false;
-}]]></Body>
-				</Function>
-				<Function AccessType="default" StaticFunction="false">
-					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
-					<ReturnType><![CDATA[PlanTurno]]></ReturnType>
-					<Id>1787143833955</Id>
-					<Name><![CDATA[generarPlanHibridoPypeline]]></Name>
-					<X>-810</X><Y>2080</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<Parameter>
-						<Name><![CDATA[instancia]]></Name>
-						<Type><![CDATA[InstanciaTurno]]></Type>
-					</Parameter>
-					<Body><![CDATA[if (instancia == null) {
-
-    throw new IllegalArgumentException(
-        "instancia no puede ser null."
-    );
-}
-
-
-if (
-    !inicializarPlanificadorPypeline()
-) {
-
-    throw new IllegalStateException(
-        "No fue posible inicializar "
-        + "el planificador Pypeline: "
-        + pypelineEstadoPlanificador
-    );
-}
-
-
-double[] instanciaVector =
-    construirVectorInstanciaPypeline(
-        instancia
-    );
-
-
-String vectorLiteral =
-    pyCommunicator.toJson(
-        instanciaVector
-    );
-
-
-String comando =
-    "pedemonte_bridge.planificar_vector("
-    + vectorLiteral
-    + ", "
-    + instancia.seedEscenario
-    + ", "
-    + instancia.seedEjecucion
-    + ")";
-
-
-double[] planVector =
-    pyCommunicator.runResults(
-        double[].class,
-        comando
-    );
-
-
-if (
-    planVector == null
-    ||
-    planVector.length < 5
-) {
-
-    throw new IllegalStateException(
-        "Python devolvió un planVector "
-        + "vacío o incompleto."
-    );
-}
-
-
-pypelineUltimoPlanVector =
-    planVector.clone();
-
-
-PlanTurno plan =
-    crearPlanAlpyneDinamico(
-        planVector,
-        instancia
-    );
-
-
-ResultadoValidacionPlan validacion =
-    validarPlan(
-        instancia,
-        plan
-    );
-
-
-if (!validacion.valido) {
-
-    throw new IllegalStateException(
-        "El plan devuelto por Pypeline "
-        + "es inválido: "
-        + validacion.errores
-    );
-}
-
-
-String decision =
-    pyCommunicator.runResults(
-        String.class,
-        (
-            "pedemonte_bridge."
-            + "obtener_ultima_decision()"
-        )
-    );
-
-
-pypelineEstadoPlanificador =
-    decision;
-
-
-traceln(
-    "PYPELINE DECISIÓN: "
-    + decision
-);
-
-
-return plan;]]></Body>
-				</Function>
-				<Function AccessType="default" StaticFunction="false">
-					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
-					<ReturnType><![CDATA[InstanciaTurno]]></ReturnType>
-					<Id>1787143863563</Id>
-					<Name><![CDATA[crearInstanciaPruebaPypeline]]></Name>
-					<X>-810</X><Y>2110</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<Body><![CDATA[double[] vector =
-    new double[] {
-
-        1.0,
-        0.0,
-        2.0,
-        8.0,
-        2.0,
-        LAT_CORRALON,
-        LON_CORRALON,
-        0.0,
-
-        0.0,
-        0.0,
-        1.0,
-        1.0,
-        5.0,
-        0.0,
-        LAT_CORRALON + 0.0008,
-        LON_CORRALON + 0.0005,
-        -1.0,
-        -1.0,
-
-        1.0,
-        1.0,
-        1.0,
-        1.0,
-        3.0,
-        0.0,
-        LAT_CORRALON - 0.0007,
-        LON_CORRALON - 0.0006,
-        -1.0,
-        -1.0
-    };
-
-
-return crearInstanciaAlpyneDinamica(
-    vector,
-    5001
-);]]></Body>
-				</Function>
-				<Function AccessType="default" StaticFunction="false">
-					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
-					<ReturnType><![CDATA[boolean]]></ReturnType>
 					<Id>1787144695860</Id>
 					<Name><![CDATA[inicializarSelectorPypeline]]></Name>
-					<X>-810</X><Y>2140</Y>
+					<X>-810</X><Y>2050</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -10632,7 +10274,7 @@ try {
     java.io.File archivoCacheVial =
         new java.io.File(
             raizPython,
-            "data/routing/cache_vial_v1.csv"
+            "data/routing/cache_vial.csv"
         ).getCanonicalFile();
 
 
@@ -10684,8 +10326,8 @@ try {
 
         (
             "from planner.integration "
-            + "import pypeline_selector_bridge "
-            + "as pedemonte_selector_bridge"
+		    + "import selector_bridge "
+		    + "as pedemonte_selector_bridge"
         ),
 
         (
@@ -10808,7 +10450,7 @@ try {
 					<ReturnType><![CDATA[PlanTurno]]></ReturnType>
 					<Id>1787144712140</Id>
 					<Name><![CDATA[generarPlanSeleccionadoPypeline]]></Name>
-					<X>-810</X><Y>2170</Y>
+					<X>-810</X><Y>2080</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -10976,7 +10618,7 @@ return plan;]]></Body>
 					<ReturnType><![CDATA[String]]></ReturnType>
 					<Id>1787145197425</Id>
 					<Name><![CDATA[resumenInstanciaInterfaz]]></Name>
-					<X>-810</X><Y>2200</Y>
+					<X>-810</X><Y>2110</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -11047,115 +10689,11 @@ return
     + pedidosConVentana;]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
-					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
-					<ReturnType><![CDATA[boolean]]></ReturnType>
-					<Id>1787145213281</Id>
-					<Name><![CDATA[cargarInstanciaDemoInterfaz]]></Name>
-					<X>-810</X><Y>2230</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<Body><![CDATA[if (
-    ejecucionEnCurso
-    ||
-    pypelineSolicitudEnCurso
-) {
-
-    mensajeInterfazPlanificacion =
-        "No se puede cargar una instancia "
-        + "mientras existe una planificación "
-        + "o ejecución en curso.";
-
-    traceln(
-        mensajeInterfazPlanificacion
-    );
-
-    return false;
-}
-
-
-try {
-
-    InstanciaTurno nuevaInstancia =
-        crearInstanciaPruebaPypeline();
-
-
-    if (nuevaInstancia == null) {
-
-        throw new IllegalStateException(
-            "crearInstanciaPruebaPypeline "
-            + "devolvió null."
-        );
-    }
-
-
-    if (
-        nuevaInstancia.pedidos == null
-        ||
-        nuevaInstancia
-            .pedidos
-            .isEmpty()
-    ) {
-
-        throw new IllegalStateException(
-            "La instancia generada "
-            + "no contiene pedidos."
-        );
-    }
-
-
-    instanciaInterfazActual =
-        nuevaInstancia;
-
-
-    mensajeInterfazPlanificacion =
-        "Instancia cargada correctamente.";
-
-
-    traceln(
-        mensajeInterfazPlanificacion
-    );
-
-    traceln(
-        resumenInstanciaInterfaz()
-    );
-
-
-    return true;
-
-
-} catch (Exception ex) {
-
-    instanciaInterfazActual =
-        null;
-
-
-    mensajeInterfazPlanificacion =
-        "Error al cargar instancia: "
-        + ex.getClass()
-            .getSimpleName()
-        + ": "
-        + ex.getMessage();
-
-
-    traceln(
-        mensajeInterfazPlanificacion
-    );
-
-
-    ex.printStackTrace();
-
-
-    return false;
-}]]></Body>
-				</Function>
-				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>VOID</ReturnModificator>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1787145227913</Id>
 					<Name><![CDATA[limpiarInstanciaInterfaz]]></Name>
-					<X>-810</X><Y>2260</Y>
+					<X>-810</X><Y>2140</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -11202,7 +10740,7 @@ traceln(
 					<ReturnType><![CDATA[Turno]]></ReturnType>
 					<Id>1787146560681</Id>
 					<Name><![CDATA[obtenerTurnoFormulario]]></Name>
-					<X>-810</X><Y>2290</Y>
+					<X>-810</X><Y>2170</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -11237,7 +10775,7 @@ throw new IllegalArgumentException(
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1787146580162</Id>
 					<Name><![CDATA[actualizarHorarioFormulario]]></Name>
-					<X>-810</X><Y>2320</Y>
+					<X>-810</X><Y>2200</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -11282,7 +10820,7 @@ if (editHoraHastaFormulario != null) {
 					<ReturnType><![CDATA[boolean]]></ReturnType>
 					<Id>1787146590842</Id>
 					<Name><![CDATA[agregarPedidoFormulario]]></Name>
-					<X>-810</X><Y>2350</Y>
+					<X>-810</X><Y>2230</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -11725,7 +11263,7 @@ try {
 					<ReturnType><![CDATA[boolean]]></ReturnType>
 					<Id>1787146608722</Id>
 					<Name><![CDATA[eliminarUltimoPedidoFormulario]]></Name>
-					<X>-810</X><Y>2380</Y>
+					<X>-810</X><Y>2260</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -11805,7 +11343,7 @@ return true;]]></Body>
 					<ReturnType><![CDATA[String]]></ReturnType>
 					<Id>1787146622178</Id>
 					<Name><![CDATA[resumenPedidosFormulario]]></Name>
-					<X>-810</X><Y>2410</Y>
+					<X>-810</X><Y>2290</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -11882,7 +11420,7 @@ return
 					<ReturnType><![CDATA[InstanciaTurno]]></ReturnType>
 					<Id>1787146636450</Id>
 					<Name><![CDATA[construirInstanciaFormulario]]></Name>
-					<X>-810</X><Y>2440</Y>
+					<X>-810</X><Y>2320</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -11978,7 +11516,7 @@ return instancia;]]></Body>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1787150808306</Id>
 					<Name><![CDATA[inicializarGIS]]></Name>
-					<X>-810</X><Y>2470</Y>
+					<X>-810</X><Y>2350</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -12111,7 +11649,7 @@ traceln(
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1787150823890</Id>
 					<Name><![CDATA[limpiarPedidosGIS]]></Name>
-					<X>-810</X><Y>2500</Y>
+					<X>-810</X><Y>2380</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -12174,7 +11712,7 @@ traceln(
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1787150836307</Id>
 					<Name><![CDATA[mostrarInstanciaEnGIS]]></Name>
-					<X>-810</X><Y>2530</Y>
+					<X>-810</X><Y>2410</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -12738,7 +12276,7 @@ traceln(
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1787152438918</Id>
 					<Name><![CDATA[limpiarRutasPlanGIS]]></Name>
-					<X>-810</X><Y>2560</Y>
+					<X>-810</X><Y>2440</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -12796,7 +12334,7 @@ traceln(
 					<ReturnType><![CDATA[PedidoInput]]></ReturnType>
 					<Id>1787152450702</Id>
 					<Name><![CDATA[buscarPedidoParaGIS]]></Name>
-					<X>-810</X><Y>2590</Y>
+					<X>-810</X><Y>2470</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -12868,7 +12406,7 @@ throw new IllegalArgumentException(
 					<ReturnType><![CDATA[java.awt.Color]]></ReturnType>
 					<Id>1787152497798</Id>
 					<Name><![CDATA[colorRutaCamionGIS]]></Name>
-					<X>-810</X><Y>2620</Y>
+					<X>-810</X><Y>2500</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -12955,7 +12493,7 @@ return new java.awt.Color(
 					<ReturnType><![CDATA[com.anylogic.engine.markup.GISRoute]]></ReturnType>
 					<Id>1787152531694</Id>
 					<Name><![CDATA[crearSegmentoRutaGIS]]></Name>
-					<X>-810</X><Y>2650</Y>
+					<X>-810</X><Y>2530</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -13166,7 +12704,7 @@ return ruta;]]></Body>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1787152600926</Id>
 					<Name><![CDATA[mostrarPlanEnGIS]]></Name>
-					<X>-810</X><Y>2680</Y>
+					<X>-810</X><Y>2560</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -13413,7 +12951,7 @@ traceln(
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1787153354543</Id>
 					<Name><![CDATA[limpiarMarcadoresCamionesGIS]]></Name>
-					<X>-810</X><Y>2710</Y>
+					<X>-810</X><Y>2590</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -13463,7 +13001,7 @@ traceln(
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1787153367753</Id>
 					<Name><![CDATA[actualizarMarcadorCamionGIS]]></Name>
-					<X>-810</X><Y>2740</Y>
+					<X>-810</X><Y>2620</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -13676,7 +13214,7 @@ traceln(
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1787153409871</Id>
 					<Name><![CDATA[inicializarMarcadoresCamionesGIS]]></Name>
-					<X>-810</X><Y>2770</Y>
+					<X>-810</X><Y>2650</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -13772,7 +13310,7 @@ traceln(
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1787154132647</Id>
 					<Name><![CDATA[actualizarEstadoCamionGISOperativo]]></Name>
-					<X>-810</X><Y>2800</Y>
+					<X>-810</X><Y>2680</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -14067,7 +13605,7 @@ traceln(
 					<ReturnType><![CDATA[String]]></ReturnType>
 					<Id>1787154178558</Id>
 					<Name><![CDATA[resumenEstadosCamionesGIS]]></Name>
-					<X>-810</X><Y>2830</Y>
+					<X>-810</X><Y>2710</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -14123,7 +13661,7 @@ return resumen.toString();]]></Body>
 					<ReturnType><![CDATA[String]]></ReturnType>
 					<Id>1787155874135</Id>
 					<Name><![CDATA[obtenerPedidoOriginalIdGIS]]></Name>
-					<X>-810</X><Y>2860</Y>
+					<X>-810</X><Y>2740</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -14174,7 +13712,7 @@ return originalId.trim();]]></Body>
 					<ReturnType><![CDATA[java.awt.Color]]></ReturnType>
 					<Id>1787155911927</Id>
 					<Name><![CDATA[colorBasePedidoGIS]]></Name>
-					<X>-810</X><Y>2890</Y>
+					<X>-810</X><Y>2770</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -14250,7 +13788,7 @@ return new java.awt.Color(
 					<ReturnType><![CDATA[java.awt.Color]]></ReturnType>
 					<Id>1787155951559</Id>
 					<Name><![CDATA[colorEstadoPedidoGIS]]></Name>
-					<X>-810</X><Y>2920</Y>
+					<X>-810</X><Y>2800</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -14372,7 +13910,7 @@ return new java.awt.Color(
 					<ReturnType><![CDATA[String]]></ReturnType>
 					<Id>1787155990847</Id>
 					<Name><![CDATA[estadoAgregadoPedidoOriginalGIS]]></Name>
-					<X>-810</X><Y>2950</Y>
+					<X>-810</X><Y>2830</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -14578,7 +14116,7 @@ return "PENDIENTE";]]></Body>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1787156018343</Id>
 					<Name><![CDATA[indexarPuntosPedidosGIS]]></Name>
-					<X>-810</X><Y>2980</Y>
+					<X>-810</X><Y>2860</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -14686,7 +14224,7 @@ traceln(
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1787156039551</Id>
 					<Name><![CDATA[actualizarPuntoPedidoOriginalGIS]]></Name>
-					<X>-810</X><Y>3010</Y>
+					<X>-810</X><Y>2890</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -15034,7 +14572,7 @@ traceln(
 					<ReturnType><![CDATA[String]]></ReturnType>
 					<Id>1787156068879</Id>
 					<Name><![CDATA[resumenEstadosPedidosGIS]]></Name>
-					<X>-810</X><Y>3040</Y>
+					<X>-810</X><Y>2920</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -15167,7 +14705,7 @@ return
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1787156087048</Id>
 					<Name><![CDATA[actualizarEstadosPedidosGIS]]></Name>
-					<X>-810</X><Y>3070</Y>
+					<X>-810</X><Y>2950</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -15235,7 +14773,7 @@ mensajeEstadosPedidosGIS =
 					<ReturnType><![CDATA[String]]></ReturnType>
 					<Id>1787569775337</Id>
 					<Name><![CDATA[estadoCamionDashboard]]></Name>
-					<X>-810</X><Y>3100</Y>
+					<X>-810</X><Y>2980</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -15345,7 +14883,7 @@ return estado
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1787574032157</Id>
 					<Name><![CDATA[diagnosticarDistanciaVial]]></Name>
-					<X>-810</X><Y>3130</Y>
+					<X>-810</X><Y>3010</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -15507,7 +15045,7 @@ try {
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1787574211865</Id>
 					<Name><![CDATA[diagnosticarMuestraRutasViales]]></Name>
-					<X>-810</X><Y>3160</Y>
+					<X>-810</X><Y>3040</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -15596,7 +15134,7 @@ traceln(
 					<ReturnType><![CDATA[boolean]]></ReturnType>
 					<Id>1787578289378</Id>
 					<Name><![CDATA[exportarCacheVialInstanciaActual]]></Name>
-					<X>-810</X><Y>3190</Y>
+					<X>-810</X><Y>3070</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -15808,7 +15346,7 @@ try {
     java.io.File archivoCache =
         new java.io.File(
             directorioRouting,
-            "cache_vial_v1.csv"
+            "cache_vial.csv"
         );
 
 
@@ -16252,7 +15790,7 @@ try {
     rutaTemporal =
         new java.io.File(
             directorioRouting,
-            "cache_vial_v1.csv.tmp"
+            "cache_vial.csv.tmp"
         ).toPath();
 
 
@@ -16439,7 +15977,7 @@ try {
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1787586633994</Id>
 					<Name><![CDATA[limpiarRutaActivaCamionGIS]]></Name>
-					<X>-810</X><Y>3220</Y>
+					<X>-810</X><Y>3100</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -16541,7 +16079,7 @@ traceln(
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1787586663225</Id>
 					<Name><![CDATA[mostrarViajeActivoCamionGIS]]></Name>
-					<X>-810</X><Y>3250</Y>
+					<X>-810</X><Y>3130</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -16838,7 +16376,7 @@ try {
 					<ReturnType><![CDATA[String]]></ReturnType>
 					<Id>1787598691463</Id>
 					<Name><![CDATA[campoDecisionSelector]]></Name>
-					<X>-810</X><Y>3280</Y>
+					<X>-810</X><Y>3160</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -16901,7 +16439,7 @@ return "";]]></Body>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1787598720614</Id>
 					<Name><![CDATA[numeroDecisionSelector]]></Name>
-					<X>-810</X><Y>3310</Y>
+					<X>-810</X><Y>3190</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -16942,7 +16480,7 @@ try {
 					<ReturnType><![CDATA[long]]></ReturnType>
 					<Id>1787598754878</Id>
 					<Name><![CDATA[longDecisionSelector]]></Name>
-					<X>-810</X><Y>3340</Y>
+					<X>-810</X><Y>3220</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -16983,7 +16521,7 @@ try {
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1787598783253</Id>
 					<Name><![CDATA[reiniciarPanelSelectorVisual]]></Name>
-					<X>-810</X><Y>3370</Y>
+					<X>-810</X><Y>3250</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -17130,7 +16668,7 @@ actualizarColoresSelectorVisual();]]></Body>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1787598804926</Id>
 					<Name><![CDATA[registrarDecisionSelectorVisual]]></Name>
-					<X>-810</X><Y>3400</Y>
+					<X>-810</X><Y>3280</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -17848,7 +17386,7 @@ actualizarColoresSelectorVisual();]]></Body>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1787598824903</Id>
 					<Name><![CDATA[marcarSelectorEnEjecucionVisual]]></Name>
-					<X>-810</X><Y>3430</Y>
+					<X>-810</X><Y>3310</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -17864,7 +17402,7 @@ actualizarColoresSelectorVisual();]]></Body>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1787598837550</Id>
 					<Name><![CDATA[marcarSelectorFinalizadoVisual]]></Name>
-					<X>-810</X><Y>3460</Y>
+					<X>-810</X><Y>3340</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -17880,7 +17418,7 @@ actualizarColoresSelectorVisual();]]></Body>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1787598847063</Id>
 					<Name><![CDATA[marcarSelectorErrorVisual]]></Name>
-					<X>-810</X><Y>3490</Y>
+					<X>-810</X><Y>3370</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -17907,7 +17445,7 @@ actualizarColoresSelectorVisual();]]></Body>
 					<ReturnType><![CDATA[String]]></ReturnType>
 					<Id>1787598867562</Id>
 					<Name><![CDATA[formatoCostoSelector]]></Name>
-					<X>-810</X><Y>3520</Y>
+					<X>-810</X><Y>3400</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -17934,7 +17472,7 @@ return String.format(
 					<ReturnType><![CDATA[String]]></ReturnType>
 					<Id>1787598885734</Id>
 					<Name><![CDATA[textoMejoraSelector]]></Name>
-					<X>-810</X><Y>3550</Y>
+					<X>-810</X><Y>3430</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -17975,7 +17513,7 @@ return String.format(
 					<ReturnType><![CDATA[String]]></ReturnType>
 					<Id>1787598898527</Id>
 					<Name><![CDATA[textoTiempoSelector]]></Name>
-					<X>-810</X><Y>3580</Y>
+					<X>-810</X><Y>3460</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -17998,7 +17536,7 @@ return String.format(
 					<ReturnType><![CDATA[String]]></ReturnType>
 					<Id>1787598911264</Id>
 					<Name><![CDATA[textoMotivoSelector]]></Name>
-					<X>-810</X><Y>3610</Y>
+					<X>-810</X><Y>3490</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -18052,7 +17590,7 @@ return uiSelectorMotivo.replace(
 					<ReturnType><![CDATA[java.awt.Color]]></ReturnType>
 					<Id>1787598925703</Id>
 					<Name><![CDATA[colorFuenteSelector]]></Name>
-					<X>-810</X><Y>3640</Y>
+					<X>-810</X><Y>3520</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -18152,7 +17690,7 @@ return new java.awt.Color(
 					<ReturnType><![CDATA[java.awt.Color]]></ReturnType>
 					<Id>1787598952895</Id>
 					<Name><![CDATA[colorEstadoSelector]]></Name>
-					<X>-810</X><Y>3670</Y>
+					<X>-810</X><Y>3550</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -18222,7 +17760,7 @@ return new java.awt.Color(
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1787602030699</Id>
 					<Name><![CDATA[actualizarColoresSelectorVisual]]></Name>
-					<X>-810</X><Y>3700</Y>
+					<X>-810</X><Y>3580</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -18482,7 +18020,7 @@ txtPieSelectorVisual.setColor(
 					<ReturnType><![CDATA[String]]></ReturnType>
 					<Id>1787861058276</Id>
 					<Name><![CDATA[formatearHoraFormulario]]></Name>
-					<X>-810</X><Y>3730</Y>
+					<X>-810</X><Y>3610</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -18515,7 +18053,7 @@ return String.format(
 					<ReturnType><![CDATA[int]]></ReturnType>
 					<Id>1787861083489</Id>
 					<Name><![CDATA[parsearHoraFormulario]]></Name>
-					<X>-810</X><Y>3760</Y>
+					<X>-810</X><Y>3640</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -18600,7 +18138,7 @@ return hora * 60 + minuto;]]></Body>
 					<ReturnType><![CDATA[String]]></ReturnType>
 					<Id>1787861235713</Id>
 					<Name><![CDATA[decodificarCampoImportacionExcel]]></Name>
-					<X>-810</X><Y>3790</Y>
+					<X>-810</X><Y>3670</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -18630,7 +18168,7 @@ return hora * 60 + minuto;]]></Body>
 					<ReturnType><![CDATA[java.io.File]]></ReturnType>
 					<Id>1787861255017</Id>
 					<Name><![CDATA[seleccionarArchivoPedidosExcel]]></Name>
-					<X>-810</X><Y>3820</Y>
+					<X>-810</X><Y>3700</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -18697,7 +18235,7 @@ try {
 					<ReturnType><![CDATA[boolean]]></ReturnType>
 					<Id>1787861273624</Id>
 					<Name><![CDATA[importarPedidosExcel]]></Name>
-					<X>-810</X><Y>3850</Y>
+					<X>-810</X><Y>3730</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -18786,8 +18324,8 @@ try {
         ),
         (
             "from planner.integration "
-            + "import pypeline_order_import_bridge "
-            + "as pedemonte_excel_bridge"
+		    + "import order_import_bridge "
+		    + "as pedemonte_excel_bridge"
         ),
         (
             "pedemonte_excel_bridge = "
@@ -19182,7 +18720,7 @@ try {
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1787862666671</Id>
 					<Name><![CDATA[intentarFinalizarEjecucion]]></Name>
-					<X>-810</X><Y>3880</Y>
+					<X>-810</X><Y>3760</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -19369,7 +18907,7 @@ if (
 					<ReturnType><![CDATA[String]]></ReturnType>
 					<Id>1787863525477</Id>
 					<Name><![CDATA[campoCandidatoSelector]]></Name>
-					<X>-810</X><Y>3910</Y>
+					<X>-810</X><Y>3790</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -19506,7 +19044,7 @@ return "";]]></Body>
 					<ReturnType><![CDATA[String]]></ReturnType>
 					<Id>1787863567348</Id>
 					<Name><![CDATA[textoCandidatoSelector]]></Name>
-					<X>-810</X><Y>3940</Y>
+					<X>-810</X><Y>3820</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -19628,7 +19166,7 @@ return etiqueta
 					<ReturnType><![CDATA[boolean]]></ReturnType>
 					<Id>1787863599500</Id>
 					<Name><![CDATA[verificarCacheVialInstanciaActual]]></Name>
-					<X>-810</X><Y>3970</Y>
+					<X>-810</X><Y>3850</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -19750,7 +19288,7 @@ try {
     java.io.File archivoCache =
         new java.io.File(
             raizPython,
-            "data/routing/cache_vial_v1.csv"
+            "data/routing/cache_vial.csv"
         ).getCanonicalFile();
 
 
@@ -19989,7 +19527,7 @@ try {
 					<ReturnType><![CDATA[String]]></ReturnType>
 					<Id>1787864569015</Id>
 					<Name><![CDATA[textoLimpioFormulario]]></Name>
-					<X>-810</X><Y>4000</Y>
+					<X>-810</X><Y>3880</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -20007,7 +19545,7 @@ try {
 					<ReturnType><![CDATA[int]]></ReturnType>
 					<Id>1787864597120</Id>
 					<Name><![CDATA[parsearEnteroPositivoFormulario]]></Name>
-					<X>-810</X><Y>4030</Y>
+					<X>-810</X><Y>3910</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -20080,7 +19618,7 @@ return resultado;]]></Body>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1787864624416</Id>
 					<Name><![CDATA[parsearDecimalFormulario]]></Name>
-					<X>-810</X><Y>4060</Y>
+					<X>-810</X><Y>3940</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -20153,7 +19691,7 @@ return resultado;]]></Body>
 					<ReturnType><![CDATA[java.awt.Color]]></ReturnType>
 					<Id>1787864649912</Id>
 					<Name><![CDATA[colorMensajeFormulario]]></Name>
-					<X>-810</X><Y>4090</Y>
+					<X>-810</X><Y>3970</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -20223,7 +19761,7 @@ return new java.awt.Color(
 					<ReturnType><![CDATA[String]]></ReturnType>
 					<Id>1787864834583</Id>
 					<Name><![CDATA[abreviarTextoDashboard]]></Name>
-					<X>-810</X><Y>4120</Y>
+					<X>-810</X><Y>4000</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -20268,7 +19806,7 @@ return texto.substring(
 					<ReturnType><![CDATA[String]]></ReturnType>
 					<Id>1787864860247</Id>
 					<Name><![CDATA[detalleCamionDashboard]]></Name>
-					<X>-810</X><Y>4150</Y>
+					<X>-810</X><Y>4030</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>

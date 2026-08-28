@@ -131,7 +131,7 @@ def main() -> None:
     )
     parser.add_argument(
         "--cache-vial",
-        default="data/routing/cache_vial_v1.csv",
+        default="data/routing/cache_vial.csv",
     )
     parser.add_argument(
         "--version-cache",

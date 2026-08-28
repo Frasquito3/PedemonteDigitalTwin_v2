@@ -94,7 +94,7 @@ class AnyLogicVectorClient:
         timeout_segundos: int = 180,
         max_server_await_time: float = 45.0,
         limite_ple_min: float = 300.0,
-        log_id_base: str = "phase16b",
+        log_id_base: str = "comparison",
         habilitar_logs: bool = True,
     ) -> None:
         self.model_path = Path(model_path).expanduser().resolve()
@@ -569,7 +569,7 @@ def resolver_raiz_python_proyecto(
 
     planner = candidato / "planner"
     pyrefly = candidato / "pyrefly.toml"
-    cache_vial = candidato / "data" / "routing" / "cache_vial_v1.csv"
+    cache_vial = candidato / "data" / "routing" / "cache_vial.csv"
 
     faltantes: list[str] = []
     if not planner.is_dir():

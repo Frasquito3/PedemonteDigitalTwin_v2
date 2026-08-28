@@ -128,3 +128,18 @@ git_audit_*.txt
 
 /models/*
 !/models/.gitkeep
+
+# =====================================================
+# LOCAL IMPORTS, VALIDATION AND AUDIT ARTIFACTS
+# =====================================================
+
+/anylogic/**/al_uploads/
+/validacion/
+/_auditoria*/
+/auditoria_*/
+/auditoria_*.zip
+/Fase_*.zip
+/fase_*.zip
+/plan_validacion_*.xlsx
+/auditar_limpieza_tecnica*.ps1
+

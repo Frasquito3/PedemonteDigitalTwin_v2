@@ -29,7 +29,7 @@ def _crear_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description=(
             "Prepara el contrato reproducible de cinco alternativas "
-            "para la comparación Python-AnyLogic de la Fase 16A."
+            "para la comparación Python-AnyLogic de la comparación reproducible."
         )
     )
     parser.add_argument(
@@ -48,9 +48,9 @@ def _crear_parser() -> argparse.ArgumentParser:
             PYTHON_ROOT
             / "models"
             / "rl"
-            / "pedemonte_maskable_ppo.zip"
+            / "rl_policies.json"
         ),
-        help="Ruta del modelo RL histórico.",
+        help="Ruta del manifiesto de políticas RL.",
     )
     parser.add_argument(
         "--cache",
@@ -59,7 +59,7 @@ def _crear_parser() -> argparse.ArgumentParser:
             PYTHON_ROOT
             / "data"
             / "routing"
-            / "cache_vial_v1.csv"
+            / "cache_vial.csv"
         ),
         help="Ruta de la caché vial compartida.",
     )

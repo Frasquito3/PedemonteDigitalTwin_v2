@@ -132,7 +132,7 @@ class AnyLogicDynamicClient:
         timeout_segundos: int = 120,
         max_server_await_time: float = 30.0,
         limite_ple_min: float = 59.0,
-        log_id: str = "phase10d",
+        log_id: str = "anylogic",
         habilitar_logs: bool = True,
     ) -> None:
         self.model_path = Path(

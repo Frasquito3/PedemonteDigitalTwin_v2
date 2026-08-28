@@ -47,7 +47,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--cache",
-        default=str(PYTHON_ROOT / "data" / "routing" / "cache_vial_v1.csv"),
+        default=str(PYTHON_ROOT / "data" / "routing" / "cache_vial.csv"),
         help="Caché vial estricta usada por la auditoría temporal.",
     )
     parser.add_argument(
