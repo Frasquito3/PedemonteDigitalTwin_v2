@@ -8,7 +8,6 @@ from pathlib import Path
 from time import perf_counter
 from typing import Any, Callable, Protocol
 
-from planner.algorithms.greedy import generar_plan_greedy
 from planner.core.config import ConfiguracionPlanificacion
 from planner.core.schema import InstanciaTurno, PlanTurno
 from planner.domain.validator import validar_plan
@@ -16,8 +15,9 @@ from planner.routing.objective import EstimacionPlan, evaluar_plan_estimado
 from planner.routing.travel import ProveedorViaje, construir_matriz_viaje
 
 
-VERSION_OPERACIONAL = "pedemonte-rl-temporal-v4-operational-v1"
+VERSION_OPERACIONAL = "pedemonte-rl-temporal-v4-operational-v2-pure-rl"
 TOLERANCIA = 1e-9
+FUENTES_RL_VALIDAS = ("EXTENSION", "FULL")
 
 
 class PlanificadorCompatible(Protocol):
@@ -33,7 +33,7 @@ class ConfiguracionOperacionTemporalV4:
     sha256_extension: str
     sha256_full: str
     max_pedidos_rl_validado: int
-    usar_guardia_greedy: bool
+    fuentes_habilitadas: tuple[str, ...]
     preferencia_empate_hasta_10: str
     preferencia_empate_desde_11: str
 
@@ -84,6 +84,7 @@ class DecisionOperacionTemporalV4:
         )
         return (
             f"version={VERSION_OPERACIONAL}"
+            f"|arquitectura=RL_PURO_MULTI_CHECKPOINT"
             f"|pedidos={self.cantidad_pedidos}"
             f"|fuente={self.fuente_seleccionada}"
             f"|tardios={self.metricas_seleccionadas.pedidos_tardios}"
@@ -116,6 +117,27 @@ def _resolver_ruta(base: Path, valor: str) -> Path:
     if not ruta.is_absolute():
         ruta = base / ruta
     return ruta.resolve()
+
+
+def _normalizar_fuentes_habilitadas(valor: Any) -> tuple[str, ...]:
+    if valor is None:
+        return FUENTES_RL_VALIDAS
+
+    if not isinstance(valor, (list, tuple)):
+        raise ValueError("fuentes_habilitadas debe ser una lista.")
+
+    fuentes: list[str] = []
+    for item in valor:
+        fuente = str(item).strip().upper()
+        if fuente not in FUENTES_RL_VALIDAS:
+            raise ValueError(f"Fuente RL no soportada: {fuente!r}.")
+        if fuente not in fuentes:
+            fuentes.append(fuente)
+
+    if not fuentes:
+        raise ValueError("Debe habilitarse al menos un checkpoint RL.")
+
+    return tuple(fuentes)
 
 
 def cargar_configuracion_operacional(
@@ -162,13 +184,17 @@ def cargar_configuracion_operacional(
     if max_validado <= 0:
         raise ValueError("max_pedidos_rl_validado debe ser > 0.")
 
+    fuentes_habilitadas = _normalizar_fuentes_habilitadas(
+        datos.get("fuentes_habilitadas")
+    )
+
     pref_hasta_10 = str(
         datos.get("preferencia_empate_hasta_10", "EXTENSION")
     ).upper()
     pref_desde_11 = str(
         datos.get("preferencia_empate_desde_11", "FULL")
     ).upper()
-    fuentes_validas = {"EXTENSION", "FULL"}
+    fuentes_validas = set(FUENTES_RL_VALIDAS)
     if pref_hasta_10 not in fuentes_validas:
         raise ValueError("preferencia_empate_hasta_10 inválida.")
     if pref_desde_11 not in fuentes_validas:
@@ -181,7 +207,7 @@ def cargar_configuracion_operacional(
         sha256_extension=hash_extension,
         sha256_full=hash_full,
         max_pedidos_rl_validado=max_validado,
-        usar_guardia_greedy=bool(datos.get("usar_guardia_greedy", True)),
+        fuentes_habilitadas=fuentes_habilitadas,
         preferencia_empate_hasta_10=pref_hasta_10,
         preferencia_empate_desde_11=pref_desde_11,
     )
@@ -189,19 +215,19 @@ def cargar_configuracion_operacional(
 
 class RLTemporalV4OperationalPlanner:
     """
-    Política de despliegue para el RL temporal v4.
+    Modo RL puro del proyecto.
 
-    Genera planes con los dos checkpoints validados (extensión y full) y,
-    opcionalmente, con Greedy como red de seguridad. Selecciona el mejor
-    resultado por el criterio congelado del proyecto:
+    Ejecuta exclusivamente los checkpoints RL habilitados en el manifiesto y
+    elige el mejor por el criterio congelado:
 
         pedidos tardíos -> tardanza total -> costo estimado.
 
-    En empates exactos prioriza RL. Hasta diez pedidos prioriza la extensión;
-    desde once pedidos prioriza el modelo full.
+    Un plan de mala calidad se conserva y puede ser seleccionado. Solamente se
+    descarta una salida que no sea técnicamente ejecutable. GREEDY no participa
+    ni funciona como respaldo dentro de este modo.
     """
 
-    VERSION_PLANIFICADOR = "RL_TEMPORAL_V4_OPERACIONAL"
+    VERSION_PLANIFICADOR = "RL_TEMPORAL_V4_PURO"
 
     def __init__(
         self,
@@ -213,7 +239,6 @@ class RLTemporalV4OperationalPlanner:
         deterministic: bool = True,
         planner_extension: PlanificadorCompatible | None = None,
         planner_full: PlanificadorCompatible | None = None,
-        greedy_factory: Callable[..., PlanTurno] = generar_plan_greedy,
         configuracion_operacional: ConfiguracionOperacionTemporalV4 | None = None,
     ) -> None:
         if max_pedidos <= 0:
@@ -223,7 +248,6 @@ class RLTemporalV4OperationalPlanner:
         self.proveedor_viaje = proveedor_viaje
         self.max_pedidos = max_pedidos
         self.deterministic = deterministic
-        self.greedy_factory = greedy_factory
 
         if configuracion_operacional is None:
             if manifest_path is None:
@@ -236,9 +260,7 @@ class RLTemporalV4OperationalPlanner:
         self.configuracion_operacional = configuracion_operacional
 
         if planner_extension is None or planner_full is None:
-            from planner.rl.rl_temporal_v4_planner import (
-                RLTemporalV4Planner,
-            )
+            from planner.rl.rl_temporal_v4_planner import RLTemporalV4Planner
 
         self.planner_extension = planner_extension or RLTemporalV4Planner(
             model_path=configuracion_operacional.modelo_extension,
@@ -270,70 +292,47 @@ class RLTemporalV4OperationalPlanner:
         candidatos: list[_Candidato] = []
         errores: dict[str, str] = {}
 
-        if cantidad_pedidos <= self.configuracion_operacional.max_pedidos_rl_validado:
-            self._agregar_candidato(
-                candidatos,
-                errores,
-                fuente="EXTENSION",
-                generar=lambda: self.planner_extension.generar_plan(instancia),
-                instancia=instancia,
-                matriz=matriz,
-            )
-            self._agregar_candidato(
-                candidatos,
-                errores,
-                fuente="FULL",
-                generar=lambda: self.planner_full.generar_plan(instancia),
-                instancia=instancia,
-                matriz=matriz,
-            )
+        if (
+            cantidad_pedidos
+            > self.configuracion_operacional.max_pedidos_rl_validado
+        ):
+            maximo = self.configuracion_operacional.max_pedidos_rl_validado
+            for fuente in self.configuracion_operacional.fuentes_habilitadas:
+                errores[fuente] = f"FUERA_RANGO_TECNICO_MAXIMO_{maximo}"
         else:
-            errores["EXTENSION"] = (
-                "OMITIDO_FUERA_RANGO_VALIDADO_"
-                f"{self.configuracion_operacional.max_pedidos_rl_validado}"
-            )
-            errores["FULL"] = (
-                "OMITIDO_FUERA_RANGO_VALIDADO_"
-                f"{self.configuracion_operacional.max_pedidos_rl_validado}"
-            )
-
-        if self.configuracion_operacional.usar_guardia_greedy:
-            self._agregar_candidato(
-                candidatos,
-                errores,
-                fuente="GREEDY",
-                generar=lambda: self.greedy_factory(
-                    instancia,
-                    configuracion=self.configuracion,
-                    proveedor_viaje=self.proveedor_viaje,
-                ),
-                instancia=instancia,
-                matriz=matriz,
-            )
+            generadores: dict[str, Callable[[], PlanTurno]] = {
+                "EXTENSION": lambda: self.planner_extension.generar_plan(instancia),
+                "FULL": lambda: self.planner_full.generar_plan(instancia),
+            }
+            for fuente in self.configuracion_operacional.fuentes_habilitadas:
+                self._agregar_candidato(
+                    candidatos,
+                    errores,
+                    fuente=fuente,
+                    generar=generadores[fuente],
+                    instancia=instancia,
+                    matriz=matriz,
+                )
 
         if not candidatos:
             detalle = "; ".join(
                 f"{fuente}: {mensaje}" for fuente, mensaje in errores.items()
             )
             raise RuntimeError(
-                "No se pudo generar ningún plan operacional válido. " + detalle
+                "No se pudo generar ningún plan RL ejecutable. " + detalle
             )
 
         ganador = min(candidatos, key=lambda item: item.metricas.clave)
         ganador.plan.costo_estimado = ganador.estimacion.costo_total
-        ganador.plan.tiempo_computo_ms = (
-            perf_counter() - inicio
-        ) * 1000.0
+        ganador.plan.tiempo_computo_ms = (perf_counter() - inicio) * 1000.0
         ganador.plan.warnings.append(self.VERSION_PLANIFICADOR)
-        ganador.plan.warnings.append(f"FUENTE_OPERACIONAL={ganador.fuente}")
+        ganador.plan.warnings.append(f"FUENTE_RL={ganador.fuente}")
 
         decision = DecisionOperacionTemporalV4(
             cantidad_pedidos=cantidad_pedidos,
             fuente_seleccionada=ganador.fuente,
             metricas_seleccionadas=ganador.metricas,
-            metricas_por_fuente={
-                item.fuente: item.metricas for item in candidatos
-            },
+            metricas_por_fuente={item.fuente: item.metricas for item in candidatos},
             errores_por_fuente=errores,
             tiempo_total_ms=ganador.plan.tiempo_computo_ms,
         )
@@ -397,19 +396,25 @@ class RLTemporalV4OperationalPlanner:
                     metricas=metricas,
                 )
             )
-        except Exception as exc:  # noqa: BLE001 - se registra por candidato
+        except Exception as exc:  # noqa: BLE001 - se registra por checkpoint
             errores[fuente] = f"{type(exc).__name__}: {exc}"
 
     def _prioridad_empate(self, fuente: str, cantidad_pedidos: int) -> int:
+        habilitadas = self.configuracion_operacional.fuentes_habilitadas
+        if len(habilitadas) == 1:
+            return 0
+
         preferida = (
             self.configuracion_operacional.preferencia_empate_hasta_10
             if cantidad_pedidos <= 10
             else self.configuracion_operacional.preferencia_empate_desde_11
         )
-        otra_rl = "FULL" if preferida == "EXTENSION" else "EXTENSION"
-        orden = {
-            preferida: 0,
-            otra_rl: 1,
-            "GREEDY": 2,
-        }
-        return orden.get(fuente, 99)
+        if preferida not in habilitadas:
+            preferida = habilitadas[0]
+
+        orden = [preferida] + [
+            fuente_habilitada
+            for fuente_habilitada in habilitadas
+            if fuente_habilitada != preferida
+        ]
+        return orden.index(fuente) if fuente in orden else 99

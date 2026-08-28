@@ -14,7 +14,7 @@ from planner.algorithms.greedy import (
     generar_plan_greedy,
 )
 from planner.algorithms.hybrid_rl_ga_greedy import (
-    HybridRLGAGreedyPlanner,
+    HybridRLGAPlanner,
 )
 from planner.algorithms.random_feasible import (
     generar_plan_random,
@@ -150,7 +150,7 @@ class SelectorPlanificadores:
         )
 
         self._planner_hibrido: (
-            HybridRLGAGreedyPlanner
+            HybridRLGAPlanner
             | None
         ) = None
 
@@ -291,39 +291,44 @@ class SelectorPlanificadores:
                 decision_hibrida
                 is not None
             ):
-                errores_ga = (
+                error_ga = (
                     ";".join(
-                        decision_hibrida.errores_ga
+                        decision_hibrida.error_ga
                     )
-                    if decision_hibrida.errores_ga
+                    if decision_hibrida.error_ga
                     else "NINGUNO"
                 )
 
-                errores_rl = (
-                    ";".join(
-                        decision_hibrida.errores_rl
-                    )
-                    if decision_hibrida.errores_rl
-                    else "NINGUNO"
+                costo_refinado = (
+                    "NO_DISPONIBLE"
+                    if decision_hibrida.costo_refinado_ga is None
+                    else str(decision_hibrida.costo_refinado_ga)
                 )
 
                 detalle = (
-                    "fuente="
-                    f"{decision_hibrida.fuente_seleccionada.value}"
+                    "arquitectura=RL_GA_SEEDED"
+                    "|fuente_rl="
+                    f"{decision_hibrida.fuente_rl}"
+                    "|resultado="
+                    f"{decision_hibrida.resultado.value}"
                     "|motivo="
                     f"{decision_hibrida.motivo.value}"
                     "|seed_ga="
                     f"{decision_hibrida.seed_ga}"
-                    "|costo_rl="
-                    f"{decision_hibrida.costo_rl}"
-                    "|costo_ga="
-                    f"{decision_hibrida.costo_ga}"
-                    "|costo_greedy="
-                    f"{decision_hibrida.costo_greedy}"
-                    "|errores_ga="
-                    f"{errores_ga}"
-                    "|errores_rl="
-                    f"{errores_rl}"
+                    "|costo_semilla_rl="
+                    f"{decision_hibrida.costo_semilla_rl}"
+                    "|costo_refinado_ga="
+                    f"{costo_refinado}"
+                    "|costo_final="
+                    f"{decision_hibrida.costo_final}"
+                    "|mejora_abs="
+                    f"{decision_hibrida.mejora_absoluta}"
+                    "|mejora_pct="
+                    f"{decision_hibrida.mejora_porcentual}"
+                    "|generaciones_ga="
+                    f"{decision_hibrida.generaciones_ga}"
+                    "|error_ga="
+                    f"{error_ga}"
                 )
 
         validacion = validar_plan(
@@ -455,13 +460,13 @@ class SelectorPlanificadores:
 
     def _obtener_planner_hibrido(
         self,
-    ) -> HybridRLGAGreedyPlanner:
+    ) -> HybridRLGAPlanner:
         if (
             self._planner_hibrido
             is None
         ):
             self._planner_hibrido = (
-                HybridRLGAGreedyPlanner(
+                HybridRLGAPlanner(
                     planner_rl=(
                         self
                         ._obtener_planner_rl()

@@ -1,12 +1,13 @@
 from __future__ import annotations
 
+from types import SimpleNamespace
 import unittest
 
 from planner.algorithms.greedy import generar_plan_greedy
 from planner.algorithms.hybrid_rl_ga_greedy import (
-    FuentePlanHibridoRobusto,
-    HybridRLGAGreedyPlanner,
-    MotivoSeleccionHibridaRobusta,
+    FuenteResultadoHibrido,
+    HybridRLGAPlanner,
+    MotivoResultadoHibrido,
 )
 from planner.core.schema import (
     AlgoritmoPlanificacion,
@@ -18,27 +19,26 @@ from planner.core.schema import (
 from planner.domain.validator import validar_plan
 
 
-class PlannerCostoAjustado:
-    def __init__(self, delta: float) -> None:
+class PlannerRLFalso:
+    def __init__(self, delta: float = 0.0, error: Exception | None = None) -> None:
         self.delta = delta
+        self.error = error
+        self.ultima_decision = SimpleNamespace(fuente_seleccionada="EXTENSION")
 
     def generar_plan(self, instancia: InstanciaTurno) -> PlanTurno:
+        if self.error is not None:
+            raise self.error
         plan = generar_plan_greedy(instancia)
         plan.algoritmo = AlgoritmoPlanificacion.RL
         plan.costo_estimado += self.delta
         return plan
 
 
-class PlannerConExcepcion:
-    def generar_plan(self, instancia: InstanciaTurno) -> PlanTurno:
-        raise RuntimeError("fallo controlado de RL")
-
-
-class HybridRLGAGreedyPlannerTest(unittest.TestCase):
+class HybridRLGAPlannerTest(unittest.TestCase):
     def crear_instancia(self) -> InstanciaTurno:
         return InstanciaTurno(
-            instancia_id="HIBRIDO-ROBUSTO-TEST",
-            fecha_operacion="2026-08-24",
+            instancia_id="HIBRIDO-RL-GA-TEST",
+            fecha_operacion="2026-08-27",
             turno=Turno.MANANA,
             pedidos=[
                 PedidoInput(
@@ -81,7 +81,7 @@ class HybridRLGAGreedyPlannerTest(unittest.TestCase):
             seed_ejecucion=1_015_105,
         )
 
-    def generar_ga_con_delta(
+    def plan_ga_con_delta(
         self,
         instancia: InstanciaTurno,
         delta: float,
@@ -91,142 +91,94 @@ class HybridRLGAGreedyPlannerTest(unittest.TestCase):
         plan.costo_estimado += delta
         return plan
 
-    def exigir_valido(
-        self,
-        instancia: InstanciaTurno,
-        plan: PlanTurno,
-    ) -> None:
+    def exigir_valido(self, instancia: InstanciaTurno, plan: PlanTurno) -> None:
         validacion = validar_plan(instancia, plan)
-        self.assertTrue(
-            validacion.valido,
-            msg=" | ".join(validacion.errores),
-        )
+        self.assertTrue(validacion.valido, msg=" | ".join(validacion.errores))
 
-    def test_selecciona_ga_si_es_el_menor(self) -> None:
+    def test_refina_con_ga_si_mejora_la_semilla_rl(self) -> None:
         instancia = self.crear_instancia()
-        planner = HybridRLGAGreedyPlanner(
-            planner_rl=PlannerCostoAjustado(delta=5.0),
-            generador_ga=lambda actual: self.generar_ga_con_delta(
-                actual,
-                delta=-2.0,
-            ),
-        )
+        cromosomas_recibidos = []
 
+        def generar_ga(actual: InstanciaTurno, cromosoma):
+            cromosomas_recibidos.append(cromosoma)
+            return self.plan_ga_con_delta(actual, delta=-2.0)
+
+        planner = HybridRLGAPlanner(
+            planner_rl=PlannerRLFalso(delta=0.0),
+            generador_ga_refinado=generar_ga,
+        )
         plan = planner.generar_plan(instancia)
         decision = planner.ultima_decision
 
         self.assertIsNotNone(decision)
         assert decision is not None
         self.assertEqual(
-            decision.fuente_seleccionada,
-            FuentePlanHibridoRobusto.GA,
+            decision.resultado,
+            FuenteResultadoHibrido.REFINADO_GA,
         )
         self.assertEqual(
             decision.motivo,
-            MotivoSeleccionHibridaRobusta.GA_MENOR_COSTO,
+            MotivoResultadoHibrido.GA_MEJORA_SEMILLA_RL,
         )
         self.assertEqual(plan.algoritmo, AlgoritmoPlanificacion.GA)
-        self.assertTrue(decision.cumple_garantia_greedy)
-        self.assertTrue(decision.cumple_garantia_ga)
+        self.assertGreater(decision.mejora_absoluta, 0.0)
+        self.assertEqual(decision.fuente_rl, "EXTENSION")
+        self.assertEqual(len(cromosomas_recibidos), 1)
+        self.assertEqual(set(cromosomas_recibidos[0]), {"P001", "P002"})
         self.exigir_valido(instancia, plan)
 
-    def test_selecciona_rl_solo_si_supera_ga_y_greedy(self) -> None:
+    def test_conserva_rl_si_ga_no_mejora(self) -> None:
         instancia = self.crear_instancia()
-        planner = HybridRLGAGreedyPlanner(
-            planner_rl=PlannerCostoAjustado(delta=-3.0),
-            generador_ga=lambda actual: self.generar_ga_con_delta(
-                actual,
-                delta=-2.0,
+        planner = HybridRLGAPlanner(
+            planner_rl=PlannerRLFalso(delta=0.0),
+            generador_ga_refinado=lambda actual, _semilla: (
+                self.plan_ga_con_delta(actual, delta=1.0)
             ),
         )
-
         plan = planner.generar_plan(instancia)
         decision = planner.ultima_decision
 
         self.assertIsNotNone(decision)
         assert decision is not None
         self.assertEqual(
-            decision.fuente_seleccionada,
-            FuentePlanHibridoRobusto.RL,
+            decision.resultado,
+            FuenteResultadoHibrido.SEMILLA_RL,
         )
         self.assertEqual(
             decision.motivo,
-            MotivoSeleccionHibridaRobusta.RL_MENOR_COSTO,
+            MotivoResultadoHibrido.SEMILLA_RL_CONSERVADA,
         )
         self.assertEqual(plan.algoritmo, AlgoritmoPlanificacion.RL)
-        self.assertTrue(decision.cumple_garantia_greedy)
-        self.assertTrue(decision.cumple_garantia_ga)
-        self.exigir_valido(instancia, plan)
+        self.assertEqual(decision.mejora_absoluta, 0.0)
 
-    def test_prefiere_greedy_en_empate_total(self) -> None:
-        instancia = self.crear_instancia()
-        planner = HybridRLGAGreedyPlanner(
-            planner_rl=PlannerCostoAjustado(delta=0.0),
-            generador_ga=lambda actual: self.generar_ga_con_delta(
-                actual,
-                delta=0.0,
-            ),
-        )
-
-        plan = planner.generar_plan(instancia)
-        decision = planner.ultima_decision
-
-        self.assertIsNotNone(decision)
-        assert decision is not None
-        self.assertEqual(
-            decision.fuente_seleccionada,
-            FuentePlanHibridoRobusto.GREEDY,
-        )
-        self.assertEqual(plan.algoritmo, AlgoritmoPlanificacion.GREEDY)
-
-    def test_fallback_de_rl_conserva_ga(self) -> None:
-        instancia = self.crear_instancia()
-        planner = HybridRLGAGreedyPlanner(
-            planner_rl=PlannerConExcepcion(),
-            generador_ga=lambda actual: self.generar_ga_con_delta(
-                actual,
-                delta=-2.0,
-            ),
-        )
-
-        plan = planner.generar_plan(instancia)
-        decision = planner.ultima_decision
-
-        self.assertIsNotNone(decision)
-        assert decision is not None
-        self.assertEqual(
-            decision.fuente_seleccionada,
-            FuentePlanHibridoRobusto.GA,
-        )
-        self.assertTrue(decision.errores_rl)
-        self.assertFalse(decision.errores_ga)
-        self.assertEqual(plan.algoritmo, AlgoritmoPlanificacion.GA)
-
-    def test_fallback_doble_conserva_greedy(self) -> None:
+    def test_fallo_ga_conserva_semilla_rl_y_lo_audita(self) -> None:
         instancia = self.crear_instancia()
 
-        def ga_con_excepcion(actual: InstanciaTurno) -> PlanTurno:
+        def ga_con_error(_actual, _semilla):
             raise RuntimeError("fallo controlado de GA")
 
-        planner = HybridRLGAGreedyPlanner(
-            planner_rl=PlannerConExcepcion(),
-            generador_ga=ga_con_excepcion,
+        planner = HybridRLGAPlanner(
+            planner_rl=PlannerRLFalso(delta=0.0),
+            generador_ga_refinado=ga_con_error,
         )
-
         plan = planner.generar_plan(instancia)
         decision = planner.ultima_decision
 
         self.assertIsNotNone(decision)
         assert decision is not None
+        self.assertEqual(plan.algoritmo, AlgoritmoPlanificacion.RL)
         self.assertEqual(
-            decision.fuente_seleccionada,
-            FuentePlanHibridoRobusto.GREEDY,
+            decision.motivo,
+            MotivoResultadoHibrido.GA_NO_EJECUTABLE,
         )
-        self.assertTrue(decision.errores_ga)
-        self.assertTrue(decision.errores_rl)
-        self.assertEqual(plan.algoritmo, AlgoritmoPlanificacion.GREEDY)
-        self.assertTrue(decision.cumple_garantia_greedy)
-        self.assertIsNone(decision.cumple_garantia_ga)
+        self.assertTrue(decision.error_ga)
+
+    def test_fallo_rl_impide_iniciar_el_hibrido(self) -> None:
+        planner = HybridRLGAPlanner(
+            planner_rl=PlannerRLFalso(error=RuntimeError("fallo RL")),
+        )
+        with self.assertRaisesRegex(RuntimeError, "semilla RL"):
+            planner.generar_plan(self.crear_instancia())
 
 
 if __name__ == "__main__":

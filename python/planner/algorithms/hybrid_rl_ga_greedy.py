@@ -6,11 +6,14 @@ from math import isfinite
 from time import perf_counter
 from typing import Callable, Protocol
 
-from planner.algorithms.ga import generar_plan_ga
-from planner.algorithms.greedy import generar_plan_greedy
+from planner.algorithms.ga import (
+    ConfiguracionGA,
+    GeneticAlgorithmPlanner,
+)
 from planner.core.config import ConfiguracionPlanificacion
 from planner.core.schema import InstanciaTurno, PlanTurno
 from planner.domain.validator import validar_plan
+from planner.routing.decoder import Cromosoma, validar_permutacion
 from planner.routing.travel import ProveedorViaje
 
 
@@ -19,348 +22,261 @@ class PlanificadorCompatible(Protocol):
         ...
 
 
-GeneradorPlan = Callable[[InstanciaTurno], PlanTurno]
+GeneradorGARefinado = Callable[[InstanciaTurno, Cromosoma], PlanTurno]
 
 
-class FuentePlanHibridoRobusto(str, Enum):
-    GREEDY = "GREEDY"
-    GA = "GA"
-    RL = "RL"
+class FuenteResultadoHibrido(str, Enum):
+    SEMILLA_RL = "SEMILLA_RL"
+    REFINADO_GA = "REFINADO_GA"
 
 
-class MotivoSeleccionHibridaRobusta(str, Enum):
-    GREEDY_MENOR_O_IGUAL = "GREEDY_MENOR_O_IGUAL"
-    GA_MENOR_COSTO = "GA_MENOR_COSTO"
-    RL_MENOR_COSTO = "RL_MENOR_COSTO"
+class MotivoResultadoHibrido(str, Enum):
+    GA_MEJORA_SEMILLA_RL = "GA_MEJORA_SEMILLA_RL"
+    SEMILLA_RL_CONSERVADA = "SEMILLA_RL_CONSERVADA"
+    GA_NO_EJECUTABLE = "GA_NO_EJECUTABLE"
 
 
 @dataclass(frozen=True)
-class ConfiguracionHibridaRobusta:
-    tolerancia_empate: float = 1e-9
-    permitir_fallback_ga: bool = True
-    permitir_fallback_rl: bool = True
+class ConfiguracionHibridaRLGA:
+    tolerancia_mejora: float = 1e-9
+    fraccion_variantes_semilla_rl: float = 0.50
+    incluir_semilla_greedy_en_refinamiento: bool = False
 
     def __post_init__(self) -> None:
-        if self.tolerancia_empate < 0.0:
+        if self.tolerancia_mejora < 0.0:
+            raise ValueError("tolerancia_mejora no puede ser negativa.")
+        if not 0.0 <= self.fraccion_variantes_semilla_rl <= 1.0:
             raise ValueError(
-                "tolerancia_empate no puede ser negativa."
+                "fraccion_variantes_semilla_rl debe estar entre 0 y 1."
             )
 
 
 @dataclass(frozen=True)
-class DecisionHibridaRobusta:
+class DecisionHibridaRLGA:
     instancia_id: str
-    fuente_seleccionada: FuentePlanHibridoRobusto
-    motivo: MotivoSeleccionHibridaRobusta
-    costo_greedy: float
-    costo_ga: float | None
-    costo_rl: float | None
-    tiempo_greedy_ms: float
-    tiempo_ga_ms: float
+    fuente_rl: str
+    resultado: FuenteResultadoHibrido
+    motivo: MotivoResultadoHibrido
+    costo_semilla_rl: float
+    costo_refinado_ga: float | None
+    costo_final: float
+    mejora_absoluta: float
+    mejora_porcentual: float
     tiempo_rl_ms: float
+    tiempo_ga_ms: float
     tiempo_total_ms: float
     seed_ga: int
-    errores_ga: tuple[str, ...] = ()
-    errores_rl: tuple[str, ...] = ()
+    generaciones_ga: int
+    error_ga: tuple[str, ...] = ()
 
     @property
-    def cumple_garantia_greedy(self) -> bool:
-        costo_seleccionado = {
-            FuentePlanHibridoRobusto.GREEDY: self.costo_greedy,
-            FuentePlanHibridoRobusto.GA: self.costo_ga,
-            FuentePlanHibridoRobusto.RL: self.costo_rl,
-        }[self.fuente_seleccionada]
-
-        return (
-            costo_seleccionado is not None
-            and costo_seleccionado <= self.costo_greedy + 1e-9
-        )
-
-    @property
-    def cumple_garantia_ga(self) -> bool | None:
-        if self.costo_ga is None:
-            return None
-
-        costo_seleccionado = {
-            FuentePlanHibridoRobusto.GREEDY: self.costo_greedy,
-            FuentePlanHibridoRobusto.GA: self.costo_ga,
-            FuentePlanHibridoRobusto.RL: self.costo_rl,
-        }[self.fuente_seleccionada]
-
-        return (
-            costo_seleccionado is not None
-            and costo_seleccionado <= self.costo_ga + 1e-9
-        )
+    def mejoro_semilla_rl(self) -> bool:
+        return self.resultado == FuenteResultadoHibrido.REFINADO_GA
 
 
-@dataclass(frozen=True)
-class _CandidatoValido:
-    fuente: FuentePlanHibridoRobusto
-    plan: PlanTurno
-    costo: float
-
-
-class HybridRLGAGreedyPlanner:
+class HybridRLGAPlanner:
     """
-    Selector robusto que evalúa GREEDY, GA y RL sobre la misma instancia
-    y devuelve el plan válido de menor costo estimado.
+    Híbrido secuencial RL -> GA.
 
-    Prioridad de desempate:
+    1. Obtiene un plan del modo RL puro.
+    2. Convierte el orden de ese plan en un cromosoma.
+    3. Inyecta ese cromosoma y variantes cercanas en la población del GA.
+    4. Conserva la semilla RL si el refinamiento no la mejora.
 
-        GREEDY -> GA -> RL
-
-    Con esa prioridad se conserva la solución más simple cuando los costos
-    son equivalentes. Si GA es válido, la solución seleccionada nunca es
-    peor que GA. Si GA falla, se conserva como mínimo la garantía frente a
-    GREEDY. Los errores de GA o RL quedan auditados en ultima_decision.
+    GREEDY no se ejecuta como candidato independiente y, por defecto, tampoco
+    se inyecta como semilla en el refinamiento. El resultado es por lo tanto un
+    refinamiento genuinamente guiado por RL, no un selector min(Greedy, GA, RL).
     """
+
+    VERSION_PLANIFICADOR = "HIBRIDO_RL_GA_SEEDED_V1"
 
     def __init__(
         self,
         planner_rl: PlanificadorCompatible,
-        configuracion: ConfiguracionHibridaRobusta | None = None,
-        generador_greedy: GeneradorPlan | None = None,
-        generador_ga: GeneradorPlan | None = None,
+        configuracion: ConfiguracionHibridaRLGA | None = None,
+        configuracion_ga: ConfiguracionGA | None = None,
+        generador_ga_refinado: GeneradorGARefinado | None = None,
         configuracion_planificacion: ConfiguracionPlanificacion | None = None,
         proveedor_viaje: ProveedorViaje | None = None,
     ) -> None:
         self.planner_rl = planner_rl
-        self.configuracion = (
-            configuracion
-            if configuracion is not None
-            else ConfiguracionHibridaRobusta()
-        )
-        self.generador_greedy = generador_greedy
-        self.generador_ga = generador_ga
+        self.configuracion = configuracion or ConfiguracionHibridaRLGA()
+        self.configuracion_ga = configuracion_ga or ConfiguracionGA()
+        self.generador_ga_refinado = generador_ga_refinado
         self.configuracion_planificacion = (
-            configuracion_planificacion
-            if configuracion_planificacion is not None
-            else ConfiguracionPlanificacion()
+            configuracion_planificacion or ConfiguracionPlanificacion()
         )
         self.proveedor_viaje = proveedor_viaje
-        self.ultima_decision: DecisionHibridaRobusta | None = None
+        self.ultima_decision: DecisionHibridaRLGA | None = None
 
     def generar_plan(self, instancia: InstanciaTurno) -> PlanTurno:
         inicio_total = perf_counter()
 
-        plan_greedy, tiempo_greedy_ms = self._generar_greedy(instancia)
-        self._exigir_plan_base_valido(
+        inicio_rl = perf_counter()
+        try:
+            plan_rl = self.planner_rl.generar_plan(instancia)
+        except Exception as exc:
+            raise RuntimeError(
+                "No se pudo obtener la semilla RL del híbrido: "
+                f"{type(exc).__name__}: {exc}"
+            ) from exc
+        tiempo_rl_ms = (perf_counter() - inicio_rl) * 1000.0
+
+        self._exigir_plan_ejecutable(
             instancia=instancia,
-            plan=plan_greedy,
-            nombre="Greedy",
+            plan=plan_rl,
+            nombre="semilla RL",
         )
 
-        candidatos = [
-            _CandidatoValido(
-                fuente=FuentePlanHibridoRobusto.GREEDY,
-                plan=plan_greedy,
-                costo=plan_greedy.costo_estimado,
-            )
-        ]
+        cromosoma_rl = self._plan_a_cromosoma(instancia, plan_rl)
+        fuente_rl = self._fuente_rl_seleccionada()
+        costo_semilla_rl = float(plan_rl.costo_estimado)
 
-        seed_ga = instancia.seed_escenario + 8001
-        plan_ga, costo_ga, tiempo_ga_ms, errores_ga = (
-            self._intentar_generar_candidato(
-                instancia=instancia,
-                nombre="GA",
-                fuente=FuentePlanHibridoRobusto.GA,
-                generador=lambda: self._generar_ga(instancia),
-                permitir_fallback=self.configuracion.permitir_fallback_ga,
-            )
-        )
-        if plan_ga is not None and costo_ga is not None:
-            candidatos.append(
-                _CandidatoValido(
-                    fuente=FuentePlanHibridoRobusto.GA,
-                    plan=plan_ga,
-                    costo=costo_ga,
+        seed_ga = instancia.seed_escenario + 9001
+        tiempo_ga_ms = 0.0
+        generaciones_ga = 0
+        plan_ga: PlanTurno | None = None
+        costo_ga: float | None = None
+        errores_ga: tuple[str, ...] = ()
+
+        inicio_ga = perf_counter()
+        try:
+            if self.generador_ga_refinado is not None:
+                plan_ga = self.generador_ga_refinado(
+                    instancia,
+                    cromosoma_rl,
                 )
-            )
-
-        plan_rl, costo_rl, tiempo_rl_ms, errores_rl = (
-            self._intentar_generar_candidato(
-                instancia=instancia,
-                nombre="RL",
-                fuente=FuentePlanHibridoRobusto.RL,
-                generador=lambda: self.planner_rl.generar_plan(instancia),
-                permitir_fallback=self.configuracion.permitir_fallback_rl,
-            )
-        )
-        if plan_rl is not None and costo_rl is not None:
-            candidatos.append(
-                _CandidatoValido(
-                    fuente=FuentePlanHibridoRobusto.RL,
-                    plan=plan_rl,
-                    costo=costo_rl,
+            else:
+                planner_ga = GeneticAlgorithmPlanner(
+                    configuracion=self.configuracion_planificacion,
+                    configuracion_ga=self.configuracion_ga,
+                    seed=seed_ga,
+                    proveedor_viaje=self.proveedor_viaje,
+                    semillas_iniciales=(cromosoma_rl,),
+                    incluir_semilla_greedy=(
+                        self.configuracion.incluir_semilla_greedy_en_refinamiento
+                    ),
+                    fraccion_variantes_semilla=(
+                        self.configuracion.fraccion_variantes_semilla_rl
+                    ),
                 )
-            )
+                plan_ga = planner_ga.generar_plan(instancia)
+                generaciones_ga = planner_ga.generaciones_ejecutadas
 
-        seleccionado = self._seleccionar_candidato(candidatos)
+            self._exigir_plan_ejecutable(
+                instancia=instancia,
+                plan=plan_ga,
+                nombre="refinamiento GA",
+            )
+            costo_ga = float(plan_ga.costo_estimado)
+
+        except Exception as exc:  # noqa: BLE001 - queda auditado y conserva RL
+            errores_ga = (f"{type(exc).__name__}: {exc}",)
+            plan_ga = None
+            costo_ga = None
+
+        tiempo_ga_ms = (perf_counter() - inicio_ga) * 1000.0
+
+        if (
+            plan_ga is not None
+            and costo_ga is not None
+            and costo_ga
+            < costo_semilla_rl - self.configuracion.tolerancia_mejora
+        ):
+            seleccionado = plan_ga
+            resultado = FuenteResultadoHibrido.REFINADO_GA
+            motivo = MotivoResultadoHibrido.GA_MEJORA_SEMILLA_RL
+            mejora_absoluta = costo_semilla_rl - costo_ga
+        else:
+            seleccionado = plan_rl
+            resultado = FuenteResultadoHibrido.SEMILLA_RL
+            motivo = (
+                MotivoResultadoHibrido.GA_NO_EJECUTABLE
+                if errores_ga
+                else MotivoResultadoHibrido.SEMILLA_RL_CONSERVADA
+            )
+            mejora_absoluta = 0.0
+
+        mejora_porcentual = (
+            mejora_absoluta / costo_semilla_rl * 100.0
+            if costo_semilla_rl > 0.0
+            else 0.0
+        )
         tiempo_total_ms = (perf_counter() - inicio_total) * 1000.0
-        seleccionado.plan.tiempo_computo_ms = tiempo_total_ms
 
-        motivo = {
-            FuentePlanHibridoRobusto.GREEDY: (
-                MotivoSeleccionHibridaRobusta.GREEDY_MENOR_O_IGUAL
-            ),
-            FuentePlanHibridoRobusto.GA: (
-                MotivoSeleccionHibridaRobusta.GA_MENOR_COSTO
-            ),
-            FuentePlanHibridoRobusto.RL: (
-                MotivoSeleccionHibridaRobusta.RL_MENOR_COSTO
-            ),
-        }[seleccionado.fuente]
+        seleccionado.tiempo_computo_ms = tiempo_total_ms
+        seleccionado.warnings.append(self.VERSION_PLANIFICADOR)
+        seleccionado.warnings.append(f"SEMILLA_RL={fuente_rl}")
+        seleccionado.warnings.append(f"RESULTADO_HIBRIDO={resultado.value}")
 
-        self.ultima_decision = DecisionHibridaRobusta(
+        self.ultima_decision = DecisionHibridaRLGA(
             instancia_id=instancia.instancia_id,
-            fuente_seleccionada=seleccionado.fuente,
+            fuente_rl=fuente_rl,
+            resultado=resultado,
             motivo=motivo,
-            costo_greedy=plan_greedy.costo_estimado,
-            costo_ga=costo_ga,
-            costo_rl=costo_rl,
-            tiempo_greedy_ms=tiempo_greedy_ms,
-            tiempo_ga_ms=tiempo_ga_ms,
+            costo_semilla_rl=costo_semilla_rl,
+            costo_refinado_ga=costo_ga,
+            costo_final=float(seleccionado.costo_estimado),
+            mejora_absoluta=mejora_absoluta,
+            mejora_porcentual=mejora_porcentual,
             tiempo_rl_ms=tiempo_rl_ms,
+            tiempo_ga_ms=tiempo_ga_ms,
             tiempo_total_ms=tiempo_total_ms,
             seed_ga=seed_ga,
-            errores_ga=errores_ga,
-            errores_rl=errores_rl,
+            generaciones_ga=generaciones_ga,
+            error_ga=errores_ga,
         )
 
-        if not self.ultima_decision.cumple_garantia_greedy:
-            raise RuntimeError(
-                "El híbrido robusto violó la garantía frente a Greedy."
-            )
+        return seleccionado
 
-        if self.ultima_decision.cumple_garantia_ga is False:
-            raise RuntimeError(
-                "El híbrido robusto violó la garantía frente a GA."
-            )
+    def _fuente_rl_seleccionada(self) -> str:
+        decision_rl = getattr(self.planner_rl, "ultima_decision", None)
+        fuente = getattr(decision_rl, "fuente_seleccionada", None)
+        if fuente is None:
+            return "RL"
+        return str(getattr(fuente, "value", fuente)).upper()
 
-        return seleccionado.plan
-
-    def _generar_greedy(
-        self,
+    @staticmethod
+    def _plan_a_cromosoma(
         instancia: InstanciaTurno,
-    ) -> tuple[PlanTurno, float]:
-        inicio = perf_counter()
-
-        if self.generador_greedy is not None:
-            plan = self.generador_greedy(instancia)
-        else:
-            plan = generar_plan_greedy(
-                instancia,
-                configuracion=self.configuracion_planificacion,
-                proveedor_viaje=self.proveedor_viaje,
-            )
-
-        return plan, (perf_counter() - inicio) * 1000.0
-
-    def _generar_ga(self, instancia: InstanciaTurno) -> PlanTurno:
-        if self.generador_ga is not None:
-            return self.generador_ga(instancia)
-
-        return generar_plan_ga(
-            instancia,
-            seed=instancia.seed_escenario + 8001,
-            configuracion=self.configuracion_planificacion,
-            proveedor_viaje=self.proveedor_viaje,
+        plan: PlanTurno,
+    ) -> Cromosoma:
+        cromosoma = tuple(
+            pedido_id
+            for camion in plan.camiones
+            for viaje in camion.viajes
+            for pedido_id in viaje.pedido_ids
         )
+        pedidos_por_id = {
+            pedido.pedido_id: pedido
+            for pedido in instancia.pedidos
+        }
+        validar_permutacion(pedidos_por_id, cromosoma)
+        return cromosoma
 
-    def _intentar_generar_candidato(
-        self,
-        *,
-        instancia: InstanciaTurno,
-        nombre: str,
-        fuente: FuentePlanHibridoRobusto,
-        generador: Callable[[], PlanTurno],
-        permitir_fallback: bool,
-    ) -> tuple[
-        PlanTurno | None,
-        float | None,
-        float,
-        tuple[str, ...],
-    ]:
-        inicio = perf_counter()
-
-        try:
-            plan = generador()
-        except Exception as exc:
-            tiempo_ms = (perf_counter() - inicio) * 1000.0
-            if not permitir_fallback:
-                raise
-            return (
-                None,
-                None,
-                tiempo_ms,
-                (f"{type(exc).__name__}: {exc}",),
-            )
-
-        tiempo_ms = (perf_counter() - inicio) * 1000.0
-        validacion = validar_plan(instancia, plan)
-        errores = list(validacion.errores)
-
-        if not self._costo_valido(plan.costo_estimado):
-            errores.append(
-                f"Costo inválido de {nombre}: {plan.costo_estimado}."
-            )
-
-        if errores:
-            if not permitir_fallback:
-                raise RuntimeError(
-                    f"El plan {nombre} es inválido: " + " | ".join(errores)
-                )
-            return None, None, tiempo_ms, tuple(errores)
-
-        return plan, plan.costo_estimado, tiempo_ms, ()
-
-    def _exigir_plan_base_valido(
-        self,
+    @staticmethod
+    def _exigir_plan_ejecutable(
         *,
         instancia: InstanciaTurno,
         plan: PlanTurno,
         nombre: str,
     ) -> None:
+        if plan is None:
+            raise RuntimeError(f"El {nombre} es nulo.")
+
         validacion = validar_plan(instancia, plan)
         errores = list(validacion.errores)
 
-        if not self._costo_valido(plan.costo_estimado):
+        if not isfinite(plan.costo_estimado) or plan.costo_estimado < 0.0:
             errores.append(
                 f"Costo inválido de {nombre}: {plan.costo_estimado}."
             )
 
         if errores:
             raise RuntimeError(
-                f"El plan {nombre} de referencia es inválido: "
-                + " | ".join(errores)
+                f"El {nombre} no es ejecutable: " + " | ".join(errores)
             )
 
-    def _seleccionar_candidato(
-        self,
-        candidatos: list[_CandidatoValido],
-    ) -> _CandidatoValido:
-        mejor_costo = min(candidato.costo for candidato in candidatos)
-        tolerancia = self.configuracion.tolerancia_empate
 
-        elegibles = {
-            candidato.fuente: candidato
-            for candidato in candidatos
-            if candidato.costo <= mejor_costo + tolerancia
-        }
-
-        for fuente in (
-            FuentePlanHibridoRobusto.GREEDY,
-            FuentePlanHibridoRobusto.GA,
-            FuentePlanHibridoRobusto.RL,
-        ):
-            candidato = elegibles.get(fuente)
-            if candidato is not None:
-                return candidato
-
-        raise RuntimeError(
-            "No se pudo seleccionar un candidato híbrido válido."
-        )
-
-    @staticmethod
-    def _costo_valido(costo: float) -> bool:
-        return isfinite(costo) and costo >= 0.0
+# Alias temporal para que imports históricos no fallen durante la migración.
+HybridRLGAGreedyPlanner = HybridRLGAPlanner

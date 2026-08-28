@@ -794,7 +794,7 @@
 					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
 						<Type><![CDATA[String]]></Type>        
 						<InitialValue Class="CodeValue">
-							<Code><![CDATA["HIBRIDO"]]></Code>
+							<Code><![CDATA["RL"]]></Code>
 						</InitialValue>
 					</Properties>
 				</Variable>
@@ -17007,7 +17007,7 @@ uiSelectorFuente =
 
 
 uiSelectorMotivo =
-    "Comparando alternativas de planificación";
+    "PLANIFICANDO";
 
 
 uiSelectorEstado =
@@ -17046,24 +17046,81 @@ uiSelectorSeedGA =
     -1L;
 
 
+/*
+ * La bandera se reutiliza para indicar que el panel
+ * debe mostrar las cuatro líneas especializadas.
+ */
 uiSelectorPoliticaOperacional =
-    false;
+    "RL".equals(
+        uiSelectorModoSolicitado
+    )
+    ||
+    "HIBRIDO".equals(
+        uiSelectorModoSolicitado
+    );
 
 
-uiSelectorLineaExtension =
-    "EXT —";
+if (
+    "RL".equals(
+        uiSelectorModoSolicitado
+    )
+) {
+
+    uiSelectorLineaExtension =
+        "EXT —";
 
 
-uiSelectorLineaFull =
-    "FULL —";
+    uiSelectorLineaFull =
+        "FULL —";
 
 
-uiSelectorLineaGreedy =
-    "GRD —";
+    uiSelectorLineaGreedy =
+        "RL puro | sin Greedy";
 
 
-uiSelectorLineaElegido =
-    "Comparando política operacional";
+    uiSelectorLineaElegido =
+        "Comparando checkpoints RL";
+
+
+} else if (
+    "HIBRIDO".equals(
+        uiSelectorModoSolicitado
+    )
+) {
+
+    uiSelectorLineaExtension =
+        "Semilla RL —";
+
+
+    uiSelectorLineaFull =
+        "GA refinado —";
+
+
+    uiSelectorLineaGreedy =
+        "Esperando refinamiento";
+
+
+    uiSelectorLineaElegido =
+        "Ejecutando RL → GA";
+
+
+} else {
+
+    uiSelectorLineaExtension =
+        "EXT —";
+
+
+    uiSelectorLineaFull =
+        "FULL —";
+
+
+    uiSelectorLineaGreedy =
+        "GRD —";
+
+
+    uiSelectorLineaElegido =
+        "Modo directo";
+}
 
 
 actualizarColoresSelectorVisual();]]></Body>
@@ -17121,6 +17178,13 @@ String fuente =
     );
 
 
+String arquitectura =
+    campoDecisionSelector(
+        decision,
+        "arquitectura"
+    );
+
+
 String motivo =
     campoDecisionSelector(
         decision,
@@ -17142,16 +17206,34 @@ String candidatos =
     );
 
 
-uiSelectorPoliticaOperacional =
-    version != null
-    &&
-    version.startsWith(
-        "pedemonte-rl-temporal-v4-operational"
+boolean esRLPuro =
+    "RL_PURO_MULTI_CHECKPOINT".equalsIgnoreCase(
+        arquitectura
     )
-    &&
-    candidatos != null
-    &&
-    !candidatos.trim().isEmpty();
+    ||
+    (
+        version != null
+        &&
+        version.startsWith(
+            "pedemonte-rl-temporal-v4-operational"
+        )
+        &&
+        candidatos != null
+        &&
+        !candidatos.trim().isEmpty()
+    );
+
+
+boolean esHibridoRLGA =
+    "RL_GA_SEEDED".equalsIgnoreCase(
+        arquitectura
+    );
+
+
+uiSelectorPoliticaOperacional =
+    esRLPuro
+    ||
+    esHibridoRLGA;
 
 
 if (!modo.isEmpty()) {
@@ -17161,48 +17243,42 @@ if (!modo.isEmpty()) {
 }
 
 
-if (!fuente.isEmpty()) {
-
-    uiSelectorFuente =
-        fuente.toUpperCase();
-
-} else if (!algoritmo.isEmpty()) {
-
-    uiSelectorFuente =
-        algoritmo.toUpperCase();
-
-} else {
-
-    uiSelectorFuente =
-        "—";
-}
-
-
-if (uiSelectorPoliticaOperacional) {
-
-    uiSelectorMotivo =
-        "POLITICA_OPERACIONAL_TEMPORAL";
-
-} else if (!motivo.isEmpty()) {
-
-    uiSelectorMotivo =
-        motivo.toUpperCase();
-
-} else {
-
-    uiSelectorMotivo =
-        "MODO_DIRECTO";
-}
-
-
 // =====================================================
-// COSTOS GENERALES
+// COSTO Y TIEMPO GENERALES
 // =====================================================
 
 uiSelectorCostoElegido =
     numeroDecisionSelector(
         decision,
         "costo"
+    );
+
+
+uiSelectorTiempoMs =
+    numeroDecisionSelector(
+        decision,
+        "tiempo_selector_ms"
+    );
+
+
+if (
+    Double.isNaN(
+        uiSelectorTiempoMs
+    )
+) {
+
+    uiSelectorTiempoMs =
+        numeroDecisionSelector(
+            decision,
+            "tiempo_plan_ms"
+        );
+}
+
+
+uiSelectorSeedGA =
+    longDecisionSelector(
+        decision,
+        "seed_ga"
     );
 
 
@@ -17227,11 +17303,33 @@ uiSelectorCostoRL =
     );
 
 
+uiSelectorMejoraGreedyPct =
+    Double.NaN;
+
+
+uiSelectorAviso =
+    "";
+
+
 // =====================================================
-// POLÍTICA OPERACIONAL RL TEMPORAL V4
+// MODO RL PURO
 // =====================================================
 
-if (uiSelectorPoliticaOperacional) {
+if (esRLPuro) {
+
+    uiSelectorFuente =
+        fuente.isEmpty()
+        ? (
+            algoritmo.isEmpty()
+            ? "RL"
+            : algoritmo.toUpperCase()
+        )
+        : fuente.toUpperCase();
+
+
+    uiSelectorMotivo =
+        "RL_PURO";
+
 
     uiSelectorLineaExtension =
         textoCandidatoSelector(
@@ -17249,41 +17347,52 @@ if (uiSelectorPoliticaOperacional) {
         );
 
 
+    /*
+     * Greedy ya no participa dentro del modo RL.
+     */
     uiSelectorLineaGreedy =
-        textoCandidatoSelector(
-            "GRD",
-            "GREEDY",
-            candidatos
+        "RL puro | sin Greedy";
+
+
+    String costoExtensionTexto =
+        campoCandidatoSelector(
+            candidatos,
+            "EXTENSION",
+            "costo"
         );
 
 
-    String costoGreedyTexto =
+    String costoFullTexto =
         campoCandidatoSelector(
             candidatos,
-            "GREEDY",
+            "FULL",
             "costo"
         );
 
 
     try {
 
-        uiSelectorCostoGreedy =
+        uiSelectorCostoRL =
             Double.parseDouble(
-                costoGreedyTexto
+                "EXTENSION".equals(
+                    uiSelectorFuente
+                )
+                ? costoExtensionTexto
+                : costoFullTexto
             );
 
     } catch (Exception ex) {
 
-        uiSelectorCostoGreedy =
-            Double.NaN;
+        uiSelectorCostoRL =
+            uiSelectorCostoElegido;
     }
 
 
-    uiSelectorCostoRL =
-        uiSelectorCostoElegido;
-
-
     uiSelectorCostoGA =
+        Double.NaN;
+
+
+    uiSelectorCostoGreedy =
         Double.NaN;
 
 
@@ -17335,7 +17444,277 @@ if (uiSelectorPoliticaOperacional) {
         + "m";
 
 
+    String erroresRL =
+        campoDecisionSelector(
+            decision,
+            "errores"
+        );
+
+
+    if (
+        !erroresRL.isEmpty()
+        &&
+        !"NINGUNO".equalsIgnoreCase(
+            erroresRL
+        )
+    ) {
+
+        uiSelectorAviso =
+            erroresRL;
+    }
+
+
+// =====================================================
+// MODO HÍBRIDO RL → GA
+// =====================================================
+
+} else if (esHibridoRLGA) {
+
+    String fuenteRL =
+        campoDecisionSelector(
+            decision,
+            "fuente_rl"
+        );
+
+
+    String resultado =
+        campoDecisionSelector(
+            decision,
+            "resultado"
+        );
+
+
+    String costoSemillaTexto =
+        campoDecisionSelector(
+            decision,
+            "costo_semilla_rl"
+        );
+
+
+    String costoRefinadoTexto =
+        campoDecisionSelector(
+            decision,
+            "costo_refinado_ga"
+        );
+
+
+    double costoSemilla =
+        numeroDecisionSelector(
+            decision,
+            "costo_semilla_rl"
+        );
+
+
+    double costoRefinado =
+        numeroDecisionSelector(
+            decision,
+            "costo_refinado_ga"
+        );
+
+
+    double mejoraPct =
+        numeroDecisionSelector(
+            decision,
+            "mejora_pct"
+        );
+
+
+    long generacionesGA =
+        longDecisionSelector(
+            decision,
+            "generaciones_ga"
+        );
+
+
+    uiSelectorCostoRL =
+        costoSemilla;
+
+
+    uiSelectorCostoGA =
+        costoRefinado;
+
+
+    uiSelectorCostoGreedy =
+        Double.NaN;
+
+
+    uiSelectorMejoraGreedyPct =
+        mejoraPct;
+
+
+    uiSelectorMotivo =
+        motivo.isEmpty()
+        ? "HIBRIDO_RL_GA"
+        : motivo.toUpperCase();
+
+
+    if (
+        "REFINADO_GA".equalsIgnoreCase(
+            resultado
+        )
+    ) {
+
+        uiSelectorFuente =
+            "GA";
+
+    } else if (
+        !fuenteRL.isEmpty()
+    ) {
+
+        uiSelectorFuente =
+            fuenteRL.toUpperCase();
+
+    } else if (
+        !algoritmo.isEmpty()
+    ) {
+
+        uiSelectorFuente =
+            algoritmo.toUpperCase();
+
+    } else {
+
+        uiSelectorFuente =
+            "RL";
+    }
+
+
+    uiSelectorLineaExtension =
+        "Semilla "
+        +
+        (
+            fuenteRL.isEmpty()
+            ? "RL"
+            : fuenteRL.toUpperCase()
+        )
+        +
+        " | "
+        +
+        formatoCostoSelector(
+            costoSemilla
+        );
+
+
+    boolean refinamientoDisponible =
+        !costoRefinadoTexto.isEmpty()
+        &&
+        !"NO_DISPONIBLE".equalsIgnoreCase(
+            costoRefinadoTexto
+        )
+        &&
+        !Double.isNaN(
+            costoRefinado
+        )
+        &&
+        !Double.isInfinite(
+            costoRefinado
+        );
+
+
+    uiSelectorLineaFull =
+        "GA refinado | "
+        +
+        (
+            refinamientoDisponible
+            ? formatoCostoSelector(
+                costoRefinado
+            )
+            : "—"
+        );
+
+
+    if (
+        !Double.isNaN(
+            mejoraPct
+        )
+        &&
+        !Double.isInfinite(
+            mejoraPct
+        )
+        &&
+        mejoraPct > 0.005
+    ) {
+
+        uiSelectorLineaGreedy =
+            String.format(
+                java.util.Locale.US,
+                "Mejora GA: %.2f %% | %d gen.",
+                mejoraPct,
+                generacionesGA
+            );
+
+    } else if (
+        "GA_NO_EJECUTABLE".equalsIgnoreCase(
+            motivo
+        )
+    ) {
+
+        uiSelectorLineaGreedy =
+            "GA no ejecutable | se conserva RL";
+
+    } else {
+
+        uiSelectorLineaGreedy =
+            "GA no mejoró la semilla RL";
+    }
+
+
+    if (
+        "REFINADO_GA".equalsIgnoreCase(
+            resultado
+        )
+    ) {
+
+        uiSelectorLineaElegido =
+            "Resultado: GA refinado";
+
+    } else {
+
+        uiSelectorLineaElegido =
+            "Resultado: RL conservado";
+    }
+
+
+    String errorGA =
+        campoDecisionSelector(
+            decision,
+            "error_ga"
+        );
+
+
+    if (
+        !errorGA.isEmpty()
+        &&
+        !"NINGUNO".equalsIgnoreCase(
+            errorGA
+        )
+    ) {
+
+        uiSelectorAviso =
+            "GA: " + errorGA;
+    }
+
+
+// =====================================================
+// MODOS DIRECTOS
+// =====================================================
+
 } else {
+
+    uiSelectorFuente =
+        !fuente.isEmpty()
+        ? fuente.toUpperCase()
+        : (
+            algoritmo.isEmpty()
+            ? "—"
+            : algoritmo.toUpperCase()
+        );
+
+
+    uiSelectorMotivo =
+        motivo.isEmpty()
+        ? "MODO_DIRECTO"
+        : motivo.toUpperCase();
+
 
     uiSelectorLineaExtension =
         "EXT —";
@@ -17350,160 +17729,53 @@ if (uiSelectorPoliticaOperacional) {
 
 
     uiSelectorLineaElegido =
-        "Sin política operacional";
+        "Modo directo";
 
 
     if (
-        !"HIBRIDO".equals(
-            uiSelectorModoSolicitado
+        "GREEDY".equals(
+            uiSelectorFuente
         )
-    ) {
-
-        if (
-            "GREEDY".equals(
-                uiSelectorFuente
-            )
-            &&
-            Double.isNaN(
-                uiSelectorCostoGreedy
-            )
-        ) {
-
-            uiSelectorCostoGreedy =
-                uiSelectorCostoElegido;
-        }
-
-
-        if (
-            "GA".equals(
-                uiSelectorFuente
-            )
-            &&
-            Double.isNaN(
-                uiSelectorCostoGA
-            )
-        ) {
-
-            uiSelectorCostoGA =
-                uiSelectorCostoElegido;
-        }
-
-
-        if (
-            "RL".equals(
-                uiSelectorFuente
-            )
-            &&
-            Double.isNaN(
-                uiSelectorCostoRL
-            )
-        ) {
-
-            uiSelectorCostoRL =
-                uiSelectorCostoElegido;
-        }
-    }
-}
-
-
-// =====================================================
-// TIEMPO Y SEMILLA
-// =====================================================
-
-uiSelectorTiempoMs =
-    numeroDecisionSelector(
-        decision,
-        "tiempo_selector_ms"
-    );
-
-
-if (Double.isNaN(uiSelectorTiempoMs)) {
-
-    uiSelectorTiempoMs =
-        numeroDecisionSelector(
-            decision,
-            "tiempo_plan_ms"
-        );
-}
-
-
-uiSelectorSeedGA =
-    longDecisionSelector(
-        decision,
-        "seed_ga"
-    );
-
-
-// =====================================================
-// COMPARACIÓN CONTRA GREEDY
-// =====================================================
-
-if (
-    !Double.isNaN(
-        uiSelectorCostoGreedy
-    )
-    &&
-    !Double.isInfinite(
-        uiSelectorCostoGreedy
-    )
-    &&
-    uiSelectorCostoGreedy > 0.0
-    &&
-    !Double.isNaN(
-        uiSelectorCostoElegido
-    )
-    &&
-    !Double.isInfinite(
-        uiSelectorCostoElegido
-    )
-) {
-
-    uiSelectorMejoraGreedyPct =
-        (
-            uiSelectorCostoGreedy
-            - uiSelectorCostoElegido
-        )
-        / uiSelectorCostoGreedy
-        * 100.0;
-
-} else {
-
-    uiSelectorMejoraGreedyPct =
-        Double.NaN;
-}
-
-
-// =====================================================
-// AVISOS Y ERRORES
-// =====================================================
-
-uiSelectorAviso =
-    "";
-
-
-if (uiSelectorPoliticaOperacional) {
-
-    String erroresOperacionales =
-        campoDecisionSelector(
-            decision,
-            "errores"
-        );
-
-
-    if (
-        !erroresOperacionales.isEmpty()
         &&
-        !"NINGUNO".equalsIgnoreCase(
-            erroresOperacionales
+        Double.isNaN(
+            uiSelectorCostoGreedy
         )
     ) {
 
-        uiSelectorAviso =
-            erroresOperacionales;
+        uiSelectorCostoGreedy =
+            uiSelectorCostoElegido;
     }
 
 
-} else {
+    if (
+        "GA".equals(
+            uiSelectorFuente
+        )
+        &&
+        Double.isNaN(
+            uiSelectorCostoGA
+        )
+    ) {
+
+        uiSelectorCostoGA =
+            uiSelectorCostoElegido;
+    }
+
+
+    if (
+        "RL".equals(
+            uiSelectorFuente
+        )
+        &&
+        Double.isNaN(
+            uiSelectorCostoRL
+        )
+    ) {
+
+        uiSelectorCostoRL =
+            uiSelectorCostoElegido;
+    }
+
 
     String errorGA =
         campoDecisionSelector(
@@ -17544,7 +17816,9 @@ if (uiSelectorPoliticaOperacional) {
 
     if (avisoRL) {
 
-        if (!uiSelectorAviso.isEmpty()) {
+        if (
+            !uiSelectorAviso.isEmpty()
+        ) {
 
             uiSelectorAviso +=
                 " | ";
@@ -17558,7 +17832,7 @@ if (uiSelectorPoliticaOperacional) {
 
 
 // =====================================================
-// ESTADO
+// ESTADO FINAL
 // =====================================================
 
 uiSelectorEstado =
@@ -17971,6 +18245,14 @@ java.awt.Color colorNormal =
     );
 
 
+java.awt.Color colorSecundario =
+    new java.awt.Color(
+        100,
+        116,
+        139
+    );
+
+
 java.awt.Color colorSeleccionado =
     new java.awt.Color(
         22,
@@ -17979,7 +18261,31 @@ java.awt.Color colorSeleccionado =
     );
 
 
-if (uiSelectorPoliticaOperacional) {
+java.awt.Color colorAviso =
+    new java.awt.Color(
+        234,
+        88,
+        12
+    );
+
+
+boolean esRLPuro =
+    "RL".equals(
+        uiSelectorModoSolicitado
+    );
+
+
+boolean esHibrido =
+    "HIBRIDO".equals(
+        uiSelectorModoSolicitado
+    );
+
+
+if (
+    uiSelectorPoliticaOperacional
+    &&
+    esRLPuro
+) {
 
     txtCostosSelectorVisual1.setColor(
         "EXTENSION".equals(
@@ -18000,12 +18306,73 @@ if (uiSelectorPoliticaOperacional) {
 
 
     txtMejoraSelectorVisual.setColor(
-        "GREEDY".equals(
+        colorSecundario
+    );
+
+
+    txtMotivoSelectorVisual.setColor(
+        colorSeleccionado
+    );
+
+
+} else if (
+    uiSelectorPoliticaOperacional
+    &&
+    esHibrido
+) {
+
+    boolean resultadoGA =
+        "GA".equals(
             uiSelectorFuente
-        )
+        );
+
+
+    txtCostosSelectorVisual1.setColor(
+        resultadoGA
+        ? colorNormal
+        : colorSeleccionado
+    );
+
+
+    txtCostosSelectorVisual2.setColor(
+        resultadoGA
         ? colorSeleccionado
         : colorNormal
     );
+
+
+    if (
+        uiSelectorAviso != null
+        &&
+        !uiSelectorAviso.isEmpty()
+    ) {
+
+        txtMejoraSelectorVisual.setColor(
+            colorAviso
+        );
+
+    } else if (
+        !Double.isNaN(
+            uiSelectorMejoraGreedyPct
+        )
+        &&
+        !Double.isInfinite(
+            uiSelectorMejoraGreedyPct
+        )
+        &&
+        uiSelectorMejoraGreedyPct > 0.005
+    ) {
+
+        txtMejoraSelectorVisual.setColor(
+            colorSeleccionado
+        );
+
+    } else {
+
+        txtMejoraSelectorVisual.setColor(
+            colorSecundario
+        );
+    }
 
 
     txtMotivoSelectorVisual.setColor(
@@ -18039,11 +18406,7 @@ if (uiSelectorPoliticaOperacional) {
     ) {
 
         colorMejora =
-            new java.awt.Color(
-                100,
-                116,
-                139
-            );
+            colorSecundario;
 
     } else if (
         uiSelectorMejoraGreedyPct
@@ -18051,11 +18414,7 @@ if (uiSelectorPoliticaOperacional) {
     ) {
 
         colorMejora =
-            new java.awt.Color(
-                22,
-                163,
-                74
-            );
+            colorSeleccionado;
 
     } else if (
         uiSelectorMejoraGreedyPct
@@ -18072,11 +18431,7 @@ if (uiSelectorPoliticaOperacional) {
     } else {
 
         colorMejora =
-            new java.awt.Color(
-                100,
-                116,
-                139
-            );
+            colorSecundario;
     }
 
 
@@ -18114,11 +18469,7 @@ if (
 } else {
 
     colorPie =
-        new java.awt.Color(
-            100,
-            116,
-            139
-        );
+        colorSecundario;
 }
 
 
@@ -20557,11 +20908,11 @@ return "Estado operativo";]]></Body>
 					<ExtendedProperties>
 						<Font Name="SansSerif" Size="10" Style="0"/>
 						<Editable>false</Editable>
-						<Button><![CDATA[HIBRIDO]]></Button>
+						<Button><![CDATA[RL]]></Button>
+						<Button><![CDATA[GA]]></Button>
 						<Button><![CDATA[GREEDY]]></Button>
 						<Button><![CDATA[RANDOM]]></Button>
-						<Button><![CDATA[GA]]></Button>
-						<Button><![CDATA[RL]]></Button>
+						<Button><![CDATA[HIBRIDO]]></Button>
 						<LinkTo>true</LinkTo>
 						<Link>modoPlanificacionPypeline</Link>
 					</ExtendedProperties>

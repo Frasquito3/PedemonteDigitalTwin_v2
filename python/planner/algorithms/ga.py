@@ -38,6 +38,7 @@ from planner.domain.validator import (
 from planner.routing.decoder import (
     Cromosoma,
     decodificar_plan_permutacion,
+    validar_permutacion,
 )
 
 @dataclass(frozen=True)
@@ -136,6 +137,11 @@ class GeneticAlgorithmPlanner(
         proveedor_viaje:
             ProveedorViaje
             | None = None,
+        semillas_iniciales:
+            tuple[Cromosoma, ...]
+            | None = None,
+        incluir_semilla_greedy: bool = True,
+        fraccion_variantes_semilla: float = 0.0,
     ) -> None:
         self.configuracion = (
             configuracion
@@ -152,6 +158,19 @@ class GeneticAlgorithmPlanner(
         self.seed = seed
 
         self.proveedor_viaje = proveedor_viaje
+
+        self.semillas_iniciales = tuple(semillas_iniciales or ())
+
+        self.incluir_semilla_greedy = bool(incluir_semilla_greedy)
+
+        if not 0.0 <= fraccion_variantes_semilla <= 1.0:
+            raise ValueError(
+                "fraccion_variantes_semilla debe estar entre 0 y 1."
+            )
+
+        self.fraccion_variantes_semilla = fraccion_variantes_semilla
+
+        self.semillas_iniciales_utilizadas: tuple[Cromosoma, ...] = ()
 
         self.ultima_seed_utilizada: int | None = None
 
@@ -379,36 +398,84 @@ class GeneticAlgorithmPlanner(
         vistos: set[Cromosoma] = set()
 
         # =================================================
-        # SEMILLA 1: SOLUCIÓN GREEDY
+        # SEMILLAS EXTERNAS
         # =================================================
         #
-        # Esto garantiza que el GA nunca termine peor
-        # que el Greedy por pérdida accidental de una
-        # buena solución inicial, ya que además usamos
-        # elitismo.
+        # El híbrido RL-GA utiliza este punto para inyectar
+        # el orden producido por el RL en la población.
 
-        plan_greedy = generar_plan_greedy(
-            instancia,
-            configuracion=self.configuracion,
-            proveedor_viaje=self.proveedor_viaje,
+        semillas_validas: list[Cromosoma] = []
+
+        for cromosoma_semilla in self.semillas_iniciales:
+            validar_permutacion(
+                {pedido.pedido_id: pedido for pedido in instancia.pedidos},
+                cromosoma_semilla,
+            )
+
+            if self._agregar_si_nuevo(
+                poblacion,
+                vistos,
+                cromosoma_semilla,
+            ):
+                semillas_validas.append(cromosoma_semilla)
+
+        self.semillas_iniciales_utilizadas = tuple(semillas_validas)
+
+        objetivo_variantes = int(
+            round(
+                self.configuracion_ga.tamano_poblacion
+                * self.fraccion_variantes_semilla
+            )
         )
 
-        cromosoma_greedy = tuple(
-            pedido_id
+        if semillas_validas and objetivo_variantes > 0:
+            intentos_variantes = 0
+            max_intentos_variantes = max(
+                20,
+                objetivo_variantes * 20,
+            )
 
-            for camion in plan_greedy.camiones
-            for viaje in camion.viajes
-            for pedido_id in viaje.pedido_ids
-        )
-
-        self._agregar_si_nuevo(
-            poblacion,
-            vistos,
-            cromosoma_greedy,
-        )
+            while (
+                len(poblacion) < objetivo_variantes
+                and intentos_variantes < max_intentos_variantes
+            ):
+                base = semillas_validas[
+                    intentos_variantes % len(semillas_validas)
+                ]
+                variante = self._crear_variante_semilla(base, rng)
+                self._agregar_si_nuevo(
+                    poblacion,
+                    vistos,
+                    variante,
+                )
+                intentos_variantes += 1
 
         # =================================================
-        # SEMILLA 2: EARLIEST DUE DATE
+        # SEMILLA GREEDY OPCIONAL
+        # =================================================
+
+        if self.incluir_semilla_greedy:
+            plan_greedy = generar_plan_greedy(
+                instancia,
+                configuracion=self.configuracion,
+                proveedor_viaje=self.proveedor_viaje,
+            )
+
+            cromosoma_greedy = tuple(
+                pedido_id
+                for camion in plan_greedy.camiones
+                for viaje in camion.viajes
+                for pedido_id in viaje.pedido_ids
+            )
+
+            self._agregar_si_nuevo(
+                poblacion,
+                vistos,
+                cromosoma_greedy,
+            )
+
+        # =================================================
+        # EARLIEST DUE DATE
         # =================================================
 
         cromosoma_edd = tuple(
@@ -517,6 +584,35 @@ class GeneticAlgorithmPlanner(
                 )
 
         return poblacion
+
+
+    @staticmethod
+    def _crear_variante_semilla(
+        cromosoma: Cromosoma,
+        rng: Random,
+    ) -> Cromosoma:
+        genes = list(cromosoma)
+
+        if len(genes) < 2:
+            return cromosoma
+
+        if len(genes) >= 3 and rng.random() < 0.5:
+            inicio, fin = sorted(
+                rng.sample(range(len(genes)), 2)
+            )
+            fin += 1
+            genes[inicio:fin] = reversed(genes[inicio:fin])
+        else:
+            posicion_a, posicion_b = rng.sample(
+                range(len(genes)),
+                2,
+            )
+            genes[posicion_a], genes[posicion_b] = (
+                genes[posicion_b],
+                genes[posicion_a],
+            )
+
+        return tuple(genes)
 
     @staticmethod
     def _agregar_si_nuevo(
@@ -902,6 +998,11 @@ def generar_plan_ga(
     proveedor_viaje:
         ProveedorViaje
         | None = None,
+    semillas_iniciales:
+        tuple[Cromosoma, ...]
+        | None = None,
+    incluir_semilla_greedy: bool = True,
+    fraccion_variantes_semilla: float = 0.0,
 ) -> PlanTurno:
     return GeneticAlgorithmPlanner(
         configuracion=configuracion,
@@ -913,4 +1014,10 @@ def generar_plan_ga(
         seed=seed,
 
         proveedor_viaje=proveedor_viaje,
+
+        semillas_iniciales=semillas_iniciales,
+
+        incluir_semilla_greedy=incluir_semilla_greedy,
+
+        fraccion_variantes_semilla=fraccion_variantes_semilla,
     ).generar_plan(instancia)

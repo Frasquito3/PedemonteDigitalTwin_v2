@@ -250,22 +250,27 @@ class PlannerSelectorTest(
         )
 
         self.assertIn(
-            "fuente=",
+            "arquitectura=RL_GA_SEEDED",
             decision.detalle,
         )
 
         self.assertIn(
-            "costo_ga=",
+            "fuente_rl=",
             decision.detalle,
         )
 
         self.assertIn(
+            "costo_semilla_rl=",
+            decision.detalle,
+        )
+
+        self.assertIn(
+            "costo_refinado_ga=",
+            decision.detalle,
+        )
+
+        self.assertNotIn(
             "costo_greedy=",
-            decision.detalle,
-        )
-
-        self.assertIn(
-            "costo_rl=",
             decision.detalle,
         )
 
