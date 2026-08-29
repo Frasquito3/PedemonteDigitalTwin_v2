@@ -1674,6 +1674,36 @@
 						</InitialValue>
 					</Properties>
 				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1788010830498</Id>
+					<Name><![CDATA[modoVistaGIS]]></Name>
+					<X>-1100</X><Y>2800</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[int]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[-1]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1788011069767</Id>
+					<Name><![CDATA[escalaSeguimientoGIS]]></Name>
+					<X>-1100</X><Y>2830</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[double]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[1.0 / 10000.0]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
 				<Variable Class="Parameter">
 					<Id>1786556369483</Id>
 					<Name><![CDATA[CAPACIDAD_CAMION]]></Name>
@@ -3325,6 +3355,45 @@ if (
 
 
 actualizarEstadosPedidosGIS();]]></Action>
+				</Event>
+				<Event>
+					<Id>1788011323360</Id>
+					<Name><![CDATA[eventoSeguimientoCamionGIS]]></Name>
+					<X>-1390</X><Y>190</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties TriggerType="timeout" Mode="cyclic">
+						<Timeout Class="CodeUnitValue">
+							<Code><![CDATA[1]]></Code>
+							<Unit Class="TimeUnits"><![CDATA[MINUTE]]></Unit>
+						</Timeout>
+						<Rate Class="CodeUnitValue">
+							<Code><![CDATA[1]]></Code>
+							<Unit Class="RateUnits"><![CDATA[PER_MINUTE]]></Unit>
+						</Rate>
+						<Id>1788011323358</Id>
+						<OccurrenceAtTime>true</OccurrenceAtTime>
+						<OccurrenceDate>1788076800000</OccurrenceDate>
+						<OccurrenceTime Class="CodeUnitValue">
+							<Code><![CDATA[0]]></Code>
+							<Unit Class="TimeUnits"><![CDATA[MINUTE]]></Unit>
+						</OccurrenceTime>
+						<RecurrenceCode Class="CodeUnitValue">
+							<Code><![CDATA[0.05]]></Code>
+							<Unit Class="TimeUnits"><![CDATA[MINUTE]]></Unit>
+						</RecurrenceCode>
+						<Condition><![CDATA[false]]></Condition>
+					</Properties>
+					<Action><![CDATA[if (
+    modoVistaGIS >= 0
+    &&
+    ejecucionEnCurso
+) {
+
+    actualizarSeguimientoCamionGIS();
+}]]></Action>
 				</Event>
 			</Events>
 			<Functions>
@@ -18894,6 +18963,331 @@ if (
 
 return "Estado operativo";]]></Body>
 				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[Camion]]></ReturnType>
+					<Id>1788011089065</Id>
+					<Name><![CDATA[obtenerCamionGIS]]></Name>
+					<X>-810</X><Y>3760</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[camionId]]></Name>
+						<Type><![CDATA[int]]></Type>
+					</Parameter>
+					<Body><![CDATA[if (camionId < 0) {
+
+    return null;
+}
+
+
+for (Camion camion : camiones) {
+
+    if (
+        camion != null
+        &&
+        camion.camionId == camionId
+    ) {
+
+        return camion;
+    }
+}
+
+
+return null;]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1788011174913</Id>
+					<Name><![CDATA[actualizarSeguimientoCamionGIS]]></Name>
+					<X>-810</X><Y>3790</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[if (
+    mapaGIS == null
+    ||
+    modoVistaGIS < 0
+) {
+
+    return;
+}
+
+
+Camion camion =
+    obtenerCamionGIS(
+        modoVistaGIS
+    );
+
+
+if (camion == null) {
+
+    return;
+}
+
+
+double latitud =
+    camion.getLatitude();
+
+
+double longitud =
+    camion.getLongitude();
+
+
+if (
+    !Double.isFinite(
+        latitud
+    )
+    ||
+    !Double.isFinite(
+        longitud
+    )
+) {
+
+    return;
+}
+
+
+mapaGIS.setProjectionCenter(
+    latitud,
+    longitud
+);]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1788011189378</Id>
+					<Name><![CDATA[activarSeguimientoCamionGIS]]></Name>
+					<X>-810</X><Y>3820</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[camionId]]></Name>
+						<Type><![CDATA[int]]></Type>
+					</Parameter>
+					<Body><![CDATA[if (mapaGIS == null) {
+
+    return;
+}
+
+
+Camion camion =
+    obtenerCamionGIS(
+        camionId
+    );
+
+
+if (camion == null) {
+
+    traceln(
+        "VISTA GIS | camión no disponible: "
+        + camionId
+    );
+
+    return;
+}
+
+
+double latitud =
+    camion.getLatitude();
+
+
+double longitud =
+    camion.getLongitude();
+
+
+if (
+    !Double.isFinite(
+        latitud
+    )
+    ||
+    !Double.isFinite(
+        longitud
+    )
+) {
+
+    return;
+}
+
+
+modoVistaGIS =
+    camionId;
+
+
+// Primero ubicamos el centro en la posición actual.
+mapaGIS.setProjectionCenter(
+    latitud,
+    longitud
+);
+
+
+// La escala es una proporción: 1 / 20000.
+mapaGIS.setMapScale(
+    escalaSeguimientoGIS
+);
+
+
+traceln(
+    "VISTA GIS | siguiendo camión "
+    + camionId
+    + " | escala="
+    + escalaSeguimientoGIS
+);]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1788011223659</Id>
+					<Name><![CDATA[activarVistaGeneralGIS]]></Name>
+					<X>-810</X><Y>3850</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[modoVistaGIS =
+    -1;
+
+
+if (mapaGIS == null) {
+
+    return;
+}
+
+
+InstanciaTurno referencia =
+    instanciaInterfazActual != null
+    ? instanciaInterfazActual
+    : instanciaActual;
+
+
+if (referencia == null) {
+
+    mapaGIS.fitBounds(
+        LAT_CORRALON - 0.004,
+        LON_CORRALON - 0.004,
+        LAT_CORRALON + 0.004,
+        LON_CORRALON + 0.004
+    );
+
+    return;
+}
+
+
+double latitudMinima =
+    referencia.latCorralon;
+
+
+double latitudMaxima =
+    referencia.latCorralon;
+
+
+double longitudMinima =
+    referencia.lonCorralon;
+
+
+double longitudMaxima =
+    referencia.lonCorralon;
+
+
+if (referencia.pedidos != null) {
+
+    for (
+        PedidoInput pedido
+        : referencia.pedidos
+    ) {
+
+        if (
+            pedido == null
+            ||
+            !Double.isFinite(
+                pedido.latitud
+            )
+            ||
+            !Double.isFinite(
+                pedido.longitud
+            )
+        ) {
+
+            continue;
+        }
+
+
+        latitudMinima =
+            Math.min(
+                latitudMinima,
+                pedido.latitud
+            );
+
+
+        latitudMaxima =
+            Math.max(
+                latitudMaxima,
+                pedido.latitud
+            );
+
+
+        longitudMinima =
+            Math.min(
+                longitudMinima,
+                pedido.longitud
+            );
+
+
+        longitudMaxima =
+            Math.max(
+                longitudMaxima,
+                pedido.longitud
+            );
+    }
+}
+
+
+double margenLatitud =
+    Math.max(
+        0.002,
+        (
+            latitudMaxima
+            - latitudMinima
+        )
+        *
+        0.12
+    );
+
+
+double margenLongitud =
+    Math.max(
+        0.002,
+        (
+            longitudMaxima
+            - longitudMinima
+        )
+        *
+        0.12
+    );
+
+
+mapaGIS.fitBounds(
+    latitudMinima
+        - margenLatitud,
+    longitudMinima
+        - margenLongitud,
+    latitudMaxima
+        + margenLatitud,
+    longitudMaxima
+        + margenLongitud
+);
+
+
+traceln(
+    "VISTA GIS | vista general"
+);]]></Body>
+				</Function>
 			</Functions>
 			<AgentLinks>
 				<AgentLink>
@@ -21805,7 +22199,7 @@ mensajeFormulario =
 				<Text>
 					<Id>1787521700079</Id>
 					<Name><![CDATA[txtModoGIS]]></Name>
-					<X>1230</X><Y>138</Y>
+					<X>1270</X><Y>138</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -21814,14 +22208,22 @@ mensajeFormulario =
 					<EmbeddedIcon>false</EmbeddedIcon>
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
-					<Color>-10063739</Color>
-					<Text><![CDATA[GIS 2D]]></Text>
+					<Color>-11377547</Color>
+					<Text><![CDATA[]]></Text>
+					<TextCode><![CDATA[modoVistaGIS < 0
+?
+"GENERAL"
+:
+(
+    "CAMIÓN "
+    + modoVistaGIS
+)]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>8</Size>
 						<Style>1</Style>
 					</Font>
-					<Alignment>LEFT</Alignment>
+					<Alignment>RIGHT</Alignment>
 				</Text>
 				<Text>
 					<Id>1787522075219</Id>
@@ -22819,6 +23221,80 @@ if (importado) {
 					</Font>
 					<Alignment>LEFT</Alignment>
 				</Text>
+				<Control Type="Button">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1788011690623</Id>
+					<Name><![CDATA[btnVistaGeneralGIS]]></Name>
+					<X>930</X><Y>132</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="80" Height="22">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<TextColor>-13414808</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[modoVistaGIS != -1]]></EnableExpression>
+						<ActionCode><![CDATA[activarVistaGeneralGIS();]]></ActionCode>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="9" Style="1"/>
+						<LabelText><![CDATA[General]]></LabelText>
+					</ExtendedProperties>
+				</Control>
+				<Control Type="Button">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1788011955886</Id>
+					<Name><![CDATA[btnSeguirCamion0GIS]]></Name>
+					<X>1016</X><Y>132</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="92" Height="22">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<TextColor>-13730510</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[modoVistaGIS != 0
+&&
+camiones.size() > 0]]></EnableExpression>
+						<ActionCode><![CDATA[activarSeguimientoCamionGIS(
+    0
+);]]></ActionCode>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="9" Style="1"/>
+						<LabelText><![CDATA[Camión 0]]></LabelText>
+					</ExtendedProperties>
+				</Control>
+				<Control Type="Button">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1788012527233</Id>
+					<Name><![CDATA[btnSeguirCamion1GIS]]></Name>
+					<X>1114</X><Y>132</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="92" Height="22">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<TextColor>-8708190</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[modoVistaGIS != 1
+&&
+camiones.size() > 1]]></EnableExpression>
+						<ActionCode><![CDATA[activarSeguimientoCamionGIS(
+    1
+);]]></ActionCode>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="9" Style="1"/>
+						<LabelText><![CDATA[Camión 1]]></LabelText>
+					</ExtendedProperties>
+				</Control>
 			</Presentation>
 
 				</Level>
