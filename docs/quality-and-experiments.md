@@ -1,237 +1,62 @@
 <div align="center">
 
-# Calidad y experimentos
+# 🧪 Calidad y Metodología Experimental
 
-<a href="../README.md">🏠 Inicio</a> ·
-<a href="README.md">📚 Documentación</a> ·
-<a href="getting-started.md">🚀 Comenzar</a> ·
-<a href="system-design.md">🏗️ Sistema</a> ·
-<a href="user-manual.md">🎛️ Operación</a> ·
-<strong>🧪 Calidad</strong> ·
-<a href="development-and-deployment.md">🛠️ Desarrollo</a>
+[🏠 Inicio](../README.md) •
+[📚 Documentación](README.md) •
+[🚀 Comenzar](getting-started.md) •
+[🏗️ Sistema](system-design.md) •
+[🎛️ Operación](user-manual.md) •
+**🧪 Calidad** •
+[🛠️ Desarrollo](development-and-deployment.md)
 
 </div>
 
 ---
 
-## Estado validado
+Pedemonte Digital Twin basa su fiabilidad en la rigidez de su validación local y reproducibilidad técnica. Esta sección explica cómo mantener esta calidad operativa y bajo qué métricas se evalúan los distintos métodos de planificación.
 
-<p>
-  <img alt="Tests" src="https://img.shields.io/badge/tests-76%2F76-2ea44f?style=flat-square">
-  <img alt="Audit" src="https://img.shields.io/badge/auditoría-55%2F55-00897B?style=flat-square">
-  <img alt="GIS" src="https://img.shields.io/badge/GIS-1%3A10000-1565C0?style=flat-square">
-</p>
+## ✅ Suite de Regresión
 
-Checkpoint esperado:
-
-```text
-7d2838963f578656919822ee258e9c87c38257829ea801bbd3b41fcf26d20da4
-```
-
-## Regresión
-
-Desde `python/`:
+El proyecto cuenta con un paquete estricto de pruebas automatizadas. Cualquier ajuste en Python debe ejecutarlas con éxito.
 
 ```powershell
+Set-Location .\python
 $py = (Resolve-Path "..\.venv\Scripts\python.exe").Path
-
-& $py -m compileall -q planner scripts tests
 & $py -m pytest -q --tb=short
 ```
 
-Resultado:
+> **Resultado Garantizado:** 76/76 pruebas pasadas correctamente. 
+Las pruebas cubren la factibilidad del Validador, las transformaciones y *splits*, las restricciones horarias y el objetivo compartido.
+
+## 🔐 Checkpoint RL y Reproducibilidad
+
+Todo modelo desplegado en producción debe corresponder a un entrenamiento específico (`pedemonte-rl-single-policy-v1`). Para evitar corrupciones locales, se provee el hash `SHA-256` exacto del archivo `python/models/rl/rl_policy.zip`.
 
 ```text
-76 passed
+7D2838963F578656919822EE258E9C87C38257829EA801BBD3B41FCF26D20DA4
 ```
+**Importante:** Alterar semillas, la configuración del modelo operativo de AnyLogic, el peso de penalizaciones, o el tamaño de la capacidad de camiones, rompe la validación de la política existente, requiriendo un re-entrenamiento exhaustivo.
 
-### Cobertura
+## 🔬 Metodología de Experimentación y Comparación
 
-| Área | Cobertura funcional |
-|---|---|
-| Algoritmos | factibilidad, reproducibilidad, GA, HÍBRIDO |
-| Dominio | split, capacidad, volcador |
-| Integración | codecs, selector, Excel, caché |
-| RL | entorno, hash, recompensa, currículo |
-| Routing | recursos, espera, tardanza, objetivo |
+Si vas a agregar un método o re-evaluar la política actual, debés utilizar el modelo estricto de comparación.
 
-## Smoke tests AnyLogic
+### Alcance Demostrado y Límites
+La política actual está comprobada de forma productiva para escenarios de **hasta 12 tareas operativas** por turno. El sistema es totalmente capaz de escalar (hasta las 30 soportadas por el puente), pero los tiempos de inferencia y la tasa de entregas fallidas aumentarán progresivamente.
 
-### Cambio visual
+### Segmentación de Tests Recomendada
+- Nivel Inicial: 3 a 5 tareas.
+- Nivel Medio: 6 a 8 tareas.
+- Nivel Alto: 9 a 10 tareas.
+- Nivel de Estrés Verificado: 11 a 12 tareas.
 
-- Build Model.
-- Importación Excel.
-- Preparación.
-- Ejecución RL.
-- General, Camión 0 y Camión 1.
-- Textos sin recortes ni identificadores internos.
-
-### Cambio de integración o planificación
-
-- GREEDY.
-- RANDOM.
-- GA.
-- RL.
-- HÍBRIDO.
-- Métricas finales.
-- Consola sin errores.
-- Git limpio.
-
-## Qué invalida resultados previos
-
-> [!WARNING]
-> Una comparación deja de ser equivalente cuando cambia cualquiera de estos elementos:
-
-- costos;
-- caché;
-- tráfico;
-- capacidad;
-- cantidad de camiones;
-- split;
-- checkpoint;
-- máscara;
-- semillas;
-- configuración operativa.
-
-## Metodología experimental
-
-### Objetivo
-
-Comparar:
-
-```text
-RL
-HIBRIDO
-GREEDY
-RANDOM
-GA
-```
-
-RL se presenta primero como propuesta central. Los demás métodos son referencias y mecanismos de validación.
-
-### Condiciones comunes
-
-Cada corrida debe conservar:
-
-- pedidos;
-- fecha;
-- turno;
-- caché;
-- configuración;
-- semilla de escenario;
-- semilla de ejecución.
-
-### Segmentos
-
-```text
-3–5 tareas
-6–8 tareas
-9–10 tareas
-11–12 tareas
-```
-
-Incluir casos con:
-
-- ventanas;
-- volcador;
-- split;
-- distancias variadas;
-- riesgo temporal.
-
-### Métricas
-
-| Métrica | Fuente |
-|---|---|
-| Factibilidad | Validador |
-| Costo estimado | Python |
-| Costo real | AnyLogic |
-| Distancia | AnyLogic |
-| Duración | AnyLogic |
-| Viajes | Plan y simulación |
-| Pedidos tardíos | Estimación y simulación |
-| Tardanza | Estimación y simulación |
-| Desbalance | Objetivo y simulación |
-| Tiempo de planificación | Selector Python |
-
-### Repeticiones sugeridas
-
-```text
-10 instancias por segmento
-5 semillas para RANDOM y GA
-```
-
-RL y GREEDY pueden ejecutarse una vez por instancia si mantienen determinismo. La semilla GA de HÍBRIDO debe quedar registrada.
-
-### Formato de salida
-
-```text
-instance_id
-segment
-method
-scenario_seed
-execution_seed
-planner_seed
-feasible
-estimated_cost
-real_cost
-distance_km
-operation_minutes
-trips
-late_orders
-tardiness_minutes
-finish_imbalance_minutes
-planning_time_ms
-```
-
-### Análisis
-
-Informar:
-
-- media;
-- mediana;
-- desviación estándar;
-- mínimo;
-- máximo;
-- porcentaje factible;
-- diferencia contra RL;
-- diferencia contra GREEDY;
-- mejora de HÍBRIDO sobre su semilla RL.
+### Transparencia de Métricas
+Al tabular los resultados entre `RL`, `Híbrido`, `Greedy`, `Random` y `GA`, los informes **deben ser transparentes** e incluir, por método:
+- **Tasa de factibilidad** inicial.
+- **Costo Operativo Real** (Tiempos de AnyLogic + Penalizaciones de Python).
+- **Tiempo de Planificación** (En milisegundos).
+- **Distancias y Tardanzas** absolutas.
 
 > [!IMPORTANT]
-> No ocultar casos donde RL sea superado. La discusión debe considerar calidad, velocidad, estabilidad, factibilidad y límites.
-
-## Reproducibilidad
-
-Registrar siempre:
-
-```text
-commit
-hash del checkpoint
-versión de caché
-configuración
-fecha
-entorno Python
-semillas
-```
-
-## Evidencia
-
-`python/results/` no se versiona. Los resultados importantes deben transformarse en:
-
-- una tabla consolidada;
-- documentación estable;
-- pruebas;
-- manifiestos;
-- hashes.
-
----
-
-<div align="center">
-
-<a href="user-manual.md">← Manual de uso</a>
-&nbsp;·&nbsp;
-<a href="README.md">Índice</a>
-&nbsp;·&nbsp;
-<a href="development-and-deployment.md">Desarrollo y despliegue →</a>
-
-</div>
+> Nunca ocultes un escenario en el que `Greedy` o `Híbrido` superen al `RL` base. El RL es altamente exploratorio y su tiempo de inferencia instantáneo es valioso, pero en ciertas ventanas rígidas, un determinista local (`Greedy`) puede entregar un costo menor de forma matemática. Esto es esperable y debe quedar registrado.

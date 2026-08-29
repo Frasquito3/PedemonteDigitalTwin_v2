@@ -1,54 +1,40 @@
 <div align="center">
 
-# Primeros pasos
+# 🚀 Primeros Pasos
 
-<a href="../README.md">🏠 Inicio</a> ·
-<a href="README.md">📚 Documentación</a> ·
-<strong>🚀 Comenzar</strong> ·
-<a href="system-design.md">🏗️ Sistema</a> ·
-<a href="user-manual.md">🎛️ Operación</a> ·
-<a href="quality-and-experiments.md">🧪 Calidad</a> ·
-<a href="development-and-deployment.md">🛠️ Desarrollo</a>
+[🏠 Inicio](../README.md) •
+[📚 Documentación](README.md) •
+**🚀 Comenzar** •
+[🏗️ Sistema](system-design.md) •
+[🎛️ Operación](user-manual.md) •
+[🧪 Calidad](quality-and-experiments.md) •
+[🛠️ Desarrollo](development-and-deployment.md)
 
 </div>
 
 ---
 
-## Requisitos
+Esta guía te ayudará a configurar el entorno local, validarlo y ejecutar la primera simulación del Gemelo Digital.
 
-| Componente | Recomendación verificada |
-|---|---|
-| Sistema operativo | Windows |
-| Terminal | PowerShell |
-| Python | 3.11 |
-| AnyLogic | Personal Learning Edition |
-| Integración | Pypeline |
-| Control de versiones | Git |
+## 📋 Requisitos Previos
 
-Paquetes principales del entorno validado:
+- **Sistema Operativo:** Windows
+- **Terminal:** PowerShell
+- **Lenguaje:** Python 3.11
+- **Simulador:** AnyLogic (Personal Learning Edition o superior)
+- **Control de versiones:** Git
 
-```text
-Python 3.11.9
-anylogic-alpyne 1.2.0
-gymnasium 1.3.0
-stable-baselines3 2.9.0
-sb3-contrib 2.9.0
-numpy 2.4.6
-openpyxl 3.1.5
-pytest 9.1.1
-```
+## 🛠️ Instalación y Configuración
 
-## Instalación
-
-### 1. Clonar y entrar al repositorio
-
+### 1. Clonar el repositorio
+Abrí PowerShell y cloná el repositorio:
 ```powershell
 git clone <URL-DEL-REPOSITORIO>
 Set-Location .\PedemonteDigitalTwin_v2
 ```
 
-### 2. Crear el entorno virtual
-
+### 2. Crear y activar el Entorno Virtual (VENV)
+Es **fundamental** aislar las dependencias del proyecto. Estando en la raíz del repositorio:
 ```powershell
 py -3.11 -m venv .venv
 .\.venv\Scripts\Activate.ps1
@@ -58,162 +44,52 @@ python -m pip install -r .\python\requirements-dev.txt
 ```
 
 > [!TIP]
-> Si ya estás dentro de la carpeta `python`, la ruta correcta es:
->
-> ```powershell
-> python -m pip install -r .\requirements-dev.txt
-> ```
+> El archivo `requirements-dev.txt` incluye internamente a `requirements-rl.txt`, por lo que instalará todas las dependencias necesarias: `numpy`, `gymnasium`, `stable-baselines3`, `pyrefly`, `anylogic-alpyne`, `openpyxl`, y `pytest`.
 
-### 3. Verificar archivos productivos
+### 3. Validar el Checkpoint RL
+El repositorio ya incluye un checkpoint entrenado y productivo. Para validar que está intacto, comprobá su hash:
 
 ```powershell
-$required = @(
-    ".\python\models\rl\rl_policy.zip",
-    ".\python\models\rl\rl_policies.json",
-    ".\python\data\routing\cache_vial.csv",
-    ".\python\data\processed\demanda_geografica.csv"
-)
-
-$required | ForEach-Object {
-    "{0}: {1}" -f $_, (Test-Path $_)
-}
+Get-FileHash ".\python\models\rl\rl_policy.zip" -Algorithm SHA256
 ```
+El hash esperado debe ser exactamente: `7D2838963F578656919822EE258E9C87C38257829EA801BBD3B41FCF26D20DA4`.
 
-Todos deben devolver `True`.
-
-### 4. Verificar el checkpoint
-
-```powershell
-Get-FileHash `
-    ".\python\models\rl\rl_policy.zip" `
-    -Algorithm SHA256
-```
-
-Hash esperado:
-
-```text
-7d2838963f578656919822ee258e9c87c38257829ea801bbd3b41fcf26d20da4
-```
-
-## Regresión Python
+### 4. Ejecutar la Regresión de Pruebas
+Validá que toda la lógica de planificación de Python esté intacta:
 
 ```powershell
 Set-Location .\python
-
 $py = (Resolve-Path "..\.venv\Scripts\python.exe").Path
-
-& $py -m compileall -q planner scripts tests
 & $py -m pytest -q --tb=short
 ```
-
-Resultado esperado:
-
-```text
-76 passed
-```
-
-## Configurar AnyLogic
-
-Abrir:
-
-```text
-anylogic/PedemonteDigitalTwin_v2/PedemonteDigitalTwin_v2.alp
-```
-
-### Pypeline
-
-En `Main`, seleccionar `pyCommunicator` y configurar:
-
-```text
-pythonCommandType: PYTHON_PATH
-pythonExecPath: <raíz>\.venv\Scripts\python.exe
-```
-
-> [!WARNING]
-> `pythonExecPath` es una ruta absoluta. Cada integrante debe actualizarla en su equipo.
-
-### Resolución del paquete Python
-
-El modelo busca la carpeta `python` mediante:
-
-1. propiedad Java `pedemonte.python.root`;
-2. variable `rutaPythonProyectoPypeline`;
-3. búsqueda ascendente desde `user.dir`.
-
-La carpeta válida debe contener:
-
-```text
-planner/
-pyrefly.toml
-```
-
-En una copia normal del repositorio no es necesario configurar manualmente la raíz.
-
-### Compilar
-
-Ejecutar:
-
-```text
-Build Model
-```
-
-No iniciar una simulación con errores de compilación.
-
-## Primera ejecución
-
-```mermaid
-flowchart TD
-    A["Iniciar modelo"] --> B["Cargar pedidos"]
-    B --> C["Preparar operación"]
-    C --> D["Seleccionar RL"]
-    D --> E["Generar y ejecutar plan"]
-    E --> F["Revisar dashboard"]
-    F --> G["Probar vistas GIS"]
-```
-
-Pasos:
-
-1. Iniciar el modelo.
-2. Cargar una planilla `.xlsx` o pedidos manuales.
-3. Pulsar <kbd>Preparar operación</kbd>.
-4. Seleccionar `RL`.
-5. Pulsar <kbd>Generar y ejecutar plan</kbd>.
-6. Confirmar que el panel termine en `FINALIZADO`.
-7. Probar <kbd>General</kbd>, <kbd>Camión 0</kbd> y <kbd>Camión 1</kbd>.
-
-## Analizador de tipos
-
-Desde `python/`:
-
-```powershell
-$py = (Resolve-Path "..\.venv\Scripts\python.exe").Path
-& $py -m pyrefly check
-```
-
-`python/pyrefly.toml` espera el entorno:
-
-```text
-../.venv/Scripts/python.exe
-```
-
-## Checklist
-
-- [ ] `.venv` creado.
-- [ ] Dependencias instaladas.
-- [ ] Checkpoint y manifiesto presentes.
-- [ ] Caché vial presente.
-- [ ] 76 pruebas aprobadas.
-- [ ] Ruta Pypeline actualizada.
-- [ ] Build Model correcto.
-- [ ] Primera ejecución finalizada.
-- [ ] Tres vistas GIS probadas.
+> Resultado esperado: `76 passed`.
 
 ---
 
-<div align="center">
+## 🖥️ Conexión con AnyLogic
 
-<a href="README.md">← Centro documental</a>
-&nbsp;·&nbsp;
-<a href="system-design.md">Diseño del sistema →</a>
+El puente entre la interfaz de simulación y el planificador local se hace mediante **Pypeline**.
 
-</div>
+1. Abrí AnyLogic y cargá el modelo: `anylogic/PedemonteDigitalTwin_v2/PedemonteDigitalTwin_v2.alp`.
+2. En la vista del agente `Main`, buscá el objeto `pyCommunicator`.
+3. Revisá las propiedades del objeto y configurá:
+   - **pythonCommandType**: `PYTHON_PATH`
+   - **pythonExecPath**: Debés poner la ruta **absoluta** a tu ejecutable de Python. Ejemplo: `C:\Users\tu-usuario\PedemonteDigitalTwin_v2\.venv\Scripts\python.exe`.
+   
+> [!WARNING]
+> La ruta a Python es personal de tu equipo. Cuando vayas a guardar cambios en AnyLogic y hacer *commit*, tené mucho cuidado de no subir este cambio de ruta, o romperás el entorno de tus compañeros.
+
+Una vez configurado, presioná **Build Model** en AnyLogic y asegurate de que no haya errores de compilación.
+
+---
+
+## 🎮 Primera Ejecución
+
+1. Iniciá la simulación desde AnyLogic.
+2. En el Dashboard principal, cargá pedidos de forma manual o importa un `.xlsx`.
+3. Presioná el botón <kbd>Preparar operación</kbd>.
+4. En el selector de métodos, elegí `RL`.
+5. Presioná <kbd>Generar y ejecutar plan</kbd>.
+6. Usá los botones <kbd>General</kbd>, <kbd>Camión 0</kbd> y <kbd>Camión 1</kbd> para hacer el seguimiento GIS interactivo de la ejecución operativa.
+
+🎉 **¡Listo!** Ya tenés el entorno funcionando. Para aprender más sobre la interacción y la carga masiva de datos, revisá el [Manual de uso](user-manual.md).

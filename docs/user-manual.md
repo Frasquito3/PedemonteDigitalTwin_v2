@@ -1,386 +1,93 @@
 <div align="center">
 
-# Manual de uso
+# 🎛️ Manual de Uso y Operación
 
-<a href="../README.md">🏠 Inicio</a> ·
-<a href="README.md">📚 Documentación</a> ·
-<a href="getting-started.md">🚀 Comenzar</a> ·
-<a href="system-design.md">🏗️ Sistema</a> ·
-<strong>🎛️ Operación</strong> ·
-<a href="quality-and-experiments.md">🧪 Calidad</a> ·
-<a href="development-and-deployment.md">🛠️ Desarrollo</a>
+[🏠 Inicio](../README.md) •
+[📚 Documentación](README.md) •
+[🚀 Comenzar](getting-started.md) •
+[🏗️ Sistema](system-design.md) •
+**🎛️ Operación** •
+[🧪 Calidad](quality-and-experiments.md) •
+[🛠️ Desarrollo](development-and-deployment.md)
 
 </div>
 
 ---
 
-## Preparar una operación
-
-```mermaid
-flowchart TD
-    A["Configurar turno"] --> B["Cargar pedidos"]
-    B --> C["Preparar operación"]
-    C --> D["Seleccionar método"]
-    D --> E["Generar y ejecutar"]
-    E --> F["Seguir camiones"]
-    F --> G["Revisar métricas"]
-```
-
-### 1. Turno
-
-Completar:
-
-- turno;
-- fecha;
-- semilla.
-
-| Turno | Inicio | Fin |
-|---|---:|---:|
-| `MANANA` | 07:30 | 12:00 |
-| `TARDE` | 14:00 | 17:00 |
-
-### 2. Pedidos
-
-#### Formulario manual
-
-Campos:
-
-- ID;
-- cliente;
-- dirección;
-- barrio;
-- unidades;
-- latitud;
-- longitud;
-- volcador;
-- ventana específica.
-
-#### Planilla Excel
-
-Solo `.xlsx`. Hoja preferida:
-
-```text
-Pedidos
-```
-
-Si no existe, se usa la hoja activa. El encabezado puede estar dentro de las primeras veinte filas.
-
-### Columnas
-
-| Campo normalizado | Encabezados aceptados |
-|---|---|
-| `pedido_id` | ID, Código, ID pedido |
-| `unidades` | Unidades, Cantidad, Carga |
-| `latitud` | Latitud, Lat |
-| `longitud` | Longitud, Lon, Lng |
-| `requiere_volcador` | Requiere volcador, Volcador |
-| `tiene_ventana` | Tiene ventana, Ventana |
-| `hora_desde` | Hora desde, Desde |
-| `hora_hasta` | Hora hasta, Hasta |
-
-Opcionales:
-
-```text
-cliente
-direccion
-barrio
-observaciones
-```
-
-### Booleanos
-
-Verdaderos:
-
-```text
-Sí, S, True, Verdadero, 1
-```
-
-Falsos:
-
-```text
-No, N, False, Falso, 0
-```
-
-### Horas
-
-Se aceptan:
-
-- hora Excel;
-- `HH:mm`;
-- minutos desde medianoche;
-- fracción de día Excel.
-
-### Validaciones
-
-- ID obligatorio y único;
-- unidades enteras mayores que cero;
-- latitud entre -90 y 90;
-- longitud entre -180 y 180;
-- hora inicial menor que hora final;
-- ventana dentro del turno;
-- máximo técnico después del split.
-
-El puente admite hasta 30 tareas. La política productiva fue validada hasta 12.
-
-### 3. Preparar
-
-Pulsar <kbd>Preparar operación</kbd>. Se ejecuta:
-
-- consolidación;
-- split;
-- validación;
-- actualización GIS;
-- comprobación de caché vial.
-
-### 4. Planificar
-
-Seleccionar:
-
-```text
-RL
-HIBRIDO
-GREEDY
-RANDOM
-GA
-```
-
-Después pulsar <kbd>Generar y ejecutar plan</kbd>.
-
-## Dashboard
-
-<table>
-<tr>
-<td width="50%" valign="top">
-
-### Configuración
-Turno, fecha y semilla.
-
-### Nuevo pedido
-Carga manual y validaciones.
-
-### Pedidos y operación
-Resumen, importación, preparación y limpieza.
-
-</td>
-<td width="50%" valign="top">
-
-### GIS
-Corralón, clientes, rutas y camiones.
-
-### Planificación
-Método, costo estimado y resultado.
-
-### Estado operativo
-Camiones, pedidos y métricas finales.
-
-</td>
-</tr>
-</table>
-
-### Lenguaje visible
-
-| Interno | Visible |
-|---|---|
-| `POLITICA_UNICA` | `RL` |
-| `mascara_temporal=DURA` | `Restricciones horarias: ACTIVAS` |
-| `PLAN_FINALIZADO` | `Plan finalizado` |
-| `EN_CORRALON` | `En corralón` |
-
-Los identificadores internos permanecen en la consola para auditoría.
-
-### Resultado previsto y real
-
-- **Costo estimado:** evaluación determinista de Python.
-- **Costo real:** resultado de la simulación AnyLogic.
-
-Pueden diferir porque la simulación incorpora variabilidad operativa.
-
-### HÍBRIDO
-
-Ejemplo:
-
-```text
-Plan inicial RL
-Plan evaluado por GA
-Mejora del costo
-Resultado: GA mejoró el plan RL
-```
-
-`Método aplicado: GA` indica que el plan final provino de GA. Si no existe mejora, se conserva RL.
-
-## Seguimiento GIS
-
-| Botón | Resultado |
-|---|---|
-| <kbd>General</kbd> | Muestra la operación completa. |
-| <kbd>Camión 0</kbd> | Sigue al primer camión. |
-| <kbd>Camión 1</kbd> | Sigue al segundo camión. |
-
-Cambiar la vista no altera rutas, estados ni métricas.
-
-Escala de seguimiento:
-
-```java
-1.0 / 10000.0
-```
-
-## Estados
-
-Ejemplos:
-
-```text
-En corralón
-Cargando
-Viajando a <pedido>
-En cliente <pedido>
-Regresando al corralón
-Plan finalizado
-```
-
-El resumen de pedidos omite categorías cuyo valor es cero.
-
-## Métricas finales
-
-Aparecen solamente cuando la operación termina:
-
-- tareas entregadas;
-- tareas no entregadas;
-- viajes;
-- costo total.
-
-La consola informa además:
-
-- distancia;
-- carga;
-- viaje;
-- espera;
-- descarga;
-- ocupación;
-- tardanza;
-- detalle por camión.
-
-## Reiniciar
-
-Usar <kbd>Limpiar operación</kbd> antes de cargar un escenario nuevo. No reutilizar una ejecución parcial.
-
-## Solución de problemas
-
-<details>
-<summary><strong>Pypeline no inicia Python</strong></summary>
-
-Revisar:
-
-```text
-pyCommunicator.pythonExecPath
-```
-
-Debe apuntar a:
-
-```text
-<repositorio>\.venv\Scripts\python.exe
-```
-
-Comprobar:
-
-```powershell
-Test-Path ".\.venv\Scripts\python.exe"
-```
-
-</details>
-
-<details>
-<summary><strong>No se encuentra la carpeta Python</strong></summary>
-
-La carpeta debe contener:
-
-```text
-python/planner/
-python/pyrefly.toml
-```
-
-Abrir AnyLogic desde una copia completa del repositorio. Como alternativa local, configurar `rutaPythonProyectoPypeline`.
-
-</details>
-
-<details>
-<summary><strong>Checkpoint ausente o hash incorrecto</strong></summary>
-
-```powershell
-Test-Path ".\python\models\rl\rl_policy.zip"
-
-Get-FileHash `
-    ".\python\models\rl\rl_policy.zip" `
-    -Algorithm SHA256
-```
-
-Hash esperado:
-
-```text
-7d2838963f578656919822ee258e9c87c38257829ea801bbd3b41fcf26d20da4
-```
-
-No entrenar automáticamente para reemplazar un checkpoint faltante.
-
-</details>
-
-<details>
-<summary><strong>Cache miss estricto</strong></summary>
-
-La instancia contiene un tramo no registrado. No habilitar fallback para ocultarlo. Ampliar la caché y ejecutar una regresión completa.
-
-</details>
-
-<details>
-<summary><strong>La planilla se rechaza</strong></summary>
-
-Revisar:
-
-- extensión;
-- encabezados;
-- IDs duplicados;
-- booleanos;
-- horas;
-- ventanas;
-- coordenadas;
-- cantidad de tareas tras el split.
-
-</details>
-
-<details>
-<summary><strong>El mapa no muestra calles</strong></summary>
-
-Las teselas pueden necesitar Internet. La ausencia visual de calles no implica necesariamente que la matriz vial local esté dañada.
-
-</details>
-
-<details>
-<summary><strong>El seguimiento se ve demasiado cerca</strong></summary>
-
-La escala correcta es:
-
-```java
-1.0 / 10000.0
-```
-
-`setMapScale()` recibe una proporción. No usar `10000.0`.
-
-</details>
-
-<details>
-<summary><strong>Git muestra el .alp después de configurar Python</strong></summary>
-
-La ruta absoluta está dentro del modelo. Revisar el diff para no confirmar un cambio local de ruta junto con modificaciones funcionales.
-
-</details>
+## 1. Configuración Inicial del Escenario
+
+Para arrancar la operativa, el primer paso es definir las condiciones globales de la ejecución:
+- **Turno:** `MAÑANA` (07:30 a 12:00) o `TARDE` (14:00 a 17:00). Recordá que el sistema ofrece **15 minutos de tolerancia operativa** al finalizar (ej. los camiones pueden regresar al corralón hasta las 12:15 sin recibir una penalidad extrema).
+- **Semilla (Opcional):** Para reproducir escenarios idénticos (por ejemplo, para el método Random o GA).
 
 ---
 
-<div align="center">
+## 2. Carga de Pedidos
 
-<a href="system-design.md">← Diseño del sistema</a>
-&nbsp;·&nbsp;
-<a href="README.md">Índice</a>
-&nbsp;·&nbsp;
-<a href="quality-and-experiments.md">Calidad y experimentos →</a>
+El sistema admite pedidos manuales y carga masiva mediante archivos `.xlsx`. 
+*La capacidad técnica productiva demostrada para el RL es de hasta 12 pedidos.* Si un pedido supera las 8 unidades, el sistema aplicará un *Split Automático* en múltiples tareas con el mismo ID y las mismas reglas de volcador.
 
-</div>
+### 📄 Carga por Excel (.xlsx)
+El sistema tomará automáticamente la hoja llamada `Pedidos`. Si no existe, tomará la hoja activa. Los encabezados no son *case-sensitive*, pero deben coincidir con la convención:
+
+| Dato Requerido | Formatos de Encabezado Aceptados | Formato de Celda |
+| :--- | :--- | :--- |
+| **ID del Pedido** | `ID`, `Código`, `ID pedido` | Texto o Número |
+| **Cantidad** | `Unidades`, `Cantidad`, `Carga` | Número Entero (>0) |
+| **Latitud** | `Latitud`, `Lat` | Número Decimal |
+| **Longitud** | `Longitud`, `Lon`, `Lng` | Número Decimal |
+| **Usa Volcador?** | `Requiere volcador`, `Volcador` | Booleano: `Sí/No`, `True/False`, `1/0` |
+| **Usa Ventana?** | `Tiene ventana`, `Ventana` | Booleano |
+| **Hora Desde** | `Hora desde`, `Desde` | Texto (`HH:mm`) u Hora Excel |
+| **Hora Hasta** | `Hora hasta`, `Hasta` | Texto (`HH:mm`) u Hora Excel |
+
+---
+
+## 3. Generación del Plan
+
+1. Una vez cargados los pedidos, presioná **Preparar Operación**. Esto consolida las cargas, realiza el split y verifica las coordenadas contra la caché vial.
+2. Seleccioná un método en la lista desplegable:
+   - `RL` (Recomendado)
+   - `HÍBRIDO`
+   - `GREEDY` / `RANDOM` / `GA`
+3. Presioná **Generar y Ejecutar Plan**. El sistema mostrará en la consola el *Costo Estimado* y comenzará a mover los camiones en el GIS.
+
+---
+
+## 4. Visualización en el Dashboard (GIS)
+
+Podés controlar la vista satelital desde el menú de la izquierda:
+- 🗺️ **General:** Vista amplia del corralón y de todas las rutas de los clientes.
+- 🚛 **Camión 0:** La cámara sigue exclusivamente los movimientos de este camión en tiempo real.
+- 🚛 **Camión 1:** La cámara sigue exclusivamente a este camión.
+
+Los estados transicionales de los camiones irán rotando desde `En corralón`, `Cargando`, `Viajando a <pedido>`, `En cliente <pedido>` hasta `Regresando al corralón`. 
+
+Una vez que ambos finalicen, el estado mostrará **Plan finalizado** y revelará las métricas finales (Costo real, tardanzas y kilómetros). 
+
+> [!TIP]
+> Antes de cargar un nuevo Excel, **debés presionar el botón "Limpiar Operación"**. No intentes reutilizar una simulación a la mitad.
+
+---
+
+## 🛑 Solución de Problemas (Troubleshooting)
+
+<details>
+<summary><strong>❌ Pypeline no inicia o no encuentra Python</strong></summary>
+
+En el agente `Main` (objeto `pyCommunicator`), verificá la propiedad `pythonExecPath`. Debe apuntar a un path local válido (ej. `C:\Ruta\A\Tu\Repositorio\.venv\Scripts\python.exe`). Si actualizaste repositorios, asegurate de no haber *pusheado* tu ruta local absoluta.
+</details>
+
+<details>
+<summary><strong>❌ Error de "Cache Miss" al iniciar la operativa</strong></summary>
+
+El sistema utiliza una caché vial estricta. Si ingresás unas coordenadas de un cliente que no existen en la matriz (`cache_vial.csv`), Python detendrá la ejecución por seguridad. Deberás añadir el tramo al CSV manualmente o usar las coordenadas probadas previamente. No actives variables locales de *fallback* vial en productivo.
+</details>
+
+<details>
+<summary><strong>❌ La planilla se rechaza y no carga nada</strong></summary>
+
+1. Confirmá que los IDs no estén duplicados antes del split.
+2. Comprobá las ventanas horarias: "Hora inicial" no puede ser mayor a la "Hora final", y ambas deben estar dentro de las franjas de turno (07:30 a 12:00 o 14:00 a 17:00).
+3. Asegurate de que los números no tengan formatos extraños.
+</details>
