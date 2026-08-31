@@ -20237,72 +20237,105 @@ return partes[0]
 					</Parameter>
 					<Body><![CDATA[if (
     pedidosFormulario == null
-    || indice < 0
-    || indice >= pedidosFormulario.size()
+    ||
+    indice < 0
+    ||
+    indice >= pedidosFormulario.size()
 ) {
+
     return "";
 }
 
-PedidoInput pedido = pedidosFormulario.get(indice);
+
+PedidoInput pedido =
+    pedidosFormulario.get(
+        indice
+    );
+
 
 if (pedido == null) {
+
     return "";
 }
+
 
 String pedidoId =
     pedido.pedidoId == null
     ? ""
     : pedido.pedidoId.trim();
 
+
 if (pedidoId.isEmpty()) {
-    pedidoId = "(sin ID)";
+
+    pedidoId =
+        "(sin ID)";
 }
+
 
 String cliente =
     pedido.cliente == null
     ? ""
     : pedido.cliente.trim();
 
-if (cliente.length() > 24) {
-    cliente = cliente.substring(0, 21) + "...";
+
+if (cliente.length() > 20) {
+
+    cliente =
+        cliente.substring(
+            0,
+            17
+        )
+        +
+        "...";
 }
 
-String ventana;
-
-if (pedido.tieneVentanaEspecifica) {
-    ventana =
-        formatearHoraFormulario(pedido.horaDesdeMin)
-        + "–"
-        + formatearHoraFormulario(pedido.horaHastaMin);
-} else {
-    ventana = "Sin ventana";
-}
-
-String tipoEntrega =
-    pedido.requiereVolcador
-    ? "Requiere volcador"
-    : "Sin volcador";
 
 String primeraLinea =
     (indice + 1)
-    + ". "
-    + pedidoId;
+    +
+    ". "
+    +
+    pedidoId;
+
 
 if (!cliente.isEmpty()) {
-    primeraLinea += " · " + cliente;
+
+    primeraLinea +=
+        " · "
+        +
+        cliente;
 }
 
-primeraLinea +=
-    " · "
-    + pedido.unidadesCapacidad
-    + " u";
 
-return primeraLinea
-    + "\n"
-    + "    "
-    + ventana
-    + " · "
-    + tipoEntrega;]]></Body>
+String segundaLinea;
+
+
+if (pedido.tieneVentanaEspecifica) {
+
+    segundaLinea =
+        formatearHoraFormulario(
+            pedido.horaDesdeMin
+        )
+        +
+        "–"
+        +
+        formatearHoraFormulario(
+            pedido.horaHastaMin
+        );
+
+} else {
+
+    segundaLinea =
+        "Sin ventana horaria";
+}
+
+
+return
+    primeraLinea
+    +
+    "\n"
+    +
+    segundaLinea;]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
@@ -31237,6 +31270,252 @@ try {
     return false;
 }]]></Body>
 				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[boolean]]></ReturnType>
+					<Id>1788143303560</Id>
+					<Name><![CDATA[configurarCierreVentanaWebPedidos]]></Name>
+					<X>-810</X><Y>7030</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[final javax.swing.JFrame ventana =
+    obtenerVentanaWebPedidos();
+
+
+if (ventana == null) {
+
+    traceln(
+        "WEBTOOLKIT CIERRE NO CONFIGURADO"
+        + " | motivo=VENTANA_NO_DISPONIBLE"
+    );
+
+
+    return false;
+}
+
+
+javax.swing.SwingUtilities.invokeLater(
+    new Runnable() {
+
+        @Override
+        public void run() {
+
+            try {
+
+                /*
+                 * Evita agregar varias veces nuestro
+                 * WindowListener si la página vuelve
+                 * a emitir __ready__.
+                 */
+
+                Object configurado =
+                    ventana
+                        .getRootPane()
+                        .getClientProperty(
+                            "pedemonte.hideOnCloseConfigured"
+                        );
+
+
+                if (
+                    Boolean.TRUE.equals(
+                        configurado
+                    )
+                ) {
+
+                    return;
+                }
+
+
+                int listenersEliminados =
+                    0;
+
+
+                java.awt.event.WindowListener[]
+                    listenersActuales =
+                        ventana.getWindowListeners();
+
+
+                /*
+                 * WebToolkit agrega un WindowListener
+                 * que llama a WebDialog.close().
+                 *
+                 * Ese close() destruye Chromium y deja
+                 * dialog=null, por lo que show() ya no
+                 * puede volver a mostrar la ventana.
+                 */
+
+                for (
+                    java.awt.event.WindowListener listener
+                    : listenersActuales
+                ) {
+
+                    if (listener == null) {
+
+                        continue;
+                    }
+
+
+                    String nombreClase =
+                        listener
+                            .getClass()
+                            .getName();
+
+
+                    if (
+                        nombreClase.startsWith(
+                            "com.anylogic.webtoolkit.ui.WebDialog"
+                        )
+                    ) {
+
+                        ventana.removeWindowListener(
+                            listener
+                        );
+
+
+                        listenersEliminados++;
+                    }
+                }
+
+
+                /*
+                 * La operación automática del JFrame
+                 * queda desactivada. El nuevo listener
+                 * decidirá qué hacer con la X.
+                 */
+
+                ventana.setDefaultCloseOperation(
+                    javax.swing.WindowConstants
+                        .DO_NOTHING_ON_CLOSE
+                );
+
+
+                ventana.addWindowListener(
+                    new java.awt.event.WindowAdapter() {
+
+                        @Override
+                        public void windowClosing(
+                            java.awt.event.WindowEvent evento
+                        ) {
+
+                            /*
+                             * Solo ocultamos el JFrame.
+                             *
+                             * No se destruyen:
+                             * - Chromium;
+                             * - el puente JavaScript;
+                             * - los pedidos cargados;
+                             * - la selección pendiente;
+                             * - el objeto WebDialog.
+                             */
+
+                            ventana.setVisible(
+                                false
+                            );
+
+
+                            traceln(
+                                "WEBTOOLKIT OCULTADO DESDE X"
+                                + " | estado="
+                                + webToolkitEstado
+                                + " | selectorEnCurso="
+                                + webSelectorEnCurso
+                            );
+                        }
+                    }
+                );
+
+
+                ventana
+                    .getRootPane()
+                    .putClientProperty(
+                        "pedemonte.hideOnCloseConfigured",
+                        Boolean.TRUE
+                    );
+
+
+                traceln(
+                    "WEBTOOLKIT CIERRE INTERCEPTADO"
+                    + " | modo=OCULTAR"
+                    + " | listenersWebToolkitEliminados="
+                    + listenersEliminados
+                );
+
+
+            } catch (Exception ex) {
+
+                traceln(
+                    "WEBTOOLKIT CIERRE NO CONFIGURADO"
+                    + " | error="
+                    + ex.getClass()
+                        .getSimpleName()
+                    + ": "
+                    + String.valueOf(
+                        ex.getMessage()
+                    )
+                );
+            }
+        }
+    }
+);
+
+
+return true;]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[String]]></ReturnType>
+					<Id>1788145309971</Id>
+					<Name><![CDATA[metaPedidoFormulario]]></Name>
+					<X>-810</X><Y>7060</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[indice]]></Name>
+						<Type><![CDATA[int]]></Type>
+					</Parameter>
+					<Body><![CDATA[if (
+    pedidosFormulario == null
+    ||
+    indice < 0
+    ||
+    indice >= pedidosFormulario.size()
+) {
+
+    return "";
+}
+
+
+PedidoInput pedido =
+    pedidosFormulario.get(
+        indice
+    );
+
+
+if (pedido == null) {
+
+    return "";
+}
+
+
+String tipoEntrega =
+    pedido.requiereVolcador
+    ? "Con volcador"
+    : "Sin volcador";
+
+
+return
+    pedido.unidadesCapacidad
+    +
+    " u"
+    +
+    "\n"
+    +
+    tipoEntrega;]]></Body>
+				</Function>
 			</Functions>
 			<AgentLinks>
 				<AgentLink>
@@ -31470,6 +31749,7 @@ webToolkitEstado =
 webToolkitUltimoMensaje =
     "__ready__";
 
+configurarCierreVentanaWebPedidos();
 
 java.util.Map<String, Object> contexto =
     new java.util.LinkedHashMap<String, Object>();
@@ -31776,6 +32056,138 @@ if (
 
 			<Presentation>
 				<Rectangle>
+					<Id>1787517007554</Id>
+					<Name><![CDATA[rectFondoDashboard]]></Name>
+					<X>0</X><Y>0</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>0</LineWidth>
+					<LineColor>-722949</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>1600</Width>
+					<Height>900</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-722949</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Rectangle>
+					<Id>1787519403168</Id>
+					<Name><![CDATA[rectPanelPedido]]></Name>
+					<X>240</X><Y>235</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-2563606</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>860</Width>
+					<Height>630</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-1</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Rectangle>
+					<Id>1788144112754</Id>
+					<Name><![CDATA[rectBloqueRestriccionesPedido]]></Name>
+					<X>255</X><Y>552</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-2563606</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>800</Width>
+					<Height>119</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-460036</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Rectangle>
+					<Id>1788144054089</Id>
+					<Name><![CDATA[rectBloqueHerramientasWebPedido]]></Name>
+					<X>255</X><Y>680</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-2563606</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>800</Width>
+					<Height>76</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-460036</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Rectangle>
+					<Id>1788143999793</Id>
+					<Name><![CDATA[rectBloqueUbicacionPedido]]></Name>
+					<X>255</X><Y>452</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-2563606</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>800</Width>
+					<Height>90</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-460036</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Rectangle>
+					<Id>1788143910536</Id>
+					<Name><![CDATA[rectBloqueDatosPedido]]></Name>
+					<X>255</X><Y>300</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-2563606</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>800</Width>
+					<Height>142</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-460036</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Rectangle>
 					<Id>1788095745572</Id>
 					<Name><![CDATA[rectFondoComparacion]]></Name>
 					<X>3600</X><Y>0</Y>
@@ -31854,28 +32266,6 @@ if (
 					<Z>0</Z>
 					<ZHeight>10</ZHeight>
 					<LineWidth>1</LineWidth>
-					<LineColor>-722949</LineColor>
-					<LineMaterial>null</LineMaterial>
-					<LineStyle>SOLID</LineStyle>
-					<Width>1600</Width>
-					<Height>900</Height>
-					<Rotation>0.0</Rotation>
-					<FillColor>-722949</FillColor>
-					<FillMaterial>null</FillMaterial>
-				</Rectangle>
-				<Rectangle>
-					<Id>1787517007554</Id>
-					<Name><![CDATA[rectFondoDashboard]]></Name>
-					<X>0</X><Y>0</Y>
-					<Label><X>10</X><Y>10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<ZHeight>10</ZHeight>
-					<LineWidth>0</LineWidth>
 					<LineColor>-722949</LineColor>
 					<LineMaterial>null</LineMaterial>
 					<LineStyle>SOLID</LineStyle>
@@ -32194,28 +32584,6 @@ if (
 					<FillMaterial>null</FillMaterial>
 				</Rectangle>
 				<Rectangle>
-					<Id>1787519403168</Id>
-					<Name><![CDATA[rectPanelPedido]]></Name>
-					<X>240</X><Y>235</Y>
-					<Label><X>10</X><Y>10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<ZHeight>10</ZHeight>
-					<LineWidth>1</LineWidth>
-					<LineColor>-2563606</LineColor>
-					<LineMaterial>null</LineMaterial>
-					<LineStyle>SOLID</LineStyle>
-					<Width>860</Width>
-					<Height>630</Height>
-					<Rotation>0.0</Rotation>
-					<FillColor>-1</FillColor>
-					<FillMaterial>null</FillMaterial>
-				</Rectangle>
-				<Rectangle>
 					<Id>1787518808614</Id>
 					<Name><![CDATA[rectPanelTurno]]></Name>
 					<X>240</X><Y>95</Y>
@@ -32519,13 +32887,13 @@ instanciaInterfazActual == null
 				 	<EmbeddedIcon>false</EmbeddedIcon>				
 					<Id>1787148083269</Id>
 					<Name><![CDATA[btnAgregarPedidoFormulario]]></Name>
-					<X>265</X><Y>800</Y>
+					<X>275</X><Y>800</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<BasicProperties Width="380" Height="40">
+					<BasicProperties Width="370" Height="40">
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<TextColor>-15257011</TextColor>
 						<Enabled>true</Enabled>
@@ -32553,7 +32921,7 @@ if (pedidoAgregado) {
 					</BasicProperties>
 					<ExtendedProperties>
 						<Font Name="SansSerif" Size="10" Style="1"/>
-						<LabelText><![CDATA[Agregar pedido]]></LabelText>
+						<LabelText><![CDATA[Agregar pedido a la instancia]]></LabelText>
 					</ExtendedProperties>
 				</Control>
 				<Control Type="Button">
@@ -32566,9 +32934,9 @@ if (pedidoAgregado) {
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<BasicProperties Width="380" Height="40">
+					<BasicProperties Width="370" Height="40">
                         <EmbeddedIcon>false</EmbeddedIcon>	
-						<TextColor>-11377547</TextColor>
+						<TextColor>-15257011</TextColor>
 						<Enabled>true</Enabled>
 						<EnableExpression><![CDATA[!pedidosFormulario.isEmpty()
 &&
@@ -32593,7 +32961,7 @@ if (eliminado) {
 					</BasicProperties>
 					<ExtendedProperties>
 						<Font Name="SansSerif" Size="10" Style="0"/>
-						<LabelText><![CDATA[Eliminar último]]></LabelText>
+						<LabelText><![CDATA[Eliminar último pedido]]></LabelText>
 					</ExtendedProperties>
 				</Control>
 				<Text>
@@ -32622,13 +32990,13 @@ if (eliminado) {
 				 	<EmbeddedIcon>false</EmbeddedIcon>				
 					<Id>1787147766511</Id>
 					<Name><![CDATA[editLatitudFormulario]]></Name>
-					<X>420</X><Y>480</Y>
+					<X>420</X><Y>500</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<BasicProperties Width="280" Height="28">
+					<BasicProperties Width="285" Height="28">
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<FillColor>-1</FillColor>
 						<TextColor>-15257011</TextColor>
@@ -32648,7 +33016,7 @@ if (eliminado) {
 				<Text>
 					<Id>1787147786369</Id>
 					<Name><![CDATA[txtLabelLatitud]]></Name>
-					<X>420</X><Y>460</Y>
+					<X>420</X><Y>483</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -32669,7 +33037,7 @@ if (eliminado) {
 				<Text>
 					<Id>1787148003465</Id>
 					<Name><![CDATA[txtLabelHoraDesde]]></Name>
-					<X>265</X><Y>585</Y>
+					<X>275</X><Y>610</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -32691,16 +33059,16 @@ if (eliminado) {
 				 	<EmbeddedIcon>false</EmbeddedIcon>				
 					<Id>1787148037805</Id>
 					<Name><![CDATA[editHoraHastaFormulario]]></Name>
-					<X>680</X><Y>605</Y>
+					<X>665</X><Y>627</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<BasicProperties Width="380" Height="28">
+					<BasicProperties Width="370" Height="28">
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<FillColor>-1</FillColor>
-						<TextColor>-16777216</TextColor>
+						<TextColor>-15257011</TextColor>
 						<Enabled>true</Enabled>
 						<EnableExpression><![CDATA[tieneVentanaFormulario
 &&
@@ -32893,7 +33261,7 @@ instanciaInterfazActual == null
 				 	<EmbeddedIcon>false</EmbeddedIcon>				
 					<Id>1787147931769</Id>
 					<Name><![CDATA[checkTieneVentanaFormulario]]></Name>
-					<X>680</X><Y>535</Y>
+					<X>665</X><Y>580</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -32920,13 +33288,13 @@ instanciaInterfazActual == null
 				 	<EmbeddedIcon>false</EmbeddedIcon>				
 					<Id>1787147975594</Id>
 					<Name><![CDATA[editHoraDesdeFormulario]]></Name>
-					<X>265</X><Y>605</Y>
+					<X>275</X><Y>627</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<BasicProperties Width="380" Height="28">
+					<BasicProperties Width="370" Height="28">
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<FillColor>-1</FillColor>
 						<TextColor>-15257011</TextColor>
@@ -33158,13 +33526,13 @@ resumenEstadosPedidosGIS()
 				 	<EmbeddedIcon>false</EmbeddedIcon>				
 					<Id>1787147447026</Id>
 					<Name><![CDATA[editClienteFormulario]]></Name>
-					<X>680</X><Y>320</Y>
+					<X>665</X><Y>350</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<BasicProperties Width="380" Height="28">
+					<BasicProperties Width="370" Height="28">
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<FillColor>-1</FillColor>
 						<TextColor>-15257011</TextColor>
@@ -33184,7 +33552,7 @@ resumenEstadosPedidosGIS()
 				<Text>
 					<Id>1787147485760</Id>
 					<Name><![CDATA[txtLabelCliente]]></Name>
-					<X>680</X><Y>300</Y>
+					<X>665</X><Y>333</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -33206,13 +33574,13 @@ resumenEstadosPedidosGIS()
 				 	<EmbeddedIcon>false</EmbeddedIcon>				
 					<Id>1787147516075</Id>
 					<Name><![CDATA[editDireccionFormulario]]></Name>
-					<X>265</X><Y>400</Y>
+					<X>275</X><Y>403</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<BasicProperties Width="380" Height="28">
+					<BasicProperties Width="370" Height="28">
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<FillColor>-1</FillColor>
 						<TextColor>-15257011</TextColor>
@@ -33328,13 +33696,13 @@ resumenEstadosCamionesGIS()
 				 	<EmbeddedIcon>false</EmbeddedIcon>				
 					<Id>1787147812879</Id>
 					<Name><![CDATA[editLongitudFormulario]]></Name>
-					<X>735</X><Y>480</Y>
+					<X>735</X><Y>500</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<BasicProperties Width="280" Height="28">
+					<BasicProperties Width="300" Height="28">
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<FillColor>-1</FillColor>
 						<TextColor>-15257011</TextColor>
@@ -33442,7 +33810,7 @@ resumenEstadosCamionesGIS()
 				<Text>
 					<Id>1787147539250</Id>
 					<Name><![CDATA[txtLabelDireccion]]></Name>
-					<X>265</X><Y>380</Y>
+					<X>275</X><Y>386</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -33464,13 +33832,13 @@ resumenEstadosCamionesGIS()
 				 	<EmbeddedIcon>false</EmbeddedIcon>				
 					<Id>1787147701589</Id>
 					<Name><![CDATA[editUnidadesFormulario]]></Name>
-					<X>265</X><Y>480</Y>
+					<X>275</X><Y>500</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<BasicProperties Width="120" Height="28">
+					<BasicProperties Width="115" Height="28">
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<FillColor>-1</FillColor>
 						<TextColor>-15257011</TextColor>
@@ -33490,7 +33858,7 @@ resumenEstadosCamionesGIS()
 				<Text>
 					<Id>1787147731282</Id>
 					<Name><![CDATA[txtLabelUnidades]]></Name>
-					<X>265</X><Y>460</Y>
+					<X>275</X><Y>483</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -33642,13 +34010,13 @@ resumenEstadosCamionesGIS()
 				 	<EmbeddedIcon>false</EmbeddedIcon>				
 					<Id>1787147565436</Id>
 					<Name><![CDATA[editBarrioFormulario]]></Name>
-					<X>680</X><Y>400</Y>
+					<X>665</X><Y>403</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<BasicProperties Width="380" Height="28">
+					<BasicProperties Width="370" Height="28">
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<FillColor>-1</FillColor>
 						<TextColor>-15257011</TextColor>
@@ -33668,7 +34036,7 @@ resumenEstadosCamionesGIS()
 				<Text>
 					<Id>1787147624159</Id>
 					<Name><![CDATA[txtLabelBarrio]]></Name>
-					<X>680</X><Y>380</Y>
+					<X>665</X><Y>386</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -34096,13 +34464,13 @@ try {
 				 	<EmbeddedIcon>false</EmbeddedIcon>				
 					<Id>1787147369464</Id>
 					<Name><![CDATA[editPedidoIdFormulario]]></Name>
-					<X>265</X><Y>320</Y>
+					<X>275</X><Y>350</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<BasicProperties Width="380" Height="28">
+					<BasicProperties Width="370" Height="28">
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<FillColor>-1</FillColor>
 						<TextColor>-15257011</TextColor>
@@ -34246,7 +34614,7 @@ instanciaInterfazActual == null
 				<Text>
 					<Id>1787147846854</Id>
 					<Name><![CDATA[txtLabelLongitud]]></Name>
-					<X>735</X><Y>460</Y>
+					<X>735</X><Y>483</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -34268,7 +34636,7 @@ instanciaInterfazActual == null
 				 	<EmbeddedIcon>false</EmbeddedIcon>				
 					<Id>1787147879657</Id>
 					<Name><![CDATA[checkRequiereVolcadorFormulario]]></Name>
-					<X>265</X><Y>535</Y>
+					<X>275</X><Y>580</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -34336,7 +34704,7 @@ instanciaInterfazActual == null
 				<Text>
 					<Id>1787148037810</Id>
 					<Name><![CDATA[txtLabelHoraHasta]]></Name>
-					<X>680</X><Y>585</Y>
+					<X>665</X><Y>610</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -34460,7 +34828,7 @@ mensajeFormulario =
 				<Text>
 					<Id>1787147404377</Id>
 					<Name><![CDATA[txtLabelPedidoId]]></Name>
-					<X>265</X><Y>300</Y>
+					<X>275</X><Y>333</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -34524,7 +34892,7 @@ mensajeFormulario =
 				<Text>
 					<Id>1787519444609</Id>
 					<Name><![CDATA[txtTituloDatosPedido]]></Name>
-					<X>265</X><Y>260</Y>
+					<X>265</X><Y>257</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -34537,7 +34905,7 @@ mensajeFormulario =
 					<Text><![CDATA[Nuevo pedido]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>14</Size>
+						<Size>15</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -35259,7 +35627,6 @@ String.format(
 					<BasicProperties Width="200" Height="32">
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<TextColor>-15257011</TextColor>
-						<VisibleCode><![CDATA[false]]></VisibleCode>
 						<Enabled>true</Enabled>
 						<EnableExpression><![CDATA[instanciaInterfazActual != null
 &&
@@ -35271,8 +35638,8 @@ String.format(
 						<ActionCode><![CDATA[exportarCacheVialInstanciaActual();]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="Dialog" Size="10" Style="1"/>
-						<LabelText><![CDATA[Exportar matriz vial]]></LabelText>
+						<Font Name="SansSerif" Size="10" Style="1"/>
+						<LabelText><![CDATA[Generar matriz vial]]></LabelText>
 					</ExtendedProperties>
 				</Control>
 				<Text>
@@ -35606,7 +35973,7 @@ textoMotivoSelector()]]></TextCode>
 					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
 					<BasicProperties Width="195" Height="32">
                         <EmbeddedIcon>false</EmbeddedIcon>	
-						<FillColor>-1</FillColor>
+						<FillColor>-460036</FillColor>
 						<TextColor>-15257011</TextColor>
 						<Enabled>true</Enabled>
 						<ActionCode><![CDATA[rutaArchivoExcelSubido =
@@ -35649,8 +36016,8 @@ if (importado) {
 }]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="10" Style="1"/>
-						<Title><![CDATA[Importar Excel]]></Title>
+						<Font Name="SansSerif" Size="9" Style="1"/>
+						<Title><![CDATA[Seleccionar archivo Excel]]></Title>
 						<Type>UPLOAD</Type>
 						<Filters>.xlsx, .xls</Filters>
 						<FileName>file.txt</FileName>
@@ -36561,7 +36928,7 @@ camiones.size() > 1]]></EnableExpression>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>8</Size>
-						<Style>0</Style>
+						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
 				</Text>
@@ -36584,7 +36951,7 @@ camiones.size() > 1]]></EnableExpression>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>8</Size>
-						<Style>0</Style>
+						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
 				</Text>
@@ -36607,7 +36974,7 @@ camiones.size() > 1]]></EnableExpression>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>8</Size>
-						<Style>0</Style>
+						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
 				</Text>
@@ -36630,7 +36997,7 @@ camiones.size() > 1]]></EnableExpression>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>8</Size>
-						<Style>0</Style>
+						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
 				</Text>
@@ -36653,7 +37020,7 @@ camiones.size() > 1]]></EnableExpression>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>8</Size>
-						<Style>0</Style>
+						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
 				</Text>
@@ -41968,13 +42335,13 @@ instanciaBaseRepetibleDisponible()
 				 	<EmbeddedIcon>false</EmbeddedIcon>				
 					<Id>1788134021530</Id>
 					<Name><![CDATA[btnElegirUbicacionWeb]]></Name>
-					<X>265</X><Y>655</Y>
+					<X>275</X><Y>705</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<BasicProperties Width="390" Height="36">
+					<BasicProperties Width="370" Height="32">
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<TextColor>-15257011</TextColor>
 						<Enabled>true</Enabled>
@@ -41986,20 +42353,18 @@ instanciaInterfazActual == null
 &&
 !pypelineSolicitudEnCurso
 &&
-!reinicioCompletoSolicitado
-&&
-!webSelectorEnCurso]]></EnableExpression>
+!reinicioCompletoSolicitado]]></EnableExpression>
 						<ActionCode><![CDATA[abrirSelectorUbicacionWeb();]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="10" Style="1"/>
-						<LabelText><![CDATA[Elegir ubicación en mapa]]></LabelText>
+						<Font Name="SansSerif" Size="9" Style="1"/>
+						<LabelText><![CDATA[Seleccionar ubicación en mapa]]></LabelText>
 					</ExtendedProperties>
 				</Control>
 				<Text>
 					<Id>1788134079643</Id>
 					<Name><![CDATA[txtEstadoSelectorUbicacionWeb]]></Name>
-					<X>265</X><Y>710</Y>
+					<X>275</X><Y>740</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -42008,7 +42373,7 @@ instanciaInterfazActual == null
 					<EmbeddedIcon>false</EmbeddedIcon>
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
-					<Color>-11112315</Color>
+					<Color>-10063739</Color>
 					<Text><![CDATA[Estado del mapa web]]></Text>
 					<TextCode><![CDATA[!webToolkitListo
 ?
@@ -42032,13 +42397,13 @@ instanciaInterfazActual == null
 				 	<EmbeddedIcon>false</EmbeddedIcon>				
 					<Id>1788141217992</Id>
 					<Name><![CDATA[btnGestionarPedidosWeb]]></Name>
-					<X>670</X><Y>655</Y>
+					<X>665</X><Y>705</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<BasicProperties Width="390" Height="36">
+					<BasicProperties Width="370" Height="32">
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<TextColor>-15257011</TextColor>
 						<Enabled>true</Enabled>
@@ -42056,10 +42421,411 @@ instanciaInterfazActual == null
 						<ActionCode><![CDATA[abrirGestionPedidosWeb();]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="10" Style="1"/>
-						<LabelText><![CDATA[Gestionar pedidos en web]]></LabelText>
+						<Font Name="SansSerif" Size="9" Style="1"/>
+						<LabelText><![CDATA[Cargar pedidos desde la web]]></LabelText>
 					</ExtendedProperties>
 				</Control>
+				<Text>
+					<Id>1788143885175</Id>
+					<Name><![CDATA[txtSubtituloDatosPedido]]></Name>
+					<X>265</X><Y>280</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-10063739</Color>
+					<Text><![CDATA[Ingrese los datos manualmente o utilice las herramientas web.]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1788144166961</Id>
+					<Name><![CDATA[txtSeccionDatosPedido]]></Name>
+					<X>275</X><Y>312</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-11112315</Color>
+					<Text><![CDATA[DATOS DEL PEDIDO]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1788144206636</Id>
+					<Name><![CDATA[txtSeccionUbicacionPedido]]></Name>
+					<X>275</X><Y>462</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-11112315</Color>
+					<Text><![CDATA[ENTREGA Y UBICACIÓN]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1788144235472</Id>
+					<Name><![CDATA[txtSeccionRestriccionesPedido]]></Name>
+					<X>275</X><Y>562</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-11112315</Color>
+					<Text><![CDATA[CONDICIONES DE ENTREGA]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1788144264032</Id>
+					<Name><![CDATA[txtSeccionHerramientasWebPedido]]></Name>
+					<X>275</X><Y>690</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-11112315</Color>
+					<Text><![CDATA[HERRAMIENTAS WEB]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Rectangle>
+					<Id>1788145355131</Id>
+					<Name><![CDATA[rectMetaFilaPedido1]]></Name>
+					<X>1425</X><Y>500</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<VisibleCode><![CDATA[pedidosFormulario != null
+&&
+pedidosFormulario.size() > 0]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-2563606</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>130</Width>
+					<Height>34</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-1378312</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Rectangle>
+					<Id>1788145416618</Id>
+					<Name><![CDATA[rectMetaFilaPedido2]]></Name>
+					<X>1425</X><Y>538</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<VisibleCode><![CDATA[pedidosFormulario != null
+&&
+pedidosFormulario.size() > 1]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-2563606</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>130</Width>
+					<Height>34</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-1378312</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Rectangle>
+					<Id>1788145446177</Id>
+					<Name><![CDATA[rectMetaFilaPedido3]]></Name>
+					<X>1425</X><Y>576</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<VisibleCode><![CDATA[pedidosFormulario != null
+&&
+pedidosFormulario.size() > 2]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-2563606</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>130</Width>
+					<Height>34</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-1378312</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Rectangle>
+					<Id>1788145462631</Id>
+					<Name><![CDATA[rectMetaFilaPedido4]]></Name>
+					<X>1425</X><Y>614</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<VisibleCode><![CDATA[pedidosFormulario != null
+&&
+pedidosFormulario.size() > 3]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-2563606</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>130</Width>
+					<Height>34</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-1378312</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Rectangle>
+					<Id>1788145477865</Id>
+					<Name><![CDATA[rectMetaFilaPedido5]]></Name>
+					<X>1425</X><Y>652</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<VisibleCode><![CDATA[pedidosFormulario != null
+&&
+pedidosFormulario.size() > 4]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-2563606</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>130</Width>
+					<Height>34</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-1378312</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Text>
+					<Id>1788145520548</Id>
+					<Name><![CDATA[txtMetaFilaPedido1]]></Name>
+					<X>1435</X><Y>507</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA[pedidosFormulario != null
+&&
+pedidosFormulario.size() > 0]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-15257011</Color>
+					<Text><![CDATA[8 u]]></Text>
+					<TextCode><![CDATA[metaPedidoFormulario(
+    0
+)]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>8</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1788145569059</Id>
+					<Name><![CDATA[txtMetaFilaPedido2]]></Name>
+					<X>1435</X><Y>545</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA[pedidosFormulario != null
+&&
+pedidosFormulario.size() > 1]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-15257011</Color>
+					<Text><![CDATA[8 u]]></Text>
+					<TextCode><![CDATA[metaPedidoFormulario(
+    1
+)]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>8</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1788145592888</Id>
+					<Name><![CDATA[txtMetaFilaPedido3]]></Name>
+					<X>1435</X><Y>583</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA[pedidosFormulario != null
+&&
+pedidosFormulario.size() > 2]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-15257011</Color>
+					<Text><![CDATA[8 u]]></Text>
+					<TextCode><![CDATA[metaPedidoFormulario(
+    2
+)]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>8</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1788145611405</Id>
+					<Name><![CDATA[txtMetaFilaPedido4]]></Name>
+					<X>1435</X><Y>621</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA[pedidosFormulario != null
+&&
+pedidosFormulario.size() > 3]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-15257011</Color>
+					<Text><![CDATA[8 u]]></Text>
+					<TextCode><![CDATA[metaPedidoFormulario(
+    3
+)]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>8</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1788145624870</Id>
+					<Name><![CDATA[txtMetaFilaPedido5]]></Name>
+					<X>1435</X><Y>659</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA[pedidosFormulario != null
+&&
+pedidosFormulario.size() > 4]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-15257011</Color>
+					<Text><![CDATA[8 u]]></Text>
+					<TextCode><![CDATA[metaPedidoFormulario(
+    4
+)]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>8</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1788146076883</Id>
+					<Name><![CDATA[txtEstadoMatrizVialPedidos]]></Name>
+					<X>1145</X><Y>838</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-10063739</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA[instanciaInterfazActual == null
+?
+"Prepare la operación para verificar la matriz vial."
+:
+(
+    cacheVialInstanciaCompleta
+    ?
+    "Matriz vial disponible para esta instancia."
+    :
+    (
+        "Faltan "
+        + cacheVialTramosFaltantes
+        + " tramos viales. Genere la matriz antes de planificar."
+    )
+)]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>8</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
 			</Presentation>
 
 				</Level>
