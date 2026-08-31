@@ -11,6 +11,14 @@ from planner.core.schema import (
 from planner.integration.alpyne_codec import (
     codificar_plan_alpyne,
 )
+from planner.integration.estimated_comparison import (
+    ComparacionEstimada,
+    codificar_comparacion_estimada,
+    ejecutar_comparacion_estimada,
+    firmar_instancia_vector,
+    serializar_resultado_metodo,
+    serializar_resumen_comparacion,
+)
 from planner.integration.planner_selector import (
     ModoPlanificacion,
     SelectorPlanificadores,
@@ -71,6 +79,11 @@ _ultima_auditoria_estimacion = (
     "SIN_AUDITORIA"
 )
 
+_ultima_comparacion_estimada: (
+    ComparacionEstimada
+    | None
+) = None
+
 
 def inicializar(
     model_path: str,
@@ -97,6 +110,7 @@ def inicializar(
     global _resumen_proveedor
     global _ultima_decision
     global _ultima_auditoria_estimacion
+    global _ultima_comparacion_estimada
 
     if max_pedidos <= 0:
         raise ValueError(
@@ -138,6 +152,8 @@ def inicializar(
         _selector is not None
         and _firma_inicializacion == firma
     ):
+        _ultima_comparacion_estimada = None
+
         return (
             "OK|REUTILIZADO|"
             f"modelo={ruta_modelo}|"
@@ -162,6 +178,7 @@ def inicializar(
     _ultima_auditoria_estimacion = (
         "SIN_AUDITORIA"
     )
+    _ultima_comparacion_estimada = None
 
     return (
         "OK|CARGADO|"
@@ -178,6 +195,7 @@ def reiniciar() -> str:
     global _resumen_proveedor
     global _ultima_decision
     global _ultima_auditoria_estimacion
+    global _ultima_comparacion_estimada
 
     _selector = None
     _modelo = None
@@ -190,6 +208,7 @@ def reiniciar() -> str:
     _ultima_auditoria_estimacion = (
         "SIN_AUDITORIA"
     )
+    _ultima_comparacion_estimada = None
 
     return "OK|REINICIADO"
 
@@ -233,6 +252,7 @@ def planificar_vector(
 ) -> list[float]:
     global _ultima_decision
     global _ultima_auditoria_estimacion
+    global _ultima_comparacion_estimada
 
     if _selector is None:
         raise RuntimeError(
@@ -245,6 +265,8 @@ def planificar_vector(
         seed_escenario,
         seed_ejecucion,
     )
+
+    _ultima_comparacion_estimada = None
 
     _ultima_auditoria_estimacion = (
         "SIN_AUDITORIA"
@@ -296,6 +318,132 @@ def planificar_vector(
         instancia,
         plan,
     )
+
+
+
+def comparar_estimado_vector(
+    instancia_vector: Sequence[float],
+    seed_escenario: int,
+    seed_ejecucion: int,
+) -> list[float]:
+    """
+    Ejecuta RL, HIBRIDO, GREEDY, RANDOM y GA sobre una misma instancia.
+
+    La función conserva los planes dentro del proceso Python para que
+    AnyLogic pueda recuperar luego el plan seleccionado sin regenerarlo.
+    No modifica planActual ni ningún estado operativo de AnyLogic.
+    """
+    global _ultima_comparacion_estimada
+
+    _ultima_comparacion_estimada = None
+
+    if _selector is None:
+        raise RuntimeError(
+            "El selector Pypeline no fue inicializado."
+        )
+
+    if _proveedor_viaje is None:
+        raise RuntimeError(
+            "El proveedor común de viajes no fue inicializado."
+        )
+
+    instancia = decodificar_instancia_vector(
+        instancia_vector,
+        seed_escenario,
+        seed_ejecucion,
+    )
+
+    firma = firmar_instancia_vector(
+        instancia_vector,
+        seed_escenario,
+        seed_ejecucion,
+    )
+
+    comparacion = ejecutar_comparacion_estimada(
+        instancia=instancia,
+        selector=_selector,
+        proveedor_viaje=_proveedor_viaje,
+        firma_instancia=firma,
+    )
+
+    _ultima_comparacion_estimada = comparacion
+
+    return codificar_comparacion_estimada(
+        comparacion
+    )
+
+
+def obtener_resumen_comparacion_estimada() -> str:
+    if _ultima_comparacion_estimada is None:
+        return "SIN_COMPARACION"
+
+    return serializar_resumen_comparacion(
+        _ultima_comparacion_estimada
+    )
+
+
+def obtener_resultado_comparacion_estimado(
+    modo_planificacion: str,
+) -> str:
+    if _ultima_comparacion_estimada is None:
+        raise RuntimeError(
+            "No existe una comparación estimada disponible."
+        )
+
+    resultado = (
+        _ultima_comparacion_estimada
+        .obtener_resultado(
+            modo_planificacion
+        )
+    )
+
+    return serializar_resultado_metodo(
+        resultado
+    )
+
+
+def obtener_plan_comparacion_vector(
+    modo_planificacion: str,
+) -> list[float]:
+    if _ultima_comparacion_estimada is None:
+        raise RuntimeError(
+            "No existe una comparación estimada disponible."
+        )
+
+    resultado = (
+        _ultima_comparacion_estimada
+        .obtener_resultado(
+            modo_planificacion
+        )
+    )
+
+    if not resultado.factible:
+        raise RuntimeError(
+            "El método solicitado no produjo un plan factible: "
+            f"{resultado.error or 'error no especificado'}."
+        )
+
+    if not resultado.plan_vector:
+        raise RuntimeError(
+            "El método solicitado no tiene un plan almacenado."
+        )
+
+    return list(resultado.plan_vector)
+
+
+def obtener_firma_comparacion_estimada() -> str:
+    if _ultima_comparacion_estimada is None:
+        return "SIN_COMPARACION"
+
+    return _ultima_comparacion_estimada.firma_instancia
+
+
+def limpiar_comparacion_estimada() -> str:
+    global _ultima_comparacion_estimada
+
+    _ultima_comparacion_estimada = None
+
+    return "OK|COMPARACION_LIMPIA"
 
 
 def _auditar_plan_estimado(

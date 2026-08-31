@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Pedidos</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+    <link rel="stylesheet" href="pedidos.css">
+
+    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+
+    <div id="sidebar">
+        <div class="header">
+            <div class="header-title-row">
+                <div>
+                    <h1>Gestión de Pedidos</h1>
+                    <p>Captura de ubicaciones y contrato Excel</p>
+                </div>
+                <span id="anylogic-status" class="connection-status status-standalone">
+                    Modo independiente
+                </span>
+            </div>
+        </div>
+
+        <div class="content">
+
+            <div class="card">
+                <div class="card-title">Buscar Dirección</div>
+                <div class="search-group">
+                    <input type="text" id="search-input" placeholder="Ej: Corrientes 1234, Rosario">
+                    <button class="btn btn-secondary" onclick="buscarDireccion()">Buscar</button>
+                </div>
+                <div id="search-results" class="search-results"></div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">
+                    <span>Cargar Nuevo Pedido</span>
+                    <span id="selected-coords-status" style="font-size: 0.75rem; color: #f59e0b;">Sin punto marcado</span>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="input-id">ID Pedido</label>
+                        <input type="text" id="input-id" value="P001" placeholder="Ej: P001">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="input-turno">Turno</label>
+                        <select id="input-turno">
+                            <option value="MANANA">MANANA</option>
+                            <option value="TARDE">TARDE</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label>Coordenadas Seleccionadas</label>
+                        <div class="coords-box" id="coords-display">Lat: - | Lng: -</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="input-capacidad">Unidades Capacidad</label>
+                        <input type="number" id="input-capacidad" value="1" min="1" step="1">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Volcador</label>
+                        <div class="toggle-group" onclick="document.getElementById('input-volcador').click(); event.stopPropagation();">
+                            <label style="font-size:0.82rem;">Requiere (1/0)</label>
+                            <label class="switch" onclick="event.stopPropagation();">
+                                <input type="checkbox" id="input-volcador">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="time-desde">Hora Desde</label>
+                        <input type="time" id="time-desde">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="time-hasta">Hora Hasta</label>
+                        <input type="time" id="time-hasta">
+                    </div>
+
+                    <div class="form-group full-width">
+                        <details>
+                            <summary>Campos adicionales (Cliente, Dirección, Barrio, Observaciones)</summary>
+                            <div class="form-grid" style="margin-top: 10px;">
+                                <div class="form-group">
+                                    <label for="input-cliente">Cliente</label>
+                                    <input type="text" id="input-cliente" placeholder="Cliente A">
+                                </div>
+                                <div class="form-group">
+                                    <label for="input-direccion">Dirección</label>
+                                    <input type="text" id="input-direccion" placeholder="Calle 123">
+                                </div>
+                                <div class="form-group">
+                                    <label for="input-barrio">Barrio</label>
+                                    <input type="text" id="input-barrio" placeholder="Centro">
+                                </div>
+                                <div class="form-group">
+                                    <label for="input-observaciones">Observaciones</label>
+                                    <input type="text" id="input-observaciones" placeholder="Notas">
+                                </div>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+
+                <button
+                    class="btn btn-primary"
+                    id="btn-agregar-pedido"
+                    style="margin-top: 14px;"
+                    onclick="agregarPedido()"
+                >
+                    Agregar Pedido al Mapa
+                </button>
+
+                <div
+                    id="pedido-action-feedback"
+                    class="pedido-action-feedback"
+                    aria-live="polite"
+                >
+                    Los cambios se validarán en AnyLogic.
+                </div>
+            </div>
+
+            <div class="card" style="flex: 1; display: flex; flex-direction: column;">
+                <div class="card-title">
+                    <span>Pedidos Cargados (<span id="count-pedidos">0</span>)</span>
+                    <button style="background: none; border: none; color: #ef4444; font-size: 0.78rem; cursor: pointer;" onclick="limpiarTodo()" id="btn-limpiar">Vaciar todo</button>
+                </div>
+
+                <div class="pedidos-list" id="pedidos-container">
+                    <div style="text-align: center; color: #64748b; padding: 20px; font-size: 0.85rem;">
+                        No hay puntos agregados todavía.
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-row">
+                <button class="btn btn-success" id="btn-exportar" onclick="exportarExcel()" disabled style="flex: 1;">
+                    Exportar a Excel
+                </button>
+
+                <input type="file" id="file-import" accept=".xlsx, .xls" style="display: none;" onchange="importarExcel(event)">
+                <button class="btn btn-secondary" onclick="document.getElementById('file-import').click()" style="width: auto;">
+                    Cargar Excel
+                </button>
+            </div>
+
+            <button
+                class="btn btn-finish-management is-hidden"
+                id="btn-finalizar-gestion"
+                onclick="finalizarGestionPedidosWeb()"
+            >
+                Finalizar carga y volver a AnyLogic
+            </button>
+
+        </div>
+    </div>
+
+    <div id="map"></div>
+
+    <section
+        id="location-selector-panel"
+        class="location-selector-panel is-hidden"
+        aria-hidden="true"
+    >
+        <div class="selector-kicker">Solicitud de AnyLogic</div>
+        <h2>Elegir ubicación del pedido</h2>
+        <p>
+            Buscá una dirección o hacé clic sobre el mapa.
+            La ubicación no se aplicará hasta confirmarla.
+        </p>
+
+        <div id="selector-coords" class="selector-coords">
+            Lat: — | Lng: —
+        </div>
+
+        <div id="selector-feedback" class="selector-feedback">
+            Todavía no seleccionaste un punto.
+        </div>
+
+        <div class="selector-actions">
+            <button
+                class="btn btn-secondary"
+                id="btn-cancelar-selector"
+                onclick="cancelarSelectorUbicacion()"
+            >
+                Cancelar
+            </button>
+
+            <button
+                class="btn btn-success"
+                id="btn-confirmar-selector"
+                onclick="confirmarSelectorUbicacion()"
+                disabled
+            >
+                Usar esta ubicación
+            </button>
+        </div>
+    </section>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+
+    <!-- API obligatoria de AnyLogic Web Toolkit -->
+    <script src="http://webtoolkit/__webtk_api.js"></script>
+
+    <script src="pedidos.js"></script>
+
+</body>
+</html>
