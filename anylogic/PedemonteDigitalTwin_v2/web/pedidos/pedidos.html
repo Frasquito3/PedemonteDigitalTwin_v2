@@ -66,7 +66,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="input-capacidad">Unidades Capacidad</label>
+                        <label for="input-capacidad">Unidades totales</label>
                         <input type="number" id="input-capacidad" value="1" min="1" step="1">
                     </div>
 
@@ -75,10 +75,15 @@
                         <div class="toggle-group" onclick="document.getElementById('input-volcador').click(); event.stopPropagation();">
                             <label style="font-size:0.82rem;">Requiere (1/0)</label>
                             <label class="switch" onclick="event.stopPropagation();">
-                                <input type="checkbox" id="input-volcador">
+                                <input type="checkbox" id="input-volcador" onchange="actualizarCampoUnidadesVolcador()">
                                 <span class="slider"></span>
                             </label>
                         </div>
+                    </div>
+
+                    <div class="form-group is-hidden" id="grupo-unidades-volcador">
+                        <label for="input-unidades-volcador">Unidades con volcador</label>
+                        <input type="number" id="input-unidades-volcador" min="1" step="1" placeholder="Ej: 4" disabled>
                     </div>
 
                     <div class="form-group">
@@ -152,9 +157,9 @@
                     Exportar a Excel
                 </button>
 
-                <input type="file" id="file-import" accept=".xlsx, .xls" style="display: none;" onchange="importarExcel(event)">
+                <input type="file" id="file-import" accept=".xlsx" style="display: none;" onchange="importarExcel(event)">
                 <button class="btn btn-secondary" onclick="document.getElementById('file-import').click()" style="width: auto;">
-                    Cargar Excel
+                    Importar Excel de pedidos
                 </button>
             </div>
 

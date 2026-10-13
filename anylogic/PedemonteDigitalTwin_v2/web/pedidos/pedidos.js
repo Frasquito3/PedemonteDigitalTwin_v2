@@ -260,6 +260,223 @@ function mostrarFeedbackPedidos(mensaje, clase = '') {
     ).trim();
 }
 
+const COLUMNAS_EXCEL_PEDIDOS = [
+    'pedido_id', 'cliente', 'direccion', 'barrio', 'unidades',
+    'latitud', 'longitud', 'requiere_volcador',
+    'unidades_volcador', 'tiene_ventana',
+    'hora_desde', 'hora_hasta', 'observaciones', 'turno'
+];
+
+function actualizarCampoUnidadesVolcador() {
+    const marcado = document.getElementById('input-volcador').checked;
+    const grupo = document.getElementById('grupo-unidades-volcador');
+    const campo = document.getElementById('input-unidades-volcador');
+    if (!grupo || !campo) return;
+
+    grupo.classList.toggle('is-hidden', !marcado);
+    campo.disabled = !marcado;
+    if (!marcado) campo.value = '';
+}
+
+function enteroPositivoExacto(valor, campo, contexto) {
+    const texto = String(valor === undefined ? '' : valor).trim();
+    if (!/^[0-9]+$/.test(texto)) {
+        throw new Error(`${contexto}: ${campo} debe ser un número entero.`);
+    }
+    const numero = Number(texto);
+    if (!Number.isSafeInteger(numero) || numero <= 0) {
+        throw new Error(`${contexto}: ${campo} debe ser un entero mayor que cero.`);
+    }
+    return numero;
+}
+
+function validarUnidadesVolcador(unidades, requiere, cantidadCruda, contexto) {
+    if (!requiere) {
+        if (cantidadCruda !== '' && cantidadCruda !== null &&
+            cantidadCruda !== undefined && Number(cantidadCruda) !== 0) {
+            throw new Error(`${contexto}: unidades_volcador debe ser 0 cuando no requiere volcador.`);
+        }
+        return 0;
+    }
+    const cantidad = enteroPositivoExacto(
+        cantidadCruda, 'unidades_volcador', contexto
+    );
+    if (cantidad > unidades) {
+        throw new Error(`${contexto}: unidades_volcador no puede superar las unidades totales.`);
+    }
+    return cantidad;
+}
+
+function datosExportacionPedidos() {
+    return pedidos.map(p => {
+        const unidades = Number(p.unidades_capacidad);
+        const requiere = Number(p.requiere_volcador) === 1;
+        const cantidad = p.unidades_volcador === undefined
+            ? (requiere ? unidades : 0)
+            : Number(p.unidades_volcador);
+        if (!Number.isSafeInteger(unidades) || unidades <= 0 ||
+            !Number.isSafeInteger(cantidad) || cantidad < 0 ||
+            cantidad > unidades || requiere !== (cantidad > 0)) {
+            throw new Error(`Pedido ${p.pedido_id}: unidades de volcador inconsistentes.`);
+        }
+        const desde = String(p.hora_desde || '').trim();
+        const hasta = String(p.hora_hasta || '').trim();
+        return {
+            pedido_id: p.pedido_id,
+            cliente: p.cliente || '',
+            direccion: p.direccion || '',
+            barrio: p.barrio || '',
+            unidades,
+            latitud: p.latitud,
+            longitud: p.longitud,
+            requiere_volcador: requiere ? 'SI' : 'NO',
+            unidades_volcador: cantidad,
+            tiene_ventana: desde && hasta ? 'SI' : 'NO',
+            hora_desde: desde,
+            hora_hasta: hasta,
+            observaciones: p.observaciones || '',
+            turno: p.turno || 'MANANA'
+        };
+    });
+}
+
+function normalizarNombreColumnaExcel(nombre) {
+    return String(nombre).trim().toLowerCase()
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9]/g, '');
+}
+
+function leerBooleanoExcel(valor, campo, fila, omision = false) {
+    const texto = String(valor === undefined ? '' : valor).trim().toLowerCase();
+    if (!texto) return omision;
+    if (['1', 'true', 'si', 'sí', 'yes'].includes(texto)) return true;
+    if (['0', 'false', 'no'].includes(texto)) return false;
+    throw new Error(`Fila ${fila}: ${campo} debe ser SI o NO.`);
+}
+
+function normalizarHoraPedidoExcel(valor, fila) {
+    const texto = String(valor === undefined ? '' : valor).trim();
+    if (!texto) return '';
+    if (/^\d{1,2}:\d{2}$/.test(texto)) {
+        const [h, m] = texto.split(':').map(Number);
+        if (h > 23 || m > 59) throw new Error(`Fila ${fila}: hora inválida.`);
+        return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+    }
+    // Horas almacenadas por Excel como fracción del día.
+    if (/^0\.\d+$/.test(texto)) {
+        const minutos = Math.round(Number(texto) * 1440);
+        if (minutos >= 0 && minutos < 1440) {
+            return `${String(Math.floor(minutos / 60)).padStart(2, '0')}:${String(minutos % 60).padStart(2, '0')}`;
+        }
+    }
+    // Compatibilidad con planillas que expresaban minutos del día.
+    if (/^\d+$/.test(texto)) {
+        const minutos = Number(texto);
+        if (minutos >= 0 && minutos < 1440) {
+            return `${String(Math.floor(minutos / 60)).padStart(2, '0')}:${String(minutos % 60).padStart(2, '0')}`;
+        }
+    }
+    throw new Error(`Fila ${fila}: hora inválida (${texto}). Use HH:mm.`);
+}
+
+function convertirFilasExcelAPedidos(filas) {
+    const ids = new Set();
+    const resultado = [];
+    const alias = {
+        pedido_id: ['pedido_id', 'id'],
+        unidades: ['unidades', 'unidades_capacidad', 'capacidad', 'cantidad'],
+        latitud: ['latitud', 'lat'],
+        longitud: ['longitud', 'lon', 'lng'],
+        requiere_volcador: ['requiere_volcador', 'volcador'],
+        unidades_volcador: ['unidades_volcador', 'unidades con volcador'],
+        tiene_ventana: ['tiene_ventana', 'ventana'],
+        hora_desde: ['hora_desde', 'inicio_min'],
+        hora_hasta: ['hora_hasta', 'fin_min']
+    };
+
+    filas.forEach((fila, indice) => {
+        const numeroFila = indice + 2;
+        const columnas = new Map(Object.entries(fila).map(
+            ([clave, valor]) => [normalizarNombreColumnaExcel(clave), valor]
+        ));
+        const leer = (...nombres) => {
+            for (const nombre of nombres) {
+                const clave = normalizarNombreColumnaExcel(nombre);
+                if (columnas.has(clave)) return String(columnas.get(clave) ?? '').trim();
+            }
+            return '';
+        };
+        const contiene = nombre => columnas.has(normalizarNombreColumnaExcel(nombre));
+        const pedidoId = leer(...alias.pedido_id);
+        if (!pedidoId || !/^[A-Za-z0-9._-]+$/.test(pedidoId)) {
+            throw new Error(`Fila ${numeroFila}: pedido_id inválido.`);
+        }
+        const claveId = pedidoId.toLowerCase();
+        if (ids.has(claveId)) throw new Error(`Fila ${numeroFila}: pedido_id duplicado (${pedidoId}).`);
+        ids.add(claveId);
+
+        const unidades = enteroPositivoExacto(
+            leer(...alias.unidades), 'unidades', `Fila ${numeroFila}`
+        );
+        const latitud = Number(leer(...alias.latitud));
+        const longitud = Number(leer(...alias.longitud));
+        if (!Number.isFinite(latitud) || !Number.isFinite(longitud) ||
+            !leer(...alias.latitud) || !leer(...alias.longitud) ||
+            latitud < -90 || latitud > 90 || longitud < -180 || longitud > 180 ||
+            (Math.abs(latitud) < 1e-8 && Math.abs(longitud) < 1e-8)) {
+            throw new Error(`Fila ${numeroFila}: coordenadas inválidas.`);
+        }
+        const requiere = leerBooleanoExcel(
+            leer(...alias.requiere_volcador), 'requiere_volcador', numeroFila
+        );
+        const traeCantidad = alias.unidades_volcador.some(contiene);
+        const cantidadCruda = traeCantidad
+            ? leer(...alias.unidades_volcador)
+            : (requiere ? String(unidades) : '0');
+        const unidadesVolcador = validarUnidadesVolcador(
+            unidades, requiere, cantidadCruda, `Fila ${numeroFila}`
+        );
+
+        const turnoTexto = leer('turno').toUpperCase();
+        if (turnoTexto && !['MANANA', 'MAÑANA', 'TARDE'].includes(turnoTexto)) {
+            throw new Error(`Fila ${numeroFila}: turno inválido.`);
+        }
+        const turno = turnoTexto === 'TARDE' ? 'TARDE' : 'MANANA';
+        const horaDesde = normalizarHoraPedidoExcel(leer(...alias.hora_desde), numeroFila);
+        const horaHasta = normalizarHoraPedidoExcel(leer(...alias.hora_hasta), numeroFila);
+        if (Boolean(horaDesde) !== Boolean(horaHasta)) {
+            throw new Error(`Fila ${numeroFila}: completá las dos horas o ninguna.`);
+        }
+        const tieneVentana = alias.tiene_ventana.some(contiene)
+            ? leerBooleanoExcel(leer(...alias.tiene_ventana), 'tiene_ventana', numeroFila)
+            : Boolean(horaDesde);
+        if (tieneVentana !== Boolean(horaDesde)) {
+            throw new Error(`Fila ${numeroFila}: tiene_ventana no coincide con las horas.`);
+        }
+        if (tieneVentana) {
+            const a = Number(horaDesde.slice(0, 2)) * 60 + Number(horaDesde.slice(3));
+            const b = Number(horaHasta.slice(0, 2)) * 60 + Number(horaHasta.slice(3));
+            const inicio = turno === 'MANANA' ? 450 : 840;
+            const fin = turno === 'MANANA' ? 720 : 1020;
+            if (a < inicio || b > fin || a >= b) {
+                throw new Error(`Fila ${numeroFila}: ventana fuera del turno ${turno}.`);
+            }
+        }
+        resultado.push({
+            pedido_id: pedidoId, turno, latitud, longitud,
+            unidades_capacidad: unidades, requiere_volcador: requiere ? 1 : 0,
+            unidades_volcador: unidadesVolcador,
+            hora_desde: horaDesde, hora_hasta: horaHasta,
+            cliente: leer('cliente'), direccion: leer('direccion'),
+            barrio: leer('barrio'), observaciones: leer('observaciones')
+        });
+    });
+    if (resultado.length === 0) throw new Error('El archivo no contiene pedidos.');
+    const turnos = new Set(resultado.map(p => p.turno));
+    if (turnos.size > 1) throw new Error('Todos los pedidos deben pertenecer al mismo turno.');
+    return resultado;
+}
+
 function normalizarPedidoAutoritativo(pedido) {
     const capacidad = Number(pedido && pedido.unidades_capacidad);
     const latitud = Number(pedido && pedido.latitud);
@@ -273,6 +490,13 @@ function normalizarPedidoAutoritativo(pedido) {
         longitud: Number.isFinite(longitud) ? longitud : 0,
         unidades_capacidad: Number.isFinite(capacidad) ? capacidad : 1,
         requiere_volcador: volcador === 1 ? 1 : 0,
+        unidades_volcador: (
+            pedido && pedido.unidades_volcador !== undefined
+            && pedido.unidades_volcador !== null
+            && String(pedido.unidades_volcador).trim() !== ''
+        )
+            ? Number(pedido.unidades_volcador)
+            : (volcador === 1 ? capacidad : 0),
         hora_desde: String(pedido && pedido.hora_desde || '').trim(),
         hora_hasta: String(pedido && pedido.hora_hasta || '').trim(),
         cliente: String(pedido && pedido.cliente || ''),
@@ -348,6 +572,7 @@ function restablecerFormularioWebDespuesDeAlta() {
     document.getElementById('input-id').value = getNextDefaultId();
     document.getElementById('input-capacidad').value = '1';
     document.getElementById('input-volcador').checked = false;
+    actualizarCampoUnidadesVolcador();
     document.getElementById('time-desde').value = '';
     document.getElementById('time-hasta').value = '';
     document.getElementById('input-cliente').value = '';
@@ -932,15 +1157,15 @@ async function agregarPedido() {
 
     const idVal = document.getElementById('input-id').value.trim();
     const turnoVal = document.getElementById('input-turno').value;
-    const capacidadVal = parseInt(
-        document.getElementById('input-capacidad').value,
-        10
-    );
+    const capacidadTexto = document.getElementById('input-capacidad').value.trim();
+    const capacidadVal = /^[0-9]+$/.test(capacidadTexto)
+        ? Number(capacidadTexto) : NaN;
     const volcadorVal = (
         document.getElementById('input-volcador').checked
             ? 1
             : 0
     );
+    const unidadesVolcadorCrudas = document.getElementById('input-unidades-volcador').value.trim();
     const horaDesdeVal = document.getElementById('time-desde').value.trim();
     const horaHastaVal = document.getElementById('time-hasta').value.trim();
     const clienteVal = document.getElementById('input-cliente').value.trim();
@@ -963,6 +1188,18 @@ async function agregarPedido() {
         return;
     }
 
+    let unidadesVolcadorVal;
+    try {
+        unidadesVolcadorVal = validarUnidadesVolcador(
+            capacidadVal, volcadorVal === 1,
+            volcadorVal === 1 ? unidadesVolcadorCrudas : '0',
+            `Pedido ${idVal}`
+        );
+    } catch (error) {
+        alert(error.message);
+        return;
+    }
+
     if (
         (horaDesdeVal && !horaHastaVal)
         || (!horaDesdeVal && horaHastaVal)
@@ -981,6 +1218,7 @@ async function agregarPedido() {
         longitud: selectedLng,
         unidades_capacidad: capacidadVal,
         requiere_volcador: volcadorVal,
+        unidades_volcador: unidadesVolcadorVal,
         hora_desde: horaDesdeVal,
         hora_hasta: horaHastaVal,
         cliente: clienteVal,
@@ -1042,7 +1280,7 @@ function renderPedidosList() {
                 </div>
                 <span class="pedido-details">
                     Cap: ${p.unidades_capacidad}
-                    | Volcador: ${p.requiere_volcador}
+                    | Volcador: ${p.unidades_volcador ?? (p.requiere_volcador ? p.unidades_capacidad : 0)} u.
                     ${p.hora_desde ? `| ${p.hora_desde}-${p.hora_hasta}` : ''}
                 </span>
                 <span
@@ -1126,309 +1364,97 @@ async function exportarExcel() {
         alert('No hay pedidos para exportar.');
         return;
     }
-
-    const botonExportar = document.getElementById('btn-exportar');
-
-    if (botonExportar) {
-        botonExportar.disabled = true;
+    if (typeof XLSX === 'undefined') {
+        mostrarFeedbackPedidos('No se cargó el módulo de Excel.', 'feedback-error');
+        return;
     }
-
-    mostrarFeedbackPedidos(
-        'Preparando archivo Excel...',
-        'feedback-working'
-    );
-
+    const boton = document.getElementById('btn-exportar');
+    if (boton) boton.disabled = true;
+    mostrarFeedbackPedidos('Preparando Excel de pedidos...', 'feedback-working');
     try {
-        const data = pedidos.map(p => ({
-            pedido_id:          p.pedido_id,
-            turno:              p.turno,
-            latitud:            p.latitud,
-            longitud:           p.longitud,
-            unidades_capacidad: p.unidades_capacidad,
-            requiere_volcador:  p.requiere_volcador,
-            hora_desde:         p.hora_desde || '',
-            hora_hasta:         p.hora_hasta || '',
-            cliente:            p.cliente || '',
-            direccion:          p.direccion || '',
-            barrio:             p.barrio || '',
-            observaciones:      p.observaciones || ''
+        const filas = datosExportacionPedidos();
+        const hoja = XLSX.utils.json_to_sheet(filas, { header: COLUMNAS_EXCEL_PEDIDOS });
+        hoja['!cols'] = COLUMNAS_EXCEL_PEDIDOS.map(nombre => ({
+            wch: ['cliente','direccion','observaciones'].includes(nombre) ? 32 : 20
         }));
+        const libro = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(libro, hoja, 'Pedidos');
+        const nombreArchivo = 'pedidos.xlsx';
 
-        const ws = XLSX.utils.json_to_sheet(data, {
-            header: [
-                'pedido_id',
-                'turno',
-                'latitud',
-                'longitud',
-                'unidades_capacidad',
-                'requiere_volcador',
-                'hora_desde',
-                'hora_hasta',
-                'cliente',
-                'direccion',
-                'barrio',
-                'observaciones'
-            ]
-        });
-
-        const wb = XLSX.utils.book_new();
-
-        XLSX.utils.book_append_sheet(
-            wb,
-            ws,
-            'Pedidos'
-        );
-
-        /*
-         * Dentro de WebToolkit no usamos XLSX.writeFile().
-         * Esa función intenta iniciar una descarga normal del navegador,
-         * pero la ventana JCEF no registra un DownloadHandler.
-         *
-         * En su lugar, generamos el XLSX en Base64 y utilizamos la API
-         * nativa de archivos que WebToolkit expone mediante AnyLogic.files.
-         */
-        if (
-            webToolkitDisponible()
-            &&
-            AnyLogic.files
-            &&
-            typeof AnyLogic.files.saveDialog === 'function'
-            &&
-            typeof AnyLogic.files.write === 'function'
-        ) {
+        if (webToolkitDisponible() && AnyLogic.files &&
+            typeof AnyLogic.files.saveDialog === 'function' &&
+            typeof AnyLogic.files.write === 'function') {
             let ruta = await AnyLogic.files.saveDialog(
-                'Exportar pedidos',
-                'pedidos_hoy.xlsx'
+                'Exportar pedidos reutilizables', nombreArchivo
             );
-
             if (!ruta) {
-                mostrarFeedbackPedidos(
-                    'Exportación cancelada.'
-                );
-
+                mostrarFeedbackPedidos('Exportación cancelada.');
                 return;
             }
-
             ruta = String(ruta);
-
-            if (!ruta.toLowerCase().endsWith('.xlsx')) {
-                ruta += '.xlsx';
-            }
-
-            const contenidoBase64 = XLSX.write(
-                wb,
-                {
-                    bookType: 'xlsx',
-                    type: 'base64'
-                }
-            );
-
-            await AnyLogic.files.write(
-                ruta,
-                contenidoBase64,
-                true
-            );
-
-            mostrarFeedbackPedidos(
-                'Archivo Excel exportado correctamente.',
-                'feedback-ok'
-            );
-
-            return;
+            if (!ruta.toLowerCase().endsWith('.xlsx')) ruta += '.xlsx';
+            const contenido = XLSX.write(libro, { bookType: 'xlsx', type: 'base64' });
+            await AnyLogic.files.write(ruta, contenido, true);
+            mostrarFeedbackPedidos(`Excel guardado en: ${ruta}`, 'feedback-ok');
+        } else {
+            XLSX.writeFile(libro, nombreArchivo);
+            mostrarFeedbackPedidos('Archivo Excel exportado. Podés volver a importarlo.', 'feedback-ok');
         }
-
-        /*
-         * Fuera de AnyLogic conservamos la descarga tradicional
-         * para que la página siga funcionando en un navegador común.
-         */
-        XLSX.writeFile(
-            wb,
-            'pedidos_hoy.xlsx'
-        );
-
-        mostrarFeedbackPedidos(
-            'Archivo Excel exportado correctamente.',
-            'feedback-ok'
-        );
-
     } catch (error) {
-        console.error(
-            '[PEDEMONTE WEB] Error al exportar Excel:',
-            error
-        );
-
-        mostrarFeedbackPedidos(
-            'No fue posible exportar el archivo Excel.',
-            'feedback-error'
-        );
-
-        alert(
-            'No fue posible exportar el archivo Excel.'
-        );
-
+        console.error('[PEDEMONTE WEB] Exportación Excel:', error);
+        mostrarFeedbackPedidos('No se pudo exportar el Excel: ' + error.message, 'feedback-error');
     } finally {
-        if (botonExportar) {
-            botonExportar.disabled =
-                pedidos.length === 0;
-        }
+        if (boton) boton.disabled = pedidos.length === 0;
     }
 }
 
 function importarExcel(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-
+    const archivo = event.target.files[0];
+    if (!archivo) return;
+    if (typeof XLSX === 'undefined') {
+        mostrarFeedbackPedidos('No se cargó el módulo de Excel.', 'feedback-error');
+        event.target.value = '';
+        return;
+    }
     const reader = new FileReader();
-
     reader.onload = async function(e) {
         try {
-            const data = new Uint8Array(e.target.result);
-            const wb = XLSX.read(data, { type: 'array' });
-
-            const sheetName = wb.SheetNames.includes('Pedidos')
-                ? 'Pedidos'
-                : wb.SheetNames[0];
-
-            const rows = XLSX.utils.sheet_to_json(
-                wb.Sheets[sheetName],
-                { defval: '' }
+            const datos = new Uint8Array(e.target.result);
+            const libro = XLSX.read(datos, { type: 'array' });
+            const nombreHoja = libro.SheetNames.includes('Pedidos')
+                ? 'Pedidos' : libro.SheetNames[0];
+            if (!nombreHoja) throw new Error('El Excel no contiene hojas.');
+            const filas = XLSX.utils.sheet_to_json(
+                libro.Sheets[nombreHoja], { defval: '', raw: false }
             );
-
-            if (rows.length === 0) {
-                alert('El archivo no contiene filas de datos.');
-                return;
-            }
-
-            const getVal = (row, ...cols) => {
-                for (const col of cols) {
-                    const key = Object.keys(row).find(
-                        k => k.trim().toLowerCase() === col.toLowerCase()
-                    );
-
-                    if (key !== undefined) {
-                        return String(row[key]).trim();
-                    }
-                }
-
-                return '';
-            };
-
-            const pedidosImportados = [];
-
-            rows.forEach((row, idx) => {
-                const pLat = parseFloat(
-                    getVal(row, 'latitud', 'lat')
-                );
-
-                const pLng = parseFloat(
-                    getVal(row, 'longitud', 'lng', 'lon')
-                );
-
-                if (
-                    !Number.isFinite(pLat)
-                    || !Number.isFinite(pLng)
-                    || pLat < -90
-                    || pLat > 90
-                    || pLng < -180
-                    || pLng > 180
-                ) {
-                    throw new Error(
-                        `Fila ${idx + 2}: coordenadas inválidas.`
-                    );
-                }
-
-                const pId = (
-                    getVal(row, 'pedido_id', 'id')
-                    || `P_IMP_${idx + 1}`
-                );
-
-                const turnoTexto = getVal(row, 'turno').toUpperCase();
-                const pTurno = turnoTexto === 'TARDE'
-                    ? 'TARDE'
-                    : 'MANANA';
-
-                const pCap = parseInt(
-                    getVal(
-                        row,
-                        'unidades_capacidad',
-                        'capacidad',
-                        'tamanio'
-                    ) || '1',
-                    10
-                );
-
-                if (!Number.isInteger(pCap) || pCap <= 0) {
-                    throw new Error(
-                        `Fila ${idx + 2}: capacidad inválida.`
-                    );
-                }
-
-                const pVolc = ['1', 'true', 'si', 'sí'].includes(
-                    getVal(
-                        row,
-                        'requiere_volcador',
-                        'volcador'
-                    ).toLowerCase()
-                )
-                    ? 1
-                    : 0;
-
-                pedidosImportados.push({
-                    pedido_id: pId,
-                    turno: pTurno,
-                    latitud: pLat,
-                    longitud: pLng,
-                    unidades_capacidad: pCap,
-                    requiere_volcador: pVolc,
-                    hora_desde: getVal(
-                        row,
-                        'hora_desde',
-                        'inicio_min'
-                    ),
-                    hora_hasta: getVal(
-                        row,
-                        'hora_hasta',
-                        'fin_min'
-                    ),
-                    cliente: getVal(row, 'cliente'),
-                    direccion: getVal(row, 'direccion'),
-                    barrio: getVal(row, 'barrio'),
-                    observaciones: getVal(row, 'observaciones')
-                });
-            });
+            const importados = convertirFilasExcelAPedidos(filas);
 
             if (webToolkitDisponible() && gestionPedidosAnyLogicActiva) {
                 await solicitarOperacionPedidosAnyLogic(
-                    'importarPedidosWeb',
-                    'IMPORTAR',
-                    {
-                        pedidos: pedidosImportados
-                    }
+                    'importarPedidosWeb', 'IMPORTAR', { pedidos: importados }
                 );
-
                 return;
             }
-
-            pedidos = pedidosImportados;
+            pedidos = importados;
             reconstruirMarcadoresPedidos(true);
             renderPedidosList();
-
-            alert(
-                `Se importaron ${pedidos.length} pedidos correctamente.`
+            mostrarFeedbackPedidos(
+                `Importación completada: ${pedidos.length} pedidos originales.`,
+                'feedback-ok'
             );
         } catch (error) {
-            console.error(error);
-            alert(
-                error && error.message
-                    ? error.message
-                    : 'Ocurrió un error al leer el archivo Excel.'
-            );
+            console.error('[PEDEMONTE WEB] Importación Excel:', error);
+            mostrarFeedbackPedidos(error.message || 'Error al importar Excel.', 'feedback-error');
+            alert(error.message || 'Error al importar Excel.');
         } finally {
             event.target.value = '';
         }
     };
-
-    reader.readAsArrayBuffer(file);
+    reader.onerror = () => {
+        mostrarFeedbackPedidos('No se pudo leer el archivo Excel.', 'feedback-error');
+        event.target.value = '';
+    };
+    reader.readAsArrayBuffer(archivo);
 }
 
 // Busqueda de direcciones via Nominatim (OSM), restringida al viewport actual del mapa.
@@ -1495,6 +1521,7 @@ function seleccionarResultado(lat, lng) {
 window.onload = function() {
     initMap();
     document.getElementById('input-id').value = getNextDefaultId();
+    actualizarCampoUnidadesVolcador();
 
     document.getElementById('search-input').addEventListener('keydown', e => {
         if (e.key === 'Enter') buscarDireccion();

@@ -2289,6 +2289,21 @@
 						</InitialValue>
 					</Properties>
 				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1791914083361</Id>
+					<Name><![CDATA[unidadesVolcadorFormulario]]></Name>
+					<X>-1180</X><Y>4030</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[""]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
 				<Variable Class="Parameter">
 					<Id>1786556369483</Id>
 					<Name><![CDATA[CAPACIDAD_CAMION]]></Name>
@@ -18344,7 +18359,7 @@ try {
 
     String comando =
         "pedemonte_excel_bridge."
-        + "importar_pedidos_excel_pypeline("
+        + "importar_pedidos_excel_pypeline_v2("
         + archivoLiteral
         + ", "
         + turnoLiteral
@@ -18390,7 +18405,7 @@ try {
     if (
         cabecera.length < 3
         ||
-        !"PEDXLSX1".equals(
+        !"PEDXLSX2".equals(
             cabecera[0]
         )
     ) {
@@ -18494,7 +18509,7 @@ try {
 
 
         if (
-            partes.length < 14
+            partes.length < 15
             ||
             !"P".equals(partes[0])
         ) {
@@ -18546,6 +18561,8 @@ try {
                 partes[9]
             );
 
+        unidadesVolcadorFormulario = partes[14];
+
         tieneVentanaFormulario =
             "1".equals(
                 partes[10]
@@ -18573,7 +18590,7 @@ try {
 
 
         boolean agregado =
-            agregarPedidoFormulario();
+            agregarPedidoFormularioMixto();
 
 
         if (!agregado) {
@@ -18631,6 +18648,8 @@ try {
     longitudFormulario = "";
 
     requiereVolcadorFormulario = false;
+
+    unidadesVolcadorFormulario = "";
 
     tieneVentanaFormulario = false;
 
@@ -29519,6 +29538,9 @@ for (
     int unidadesTotales =
         0;
 
+    int unidadesVolcador =
+        0;
+
 
     String observaciones =
         "";
@@ -29537,6 +29559,10 @@ for (
 
         unidadesTotales +=
             parte.unidadesCapacidad;
+
+        if (parte.requiereVolcador) {
+            unidadesVolcador += parte.unidadesCapacidad;
+        }
 
 
         String observacionParte =
@@ -29560,7 +29586,7 @@ for (
                     "Parte "
                 )
                 &&
-                observacionParte.endsWith(
+                observacionParte.contains(
                     "generada automáticamente."
                 )
             )
@@ -29610,11 +29636,16 @@ for (
 
     item.put(
         "requiere_volcador",
-        base.requiereVolcador
+        unidadesVolcador > 0
             ? 1
             : 0
     );
 
+
+    item.put(
+        "unidades_volcador",
+        unidadesVolcador
+    );
 
     item.put(
         "hora_desde",
@@ -29625,6 +29656,11 @@ for (
             : ""
     );
 
+
+    item.put(
+        "tiene_ventana",
+        base.tieneVentanaEspecifica ? 1 : 0
+    );
 
     item.put(
         "hora_hasta",
@@ -29858,6 +29894,11 @@ editLongitudFormulario.setText(
 );
 
 
+editUnidadesVolcadorFormulario.setText(
+    unidadesVolcadorFormulario
+);
+
+
 checkRequiereVolcadorFormulario
     .setSelected(
         requiereVolcadorFormulario
@@ -29919,6 +29960,8 @@ longitudFormulario =
 
 requiereVolcadorFormulario =
     false;
+
+unidadesVolcadorFormulario = "";
 
 
 tieneVentanaFormulario =
@@ -30094,6 +30137,25 @@ requiereVolcadorFormulario =
     );
 
 
+int unidadesVolcador =
+    pedidoWeb.containsKey("unidades_volcador")
+        ? enteroCampoWeb(pedidoWeb, "unidades_volcador")
+        : (requiereVolcadorFormulario ? unidades : 0);
+
+if (
+    unidadesVolcador < 0
+    || unidadesVolcador > unidades
+    || requiereVolcadorFormulario != (unidadesVolcador > 0)
+) {
+    throw new IllegalArgumentException(
+        "Las unidades con volcador son inconsistentes."
+    );
+}
+
+unidadesVolcadorFormulario =
+    String.valueOf(unidadesVolcador);
+
+
 String horaDesde =
     textoCampoWeb(
         pedidoWeb,
@@ -30137,7 +30199,7 @@ if (tieneVentanaFormulario) {
 
 
 boolean agregado =
-    agregarPedidoFormulario();
+    agregarPedidoFormularioMixto();
 
 
 if (!agregado) {
@@ -31945,6 +32007,328 @@ traceln(
 return archivoExportado.getAbsolutePath();
 ]]></Body>
 				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[boolean]]></ReturnType>
+					<Id>1791914305831</Id>
+					<Name><![CDATA[agregarPedidoFormularioMixto]]></Name>
+					<X>-810</X><Y>7120</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[
+if (!requiereVolcadorFormulario) {
+
+    boolean agregado =
+        agregarPedidoFormulario();
+
+    if (agregado) {
+        unidadesVolcadorFormulario = "";
+    }
+
+    return agregado;
+}
+
+
+// =====================================================
+// 1. Validar cantidad de unidades con volcador
+// =====================================================
+
+int unidadesTotales;
+int unidadesVolcador;
+int unidadesNormales;
+int cantidadPartes;
+
+try {
+
+    unidadesTotales =
+        parsearEnteroPositivoFormulario(
+            unidadesFormulario,
+            "Unidades"
+        );
+
+    String valor =
+        unidadesVolcadorFormulario == null
+        ? ""
+        : unidadesVolcadorFormulario.trim();
+
+    if (!valor.matches("[0-9]+")) {
+
+        throw new IllegalArgumentException(
+            "Ingresá cuántas unidades requieren "
+            + "volcador."
+        );
+    }
+
+    unidadesVolcador =
+        Integer.parseInt(valor);
+
+    if (
+        unidadesVolcador <= 0
+        || unidadesVolcador > unidadesTotales
+    ) {
+
+        throw new IllegalArgumentException(
+            "Las unidades con volcador deben estar "
+            + "entre 1 y "
+            + unidadesTotales
+            + "."
+        );
+    }
+
+    unidadesNormales =
+        unidadesTotales - unidadesVolcador;
+
+
+    // Cantidad de tareas homogéneas.
+
+    int partesNormales =
+        unidadesNormales == 0
+        ? 0
+        : (
+            unidadesNormales
+            + CAPACIDAD_CAMION - 1
+        ) / CAPACIDAD_CAMION;
+
+    int partesVolcador =
+        (
+            unidadesVolcador
+            + CAPACIDAD_CAMION - 1
+        ) / CAPACIDAD_CAMION;
+
+    cantidadPartes =
+        partesNormales + partesVolcador;
+
+
+    if (cantidadPartes > 8) {
+
+        throw new IllegalArgumentException(
+            "El pedido requiere "
+            + cantidadPartes
+            + " tareas. El máximo permitido "
+            + "por pedido es 8."
+        );
+    }
+
+
+    if (
+        pedidosFormulario.size()
+        + cantidadPartes
+        > MAX_PEDIDOS_RL
+    ) {
+
+        throw new IllegalArgumentException(
+            "El turno superaría el máximo "
+            + "de tareas permitido."
+        );
+    }
+
+} catch (Exception ex) {
+
+    mensajeFormulario =
+        "Revisá el pedido: "
+        + ex.getMessage();
+
+    traceln(mensajeFormulario);
+
+    return false;
+}
+
+
+// =====================================================
+// 2. Conservar la validación existente
+// =====================================================
+
+int indiceInicial =
+    pedidosFormulario.size();
+
+boolean agregado =
+    agregarPedidoFormulario();
+
+if (!agregado) {
+    return false;
+}
+
+
+// Si todas las unidades requieren volcador,
+// el split anterior ya es correcto.
+
+if (unidadesNormales == 0) {
+
+    unidadesVolcadorFormulario = "";
+
+    return true;
+}
+
+
+// =====================================================
+// 3. Reconstruir únicamente las partes del pedido
+// =====================================================
+
+PedidoInput plantilla =
+    copiarPedidoInput(
+        pedidosFormulario.get(indiceInicial)
+    );
+
+java.util.ArrayList<PedidoInput> partesNuevas =
+    new java.util.ArrayList<PedidoInput>();
+
+int numeroParte = 0;
+
+int[] cantidades = {
+    unidadesNormales,
+    unidadesVolcador
+};
+
+boolean[] modalidades = {
+    false,
+    true
+};
+
+
+for (int grupo = 0; grupo < 2; grupo++) {
+
+    int restantes =
+        cantidades[grupo];
+
+    boolean esVolcador =
+        modalidades[grupo];
+
+    while (restantes > 0) {
+
+        int unidadesParte =
+            Math.min(
+                CAPACIDAD_CAMION,
+                restantes
+            );
+
+        numeroParte++;
+
+
+        PedidoInput parte =
+            copiarPedidoInput(plantilla);
+
+
+        parte.pedidoId =
+            plantilla.pedidoOriginalId
+            + "-P"
+            + numeroParte;
+
+        parte.pedidoOriginalId =
+            plantilla.pedidoOriginalId;
+
+        parte.numeroParte =
+            numeroParte;
+
+        parte.totalPartes =
+            cantidadPartes;
+
+        parte.unidadesCapacidad =
+            unidadesParte;
+
+        parte.requiereVolcador =
+            esVolcador;
+
+
+        parte.observaciones =
+            "Parte "
+            + numeroParte
+            + "/"
+            + cantidadPartes
+            + " generada automáticamente. "
+            + (
+                esVolcador
+                ? "Carga con volcador."
+                : "Carga normal."
+            );
+
+
+        partesNuevas.add(parte);
+
+        restantes -= unidadesParte;
+    }
+}
+
+
+// =====================================================
+// 4. Sustituir solo las partes recién generadas
+// =====================================================
+
+pedidosFormulario.subList(
+    indiceInicial,
+    pedidosFormulario.size()
+).clear();
+
+pedidosFormulario.addAll(
+    partesNuevas
+);
+
+
+// =====================================================
+// 5. Confirmar conservación de unidades
+// =====================================================
+
+int sumaTotal = 0;
+int sumaVolcador = 0;
+
+for (PedidoInput parte : partesNuevas) {
+
+    sumaTotal +=
+        parte.unidadesCapacidad;
+
+    if (parte.requiereVolcador) {
+
+        sumaVolcador +=
+            parte.unidadesCapacidad;
+    }
+}
+
+if (
+    sumaTotal != unidadesTotales
+    || sumaVolcador != unidadesVolcador
+) {
+
+    throw new IllegalStateException(
+        "El split no conservó correctamente "
+        + "las cantidades."
+    );
+}
+
+
+// =====================================================
+// 6. Resultado
+// =====================================================
+
+unidadesVolcadorFormulario = "";
+
+mensajeFormulario =
+    "Pedido "
+    + plantilla.pedidoOriginalId
+    + " agregado: "
+    + unidadesTotales
+    + " unidades, "
+    + unidadesVolcador
+    + " con volcador, "
+    + cantidadPartes
+    + " tareas.";
+
+
+traceln(
+    "SPLIT MIXTO OK"
+    + " | pedido="
+    + plantilla.pedidoOriginalId
+    + " | normales="
+    + unidadesNormales
+    + " | volcador="
+    + unidadesVolcador
+    + " | tareas="
+    + cantidadPartes
+);
+
+return true;
+]]></Body>
+				</Function>
 			</Functions>
 			<AgentLinks>
 				<AgentLink>
@@ -33332,13 +33716,15 @@ instanciaInterfazActual == null
 &&
 !pypelineSolicitudEnCurso]]></EnableExpression>
 						<ActionCode><![CDATA[boolean pedidoAgregado =
-    agregarPedidoFormulario();
-
+    agregarPedidoFormularioMixto();
 
 if (pedidoAgregado) {
 
     restablecerCamposPedidoFormulario();
 
+    unidadesVolcadorFormulario = "";
+
+    editUnidadesVolcadorFormulario.setText("");
 
     emitirEstadoPedidosWeb(
         "",
@@ -43573,6 +43959,55 @@ getExperimentHost().showMessageDialog(
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>8</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Control Type="EditBox">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1791914126153</Id>
+					<Name><![CDATA[editUnidadesVolcadorFormulario]]></Name>
+					<X>485</X><Y>580</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="160" Height="24">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<FillColor>-1</FillColor>
+						<TextColor>-15257011</TextColor>
+						<VisibleCode><![CDATA[requiereVolcadorFormulario]]></VisibleCode>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[requiereVolcadorFormulario
+&& instanciaInterfazActual == null
+&& !ejecucionEnCurso
+&& !pypelineSolicitudEnCurso]]></EnableExpression>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="10" Style="0"/>
+						<LinkTo>true</LinkTo>
+						<Link>unidadesVolcadorFormulario</Link>
+					</ExtendedProperties>
+				</Control>
+				<Text>
+					<Id>1791914240624</Id>
+					<Name><![CDATA[txtLabelUnidadesVolcador]]></Name>
+					<X>485</X><Y>562</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA[requiereVolcadorFormulario]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-10193781</Color>
+					<Text><![CDATA[Unidades con volcador]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>

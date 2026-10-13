@@ -11,7 +11,7 @@ from typing import Any, Iterable
 from openpyxl import load_workbook
 
 
-VERSION_IMPORTADOR = "pedemonte-orders-xlsx-v1"
+VERSION_IMPORTADOR = "pedemonte-orders-xlsx-v2"
 HOJA_PEDIDOS_PREFERIDA = "Pedidos"
 
 HORARIOS_TURNO: dict[str, tuple[int, int]] = {
@@ -42,6 +42,7 @@ class PedidoExcel:
     hora_desde_min: int
     hora_hasta_min: int
     observaciones: str
+    unidades_volcador: int = 0
 
 
 @dataclass(frozen=True)
@@ -115,6 +116,12 @@ _ALIAS_COLUMNAS: dict[str, set[str]] = {
         "volcador",
         "requierevolquete",
     },
+    "unidades_volcador": {
+        "unidadesvolcador",
+        "unidadesconvolcador",
+        "cantidadvolcador",
+        "cantidadconvolcador",
+    },
     "tiene_ventana": {
         "tieneventana",
         "ventana",
@@ -130,6 +137,9 @@ _ALIAS_COLUMNAS: dict[str, set[str]] = {
         "hasta",
         "finventana",
     },
+    "turno": {
+        "turno",
+    },
     "observaciones": {
         "observaciones",
         "observacion",
@@ -143,7 +153,6 @@ _COLUMNAS_OBLIGATORIAS = {
     "latitud",
     "longitud",
     "requiere_volcador",
-    "tiene_ventana",
     "hora_desde",
     "hora_hasta",
 }
@@ -301,11 +310,14 @@ def importar_pedidos_excel(
                 )
             )
 
+        # El split se realiza por modalidad, no solamente por carga
+        # total: una tarea no mezcla unidades normales y volcador.
         tareas_estimadas = sum(
             ceil(
-                pedido.unidades
+                (pedido.unidades - pedido.unidades_volcador)
                 / capacidad_camion
             )
+            + ceil(pedido.unidades_volcador / capacidad_camion)
             for pedido in pedidos
         )
 
@@ -476,13 +488,92 @@ def _parsear_fila(
         default=False,
     )
 
-    tiene_ventana = _parsear_booleano(
-        fila.get("tiene_ventana"),
-        numero_fila,
-        "tiene_ventana",
-        errores,
-        default=False,
-    )
+    # Una planilla vieja sin la columna conserva la interpretación
+    # original del booleano: SI = todas las unidades requieren volcador.
+    # En las planillas nuevas, la cantidad es explícita por pedido.
+    unidades_volcador: int | None = None
+    tiene_columna_volcador = "unidades_volcador" in fila
+
+    if (
+        unidades is not None
+        and requiere_volcador is not None
+    ):
+        if not tiene_columna_volcador:
+            unidades_volcador = (
+                unidades if requiere_volcador else 0
+            )
+        else:
+            cantidad_cruda = fila["unidades_volcador"]
+            if cantidad_cruda is None or _texto(cantidad_cruda) == "":
+                if requiere_volcador:
+                    errores.append(
+                        ErrorFilaExcel(
+                            numero_fila,
+                            "unidades_volcador",
+                            "ingresá la cantidad de unidades "
+                            "con volcador cuando requiere_volcador es SI.",
+                        )
+                    )
+                else:
+                    unidades_volcador = 0
+            else:
+                unidades_volcador = _parsear_entero_no_negativo(
+                    cantidad_cruda,
+                    numero_fila,
+                    "unidades_volcador",
+                    errores,
+                )
+
+            if unidades_volcador is not None:
+                if unidades_volcador > unidades:
+                    errores.append(
+                        ErrorFilaExcel(
+                            numero_fila,
+                            "unidades_volcador",
+                            "no puede superar las unidades totales.",
+                        )
+                    )
+                if requiere_volcador != (unidades_volcador > 0):
+                    errores.append(
+                        ErrorFilaExcel(
+                            numero_fila,
+                            "unidades_volcador",
+                            "debe ser mayor que cero exactamente "
+                            "cuando requiere_volcador es SI.",
+                        )
+                    )
+
+    # El Excel antiguo exportado por WebToolkit no incluía tiene_ventana.
+    # En ese formato, la presencia de ambas horas determina la ventana.
+    if "tiene_ventana" not in fila:
+        desde_crudo = _texto(fila.get("hora_desde"))
+        hasta_crudo = _texto(fila.get("hora_hasta"))
+        if bool(desde_crudo) != bool(hasta_crudo):
+            errores.append(ErrorFilaExcel(
+                numero_fila, "ventana",
+                "completá hora_desde y hora_hasta, o ninguna.",
+            ))
+        tiene_ventana = bool(desde_crudo) and bool(hasta_crudo)
+    else:
+        tiene_ventana = _parsear_booleano(
+            fila.get("tiene_ventana"),
+            numero_fila,
+            "tiene_ventana",
+            errores,
+            default=False,
+        )
+
+    if "turno" in fila and _texto(fila["turno"]):
+        try:
+            turno_fila = _normalizar_turno(_texto(fila["turno"]))
+        except ValueError:
+            errores.append(ErrorFilaExcel(numero_fila, "turno", "turno inválido."))
+        else:
+            if turno_fila != turno:
+                errores.append(ErrorFilaExcel(
+                    numero_fila, "turno", f"no coincide con el turno seleccionado ({turno})."
+                ))
+
 
     hora_inicio, hora_fin = HORARIOS_TURNO[turno]
     hora_desde = hora_inicio
@@ -542,6 +633,7 @@ def _parsear_fila(
     assert latitud is not None
     assert longitud is not None
     assert requiere_volcador is not None
+    assert unidades_volcador is not None
     assert tiene_ventana is not None
     assert hora_desde is not None
     assert hora_hasta is not None
@@ -559,6 +651,7 @@ def _parsear_fila(
             latitud=latitud,
             longitud=longitud,
             requiere_volcador=requiere_volcador,
+            unidades_volcador=unidades_volcador,
             tiene_ventana=tiene_ventana,
             hora_desde_min=hora_desde,
             hora_hasta_min=hora_hasta,
@@ -710,6 +803,37 @@ def _parsear_entero_positivo(
                 fila,
                 campo,
                 "debe ser un entero mayor que cero.",
+            )
+        )
+        return None
+
+
+def _parsear_entero_no_negativo(
+    valor: Any,
+    fila: int,
+    campo: str,
+    errores: list[ErrorFilaExcel],
+) -> int | None:
+    try:
+        if isinstance(valor, bool):
+            raise ValueError
+
+        numero = float(_texto(valor).replace(",", "."))
+        if not isfinite(numero):
+            raise ValueError
+
+        entero = int(numero)
+        if numero != entero or entero < 0:
+            raise ValueError
+
+        return entero
+
+    except (TypeError, ValueError, OverflowError):
+        errores.append(
+            ErrorFilaExcel(
+                fila,
+                campo,
+                "debe ser un entero mayor o igual que cero.",
             )
         )
         return None
