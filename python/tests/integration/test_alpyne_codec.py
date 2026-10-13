@@ -29,5 +29,66 @@ class AlpyneCodecTest(unittest.TestCase):
         plan.camiones[0].viajes[0].pedido_ids = ['P001']
         with self.assertRaises(ErrorContratoAlpyne):
             codificar_plan_alpyne(self.crear_instancia(), plan)
-if __name__ == '__main__':
+
+
+class LimiteAlpyneTest(unittest.TestCase):
+    def crear_instancia_n_tareas(self, cantidad: int) -> InstanciaTurno:
+        base = AlpyneCodecTest().crear_instancia()
+        plantilla = base.pedidos[0]
+        pedidos = [
+            replace(
+                plantilla,
+                pedido_id=f"P{i:03d}",
+                pedido_original_id=f"P{i:03d}",
+                numero_parte=1,
+                total_partes=1,
+                unidades_capacidad=1,
+            )
+            for i in range(1, cantidad + 1)
+        ]
+        return replace(base, pedidos=pedidos)
+
+    def test_permite_20_tareas(self) -> None:
+        vector = codificar_instancia_alpyne(
+            self.crear_instancia_n_tareas(20)
+        )
+        self.assertEqual(vector[2], 20.0)
+        self.assertEqual(len(vector), 8 + 20 * 10)
+
+    def test_rechaza_21_tareas(self) -> None:
+        with self.assertRaisesRegex(ErrorContratoAlpyne, "21 > 20"):
+            codificar_instancia_alpyne(
+                self.crear_instancia_n_tareas(21)
+            )
+
+    def crear_plan_n_tareas(self, cantidad: int) -> PlanTurno:
+        ids = [f"P{i:03d}" for i in range(1, cantidad + 1)]
+        return PlanTurno(
+            instancia_id="TEST-ALPYNE",
+            algoritmo=AlgoritmoPlanificacion.GREEDY,
+            camiones=[
+                PlanCamion(
+                    camion_id=0,
+                    viajes=[
+                        ViajePlan(numero_viaje=i, pedido_ids=[pid])
+                        for i, pid in enumerate(ids, 1)
+                    ],
+                ),
+                PlanCamion(camion_id=1, viajes=[]),
+            ],
+        )
+
+    def test_plan_permite_20_tareas(self) -> None:
+        instancia = self.crear_instancia_n_tareas(20)
+        plan = self.crear_plan_n_tareas(20)
+        vector = codificar_plan_alpyne(instancia, plan)
+        self.assertEqual(vector[1], 20.0)
+
+    def test_plan_rechaza_21_tareas(self) -> None:
+        instancia = self.crear_instancia_n_tareas(21)
+        plan = self.crear_plan_n_tareas(21)
+        with self.assertRaisesRegex(ErrorContratoAlpyne, "21 > 20"):
+            codificar_plan_alpyne(instancia, plan)
+
+if __name__ == "__main__":
     unittest.main()

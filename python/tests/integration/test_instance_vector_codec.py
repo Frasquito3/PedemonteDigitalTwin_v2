@@ -25,5 +25,39 @@ class InstanceVectorCodecTest(unittest.TestCase):
     def test_rechaza_longitud_incorrecta(self) -> None:
         with self.assertRaises(ValueError):
             decodificar_instancia_vector(self.vector_base()[:-1], seed_escenario=1, seed_ejecucion=2)
-if __name__ == '__main__':
+
+
+class LimiteVectorTest(unittest.TestCase):
+    def vector_con_tareas(self, cantidad: int) -> list[float]:
+        vector = [
+            1.0, 0.0, float(cantidad), 8.0, 2.0,
+            -32.8495006, -60.722653, 0.0,
+        ]
+        for indice in range(cantidad):
+            vector.extend([
+                float(indice), float(indice),
+                1.0, 1.0, 1.0, 0.0,
+                -32.848, -60.721, -1.0, -1.0,
+            ])
+        return vector
+
+    def test_permite_20_tareas(self) -> None:
+        instancia = decodificar_instancia_vector(
+            self.vector_con_tareas(20), 17, 19
+        )
+        self.assertEqual(len(instancia.pedidos), 20)
+
+    def test_rechaza_21_tareas(self) -> None:
+        with self.assertRaisesRegex(ValueError, "fuera de rango"):
+            decodificar_instancia_vector(
+                self.vector_con_tareas(21), 17, 19
+            )
+
+    def test_constante_compartida_en_ambos_sentidos(self) -> None:
+        from planner.integration.alpyne_codec import MAX_PEDIDOS_ALPYNE
+        from planner.integration.instance_vector_codec import MAX_PEDIDOS
+        self.assertEqual(MAX_PEDIDOS_ALPYNE, 20)
+        self.assertEqual(MAX_PEDIDOS, MAX_PEDIDOS_ALPYNE)
+
+if __name__ == "__main__":
     unittest.main()

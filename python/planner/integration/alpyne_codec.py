@@ -23,7 +23,7 @@ TAMANO_PEDIDO_INSTANCIA = 10
 TAMANO_CABECERA_PLAN = 5
 TAMANO_ASIGNACION_PLAN = 4
 
-MAX_PEDIDOS_ALPYNE = 30
+MAX_PEDIDOS_ALPYNE = 20
 
 
 class ErrorContratoAlpyne(
@@ -309,6 +309,12 @@ def codificar_plan_alpyne(
     Convierte un PlanTurno al vector double[] del
     protocolo Alpyne v1 utilizado por AnyLogic.
     """
+    if len(instancia.pedidos) > MAX_PEDIDOS_ALPYNE:
+        raise ErrorContratoAlpyne(
+            "El plan supera el máximo del contrato Alpyne: "
+            f"{len(instancia.pedidos)} > {MAX_PEDIDOS_ALPYNE}."
+        )
+
     validacion = validar_plan(
         instancia,
         plan,

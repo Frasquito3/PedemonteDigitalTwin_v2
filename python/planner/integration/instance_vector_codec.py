@@ -5,12 +5,12 @@ from typing import Sequence
 
 from planner.core.schema import InstanciaTurno, PedidoInput, Turno
 from planner.domain.validator import validar_instancia
-from planner.integration.alpyne_codec import PROTOCOL_VERSION
+from planner.integration.alpyne_codec import MAX_PEDIDOS_ALPYNE, PROTOCOL_VERSION
 
 
 CABECERA = 8
 CAMPOS_PEDIDO = 10
-MAX_PEDIDOS = 30
+MAX_PEDIDOS = MAX_PEDIDOS_ALPYNE
 
 
 def decodificar_instancia_vector(

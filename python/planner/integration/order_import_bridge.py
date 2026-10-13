@@ -3,6 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 from urllib.parse import quote
 
+from planner.integration.alpyne_codec import MAX_PEDIDOS_ALPYNE
 from planner.integration.order_excel_import import (
     ErrorImportacionExcel,
     ResultadoImportacionExcel,
@@ -17,7 +18,7 @@ def importar_pedidos_excel_pypeline(
     archivo: str,
     turno: str,
     capacidad_camion: int = 8,
-    max_tareas: int = 30,
+    max_tareas: int = MAX_PEDIDOS_ALPYNE,
 ) -> str:
     """
     Devuelve un protocolo de texto simple y seguro para AnyLogic.
@@ -166,7 +167,7 @@ def importar_pedidos_excel_pypeline_v2(
     archivo: str,
     turno: str,
     capacidad_camion: int = 8,
-    max_tareas: int = 20,
+    max_tareas: int = MAX_PEDIDOS_ALPYNE,
 ) -> str:
     """Protocolo PEDXLSX2: mismo orden que V1 más unidades_volcador al final."""
     version = "PEDXLSX2"

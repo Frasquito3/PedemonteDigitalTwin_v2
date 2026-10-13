@@ -9,6 +9,7 @@ import unicodedata
 from typing import Any, Iterable
 
 from openpyxl import load_workbook
+from planner.integration.alpyne_codec import MAX_PEDIDOS_ALPYNE
 
 
 VERSION_IMPORTADOR = "pedemonte-orders-xlsx-v2"
@@ -168,7 +169,7 @@ def importar_pedidos_excel(
     *,
     turno: str,
     capacidad_camion: int = 8,
-    max_tareas: int = 30,
+    max_tareas: int = MAX_PEDIDOS_ALPYNE,
     hoja: str | None = None,
 ) -> ResultadoImportacionExcel:
     ruta = Path(archivo).expanduser().resolve()
