@@ -8,14 +8,13 @@ Planificación inteligente, simulación operativa interactiva y seguimiento GIS 
 <p>
   <img alt="Python" src="https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=python&logoColor=white">
   <img alt="AnyLogic" src="https://img.shields.io/badge/AnyLogic-Desktop-0057B8?style=for-the-badge">
-  <img alt="Pruebas" src="https://img.shields.io/badge/Pruebas_Automáticas-76%2F76_Pasadas-2ea44f?style=for-the-badge">
+  <img alt="CI" src="https://github.com/Frasquito3/PedemonteDigitalTwin_v2/actions/workflows/ci.yml/badge.svg">
 </p>
 
 [🚀 Comenzar](docs/getting-started.md) •
 [📚 Documentación](docs/README.md) •
 [🎛️ Manual](docs/user-manual.md) •
-[🏗️ Arquitectura](docs/system-design.md) •
-[🤝 Contribuir](CONTRIBUTING.md)
+[🏗️ Arquitectura](docs/system-design.md)
 
 </div>
 

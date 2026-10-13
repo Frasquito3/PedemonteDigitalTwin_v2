@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "python/**"
+      - ".github/workflows/ci.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "python/**"
+      - ".github/workflows/ci.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: |
+            python/requirements-rl.txt
+            python/requirements-dev.txt
+
+      - name: Instalar dependencias
+        run: pip install -r python/requirements-dev.txt
+
+      - name: Ejecutar suite de pruebas
+        working-directory: python
+        run: python -m pytest -q --tb=short
+
+  typecheck:
+    name: Tipos (Pyrefly)
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: python/requirements-rl.txt
+
+      - name: Instalar Pyrefly
+        run: pip install "pyrefly>=1.0,<2.0"
+
+      - name: Verificar tipos
+        working-directory: python
+        run: pyrefly check
