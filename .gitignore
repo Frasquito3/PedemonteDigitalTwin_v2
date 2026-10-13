@@ -143,3 +143,7 @@ git_audit_*.txt
 /plan_validacion_*.xlsx
 /auditar_limpieza_tecnica*.ps1
 
+# =====================================================
+# EXPORTS
+# =====================================================
+/exports/

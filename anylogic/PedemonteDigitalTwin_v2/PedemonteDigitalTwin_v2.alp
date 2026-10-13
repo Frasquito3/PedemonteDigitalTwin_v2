@@ -2244,6 +2244,51 @@
 						</InitialValue>
 					</Properties>
 				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1791909579618</Id>
+					<Name><![CDATA[hojaRutaExportada]]></Name>
+					<X>-1180</X><Y>3940</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[boolean]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[false]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1791909592329</Id>
+					<Name><![CDATA[hojaRutaExportacionEnCurso]]></Name>
+					<X>-1180</X><Y>3970</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[boolean]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[false]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1791909602220</Id>
+					<Name><![CDATA[rutaUltimaHojaRuta]]></Name>
+					<X>-1180</X><Y>4000</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[""]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
 				<Variable Class="Parameter">
 					<Id>1786556369483</Id>
 					<Name><![CDATA[CAPACIDAD_CAMION]]></Name>
@@ -4675,6 +4720,20 @@ if (!validacion.valido) {
 // -----------------------------------------------------
 // Estado general
 // -----------------------------------------------------
+
+hojaRutaExportada = false;
+
+hojaRutaExportacionEnCurso = false;
+
+rutaUltimaHojaRuta = "";
+
+btnExportarHojaRuta.setText(
+    "Exportar Excel"
+);
+
+btnExportarHojaRuta.setEnabled(false);
+
+txtEstadoExportacionHojaRuta.setText("");
 
 instanciaActual =
     instancia;
@@ -18754,6 +18813,24 @@ ejecucionEnCurso =
 ejecucionFinalizada =
     true;
 
+// Habilitar exportación cuando finaliza
+// una operación con un plan válido.
+
+if (
+    planActual != null
+    && instanciaActual != null
+    && pypelineUltimoPlanVector != null
+    && pypelineUltimoPlanVector.length >= 5
+    && pypelineSelectorInicializado
+    && !hojaRutaExportada
+) {
+
+    btnExportarHojaRuta.setEnabled(true);
+
+    txtEstadoExportacionHojaRuta.setText(
+        "Listo para exportar"
+    );
+}
 
 // En este punto las listas deberían estar vacías.
 // La función conserva su responsabilidad de
@@ -31516,6 +31593,358 @@ return
     +
     tipoEntrega;]]></Body>
 				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[String]]></ReturnType>
+					<Id>1791907812972</Id>
+					<Name><![CDATA[exportarHojaRutaEstimadaPypeline]]></Name>
+					<X>-810</X><Y>7090</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[instancia]]></Name>
+						<Type><![CDATA[InstanciaTurno]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[planVector]]></Name>
+						<Type><![CDATA[double[]]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[modoSolicitado]]></Name>
+						<Type><![CDATA[String]]></Type>
+					</Parameter>
+					<Body><![CDATA[
+if (instancia == null) {
+    throw new IllegalArgumentException(
+        "No existe una instancia para exportar."
+    );
+}
+
+if (
+    instancia.pedidos == null
+    || instancia.pedidos.isEmpty()
+) {
+    throw new IllegalArgumentException(
+        "La instancia no contiene pedidos."
+    );
+}
+
+if (
+    planVector == null
+    || planVector.length < 5
+) {
+    throw new IllegalArgumentException(
+        "No existe un vector de planificación válido."
+    );
+}
+
+if (
+    modoSolicitado == null
+    || modoSolicitado.trim().isEmpty()
+) {
+    throw new IllegalArgumentException(
+        "No se indicó el método de planificación."
+    );
+}
+
+if (
+    pypelineSolicitudEnCurso
+    || reinicioCompletoSolicitado
+) {
+    throw new IllegalStateException(
+        "No se puede exportar mientras "
+        + "hay otra operación en curso."
+    );
+}
+
+if (!pypelineSelectorInicializado) {
+    throw new IllegalStateException(
+        "El selector Python todavía "
+        + "no está inicializado."
+    );
+}
+
+
+// =====================================================
+// 1. Validar que el vector contiene un plan válido
+// =====================================================
+
+PlanTurno planReconstruido =
+    crearPlanAlpyneDinamico(
+        planVector,
+        instancia
+    );
+
+ResultadoValidacionPlan validacion =
+    validarPlan(
+        instancia,
+        planReconstruido
+    );
+
+if (!validacion.valido) {
+    throw new IllegalStateException(
+        "El plan que se intenta exportar "
+        + "no es válido: "
+        + validacion.errores
+    );
+}
+
+
+// =====================================================
+// 2. Recuperar la información real de los pedidos
+// =====================================================
+
+int cantidadPedidos =
+    instancia.pedidos.size();
+
+String[][] datosPedidos =
+    new String[cantidadPedidos][6];
+
+for (int i = 0; i < cantidadPedidos; i++) {
+
+    PedidoInput pedido =
+        instancia.pedidos.get(i);
+
+    if (pedido == null) {
+        throw new IllegalArgumentException(
+            "Pedido nulo en posición " + i
+        );
+    }
+
+    if (
+        pedido.pedidoId == null
+        || pedido.pedidoId.trim().isEmpty()
+    ) {
+        throw new IllegalArgumentException(
+            "Pedido sin identificador "
+            + "en posición " + i
+        );
+    }
+
+    datosPedidos[i][0] = pedido.pedidoId;
+
+    datosPedidos[i][1] =
+        pedido.pedidoOriginalId == null
+        ? ""
+        : pedido.pedidoOriginalId;
+
+    datosPedidos[i][2] =
+        pedido.cliente == null
+        ? ""
+        : pedido.cliente;
+
+    datosPedidos[i][3] =
+        pedido.direccion == null
+        ? ""
+        : pedido.direccion;
+
+    datosPedidos[i][4] =
+        pedido.barrio == null
+        ? ""
+        : pedido.barrio;
+
+    datosPedidos[i][5] =
+        pedido.observaciones == null
+        ? ""
+        : pedido.observaciones;
+}
+
+
+// =====================================================
+// 3. Recuperar la instancia operativa original
+// =====================================================
+
+double[] instanciaVector =
+    construirVectorInstanciaPypeline(
+        instancia
+    );
+
+
+// =====================================================
+// 4. Resolver la raíz del proyecto
+// =====================================================
+
+String raizPython =
+    resolverRaizPythonPypeline();
+
+java.io.File directorioPython =
+    new java.io.File(
+        raizPython
+    ).getAbsoluteFile();
+
+java.io.File directorioProyecto =
+    directorioPython.getParentFile();
+
+if (directorioProyecto == null) {
+    throw new IllegalStateException(
+        "No fue posible identificar "
+        + "la carpeta raíz del proyecto."
+    );
+}
+
+String rutaProyecto =
+    directorioProyecto.getAbsolutePath();
+
+
+// =====================================================
+// 5. Serializar los argumentos para Python
+// =====================================================
+
+String instanciaLiteral =
+    pyCommunicator.toJson(
+        instanciaVector
+    );
+
+String planLiteral =
+    pyCommunicator.toJson(
+        planVector
+    );
+
+String modoLiteral =
+    pyCommunicator.toJson(
+        modoSolicitado.trim().toUpperCase(
+            java.util.Locale.ROOT
+        )
+    );
+
+String instanciaIdLiteral =
+    pyCommunicator.toJson(
+        instancia.instanciaId == null
+        ? ""
+        : instancia.instanciaId
+    );
+
+String fechaLiteral =
+    pyCommunicator.toJson(
+        instancia.fechaOperacion == null
+        ? ""
+        : instancia.fechaOperacion
+    );
+
+String pedidosLiteral =
+    pyCommunicator.toJson(
+        datosPedidos
+    );
+
+String rutaProyectoLiteral =
+    pyCommunicator.toJson(
+        rutaProyecto
+    );
+
+
+// =====================================================
+// 6. Importar el puente de exportación
+// =====================================================
+
+pyCommunicator.run(
+    "from planner.integration import "
+    + "route_excel_bridge "
+    + "as pedemonte_route_excel_bridge"
+);
+
+
+// =====================================================
+// 7. Ejecutar la exportación en Python
+// =====================================================
+
+String comando =
+    "pedemonte_route_excel_bridge."
+    + "exportar_hoja_ruta_desde_anylogic("
+    + instanciaLiteral
+    + ", "
+    + planLiteral
+    + ", "
+    + instancia.seedEscenario
+    + ", "
+    + instancia.seedEjecucion
+    + ", "
+    + modoLiteral
+    + ", "
+    + instanciaIdLiteral
+    + ", "
+    + fechaLiteral
+    + ", "
+    + pedidosLiteral
+    + ", "
+    + rutaProyectoLiteral
+    + ")";
+
+String rutaExportada =
+    pyCommunicator.runResults(
+        String.class,
+        comando
+    );
+
+
+// =====================================================
+// 8. Verificar el resultado
+// =====================================================
+
+if (
+    rutaExportada == null
+    || rutaExportada.trim().isEmpty()
+) {
+    throw new IllegalStateException(
+        "Python no devolvió "
+        + "una ruta de exportación."
+    );
+}
+
+java.io.File archivoExportado =
+    new java.io.File(
+        rutaExportada
+    );
+
+if (!archivoExportado.isFile()) {
+    throw new IllegalStateException(
+        "Python informó una exportación, "
+        + "pero el archivo no existe: "
+        + rutaExportada
+    );
+}
+
+traceln(
+    "===================================="
+);
+
+traceln(
+    "HOJA DE RUTA ESTIMADA EXPORTADA"
+);
+
+traceln(
+    "Instancia: "
+    + instancia.instanciaId
+);
+
+traceln(
+    "Método solicitado: "
+    + modoSolicitado
+);
+
+traceln(
+    "Algoritmo aplicado: "
+    + planReconstruido.algoritmo
+);
+
+traceln(
+    "Pedidos: "
+    + cantidadPedidos
+);
+
+traceln(
+    "Archivo: "
+    + archivoExportado.getAbsolutePath()
+);
+
+traceln(
+    "===================================="
+);
+
+return archivoExportado.getAbsolutePath();
+]]></Body>
+				</Function>
 			</Functions>
 			<AgentLinks>
 				<AgentLink>
@@ -42819,6 +43248,328 @@ pedidosFormulario.size() > 4]]></VisibleCode>
         + " tramos viales. Genere la matriz antes de planificar."
     )
 )]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>8</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1791897610342</Id>
+					<Name><![CDATA[txtRelojSimuladoOperacion]]></Name>
+					<X>2340</X><Y>112</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA[ejecucionEnCurso && instanciaActual != null]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-11836809</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA[instanciaActual == null
+?
+"HORA SIMULADA  --:--"
+:
+"HORA SIMULADA  "
++ formatearHoraFormulario(
+    (int) Math.floor(
+        minutoDiaActual()
+    )
+)]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>11</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Control Type="Button">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1791909035752</Id>
+					<Name><![CDATA[btnExportarHojaRuta]]></Name>
+					<X>3245</X><Y>110</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="110" Height="38">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<TextColor>-15257011</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[planActual != null
+&& instanciaActual != null
+&& pypelineUltimoPlanVector != null
+&& pypelineUltimoPlanVector.length >= 5
+&& ejecucionFinalizada
+&& !ejecucionEnCurso
+&& !pypelineSolicitudEnCurso
+&& !reinicioCompletoSolicitado
+&& pypelineSelectorInicializado
+&& !hojaRutaExportada
+&& !hojaRutaExportacionEnCurso]]></EnableExpression>
+						<ActionCode><![CDATA[
+if (hojaRutaExportada || hojaRutaExportacionEnCurso) {
+    return;
+}
+
+if (
+    !ejecucionFinalizada
+    || ejecucionEnCurso
+    || pypelineSolicitudEnCurso
+    || reinicioCompletoSolicitado
+) {
+    return;
+}
+
+hojaRutaExportacionEnCurso = true;
+
+btnExportarHojaRuta.setEnabled(false);
+
+txtEstadoExportacionHojaRuta.setText(
+    "Generando Excel..."
+);
+
+String mensajeResultado = "";
+
+try {
+
+    if (
+        planActual == null
+        || instanciaActual == null
+    ) {
+        throw new IllegalStateException(
+            "No existe un plan ejecutado."
+        );
+    }
+
+    if (
+        pypelineUltimoPlanVector == null
+        || pypelineUltimoPlanVector.length < 5
+    ) {
+        throw new IllegalStateException(
+            "No se conserva el vector del plan."
+        );
+    }
+
+
+    // Validar el plan sin regenerarlo.
+
+    PlanTurno planVector =
+        crearPlanAlpyneDinamico(
+            pypelineUltimoPlanVector,
+            instanciaActual
+        );
+
+    if (
+        planVector.algoritmo != planActual.algoritmo
+        ||
+        Math.abs(
+            planVector.costoEstimado
+            - planActual.costoEstimado
+        ) > 0.000001
+    ) {
+        throw new IllegalStateException(
+            "El vector no coincide con el plan ejecutado."
+        );
+    }
+
+    for (PlanCamion camion : planActual.camiones) {
+
+        PlanCamion recuperado =
+            obtenerPlanCamion(
+                planVector,
+                camion.camionId
+            );
+
+        if (
+            recuperado == null
+            || recuperado.viajes.size()
+                != camion.viajes.size()
+        ) {
+            throw new IllegalStateException(
+                "Diferencia de viajes del camión "
+                + camion.camionId
+            );
+        }
+
+        for (int i = 0; i < camion.viajes.size(); i++) {
+
+            ViajePlan original =
+                camion.viajes.get(i);
+
+            ViajePlan reconstruido =
+                recuperado.viajes.get(i);
+
+            if (
+                original.numeroViaje
+                    != reconstruido.numeroViaje
+                ||
+                !original.pedidoIds.equals(
+                    reconstruido.pedidoIds
+                )
+            ) {
+                throw new IllegalStateException(
+                    "El orden de entregas no coincide "
+                    + "con el plan ejecutado."
+                );
+            }
+        }
+    }
+
+
+    String modo = ultimoModoEjecutado;
+
+    if (modo == null || modo.trim().isEmpty()) {
+        modo = modoPlanificacionPypeline;
+    }
+
+
+    // Exportar solamente cuando se pulsa el botón.
+
+    String ruta =
+        exportarHojaRutaEstimadaPypeline(
+            instanciaActual,
+            pypelineUltimoPlanVector.clone(),
+            modo
+        );
+
+    java.io.File archivo =
+        new java.io.File(ruta);
+
+    if (!archivo.isFile()) {
+        throw new IllegalStateException(
+            "No se encontró el archivo exportado."
+        );
+    }
+
+
+    // Registrar el resultado exitoso.
+
+    rutaUltimaHojaRuta =
+        archivo.getAbsolutePath();
+
+    hojaRutaExportada = true;
+
+
+    btnExportarHojaRuta.setEnabled(false);
+    btnExportarHojaRuta.setText("Excel exportado");
+
+    txtEstadoExportacionHojaRuta.setText(
+        "Guardado en exports/"
+    );
+
+    mensajeInterfazPlanificacion =
+        "Hoja de ruta exportada."
+        + "\n"
+        + archivo.getName();
+
+
+    mensajeResultado =
+        "Hoja de ruta exportada correctamente."
+        + "\n\nArchivo:\n"
+        + archivo.getName()
+        + "\n\nUbicación:\n"
+        + rutaUltimaHojaRuta;
+
+
+    traceln(
+        "EXPORTACION OK | "
+        + rutaUltimaHojaRuta
+    );
+
+
+} catch (Exception ex) {
+
+    hojaRutaExportada = false;
+
+    btnExportarHojaRuta.setText(
+        "Exportar Excel"
+    );
+
+    txtEstadoExportacionHojaRuta.setText(
+        "Error al exportar"
+    );
+
+    btnExportarHojaRuta.setEnabled(true);
+
+
+    String detalle =
+        ex.getClass().getSimpleName()
+        + ": "
+        + String.valueOf(ex.getMessage());
+
+    mensajeResultado =
+        "No se pudo exportar la hoja de ruta."
+        + "\n\n"
+        + detalle;
+
+    traceln(
+        "ERROR EXPORTACION EXCEL | "
+        + detalle
+    );
+
+    ex.printStackTrace();
+
+
+} finally {
+
+    hojaRutaExportacionEnCurso = false;
+}
+
+
+// Comprobar el estado REAL de los controles.
+
+traceln(
+    "EXPORTACION UI | exportada="
+    + hojaRutaExportada
+    + " | botonHabilitado="
+    + btnExportarHojaRuta.isEnabled()
+    + " | textoBoton="
+    + btnExportarHojaRuta.getText()
+    + " | textoEstado="
+    + txtEstadoExportacionHojaRuta.getText()
+    + " | motor="
+    + getEngine().getState()
+);
+
+
+// Solicitar nuevamente la vista del dashboard.
+
+irAVistaOperacion();
+
+
+// Mostrar la confirmación desde AnyLogic,
+// sin crear ventanas Swing externas.
+
+getExperimentHost().showMessageDialog(
+    mensajeResultado
+);
+]]></ActionCode>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="10" Style="1"/>
+						<LabelText><![CDATA[Exportar Excel]]></LabelText>
+					</ExtendedProperties>
+				</Control>
+				<Text>
+					<Id>1791909664570</Id>
+					<Name><![CDATA[txtEstadoExportacionHojaRuta]]></Name>
+					<X>3250</X><Y>150</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-11964541</Color>
+					<Text><![CDATA[]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>8</Size>
