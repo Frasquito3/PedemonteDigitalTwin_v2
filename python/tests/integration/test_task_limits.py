@@ -22,6 +22,7 @@ from planner.integration.order_import_bridge import (
 def _crear_excel(ruta: Path, cantidad: int) -> None:
     libro = Workbook()
     hoja = libro.active
+    assert hoja is not None
     hoja.title = "Pedidos"
     hoja.append([
         "pedido_id", "cliente", "direccion", "barrio", "unidades",

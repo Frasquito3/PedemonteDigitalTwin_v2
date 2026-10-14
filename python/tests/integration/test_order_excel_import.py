@@ -10,6 +10,7 @@ ENCABEZADOS = ['pedido_id', 'cliente', 'direccion', 'barrio', 'unidades', 'latit
 def _crear_planilla(ruta: Path, filas: list[list[object]]) -> None:
     libro = Workbook()
     hoja = libro.active
+    assert hoja is not None
     hoja.title = 'Pedidos'
     hoja.append(ENCABEZADOS)
     for fila in filas:
@@ -56,6 +57,7 @@ ENCABEZADOS_MIXTOS = [*ENCABEZADOS, "unidades_volcador"]
 def _crear_planilla_mixta(ruta: Path, filas: list[list[object]], *, encabezado: str = "unidades_volcador") -> None:
     libro = Workbook()
     hoja = libro.active
+    assert hoja is not None
     hoja.title = "Pedidos"
     hoja.append([*ENCABEZADOS, encabezado])
     for fila in filas:
@@ -183,6 +185,7 @@ def test_roundtrip_formato_canonico_web_con_mixto():
         ruta = Path(temporal) / "pedidos_web.xlsx"
         libro = Workbook()
         hoja = libro.active
+        assert hoja is not None
         hoja.title = "Pedidos"
         hoja.append([
             "pedido_id", "cliente", "direccion", "barrio", "unidades",
@@ -209,6 +212,7 @@ def test_compatibilidad_exportacion_web_antigua_sin_tiene_ventana():
         ruta = Path(temporal) / "web_antiguo.xlsx"
         libro = Workbook()
         hoja = libro.active
+        assert hoja is not None
         hoja.title = "Pedidos"
         hoja.append(["pedido_id", "unidades_capacidad", "latitud", "longitud",
                      "requiere_volcador", "hora_desde", "hora_hasta", "turno"])
@@ -226,6 +230,7 @@ def test_turno_exportado_distinto_se_rechaza():
         ruta = Path(temporal) / "turno.xlsx"
         libro = Workbook()
         hoja = libro.active
+        assert hoja is not None
         hoja.title = "Pedidos"
         hoja.append(["pedido_id", "unidades", "latitud", "longitud",
                      "requiere_volcador", "tiene_ventana", "hora_desde", "hora_hasta", "turno"])
