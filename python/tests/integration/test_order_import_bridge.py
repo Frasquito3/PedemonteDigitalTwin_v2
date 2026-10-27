@@ -8,6 +8,7 @@ from planner.integration.order_import_bridge import importar_pedidos_excel_pypel
 def _guardar_planilla(ruta: Path, *, id_pedido: str='OP-01', hora_desde: str='07:30') -> None:
     libro = Workbook()
     hoja = libro.active
+    assert hoja is not None
     hoja.title = 'Pedidos'
     hoja.append(['pedido_id', 'cliente', 'direccion', 'barrio', 'unidades', 'latitud', 'longitud', 'requiere_volcador', 'tiene_ventana', 'hora_desde', 'hora_hasta', 'observaciones'])
     hoja.append([id_pedido, 'Cliente con espacio', 'Ruta 11 | km 3', 'Norte', 4, -32.85, -60.72, 'SI', 'SI', hora_desde, '09:00', 'Prueba ñ'])
@@ -44,6 +45,7 @@ def test_protocolo_v1_rechaza_mixto_hasta_actualizar_anylogic() -> None:
         ruta = Path(temporal) / "mix.xlsx"
         libro = Workbook()
         hoja = libro.active
+        assert hoja is not None
         hoja.title = "Pedidos"
         hoja.append([
             "pedido_id", "cliente", "direccion", "barrio", "unidades",
@@ -69,6 +71,7 @@ def test_protocolo_v2_conserva_unidades_volcador():
         ruta = Path(temporal) / "mix_v2.xlsx"
         libro = Workbook()
         hoja = libro.active
+        assert hoja is not None
         hoja.title = "Pedidos"
         hoja.append(["pedido_id", "unidades", "latitud", "longitud", "requiere_volcador",
                      "unidades_volcador", "tiene_ventana", "hora_desde", "hora_hasta"])

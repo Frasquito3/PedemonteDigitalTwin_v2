@@ -298,11 +298,8 @@ def test_recupera_estado_terminal_si_take_action_devuelve_paused_obsoleto(
     creado = []
 
     @dataclass
-    class EstadoConSecuencia:
-        observation: dict
-        state: str
-        stop: bool
-        sequence_id: int
+    class EstadoConSecuencia(EstadoFalso):
+        sequence_id: int = 0
 
     class SimEstadoObsoleto(SimFalso):
         def __init__(self, *args, **kwargs):
@@ -423,7 +420,7 @@ def test_cierra_motor_si_el_resultado_terminal_nunca_se_publica(
             seed_escenario=6001,
             seed_ejecucion=1006001,
             proveedores_habilitados=True,
-            timeout_segundos=0.01,
+            timeout_segundos=1,
             sim_factory=fabrica,
         )
 

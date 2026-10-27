@@ -216,6 +216,7 @@ class PedemontePlanEnv(
         if self.max_distancia_metros <= 0.0:
             self.max_distancia_metros = 1.0
 
+        # pyrefly: ignore [bad-assignment]
         self.action_space = spaces.Discrete(
             self.max_pedidos
         )

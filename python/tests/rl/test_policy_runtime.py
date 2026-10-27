@@ -3,18 +3,19 @@ from hashlib import sha256
 from json import dumps
 from pathlib import Path
 from types import ModuleType, SimpleNamespace
+from typing import Any, cast
 import sys
 import pytest
 from planner.rl.policy_runtime import ConfiguracionOperacionRL, FUENTE_RL_UNICA, PlanificadorOperativoRL, VERSION_RUNTIME, cargar_configuracion_operacional
 
 class _PlannerFalso:
 
-    def __init__(self, plan=None, error: Exception | None=None):
+    def __init__(self, plan: Any = None, error: Exception | None = None) -> None:
         self.plan = plan
         self.error = error
         self.llamadas = 0
 
-    def generar_plan(self, _instancia):
+    def generar_plan(self, _instancia: Any) -> Any:
         self.llamadas += 1
         if self.error is not None:
             raise self.error
@@ -31,14 +32,14 @@ def _preparar(monkeypatch, *, tardios=0, tardanza=0.0, costo=10.0):
     monkeypatch.setattr('planner.rl.policy_runtime.validar_plan', lambda *_args, **_kwargs: SimpleNamespace(valido=True, errores=[]))
     monkeypatch.setattr('planner.rl.policy_runtime.evaluar_plan_estimado', lambda *_args, **_kwargs: SimpleNamespace(pedidos_tardios=tardios, tardanza_total_min=tardanza, costo_total=costo))
 
-def _instancia(cantidad: int):
+def _instancia(cantidad: int) -> Any:
     return SimpleNamespace(pedidos=[object() for _ in range(cantidad)], instancia_id='TEST')
 
 def test_ejecuta_una_sola_politica_y_registra_decision(monkeypatch, tmp_path):
     _preparar(monkeypatch, tardios=1, tardanza=4.5, costo=120.0)
     plan = _plan()
     planner_falso = _PlannerFalso(plan)
-    planner = PlanificadorOperativoRL(configuracion_operacional=_config(tmp_path), planner_rl=planner_falso)
+    planner = PlanificadorOperativoRL(configuracion_operacional=_config(tmp_path), planner_rl=cast(Any, planner_falso))
     assert planner.generar_plan(_instancia(10)) is plan
     assert planner_falso.llamadas == 1
     assert planner.ultima_decision is not None
@@ -50,14 +51,14 @@ def test_ejecuta_una_sola_politica_y_registra_decision(monkeypatch, tmp_path):
 
 def test_fallo_de_politica_informa_error_ejecutable(monkeypatch, tmp_path):
     _preparar(monkeypatch)
-    planner = PlanificadorOperativoRL(configuracion_operacional=_config(tmp_path), planner_rl=_PlannerFalso(error=RuntimeError('fallo controlado')))
+    planner = PlanificadorOperativoRL(configuracion_operacional=_config(tmp_path), planner_rl=cast(Any, _PlannerFalso(error=RuntimeError('fallo controlado'))))
     with pytest.raises(RuntimeError, match='política RL única no pudo generar'):
         planner.generar_plan(_instancia(9))
 
 def test_fuera_de_rango_tecnico_no_ejecuta_politica(monkeypatch, tmp_path):
     _preparar(monkeypatch)
     planner_falso = _PlannerFalso(_plan())
-    planner = PlanificadorOperativoRL(configuracion_operacional=_config(tmp_path), planner_rl=planner_falso)
+    planner = PlanificadorOperativoRL(configuracion_operacional=_config(tmp_path), planner_rl=cast(Any, planner_falso))
     with pytest.raises(RuntimeError, match='máximo=12'):
         planner.generar_plan(_instancia(13))
     assert planner_falso.llamadas == 0
@@ -93,7 +94,7 @@ def test_construye_planner_con_mascara_dura(monkeypatch, tmp_path):
         def generar_plan(self, _instancia):
             return _plan()
     module = ModuleType('planner.rl.policy_planner')
-    module.PlanificadorPoliticaRL = PlannerConstruido
+    setattr(module, 'PlanificadorPoliticaRL', PlannerConstruido)
     monkeypatch.setitem(sys.modules, 'planner.rl.policy_planner', module)
     PlanificadorOperativoRL(configuracion_operacional=config)
     temporal = capturado['configuracion_temporal']

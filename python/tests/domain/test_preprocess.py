@@ -1,4 +1,5 @@
 import unittest
+from typing import Any
 from planner.domain.preprocess import preprocesar_pedidos
 from planner.core.schema import PedidoInput, Turno
 
@@ -30,7 +31,7 @@ class PreprocessTest(unittest.TestCase):
 
 
 class PreprocessMixedLoadTest(unittest.TestCase):
-    def _split(self, total: int, volcador: int, *, id: str = "MX"):
+    def _split(self, total: int, volcador: Any, *, id: str = "MX"):
         return preprocesar_pedidos(
             [crear_pedido(id, total, volcador=volcador > 0)],
             capacidad_camion=8,
