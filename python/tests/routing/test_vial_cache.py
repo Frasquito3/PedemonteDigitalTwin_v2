@@ -4,7 +4,7 @@ import tempfile
 import unittest
 from pathlib import Path
 from planner.core.config import ConfiguracionPlanificacion
-from planner.routing.travel import FuenteMatrizViaje, construir_matriz_viaje
+from planner.routing.travel import FuenteMatrizViaje
 from planner.routing.vial_cache import COLUMNAS_CACHE_VIAL, ProveedorVialCachePersistente
 VERSION_CACHE = 'pedemonte-vial-test-v1'
 

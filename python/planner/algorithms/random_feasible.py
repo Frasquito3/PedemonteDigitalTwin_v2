@@ -14,7 +14,6 @@ from planner.routing.objective import (
 from planner.core.schema import (
     AlgoritmoPlanificacion,
     InstanciaTurno,
-    PedidoInput,
     PlanCamion,
     PlanTurno,
     ViajePlan,

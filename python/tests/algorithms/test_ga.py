@@ -1,9 +1,6 @@
 import unittest
-from dataclasses import replace
+
 from planner.algorithms.ga import ConfiguracionGA, GeneticAlgorithmPlanner, generar_plan_ga
-from planner.algorithms.greedy import generar_plan_greedy
-from planner.domain.preprocess import preprocesar_instancia
-from planner.core.schema import AlgoritmoPlanificacion, PedidoInput, Turno
 from planner.domain.validator import validar_plan
 from tests.fixtures import crear_instancia_demo
 

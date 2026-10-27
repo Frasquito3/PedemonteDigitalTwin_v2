@@ -1,8 +1,6 @@
 import unittest
-from dataclasses import replace
-from planner.domain.preprocess import preprocesar_instancia
-from planner.algorithms.random_feasible import RandomFeasiblePlanner, generar_plan_random
-from planner.core.schema import AlgoritmoPlanificacion, PedidoInput, Turno
+
+from planner.algorithms.random_feasible import generar_plan_random
 from planner.domain.validator import validar_plan
 from tests.fixtures import crear_instancia_demo
 

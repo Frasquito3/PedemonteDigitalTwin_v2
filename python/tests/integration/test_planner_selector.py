@@ -3,7 +3,7 @@ import unittest
 from planner.algorithms.greedy import generar_plan_greedy
 from planner.core.schema import AlgoritmoPlanificacion, InstanciaTurno, PedidoInput, PlanTurno, Turno
 from planner.domain.validator import validar_plan
-from planner.integration.planner_selector import ModoPlanificacion, SelectorPlanificadores, normalizar_modo
+from planner.integration.planner_selector import ModoPlanificacion, SelectorPlanificadores
 
 class PlannerRLFalso:
 

@@ -3,7 +3,6 @@ from random import Random
 import numpy as np
 from stable_baselines3.common.env_checker import check_env
 from planner.rl.base_env import PedemontePlanEnv
-from planner.core.schema import AlgoritmoPlanificacion
 from planner.domain.validator import validar_plan
 from tests.fixtures import crear_instancia_demo
 

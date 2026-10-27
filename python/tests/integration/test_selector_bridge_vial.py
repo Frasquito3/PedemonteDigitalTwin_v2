@@ -5,7 +5,6 @@ from pathlib import Path
 from typing import cast
 from unittest.mock import patch
 from planner.integration import selector_bridge as bridge
-from planner.routing.travel import FuenteMatrizViaje, ProveedorHaversineAjustado
 from planner.routing.vial_cache import ProveedorVialCachePersistente
 ENCABEZADO = 'version_cache,lat_origen,lon_origen,lat_destino,lon_destino,distancia_metros,tiempo_base_min,fuente_distancia,fuente_tiempo\n'
 

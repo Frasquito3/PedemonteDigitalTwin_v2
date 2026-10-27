@@ -1,3 +1,0 @@
--r requirements-rl.txt
-
-pytest>=9,<10

@@ -1,6 +1,5 @@
 from __future__ import annotations
 import csv
-import random
 import tempfile
 import unittest
 from pathlib import Path

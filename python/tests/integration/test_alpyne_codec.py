@@ -1,5 +1,4 @@
 from __future__ import annotations
-import math
 import unittest
 from dataclasses import replace
 from planner.core.schema import AlgoritmoPlanificacion, InstanciaTurno, PedidoInput, PlanCamion, PlanTurno, Turno, ViajePlan

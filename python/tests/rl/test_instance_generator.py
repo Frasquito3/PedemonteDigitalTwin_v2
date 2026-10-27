@@ -1,8 +1,7 @@
 from __future__ import annotations
 import unittest
 from pathlib import Path
-from unittest.mock import patch
-from planner.rl.training_data import CatalogoDemandaReal, ParticionDemandaReal, PuntoDemandaReal, SEED_DIVISION_DEMANDA_REAL
+from planner.rl.training_data import CatalogoDemandaReal, ParticionDemandaReal, PuntoDemandaReal
 from planner.domain.validator import validar_instancia
 from planner.rl.instance_generator import ConfiguracionGeneradorInstancias, GeneradorInstanciasRL, ModoDemandaGeografica
 

@@ -82,7 +82,7 @@ def ejecutar_plan_en_modelo_exportado(
     seed_escenario: int,
     seed_ejecucion: int,
     proveedores_habilitados: bool,
-    timeout_segundos: int = 240,
+    timeout_segundos: int | float = 240,
     horizonte_simulacion_min: float = HORIZONTE_SIMULACION_MIN_PREDETERMINADO,
     log_id: str = "simulated-execution",
     java_exe: str | Path | None = None,
@@ -156,7 +156,7 @@ def ejecutar_plan_en_modelo_exportado(
         except ImportError as exc:  # pragma: no cover - depende del entorno
             raise RuntimeError(
                 "No está instalado anylogic-alpyne. "
-                "Instale requirements-dev.txt en el entorno virtual."
+                "Instale python/requirements.txt en el entorno virtual."
             ) from exc
 
         sim_factory = AnyLogicSim
@@ -258,7 +258,7 @@ def _esperar_resultado_terminal(
     *,
     estado_inicial: Any,
     estado_accion: Any,
-    timeout_segundos: int,
+    timeout_segundos: int | float,
     intervalo_sondeo_segundos: float = 0.05,
 ) -> Any:
     """

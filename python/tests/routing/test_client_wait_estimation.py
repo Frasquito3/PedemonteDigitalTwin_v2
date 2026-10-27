@@ -1,11 +1,8 @@
 from __future__ import annotations
 import unittest
-from planner.algorithms.greedy import GreedyFeasiblePlanner
 from planner.core.config import ConfiguracionPlanificacion
 from planner.core.schema import PedidoInput, Turno
-from planner.routing.decoder import estimar_fin_viaje
 from planner.routing.objective import estimar_espera_cliente, tiempo_espera_respuesta_cliente_esperado_min
-from planner.routing.travel import FuenteMatrizViaje, MatrizViaje
 
 class ClientWaitEstimationTest(unittest.TestCase):
 

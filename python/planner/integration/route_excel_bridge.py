@@ -7,7 +7,6 @@ from pathlib import Path
 from typing import Sequence
 
 from planner.core.schema import (
-    AlgoritmoPlanificacion,
     PlanCamion,
     PlanTurno,
     ViajePlan,

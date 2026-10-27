@@ -1,5 +1,5 @@
 import unittest
-from planner.rl.training_curriculum import crear_curriculum_entrenamiento, crear_curriculum_entrenamiento_rapido
+from planner.rl.training_curriculum import crear_curriculum_entrenamiento_rapido
 
 class CurriculumEntrenamientoRLTest(unittest.TestCase):
 

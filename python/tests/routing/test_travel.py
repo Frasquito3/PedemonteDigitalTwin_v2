@@ -1,6 +1,6 @@
 import unittest
 from planner.core.config import ConfiguracionPlanificacion
-from planner.routing.travel import FuenteMatrizViaje, ProveedorHaversineAjustado, ResultadoTramoViaje, construir_matriz_viaje, distancia_haversine_metros
+from planner.routing.travel import FuenteMatrizViaje, ResultadoTramoViaje, construir_matriz_viaje
 from tests.fixtures import crear_instancia_demo
 
 class ProveedorConstantePrueba:

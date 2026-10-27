@@ -2,8 +2,6 @@ from __future__ import annotations
 import unittest
 from dataclasses import dataclass, field
 from planner.algorithms.ga import ConfiguracionGA, generar_plan_ga
-from planner.algorithms.greedy import generar_plan_greedy
-from planner.algorithms.random_feasible import generar_plan_random
 from planner.core.config import ConfiguracionPlanificacion
 from planner.integration.planner_selector import ModoPlanificacion, SelectorPlanificadores
 from planner.routing.travel import Coordenada, FuenteMatrizViaje, ResultadoTramoViaje

@@ -4,7 +4,10 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 from openpyxl import Workbook
 import pytest
-from planner.integration.order_excel_import import ErrorImportacionExcel, formatear_minutos_hora, importar_pedidos_excel, parsear_hora_a_minutos
+from planner.integration.order_excel_import import (
+    ErrorImportacionExcel,
+    importar_pedidos_excel,
+)
 ENCABEZADOS = ['pedido_id', 'cliente', 'direccion', 'barrio', 'unidades', 'latitud', 'longitud', 'requiere_volcador', 'tiene_ventana', 'hora_desde', 'hora_hasta', 'observaciones']
 
 def _crear_planilla(ruta: Path, filas: list[list[object]]) -> None:

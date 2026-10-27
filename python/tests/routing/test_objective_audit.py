@@ -2,7 +2,7 @@ from __future__ import annotations
 import unittest
 from planner.core.config import ConfiguracionPlanificacion
 from planner.core.schema import AlgoritmoPlanificacion, InstanciaTurno, PedidoInput, PlanCamion, PlanTurno, Turno, ViajePlan
-from planner.routing.objective import VERSION_AUDITORIA_COSTO, evaluar_plan_estimado, serializar_auditoria_estimacion
+from planner.routing.objective import evaluar_plan_estimado
 from planner.routing.travel import FuenteMatrizViaje, MatrizViaje
 
 class ObjectiveAuditTest(unittest.TestCase):
