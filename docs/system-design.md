@@ -92,3 +92,15 @@ Para mantener un comportamiento totalmente reproducible sin necesidad de consult
 
 - **Estricta:** Producción usa `permitir_fallback_vial=False`. Si un par (Origen, Destino) no existe en la matriz local, la planificación **falla** explícitamente.
 - **Escala de Seguimiento (GIS):** AnyLogic utiliza una proporción estricta de `1.0 / 10000.0`. Esto altera visualmente el zoom pero no afecta matemáticamente las métricas.
+
+---
+
+## Flujo de Demanda Histórica y Generación Estocástica de Pedidos
+
+Para evaluar escenarios realistas durante 100 días de operación simulada en AnyLogic, el sistema incorpora un pipeline de procesamiento de remitos/hojas de pedido manuscritas reales:
+
+1. **Extracción Multimodal (OCR)**: Mediante la API de Google AI Studio (`gemini-2.5-flash`), las imágenes manuscritas de hojas de pedido (`python/data/raw/hojas_pedidos/`) se transforman en registros estructurados `{"calle", "altura"}` en `python/data/processed/extraccion/direcciones.json`.
+2. **Geocodificación y Normalización**: A través de OpenStreetMap (Nominatim), cada dirección es localizada geográficamente (`latitud`, `longitud`), vinculada a su barrio y clasificada en su municipio correspondiente (conurbano norte y Rosario).
+3. **Distribución y Probabilidades**: Se calculan las frecuencias relativas en `probabilidades_demanda.csv` y el resumen municipal en `resumen_ciudades.csv`.
+4. **Consumo en AnyLogic**: Esta distribución empírica permite que el modelo de simulación en AnyLogic instancie estocásticamente pedidos de 100 días de horizonte manteniendo correlación espacial y distribución de volumen realistas.
+

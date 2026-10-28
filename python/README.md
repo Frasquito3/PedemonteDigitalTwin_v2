@@ -58,7 +58,12 @@ No es necesario instalar otros archivos requirements.
 python/
 ├── data/
 │   ├── processed/
-│   │   └── demanda_geografica.csv    # Coordenadas y demanda real de Granadero Baigorria
+│   │   ├── demanda_geografica.csv    # Coordenadas y demanda real de Granadero Baigorria
+│   │   ├── estadistica/              # Probabilidades de demanda, resumen municipal y gráficos
+│   │   ├── extraccion/               # Salida estructurada de direcciones OCR y progreso
+│   │   └── geocoding/                # Direcciones geolocalizadas (lat/lon) y descartadas
+│   ├── raw/
+│   │   └── hojas_pedidos/            # Imágenes manuscritas originales de pedidos escaneados
 │   └── routing/
 │       └── cache_vial.csv            # Matriz estricta de distancias y tiempos viales
 ├── models/
@@ -115,6 +120,12 @@ python/
 │       ├── travel.py                 # Proveedores de distancias (Haversine y Caché Vial)
 │       └── vial_cache.py             # Proveedor vial estricto basado en cache_vial.csv
 ├── scripts/
+│   ├── data_processing/              # Pipeline de datos, OCR de pedidos y geocodificación
+│   │   ├── estadistica_demanda.py    # Agregación y cálculo de probabilidades de demanda
+│   │   ├── extraccion_ocr.py         # OCR multimodal con Gemini (Google AI Studio)
+│   │   ├── geocoding.py              # Geocodificación OSM Nominatim de direcciones
+│   │   ├── graficos_demanda.py       # Gráficos exploratorios (Top 15 barrios y donut municipal)
+│   │   └── run_pipeline_demanda.py   # Orquestador del pipeline completo de demanda
 │   ├── simulation/
 │   │   ├── run_simulated_comparison.py     # CLI: corrida comparativa de los 5 métodos
 │   │   └── run_single_simulated_execution.py # CLI: corrida de un plan en AnyLogic exportado
@@ -123,8 +134,9 @@ python/
 ├── templates/
 │   ├── ejemplo_pedidos_importacion.xlsx    # Planilla de ejemplo con pedidos precargados
 │   └── plantilla_pedidos_pedemonte.xlsx    # Plantilla en blanco para carga operativa
-├── tests/                            # Suite automatizada (161 pruebas)
+├── tests/                            # Suite automatizada (167 pruebas)
 │   ├── algorithms/                   # Tests de Greedy, Random, GA e Híbrido
+│   ├── data_processing/              # Tests de pipeline de demanda, OCR y geocodificación
 │   ├── domain/                       # Tests de validación y preprocess (split de pedidos)
 │   ├── integration/                  # Tests de serialización, PyPeline, Alpyne y Excel
 │   ├── rl/                           # Tests de entornos, generadores y runtime RL
@@ -149,7 +161,7 @@ Toda modificación en el código debe validar el 100% de la suite de pruebas aut
 
 **Resultado esperado:**
 ```text
-============================= 161 passed in ~5s =============================
+============================= 167 passed in ~10s =============================
 ```
 
 ### Verificación de Tipado Estático (Pyrefly)
@@ -271,12 +283,71 @@ Los siguientes ejemplos se ejecutan desde el directorio `python/`.
 - `models/rl/rl_policy.zip` y `models/rl/rl_policies.json`.
 - `data/routing/cache_vial.csv`.
 - `data/processed/demanda_geografica.csv`.
+- `data/processed/geocoding/direcciones_geolocalizadas.csv`.
+- `data/processed/estadistica/probabilidades_demanda.csv`.
 - `templates/ejemplo_pedidos_importacion.xlsx` y `templates/plantilla_pedidos_pedemonte.xlsx`.
 - Modelos exportados en `anylogic_export/simulated_comparison/PedemonteDigitalTwin_v2.zip`.
 
 ### Archivos que NO deben comitearse (gestionados por `.gitignore`):
+- Credenciales y variables locales: `.env`, `.env.*` (usar `.env.example`).
 - Archivos de log generados: `*.log`, `alpynesimulated-*.log`, `modelsimulated-*.log`.
 - Backups de edición: `*.bak`.
 - Directorios temporales y de caché: `__pycache__/`, `.pytest_cache/`.
 - Entornos virtuales locales: `.venv/`, `venv/`.
 - Resultados de corridas locales: `results/*.json`, `results/*.csv`.
+
+---
+
+## 10. Pipeline de Demanda Histórica: OCR, Geocodificación y AnyLogic
+
+Para alimentar la simulación estocástica en AnyLogic (generación de pedidos representativos a 100 días de operación), el proyecto cuenta con un pipeline completo de procesamiento de datos históricos ubicado en `scripts/data_processing/`.
+
+### Arquitectura del Pipeline
+
+```text
+Imágenes Manuscritas (data/raw/hojas_pedidos/)
+                      │
+                      ▼ (extraccion_ocr.py - Google AI Studio Gemini API)
+Direcciones Estructuradas (data/processed/extraccion/direcciones.json)
+                      │
+                      ▼ (geocoding.py - OpenStreetMap / Nominatim)
+Coordenadas y Normalización (data/processed/geocoding/direcciones_geolocalizadas.csv)
+                      │
+        ┌─────────────┴─────────────┐
+        ▼                           ▼
+Matriz de Probabilidades       Visualizaciones EDA
+(estadistica_demanda.py)       (graficos_demanda.py)
+        │                           │
+        ▼                           ▼
+probabilidades_demanda.csv     barrios_top15.png
+resumen_ciudades.csv           pedidos_por_ciudad.png
+        │
+        ▼
+Generación Estocástica de Pedidos para 100 días en AnyLogic
+```
+
+### Configuración de la API Key
+
+1. Copiá la plantilla de variables de entorno:
+   ```powershell
+   Copy-Item .env.example .env
+   ```
+2. Editá `.env` y asigná tu API Key de Google AI Studio:
+   ```text
+   GEMINI_API_KEY=tu_api_key_aqui
+   ```
+   *(El archivo `.env` está protegido por `.gitignore` y nunca se sube al repositorio).*
+
+### Ejecución de los Scripts
+
+Podés ejecutar cada etapa individualmente o todo el pipeline mediante `run_pipeline_demanda.py`:
+
+```powershell
+# Ejecutar todo el pipeline:
+..\.venv\Scripts\python.exe scripts/data_processing/run_pipeline_demanda.py --etapa all
+
+# O ejecutar únicamente el cálculo estadístico y gráficos:
+..\.venv\Scripts\python.exe scripts/data_processing/run_pipeline_demanda.py --etapa estadistica
+..\.venv\Scripts\python.exe scripts/data_processing/run_pipeline_demanda.py --etapa graficos
+```
+

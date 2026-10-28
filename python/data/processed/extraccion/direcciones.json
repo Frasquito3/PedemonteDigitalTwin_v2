@@ -1,0 +1,3378 @@
+[
+    {
+        "calle": "Los Andes",
+        "altura": "2311"
+    },
+    {
+        "calle": "Quito",
+        "altura": "1516"
+    },
+    {
+        "calle": "José Hernández",
+        "altura": "2027"
+    },
+    {
+        "calle": "Callao",
+        "altura": "1476"
+    },
+    {
+        "calle": "Baigorria",
+        "altura": "656"
+    },
+    {
+        "calle": "Los Plátanos",
+        "altura": "528"
+    },
+    {
+        "calle": "Secco",
+        "altura": "870"
+    },
+    {
+        "calle": "San Juan",
+        "altura": "2515"
+    },
+    {
+        "calle": "Miguel Cané",
+        "altura": "1357"
+    },
+    {
+        "calle": "Asunción",
+        "altura": "644"
+    },
+    {
+        "calle": "Tafí",
+        "altura": "3212"
+    },
+    {
+        "calle": "Jujuy",
+        "altura": "1050"
+    },
+    {
+        "calle": "Pueyrredón",
+        "altura": "576"
+    },
+    {
+        "calle": "Rosales",
+        "altura": "3269"
+    },
+    {
+        "calle": "San Lorenzo",
+        "altura": "2516"
+    },
+    {
+        "calle": "Rioja",
+        "altura": "3571"
+    },
+    {
+        "calle": "Troilo",
+        "altura": "3243"
+    },
+    {
+        "calle": "Estrada",
+        "altura": "1309"
+    },
+    {
+        "calle": "Agrelo",
+        "altura": "2510"
+    },
+    {
+        "calle": "Benitti",
+        "altura": "820"
+    },
+    {
+        "calle": "Junín",
+        "altura": "1846"
+    },
+    {
+        "calle": "Pasco",
+        "altura": "992"
+    },
+    {
+        "calle": "Mitre",
+        "altura": "1112"
+    },
+    {
+        "calle": "Las Heras",
+        "altura": "1052"
+    },
+    {
+        "calle": "Calle 11",
+        "altura": "2457"
+    },
+    {
+        "calle": "Calle 9",
+        "altura": "2324"
+    },
+    {
+        "calle": "Lima",
+        "altura": "1756"
+    },
+    {
+        "calle": "Catriel",
+        "altura": "884"
+    },
+    {
+        "calle": "La Loma",
+        "altura": "189"
+    },
+    {
+        "calle": "Namuncurá",
+        "altura": "933"
+    },
+    {
+        "calle": "Liniers",
+        "altura": "2496"
+    },
+    {
+        "calle": "Güemes",
+        "altura": "195"
+    },
+    {
+        "calle": "La Verbena",
+        "altura": "3011"
+    },
+    {
+        "calle": "Artigas",
+        "altura": "2785"
+    },
+    {
+        "calle": "6 de Enero",
+        "altura": "635"
+    },
+    {
+        "calle": "Dardo Rocha",
+        "altura": "2514"
+    },
+    {
+        "calle": "Colón",
+        "altura": "1840"
+    },
+    {
+        "calle": "Aimino",
+        "altura": ""
+    },
+    {
+        "calle": "Crisantemo",
+        "altura": "826"
+    },
+    {
+        "calle": "Mansilla",
+        "altura": "785"
+    },
+    {
+        "calle": "Callao",
+        "altura": "1625"
+    },
+    {
+        "calle": "Las Acacias",
+        "altura": "8140"
+    },
+    {
+        "calle": "Godoy",
+        "altura": ""
+    },
+    {
+        "calle": "Calle 362",
+        "altura": ""
+    },
+    {
+        "calle": "Los Horneros",
+        "altura": "3361"
+    },
+    {
+        "calle": "Av. Rosas",
+        "altura": ""
+    },
+    {
+        "calle": "Lugones",
+        "altura": "271"
+    },
+    {
+        "calle": "Av. Los Rosales",
+        "altura": "98"
+    },
+    {
+        "calle": "José Hernández",
+        "altura": "1998"
+    },
+    {
+        "calle": "Calle 6",
+        "altura": "2348"
+    },
+    {
+        "calle": "Calle 12",
+        "altura": "2580"
+    },
+    {
+        "calle": "Maestro Massa",
+        "altura": ""
+    },
+    {
+        "calle": "Quiroga",
+        "altura": ""
+    },
+    {
+        "calle": "Moreno",
+        "altura": "1473"
+    },
+    {
+        "calle": "Amazonas",
+        "altura": "1358"
+    },
+    {
+        "calle": "Asunción",
+        "altura": "1361"
+    },
+    {
+        "calle": "Namuncurá",
+        "altura": "458"
+    },
+    {
+        "calle": "Calle 6",
+        "altura": "2348"
+    },
+    {
+        "calle": "Calle 4",
+        "altura": "266"
+    },
+    {
+        "calle": "Onas",
+        "altura": "934"
+    },
+    {
+        "calle": "Gobernador Godoy",
+        "altura": ""
+    },
+    {
+        "calle": "Facundo",
+        "altura": "1352"
+    },
+    {
+        "calle": "Jorge Newbery",
+        "altura": "1371"
+    },
+    {
+        "calle": "José Hernández",
+        "altura": "1843"
+    },
+    {
+        "calle": "Tropilla",
+        "altura": ""
+    },
+    {
+        "calle": "El Pial",
+        "altura": ""
+    },
+    {
+        "calle": "Taluhet",
+        "altura": "2010"
+    },
+    {
+        "calle": "Balcarce",
+        "altura": "971"
+    },
+    {
+        "calle": "Namuncurá",
+        "altura": "961"
+    },
+    {
+        "calle": "Mitre",
+        "altura": "1174"
+    },
+    {
+        "calle": "Vicente López",
+        "altura": "554"
+    },
+    {
+        "calle": "Moreno",
+        "altura": "147"
+    },
+    {
+        "calle": "Mitre",
+        "altura": "1174"
+    },
+    {
+        "calle": "Zárate",
+        "altura": ""
+    },
+    {
+        "calle": "Av. Buenos Aires",
+        "altura": "2859"
+    },
+    {
+        "calle": "Alem",
+        "altura": "168"
+    },
+    {
+        "calle": "Jujuy",
+        "altura": "2210"
+    },
+    {
+        "calle": "Santa Fe",
+        "altura": "2068"
+    },
+    {
+        "calle": "Teniente Güemes",
+        "altura": ""
+    },
+    {
+        "calle": "Av. Alvear",
+        "altura": "2428"
+    },
+    {
+        "calle": "Candelaria",
+        "altura": "808"
+    },
+    {
+        "calle": "Ituzaingó",
+        "altura": "1044"
+    },
+    {
+        "calle": "Calle 7",
+        "altura": "2476"
+    },
+    {
+        "calle": "Quiroga",
+        "altura": ""
+    },
+    {
+        "calle": "Suipacha",
+        "altura": "1034"
+    },
+    {
+        "calle": "Mitre",
+        "altura": "873"
+    },
+    {
+        "calle": "Pasaje 608",
+        "altura": "4274"
+    },
+    {
+        "calle": "P. Lupin",
+        "altura": "138"
+    },
+    {
+        "calle": "Junín",
+        "altura": "3479"
+    },
+    {
+        "calle": "Perito Moreno",
+        "altura": "525"
+    },
+    {
+        "calle": "La Cautiva",
+        "altura": "1355"
+    },
+    {
+        "calle": "Pancho Ramirez",
+        "altura": "831"
+    },
+    {
+        "calle": "Lima",
+        "altura": "1846"
+    },
+    {
+        "calle": "La Cautiva",
+        "altura": "1765"
+    },
+    {
+        "calle": "Callao",
+        "altura": "1052"
+    },
+    {
+        "calle": "Eva Peron",
+        "altura": "1408"
+    },
+    {
+        "calle": "Eva Peron",
+        "altura": "1673"
+    },
+    {
+        "calle": "Paine",
+        "altura": "845"
+    },
+    {
+        "calle": "Brown",
+        "altura": "1140"
+    },
+    {
+        "calle": "Los Alamos",
+        "altura": "8158"
+    },
+    {
+        "calle": "La Cautiva",
+        "altura": "1363"
+    },
+    {
+        "calle": "Sacheri",
+        "altura": "1246"
+    },
+    {
+        "calle": "A. Roldan",
+        "altura": "3209"
+    },
+    {
+        "calle": "Richieri",
+        "altura": "235"
+    },
+    {
+        "calle": "Silvetti",
+        "altura": "2055"
+    },
+    {
+        "calle": "Calle 6",
+        "altura": "2231"
+    },
+    {
+        "calle": "Calle 1",
+        "altura": "362"
+    },
+    {
+        "calle": "Baglietto",
+        "altura": "3204"
+    },
+    {
+        "calle": "Arcos",
+        "altura": "3228"
+    },
+    {
+        "calle": "Baguales",
+        "altura": "3323"
+    },
+    {
+        "calle": "Baguales y El Loto",
+        "altura": ""
+    },
+    {
+        "calle": "Calle 12",
+        "altura": "2342"
+    },
+    {
+        "calle": "Calle 12",
+        "altura": "2461"
+    },
+    {
+        "calle": "6 de Enero",
+        "altura": "635"
+    },
+    {
+        "calle": "Perito Moreno",
+        "altura": "566"
+    },
+    {
+        "calle": "Jose Hernandez",
+        "altura": "1958"
+    },
+    {
+        "calle": "Pramauro",
+        "altura": "576"
+    },
+    {
+        "calle": "Pita",
+        "altura": "150"
+    },
+    {
+        "calle": "Chaco",
+        "altura": "1118"
+    },
+    {
+        "calle": "Callao",
+        "altura": "2136"
+    },
+    {
+        "calle": "Nieto",
+        "altura": "1094"
+    },
+    {
+        "calle": "Balcarce",
+        "altura": "1116"
+    },
+    {
+        "calle": "Mitre",
+        "altura": "1263"
+    },
+    {
+        "calle": "Calle 268",
+        "altura": ""
+    },
+    {
+        "calle": "Silvestre",
+        "altura": "3255"
+    },
+    {
+        "calle": "Jose Hernandez",
+        "altura": "1842"
+    },
+    {
+        "calle": "Estanislao Lopez",
+        "altura": "2122"
+    },
+    {
+        "calle": "Biolcati",
+        "altura": "1026"
+    },
+    {
+        "calle": "Parana",
+        "altura": "973"
+    },
+    {
+        "calle": "Calle 12",
+        "altura": "2342"
+    },
+    {
+        "calle": "San Bartolome",
+        "altura": "789"
+    },
+    {
+        "calle": "Eva Peron",
+        "altura": "3285"
+    },
+    {
+        "calle": "Perito Moreno",
+        "altura": "580"
+    },
+    {
+        "calle": "Estanislao Lopez",
+        "altura": "2147"
+    },
+    {
+        "calle": "San Martín",
+        "altura": "419"
+    },
+    {
+        "calle": "Los Álamos",
+        "altura": "8103"
+    },
+    {
+        "calle": "Matheu",
+        "altura": "2069"
+    },
+    {
+        "calle": "Santa Fe",
+        "altura": "1850"
+    },
+    {
+        "calle": "Maipú",
+        "altura": "1430"
+    },
+    {
+        "calle": "Rosetti",
+        "altura": "3521"
+    },
+    {
+        "calle": "Seco",
+        "altura": "870"
+    },
+    {
+        "calle": "Montevideo",
+        "altura": "1216"
+    },
+    {
+        "calle": "Calle 9",
+        "altura": "62"
+    },
+    {
+        "calle": "Los Álamos",
+        "altura": "8269"
+    },
+    {
+        "calle": "Moreno",
+        "altura": "3555"
+    },
+    {
+        "calle": "Yrigoyen",
+        "altura": "3533"
+    },
+    {
+        "calle": "El Rosal",
+        "altura": "3269"
+    },
+    {
+        "calle": "La Cautiva",
+        "altura": "955"
+    },
+    {
+        "calle": "Calle 11",
+        "altura": "2380"
+    },
+    {
+        "calle": "Charcas",
+        "altura": "1397"
+    },
+    {
+        "calle": "Jorge Newbery",
+        "altura": "1363"
+    },
+    {
+        "calle": "Calle 13",
+        "altura": "2223"
+    },
+    {
+        "calle": "Jorge Newbery",
+        "altura": "1363"
+    },
+    {
+        "calle": "Suipacha",
+        "altura": "1210"
+    },
+    {
+        "calle": "Junín",
+        "altura": "2210"
+    },
+    {
+        "calle": "Junín",
+        "altura": "1218"
+    },
+    {
+        "calle": "Calle 5",
+        "altura": "2642"
+    },
+    {
+        "calle": "Calle 3",
+        "altura": "2260"
+    },
+    {
+        "calle": "Chaco",
+        "altura": "1149"
+    },
+    {
+        "calle": "Belgrano",
+        "altura": "1074"
+    },
+    {
+        "calle": "Moreno",
+        "altura": "783"
+    },
+    {
+        "calle": "Arijón",
+        "altura": "2472"
+    },
+    {
+        "calle": "Los Olivos",
+        "altura": "2780"
+    },
+    {
+        "calle": "Calle 2",
+        "altura": "136"
+    },
+    {
+        "calle": "Calle 11",
+        "altura": "2328"
+    },
+    {
+        "calle": "Hipólito Yrigoyen",
+        "altura": "3302"
+    },
+    {
+        "calle": "Dorrego",
+        "altura": "3380"
+    },
+    {
+        "calle": "San Martín",
+        "altura": "676"
+    },
+    {
+        "calle": "Eva Perón",
+        "altura": "1062"
+    },
+    {
+        "calle": "Dorrego",
+        "altura": "1371"
+    },
+    {
+        "calle": "México",
+        "altura": "1019"
+    },
+    {
+        "calle": "Eva Perón",
+        "altura": "1405"
+    },
+    {
+        "calle": "Moreno",
+        "altura": "3340"
+    },
+    {
+        "calle": "Trenque Lauquen",
+        "altura": "4020"
+    },
+    {
+        "calle": "Tropillo",
+        "altura": "3443"
+    },
+    {
+        "calle": "Napoli",
+        "altura": "3550"
+    },
+    {
+        "calle": "Jose Hernandez",
+        "altura": "1843"
+    },
+    {
+        "calle": "Caltan",
+        "altura": "936"
+    },
+    {
+        "calle": "Tierra del Fuego",
+        "altura": "286"
+    },
+    {
+        "calle": "Rawson",
+        "altura": "610"
+    },
+    {
+        "calle": "Santa Fe",
+        "altura": "2192"
+    },
+    {
+        "calle": "Betti",
+        "altura": "851"
+    },
+    {
+        "calle": "Mitre",
+        "altura": "1228"
+    },
+    {
+        "calle": "Calle 1",
+        "altura": "862"
+    },
+    {
+        "calle": "Calle 2",
+        "altura": "68"
+    },
+    {
+        "calle": "Don Bosco",
+        "altura": "913"
+    },
+    {
+        "calle": "Buenos Aires",
+        "altura": "1515"
+    },
+    {
+        "calle": "Pasco",
+        "altura": "965"
+    },
+    {
+        "calle": "Namur",
+        "altura": "788"
+    },
+    {
+        "calle": "Francia",
+        "altura": "1049"
+    },
+    {
+        "calle": "Calle 2",
+        "altura": "311"
+    },
+    {
+        "calle": "Calle 1",
+        "altura": "302"
+    },
+    {
+        "calle": "Namur",
+        "altura": "2021"
+    },
+    {
+        "calle": "Malvinas",
+        "altura": "2031"
+    },
+    {
+        "calle": "El Chaco",
+        "altura": "2147"
+    },
+    {
+        "calle": "Monteagudo",
+        "altura": "3369"
+    },
+    {
+        "calle": "Zeballos",
+        "altura": "3252"
+    },
+    {
+        "calle": "Buenos Aires",
+        "altura": "988"
+    },
+    {
+        "calle": "Agrelo",
+        "altura": "2570"
+    },
+    {
+        "calle": "Las Heras",
+        "altura": "559"
+    },
+    {
+        "calle": "Pedro Ramirez",
+        "altura": "956"
+    },
+    {
+        "calle": "Calle 2",
+        "altura": "68"
+    },
+    {
+        "calle": "Junin",
+        "altura": "1161"
+    },
+    {
+        "calle": "Calle 13",
+        "altura": "2462"
+    },
+    {
+        "calle": "Calfucura",
+        "altura": "841"
+    },
+    {
+        "calle": "Carriego",
+        "altura": "239"
+    },
+    {
+        "calle": "Balcarce",
+        "altura": "1018"
+    },
+    {
+        "calle": "Calle 12",
+        "altura": "2461"
+    },
+    {
+        "calle": "Mitre",
+        "altura": "1082"
+    },
+    {
+        "calle": "Rostand",
+        "altura": "3503"
+    },
+    {
+        "calle": "Moreno",
+        "altura": "147"
+    },
+    {
+        "calle": "Tropillo",
+        "altura": "3279"
+    },
+    {
+        "calle": "Calle 6",
+        "altura": "2831"
+    },
+    {
+        "calle": "Caltan",
+        "altura": "418"
+    },
+    {
+        "calle": "Fray Luis Beltran",
+        "altura": "7"
+    },
+    {
+        "calle": "Arroyos",
+        "altura": "3229"
+    },
+    {
+        "calle": "Marconi",
+        "altura": "1704"
+    },
+    {
+        "calle": "Junin",
+        "altura": "1434"
+    },
+    {
+        "calle": "Caltan",
+        "altura": "936"
+    },
+    {
+        "calle": "Calle 5",
+        "altura": "1052"
+    },
+    {
+        "calle": "Pasco",
+        "altura": "618"
+    },
+    {
+        "calle": "Pueyrredon",
+        "altura": "1054"
+    },
+    {
+        "calle": "Santa Fe",
+        "altura": "335"
+    },
+    {
+        "calle": "Galicia",
+        "altura": "394"
+    },
+    {
+        "calle": "El Mortero",
+        "altura": "3340"
+    },
+    {
+        "calle": "Los Baguales",
+        "altura": "3220"
+    },
+    {
+        "calle": "Callao",
+        "altura": "1034"
+    },
+    {
+        "calle": "Mitre",
+        "altura": "1082"
+    },
+    {
+        "calle": "25 de Mayo",
+        "altura": "5005"
+    },
+    {
+        "calle": "Calle 3",
+        "altura": "S/N"
+    },
+    {
+        "calle": "Díaz Vélez",
+        "altura": "1124"
+    },
+    {
+        "calle": "Calfucurá",
+        "altura": "842"
+    },
+    {
+        "calle": "Las Jirafas",
+        "altura": "3334"
+    },
+    {
+        "calle": "Calle 9",
+        "altura": "2481"
+    },
+    {
+        "calle": "Calle 4",
+        "altura": "67"
+    },
+    {
+        "calle": "Morelos",
+        "altura": "708"
+    },
+    {
+        "calle": "Chiripá",
+        "altura": "1625"
+    },
+    {
+        "calle": "Pancho Ramírez",
+        "altura": "956"
+    },
+    {
+        "calle": "Santiago",
+        "altura": "1388"
+    },
+    {
+        "calle": "Francia",
+        "altura": "421"
+    },
+    {
+        "calle": "José Hernández",
+        "altura": "1998"
+    },
+    {
+        "calle": "Maipo",
+        "altura": "826"
+    },
+    {
+        "calle": "Silquis",
+        "altura": "3296"
+    },
+    {
+        "calle": "Silquis",
+        "altura": "3530"
+    },
+    {
+        "calle": "Miguel Cané",
+        "altura": "137"
+    },
+    {
+        "calle": "Calle 6",
+        "altura": "2231"
+    },
+    {
+        "calle": "Peralta",
+        "altura": "506"
+    },
+    {
+        "calle": "Calle 9",
+        "altura": "2611"
+    },
+    {
+        "calle": "Balcarce",
+        "altura": "1074"
+    },
+    {
+        "calle": "Gaboto",
+        "altura": "3533"
+    },
+    {
+        "calle": "Maroni",
+        "altura": "1707"
+    },
+    {
+        "calle": "López",
+        "altura": "2129"
+    },
+    {
+        "calle": "Liniers",
+        "altura": "1856"
+    },
+    {
+        "calle": "La Cautiva",
+        "altura": "1855"
+    },
+    {
+        "calle": "Calle 2",
+        "altura": "368"
+    },
+    {
+        "calle": "Reyna",
+        "altura": "3314"
+    },
+    {
+        "calle": "Montevideo",
+        "altura": "1302"
+    },
+    {
+        "calle": "Vicente Lopez",
+        "altura": "761"
+    },
+    {
+        "calle": "Eva Peron",
+        "altura": "241"
+    },
+    {
+        "calle": "Rosario",
+        "altura": "314"
+    },
+    {
+        "calle": "Calle 1",
+        "altura": "2250"
+    },
+    {
+        "calle": "Jujuy",
+        "altura": "3520"
+    },
+    {
+        "calle": "Santiago",
+        "altura": "1399"
+    },
+    {
+        "calle": "Maipo",
+        "altura": "1868"
+    },
+    {
+        "calle": "Punta Arenas",
+        "altura": "525"
+    },
+    {
+        "calle": "Maipo",
+        "altura": "2073"
+    },
+    {
+        "calle": "Silvestre Begnis",
+        "altura": "368"
+    },
+    {
+        "calle": "Calle 4",
+        "altura": "247"
+    },
+    {
+        "calle": "Rio Negro",
+        "altura": "3380"
+    },
+    {
+        "calle": "Partenon",
+        "altura": "220"
+    },
+    {
+        "calle": "Baguales",
+        "altura": "1110"
+    },
+    {
+        "calle": "Callao",
+        "altura": "936"
+    },
+    {
+        "calle": "Pastor Losa",
+        "altura": "59"
+    },
+    {
+        "calle": "Mitre",
+        "altura": "1112"
+    },
+    {
+        "calle": "Asuncion",
+        "altura": "1059"
+    },
+    {
+        "calle": "Asuncion",
+        "altura": "1070"
+    },
+    {
+        "calle": "Joaquin V. Gonzalez",
+        "altura": "1856"
+    },
+    {
+        "calle": "Vicente Lopez",
+        "altura": "1052"
+    },
+    {
+        "calle": "Mitre",
+        "altura": "873"
+    },
+    {
+        "calle": "Berutti",
+        "altura": "820"
+    },
+    {
+        "calle": "Baker",
+        "altura": "818"
+    },
+    {
+        "calle": "Calchaqui",
+        "altura": "955"
+    },
+    {
+        "calle": "25 de Mayo",
+        "altura": "704"
+    },
+    {
+        "calle": "Silvestre Begnis",
+        "altura": "3279"
+    },
+    {
+        "calle": "Silvestre Begnis",
+        "altura": "788"
+    },
+    {
+        "calle": "Calle 1",
+        "altura": "362"
+    },
+    {
+        "calle": "Mitre",
+        "altura": "638"
+    },
+    {
+        "calle": "Pasco",
+        "altura": "660"
+    },
+    {
+        "calle": "Chubut",
+        "altura": "1140"
+    },
+    {
+        "calle": "Baden",
+        "altura": "1074"
+    },
+    {
+        "calle": "Catamarca",
+        "altura": "1027"
+    },
+    {
+        "calle": "Jose Hernandez",
+        "altura": "1998"
+    },
+    {
+        "calle": "Diaz Velez",
+        "altura": "1197"
+    },
+    {
+        "calle": "Facundo Quiroga",
+        "altura": "1040"
+    },
+    {
+        "calle": "Jose Hernandez",
+        "altura": "2027"
+    },
+    {
+        "calle": "Jose Hernandez",
+        "altura": "2050"
+    },
+    {
+        "calle": "Maipo",
+        "altura": "1869"
+    },
+    {
+        "calle": "Parana",
+        "altura": "855"
+    },
+    {
+        "calle": "Chubut",
+        "altura": "2458"
+    },
+    {
+        "calle": "Calle 1",
+        "altura": "362"
+    },
+    {
+        "calle": "6 de Enero",
+        "altura": "371"
+    },
+    {
+        "calle": "Calle 1",
+        "altura": "261"
+    },
+    {
+        "calle": "Silvestre Begnis",
+        "altura": "74"
+    },
+    {
+        "calle": "Maipo",
+        "altura": "1869"
+    },
+    {
+        "calle": "Mitre",
+        "altura": "1159"
+    },
+    {
+        "calle": "Lima",
+        "altura": "1539"
+    },
+    {
+        "calle": "Arequipa",
+        "altura": "2490"
+    },
+    {
+        "calle": "Calle 1",
+        "altura": "362"
+    },
+    {
+        "calle": "Charcas",
+        "altura": "1057"
+    },
+    {
+        "calle": "Daprotis",
+        "altura": "8156"
+    },
+    {
+        "calle": "Moreno",
+        "altura": "3444"
+    },
+    {
+        "calle": "Silvetti",
+        "altura": "3255"
+    },
+    {
+        "calle": "Callao",
+        "altura": "2136"
+    },
+    {
+        "calle": "Pasco",
+        "altura": "965"
+    },
+    {
+        "calle": "Mitre",
+        "altura": "1263"
+    },
+    {
+        "calle": "Nansen",
+        "altura": "939"
+    },
+    {
+        "calle": "El Lazo",
+        "altura": "1820"
+    },
+    {
+        "calle": "Chorroarín",
+        "altura": "1742"
+    },
+    {
+        "calle": "Juncos",
+        "altura": "3303"
+    },
+    {
+        "calle": "Hipólito Yrigoyen",
+        "altura": "1453"
+    },
+    {
+        "calle": "Calle 2",
+        "altura": "359"
+    },
+    {
+        "calle": "Calle 12",
+        "altura": "2606"
+    },
+    {
+        "calle": "Brasil",
+        "altura": "1271"
+    },
+    {
+        "calle": "Viamonte",
+        "altura": "3298"
+    },
+    {
+        "calle": "Presidente Roca",
+        "altura": "525"
+    },
+    {
+        "calle": "Benjamín Gould",
+        "altura": "244"
+    },
+    {
+        "calle": "Brown",
+        "altura": "891"
+    },
+    {
+        "calle": "Junín",
+        "altura": "2063"
+    },
+    {
+        "calle": "Suipacha",
+        "altura": "1754"
+    },
+    {
+        "calle": "Dalmacio Vélez Sarsfield",
+        "altura": "1139"
+    },
+    {
+        "calle": "Florencio",
+        "altura": "877"
+    },
+    {
+        "calle": "Estanislao López",
+        "altura": "2129"
+    },
+    {
+        "calle": "Catriel",
+        "altura": "850"
+    },
+    {
+        "calle": "Calle 12",
+        "altura": "2447"
+    },
+    {
+        "calle": "Manzoni",
+        "altura": "1620"
+    },
+    {
+        "calle": "Asunción",
+        "altura": "6268"
+    },
+    {
+        "calle": "Eva Perón",
+        "altura": "1405"
+    },
+    {
+        "calle": "Avenida Neuquén",
+        "altura": "1309"
+    },
+    {
+        "calle": "Miguel Cané",
+        "altura": "1357"
+    },
+    {
+        "calle": "José Hernández",
+        "altura": "1943"
+    },
+    {
+        "calle": "Paine",
+        "altura": "339"
+    },
+    {
+        "calle": "Los Álamos",
+        "altura": "832"
+    },
+    {
+        "calle": "La Paz",
+        "altura": "1400"
+    },
+    {
+        "calle": "Calle 20",
+        "altura": "2136"
+    },
+    {
+        "calle": "Junín",
+        "altura": "1541"
+    },
+    {
+        "calle": "Los Pinos",
+        "altura": "845"
+    },
+    {
+        "calle": "Liniers",
+        "altura": "1787"
+    },
+    {
+        "calle": "Calle 12",
+        "altura": "2380"
+    },
+    {
+        "calle": "David Peña",
+        "altura": "17"
+    },
+    {
+        "calle": "Mocoví",
+        "altura": "1470"
+    },
+    {
+        "calle": "Jujuy",
+        "altura": "1815"
+    },
+    {
+        "calle": "Namuncurá",
+        "altura": "933"
+    },
+    {
+        "calle": "Namuncurá",
+        "altura": "961"
+    },
+    {
+        "calle": "A. G. Bell",
+        "altura": "1370"
+    },
+    {
+        "calle": "Baterías",
+        "altura": "971"
+    },
+    {
+        "calle": "Felipe Varela",
+        "altura": "1388"
+    },
+    {
+        "calle": "La Cautiva",
+        "altura": "1363"
+    },
+    {
+        "calle": "La Cautiva",
+        "altura": "1339"
+    },
+    {
+        "calle": "Ainius",
+        "altura": "1070"
+    },
+    {
+        "calle": "Francia",
+        "altura": "921"
+    },
+    {
+        "calle": "Estanislao López",
+        "altura": "2073"
+    },
+    {
+        "calle": "Díaz Vélez",
+        "altura": "1124"
+    },
+    {
+        "calle": "Estanislao López",
+        "altura": "1950"
+    },
+    {
+        "calle": "Calle 6",
+        "altura": "26"
+    },
+    {
+        "calle": "Los Olivos",
+        "altura": "3251"
+    },
+    {
+        "calle": "Italia",
+        "altura": "2040"
+    },
+    {
+        "calle": "Almafuerte",
+        "altura": "1342"
+    },
+    {
+        "calle": "Díaz Vélez",
+        "altura": "1153"
+    },
+    {
+        "calle": "Jorge Newbery",
+        "altura": "1314"
+    },
+    {
+        "calle": "Gabioto",
+        "altura": "791"
+    },
+    {
+        "calle": "Calle 11",
+        "altura": "2247"
+    },
+    {
+        "calle": "Dr. Agote",
+        "altura": "2570"
+    },
+    {
+        "calle": "Santa Fe",
+        "altura": "1374"
+    },
+    {
+        "calle": "Briquet",
+        "altura": "761"
+    },
+    {
+        "calle": "Calipso",
+        "altura": "985"
+    },
+    {
+        "calle": "Jiménez",
+        "altura": "3530"
+    },
+    {
+        "calle": "Moreno",
+        "altura": "3590"
+    },
+    {
+        "calle": "Namuncurá",
+        "altura": "796"
+    },
+    {
+        "calle": "Baterías",
+        "altura": "1074"
+    },
+    {
+        "calle": "Calle 6",
+        "altura": "2343"
+    },
+    {
+        "calle": "Eva Perón",
+        "altura": "678"
+    },
+    {
+        "calle": "Malvinas",
+        "altura": "2143"
+    },
+    {
+        "calle": "Montevideo",
+        "altura": "1396"
+    },
+    {
+        "calle": "Montevideo",
+        "altura": "1222"
+    },
+    {
+        "calle": "Vicente López",
+        "altura": "554"
+    },
+    {
+        "calle": "Jujuy",
+        "altura": "1815"
+    },
+    {
+        "calle": "Las Piedras",
+        "altura": "258"
+    },
+    {
+        "calle": "Calle 9",
+        "altura": "2611"
+    },
+    {
+        "calle": "Calle 6",
+        "altura": "2348"
+    },
+    {
+        "calle": "Los Andes",
+        "altura": "3361"
+    },
+    {
+        "calle": "Maipú",
+        "altura": "1969"
+    },
+    {
+        "calle": "Liniers",
+        "altura": "2361"
+    },
+    {
+        "calle": "Liniers",
+        "altura": "2280"
+    },
+    {
+        "calle": "Buenos Aires",
+        "altura": "1260"
+    },
+    {
+        "calle": "Charcas",
+        "altura": "1122"
+    },
+    {
+        "calle": "Las Heras",
+        "altura": "1052"
+    },
+    {
+        "calle": "José Hernández",
+        "altura": "1990"
+    },
+    {
+        "calle": "José Hernández",
+        "altura": "2027"
+    },
+    {
+        "calle": "San Martín",
+        "altura": "1399"
+    },
+    {
+        "calle": "Bogado",
+        "altura": "3453"
+    },
+    {
+        "calle": "Roca",
+        "altura": "1653"
+    },
+    {
+        "calle": "Maipú",
+        "altura": "3590"
+    },
+    {
+        "calle": "Bogado",
+        "altura": "3204"
+    },
+    {
+        "calle": "Mansilla",
+        "altura": "779"
+    },
+    {
+        "calle": "Estanislao López",
+        "altura": "1639"
+    },
+    {
+        "calle": "Sarmiento",
+        "altura": "1374"
+    },
+    {
+        "calle": "Calle 1",
+        "altura": "362"
+    },
+    {
+        "calle": "Calle 12",
+        "altura": "2607"
+    },
+    {
+        "calle": "Calle 10",
+        "altura": "2540"
+    },
+    {
+        "calle": "Eva Perón",
+        "altura": "1428"
+    },
+    {
+        "calle": "Pino",
+        "altura": "978"
+    },
+    {
+        "calle": "Paso",
+        "altura": "827"
+    },
+    {
+        "calle": "Callao",
+        "altura": "1476"
+    },
+    {
+        "calle": "Francia",
+        "altura": "977"
+    },
+    {
+        "calle": "Catamarca",
+        "altura": "971"
+    },
+    {
+        "calle": "Cattaneo",
+        "altura": "2136"
+    },
+    {
+        "calle": "Silvestre Begnis",
+        "altura": "763"
+    },
+    {
+        "calle": "Calle 12",
+        "altura": "2472"
+    },
+    {
+        "calle": "Liniers",
+        "altura": "1787"
+    },
+    {
+        "calle": "La Plata",
+        "altura": "791"
+    },
+    {
+        "calle": "Liniers",
+        "altura": "1820"
+    },
+    {
+        "calle": "Estanislao López",
+        "altura": "2182"
+    },
+    {
+        "calle": "Eva Perón",
+        "altura": "1377"
+    },
+    {
+        "calle": "Calle 1",
+        "altura": "362"
+    },
+    {
+        "calle": "Ancón",
+        "altura": "1670"
+    },
+    {
+        "calle": "Dorrego",
+        "altura": "3391"
+    },
+    {
+        "calle": "Los Aromos",
+        "altura": "2841"
+    },
+    {
+        "calle": "Asunción",
+        "altura": "77"
+    },
+    {
+        "calle": "Antartida",
+        "altura": "1365"
+    },
+    {
+        "calle": "Sarmiento Acc",
+        "altura": "77"
+    },
+    {
+        "calle": "San Martin",
+        "altura": "1348"
+    },
+    {
+        "calle": "Los Cedros",
+        "altura": "549"
+    },
+    {
+        "calle": "Montevideo",
+        "altura": "1178"
+    },
+    {
+        "calle": "Sartori",
+        "altura": "1388"
+    },
+    {
+        "calle": "Silvestre",
+        "altura": "1283"
+    },
+    {
+        "calle": "Los Alamos",
+        "altura": "8104"
+    },
+    {
+        "calle": "Colon",
+        "altura": "2805"
+    },
+    {
+        "calle": "Las Heras",
+        "altura": "2895"
+    },
+    {
+        "calle": "Pancho Ramirez",
+        "altura": "693"
+    },
+    {
+        "calle": "Balerio",
+        "altura": "623"
+    },
+    {
+        "calle": "Santa Fe",
+        "altura": "1374"
+    },
+    {
+        "calle": "Colombres",
+        "altura": "725"
+    },
+    {
+        "calle": "Junin",
+        "altura": "1830"
+    },
+    {
+        "calle": "Calle 362",
+        "altura": "4100"
+    },
+    {
+        "calle": "Suipacha",
+        "altura": "1300"
+    },
+    {
+        "calle": "Eva Peron",
+        "altura": "1405"
+    },
+    {
+        "calle": "Asuncion",
+        "altura": "955"
+    },
+    {
+        "calle": "Jorge Newbery",
+        "altura": "1345"
+    },
+    {
+        "calle": "Catriel",
+        "altura": "824"
+    },
+    {
+        "calle": "Maipu",
+        "altura": "1806"
+    },
+    {
+        "calle": "Mayo",
+        "altura": "1806"
+    },
+    {
+        "calle": "Punta Mansa",
+        "altura": "542"
+    },
+    {
+        "calle": "Pasaje B",
+        "altura": "409"
+    },
+    {
+        "calle": "Los Alerces",
+        "altura": "1117"
+    },
+    {
+        "calle": "Montevideo",
+        "altura": "1399"
+    },
+    {
+        "calle": "Las Acacias",
+        "altura": "8170"
+    },
+    {
+        "calle": "Montevideo",
+        "altura": "1388"
+    },
+    {
+        "calle": "Catriel",
+        "altura": "824"
+    },
+    {
+        "calle": "Calle 1",
+        "altura": "362"
+    },
+    {
+        "calle": "Pasco",
+        "altura": "709"
+    },
+    {
+        "calle": "Los Álamos",
+        "altura": "8268"
+    },
+    {
+        "calle": "Punta Lara",
+        "altura": "625"
+    },
+    {
+        "calle": "Punta Lara",
+        "altura": "642"
+    },
+    {
+        "calle": "La Cautiva",
+        "altura": "1363"
+    },
+    {
+        "calle": "Calle 7",
+        "altura": "2324"
+    },
+    {
+        "calle": "Chubut",
+        "altura": "2458"
+    },
+    {
+        "calle": "Eva Perón",
+        "altura": "517"
+    },
+    {
+        "calle": "2 de Abril",
+        "altura": "1286"
+    },
+    {
+        "calle": "Junín",
+        "altura": "1161"
+    },
+    {
+        "calle": "Calle 12",
+        "altura": "2491"
+    },
+    {
+        "calle": "Calle 7",
+        "altura": "2324"
+    },
+    {
+        "calle": "Rostand",
+        "altura": "3548"
+    },
+    {
+        "calle": "Maipú",
+        "altura": "3423"
+    },
+    {
+        "calle": "Mendoza",
+        "altura": "3485"
+    },
+    {
+        "calle": "Charcas",
+        "altura": "1148"
+    },
+    {
+        "calle": "Charcas",
+        "altura": "1304"
+    },
+    {
+        "calle": "Amado Nervo",
+        "altura": "1327"
+    },
+    {
+        "calle": "Asunción",
+        "altura": "1361"
+    },
+    {
+        "calle": "Miguel Cané",
+        "altura": "1371"
+    },
+    {
+        "calle": "Ituzaingó",
+        "altura": "1931"
+    },
+    {
+        "calle": "Calle 2",
+        "altura": "362"
+    },
+    {
+        "calle": "Don Sebastián",
+        "altura": "222"
+    },
+    {
+        "calle": "Manzone",
+        "altura": "744"
+    },
+    {
+        "calle": "Montevideo",
+        "altura": "1354"
+    },
+    {
+        "calle": "La Cautiva",
+        "altura": "1363"
+    },
+    {
+        "calle": "Boston",
+        "altura": "1309"
+    },
+    {
+        "calle": "Chubut",
+        "altura": "2458"
+    },
+    {
+        "calle": "Amado Nervo",
+        "altura": "1328"
+    },
+    {
+        "calle": "Estanislao López",
+        "altura": "2121"
+    },
+    {
+        "calle": "Spegazzini",
+        "altura": "1631"
+    },
+    {
+        "calle": "José Hernández",
+        "altura": "2050"
+    },
+    {
+        "calle": "Mosconi",
+        "altura": "3503"
+    },
+    {
+        "calle": "Jujuy",
+        "altura": "2063"
+    },
+    {
+        "calle": "Eva Perón",
+        "altura": "59"
+    },
+    {
+        "calle": "José Hernández",
+        "altura": "1879"
+    },
+    {
+        "calle": "Sucre",
+        "altura": "1070"
+    },
+    {
+        "calle": "Ciudadela",
+        "altura": "154"
+    },
+    {
+        "calle": "Eva Perón",
+        "altura": "1426"
+    },
+    {
+        "calle": "Orsetti",
+        "altura": "1002"
+    },
+    {
+        "calle": "Los Ceibos",
+        "altura": "860"
+    },
+    {
+        "calle": "Silvestre Begnis",
+        "altura": "763"
+    },
+    {
+        "calle": "Jujuy",
+        "altura": "3336"
+    },
+    {
+        "calle": "Lisandro de la Torre",
+        "altura": "12"
+    },
+    {
+        "calle": "Francisco Beiró",
+        "altura": "1310"
+    },
+    {
+        "calle": "Pancho Ramírez",
+        "altura": "956"
+    },
+    {
+        "calle": "Francia",
+        "altura": "977"
+    },
+    {
+        "calle": "Namuncurá",
+        "altura": "933"
+    },
+    {
+        "calle": "Junín",
+        "altura": "2063"
+    },
+    {
+        "calle": "Jujuy",
+        "altura": "730"
+    },
+    {
+        "calle": "Pancho Ramírez",
+        "altura": "576"
+    },
+    {
+        "calle": "Santa Fe",
+        "altura": "688"
+    },
+    {
+        "calle": "Alvear",
+        "altura": "168"
+    },
+    {
+        "calle": "Los Olivos",
+        "altura": "3251"
+    },
+    {
+        "calle": "Calle 6",
+        "altura": "2443"
+    },
+    {
+        "calle": "Las Orquídeas",
+        "altura": "48"
+    },
+    {
+        "calle": "Quito",
+        "altura": "1648"
+    },
+    {
+        "calle": "Caracas",
+        "altura": "1633"
+    },
+    {
+        "calle": "Rosetti",
+        "altura": "625"
+    },
+    {
+        "calle": "San Martín",
+        "altura": "84"
+    },
+    {
+        "calle": "San Lorenzo",
+        "altura": "450"
+    },
+    {
+        "calle": "Calle 9",
+        "altura": "2452"
+    },
+    {
+        "calle": "Namuncurá",
+        "altura": "458"
+    },
+    {
+        "calle": "Pavon",
+        "altura": "590"
+    },
+    {
+        "calle": "Arenales",
+        "altura": "257"
+    },
+    {
+        "calle": "Castelli",
+        "altura": "665"
+    },
+    {
+        "calle": "Junin",
+        "altura": "2063"
+    },
+    {
+        "calle": "Chubut",
+        "altura": "2450"
+    },
+    {
+        "calle": "Artigas",
+        "altura": "3134"
+    },
+    {
+        "calle": "Calle 10",
+        "altura": "2329"
+    },
+    {
+        "calle": "Los Angeles",
+        "altura": "127"
+    },
+    {
+        "calle": "Fresno",
+        "altura": "946"
+    },
+    {
+        "calle": "Alfonsina Storni",
+        "altura": "1345"
+    },
+    {
+        "calle": "Los Ceibos",
+        "altura": "860"
+    },
+    {
+        "calle": "Santa Fe",
+        "altura": "2050"
+    },
+    {
+        "calle": "Taboada",
+        "altura": "3555"
+    },
+    {
+        "calle": "Bulevar Junin",
+        "altura": "3453"
+    },
+    {
+        "calle": "Eva Peron",
+        "altura": "1377"
+    },
+    {
+        "calle": "Navarro",
+        "altura": "933"
+    },
+    {
+        "calle": "Bouchard",
+        "altura": "3220"
+    },
+    {
+        "calle": "Silvestre",
+        "altura": "3298"
+    },
+    {
+        "calle": "Avenida San Martin",
+        "altura": "418"
+    },
+    {
+        "calle": "Santa Fe",
+        "altura": "1268"
+    },
+    {
+        "calle": "Orsetti",
+        "altura": "934"
+    },
+    {
+        "calle": "Calle 10",
+        "altura": "2329"
+    },
+    {
+        "calle": "Calle 11",
+        "altura": "2611"
+    },
+    {
+        "calle": "24 de Junio",
+        "altura": "522"
+    },
+    {
+        "calle": "Palma",
+        "altura": "845"
+    },
+    {
+        "calle": "Bilbao",
+        "altura": "715"
+    },
+    {
+        "calle": "Paso",
+        "altura": "874"
+    },
+    {
+        "calle": "Francia",
+        "altura": "977"
+    },
+    {
+        "calle": "Chaperouge",
+        "altura": "1108"
+    },
+    {
+        "calle": "Coihue",
+        "altura": "915"
+    },
+    {
+        "calle": "Franklin",
+        "altura": "1315"
+    },
+    {
+        "calle": "Marconi",
+        "altura": "1071"
+    },
+    {
+        "calle": "Camino Gomez",
+        "altura": "1794"
+    },
+    {
+        "calle": "Camino Gomez",
+        "altura": "1070"
+    },
+    {
+        "calle": "Camino Gomez",
+        "altura": "1794"
+    },
+    {
+        "calle": "Jorge Newbery",
+        "altura": "33"
+    },
+    {
+        "calle": "Vecinal",
+        "altura": "633"
+    },
+    {
+        "calle": "Las Piedras",
+        "altura": "258"
+    },
+    {
+        "calle": "Pasaje Arroyito",
+        "altura": "188"
+    },
+    {
+        "calle": "Arequipa",
+        "altura": "2180"
+    },
+    {
+        "calle": "Calle 12",
+        "altura": "2408"
+    },
+    {
+        "calle": "Calle 9",
+        "altura": "2611"
+    },
+    {
+        "calle": "Maipo",
+        "altura": "2349"
+    },
+    {
+        "calle": "Acuña",
+        "altura": "1163"
+    },
+    {
+        "calle": "Astrada",
+        "altura": "884"
+    },
+    {
+        "calle": "Perito Moreno",
+        "altura": "566"
+    },
+    {
+        "calle": "Misiones",
+        "altura": "3220"
+    },
+    {
+        "calle": "Santa Fe",
+        "altura": "2068"
+    },
+    {
+        "calle": "Metán",
+        "altura": "2037"
+    },
+    {
+        "calle": "Perito Moreno",
+        "altura": "625"
+    },
+    {
+        "calle": "Elgar",
+        "altura": "1982"
+    },
+    {
+        "calle": "Carlos Antonio López",
+        "altura": "2150"
+    },
+    {
+        "calle": "Benítez",
+        "altura": "1065"
+    },
+    {
+        "calle": "Buenos Aires",
+        "altura": "1215"
+    },
+    {
+        "calle": "William",
+        "altura": "1787"
+    },
+    {
+        "calle": "Mansilla",
+        "altura": "816"
+    },
+    {
+        "calle": "Mansilla",
+        "altura": "744"
+    },
+    {
+        "calle": "Bv. Avellaneda",
+        "altura": "1260"
+    },
+    {
+        "calle": "Agrelo",
+        "altura": "2570"
+    },
+    {
+        "calle": "Pasaje Lineada",
+        "altura": "3243"
+    },
+    {
+        "calle": "NAM",
+        "altura": "580"
+    },
+    {
+        "calle": "Costanera Peatonal",
+        "altura": "1377"
+    },
+    {
+        "calle": "Franklin",
+        "altura": "1305"
+    },
+    {
+        "calle": "Miguel Cané",
+        "altura": "1353"
+    },
+    {
+        "calle": "Colombres",
+        "altura": "1052"
+    },
+    {
+        "calle": "Díaz Vélez",
+        "altura": "1391"
+    },
+    {
+        "calle": "San Martín",
+        "altura": "1283"
+    },
+    {
+        "calle": "Calle 10",
+        "altura": "2255"
+    },
+    {
+        "calle": "Juan B. Justo",
+        "altura": "219"
+    },
+    {
+        "calle": "Calle 12",
+        "altura": "2342"
+    },
+    {
+        "calle": "Calle 12",
+        "altura": "2409"
+    },
+    {
+        "calle": "Jujuy",
+        "altura": "3336"
+    },
+    {
+        "calle": "Calle 13",
+        "altura": "62"
+    },
+    {
+        "calle": "Perito Moreno",
+        "altura": "651"
+    },
+    {
+        "calle": "NAM",
+        "altura": "968"
+    },
+    {
+        "calle": "Baigorria",
+        "altura": "756"
+    },
+    {
+        "calle": "Ibarlucea",
+        "altura": "1956"
+    },
+    {
+        "calle": "David Rey",
+        "altura": "12"
+    },
+    {
+        "calle": "Pasaje El Carmen",
+        "altura": "12"
+    },
+    {
+        "calle": "Eva Perón",
+        "altura": "1530"
+    },
+    {
+        "calle": "Güemes",
+        "altura": "1538"
+    },
+    {
+        "calle": "Ituzaingó",
+        "altura": "1956"
+    },
+    {
+        "calle": "J. B. Justo",
+        "altura": "1718"
+    },
+    {
+        "calle": "Nicaragua",
+        "altura": "762"
+    },
+    {
+        "calle": "Cerrito",
+        "altura": "657"
+    },
+    {
+        "calle": "Santa Fe",
+        "altura": "2050"
+    },
+    {
+        "calle": "Padre Santidrián",
+        "altura": "973"
+    },
+    {
+        "calle": "Calle 1",
+        "altura": "362"
+    },
+    {
+        "calle": "Calle 10",
+        "altura": "2572"
+    },
+    {
+        "calle": "Dorrego",
+        "altura": "224"
+    },
+    {
+        "calle": "6 de Enero",
+        "altura": "371"
+    },
+    {
+        "calle": "Los Aromos",
+        "altura": "2164"
+    },
+    {
+        "calle": "Pentatlón",
+        "altura": "625"
+    },
+    {
+        "calle": "Mateo",
+        "altura": "2856"
+    },
+    {
+        "calle": "Eva Perón",
+        "altura": "1530"
+    },
+    {
+        "calle": "Ameghino",
+        "altura": "1062"
+    },
+    {
+        "calle": "Silvetti",
+        "altura": "788"
+    },
+    {
+        "calle": "Mitre",
+        "altura": "1269"
+    },
+    {
+        "calle": "Callao",
+        "altura": "1340"
+    },
+    {
+        "calle": "Viña del Mar",
+        "altura": "1399"
+    },
+    {
+        "calle": "Las Heras",
+        "altura": "232"
+    },
+    {
+        "calle": "Jujuy",
+        "altura": "1161"
+    },
+    {
+        "calle": "Belgrano",
+        "altura": "253"
+    },
+    {
+        "calle": "Roca",
+        "altura": "2504"
+    },
+    {
+        "calle": "Irigoyen",
+        "altura": "244"
+    },
+    {
+        "calle": "Mendoza",
+        "altura": "1943"
+    },
+    {
+        "calle": "Perón",
+        "altura": "726"
+    },
+    {
+        "calle": "Aconquija",
+        "altura": "73"
+    },
+    {
+        "calle": "Estrada",
+        "altura": "3575"
+    },
+    {
+        "calle": "Liniers",
+        "altura": "2258"
+    },
+    {
+        "calle": "Maipú",
+        "altura": "1356"
+    },
+    {
+        "calle": "Artigas",
+        "altura": "3134"
+    },
+    {
+        "calle": "Calle 2",
+        "altura": "69"
+    },
+    {
+        "calle": "La Cautiva",
+        "altura": "1743"
+    },
+    {
+        "calle": "Los Álamos",
+        "altura": "2428"
+    },
+    {
+        "calle": "Calle 12",
+        "altura": "2447"
+    },
+    {
+        "calle": "Belgrano",
+        "altura": "1074"
+    },
+    {
+        "calle": "Beruti",
+        "altura": "1065"
+    },
+    {
+        "calle": "Belgrano",
+        "altura": "749"
+    },
+    {
+        "calle": "Agrelo",
+        "altura": "2570"
+    },
+    {
+        "calle": "Moreno",
+        "altura": "328"
+    },
+    {
+        "calle": "Brown",
+        "altura": "1173"
+    },
+    {
+        "calle": "Balcarce",
+        "altura": "1074"
+    },
+    {
+        "calle": "Callao",
+        "altura": "1052"
+    },
+    {
+        "calle": "Calle 11",
+        "altura": "2337"
+    },
+    {
+        "calle": "Nansen",
+        "altura": "762"
+    },
+    {
+        "calle": "Guillermo White",
+        "altura": "657"
+    },
+    {
+        "calle": "Matheu",
+        "altura": "2149"
+    },
+    {
+        "calle": "Moreno",
+        "altura": "3590"
+    },
+    {
+        "calle": "Silvetti",
+        "altura": "3298"
+    },
+    {
+        "calle": "Moreno",
+        "altura": "3444"
+    },
+    {
+        "calle": "Baigorria",
+        "altura": "3471"
+    },
+    {
+        "calle": "Paso",
+        "altura": "965"
+    },
+    {
+        "calle": "Los Alerces",
+        "altura": "8169"
+    },
+    {
+        "calle": "Las Acacias",
+        "altura": "8140"
+    },
+    {
+        "calle": "Canals",
+        "altura": "730"
+    },
+    {
+        "calle": "Los Pinos",
+        "altura": "3212"
+    },
+    {
+        "calle": "Paso",
+        "altura": "839"
+    },
+    {
+        "calle": "Los Aromos",
+        "altura": "3381"
+    },
+    {
+        "calle": "Calle 1",
+        "altura": "261"
+    },
+    {
+        "calle": "Calle 1",
+        "altura": "262"
+    },
+    {
+        "calle": "Calle 12",
+        "altura": "2580"
+    },
+    {
+        "calle": "Epstein",
+        "altura": "1308"
+    },
+    {
+        "calle": "García Lorca",
+        "altura": "1676"
+    },
+    {
+        "calle": "Río Vélez",
+        "altura": "1124"
+    },
+    {
+        "calle": "Callao",
+        "altura": "2136"
+    },
+    {
+        "calle": "Los Begonis",
+        "altura": "727"
+    },
+    {
+        "calle": "Los Reyes",
+        "altura": "2429"
+    },
+    {
+        "calle": "Carriego",
+        "altura": "1077"
+    },
+    {
+        "calle": "Estanislao López",
+        "altura": "2128"
+    },
+    {
+        "calle": "Estanislao López",
+        "altura": "2150"
+    },
+    {
+        "calle": "José Ingenieros",
+        "altura": "1998"
+    },
+    {
+        "calle": "Bentos",
+        "altura": "34"
+    },
+    {
+        "calle": "Belgrano",
+        "altura": "623"
+    },
+    {
+        "calle": "Los Cerezos",
+        "altura": "860"
+    },
+    {
+        "calle": "Belgrano",
+        "altura": "818"
+    },
+    {
+        "calle": "Mateu",
+        "altura": "3340"
+    },
+    {
+        "calle": "Dorrego",
+        "altura": "2713"
+    },
+    {
+        "calle": "Los Aromos",
+        "altura": "3300"
+    },
+    {
+        "calle": "Calle 1",
+        "altura": "362"
+    },
+    {
+        "calle": "Maipú",
+        "altura": "744"
+    },
+    {
+        "calle": "Maipú",
+        "altura": "1630"
+    },
+    {
+        "calle": "Colón",
+        "altura": "1840"
+    },
+    {
+        "calle": "Estanislao López",
+        "altura": "1906"
+    },
+    {
+        "calle": "Chacabuco",
+        "altura": "1128"
+    },
+    {
+        "calle": "Maipú",
+        "altura": "2349"
+    },
+    {
+        "calle": "Riobamba",
+        "altura": "3229"
+    },
+    {
+        "calle": "Av. Andrés",
+        "altura": "3299"
+    },
+    {
+        "calle": "12 de Octubre",
+        "altura": "310"
+    },
+    {
+        "calle": "Paso",
+        "altura": "709"
+    },
+    {
+        "calle": "Buenos Aires",
+        "altura": "706"
+    },
+    {
+        "calle": "Jujuy",
+        "altura": "2109"
+    },
+    {
+        "calle": "Mitre",
+        "altura": "1094"
+    },
+    {
+        "calle": "Guayaquil",
+        "altura": "1441"
+    },
+    {
+        "calle": "Los Cerezos",
+        "altura": "3371"
+    },
+    {
+        "calle": "Los Álamos",
+        "altura": "269"
+    },
+    {
+        "calle": "Santiago",
+        "altura": "1216"
+    },
+    {
+        "calle": "Santiago",
+        "altura": "1316"
+    },
+    {
+        "calle": "Calle 1",
+        "altura": "302"
+    },
+    {
+        "calle": "Calle 12",
+        "altura": "2349"
+    },
+    {
+        "calle": "Pellegrini",
+        "altura": "88"
+    },
+    {
+        "calle": "Almirante Brown",
+        "altura": "60"
+    },
+    {
+        "calle": "Granaderos",
+        "altura": "132"
+    },
+    {
+        "calle": "A. G. Bell",
+        "altura": "1345"
+    },
+    {
+        "calle": "Pavón",
+        "altura": "3479"
+    },
+    {
+        "calle": "Pavón",
+        "altura": "3452"
+    },
+    {
+        "calle": "Pavón",
+        "altura": "3410"
+    },
+    {
+        "calle": "Pavón",
+        "altura": "3238"
+    },
+    {
+        "calle": "Pavón",
+        "altura": "077"
+    },
+    {
+        "calle": "Pavón",
+        "altura": "1430"
+    },
+    {
+        "calle": "Pavón",
+        "altura": "267"
+    },
+    {
+        "calle": "Pavón",
+        "altura": "361"
+    },
+    {
+        "calle": "Iguazú",
+        "altura": "727"
+    },
+    {
+        "calle": "Pancho Ramírez",
+        "altura": "904"
+    },
+    {
+        "calle": "Maipú",
+        "altura": "2349"
+    },
+    {
+        "calle": "Formosa",
+        "altura": "921"
+    },
+    {
+        "calle": "Ibarlucea",
+        "altura": "1944"
+    },
+    {
+        "calle": "Uruguay",
+        "altura": "2091"
+    },
+    {
+        "calle": "Avellaneda",
+        "altura": "2279"
+    },
+    {
+        "calle": "Pueyrredón",
+        "altura": "877"
+    },
+    {
+        "calle": "Catriel",
+        "altura": "1150"
+    },
+    {
+        "calle": "El Ligustro",
+        "altura": "2182"
+    },
+    {
+        "calle": "Dorrego",
+        "altura": "224"
+    },
+    {
+        "calle": "Calle 1",
+        "altura": "362"
+    },
+    {
+        "calle": "Calle 12",
+        "altura": "2408"
+    },
+    {
+        "calle": "Mitre",
+        "altura": "1112"
+    },
+    {
+        "calle": "Buenos Aires",
+        "altura": "604"
+    },
+    {
+        "calle": "Mitre",
+        "altura": "873"
+    },
+    {
+        "calle": "Los Sauces",
+        "altura": "3361"
+    },
+    {
+        "calle": "Los Sauces",
+        "altura": "3228"
+    },
+    {
+        "calle": "Balcarce",
+        "altura": "354"
+    },
+    {
+        "calle": "La Cautiva",
+        "altura": "1781"
+    },
+    {
+        "calle": "El Ligustro",
+        "altura": "2182"
+    },
+    {
+        "calle": "Los Copihues",
+        "altura": "451"
+    },
+    {
+        "calle": "Las Acacias",
+        "altura": "8100"
+    },
+    {
+        "calle": "Díaz Vélez",
+        "altura": "1139"
+    },
+    {
+        "calle": "Facundo Aranguren",
+        "altura": "107"
+    },
+    {
+        "calle": "Brown",
+        "altura": "715"
+    },
+    {
+        "calle": "Lugones",
+        "altura": "214"
+    },
+    {
+        "calle": "Calle 12",
+        "altura": "2472"
+    },
+    {
+        "calle": "Asunción",
+        "altura": "70"
+    },
+    {
+        "calle": "José Hernández",
+        "altura": "2050"
+    },
+    {
+        "calle": "Felipe Varela",
+        "altura": "1358"
+    },
+    {
+        "calle": "Díaz Vélez",
+        "altura": "27"
+    },
+    {
+        "calle": "Linares",
+        "altura": "2255"
+    },
+    {
+        "calle": "Paine",
+        "altura": "785"
+    },
+    {
+        "calle": "Pueyrredón",
+        "altura": "542"
+    },
+    {
+        "calle": "Santa Fe",
+        "altura": "1918"
+    },
+    {
+        "calle": "Roca",
+        "altura": "763"
+    },
+    {
+        "calle": "Pancho Ramírez",
+        "altura": "576"
+    },
+    {
+        "calle": "El Bagual",
+        "altura": "3323"
+    },
+    {
+        "calle": "Mocoví",
+        "altura": "3340"
+    },
+    {
+        "calle": "Friuli",
+        "altura": "1351"
+    },
+    {
+        "calle": "Gabriela Mistral",
+        "altura": "2123"
+    },
+    {
+        "calle": "Rincón",
+        "altura": "1026"
+    },
+    {
+        "calle": "Paine",
+        "altura": "273"
+    },
+    {
+        "calle": "San Martín",
+        "altura": "1216"
+    },
+    {
+        "calle": "Calle 11",
+        "altura": "2367"
+    },
+    {
+        "calle": "Calle 12",
+        "altura": "2477"
+    },
+    {
+        "calle": "Las Lengas",
+        "altura": "2419"
+    },
+    {
+        "calle": "El Bagual",
+        "altura": "3220"
+    },
+    {
+        "calle": "Ancón",
+        "altura": "3273"
+    },
+    {
+        "calle": "Ancón",
+        "altura": "3514"
+    },
+    {
+        "calle": "Los Olivos",
+        "altura": "3251"
+    },
+    {
+        "calle": "Corrientes",
+        "altura": "1077"
+    },
+    {
+        "calle": "Paine",
+        "altura": "973"
+    },
+    {
+        "calle": "Irigoyen",
+        "altura": "1941"
+    },
+    {
+        "calle": "Lima",
+        "altura": "1782"
+    },
+    {
+        "calle": "Pasco",
+        "altura": "977"
+    },
+    {
+        "calle": "Belgrano",
+        "altura": "623"
+    },
+    {
+        "calle": "Paso",
+        "altura": "2392"
+    },
+    {
+        "calle": "José F. Suárez",
+        "altura": "2703"
+    },
+    {
+        "calle": "Dante Alighieri",
+        "altura": "17"
+    },
+    {
+        "calle": "Faber",
+        "altura": "1132"
+    },
+    {
+        "calle": "Las Heras",
+        "altura": "962"
+    },
+    {
+        "calle": "Catamarca",
+        "altura": "894"
+    },
+    {
+        "calle": "Marconi",
+        "altura": "1561"
+    },
+    {
+        "calle": "Silvestre Begnis",
+        "altura": "363"
+    },
+    {
+        "calle": "Mariano Mores",
+        "altura": "625"
+    },
+    {
+        "calle": "Bogado",
+        "altura": "3453"
+    },
+    {
+        "calle": "Aconcagua",
+        "altura": "23"
+    },
+    {
+        "calle": "Salgari",
+        "altura": "3530"
+    },
+    {
+        "calle": "Chubut",
+        "altura": "1122"
+    },
+    {
+        "calle": "Concordia",
+        "altura": "24"
+    },
+    {
+        "calle": "Washington",
+        "altura": "68"
+    },
+    {
+        "calle": "Inca",
+        "altura": "566"
+    },
+    {
+        "calle": "Mariano Mores",
+        "altura": "618"
+    },
+    {
+        "calle": "Pasco",
+        "altura": "628"
+    },
+    {
+        "calle": "Calfucurá",
+        "altura": "947"
+    },
+    {
+        "calle": "Salgari",
+        "altura": "3298"
+    },
+    {
+        "calle": "Cattaneo",
+        "altura": "623"
+    },
+    {
+        "calle": "Suipacha",
+        "altura": "1450"
+    },
+    {
+        "calle": "Catamarca",
+        "altura": "853"
+    },
+    {
+        "calle": "Lima",
+        "altura": "1797"
+    },
+    {
+        "calle": "Santiago",
+        "altura": "1397"
+    },
+    {
+        "calle": "Cattaneo",
+        "altura": "665"
+    },
+    {
+        "calle": "México",
+        "altura": "1133"
+    },
+    {
+        "calle": "Chubut",
+        "altura": "1122"
+    },
+    {
+        "calle": "Calle 12",
+        "altura": "2515"
+    },
+    {
+        "calle": "1 de Enero",
+        "altura": "512"
+    },
+    {
+        "calle": "La Cautiva",
+        "altura": "1701"
+    },
+    {
+        "calle": "Lima",
+        "altura": "1797"
+    },
+    {
+        "calle": "Eva Perón",
+        "altura": "1673"
+    },
+    {
+        "calle": "Eva Perón",
+        "altura": "1769"
+    },
+    {
+        "calle": "Aconcagua",
+        "altura": "73"
+    },
+    {
+        "calle": "Rostand",
+        "altura": "3223"
+    },
+    {
+        "calle": "Provincias Unidas",
+        "altura": "3471"
+    },
+    {
+        "calle": "Callao",
+        "altura": "2156"
+    },
+    {
+        "calle": "Suipacha",
+        "altura": "1104"
+    },
+    {
+        "calle": "Brown",
+        "altura": "1173"
+    },
+    {
+        "calle": "Calle 1",
+        "altura": "362"
+    },
+    {
+        "calle": "Calle 2",
+        "altura": "338"
+    },
+    {
+        "calle": "El Malón",
+        "altura": "1003"
+    },
+    {
+        "calle": "Lima",
+        "altura": "1539"
+    },
+    {
+        "calle": "Lima",
+        "altura": "1756"
+    },
+    {
+        "calle": "Caracas",
+        "altura": "1611"
+    },
+    {
+        "calle": "Callao",
+        "altura": "1052"
+    },
+    {
+        "calle": "Mitre",
+        "altura": "1094"
+    },
+    {
+        "calle": "Suipacha",
+        "altura": "1724"
+    },
+    {
+        "calle": "Santa Fe",
+        "altura": "1919"
+    },
+    {
+        "calle": "Calle 1",
+        "altura": "362"
+    },
+    {
+        "calle": "Santa Fe",
+        "altura": "1985"
+    },
+    {
+        "calle": "3 de Febrero",
+        "altura": "639"
+    },
+    {
+        "calle": "Calle 1",
+        "altura": "3124"
+    },
+    {
+        "calle": "Díaz Vélez",
+        "altura": "1180"
+    },
+    {
+        "calle": "Lima",
+        "altura": "1956"
+    },
+    {
+        "calle": "Cirilo Correa",
+        "altura": "1670"
+    },
+    {
+        "calle": "Amado Nervo",
+        "altura": "1832"
+    },
+    {
+        "calle": "Amado Nervo",
+        "altura": "1309"
+    },
+    {
+        "calle": "Suipacha",
+        "altura": "1304"
+    },
+    {
+        "calle": "Díaz Vélez",
+        "altura": "1124"
+    },
+    {
+        "calle": "Callao",
+        "altura": "853"
+    },
+    {
+        "calle": "Mendoza",
+        "altura": "1961"
+    },
+    {
+        "calle": "Marella",
+        "altura": "617"
+    },
+    {
+        "calle": "Patagonia",
+        "altura": "188"
+    },
+    {
+        "calle": "Dorrego",
+        "altura": "3226"
+    },
+    {
+        "calle": "Hilario del Campo",
+        "altura": "395"
+    },
+    {
+        "calle": "Rivadavia",
+        "altura": "426"
+    },
+    {
+        "calle": "Tagle",
+        "altura": "3252"
+    },
+    {
+        "calle": "Lima",
+        "altura": "1520"
+    },
+    {
+        "calle": "Las Piedras",
+        "altura": "253"
+    },
+    {
+        "calle": "Perito Moreno",
+        "altura": "763"
+    }
+]

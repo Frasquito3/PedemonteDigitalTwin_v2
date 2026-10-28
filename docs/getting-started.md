@@ -40,11 +40,16 @@ py -3.11 -m venv .venv
 .\.venv\Scripts\Activate.ps1
 
 python -m pip install --upgrade pip
-python -m pip install -r .\python\requirements-dev.txt
+python -m pip install -r .\python\requirements.txt
 ```
 
 > [!TIP]
-> El archivo `requirements-dev.txt` incluye internamente a `requirements-rl.txt`, por lo que instalará todas las dependencias necesarias: `numpy`, `gymnasium`, `stable-baselines3`, `pyrefly`, `anylogic-alpyne`, `openpyxl`, y `pytest`.
+> El archivo `requirements.txt` incluye todas las dependencias necesarias: `numpy`, `gymnasium`, `stable-baselines3`, `pyrefly`, `anylogic-alpyne`, `openpyxl`, `pytest`, `pandas`, `matplotlib`, `geopy`, `google-genai` y `python-dotenv`.
+> Si vas a ejecutar el pipeline de extracción OCR de hojas de pedidos con Gemini, recordá configurar tu API Key:
+> ```powershell
+> Copy-Item .env.example .env
+> # Editá .env y colocá tu GEMINI_API_KEY
+> ```
 
 ### 3. Validar el Checkpoint RL
 El repositorio ya incluye un checkpoint entrenado y productivo. Para validar que está intacto, comprobá su hash:
@@ -55,14 +60,14 @@ Get-FileHash ".\python\models\rl\rl_policy.zip" -Algorithm SHA256
 El hash esperado debe ser exactamente: `7D2838963F578656919822EE258E9C87C38257829EA801BBD3B41FCF26D20DA4`.
 
 ### 4. Ejecutar la Regresión de Pruebas
-Validá que toda la lógica de planificación de Python esté intacta:
+Validá que toda la lógica de planificación y procesamiento de Python esté intacta:
 
 ```powershell
 Set-Location .\python
 $py = (Resolve-Path "..\.venv\Scripts\python.exe").Path
 & $py -m pytest -q --tb=short
 ```
-> Resultado esperado: `76 passed`.
+> Resultado esperado: `167 passed`.
 
 ---
 

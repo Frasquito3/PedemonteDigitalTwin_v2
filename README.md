@@ -65,7 +65,7 @@ Se recomienda el uso de PowerShell en la raíz del repositorio:
 ```powershell
 py -3.11 -m venv .venv
 .\.venv\Scripts\Activate.ps1
-python -m pip install -r .\python\requirements-dev.txt
+python -m pip install -r .\python\requirements.txt
 ```
 </details>
 
