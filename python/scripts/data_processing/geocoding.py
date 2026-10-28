@@ -10,6 +10,7 @@ from typing import Any
 
 import pandas as pd
 from geopy.geocoders import Nominatim
+from geopy.location import Location
 
 PYTHON_ROOT = Path(__file__).resolve().parents[2]
 
@@ -78,8 +79,8 @@ def geolocalizar_direccion(
         try:
             time.sleep(espera)
             location = geolocator.geocode(query, addressdetails=True, timeout=10)
-            if location:
-                detalles = location.raw.get("address", {})
+            if isinstance(location, Location):
+                detalles = location.raw.get("address", {}) if isinstance(location.raw, dict) else {}
                 barrio = detalles.get(
                     "suburb",
                     detalles.get(

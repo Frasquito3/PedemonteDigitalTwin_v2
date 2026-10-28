@@ -65,7 +65,10 @@ def generar_grafico_top_barrios(
     )
 
     top = stats.head(top_n).copy()
-    top["etiqueta"] = top["barrio"] + " (" + top[col_ciudad].str[:3] + ")"
+    top["etiqueta"] = [
+        f"{b} ({str(c)[:3]})"
+        for b, c in zip(top["barrio"], top[col_ciudad])
+    ]
     colores_barra = [PALETA_CIUDADES.get(c, "#6B7280") for c in top[col_ciudad]]
 
     fig, ax = plt.subplots(figsize=(10, 7))
