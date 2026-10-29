@@ -166,7 +166,8 @@ python scripts/data_processing/generar_pedidos_dia.py -n 10 -p 10 --seed 42 --co
 #   -n, --dias           Cantidad N de días/escenarios a generar (por defecto: 1)
 #   -p, --pedidos-por-dia Cantidad fija (ej. 10) o rango (ej. 8-12) de pedidos por día
 #   --input-file         Ruta al CSV histórico (por defecto: demanda_geografica.csv)
-#   -o, --output-dir     Carpeta de salida (por defecto: data/processed/pedidos_generados)
+#   -o, --output-dir     Carpeta de salida (por defecto: data/processed/pedidos_generados/<YYYYMMDD_HHMMSS>)
+#   --sin-timestamp      Guarda directamente en output-dir sin crear la subcarpeta con timestamp
 #   --formato            Formato de salida: csv, xlsx o ambos (por defecto: ambos)
 #   --turno              MANANA, TARDE o MIXTO (por defecto: MANANA)
 #   --consolidado        Crea además un archivo con todos los días unificados

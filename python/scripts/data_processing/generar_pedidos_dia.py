@@ -11,7 +11,7 @@ from __future__ import annotations
 import argparse
 import csv
 from dataclasses import dataclass, asdict
-from datetime import time
+from datetime import datetime, time
 from pathlib import Path
 import random
 import sys
@@ -383,6 +383,7 @@ def ejecutar_generacion(
     prefijo: str = "pedidos_dia",
     crear_consolidado: bool = False,
     seed: int | None = None,
+    usar_timestamp: bool = True,
 ) -> list[tuple[Path, list[PedidoGenerado]]]:
     """
     Función principal que ejecuta el pipeline de generación para N días.
@@ -401,7 +402,13 @@ def ejecutar_generacion(
     ubicaciones = cargar_y_analizar_historico(ruta_historico)
     print(f"[OK] {len(ubicaciones)} registros históricos analizados con éxito.")
 
-    directorio_salida.mkdir(parents=True, exist_ok=True)
+    if usar_timestamp:
+        marca_tiempo = datetime.now().strftime("%Y%m%d_%H%M%S")
+        carpeta_destino = directorio_salida / marca_tiempo
+    else:
+        carpeta_destino = directorio_salida
+
+    carpeta_destino.mkdir(parents=True, exist_ok=True)
     resultados: list[tuple[Path, list[PedidoGenerado]]] = []
     todos_los_pedidos: list[PedidoGenerado] = []
 
@@ -425,14 +432,14 @@ def ejecutar_generacion(
         archivos_creados = []
 
         if formato in ("csv", "ambos"):
-            ruta_csv = directorio_salida / f"{nombre_base}.csv"
+            ruta_csv = carpeta_destino / f"{nombre_base}.csv"
             exportar_a_csv(pedidos_dia, ruta_csv)
             archivos_creados.append(ruta_csv.name)
             resultados.append((ruta_csv, pedidos_dia))
 
         if formato in ("xlsx", "ambos"):
             if OPENPYXL_DISPONIBLE:
-                ruta_xlsx = directorio_salida / f"{nombre_base}.xlsx"
+                ruta_xlsx = carpeta_destino / f"{nombre_base}.xlsx"
                 exportar_a_excel(pedidos_dia, ruta_xlsx)
                 archivos_creados.append(ruta_xlsx.name)
             else:
@@ -444,16 +451,16 @@ def ejecutar_generacion(
 
     if crear_consolidado and dias_n > 1:
         if formato in ("csv", "ambos"):
-            ruta_cons_csv = directorio_salida / f"{prefijo}_consolidado.csv"
+            ruta_cons_csv = carpeta_destino / f"{prefijo}_consolidado.csv"
             exportar_a_csv(todos_los_pedidos, ruta_cons_csv)
             print(f"  -> Consolidado CSV guardado en: {ruta_cons_csv.name}")
 
         if formato in ("xlsx", "ambos") and OPENPYXL_DISPONIBLE:
-            ruta_cons_xlsx = directorio_salida / f"{prefijo}_consolidado.xlsx"
+            ruta_cons_xlsx = carpeta_destino / f"{prefijo}_consolidado.xlsx"
             exportar_a_excel(todos_los_pedidos, ruta_cons_xlsx)
             print(f"  -> Consolidado Excel guardado en: {ruta_cons_xlsx.name}")
 
-    print(f"\n[OK] Generación completada con éxito. Archivos guardados en: {directorio_salida}")
+    print(f"\n[OK] Generación completada con éxito. Archivos guardados en: {carpeta_destino}")
     return resultados
 
 
@@ -487,6 +494,11 @@ def _parser() -> argparse.ArgumentParser:
         type=Path,
         default=DEFAULT_OUTPUT_DIR,
         help=f"Directorio de salida para los archivos generados (por defecto: {DEFAULT_OUTPUT_DIR})",
+    )
+    p.add_argument(
+        "--sin-timestamp",
+        action="store_true",
+        help="Guarda los archivos directamente en el directorio de salida sin crear una subcarpeta con timestamp",
     )
     p.add_argument(
         "--formato",
@@ -534,6 +546,7 @@ def main() -> int:
             prefijo=args.prefijo,
             crear_consolidado=args.consolidado,
             seed=args.seed,
+            usar_timestamp=not args.sin_timestamp,
         )
         return 0
     except Exception as exc:

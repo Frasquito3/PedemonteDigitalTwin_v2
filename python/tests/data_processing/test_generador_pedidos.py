@@ -80,6 +80,7 @@ def test_ejecutar_generacion_n_dias_y_compatibilidad_excel():
         salida_dir = Path(temp_dir)
         dias_a_generar = 3
 
+        # 1. Prueba con timestamp activado (por defecto)
         resultados = ejecutar_generacion(
             dias_n=dias_a_generar,
             rango_pedidos=(5, 7),
@@ -89,13 +90,17 @@ def test_ejecutar_generacion_n_dias_y_compatibilidad_excel():
             turno="MANANA",
             crear_consolidado=True,
             seed=1234,
+            usar_timestamp=True,
         )
 
         assert len(resultados) == dias_a_generar
+        carpeta_timestamp = resultados[0][0].parent
+        assert carpeta_timestamp != salida_dir
+        assert carpeta_timestamp.parent == salida_dir
 
         for i in range(1, dias_a_generar + 1):
-            csv_path = salida_dir / f"pedidos_dia_{i:02d}.csv"
-            xlsx_path = salida_dir / f"pedidos_dia_{i:02d}.xlsx"
+            csv_path = carpeta_timestamp / f"pedidos_dia_{i:02d}.csv"
+            xlsx_path = carpeta_timestamp / f"pedidos_dia_{i:02d}.xlsx"
 
             assert csv_path.exists(), f"Debe existir {csv_path}"
             assert xlsx_path.exists(), f"Debe existir {xlsx_path}"
@@ -106,6 +111,20 @@ def test_ejecutar_generacion_n_dias_y_compatibilidad_excel():
             assert res_importacion.tareas_estimadas >= len(res_importacion.pedidos)
 
         # Validar archivos consolidados
-        assert (salida_dir / "pedidos_dia_consolidado.csv").exists()
-        assert (salida_dir / "pedidos_dia_consolidado.xlsx").exists()
+        assert (carpeta_timestamp / "pedidos_dia_consolidado.csv").exists()
+        assert (carpeta_timestamp / "pedidos_dia_consolidado.xlsx").exists()
+
+        # 2. Prueba con timestamp desactivado
+        resultados_sin_ts = ejecutar_generacion(
+            dias_n=1,
+            rango_pedidos=(5, 5),
+            ruta_historico=DEFAULT_HISTORICO_CSV,
+            directorio_salida=salida_dir,
+            formato="csv",
+            turno="MANANA",
+            prefijo="pedidos_directo",
+            seed=42,
+            usar_timestamp=False,
+        )
+        assert (salida_dir / "pedidos_directo_01.csv").exists()
 
