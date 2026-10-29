@@ -322,7 +322,10 @@ def exportar_a_excel(pedidos: list[PedidoGenerado], ruta_archivo: Path) -> None:
 
     wb = openpyxl.Workbook()
     ws = wb.active
-    ws.title = "Pedidos"
+    if ws is None:
+        ws = wb.create_sheet("Pedidos")
+    else:
+        ws.title = "Pedidos"
 
     # Encabezado estándar en fila 1
     ws.append(ENCABEZADOS_PEDIDOS)
@@ -345,9 +348,9 @@ def exportar_a_excel(pedidos: list[PedidoGenerado], ruta_archivo: Path) -> None:
         ws.append(fila)
 
     # Ajustar ancho de columnas automáticamente
-    for col in ws.columns:
+    for col_idx, col in enumerate(ws.columns, start=1):
         max_len = max(len(str(cell.value or '')) for cell in col)
-        col_letter = get_column_letter(col[0].column)
+        col_letter = get_column_letter(col_idx)
         ws.column_dimensions[col_letter].width = max(max_len + 3, 12)
 
     wb.save(ruta_archivo)
