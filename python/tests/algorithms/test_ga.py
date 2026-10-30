@@ -2,21 +2,39 @@ import unittest
 
 from planner.algorithms.ga import ConfiguracionGA, GeneticAlgorithmPlanner, generar_plan_ga
 from planner.domain.validator import validar_plan
+
 from tests.fixtures import crear_instancia_demo
 
+
 def firma_plan(plan) -> tuple:
-    return tuple(((camion.camion_id, tuple(((viaje.numero_viaje, tuple(viaje.pedido_ids)) for viaje in camion.viajes))) for camion in plan.camiones))
+    return tuple(
+        (
+            camion.camion_id,
+            tuple((viaje.numero_viaje, tuple(viaje.pedido_ids)) for viaje in camion.viajes),
+        )
+        for camion in plan.camiones
+    )
+
 
 def configuracion_ga_test() -> ConfiguracionGA:
-    return ConfiguracionGA(tamano_poblacion=24, generaciones=40, tamano_elite=3, tamano_torneo=3, probabilidad_crossover=0.9, probabilidad_mutacion_swap=0.25, probabilidad_mutacion_inversion=0.15, generaciones_sin_mejora_max=15)
+    return ConfiguracionGA(
+        tamano_poblacion=24,
+        generaciones=40,
+        tamano_elite=3,
+        tamano_torneo=3,
+        probabilidad_crossover=0.9,
+        probabilidad_mutacion_swap=0.25,
+        probabilidad_mutacion_inversion=0.15,
+        generaciones_sin_mejora_max=15,
+    )
+
 
 class GeneticAlgorithmTest(unittest.TestCase):
-
     def test_genera_plan_valido(self) -> None:
         instancia = crear_instancia_demo()
         plan = generar_plan_ga(instancia, seed=8001, configuracion_ga=configuracion_ga_test())
         validacion = validar_plan(instancia, plan)
-        self.assertTrue(validacion.valido, msg=' | '.join(validacion.errores))
+        self.assertTrue(validacion.valido, msg=" | ".join(validacion.errores))
 
     def test_misma_seed_reproduce_plan(self) -> None:
         instancia = crear_instancia_demo()
@@ -41,9 +59,15 @@ class GeneticAlgorithmTest(unittest.TestCase):
             plan = generar_plan_ga(instancia, seed=seed, configuracion_ga=configuracion_ga_test())
             for camion in plan.camiones:
                 for viaje in camion.viajes:
-                    posiciones = [indice for indice, pedido_id in enumerate(viaje.pedido_ids) if pedidos_por_id[pedido_id].requiere_volcador]
+                    posiciones = [
+                        indice
+                        for indice, pedido_id in enumerate(viaje.pedido_ids)
+                        if pedidos_por_id[pedido_id].requiere_volcador
+                    ]
                     self.assertLessEqual(len(posiciones), 1)
                     if posiciones:
                         self.assertEqual(posiciones[0], len(viaje.pedido_ids) - 1)
-if __name__ == '__main__':
+
+
+if __name__ == "__main__":
     unittest.main()

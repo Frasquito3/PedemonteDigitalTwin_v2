@@ -3,19 +3,17 @@ from __future__ import annotations
 from dataclasses import replace
 
 import pytest
-
+from planner.integration import simulated_comparison_bridge as bridge
 from planner.integration.simulated_comparison import (
-    ComparacionSimulada,
     ESTADO_ERROR,
     ESTADO_FINALIZADO,
     ESTADO_OMITIDO,
+    ComparacionSimulada,
     ResultadoMetodoSimulado,
 )
 from planner.integration.simulated_execution import (
     ResultadoEjecucionSimulada,
 )
-from planner.integration import simulated_comparison_bridge as bridge
-
 
 FIRMA = "a" * 64
 
@@ -58,9 +56,7 @@ def _comparacion() -> ComparacionSimulada:
     algoritmos = ("RL", "GA", "GREEDY", "RANDOM", "GA")
     filas = []
 
-    for indice, (metodo, algoritmo) in enumerate(
-        zip(metodos, algoritmos)
-    ):
+    for indice, (metodo, algoritmo) in enumerate(zip(metodos, algoritmos)):
         filas.append(
             ResultadoMetodoSimulado(
                 metodo_solicitado=metodo,
@@ -88,18 +84,14 @@ def _comparacion() -> ComparacionSimulada:
 
 
 def test_codifica_cabecera_y_longitud_estable() -> None:
-    vector = bridge.codificar_comparacion_simulada(
-        _comparacion()
-    )
+    vector = bridge.codificar_comparacion_simulada(_comparacion())
 
     assert vector[:4] == [1.0, 5.0, 21.0, 20.0]
     assert len(vector) == 4 + 5 * 21
 
 
 def test_codifica_campos_de_un_metodo_finalizado() -> None:
-    vector = bridge.codificar_comparacion_simulada(
-        _comparacion()
-    )
+    vector = bridge.codificar_comparacion_simulada(_comparacion())
 
     bloque_rl = vector[4 : 4 + 21]
 
@@ -143,9 +135,7 @@ def test_codifica_error_con_metricas_no_disponibles() -> None:
         resultados=tuple(filas),
     )
 
-    vector = bridge.codificar_comparacion_simulada(
-        comparacion
-    )
+    vector = bridge.codificar_comparacion_simulada(comparacion)
     base = 4 + 2 * 21
     bloque = vector[base : base + 21]
 
@@ -165,9 +155,7 @@ def test_codifica_omitido() -> None:
         tiempo_motor_segundos=0.0,
     )
 
-    vector = bridge.codificar_comparacion_simulada(
-        replace(comparacion, resultados=tuple(filas))
-    )
+    vector = bridge.codificar_comparacion_simulada(replace(comparacion, resultados=tuple(filas)))
     base = 4 + 4 * 21
 
     assert vector[base : base + 3] == [4.0, 3.0, -1.0]
@@ -184,9 +172,7 @@ def test_comparar_usa_los_planes_estimados_y_la_misma_identidad(
     )
     planes = {
         metodo: [1.0, float(indice + 1)]
-        for indice, metodo in enumerate(
-            bridge.METODOS_COMPARACION_SIMULADA
-        )
+        for indice, metodo in enumerate(bridge.METODOS_COMPARACION_SIMULADA)
     }
     capturado: dict[str, object] = {}
     comparacion = replace(
@@ -297,22 +283,12 @@ def test_resumen_estado_y_limpieza(
         _comparacion(),
     )
 
-    assert bridge.obtener_resumen_comparacion_simulada().startswith(
-        "OK|version=1"
-    )
+    assert bridge.obtener_resumen_comparacion_simulada().startswith("OK|version=1")
     assert bridge.obtener_firma_comparacion_simulada() == FIRMA
     assert (
-        bridge.obtener_estado_metodo_comparacion_simulada(
-            "HÍBRIDO"
-        )
+        bridge.obtener_estado_metodo_comparacion_simulada("HÍBRIDO")
         == "metodo=HIBRIDO|estado=FINALIZADO|algoritmo=GA|error="
     )
 
-    assert (
-        bridge.limpiar_comparacion_simulada()
-        == "OK|COMPARACION_SIMULADA_LIMPIA"
-    )
-    assert (
-        bridge.obtener_resumen_comparacion_simulada()
-        == "SIN_COMPARACION_SIMULADA"
-    )
+    assert bridge.limpiar_comparacion_simulada() == "OK|COMPARACION_SIMULADA_LIMPIA"
+    assert bridge.obtener_resumen_comparacion_simulada() == "SIN_COMPARACION_SIMULADA"

@@ -1,20 +1,75 @@
 from __future__ import annotations
+
 import unittest
+
 from planner.core.config import ConfiguracionPlanificacion
-from planner.core.schema import AlgoritmoPlanificacion, InstanciaTurno, PedidoInput, PlanCamion, PlanTurno, Turno, ViajePlan
+from planner.core.schema import (
+    AlgoritmoPlanificacion,
+    InstanciaTurno,
+    PedidoInput,
+    PlanCamion,
+    PlanTurno,
+    Turno,
+    ViajePlan,
+)
 from planner.routing.objective import evaluar_plan_estimado
 from planner.routing.travel import FuenteMatrizViaje, MatrizViaje
 
-class ObjectiveAuditTest(unittest.TestCase):
 
+class ObjectiveAuditTest(unittest.TestCase):
     def setUp(self) -> None:
         self.configuracion = ConfiguracionPlanificacion()
-        self.instancia = InstanciaTurno(instancia_id='AUDITORIA-001', fecha_operacion='2026-08-24', turno=Turno.MANANA, pedidos=[PedidoInput(pedido_id='P1', pedido_original_id='P1', numero_parte=1, total_partes=1, turno=Turno.MANANA, latitud=-32.831, longitud=-60.719, unidades_capacidad=2, requiere_volcador=False, tiene_ventana_especifica=True, hora_desde_min=470, hora_hasta_min=600)], lat_corralon=-32.8495006, lon_corralon=-60.722653, capacidad_camion=8, cantidad_camiones=2, hora_inicio_turno_min=450, hora_fin_objetivo_min=720, hora_fin_tolerancia_min=735, seed_escenario=6001, seed_ejecucion=1006001)
-        self.plan = PlanTurno(instancia_id=self.instancia.instancia_id, algoritmo=AlgoritmoPlanificacion.GREEDY, camiones=[PlanCamion(camion_id=0, viajes=[ViajePlan(numero_viaje=1, pedido_ids=['P1'])]), PlanCamion(camion_id=1, viajes=[])])
-        self.matriz = MatrizViaje(nodo_ids=['DEPOT', 'P1'], indice_por_id={'DEPOT': 0, 'P1': 1}, distancia_metros=[[0.0, 1000.0], [2000.0, 0.0]], tiempo_base_min=[[0.0, 10.0], [20.0, 0.0]], fuente=FuenteMatrizViaje.VIAL_CACHE, version_fuente='prueba-vial-v1')
+        self.instancia = InstanciaTurno(
+            instancia_id="AUDITORIA-001",
+            fecha_operacion="2026-08-24",
+            turno=Turno.MANANA,
+            pedidos=[
+                PedidoInput(
+                    pedido_id="P1",
+                    pedido_original_id="P1",
+                    numero_parte=1,
+                    total_partes=1,
+                    turno=Turno.MANANA,
+                    latitud=-32.831,
+                    longitud=-60.719,
+                    unidades_capacidad=2,
+                    requiere_volcador=False,
+                    tiene_ventana_especifica=True,
+                    hora_desde_min=470,
+                    hora_hasta_min=600,
+                )
+            ],
+            lat_corralon=-32.8495006,
+            lon_corralon=-60.722653,
+            capacidad_camion=8,
+            cantidad_camiones=2,
+            hora_inicio_turno_min=450,
+            hora_fin_objetivo_min=720,
+            hora_fin_tolerancia_min=735,
+            seed_escenario=6001,
+            seed_ejecucion=1006001,
+        )
+        self.plan = PlanTurno(
+            instancia_id=self.instancia.instancia_id,
+            algoritmo=AlgoritmoPlanificacion.GREEDY,
+            camiones=[
+                PlanCamion(camion_id=0, viajes=[ViajePlan(numero_viaje=1, pedido_ids=["P1"])]),
+                PlanCamion(camion_id=1, viajes=[]),
+            ],
+        )
+        self.matriz = MatrizViaje(
+            nodo_ids=["DEPOT", "P1"],
+            indice_por_id={"DEPOT": 0, "P1": 1},
+            distancia_metros=[[0.0, 1000.0], [2000.0, 0.0]],
+            tiempo_base_min=[[0.0, 10.0], [20.0, 0.0]],
+            fuente=FuenteMatrizViaje.VIAL_CACHE,
+            version_fuente="prueba-vial-v1",
+        )
 
     def test_expone_tiempos_y_costos_sin_cambiar_total(self) -> None:
-        estimacion = evaluar_plan_estimado(self.instancia, self.plan, self.matriz, self.configuracion)
+        estimacion = evaluar_plan_estimado(
+            self.instancia, self.plan, self.matriz, self.configuracion
+        )
         self.assertAlmostEqual(estimacion.tiempo_carga_total_min, 3.612903225806452)
         self.assertEqual(len(estimacion.cargas_estimadas), 1)
         self.assertEqual(estimacion.cargas_estimadas[0].personas_estimadas, 4)
@@ -29,5 +84,7 @@ class ObjectiveAuditTest(unittest.TestCase):
         self.assertAlmostEqual(estimacion.costo_viajes, 5.0)
         self.assertAlmostEqual(estimacion.costo_desbalance, 25.366666666666667)
         self.assertAlmostEqual(estimacion.costo_total, 87.1)
-if __name__ == '__main__':
+
+
+if __name__ == "__main__":
     unittest.main()

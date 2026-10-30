@@ -1,33 +1,48 @@
 import unittest
 from typing import Any
-from planner.domain.preprocess import preprocesar_pedidos
-from planner.core.schema import PedidoInput, Turno
 
-def crear_pedido(pedido_id: str, unidades: int, volcador: bool=False) -> PedidoInput:
-    return PedidoInput(pedido_id=pedido_id, pedido_original_id=pedido_id, numero_parte=1, total_partes=1, turno=Turno.MANANA, latitud=-32.85, longitud=-60.72, unidades_capacidad=unidades, requiere_volcador=volcador, tiene_ventana_especifica=False, hora_desde_min=450, hora_hasta_min=720)
+from planner.core.schema import PedidoInput, Turno
+from planner.domain.preprocess import preprocesar_pedidos
+
+
+def crear_pedido(pedido_id: str, unidades: int, volcador: bool = False) -> PedidoInput:
+    return PedidoInput(
+        pedido_id=pedido_id,
+        pedido_original_id=pedido_id,
+        numero_parte=1,
+        total_partes=1,
+        turno=Turno.MANANA,
+        latitud=-32.85,
+        longitud=-60.72,
+        unidades_capacidad=unidades,
+        requiere_volcador=volcador,
+        tiene_ventana_especifica=False,
+        hora_desde_min=450,
+        hora_hasta_min=720,
+    )
+
 
 class PreprocessTest(unittest.TestCase):
-
     def test_no_divide_pedido_igual_a_capacidad(self) -> None:
-        resultado = preprocesar_pedidos([crear_pedido('P8', 8)], capacidad_camion=8)
+        resultado = preprocesar_pedidos([crear_pedido("P8", 8)], capacidad_camion=8)
         self.assertEqual(len(resultado), 1)
-        self.assertEqual(resultado[0].pedido_id, 'P8')
+        self.assertEqual(resultado[0].pedido_id, "P8")
         self.assertEqual(resultado[0].unidades_capacidad, 8)
         self.assertEqual(resultado[0].total_partes, 1)
 
     def test_divide_nueve_en_ocho_y_uno(self) -> None:
-        resultado = preprocesar_pedidos([crear_pedido('P9', 9)], capacidad_camion=8)
+        resultado = preprocesar_pedidos([crear_pedido("P9", 9)], capacidad_camion=8)
         self.assertEqual([pedido.unidades_capacidad for pedido in resultado], [8, 1])
-        self.assertEqual([pedido.pedido_id for pedido in resultado], ['P9-P1', 'P9-P2'])
+        self.assertEqual([pedido.pedido_id for pedido in resultado], ["P9-P1", "P9-P2"])
 
     def test_divide_diecisiete_en_tres_partes(self) -> None:
-        resultado = preprocesar_pedidos([crear_pedido('P17', 17)], capacidad_camion=8)
+        resultado = preprocesar_pedidos([crear_pedido("P17", 17)], capacidad_camion=8)
         self.assertEqual([pedido.unidades_capacidad for pedido in resultado], [8, 8, 1])
-        self.assertTrue(all((pedido.pedido_original_id == 'P17' for pedido in resultado)))
+        self.assertTrue(all(pedido.pedido_original_id == "P17" for pedido in resultado))
 
     def test_todas_las_partes_heredan_volcador(self) -> None:
-        resultado = preprocesar_pedidos([crear_pedido('PV', 11, volcador=True)], capacidad_camion=8)
-        self.assertTrue(all((pedido.requiere_volcador for pedido in resultado)))
+        resultado = preprocesar_pedidos([crear_pedido("PV", 11, volcador=True)], capacidad_camion=8)
+        self.assertTrue(all(pedido.requiere_volcador for pedido in resultado))
 
 
 class PreprocessMixedLoadTest(unittest.TestCase):
@@ -39,10 +54,7 @@ class PreprocessMixedLoadTest(unittest.TestCase):
         )
 
     def _firma(self, pedidos):
-        return [
-            (p.pedido_id, p.unidades_capacidad, p.requiere_volcador)
-            for p in pedidos
-        ]
+        return [(p.pedido_id, p.unidades_capacidad, p.requiere_volcador) for p in pedidos]
 
     def test_mixto_nueve_con_cuatro_volcador(self):
         partes = self._split(9, 4)
@@ -91,8 +103,7 @@ class PreprocessMixedLoadTest(unittest.TestCase):
 
     def test_multiples_pedidos_con_mapa_parcial(self):
         partes = preprocesar_pedidos(
-            [crear_pedido("A", 9, volcador=True),
-             crear_pedido("B", 3, volcador=False)],
+            [crear_pedido("A", 9, volcador=True), crear_pedido("B", 3, volcador=False)],
             8,
             unidades_volcador_por_pedido={"A": 4},
         )
@@ -116,20 +127,27 @@ class PreprocessMixedLoadTest(unittest.TestCase):
         original.hora_hasta_min = 580
 
         partes = preprocesar_pedidos(
-            [original], 8,
+            [original],
+            8,
             unidades_volcador_por_pedido={"DIRECCION": 4},
         )
         self.assertEqual(
-            [(p.cliente, p.direccion, p.barrio, p.observaciones,
-              p.hora_desde_min, p.hora_hasta_min) for p in partes],
-            [("Cliente real", "Calle 123", "Centro", "Entrega acordada",
-              510, 580)] * 2,
+            [
+                (
+                    p.cliente,
+                    p.direccion,
+                    p.barrio,
+                    p.observaciones,
+                    p.hora_desde_min,
+                    p.hora_hasta_min,
+                )
+                for p in partes
+            ],
+            [("Cliente real", "Calle 123", "Centro", "Entrega acordada", 510, 580)] * 2,
         )
         self.assertFalse(partes[0].requiere_volcador)
         self.assertTrue(partes[1].requiere_volcador)
-        self.assertEqual(
-            sum(p.unidades_capacidad for p in partes), 9
-        )
+        self.assertEqual(sum(p.unidades_capacidad for p in partes), 9)
 
     def test_rechaza_cantidad_negativa(self):
         with self.assertRaisesRegex(ValueError, "entre 0 y 9"):
@@ -150,29 +168,31 @@ class PreprocessMixedLoadTest(unittest.TestCase):
     def test_rechaza_checkbox_desmarcado_con_volcador(self):
         with self.assertRaisesRegex(ValueError, "no coincide"):
             preprocesar_pedidos(
-                [crear_pedido("X", 9, volcador=False)], 8,
+                [crear_pedido("X", 9, volcador=False)],
+                8,
                 unidades_volcador_por_pedido={"X": 4},
             )
 
     def test_rechaza_checkbox_marcado_con_cero(self):
         with self.assertRaisesRegex(ValueError, "no coincide"):
             preprocesar_pedidos(
-                [crear_pedido("X", 9, volcador=True)], 8,
+                [crear_pedido("X", 9, volcador=True)],
+                8,
                 unidades_volcador_por_pedido={"X": 0},
             )
 
     def test_rechaza_mapa_con_pedido_inexistente(self):
         with self.assertRaisesRegex(ValueError, "IDs desconocidos"):
             preprocesar_pedidos(
-                [crear_pedido("X", 2)], 8,
+                [crear_pedido("X", 2)],
+                8,
                 unidades_volcador_por_pedido={"FANTASMA": 1},
             )
 
     def test_rechaza_ids_duplicados_producidos_por_split(self):
         with self.assertRaisesRegex(ValueError, "IDs duplicados"):
             preprocesar_pedidos(
-                [crear_pedido("X", 9, volcador=True),
-                 crear_pedido("X-P1", 1)],
+                [crear_pedido("X", 9, volcador=True), crear_pedido("X-P1", 1)],
                 8,
                 unidades_volcador_por_pedido={"X": 4},
             )
@@ -184,8 +204,10 @@ class PreprocessMixedLoadTest(unittest.TestCase):
 
     def test_instancia_no_muta_original(self):
         from dataclasses import replace
-        from tests.fixtures import crear_instancia_demo
+
         from planner.domain.preprocess import preprocesar_instancia
+
+        from tests.fixtures import crear_instancia_demo
 
         demo = crear_instancia_demo()
         pedido = replace(
@@ -206,10 +228,10 @@ class PreprocessMixedLoadTest(unittest.TestCase):
         self.assertIsNot(instancia, salida)
         self.assertEqual(len(instancia.pedidos), 1)
         self.assertEqual(
-            [(p.unidades_capacidad, p.requiere_volcador)
-             for p in salida.pedidos],
+            [(p.unidades_capacidad, p.requiere_volcador) for p in salida.pedidos],
             [(5, False), (4, True)],
         )
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

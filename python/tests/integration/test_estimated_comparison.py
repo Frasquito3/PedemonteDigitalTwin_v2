@@ -23,6 +23,7 @@ from planner.integration.planner_selector import (
     normalizar_modo,
 )
 from planner.routing.travel import ProveedorHaversineAjustado
+
 from tests.fixtures import crear_instancia_demo
 
 
@@ -96,24 +97,11 @@ class EstimatedComparisonTest(unittest.TestCase):
         )
 
         self.assertEqual(
-            tuple(
-                resultado.modo_solicitado
-                for resultado in comparacion.resultados
-            ),
+            tuple(resultado.modo_solicitado for resultado in comparacion.resultados),
             MODOS_COMPARACION,
         )
-        self.assertTrue(
-            all(
-                resultado.factible
-                for resultado in comparacion.resultados
-            )
-        )
-        self.assertTrue(
-            all(
-                resultado.plan_vector
-                for resultado in comparacion.resultados
-            )
-        )
+        self.assertTrue(all(resultado.factible for resultado in comparacion.resultados))
+        self.assertTrue(all(resultado.plan_vector for resultado in comparacion.resultados))
         self.assertIs(
             self.selector.ultima_decision,
             self.decision_previa,
@@ -135,11 +123,7 @@ class EstimatedComparisonTest(unittest.TestCase):
         self.assertFalse(random_resultado.plan_vector)
 
         self.assertEqual(
-            sum(
-                1
-                for resultado in comparacion.resultados
-                if resultado.factible
-            ),
+            sum(1 for resultado in comparacion.resultados if resultado.factible),
             4,
         )
 
@@ -158,8 +142,7 @@ class EstimatedComparisonTest(unittest.TestCase):
         self.assertEqual(vector[2], float(CAMPOS_POR_METODO))
         self.assertEqual(
             len(vector),
-            TAMANO_CABECERA_COMPARACION
-            + len(MODOS_COMPARACION) * CAMPOS_POR_METODO,
+            TAMANO_CABECERA_COMPARACION + len(MODOS_COMPARACION) * CAMPOS_POR_METODO,
         )
 
     def test_firma_depende_de_vector_y_semillas(self) -> None:

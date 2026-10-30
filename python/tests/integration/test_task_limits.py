@@ -6,7 +6,6 @@ from urllib.parse import unquote
 
 import pytest
 from openpyxl import Workbook
-
 from planner.integration.alpyne_codec import MAX_PEDIDOS_ALPYNE
 from planner.integration.instance_vector_codec import MAX_PEDIDOS
 from planner.integration.order_excel_import import (
@@ -24,16 +23,39 @@ def _crear_excel(ruta: Path, cantidad: int) -> None:
     hoja = libro.active
     assert hoja is not None
     hoja.title = "Pedidos"
-    hoja.append([
-        "pedido_id", "cliente", "direccion", "barrio", "unidades",
-        "latitud", "longitud", "requiere_volcador", "tiene_ventana",
-        "hora_desde", "hora_hasta", "observaciones",
-    ])
+    hoja.append(
+        [
+            "pedido_id",
+            "cliente",
+            "direccion",
+            "barrio",
+            "unidades",
+            "latitud",
+            "longitud",
+            "requiere_volcador",
+            "tiene_ventana",
+            "hora_desde",
+            "hora_hasta",
+            "observaciones",
+        ]
+    )
     for numero in range(1, cantidad + 1):
-        hoja.append([
-            f"ORD-{numero:03d}", "Cliente", "Calle", "Centro", 1,
-            -32.85, -60.72, "NO", "NO", None, None, "",
-        ])
+        hoja.append(
+            [
+                f"ORD-{numero:03d}",
+                "Cliente",
+                "Calle",
+                "Centro",
+                1,
+                -32.85,
+                -60.72,
+                "NO",
+                "NO",
+                None,
+                None,
+                "",
+            ]
+        )
     libro.save(ruta)
     libro.close()
 
@@ -44,7 +66,8 @@ def test_constantes_tareas_compartidas() -> None:
 
 @pytest.mark.parametrize("cantidad,permitido", [(35, True), (36, False)])
 def test_excel_tiene_el_mismo_limite_por_defecto(
-    cantidad: int, permitido: bool,
+    cantidad: int,
+    permitido: bool,
 ) -> None:
     with TemporaryDirectory() as temporal:
         ruta = Path(temporal) / "pedidos.xlsx"
@@ -66,7 +89,10 @@ def test_excel_tiene_el_mismo_limite_por_defecto(
 )
 @pytest.mark.parametrize("cantidad,permitido", [(35, True), (36, False)])
 def test_protocolos_excel_respetan_el_limite_por_defecto(
-    funcion, version: str, cantidad: int, permitido: bool,
+    funcion,
+    version: str,
+    cantidad: int,
+    permitido: bool,
 ) -> None:
     with TemporaryDirectory() as temporal:
         ruta = Path(temporal) / "pedidos.xlsx"

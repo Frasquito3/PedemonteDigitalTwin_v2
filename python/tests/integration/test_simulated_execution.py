@@ -4,14 +4,12 @@ from dataclasses import dataclass
 from pathlib import Path
 
 import pytest
-
 from planner.integration.simulated_execution import (
     ErrorEjecucionSimulada,
     codificar_identificadores_pedidos,
     construir_resultado_simulado,
     ejecutar_plan_en_modelo_exportado,
 )
-
 
 OBSERVACION_FINAL = {
     "error": False,
@@ -466,7 +464,4 @@ def test_codifica_identificadores_en_orden():
         ]
     )
 
-    assert contrato == (
-        "IDMAP1|2|WExTMDMtUDE=:WExTMDM="
-        "|WExTMDMtUDI=:WExTMDM="
-    )
+    assert contrato == ("IDMAP1|2|WExTMDMtUDE=:WExTMDM=|WExTMDMtUDI=:WExTMDM=")

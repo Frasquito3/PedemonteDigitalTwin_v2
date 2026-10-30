@@ -5,24 +5,34 @@ from pathlib import Path
 
 import pandas as pd
 import pytest
-
 from scripts.data_processing.estadistica_demanda import (
     calcular_probabilidades_demanda,
     calcular_resumen_ciudades,
 )
 from scripts.data_processing.extraccion_ocr import (
     cargar_progreso as cargar_progreso_ocr,
+)
+from scripts.data_processing.extraccion_ocr import (
     cargar_resultado as cargar_resultado_ocr,
+)
+from scripts.data_processing.extraccion_ocr import (
     guardar_progreso as guardar_progreso_ocr,
+)
+from scripts.data_processing.extraccion_ocr import (
     guardar_resultado as guardar_resultado_ocr,
+)
+from scripts.data_processing.extraccion_ocr import (
     obtener_cliente_genai,
 )
 from scripts.data_processing.geocoding import (
     cargar_progreso as cargar_progreso_geo,
+)
+from scripts.data_processing.geocoding import (
     guardar_progreso as guardar_progreso_geo,
+)
+from scripts.data_processing.geocoding import (
     normalizar_ciudad_osm,
 )
-
 
 PYTHON_ROOT = Path(__file__).resolve().parents[2]
 PROJECT_ROOT = PYTHON_ROOT.parent
@@ -97,7 +107,7 @@ def test_archivos_de_datos_procesados_existen():
     assert img_dir.exists(), "Falta la carpeta raw/hojas_pedidos"
 
     # Verificar que el JSON tenga contenido válido
-    with open(json_ocr, "r", encoding="utf-8") as f:
+    with open(json_ocr, encoding="utf-8") as f:
         direcciones = json.load(f)
     assert len(direcciones) > 0
 

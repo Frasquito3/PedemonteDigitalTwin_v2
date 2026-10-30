@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import pytest
-
 from planner.integration.simulated_comparison import (
     ESTADO_ERROR,
     ESTADO_FINALIZADO,
@@ -52,8 +51,7 @@ def _resultado(
 def _planes() -> dict[str, list[float]]:
     return {
         metodo: [1.0, float(indice + 1)]
-        for indice, metodo
-        in enumerate(METODOS_COMPARACION_SIMULADA)
+        for indice, metodo in enumerate(METODOS_COMPARACION_SIMULADA)
     }
 
 
@@ -89,23 +87,13 @@ def test_ejecuta_cinco_motores_en_orden_y_con_misma_semilla():
 
     assert comparacion.completa
     assert comparacion.cantidad_finalizados == 5
-    assert [
-        resultado.metodo_solicitado
-        for resultado in comparacion.resultados
-    ] == list(METODOS_COMPARACION_SIMULADA)
+    assert [resultado.metodo_solicitado for resultado in comparacion.resultados] == list(
+        METODOS_COMPARACION_SIMULADA
+    )
     assert len(llamadas) == 5
-    assert {
-        llamada["seed_ejecucion"]
-        for llamada in llamadas
-    } == {1006001}
-    assert {
-        llamada["horizonte_simulacion_min"]
-        for llamada in llamadas
-    } == {600.0}
-    assert [
-        llamada["log_id"]
-        for llamada in llamadas
-    ] == [
+    assert {llamada["seed_ejecucion"] for llamada in llamadas} == {1006001}
+    assert {llamada["horizonte_simulacion_min"] for llamada in llamadas} == {600.0}
+    assert [llamada["log_id"] for llamada in llamadas] == [
         "simulated-comparison-rl",
         "simulated-comparison-hibrido",
         "simulated-comparison-greedy",
@@ -118,9 +106,7 @@ def test_cada_metodo_recibe_su_plan_almacenado():
     llamadas: list[tuple[str, list[float]]] = []
 
     def runner(**kwargs):
-        llamadas.append(
-            (kwargs["log_id"], kwargs["plan_vector"])
-        )
+        llamadas.append((kwargs["log_id"], kwargs["plan_vector"]))
         return _resultado("GA")
 
     ejecutar_comparacion_simulada(
@@ -133,8 +119,7 @@ def test_cada_metodo_recibe_su_plan_almacenado():
             f"simulated-comparison-{metodo.lower()}",
             [1.0, float(indice + 1)],
         )
-        for indice, metodo
-        in enumerate(METODOS_COMPARACION_SIMULADA)
+        for indice, metodo in enumerate(METODOS_COMPARACION_SIMULADA)
     ]
 
 
@@ -205,9 +190,7 @@ def test_serializacion_conserva_resultados_por_metodo():
     assert payload["cantidad_finalizados"] == 5
     assert len(payload["resultados"]) == 5
     assert payload["resultados"][0]["estado"] == ESTADO_FINALIZADO
-    assert payload["resultados"][0]["resultado"]["instancia_id"] == (
-        "UI-2026-08-30-6001"
-    )
+    assert payload["resultados"][0]["resultado"]["instancia_id"] == ("UI-2026-08-30-6001")
     assert comparacion.resumen().startswith("OK|version=1")
 
 

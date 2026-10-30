@@ -6,6 +6,7 @@ from planner.integration import selector_bridge as bridge
 from planner.integration.alpyne_codec import codificar_instancia_alpyne
 from planner.integration.planner_selector import ModoPlanificacion
 from planner.routing.travel import ProveedorHaversineAjustado
+
 from tests.fixtures import crear_instancia_demo
 from tests.integration.test_estimated_comparison import (
     SelectorComparacionFalso,
@@ -17,9 +18,7 @@ class SelectorBridgeComparisonTest(unittest.TestCase):
         bridge.reiniciar()
 
         self.instancia = crear_instancia_demo()
-        self.vector = codificar_instancia_alpyne(
-            self.instancia
-        )
+        self.vector = codificar_instancia_alpyne(self.instancia)
 
         self.selector = SelectorComparacionFalso()
         self.proveedor = ProveedorHaversineAjustado()
@@ -44,9 +43,7 @@ class SelectorBridgeComparisonTest(unittest.TestCase):
         )
 
         for modo in ModoPlanificacion:
-            plan = bridge.obtener_plan_comparacion_vector(
-                modo.value
-            )
+            plan = bridge.obtener_plan_comparacion_vector(modo.value)
             self.assertTrue(plan)
 
     def test_planificacion_individual_invalida_comparacion_anterior(self) -> None:
@@ -77,9 +74,7 @@ class SelectorBridgeComparisonTest(unittest.TestCase):
             self.instancia.seed_ejecucion,
         )
 
-        detalle = bridge.obtener_resultado_comparacion_estimado(
-            "GA"
-        )
+        detalle = bridge.obtener_resultado_comparacion_estimado("GA")
         self.assertIn("factible=NO", detalle)
 
         with self.assertRaises(RuntimeError):

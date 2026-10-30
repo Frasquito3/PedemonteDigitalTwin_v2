@@ -24,7 +24,6 @@ def crear_instancia_demo() -> InstanciaTurno:
             hora_desde_min=450,
             hora_hasta_min=720,
         ),
-
         PedidoInput(
             pedido_id="P002",
             pedido_original_id="P002",
@@ -39,7 +38,6 @@ def crear_instancia_demo() -> InstanciaTurno:
             hora_desde_min=450,
             hora_hasta_min=720,
         ),
-
         PedidoInput(
             pedido_id="P003",
             pedido_original_id="P003",
@@ -54,7 +52,6 @@ def crear_instancia_demo() -> InstanciaTurno:
             hora_desde_min=450,
             hora_hasta_min=720,
         ),
-
         PedidoInput(
             pedido_id="P004",
             pedido_original_id="P004",
@@ -73,28 +70,16 @@ def crear_instancia_demo() -> InstanciaTurno:
 
     return InstanciaTurno(
         instancia_id="TEST-001",
-
         fecha_operacion="2026-08-13",
-
         turno=Turno.MANANA,
-
         pedidos=pedidos,
-
         lat_corralon=lat_corralon,
-
         lon_corralon=lon_corralon,
-
         capacidad_camion=8,
-
         cantidad_camiones=2,
-
         hora_inicio_turno_min=450,
-
         hora_fin_objetivo_min=720,
-
         hora_fin_tolerancia_min=735,
-
         seed_escenario=1001,
-
         seed_ejecucion=2001,
     )

@@ -3,8 +3,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 from tempfile import TemporaryDirectory
-import pytest
 
+import pytest
 from planner.integration.order_excel_import import importar_pedidos_excel
 from scripts.data_processing.generar_pedidos_dia import (
     DEFAULT_CANT_PEDIDOS_CSV,
@@ -61,9 +61,7 @@ def test_cantidades_pedidos_turnos_y_reglas_negocio():
         ruta_probabilidades=DEFAULT_PROBABILIDADES_CSV,
     )
     assert len(ubicaciones) > 500
-    coords_exactas_historico = {
-        (round(u.latitud, 6), round(u.longitud, 6)) for u in ubicaciones
-    }
+    coords_exactas_historico = {(round(u.latitud, 6), round(u.longitud, 6)) for u in ubicaciones}
 
     rng = random.Random(20261029)
     tipos_ventana_vistos: set[str] = set()
@@ -232,7 +230,7 @@ def test_ejecutar_generacion_n_dias_y_compatibilidad_excel():
         assert (carpeta_timestamp / "pedidos_dia_consolidado.xlsx").exists()
 
         # 2. Prueba con timestamp desactivado
-        resultados_sin_ts = ejecutar_generacion(
+        _ = ejecutar_generacion(
             dias_n=1,
             rango_pedidos=(5, 5),
             ruta_historico=DEFAULT_HISTORICO_CSV,
@@ -292,9 +290,7 @@ def test_experimento_5_algoritmos_3_repeticiones_y_carpeta_con_semilla():
         assert (carpeta_exp / NOMBRE_RESUMEN_CSV).is_file()
         assert (carpeta_exp / NOMBRE_RESUMEN_JSON).is_file()
 
-        filas_resumen = json.loads(
-            (carpeta_exp / NOMBRE_RESUMEN_JSON).read_text(encoding="utf-8")
-        )
+        filas_resumen = json.loads((carpeta_exp / NOMBRE_RESUMEN_JSON).read_text(encoding="utf-8"))
         # 2 turnos * 3 repeticiones * 5 algoritmos = 30 ejecuciones registradas
         assert len(filas_resumen) == 2 * 3 * 5
         assert all(f["factible_estimado"] is True for f in filas_resumen)
@@ -317,5 +313,3 @@ def test_experimento_5_algoritmos_3_repeticiones_y_carpeta_con_semilla():
                     "GA",
                 }
                 assert (carpeta_exp / r["archivo_resultado"]).is_file()
-
-

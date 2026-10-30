@@ -1,13 +1,15 @@
 import unittest
 from random import Random
+
 import numpy as np
-from stable_baselines3.common.env_checker import check_env
-from planner.rl.base_env import PedemontePlanEnv
 from planner.domain.validator import validar_plan
+from planner.rl.base_env import PedemontePlanEnv
+from stable_baselines3.common.env_checker import check_env
+
 from tests.fixtures import crear_instancia_demo
 
-class PedemontePlanEnvTest(unittest.TestCase):
 
+class PedemontePlanEnvTest(unittest.TestCase):
     def test_cumple_api_gymnasium(self) -> None:
         env = PedemontePlanEnv(crear_instancia_demo())
         check_env(env, warn=True, skip_render_check=True)
@@ -27,6 +29,10 @@ class PedemontePlanEnvTest(unittest.TestCase):
             self.assertIsNotNone(env.ultimo_plan)
             assert env.ultimo_plan is not None
             validacion = validar_plan(instancia, env.ultimo_plan)
-            self.assertTrue(validacion.valido, msg=f'Seed={seed}: ' + ' | '.join(validacion.errores))
-if __name__ == '__main__':
+            self.assertTrue(
+                validacion.valido, msg=f"Seed={seed}: " + " | ".join(validacion.errores)
+            )
+
+
+if __name__ == "__main__":
     unittest.main()
