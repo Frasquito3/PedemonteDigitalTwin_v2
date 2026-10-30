@@ -1,53 +1,55 @@
+"""Script de experimentación y comparación de algoritmos en simulación AnyLogic.
+
+Ejecuta los cinco métodos de planificación (`RL`, `HIBRIDO`, `GREEDY`, `RANDOM`, `GA`)
+a lo largo de múltiples réplicas y turnos (matutinos o vespertinos), evaluando tanto
+el costo y factibilidad estimados como las variables operativas en el motor de simulación
+(demoras reales, tiempos de espera de clientes y desbalance entre camiones).
+
+Consolida los resultados y las semillas en carpetas con formato `seed_<seed_inicial>_<timestamp>`.
+"""
+
 from __future__ import annotations
 
 import argparse
 import csv
-from dataclasses import dataclass
-from datetime import datetime
 import json
-from pathlib import Path
 import random
 import sys
-from typing import Any, Sequence
-
+from dataclasses import dataclass
+from datetime import datetime
+from pathlib import Path
+from typing import Any
 
 PYTHON_ROOT = Path(__file__).resolve().parents[2]
-
 if str(PYTHON_ROOT) not in sys.path:
     sys.path.insert(0, str(PYTHON_ROOT))
 
-from planner.core.schema import (  # noqa: E402
-    InstanciaTurno,
-    PedidoInput,
-    Turno,
-)
-from planner.domain.preprocess import preprocesar_pedidos  # noqa: E402
-from planner.integration import selector_bridge  # noqa: E402
-from planner.integration.alpyne_codec import (  # noqa: E402
-    codificar_instancia_alpyne,
-)
-from planner.integration.order_excel_import import (  # noqa: E402
+from planner.core.schema import InstanciaTurno, PedidoInput, Turno
+from planner.domain.preprocess import preprocesar_pedidos
+from planner.integration import selector_bridge
+from planner.integration.alpyne_codec import codificar_instancia_alpyne
+from planner.integration.order_excel_import import (
     ErrorImportacionExcel,
     importar_pedidos_excel,
 )
-from planner.integration.simulated_comparison import (  # noqa: E402
+from planner.integration.simulated_comparison import (
     METODOS_COMPARACION_SIMULADA,
     ComparacionSimulada,
     RunnerSimulado,
     ejecutar_comparacion_simulada,
 )
-from planner.integration.simulated_execution import (  # noqa: E402
+from planner.integration.simulated_execution import (
     codificar_identificadores_pedidos,
     ejecutar_plan_en_modelo_exportado,
 )
-from scripts.data_processing.generar_pedidos_dia import (  # noqa: E402
+
+from scripts.data_processing.generar_pedidos_dia import (
     DEFAULT_HISTORICO_CSV,
     NOMBRE_METADATA_GENERACION,
     ejecutar_generacion,
     generar_semilla_aleatoria,
     parsear_rango_pedidos,
 )
-
 
 NOMBRE_METADATA_EXPERIMENTO = "metadata_experimento.json"
 NOMBRE_RESUMEN_CSV = "resumen_resultados.csv"
@@ -94,9 +96,31 @@ COLUMNAS_RESUMEN_CSV: list[str] = [
     "error_simulado",
 ]
 
+__all__ = [
+    "COLUMNAS_RESUMEN_CSV",
+    "HORARIOS_OPERACION_TURNO",
+    "NOMBRE_METADATA_EXPERIMENTO",
+    "NOMBRE_RESUMEN_CSV",
+    "NOMBRE_RESUMEN_JSON",
+    "TurnoEntrada",
+    "calcular_semillas_por_metodo",
+    "crear_instancia_desde_excel",
+    "ejecutar_experimento_comparacion",
+    "main",
+]
+
 
 @dataclass(frozen=True)
 class TurnoEntrada:
+    """Descriptor de un turno importable para el experimento comparativo.
+
+    Attributes:
+        dia_numero: Número correlativo del día/turno en el lote.
+        archivo_excel: Ruta al archivo Excel con los pedidos correspondientes.
+        seed_escenario: Semilla fija asignada al escenario para replicabilidad.
+        turno: Turno horario declarado ("AUTO", "MANANA", "TARDE", "MIXTO").
+    """
+
     dia_numero: int
     archivo_excel: Path
     seed_escenario: int
@@ -107,9 +131,14 @@ def calcular_semillas_por_metodo(
     seed_escenario: int,
     seed_ejecucion: int,
 ) -> dict[str, int]:
-    """
-    Devuelve el mapa de semillas exactas empleadas por cada uno de los
-    cinco algoritmos para una tupla (seed_escenario, seed_ejecucion).
+    """Devuelve el mapa de semillas deterministas para cada uno de los 5 algoritmos.
+
+    Args:
+        seed_escenario: Semilla del escenario generador.
+        seed_ejecucion: Semilla de la réplica de ejecución estocástica.
+
+    Returns:
+        Diccionario con semillas individuales para RL, HIBRIDO, GREEDY, RANDOM y GA.
     """
     seed_base = seed_ejecucion if seed_ejecucion > 0 else seed_escenario
     return {
@@ -129,16 +158,27 @@ def _resolver_turnos_entrada(
     turno_forzado: str,
     rng: random.Random,
 ) -> tuple[list[TurnoEntrada], int | None]:
-    """
-    Resuelve la lista de turnos a evaluar desde un directorio generado
-    (con `metadata_generacion.json` o archivos `.xlsx`) o desde un único Excel.
+    """Resuelve la lista de turnos a evaluar desde un directorio o desde un único Excel.
+
+    Args:
+        archivo_excel: Archivo Excel individual (opcional).
+        directorio_turnos: Directorio con archivos de turnos (opcional).
+        seed_escenario_default: Semilla fallback para archivos individuales.
+        turno_forzado: Forzado de franja ("AUTO", "MANANA", etc.).
+        rng: Generador pseudoaleatorio para sortear semillas faltantes.
+
+    Returns:
+        Tupla con lista de TurnoEntrada y semilla inicial detectada de metadata (o None).
+
+    Raises:
+        NotADirectoryError: Si directorio_turnos no es un directorio válido.
+        FileNotFoundError: Si los archivos Excel especificados no existen.
+        ValueError: Si no se indicó ni archivo Excel ni directorio.
     """
     if directorio_turnos is not None:
         carpeta = directorio_turnos.expanduser().resolve()
         if not carpeta.is_dir():
-            raise NotADirectoryError(
-                f"No existe el directorio de turnos: {carpeta}"
-            )
+            raise NotADirectoryError(f"No existe el directorio de turnos: {carpeta}")
 
         ruta_meta = carpeta / NOMBRE_METADATA_GENERACION
         if ruta_meta.is_file():
@@ -157,39 +197,27 @@ def _resolver_turnos_entrada(
                         f"No se encontró el archivo Excel declarado en metadata: {ruta_xlsx}"
                     )
                 turno_item = (
-                    str(item.get("turno", "MANANA"))
-                    if turno_forzado == "AUTO"
-                    else turno_forzado
+                    str(item.get("turno", "MANANA")) if turno_forzado == "AUTO" else turno_forzado
                 )
                 entradas.append(
                     TurnoEntrada(
                         dia_numero=int(item.get("dia_numero", idx)),
                         archivo_excel=ruta_xlsx,
                         seed_escenario=int(
-                            item.get(
-                                "seed_escenario",
-                                rng.randint(100_000, 999_999_999),
-                            )
+                            item.get("seed_escenario", rng.randint(100_000, 999_999_999))
                         ),
                         turno=turno_item,
                     )
                 )
 
             if entradas:
-                return (
-                    entradas,
-                    int(seed_gen) if seed_gen is not None else None,
-                )
+                return entradas, int(seed_gen) if seed_gen is not None else None
 
         archivos_xlsx = sorted(
-            p
-            for p in carpeta.glob("*.xlsx")
-            if not p.stem.endswith("_consolidado")
+            p for p in carpeta.glob("*.xlsx") if not p.stem.endswith("_consolidado")
         )
         if not archivos_xlsx:
-            raise FileNotFoundError(
-                f"No se encontraron archivos .xlsx de turnos en: {carpeta}"
-            )
+            raise FileNotFoundError(f"No se encontraron archivos .xlsx de turnos en: {carpeta}")
 
         return (
             [
@@ -205,9 +233,7 @@ def _resolver_turnos_entrada(
         )
 
     if archivo_excel is None:
-        raise ValueError(
-            "Se debe indicar --archivo-excel, --directorio-turnos o --generar-dias."
-        )
+        raise ValueError("Se debe indicar --archivo-excel, --directorio-turnos o --generar-dias.")
 
     ruta_unica = archivo_excel.expanduser().resolve()
     if not ruta_unica.is_file():
@@ -235,15 +261,24 @@ def crear_instancia_desde_excel(
     dia_numero: int = 1,
     fecha_operacion: str = "2026-08-30",
 ) -> InstanciaTurno:
-    """
-    Importa un archivo Excel de pedidos, detecta o valida el turno operativo
-    (MANANA o TARDE), aplica el preprocesamiento de división por camión y
-    construye la `InstanciaTurno` con sus semillas de escenario y ejecución.
+    """Importa un Excel de pedidos y construye la InstanciaTurno preprocesada.
+
+    Args:
+        archivo_excel: Archivo de pedidos a cargar.
+        seed_escenario: Semilla fija asignada al lote de pedidos.
+        seed_ejecucion: Semilla de la corrida de simulación o algoritmo.
+        turno: Franja solicitada ("AUTO", "MANANA", "TARDE").
+        dia_numero: Índice de día dentro de la serie de experimentos.
+        fecha_operacion: Fecha ISO de la jornada analizada.
+
+    Returns:
+        InstanciaTurno preprocesada y verificada.
+
+    Raises:
+        RuntimeError: Si la importación de pedidos falla en ambos turnos.
     """
     candidatos_turno = (
-        ["MANANA", "TARDE"]
-        if turno.upper() in ("AUTO", "MIXTO")
-        else [turno.upper()]
+        ["MANANA", "TARDE"] if turno.upper() in ("AUTO", "MIXTO") else [turno.upper()]
     )
 
     importacion = None
@@ -265,16 +300,11 @@ def crear_instancia_desde_excel(
             raise ultimo_error
         raise RuntimeError(f"No se pudo importar el archivo {archivo_excel}")
 
-    turno_enum = (
-        Turno.TARDE
-        if importacion.turno.upper() == "TARDE"
-        else Turno.MANANA
-    )
+    turno_enum = Turno.TARDE if importacion.turno.upper() == "TARDE" else Turno.MANANA
     inicio_min, fin_obj_min, fin_tol_min = HORARIOS_OPERACION_TURNO[turno_enum]
 
     unidades_volcador_mapa = {
-        pedido.pedido_id: pedido.unidades_volcador
-        for pedido in importacion.pedidos
+        pedido.pedido_id: pedido.unidades_volcador for pedido in importacion.pedidos
     }
 
     originales = [
@@ -322,26 +352,12 @@ def crear_instancia_desde_excel(
     )
 
 
-def _crear_instancia_ejemplo(
-    *,
-    archivo_excel: Path,
-    seed_escenario: int,
-) -> InstanciaTurno:
-    return crear_instancia_desde_excel(
-        archivo_excel=archivo_excel,
-        seed_escenario=seed_escenario,
-        seed_ejecucion=1_000_000 + seed_escenario,
-        turno="AUTO",
-    )
-
-
 def _extraer_resultados_estimados(
     semillas_metodos: dict[str, int],
 ) -> dict[str, dict[str, Any]]:
-    """Extrae las métricas estimadas del puente para los 5 métodos."""
+    """Extrae las métricas estimadas del puente global para los 5 métodos."""
     comparacion_est = selector_bridge._ultima_comparacion_estimada
     salida: dict[str, dict[str, Any]] = {}
-
     if comparacion_est is None:
         return salida
 
@@ -352,9 +368,7 @@ def _extraer_resultados_estimados(
             "seed_algoritmo": semillas_metodos.get(modo, -1),
             "factible": res.factible,
             "algoritmo_resultante": (
-                None
-                if res.algoritmo_resultante is None
-                else res.algoritmo_resultante.value
+                None if res.algoritmo_resultante is None else res.algoritmo_resultante.value
             ),
             "costo_estimado": res.costo_estimado,
             "distancia_total_km": res.distancia_total_km,
@@ -393,11 +407,33 @@ def ejecutar_experimento_comparacion(
     horizonte_min: float = 600.0,
     runner_simulado: RunnerSimulado = ejecutar_plan_en_modelo_exportado,
 ) -> dict[str, Any]:
-    """
-    Ejecuta los 5 algoritmos (`RL`, `HIBRIDO`, `GREEDY`, `RANDOM`, `GA`)
-    `repeticiones` veces (por defecto >= 3) sobre cada día/turno evaluado,
-    registrando todas las semillas y resultados en una carpeta única con
-    formato `seed_<seed_inicial>_<YYYYMMDD_HHMMSS>`.
+    """Ejecuta los 5 algoritmos repeticiones veces sobre cada turno en simulación.
+
+    Args:
+        raiz_python: Ruta raíz del paquete Python.
+        modelo_exportado: Ruta al archivo zip del modelo AnyLogic.
+        archivo_excel: Excel de pedidos único (opcional).
+        directorio_turnos: Directorio con lote de Excel de turnos (opcional).
+        generar_dias: Días aleatorios a generar en el acto si se indica N > 0.
+        rango_pedidos: Rango `(min, max)` de pedidos para generación estocástica.
+        turno: Franja horaria ("AUTO", "MANANA", "TARDE", "MIXTO").
+        repeticiones: Veces que se evalúan los 5 métodos por turno (default: 3).
+        seed: Semilla inicial del experimento (None para aleatoria).
+        seed_escenario_default: Semilla para archivo individual.
+        directorio_salida: Directorio base donde alojar la carpeta del experimento.
+        salida_archivo_unico: Archivo JSON adicional para última corrida.
+        solo_estimado: Si es True, omite invocar el motor Java AnyLogic.
+        sin_proveedores: Si es True, desactiva viajes a canteras externas.
+        permitir_fallback_vial: Si es True, permite Haversine ajustado ante fallos de caché.
+        timeout: Segundos máximos por simulación de método.
+        horizonte_min: Horizonte de tiempo simulado máximo en minutos.
+        runner_simulado: Función que ejecuta el plan en el motor exportado.
+
+    Returns:
+        Diccionario serializable con la metadata y resultados globales del experimento.
+
+    Raises:
+        ValueError: Si los parámetros numéricos de control son inválidos.
     """
     if repeticiones <= 0:
         raise ValueError("repeticiones debe ser >= 1.")
@@ -420,7 +456,6 @@ def ejecutar_experimento_comparacion(
     carpeta_corridas = carpeta_experimento / "corridas"
     carpeta_corridas.mkdir(parents=True, exist_ok=True)
 
-    # Si se solicitó generar días aleatorios en el acto, guardarlos dentro de la carpeta
     if generar_dias is not None:
         if generar_dias <= 0:
             raise ValueError("generar_dias debe ser >= 1.")
@@ -462,12 +497,7 @@ def ejecutar_experimento_comparacion(
     modelo_zip = (
         modelo_exportado.expanduser().resolve()
         if modelo_exportado is not None
-        else (
-            raiz
-            / "anylogic_export"
-            / "simulated_comparison"
-            / "PedemonteDigitalTwin_v2.zip"
-        )
+        else (raiz / "anylogic_export" / "simulated_comparison" / "PedemonteDigitalTwin_v2.zip")
     )
 
     filas_resumen: list[dict[str, Any]] = []
@@ -479,7 +509,6 @@ def ejecutar_experimento_comparacion(
         repeticiones_meta: list[dict[str, Any]] = []
 
         for rep in range(1, repeticiones + 1):
-            # Derivación determinista de seed_ejecucion para cada repetición
             if (
                 len(turnos_entrada) == 1
                 and repeticiones == 1
@@ -510,28 +539,22 @@ def ejecutar_experimento_comparacion(
                 instancia.seed_ejecucion,
             )
 
-            estimados_por_metodo = _extraer_resultados_estimados(
-                semillas_metodos
-            )
+            estimados_por_metodo = _extraer_resultados_estimados(semillas_metodos)
 
             planes: dict[str, list[float]] = {}
             for metodo in METODOS_COMPARACION_SIMULADA:
                 info_est = estimados_por_metodo.get(metodo, {})
                 if info_est.get("factible", False):
-                    planes[metodo] = (
-                        selector_bridge.obtener_plan_comparacion_vector(metodo)
-                    )
+                    planes[metodo] = selector_bridge.obtener_plan_comparacion_vector(metodo)
                     print(
-                        "PLAN | "
-                        f"dia={entrada.dia_numero:02d} | rep={rep:02d} | "
+                        f"PLAN | dia={entrada.dia_numero:02d} | rep={rep:02d} | "
                         f"metodo={metodo} | seed_algo={semillas_metodos[metodo]} | "
                         f"plan_vector={len(planes[metodo])}"
                     )
                 else:
                     todas_completas = False
                     print(
-                        "PLAN_ERROR | "
-                        f"dia={entrada.dia_numero:02d} | rep={rep:02d} | "
+                        f"PLAN_ERROR | dia={entrada.dia_numero:02d} | rep={rep:02d} | "
                         f"metodo={metodo} | error={info_est.get('error', '')}"
                     )
 
@@ -542,9 +565,7 @@ def ejecutar_experimento_comparacion(
                     raiz_python=raiz,
                     instancia_vector=instancia_vector,
                     planes_por_metodo=planes,
-                    identificadores_pedidos=codificar_identificadores_pedidos(
-                        instancia.pedidos
-                    ),
+                    identificadores_pedidos=codificar_identificadores_pedidos(instancia.pedidos),
                     instancia_id=instancia.instancia_id,
                     fecha_operacion=instancia.fecha_operacion,
                     seed_escenario=instancia.seed_escenario,
@@ -561,8 +582,7 @@ def ejecutar_experimento_comparacion(
                 for resultado_metodo in comparacion_sim.resultados:
                     if resultado_metodo.resultado is None:
                         print(
-                            "METODO | "
-                            f"dia={entrada.dia_numero:02d} | rep={rep:02d} | "
+                            f"METODO | dia={entrada.dia_numero:02d} | rep={rep:02d} | "
                             f"solicitado={resultado_metodo.metodo_solicitado} | "
                             f"estado={resultado_metodo.estado} | "
                             f"error={resultado_metodo.error}"
@@ -571,8 +591,7 @@ def ejecutar_experimento_comparacion(
 
                     res_sim = resultado_metodo.resultado
                     print(
-                        "METODO | "
-                        f"dia={entrada.dia_numero:02d} | rep={rep:02d} | "
+                        f"METODO | dia={entrada.dia_numero:02d} | rep={rep:02d} | "
                         f"solicitado={resultado_metodo.metodo_solicitado} | "
                         f"estado={resultado_metodo.estado} | "
                         f"aplicado={res_sim.algoritmo_aplicado} | "
@@ -592,9 +611,7 @@ def ejecutar_experimento_comparacion(
                     "version": 1,
                     "instancia_id": instancia.instancia_id,
                     "fecha_operacion": instancia.fecha_operacion,
-                    "firma_instancia": (
-                        selector_bridge.obtener_firma_comparacion_estimada()
-                    ),
+                    "firma_instancia": (selector_bridge.obtener_firma_comparacion_estimada()),
                     "seed_escenario": instancia.seed_escenario,
                     "seed_ejecucion": instancia.seed_ejecucion,
                     "proveedores_habilitados": not sin_proveedores,
@@ -615,8 +632,7 @@ def ejecutar_experimento_comparacion(
             payload_corrida["resultados_estimados"] = estimados_por_metodo
 
             nombre_corrida = (
-                f"turno_{entrada.dia_numero:02d}_rep_{rep:02d}"
-                f"_seed_{seed_ejecucion}.json"
+                f"turno_{entrada.dia_numero:02d}_rep_{rep:02d}_seed_{seed_ejecucion}.json"
             )
             ruta_corrida = carpeta_corridas / nombre_corrida
             ruta_corrida.write_text(
@@ -638,11 +654,7 @@ def ejecutar_experimento_comparacion(
                     if comparacion_sim is not None
                     else None
                 )
-                sim_res = (
-                    sim_metodo.resultado
-                    if sim_metodo is not None
-                    else None
-                )
+                sim_res = sim_metodo.resultado if sim_metodo is not None else None
 
                 filas_resumen.append(
                     {
@@ -661,62 +673,38 @@ def ejecutar_experimento_comparacion(
                         "factible_estimado": est.get("factible", False),
                         "costo_estimado": est.get("costo_estimado"),
                         "distancia_estimada_km": est.get("distancia_total_km"),
-                        "duracion_estimada_min": est.get(
-                            "duracion_operacion_min"
-                        ),
+                        "duracion_estimada_min": est.get("duracion_operacion_min"),
                         "viajes_estimados": est.get("viajes_totales"),
                         "pedidos_tardios_estimados": est.get("pedidos_tardios"),
                         "tardanza_estimada_min": est.get("tardanza_total_min"),
-                        "desbalance_estimado_min": est.get(
-                            "diferencia_fin_camiones_min"
-                        ),
+                        "desbalance_estimado_min": est.get("diferencia_fin_camiones_min"),
                         "tiempo_plan_ms": est.get("tiempo_plan_ms"),
                         "estado_simulado": (
-                            "SOLO_ESTIMADO"
-                            if sim_metodo is None
-                            else sim_metodo.estado
+                            "SOLO_ESTIMADO" if sim_metodo is None else sim_metodo.estado
                         ),
                         "algoritmo_simulado": (
-                            None
-                            if sim_res is None
-                            else sim_res.algoritmo_aplicado
+                            None if sim_res is None else sim_res.algoritmo_aplicado
                         ),
-                        "costo_simulado": (
-                            None if sim_res is None else sim_res.costo_total
-                        ),
+                        "costo_simulado": None if sim_res is None else sim_res.costo_total,
                         "distancia_simulada_km": (
-                            None
-                            if sim_res is None
-                            else sim_res.distancia_total_km
+                            None if sim_res is None else sim_res.distancia_total_km
                         ),
                         "duracion_simulada_min": (
-                            None
-                            if sim_res is None
-                            else sim_res.duracion_simulada_min
+                            None if sim_res is None else sim_res.duracion_simulada_min
                         ),
-                        "viajes_simulados": (
-                            None if sim_res is None else sim_res.viajes_totales
-                        ),
+                        "viajes_simulados": (None if sim_res is None else sim_res.viajes_totales),
                         "tardanza_simulada_min": (
-                            None
-                            if sim_res is None
-                            else sim_res.tardanza_total_min
+                            None if sim_res is None else sim_res.tardanza_total_min
                         ),
                         "desbalance_simulado_min": (
-                            None
-                            if sim_res is None
-                            else sim_res.diferencia_fin_camiones_min
+                            None if sim_res is None else sim_res.diferencia_fin_camiones_min
                         ),
                         "tiempo_motor_s": (
-                            None
-                            if sim_metodo is None
-                            else sim_metodo.tiempo_motor_segundos
+                            None if sim_metodo is None else sim_metodo.tiempo_motor_segundos
                         ),
                         "detalle_estimado": est.get("detalle", ""),
                         "error_estimado": est.get("error", ""),
-                        "error_simulado": (
-                            "" if sim_metodo is None else sim_metodo.error
-                        ),
+                        "error_simulado": "" if sim_metodo is None else sim_metodo.error,
                     }
                 )
 
@@ -739,7 +727,6 @@ def ejecutar_experimento_comparacion(
             }
         )
 
-    # Guardar tabla consolidada en CSV y JSON dentro de la carpeta del experimento
     ruta_resumen_csv = carpeta_experimento / NOMBRE_RESUMEN_CSV
     with open(ruta_resumen_csv, "w", encoding="utf-8-sig", newline="") as f_csv:
         writer = csv.DictWriter(f_csv, fieldnames=COLUMNAS_RESUMEN_CSV)
@@ -785,7 +772,6 @@ def ejecutar_experimento_comparacion(
         encoding="utf-8",
     )
 
-    # Si se especificó una ruta de archivo puntual en --salida, escribir también allí
     if salida_archivo_unico is not None and ultimo_payload_corrida is not None:
         salida_resuelta = salida_archivo_unico.expanduser().resolve()
         salida_resuelta.parent.mkdir(parents=True, exist_ok=True)
@@ -808,40 +794,6 @@ def ejecutar_experimento_comparacion(
     return metadata_experimento
 
 
-def main() -> int:
-    args = _parser().parse_args()
-
-    rango = parsear_rango_pedidos(args.pedidos_por_dia)
-    salida_unica = Path(args.salida) if args.salida else None
-    dir_turnos = (
-        Path(args.directorio_turnos) if args.directorio_turnos else None
-    )
-    archivo_excel = (
-        Path(args.archivo_excel) if args.archivo_excel else None
-    )
-
-    metadata = ejecutar_experimento_comparacion(
-        raiz_python=Path(args.raiz_python),
-        modelo_exportado=Path(args.modelo_exportado),
-        archivo_excel=archivo_excel,
-        directorio_turnos=dir_turnos,
-        generar_dias=args.generar_dias,
-        rango_pedidos=rango,
-        turno=args.turno,
-        repeticiones=args.repeticiones,
-        seed=args.seed,
-        seed_escenario_default=args.seed_escenario,
-        directorio_salida=Path(args.directorio_salida),
-        salida_archivo_unico=salida_unica,
-        solo_estimado=args.solo_estimado,
-        sin_proveedores=args.sin_proveedores,
-        timeout=args.timeout,
-        horizonte_min=args.horizonte_min,
-    )
-
-    return 0 if bool(metadata.get("completa", False)) else 1
-
-
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description=(
@@ -852,23 +804,13 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--modelo-exportado",
         default=str(
-            PYTHON_ROOT
-            / "anylogic_export"
-            / "simulated_comparison"
-            / "PedemonteDigitalTwin_v2.zip"
+            PYTHON_ROOT / "anylogic_export" / "simulated_comparison" / "PedemonteDigitalTwin_v2.zip"
         ),
     )
-    parser.add_argument(
-        "--raiz-python",
-        default=str(PYTHON_ROOT),
-    )
+    parser.add_argument("--raiz-python", default=str(PYTHON_ROOT))
     parser.add_argument(
         "--archivo-excel",
-        default=str(
-            PYTHON_ROOT
-            / "templates"
-            / "ejemplo_pedidos_importacion.xlsx"
-        ),
+        default=str(PYTHON_ROOT / "templates" / "ejemplo_pedidos_importacion.xlsx"),
         help="Archivo Excel individual a evaluar si no se usa --directorio-turnos ni --generar-dias.",
     )
     parser.add_argument(
@@ -912,24 +854,14 @@ def _parser() -> argparse.ArgumentParser:
         default=6001,
         help="Semilla de escenario cuando se evalúa un único --archivo-excel manual (por defecto: 6001).",
     )
-    parser.add_argument(
-        "--timeout",
-        type=int,
-        default=240,
-    )
+    parser.add_argument("--timeout", type=int, default=240)
     parser.add_argument(
         "--horizonte-min",
         type=float,
         default=600.0,
-        help=(
-            "Horizonte máximo de tiempo simulado, en minutos, "
-            "para cada motor AnyLogic."
-        ),
+        help="Horizonte máximo de tiempo simulado, en minutos, para cada motor AnyLogic.",
     )
-    parser.add_argument(
-        "--sin-proveedores",
-        action="store_true",
-    )
+    parser.add_argument("--sin-proveedores", action="store_true")
     parser.add_argument(
         "--solo-estimado",
         action="store_true",
@@ -946,6 +878,37 @@ def _parser() -> argparse.ArgumentParser:
         help="Ruta opcional a un archivo JSON adicional para compatibilidad con corridas individuales.",
     )
     return parser
+
+
+def main() -> int:
+    """Punto de entrada CLI para la ejecución del experimento comparativo."""
+    args = _parser().parse_args()
+
+    rango = parsear_rango_pedidos(args.pedidos_por_dia)
+    salida_unica = Path(args.salida) if args.salida else None
+    dir_turnos = Path(args.directorio_turnos) if args.directorio_turnos else None
+    archivo_excel = Path(args.archivo_excel) if args.archivo_excel else None
+
+    metadata = ejecutar_experimento_comparacion(
+        raiz_python=Path(args.raiz_python),
+        modelo_exportado=Path(args.modelo_exportado),
+        archivo_excel=archivo_excel,
+        directorio_turnos=dir_turnos,
+        generar_dias=args.generar_dias,
+        rango_pedidos=rango,
+        turno=args.turno,
+        repeticiones=args.repeticiones,
+        seed=args.seed,
+        seed_escenario_default=args.seed_escenario,
+        directorio_salida=Path(args.directorio_salida),
+        salida_archivo_unico=salida_unica,
+        solo_estimado=args.solo_estimado,
+        sin_proveedores=args.sin_proveedores,
+        timeout=args.timeout,
+        horizonte_min=args.horizonte_min,
+    )
+
+    return 0 if bool(metadata.get("completa", False)) else 1
 
 
 if __name__ == "__main__":

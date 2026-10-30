@@ -1,17 +1,20 @@
-"""
-Entrenamiento y evaluación del modelo RL mejorado (RL_V2, hasta 35 tareas)
-preservando el modelo original como `rl_policy_v1.zip` / `rl_policies_v1.json`
-y dejando configurado `rl_policy.zip` / `rl_policies.json` para AnyLogic.
+"""Entrenamiento y evaluación del modelo RL mejorado (RL_V2, hasta 35 tareas).
+
+Permite transferir el conocimiento del modelo inicial (`rl_policy_v1.zip` / `rl_policies_v1.json`)
+hacia una arquitectura con capacidad de hasta 35 slots mediante inicialización por simetría,
+entrenamiento curricular en tres etapas y validación comparativa frente a Greedy.
+Configura el modelo operativo en `rl_policy.zip` y `rl_policies.json` para su consumo
+en AnyLogic y en los selectores del gemelo digital.
 """
 
 from __future__ import annotations
 
-from hashlib import sha256
 import json
-from pathlib import Path
 import random
 import shutil
 import sys
+from hashlib import sha256
+from pathlib import Path
 from typing import Any
 
 import gymnasium as gym
@@ -33,15 +36,14 @@ from planner.rl.policy_planner import (
     PlanificadorPoliticaRL,
     _asegurar_compatibilidad_numpy,
 )
-from planner.rl.policy_runtime import PlanificadorOperativoRL, VERSION_RUNTIME
+from planner.rl.policy_runtime import VERSION_RUNTIME, PlanificadorOperativoRL
 from planner.routing.objective import evaluar_plan_estimado
 from planner.routing.travel import ProveedorHaversineAjustado, construir_matriz_viaje
+
 from scripts.data_processing.generar_pedidos_dia import (
-    DEFAULT_CANT_PEDIDOS_CSV,
     DEFAULT_GEOCODING_CSV,
     DEFAULT_PROBABILIDADES_CSV,
     UbicacionHistorica,
-    cargar_cantidades_pedidos_turnos,
     cargar_y_analizar_historico,
     generar_pedidos_para_un_dia,
 )
@@ -49,8 +51,27 @@ from scripts.data_processing.generar_pedidos_dia import (
 MAX_PEDIDOS_V2 = 35
 MODELS_DIR = PYTHON_ROOT / "models" / "rl"
 
+__all__ = [
+    "MAX_PEDIDOS_V2",
+    "MODELS_DIR",
+    "EntornoCurricularMultiInstancia",
+    "construir_instancia_entrenamiento",
+    "ejecutar_entrenamiento_v2",
+    "evaluar_lote_comparativo",
+    "respaldar_modelo_v1",
+    "transferir_pesos_v1_a_v2",
+]
+
 
 def _sha256_archivo(ruta: Path) -> str:
+    """Calcula el hash SHA-256 de un archivo binario en disco.
+
+    Args:
+        ruta: Ruta al archivo en disco.
+
+    Returns:
+        Cadena hexadecimal del hash SHA-256.
+    """
     h = sha256()
     with ruta.open("rb") as f:
         for bloque in iter(lambda: f.read(1024 * 1024), b""):
@@ -59,9 +80,10 @@ def _sha256_archivo(ruta: Path) -> str:
 
 
 def respaldar_modelo_v1() -> tuple[Path, Path]:
-    """
-    Conserva una copia intacta del modelo original en `rl_policy_v1.zip`
-    y su manifiesto en `rl_policies_v1.json`.
+    """Conserva una copia intacta del modelo original en `rl_policy_v1.zip`.
+
+    Returns:
+        Tupla con las rutas del archivo zip y del manifiesto JSON respaldados.
     """
     ruta_zip_actual = MODELS_DIR / "rl_policy.zip"
     ruta_json_actual = MODELS_DIR / "rl_policies.json"
@@ -88,7 +110,16 @@ def construir_instancia_entrenamiento(
     rango_tareas: tuple[int, int],
     seed_escenario: int,
 ) -> InstanciaTurno:
-    """Genera una InstanciaTurno realista con entre `rango_tareas[0]` y `rango_tareas[1]` tareas."""
+    """Genera una InstanciaTurno sintética y realista para etapas de entrenamiento RL.
+
+    Args:
+        ubicaciones: Coordenadas históricas ponderadas de demanda.
+        rango_tareas: Tupla `(min_tareas, max_tareas)` a generar.
+        seed_escenario: Semilla pseudoaleatoria para reproducibilidad.
+
+    Returns:
+        InstanciaTurno preprocesada y truncada al límite `MAX_PEDIDOS_V2`.
+    """
     rng = random.Random(seed_escenario)
     turno_str = "MANANA" if rng.random() < 0.55 else "TARDE"
     turno_enum = Turno.MANANA if turno_str == "MANANA" else Turno.TARDE
@@ -155,7 +186,11 @@ def construir_instancia_entrenamiento(
 
 
 class EntornoCurricularMultiInstancia(gym.Env[np.ndarray, int]):
-    """Envuelve `EntornoPlanificacionRL` sorteando una instancia nueva en cada `reset()`."""
+    """Envuelve `EntornoPlanificacionRL` sorteando una instancia nueva en cada `reset()`.
+
+    Permite que la política explore un amplio espectro de distribuciones espaciales y
+    ventanas horarias durante las etapas del curriculum.
+    """
 
     metadata = {"render_modes": []}
 
@@ -197,6 +232,7 @@ class EntornoCurricularMultiInstancia(gym.Env[np.ndarray, int]):
         )
 
     def action_masks(self) -> np.ndarray:
+        """Devuelve la máscara de acciones factibles del entorno interno."""
         return self._env_interno.action_masks()
 
     def reset(
@@ -205,6 +241,7 @@ class EntornoCurricularMultiInstancia(gym.Env[np.ndarray, int]):
         seed: int | None = None,
         options: dict[str, Any] | None = None,
     ) -> tuple[np.ndarray, dict[str, Any]]:
+        """Reinicia el entorno generando una nueva instancia estocástica."""
         if seed is not None:
             self.rng.seed(seed)
         self._env_interno = self._crear_env_nuevo()
@@ -214,6 +251,7 @@ class EntornoCurricularMultiInstancia(gym.Env[np.ndarray, int]):
         self,
         action: int,
     ) -> tuple[np.ndarray, float, bool, bool, dict[str, Any]]:
+        """Aplica la acción seleccionada en el entorno interno."""
         return self._env_interno.step(action)
 
 
@@ -221,22 +259,24 @@ def transferir_pesos_v1_a_v2(
     ruta_v1: Path,
     modelo_v2: MaskablePPO,
 ) -> None:
-    """
-    Transfiere el conocimiento aprendido en `rl_policy_v1.zip` (30 slots, entrenado en slots 0..11)
-    hacia la nueva red de 35 slots (`modelo_v2`), propagando los bloques de 23 features por slot
-    de los slots entrenados (4..11) hacia los slots extendidos (12..34) para que la red reconozca
-    inmediatamente el arrepentimiento local y las holguras en turnos de hasta 35 tareas.
+    """Transfiere el conocimiento de `rl_policy_v1.zip` hacia la red extendida `modelo_v2`.
+
+    Copia capas ocultas y reutiliza pesos de slots entrenados mediante simetría para inicializar
+    los nuevos slots hasta 35 tareas.
+
+    Args:
+        ruta_v1: Ruta al archivo .zip del modelo original V1.
+        modelo_v2: Instancia MaskablePPO del nuevo modelo V2.
     """
     _asegurar_compatibilidad_numpy()
     planner_v1 = PlanificadorPoliticaRL(model_path=ruta_v1, max_pedidos=30)
     sd_v1 = planner_v1.model.policy.state_dict()
     sd_v2 = modelo_v2.policy.state_dict()
 
-    f_por_ped = EntornoPlanificacionRL.FEATURES_POR_PEDIDO  # 23
-    f_glob = EntornoPlanificacionRL.FEATURES_GLOBALES       # 12
+    f_por_ped = EntornoPlanificacionRL.FEATURES_POR_PEDIDO
+    f_glob = EntornoPlanificacionRL.FEATURES_GLOBALES
 
     with torch.no_grad():
-        # Copiar capas intermedias y de valor que tienen exactamente el mismo tamaño [256, 256] y [1, 256]
         for clave in (
             "mlp_extractor.policy_net.0.bias",
             "mlp_extractor.policy_net.2.weight",
@@ -250,42 +290,33 @@ def transferir_pesos_v1_a_v2(
             if clave in sd_v1 and clave in sd_v2 and sd_v1[clave].shape == sd_v2[clave].shape:
                 sd_v2[clave].copy_(sd_v1[clave])
 
-        # Para la primera capa densa (entrada de observación: 702 -> 817):
         for clave_w in (
             "mlp_extractor.policy_net.0.weight",
             "mlp_extractor.value_net.0.weight",
         ):
-            w_old = sd_v1[clave_w]  # [256, 702]
-            w_new = sd_v2[clave_w]  # [256, 817]
+            w_old = sd_v1[clave_w]
+            w_new = sd_v2[clave_w]
 
-            # 1. Slots 0..11 (entrenados sólidamente en V1)
             w_new[:, : 12 * f_por_ped].copy_(w_old[:, : 12 * f_por_ped])
 
-            # 2. Bloques plantilla de slots 4..11 para inicializar slots 12..34 con simetría por slot
             plantilla_bloques = [
-                w_old[:, s * f_por_ped : (s + 1) * f_por_ped]
-                for s in range(4, 12)
+                w_old[:, s * f_por_ped : (s + 1) * f_por_ped] for s in range(4, 12)
             ]
             bloque_promedio = torch.stack(plantilla_bloques, dim=0).mean(dim=0)
 
             for s_nuevo in range(12, MAX_PEDIDOS_V2):
                 ref_bloque = plantilla_bloques[s_nuevo % len(plantilla_bloques)]
                 mezcla = 0.70 * bloque_promedio + 0.30 * ref_bloque
-                # Escalar por 12/35 para mantener la varianza de activación estable cuando hay 25-35 pedidos activos
-                w_new[:, s_nuevo * f_por_ped : (s_nuevo + 1) * f_por_ped].copy_(
-                    mezcla * 0.65
-                )
+                w_new[:, s_nuevo * f_por_ped : (s_nuevo + 1) * f_por_ped].copy_(mezcla * 0.65)
 
-            # 3. Features globales (últimas 12 columnas)
             w_new[:, MAX_PEDIDOS_V2 * f_por_ped : MAX_PEDIDOS_V2 * f_por_ped + f_glob].copy_(
                 w_old[:, 30 * f_por_ped : 30 * f_por_ped + f_glob]
             )
 
-        # Cabezal de acciones (30 -> 35)
-        act_w_old = sd_v1["action_net.weight"]  # [30, 256]
-        act_b_old = sd_v1["action_net.bias"]    # [30]
-        act_w_new = sd_v2["action_net.weight"]  # [35, 256]
-        act_b_new = sd_v2["action_net.bias"]    # [35]
+        act_w_old = sd_v1["action_net.weight"]
+        act_b_old = sd_v1["action_net.bias"]
+        act_w_new = sd_v2["action_net.weight"]
+        act_b_new = sd_v2["action_net.bias"]
 
         act_w_new[:12, :].copy_(act_w_old[:12, :])
         act_b_new[:12].copy_(act_b_old[:12])
@@ -307,10 +338,15 @@ def evaluar_lote_comparativo(
     ruta_manifiesto_v1: Path,
     ruta_manifiesto_v2: Path,
 ) -> dict[str, Any]:
-    """
-    Compara RL_V1 vs RL_V2 vs GREEDY en:
-    1. Turnos chicos/medianos (6 a 12 tareas, donde RL_V1 puede ejecutar).
-    2. Turnos grandes realistas (13 a 32 tareas, donde sólo RL_V2 puede ejecutar).
+    """Compara RL_V1 vs RL_V2 vs GREEDY en turnos pequeños y grandes.
+
+    Args:
+        ubicaciones: Catálogo de ubicaciones geográficas de demanda.
+        ruta_manifiesto_v1: Manifiesto JSON de RL_V1.
+        ruta_manifiesto_v2: Manifiesto JSON de RL_V2.
+
+    Returns:
+        Diccionario con estadísticas de tardanzas, costos y factibilidad.
     """
     config = ConfiguracionPlanificacion()
     proveedor = ProveedorHaversineAjustado()
@@ -342,7 +378,10 @@ def evaluar_lote_comparativo(
         for nombre, fn in (
             ("RL_V1", planner_v1.generar_plan),
             ("RL_V2", planner_v2.generar_plan),
-            ("GREEDY", lambda x: generar_plan_greedy(x, configuracion=config, proveedor_viaje=proveedor)),
+            (
+                "GREEDY",
+                lambda x: generar_plan_greedy(x, configuracion=config, proveedor_viaje=proveedor),
+            ),
         ):
             plan = fn(inst)
             est = evaluar_plan_estimado(inst, plan, matriz, config)
@@ -354,8 +393,18 @@ def evaluar_lote_comparativo(
     semillas_grandes = [700_001 + i * 29 for i in range(20)]
     res_grandes = {
         "RL_V1": {"ejecutables": 0, "fallos_por_tope_12": 0},
-        "RL_V2": {"ejecutables": 0, "tardios": 0, "tardanza_min": 0.0, "costo_promedio": 0.0},
-        "GREEDY": {"ejecutables": 0, "tardios": 0, "tardanza_min": 0.0, "costo_promedio": 0.0},
+        "RL_V2": {
+            "ejecutables": 0,
+            "tardios": 0,
+            "tardanza_min": 0.0,
+            "costo_promedio": 0.0,
+        },
+        "GREEDY": {
+            "ejecutables": 0,
+            "tardios": 0,
+            "tardanza_min": 0.0,
+            "costo_promedio": 0.0,
+        },
     }
 
     for s in semillas_grandes:
@@ -389,6 +438,11 @@ def evaluar_lote_comparativo(
 
 
 def ejecutar_entrenamiento_v2() -> dict[str, Any]:
+    """Ejecuta el pipeline completo de entrenamiento y despliegue del modelo RL_V2.
+
+    Returns:
+        Diccionario con métricas comparativas de validación.
+    """
     ruta_zip_v1, ruta_json_v1 = respaldar_modelo_v1()
     print(f"[OK] Modelo V1 respaldado en: {ruta_zip_v1.name} y {ruta_json_v1.name}")
 
@@ -423,11 +477,9 @@ def ejecutar_entrenamiento_v2() -> dict[str, Any]:
     transferir_pesos_v1_a_v2(ruta_zip_v1, modelo_v2)
     print("[OK] Pesos base de RL_V1 transferidos y extendidos a 35 slots.")
 
-    # Etapa 1: Estabilización en 6..14 tareas con ordenamiento canónico
     print("-> Entrenando Etapa 1 (6..14 tareas)...")
     modelo_v2.learn(total_timesteps=2048, reset_num_timesteps=True)
 
-    # Etapa 2: Escalamiento a rango medio-alto (12..24 tareas)
     print("-> Entrenando Etapa 2 (12..24 tareas)...")
     env_stage2 = EntornoCurricularMultiInstancia(
         ubicaciones=ubicaciones,
@@ -438,7 +490,6 @@ def ejecutar_entrenamiento_v2() -> dict[str, Any]:
     modelo_v2.set_env(env_stage2)
     modelo_v2.learn(total_timesteps=2048, reset_num_timesteps=False)
 
-    # Etapa 3: Consolidación en turnos completos hasta 35 tareas (8..32 tareas)
     print("-> Entrenando Etapa 3 (8..32 tareas)...")
     env_stage3 = EntornoCurricularMultiInstancia(
         ubicaciones=ubicaciones,

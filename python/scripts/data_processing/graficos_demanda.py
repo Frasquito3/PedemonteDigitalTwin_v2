@@ -1,3 +1,10 @@
+"""Módulo de generación de gráficos y visualizaciones para análisis exploratorio (EDA).
+
+Genera gráficos de barras horizontales para el Top N de barrios de mayor demanda
+y diagramas donut de distribución porcentual por localidad, empleando una paleta
+cromática consistente y guardando salidas en alta resolución (PNG, 150 DPI).
+"""
+
 from __future__ import annotations
 
 import argparse
@@ -5,6 +12,7 @@ import sys
 from pathlib import Path
 
 import matplotlib
+
 matplotlib.use("Agg")
 import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
@@ -12,7 +20,9 @@ import pandas as pd
 
 PYTHON_ROOT = Path(__file__).resolve().parents[2]
 
-DEFAULT_INPUT_FILE = PYTHON_ROOT / "data" / "processed" / "geocoding" / "direcciones_geolocalizadas.csv"
+DEFAULT_INPUT_FILE = (
+    PYTHON_ROOT / "data" / "processed" / "geocoding" / "direcciones_geolocalizadas.csv"
+)
 DEFAULT_OUTPUT_DIR = PYTHON_ROOT / "data" / "processed" / "estadistica"
 DEFAULT_BAR_FILE = DEFAULT_OUTPUT_DIR / "barrios_top15.png"
 DEFAULT_DONUT_FILE = DEFAULT_OUTPUT_DIR / "pedidos_por_ciudad.png"
@@ -33,15 +43,30 @@ PALETA_CIUDADES: dict[str, str] = {
     "Otros": "#9CA3AF",
 }
 
+__all__ = [
+    "DEFAULT_BAR_FILE",
+    "DEFAULT_DONUT_FILE",
+    "DEFAULT_INPUT_FILE",
+    "DEFAULT_OUTPUT_DIR",
+    "DPI",
+    "PALETA_CIUDADES",
+    "generar_grafico_donut_ciudades",
+    "generar_grafico_top_barrios",
+    "generar_graficos_demanda",
+    "main",
+]
+
 
 def _configurar_estilo_matplotlib() -> None:
-    plt.rcParams.update({
-        "font.family": "DejaVu Sans",
-        "axes.spines.top": False,
-        "axes.spines.right": False,
-        "figure.facecolor": "white",
-        "axes.facecolor": "white",
-    })
+    plt.rcParams.update(
+        {
+            "font.family": "DejaVu Sans",
+            "axes.spines.top": False,
+            "axes.spines.right": False,
+            "figure.facecolor": "white",
+            "axes.facecolor": "white",
+        }
+    )
 
 
 def generar_grafico_top_barrios(
@@ -49,7 +74,16 @@ def generar_grafico_top_barrios(
     ruta_salida: Path = DEFAULT_BAR_FILE,
     top_n: int = 15,
 ) -> Path:
-    """Genera y guarda el gráfico de barras horizontales para el Top N de barrios."""
+    """Genera y guarda el gráfico de barras horizontales para el Top N de barrios.
+
+    Args:
+        df: DataFrame con las columnas de ciudad y barrio.
+        ruta_salida: Ruta del archivo PNG resultante.
+        top_n: Cantidad de barrios principales a graficar.
+
+    Returns:
+        Ruta resuelta del archivo PNG generado.
+    """
     _configurar_estilo_matplotlib()
 
     col_ciudad = "ciudad_detectada" if "ciudad_detectada" in df.columns else "ciudad"
@@ -65,10 +99,7 @@ def generar_grafico_top_barrios(
     )
 
     top = stats.head(top_n).copy()
-    top["etiqueta"] = [
-        f"{b} ({str(c)[:3]})"
-        for b, c in zip(top["barrio"], top[col_ciudad])
-    ]
+    top["etiqueta"] = [f"{b} ({str(c)[:3]})" for b, c in zip(top["barrio"], top[col_ciudad])]
     colores_barra = [PALETA_CIUDADES.get(c, "#6B7280") for c in top[col_ciudad]]
 
     fig, ax = plt.subplots(figsize=(10, 7))
@@ -119,7 +150,16 @@ def generar_grafico_donut_ciudades(
     ruta_salida: Path = DEFAULT_DONUT_FILE,
     umbral_pct: float = 1.0,
 ) -> Path:
-    """Genera y guarda el gráfico donut agrupando ciudades menores al umbral en 'Otros'."""
+    """Genera y guarda el gráfico donut agrupando ciudades menores al umbral en 'Otros'.
+
+    Args:
+        df: DataFrame con las columnas de ciudad detectada.
+        ruta_salida: Ruta del archivo PNG resultante.
+        umbral_pct: Porcentaje mínimo para figurar con porción independiente.
+
+    Returns:
+        Ruta resuelta del archivo PNG guardado.
+    """
     _configurar_estilo_matplotlib()
 
     col_ciudad = "ciudad_detectada" if "ciudad_detectada" in df.columns else "ciudad"
@@ -134,11 +174,15 @@ def generar_grafico_donut_ciudades(
     otros_n = int(por_ciudad[por_ciudad["pct"] < umbral_pct]["n"].sum())
 
     if otros_n > 0:
-        otros_df = pd.DataFrame([{
-            col_ciudad: "Otros",
-            "n": otros_n,
-            "pct": (otros_n / total_pedidos * 100) if total_pedidos > 0 else 0,
-        }])
+        otros_df = pd.DataFrame(
+            [
+                {
+                    col_ciudad: "Otros",
+                    "n": otros_n,
+                    "pct": (otros_n / total_pedidos * 100) if total_pedidos > 0 else 0,
+                }
+            ]
+        )
         por_ciudad_graf = pd.concat([principales, otros_df], ignore_index=True)
     else:
         por_ciudad_graf = principales
@@ -162,7 +206,10 @@ def generar_grafico_donut_ciudades(
         por_ciudad_graf["pct"],
     ):
         leyenda_donut.append(
-            mpatches.Patch(color=wedge.get_facecolor(), label=f"{ciudad}: {n} ({pct:.1f}%)")
+            mpatches.Patch(
+                color=wedge.get_facecolor(),
+                label=f"{ciudad}: {n} ({pct:.1f}%)",
+            )
         )
 
     ax.legend(
@@ -184,7 +231,13 @@ def generar_grafico_donut_ciudades(
         color="#111827",
     )
 
-    ax.set_title("Pedidos por ciudad", fontsize=14, fontweight="bold", pad=16, color="#111827")
+    ax.set_title(
+        "Pedidos por ciudad",
+        fontsize=14,
+        fontweight="bold",
+        pad=16,
+        color="#111827",
+    )
     ax.axis("equal")
 
     plt.tight_layout()
@@ -200,7 +253,19 @@ def generar_graficos_demanda(
     ruta_barras: Path = DEFAULT_BAR_FILE,
     ruta_donut: Path = DEFAULT_DONUT_FILE,
 ) -> tuple[Path, Path]:
-    """Genera el conjunto completo de gráficos a partir del CSV geolocalizado."""
+    """Genera el conjunto completo de gráficos a partir del CSV geolocalizado.
+
+    Args:
+        archivo_entrada: Ruta al CSV de direcciones geolocalizadas.
+        ruta_barras: Ruta del PNG para barras horizontales.
+        ruta_donut: Ruta del PNG para diagrama donut.
+
+    Returns:
+        Tupla `(ruta_barras, ruta_donut)` con las rutas de los archivos generados.
+
+    Raises:
+        FileNotFoundError: Si no se encuentra el archivo de entrada.
+    """
     if not archivo_entrada.exists():
         raise FileNotFoundError(f"No se encontró el archivo de entrada: {archivo_entrada}")
 
@@ -212,13 +277,29 @@ def generar_graficos_demanda(
 
 def _parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(description="Generación de gráficos de demanda histórica")
-    p.add_argument("--input-file", type=Path, default=DEFAULT_INPUT_FILE, help="CSV geolocalizado")
-    p.add_argument("--bar-file", type=Path, default=DEFAULT_BAR_FILE, help="PNG de salida gráfico de barras")
-    p.add_argument("--donut-file", type=Path, default=DEFAULT_DONUT_FILE, help="PNG de salida gráfico donut")
+    p.add_argument(
+        "--input-file",
+        type=Path,
+        default=DEFAULT_INPUT_FILE,
+        help="CSV geolocalizado",
+    )
+    p.add_argument(
+        "--bar-file",
+        type=Path,
+        default=DEFAULT_BAR_FILE,
+        help="PNG de salida gráfico de barras",
+    )
+    p.add_argument(
+        "--donut-file",
+        type=Path,
+        default=DEFAULT_DONUT_FILE,
+        help="PNG de salida gráfico donut",
+    )
     return p
 
 
 def main() -> int:
+    """Punto de entrada de línea de comandos para la generación de gráficos."""
     args = _parser().parse_args()
     try:
         generar_graficos_demanda(

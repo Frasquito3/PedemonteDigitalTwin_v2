@@ -1,3 +1,10 @@
+"""Módulo de extracción OCR para hojas de pedidos manuscritas mediante Google GenAI.
+
+Envía imágenes escaneadas o fotografías de remitos y notas de pedido al modelo
+multimodal Gemini para extraer calles y alturas estructuradas en formato JSON,
+incorporando reintentos con retroceso exponencial ante saturación o límites de cuota.
+"""
+
 from __future__ import annotations
 
 import argparse
@@ -26,7 +33,7 @@ DEFAULT_OUTPUT_FILE = PYTHON_ROOT / "data" / "processed" / "extraccion" / "direc
 DEFAULT_PROGRESS_FILE = PYTHON_ROOT / "data" / "processed" / "extraccion" / "progreso.json"
 DEFAULT_MODEL = os.getenv("GEMINI_OCR_MODEL", "gemini-2.5-flash")
 
-MIME_TYPES = {
+MIME_TYPES: dict[str, str] = {
     ".jpg": "image/jpeg",
     ".jpeg": "image/jpeg",
     ".png": "image/png",
@@ -49,6 +56,23 @@ sin texto adicional ni bloques de codigo markdown:
 [{"calle": "Nombre", "altura": "123"}, {"calle": "Nombre 2", "altura": "456"}]
 """.strip()
 
+__all__ = [
+    "DEFAULT_INPUT_DIR",
+    "DEFAULT_MODEL",
+    "DEFAULT_OUTPUT_FILE",
+    "DEFAULT_PROGRESS_FILE",
+    "MIME_TYPES",
+    "PROMPT_OCR",
+    "cargar_progreso",
+    "cargar_resultado",
+    "ejecutar_pipeline_extraccion",
+    "extraer_direcciones",
+    "guardar_progreso",
+    "guardar_resultado",
+    "main",
+    "obtener_cliente_genai",
+]
+
 
 def obtener_cliente_genai(api_key: str | None = None) -> genai.Client:
     """Inicializa y devuelve el cliente de Google GenAI validando la existencia de la API Key.
@@ -57,7 +81,7 @@ def obtener_cliente_genai(api_key: str | None = None) -> genai.Client:
         api_key: Clave opcional. Si no se provee, se busca en GEMINI_API_KEY o GOOGLE_API_KEY.
 
     Returns:
-        genai.Client configurado.
+        Cliente `genai.Client` configurado.
 
     Raises:
         ValueError: Si no se encuentra una API Key válida.
@@ -102,28 +126,52 @@ def _escribir_json_atomico(
 
 
 def cargar_progreso(archivo_progreso: Path) -> set[str]:
-    """Carga el conjunto de nombres de archivos de imagen ya procesados."""
+    """Carga el conjunto de nombres de archivos de imagen ya procesados.
+
+    Args:
+        archivo_progreso: Ruta al archivo JSON de persistencia de progreso.
+
+    Returns:
+        Conjunto con nombres de imágenes ya procesadas.
+    """
     if archivo_progreso.exists():
-        with open(archivo_progreso, "r", encoding="utf-8") as f:
+        with open(archivo_progreso, encoding="utf-8") as f:
             return set(json.load(f))
     return set()
 
 
 def guardar_progreso(archivo_progreso: Path, procesadas: set[str]) -> None:
-    """Guarda el conjunto de imágenes procesadas de forma atómica."""
+    """Guarda el conjunto de imágenes procesadas de forma atómica.
+
+    Args:
+        archivo_progreso: Ruta al archivo JSON de progreso.
+        procesadas: Conjunto de nombres de archivo procesados.
+    """
     _escribir_json_atomico(archivo_progreso, sorted(list(procesadas)), indent=2)
 
 
 def cargar_resultado(archivo_salida: Path) -> list[dict[str, Any]]:
-    """Carga los registros acumulados de direcciones extraídas."""
+    """Carga los registros acumulados de direcciones extraídas.
+
+    Args:
+        archivo_salida: Ruta al archivo JSON de resultados acumulados.
+
+    Returns:
+        Lista de diccionarios con direcciones parseadas.
+    """
     if archivo_salida.exists():
-        with open(archivo_salida, "r", encoding="utf-8") as f:
+        with open(archivo_salida, encoding="utf-8") as f:
             return json.load(f)
     return []
 
 
 def guardar_resultado(archivo_salida: Path, datos: list[dict[str, Any]]) -> None:
-    """Guarda la lista acumulada de direcciones extraídas de forma atómica."""
+    """Guarda la lista acumulada de direcciones extraídas de forma atómica.
+
+    Args:
+        archivo_salida: Ruta al archivo JSON de resultados.
+        datos: Lista de diccionarios a serializar.
+    """
     _escribir_json_atomico(archivo_salida, datos, indent=4)
 
 
@@ -136,18 +184,18 @@ def extraer_direcciones(
 ) -> list[dict[str, str]] | None:
     """Envía una imagen al modelo Gemini para extraer direcciones manuscritas.
 
-    Aplica reintentos con backoff exponencial ante saturación (503) o cuota (429).
+    Aplica reintentos con retroceso exponencial ante saturación (503) o cuota (429).
 
     Args:
         ruta_imagen: Ruta al archivo de imagen.
         client: Cliente inicializado de genai.
         modelo: Nombre del modelo a utilizar.
         max_reintentos: Cantidad máxima de reintentos por imagen.
-        espera_base: Segundos base de espera para backoff.
+        espera_base: Segundos base de espera para retroceso exponencial.
 
     Returns:
         Lista de diccionarios `{"calle": ..., "altura": ...}`, lista vacía si falló
-        el parseo sintáctico no recuperable, o None en caso de error de red/cuota.
+        el parseo sintáctico no recuperable, o None en caso de error de red o cuota.
     """
     ext = ruta_imagen.suffix.lower()
     mime_type = MIME_TYPES.get(ext, "image/jpeg")
@@ -176,19 +224,25 @@ def extraer_direcciones(
             mensaje = str(e)
             if "503" in mensaje or "UNAVAILABLE" in mensaje:
                 if intento < max_reintentos:
-                    print(f"  [503] Servidor saturado. Reintento {intento}/{max_reintentos - 1} en {espera}s...")
+                    print(
+                        f"  [503] Servidor saturado. Reintento {intento}/{max_reintentos - 1} en {espera}s..."
+                    )
                     time.sleep(espera)
                     espera *= 2
                 else:
-                    print(f"  [ERROR] Fallo definitivo tras {max_reintentos} intentos: {mensaje[:120]}")
+                    print(
+                        f"  [ERROR] Fallo definitivo tras {max_reintentos} intentos: {mensaje[:120]}"
+                    )
                     return None
             elif "429" in mensaje or "RESOURCE_EXHAUSTED" in mensaje:
                 if intento < max_reintentos:
-                    print(f"  [429] Cuota agotada. Esperando {espera}s ({intento}/{max_reintentos - 1})...")
+                    print(
+                        f"  [429] Cuota agotada. Esperando {espera}s ({intento}/{max_reintentos - 1})..."
+                    )
                     time.sleep(espera)
                     espera *= 2
                 else:
-                    print(f"  [429] Cuota agotada definitivamente.")
+                    print("  [429] Cuota agotada definitivamente.")
                     return None
             elif "JSON" in mensaje or "json" in mensaje:
                 print(f"  [!] Error parseando JSON: {mensaje[:120]}")
@@ -207,7 +261,21 @@ def ejecutar_pipeline_extraccion(
     modelo: str = DEFAULT_MODEL,
     api_key: str | None = None,
 ) -> list[dict[str, Any]]:
-    """Procesa el lote completo de imágenes y almacena resultados con persistencia de estado."""
+    """Procesa el lote completo de imágenes y almacena resultados con persistencia de estado.
+
+    Args:
+        carpeta_imagenes: Directorio con las imágenes manuscritas a procesar.
+        archivo_salida: Archivo JSON destino de las direcciones extraídas.
+        archivo_progreso: Archivo JSON donde se registran los avances atómicos.
+        modelo: Identificador del modelo Gemini.
+        api_key: Clave explícita para la API (opcional).
+
+    Returns:
+        Lista acumulada de direcciones identificadas.
+
+    Raises:
+        FileNotFoundError: Si no existe la carpeta de entrada indicada.
+    """
     client = obtener_cliente_genai(api_key=api_key)
 
     if not carpeta_imagenes.exists():
@@ -222,10 +290,9 @@ def ejecutar_pipeline_extraccion(
             f"{len(todas_las_direcciones)} direcciones guardadas."
         )
 
-    archivos = sorted([
-        f for f in carpeta_imagenes.iterdir()
-        if f.is_file() and f.suffix.lower() in MIME_TYPES
-    ])
+    archivos = sorted(
+        [f for f in carpeta_imagenes.iterdir() if f.is_file() and f.suffix.lower() in MIME_TYPES]
+    )
 
     total = len(archivos)
     print(f"Encontradas {total} imágenes en {carpeta_imagenes}")
@@ -249,7 +316,9 @@ def ejecutar_pipeline_extraccion(
         guardar_resultado(archivo_salida, todas_las_direcciones)
         guardar_progreso(archivo_progreso, imagenes_procesadas)
 
-        print(f"       -> {len(datos)} direcciones encontradas (total acumulado: {len(todas_las_direcciones)})")
+        print(
+            f"       -> {len(datos)} direcciones encontradas (total acumulado: {len(todas_las_direcciones)})"
+        )
 
     print(f"\n[OK] Extracción completada: {len(todas_las_direcciones)} direcciones totales.")
     print(f"     Resultado guardado en: {archivo_salida}")
@@ -257,16 +326,44 @@ def ejecutar_pipeline_extraccion(
 
 
 def _parser() -> argparse.ArgumentParser:
-    p = argparse.ArgumentParser(description="Extracción OCR de hojas de pedidos manuscritas con Gemini")
-    p.add_argument("--input-dir", type=Path, default=DEFAULT_INPUT_DIR, help="Carpeta de imágenes de entrada")
-    p.add_argument("--output-file", type=Path, default=DEFAULT_OUTPUT_FILE, help="Archivo JSON de salida")
-    p.add_argument("--progress-file", type=Path, default=DEFAULT_PROGRESS_FILE, help="Archivo JSON de progreso")
-    p.add_argument("--model", type=str, default=DEFAULT_MODEL, help="Nombre del modelo Gemini")
-    p.add_argument("--api-key", type=str, default=None, help="API Key explícita (opcional)")
+    p = argparse.ArgumentParser(
+        description="Extracción OCR de hojas de pedidos manuscritas con Gemini"
+    )
+    p.add_argument(
+        "--input-dir",
+        type=Path,
+        default=DEFAULT_INPUT_DIR,
+        help="Carpeta de imágenes de entrada",
+    )
+    p.add_argument(
+        "--output-file",
+        type=Path,
+        default=DEFAULT_OUTPUT_FILE,
+        help="Archivo JSON de salida",
+    )
+    p.add_argument(
+        "--progress-file",
+        type=Path,
+        default=DEFAULT_PROGRESS_FILE,
+        help="Archivo JSON de progreso",
+    )
+    p.add_argument(
+        "--model",
+        type=str,
+        default=DEFAULT_MODEL,
+        help="Nombre del modelo Gemini",
+    )
+    p.add_argument(
+        "--api-key",
+        type=str,
+        default=None,
+        help="API Key explícita (opcional)",
+    )
     return p
 
 
 def main() -> int:
+    """Punto de entrada de CLI para la extracción OCR de hojas de pedidos."""
     args = _parser().parse_args()
     try:
         ejecutar_pipeline_extraccion(

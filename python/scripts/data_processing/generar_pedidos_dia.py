@@ -15,29 +15,26 @@ from __future__ import annotations
 
 import argparse
 import csv
-from dataclasses import asdict, dataclass
-from datetime import datetime
 import json
-from math import ceil, cos, pi, sin
-from pathlib import Path
 import random
 import sys
-from typing import Any, Sequence
+from collections.abc import Sequence
+from dataclasses import asdict, dataclass
+from datetime import datetime
+from math import ceil, cos, pi, sin
+from pathlib import Path
+from typing import Any
 
+import openpyxl
 import pandas as pd
+from openpyxl.styles import Alignment, Font, PatternFill
+from openpyxl.utils import get_column_letter
+
+OPENPYXL_DISPONIBLE: bool = True
 
 PYTHON_ROOT = Path(__file__).resolve().parents[2]
 if str(PYTHON_ROOT) not in sys.path:
     sys.path.insert(0, str(PYTHON_ROOT))
-
-try:
-    import openpyxl
-    from openpyxl.styles import Alignment, Font, PatternFill
-    from openpyxl.utils import get_column_letter
-
-    OPENPYXL_DISPONIBLE = True
-except ImportError:
-    OPENPYXL_DISPONIBLE = False
 
 # Rutas predeterminadas
 DEFAULT_HISTORICO_CSV = PYTHON_ROOT / "data" / "processed" / "demanda_geografica.csv"
@@ -55,13 +52,13 @@ NOMBRE_METADATA_GENERACION = "metadata_generacion.json"
 HORARIOS_TURNOS = {
     "MANANA": {
         "inicio_min": 7 * 60 + 30,  # 07:30 -> 450
-        "fin_min": 12 * 60,         # 12:00 -> 720
+        "fin_min": 12 * 60,  # 12:00 -> 720
         "inicio_str": "07:30",
         "fin_str": "12:00",
     },
     "TARDE": {
-        "inicio_min": 14 * 60,      # 14:00 -> 840
-        "fin_min": 17 * 60,         # 17:00 -> 1020
+        "inicio_min": 14 * 60,  # 14:00 -> 840
+        "fin_min": 17 * 60,  # 17:00 -> 1020
         "inicio_str": "14:00",
         "fin_str": "17:00",
     },
@@ -77,6 +74,32 @@ ENCABEZADOS_PEDIDOS = [
     "hora_desde",
     "hora_hasta",
     "turno",
+]
+
+__all__ = [
+    "DEFAULT_CANT_PEDIDOS_CSV",
+    "DEFAULT_GEOCODING_CSV",
+    "DEFAULT_HISTORICO_CSV",
+    "DEFAULT_OUTPUT_DIR",
+    "DEFAULT_PROBABILIDADES_CSV",
+    "ENCABEZADOS_PEDIDOS",
+    "HORARIOS_TURNOS",
+    "NOMBRE_METADATA_GENERACION",
+    "OPENPYXL_DISPONIBLE",
+    "PedidoGenerado",
+    "UbicacionHistorica",
+    "cargar_cantidades_pedidos_turnos",
+    "cargar_probabilidades_demanda",
+    "cargar_y_analizar_historico",
+    "ejecutar_generacion",
+    "estimar_tareas_pedidos",
+    "exportar_a_csv",
+    "exportar_a_excel",
+    "generar_pedidos_para_un_dia",
+    "generar_semilla_aleatoria",
+    "main",
+    "parsear_rango_pedidos",
+    "sortear_cantidad_pedidos_turno",
 ]
 
 
@@ -98,10 +121,10 @@ class PedidoGenerado:
     longitud: float
     unidades: int
     requiere_volcador: str  # "SI" o "NO"
-    tiene_ventana: str      # "SI" o "NO"
-    hora_desde: str         # "HH:MM"
-    hora_hasta: str         # "HH:MM"
-    turno: str              # "MANANA" o "TARDE"
+    tiene_ventana: str  # "SI" o "NO"
+    hora_desde: str  # "HH:MM"
+    hora_hasta: str  # "HH:MM"
+    turno: str  # "MANANA" o "TARDE"
 
     def a_dict(self) -> dict[str, Any]:
         return asdict(self)
@@ -140,9 +163,7 @@ def cargar_cantidades_pedidos_turnos(
         raise ValueError(f"El archivo {ruta_csv} debe tener la columna 'cant_pedidos'.")
 
     conteos = [
-        int(round(float(v)))
-        for v in df[col_cant]
-        if pd.notna(v) and int(round(float(v))) > 0
+        int(round(float(v))) for v in df[col_cant] if pd.notna(v) and int(round(float(v))) > 0
     ]
     if not conteos:
         raise ValueError(f"No se encontraron conteos válidos en: {ruta_csv}")
@@ -260,9 +281,7 @@ def cargar_y_analizar_historico(
             peso = max(1.0, (por_b[barrio] / conteo_b[barrio]) * 10_000.0)
         else:
             peso = 1.0
-        ubicaciones.append(
-            UbicacionHistorica(latitud=lat, longitud=lon, peso_frecuencia=peso)
-        )
+        ubicaciones.append(UbicacionHistorica(latitud=lat, longitud=lon, peso_frecuencia=peso))
 
     return ubicaciones
 
@@ -325,9 +344,7 @@ def _generar_ventana_horaria(
 
     opciones_x = list(range(inicio_turno_min + 15, fin_turno_min - 75, 15))
     desde_min = rng.choice(opciones_x)
-    opciones_y = [
-        m for m in range(desde_min + 45, fin_turno_min, 15) if m - desde_min <= 120
-    ]
+    opciones_y = [m for m in range(desde_min + 45, fin_turno_min, 15) if m - desde_min <= 120]
     if not opciones_y:
         opciones_y = list(range(desde_min + 30, fin_turno_min, 15))
     hasta_min = rng.choice(opciones_y)
@@ -363,11 +380,7 @@ def _asignar_unidades_pedidos_turno(
     unidades = [1 for _ in range(cantidad_pedidos)]
     unidades_restantes = unidades_objetivo - cantidad_pedidos
 
-    tareas_extra = (
-        cantidad_pedidos
-        if max_tareas is None
-        else max(0, max_tareas - cantidad_pedidos)
-    )
+    tareas_extra = cantidad_pedidos if max_tareas is None else max(0, max_tareas - cantidad_pedidos)
     topes: list[int] = []
     pesos: list[float] = []
     for _ in range(cantidad_pedidos):
@@ -422,7 +435,9 @@ def generar_pedidos_para_un_dia(
         prob_volc = max(0.0, min(1.0, float(prob_volcador)))
     else:
         # 1 volcador cada 2 días = 1 cada 4 turnos -> esperanza 0.25 por turno
-        prob_volc = min(0.50, (1.0 / max(1.0, frecuencia_volcador_turnos)) / max(1, cantidad_pedidos))
+        prob_volc = min(
+            0.50, (1.0 / max(1.0, frecuencia_volcador_turnos)) / max(1, cantidad_pedidos)
+        )
 
     pedidos: list[PedidoGenerado] = []
     for idx, (ubi, unidades) in enumerate(zip(seleccionadas, unidades_lista), start=1):
@@ -553,9 +568,7 @@ def ejecutar_generacion(
         ruta_probabilidades=ruta_probabilidades,
     )
     conteos_historicos = (
-        cargar_cantidades_pedidos_turnos(ruta_cant_pedidos)
-        if rango_pedidos is None
-        else []
+        cargar_cantidades_pedidos_turnos(ruta_cant_pedidos) if rango_pedidos is None else []
     )
 
     ahora = datetime.now()
@@ -585,9 +598,7 @@ def ejecutar_generacion(
             )
 
         turno_efectivo = (
-            ("MANANA" if rng_dia.random() < 0.5 else "TARDE")
-            if turno == "MIXTO"
-            else turno
+            ("MANANA" if rng_dia.random() < 0.5 else "TARDE") if turno == "MIXTO" else turno
         )
 
         pedidos_dia = generar_pedidos_para_un_dia(

@@ -1,3 +1,10 @@
+"""Módulo de cálculo y agregación estadística de demanda por ciudad y barrio.
+
+Procesa las direcciones previamente geolocalizadas para determinar la distribución
+empírica de frecuencias por localidad y subdivisión barrial, generando las
+probabilidades empleadas por el generador estocástico de turnos.
+"""
+
 from __future__ import annotations
 
 import argparse
@@ -8,14 +15,34 @@ import pandas as pd
 
 PYTHON_ROOT = Path(__file__).resolve().parents[2]
 
-DEFAULT_INPUT_FILE = PYTHON_ROOT / "data" / "processed" / "geocoding" / "direcciones_geolocalizadas.csv"
+DEFAULT_INPUT_FILE = (
+    PYTHON_ROOT / "data" / "processed" / "geocoding" / "direcciones_geolocalizadas.csv"
+)
 DEFAULT_OUTPUT_DIR = PYTHON_ROOT / "data" / "processed" / "estadistica"
 DEFAULT_PROBABILIDADES_FILE = DEFAULT_OUTPUT_DIR / "probabilidades_demanda.csv"
 DEFAULT_RESUMEN_FILE = DEFAULT_OUTPUT_DIR / "resumen_ciudades.csv"
 
+__all__ = [
+    "DEFAULT_INPUT_FILE",
+    "DEFAULT_OUTPUT_DIR",
+    "DEFAULT_PROBABILIDADES_FILE",
+    "DEFAULT_RESUMEN_FILE",
+    "calcular_probabilidades_demanda",
+    "calcular_resumen_ciudades",
+    "main",
+    "procesar_estadisticas_demanda",
+]
+
 
 def calcular_probabilidades_demanda(df: pd.DataFrame) -> pd.DataFrame:
-    """Calcula las frecuencias y pesos relativos de demanda agrupados por ciudad y barrio."""
+    """Calcula las frecuencias y pesos relativos de demanda agrupados por ciudad y barrio.
+
+    Args:
+        df: DataFrame de entrada con datos de pedidos y columnas de ubicación.
+
+    Returns:
+        DataFrame ordenado descendentemente por cantidad de pedidos y probabilidad calculada.
+    """
     df_clean = df.copy()
     if "ciudad_detectada" in df_clean.columns and "ciudad" not in df_clean.columns:
         df_clean["ciudad"] = df_clean["ciudad_detectada"]
@@ -24,9 +51,7 @@ def calcular_probabilidades_demanda(df: pd.DataFrame) -> pd.DataFrame:
     df_clean["ciudad"] = df_clean["ciudad"].astype(str).str.strip()
 
     estadisticas = (
-        df_clean.groupby(["ciudad", "barrio"])
-        .size()
-        .reset_index(name="cantidad_pedidos")
+        df_clean.groupby(["ciudad", "barrio"]).size().reset_index(name="cantidad_pedidos")
     )
 
     total_pedidos = int(estadisticas["cantidad_pedidos"].sum())
@@ -41,7 +66,14 @@ def calcular_probabilidades_demanda(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def calcular_resumen_ciudades(df: pd.DataFrame) -> pd.DataFrame:
-    """Genera el resumen porcentual de pedidos agrupados únicamente por ciudad."""
+    """Genera el resumen porcentual de pedidos agrupados únicamente por ciudad.
+
+    Args:
+        df: DataFrame con columna de ciudad detectada.
+
+    Returns:
+        DataFrame con cantidad de pedidos y porcentaje relativo por municipio.
+    """
     df_clean = df.copy()
     if "ciudad_detectada" in df_clean.columns and "ciudad" not in df_clean.columns:
         df_clean["ciudad"] = df_clean["ciudad_detectada"]
@@ -69,7 +101,19 @@ def procesar_estadisticas_demanda(
     archivo_probabilidades: Path = DEFAULT_PROBABILIDADES_FILE,
     archivo_resumen: Path = DEFAULT_RESUMEN_FILE,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
-    """Lee el dataset geolocalizado, genera las estadísticas y las guarda en CSV."""
+    """Lee el dataset geolocalizado, genera las estadísticas y las guarda en CSV.
+
+    Args:
+        archivo_entrada: Ruta al CSV de direcciones procesadas.
+        archivo_probabilidades: Ruta de destino para probabilidades por barrio.
+        archivo_resumen: Ruta de destino para resumen por ciudad.
+
+    Returns:
+        Tupla con DataFrames `(estadisticas_barrio, resumen_ciudades)`.
+
+    Raises:
+        FileNotFoundError: Si el archivo de entrada no existe en disco.
+    """
     if not archivo_entrada.exists():
         raise FileNotFoundError(f"No se encontró el archivo de direcciones: {archivo_entrada}")
 
@@ -90,7 +134,7 @@ def procesar_estadisticas_demanda(
     estadisticas.to_csv(archivo_probabilidades, index=False, encoding="utf-8-sig")
     resumen.to_csv(archivo_resumen, index=False, encoding="utf-8-sig")
 
-    print(f"\n[OK] Estadísticas exportadas:")
+    print("\n[OK] Estadísticas exportadas:")
     print(f"     Probabilidades: {archivo_probabilidades}")
     print(f"     Resumen:        {archivo_resumen}")
 
@@ -98,14 +142,32 @@ def procesar_estadisticas_demanda(
 
 
 def _parser() -> argparse.ArgumentParser:
-    p = argparse.ArgumentParser(description="Cálculo de estadísticas de demanda por ciudad y barrio")
-    p.add_argument("--input-file", type=Path, default=DEFAULT_INPUT_FILE, help="CSV de direcciones geolocalizadas")
-    p.add_argument("--prob-output", type=Path, default=DEFAULT_PROBABILIDADES_FILE, help="CSV de salida de probabilidades")
-    p.add_argument("--resumen-output", type=Path, default=DEFAULT_RESUMEN_FILE, help="CSV de salida de resumen de ciudades")
+    p = argparse.ArgumentParser(
+        description="Cálculo de estadísticas de demanda por ciudad y barrio"
+    )
+    p.add_argument(
+        "--input-file",
+        type=Path,
+        default=DEFAULT_INPUT_FILE,
+        help="CSV de direcciones geolocalizadas",
+    )
+    p.add_argument(
+        "--prob-output",
+        type=Path,
+        default=DEFAULT_PROBABILIDADES_FILE,
+        help="CSV de salida de probabilidades",
+    )
+    p.add_argument(
+        "--resumen-output",
+        type=Path,
+        default=DEFAULT_RESUMEN_FILE,
+        help="CSV de salida de resumen de ciudades",
+    )
     return p
 
 
 def main() -> int:
+    """Punto de entrada de línea de comandos para el cálculo de estadísticas de demanda."""
     args = _parser().parse_args()
     try:
         procesar_estadisticas_demanda(

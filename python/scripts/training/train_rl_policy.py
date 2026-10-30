@@ -1,3 +1,10 @@
+"""Script de entrenamiento y evolución de políticas RL con MaskablePPO.
+
+Ejecuta el curriculum de aprendizaje por refuerzo con máscaras temporales duras,
+evaluación periódica lexicográfica sobre benchmarks clásicos (ej. B04) e instancias sintéticas,
+y preservación del mejor modelo externo entre etapas.
+"""
+
 from __future__ import annotations
 
 import argparse
@@ -5,10 +12,11 @@ import csv
 import json
 import shutil
 import sys
+from collections.abc import Callable
 from dataclasses import asdict
 from enum import Enum
 from pathlib import Path
-from typing import Any, Callable
+from typing import Any
 
 # pyrefly: ignore [missing-import]
 import gymnasium as gym
@@ -32,62 +40,45 @@ from stable_baselines3.common.monitor import Monitor
 # pyrefly: ignore [missing-import]
 from stable_baselines3.common.vec_env import DummyVecEnv
 
-
 PYTHON_ROOT = Path(__file__).resolve().parents[2]
 PLANNER_DIR = PYTHON_ROOT / "planner"
 
 if not PLANNER_DIR.is_dir():
-    raise RuntimeError(
-        "No se encontró el paquete planner. "
-        f"Raíz calculada: {PYTHON_ROOT}"
-    )
+    raise RuntimeError(f"No se encontró el paquete planner. Raíz calculada: {PYTHON_ROOT}")
 
 if str(PYTHON_ROOT) not in sys.path:
     sys.path.insert(0, str(PYTHON_ROOT))
 
-
-from planner.rl.training_data import (  # noqa: E402
-    CatalogoDemandaReal,
-    ParticionDemandaReal,
-    SEED_DIVISION_DEMANDA_REAL,
-)
-from planner.rl.training_cases import (  # noqa: E402
-    crear_casos_benchmark_clasico,
-)
 from planner.rl.instance_generator import (  # noqa: E402
     ConfiguracionGeneradorInstancias,
     GeneradorInstanciasRL,
     ModoDemandaGeografica,
 )
-from planner.rl.reward import (  # noqa: E402
-    ConfiguracionRewardRL,
-    ModoRewardRL,
-)
-from planner.rl.policy_config import (  # noqa: E402
-    ConfiguracionPoliticaRL,
-)
+from planner.rl.policy_config import ConfiguracionPoliticaRL  # noqa: E402
+from planner.rl.reward import ConfiguracionRewardRL, ModoRewardRL  # noqa: E402
+from planner.rl.training_cases import crear_casos_benchmark_clasico  # noqa: E402
 from planner.rl.training_curriculum import (  # noqa: E402
     EtapaEntrenamientoRL,
     crear_curriculum_entrenamiento,
     crear_curriculum_entrenamiento_rapido,
 )
-from planner.rl.training_env import (  # noqa: E402
-    EntornoEntrenamientoRL,
+from planner.rl.training_data import (  # noqa: E402
+    SEED_DIVISION_DEMANDA_REAL,
+    CatalogoDemandaReal,
+    ParticionDemandaReal,
+)
+from planner.rl.training_env import EntornoEntrenamientoRL  # noqa: E402
+from planner.rl.training_instance_generator import (  # noqa: E402
+    ConfiguracionGeneradorPoliticaRL,
+    GeneradorInstanciasPoliticaRL,
+    GeneradorMixtoPoliticaRL,
 )
 from planner.rl.training_validation import (  # noqa: E402
     ResumenValidacionExternaRL,
     es_mejor_validacion_externa,
     evaluar_modelo_externamente,
 )
-from planner.rl.training_instance_generator import (  # noqa: E402
-    ConfiguracionGeneradorPoliticaRL,
-    GeneradorInstanciasPoliticaRL,
-    GeneradorMixtoPoliticaRL,
-)
-from planner.routing.vial_cache import (  # noqa: E402
-    ProveedorVialCachePersistente,
-)
-
+from planner.routing.vial_cache import ProveedorVialCachePersistente  # noqa: E402
 
 INFO_KEYWORDS = (
     "costo_estimado",
@@ -104,8 +95,24 @@ INFO_KEYWORDS = (
     "componente_terminal_costo_acotado",
 )
 
+__all__ = [
+    "INFO_KEYWORDS",
+    "ValidacionExternaCallback",
+    "crear_configuracion_core",
+    "crear_configuracion_generador",
+    "crear_env_factory",
+    "crear_modelo",
+    "crear_validacion_fija",
+    "guardar_json",
+    "main",
+    "parse_args",
+    "preparar_catalogo_real",
+]
+
 
 class ValidacionExternaCallback(BaseCallback):
+    """Callback de evaluación periódica del agente RL sobre un conjunto de validación desacoplado."""
+
     def __init__(
         self,
         *,
@@ -118,7 +125,6 @@ class ValidacionExternaCallback(BaseCallback):
         verbose: int = 1,
     ) -> None:
         super().__init__(verbose=verbose)
-
         if eval_freq <= 0:
             raise ValueError("eval_freq debe ser > 0.")
 
@@ -137,6 +143,7 @@ class ValidacionExternaCallback(BaseCallback):
 
     @property
     def best_model_path(self) -> Path:
+        """Ruta al mejor modelo guardado por validación externa."""
         return self.best_dir / "best_model.zip"
 
     def _guardar_historial(
@@ -151,42 +158,27 @@ class ValidacionExternaCallback(BaseCallback):
             "b04_costo_estimado": resumen.b04_costo_estimado,
             "sinteticos_totales": resumen.sinteticos_totales,
             "sinteticos_sin_riesgo": resumen.sinteticos_sin_riesgo,
-            "tasa_sintetica_sin_riesgo_pct": (
-                resumen.tasa_sintetica_sin_riesgo_pct
-            ),
-            "tardanza_sintetica_total_min": (
-                resumen.tardanza_sintetica_total_min
-            ),
-            "tardanza_sintetica_mediana_min": (
-                resumen.tardanza_sintetica_mediana_min
-            ),
-            "gap_costo_mediano_vs_greedy_pct": (
-                resumen.gap_costo_mediano_vs_greedy_pct
-            ),
+            "tasa_sintetica_sin_riesgo_pct": resumen.tasa_sintetica_sin_riesgo_pct,
+            "tardanza_sintetica_total_min": resumen.tardanza_sintetica_total_min,
+            "tardanza_sintetica_mediana_min": resumen.tardanza_sintetica_mediana_min,
+            "gap_costo_mediano_vs_greedy_pct": resumen.gap_costo_mediano_vs_greedy_pct,
             "nuevo_mejor_externo": mejorado,
         }
         existe = self.historial_csv.exists()
-
-        with self.historial_csv.open(
-            "a",
-            encoding="utf-8",
-            newline="",
-        ) as archivo:
+        with self.historial_csv.open("a", encoding="utf-8", newline="") as archivo:
             escritor = csv.DictWriter(archivo, fieldnames=list(fila))
             if not existe:
                 escritor.writeheader()
             escritor.writerow(fila)
 
-        guardar_json(
-            self.external_dir / "latest.json",
-            resumen.como_dict(),
-        )
+        guardar_json(self.external_dir / "latest.json", resumen.como_dict())
 
     def evaluar_modelo_y_guardar(
         self,
         model: Any,
         timestep: int,
     ) -> ResumenValidacionExternaRL:
+        """Evalúa el modelo sobre las instancias externas fijas y actualiza el mejor si corresponde."""
         resumen = evaluar_modelo_externamente(
             model,
             timestep=int(timestep),
@@ -195,40 +187,30 @@ class ValidacionExternaCallback(BaseCallback):
             instancias_sinteticas=self.instancias_sinteticas,
             configuracion_temporal=self.configuracion_temporal,
         )
-        mejorado = es_mejor_validacion_externa(
-            resumen,
-            self.best_summary,
-        )
+        mejorado = es_mejor_validacion_externa(resumen, self.best_summary)
 
         if mejorado:
             self.best_summary = resumen
             model.save(str(self.best_dir / "best_model"))
-            guardar_json(
-                self.best_dir / "best_summary.json",
-                resumen.como_dict(),
-            )
+            guardar_json(self.best_dir / "best_summary.json", resumen.como_dict())
 
         self._guardar_historial(resumen, mejorado)
 
         if self.verbose:
             marca = "NUEVO_MEJOR" if mejorado else "sin_mejora"
             print(
-                "Validación externa "
-                f"t={resumen.timestep} | "
+                f"Validación externa t={resumen.timestep} | "
                 f"B04 tardíos={resumen.b04_pedidos_tardios} "
                 f"tardanza={resumen.b04_tardanza_min:.3f} | "
-                "sintéticos sin riesgo="
-                f"{resumen.sinteticos_sin_riesgo}/"
-                f"{resumen.sinteticos_totales} | {marca}"
+                f"sintéticos sin riesgo={resumen.sinteticos_sin_riesgo}/{resumen.sinteticos_totales} | "
+                f"{marca}"
             )
 
         return resumen
 
     def evaluar_y_guardar(self) -> ResumenValidacionExternaRL:
-        return self.evaluar_modelo_y_guardar(
-            self.model,
-            int(self.num_timesteps),
-        )
+        """Evalúa el modelo asociado al callback en el paso actual."""
+        return self.evaluar_modelo_y_guardar(self.model, int(self.num_timesteps))
 
     def _on_step(self) -> bool:
         if self.n_calls % self.eval_freq != 0:
@@ -237,8 +219,8 @@ class ValidacionExternaCallback(BaseCallback):
         return True
 
 
-
 def parse_args() -> argparse.Namespace:
+    """Parsea los argumentos de línea de comandos para el entrenamiento."""
     parser = argparse.ArgumentParser(
         description=(
             "Continúa o entrena la política RL actual con máscara temporal "
@@ -268,24 +250,15 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--demand-dataset", default="")
     parser.add_argument(
         "--initial-model",
-        default=str(
-            PYTHON_ROOT / "models" / "rl" / "rl_policy.zip"
-        ),
-        help=(
-            "Checkpoint desde el que continúa el entrenamiento. "
-            "Por defecto usa la política productiva actual."
-        ),
+        default=str(PYTHON_ROOT / "models" / "rl" / "rl_policy.zip"),
+        help="Checkpoint desde el que continúa el entrenamiento.",
     )
     parser.add_argument(
         "--from-scratch",
         action="store_true",
         help="Crea un modelo nuevo en lugar de continuar el checkpoint actual.",
     )
-    parser.add_argument(
-        "--learning-rate",
-        type=float,
-        default=2e-5,
-    )
+    parser.add_argument("--learning-rate", type=float, default=2e-5)
     args = parser.parse_args()
 
     if not args.run_name.strip():
@@ -305,35 +278,28 @@ def crear_configuracion_generador(
     etapa: EtapaEntrenamientoRL,
     particion: ParticionDemandaReal | None,
 ) -> ConfiguracionGeneradorInstancias:
+    """Construye la configuración del generador estocástico para la etapa actual."""
     modo = ModoDemandaGeografica(args.demand_mode)
     return ConfiguracionGeneradorInstancias(
         min_pedidos_finales=etapa.min_pedidos_finales,
         max_pedidos_finales=etapa.max_pedidos_finales,
         probabilidad_volcador=etapa.probabilidad_volcador,
-        probabilidad_ventana_especifica=(
-            etapa.probabilidad_ventana_especifica
-        ),
-        probabilidad_pedido_mayor_capacidad=(
-            etapa.probabilidad_pedido_grande
-        ),
+        probabilidad_ventana_especifica=etapa.probabilidad_ventana_especifica,
+        probabilidad_pedido_mayor_capacidad=etapa.probabilidad_pedido_grande,
         ancho_ventana_min=etapa.ancho_ventana_min,
         ancho_ventana_max=etapa.ancho_ventana_max,
         modo_demanda_geografica=modo,
         ruta_demanda_real=args.demand_dataset.strip(),
-        particion_demanda_real=(
-            particion
-            if modo == ModoDemandaGeografica.REAL
-            else None
-        ),
+        particion_demanda_real=(particion if modo == ModoDemandaGeografica.REAL else None),
         seed_division_demanda_real=SEED_DIVISION_DEMANDA_REAL,
     )
-
 
 
 def crear_configuracion_core(
     args: argparse.Namespace,
     particion: ParticionDemandaReal | None,
 ) -> ConfiguracionGeneradorInstancias:
+    """Construye la configuración del generador base (core) para replay curricular."""
     modo = ModoDemandaGeografica(args.demand_mode)
     return ConfiguracionGeneradorInstancias(
         min_pedidos_finales=3,
@@ -345,34 +311,24 @@ def crear_configuracion_core(
         ancho_ventana_max=90,
         modo_demanda_geografica=modo,
         ruta_demanda_real=args.demand_dataset.strip(),
-        particion_demanda_real=(
-            particion
-            if modo == ModoDemandaGeografica.REAL
-            else None
-        ),
+        particion_demanda_real=(particion if modo == ModoDemandaGeografica.REAL else None),
         seed_division_demanda_real=SEED_DIVISION_DEMANDA_REAL,
     )
-
 
 
 def preparar_catalogo_real(
     args: argparse.Namespace,
     etapa: EtapaEntrenamientoRL,
 ) -> CatalogoDemandaReal | None:
+    """Inicializa el catálogo de demanda real si el modo configurado es REAL."""
     if args.demand_mode == ModoDemandaGeografica.SINTETICA.value:
         return None
 
-    generador = GeneradorInstanciasRL(
-        crear_configuracion_generador(args, etapa, None)
-    )
+    generador = GeneradorInstanciasRL(crear_configuracion_generador(args, etapa, None))
     catalogo = generador.catalogo_demanda_real_completo
-
     if catalogo is None:
-        raise RuntimeError(
-            "No se pudo inicializar el catálogo de demanda real."
-        )
+        raise RuntimeError("No se pudo inicializar el catálogo de demanda real.")
     return catalogo
-
 
 
 def crear_generador_mixto(
@@ -382,15 +338,14 @@ def crear_generador_mixto(
     etapa: EtapaEntrenamientoRL,
     catalogo_real: CatalogoDemandaReal | None,
 ) -> GeneradorMixtoPoliticaRL:
+    """Crea el generador mixto que intercala instancias actuales con repetición de core."""
     actual = GeneradorInstanciasPoliticaRL(
         GeneradorInstanciasRL(
             configuracion=configuracion_actual,
             catalogo_demanda_real=catalogo_real,
         ),
         ConfiguracionGeneradorPoliticaRL(
-            probabilidad_patron_ventanas_conflictivas=(
-                etapa.probabilidad_patron_conflictivo
-            )
+            probabilidad_patron_ventanas_conflictivas=etapa.probabilidad_patron_conflictivo
         ),
     )
     core = GeneradorInstanciasPoliticaRL(
@@ -398,16 +353,13 @@ def crear_generador_mixto(
             configuracion=configuracion_core,
             catalogo_demanda_real=catalogo_real,
         ),
-        ConfiguracionGeneradorPoliticaRL(
-            probabilidad_patron_ventanas_conflictivas=0.95
-        ),
+        ConfiguracionGeneradorPoliticaRL(probabilidad_patron_ventanas_conflictivas=0.95),
     )
     return GeneradorMixtoPoliticaRL(
         generador_actual=actual,
         generador_core=core,
         probabilidad_replay_core=etapa.probabilidad_replay_core,
     )
-
 
 
 def crear_env_factory(
@@ -422,6 +374,8 @@ def crear_env_factory(
     catalogo_real: CatalogoDemandaReal | None,
     semillas_fijas: list[int] | None = None,
 ) -> Callable[[], gym.Env]:
+    """Crea una fábrica de entornos envuelta con Monitor para vectorización."""
+
     def _crear() -> gym.Env:
         generador = crear_generador_mixto(
             configuracion_actual=configuracion_actual,
@@ -442,12 +396,12 @@ def crear_env_factory(
     return _crear
 
 
-
 def crear_modelo(
     env: DummyVecEnv,
     seed: int,
     learning_rate: float,
 ) -> MaskablePPO:
+    """Instancia una política MaskablePPO configurada para el problema de ruteo."""
     return MaskablePPO(
         policy="MlpPolicy",
         env=env,
@@ -459,16 +413,10 @@ def crear_modelo(
         gae_lambda=0.95,
         clip_range=0.2,
         ent_coef=0.01,
-        policy_kwargs={
-            "net_arch": {
-                "pi": [256, 256],
-                "vf": [256, 256],
-            }
-        },
+        policy_kwargs={"net_arch": {"pi": [256, 256], "vf": [256, 256]}},
         seed=seed,
         verbose=1,
     )
-
 
 
 def _normalizar_json(valor: Any) -> Any:
@@ -477,36 +425,27 @@ def _normalizar_json(valor: Any) -> Any:
     if isinstance(valor, Path):
         return str(valor)
     if isinstance(valor, dict):
-        return {
-            str(clave): _normalizar_json(contenido)
-            for clave, contenido in valor.items()
-        }
+        return {str(clave): _normalizar_json(contenido) for clave, contenido in valor.items()}
     if isinstance(valor, (list, tuple)):
         return [_normalizar_json(contenido) for contenido in valor]
     return valor
 
 
-
 def guardar_json(ruta: Path, contenido: dict[str, Any]) -> None:
+    """Serializa un diccionario en formato JSON normalizado y con indentación legible."""
     ruta.parent.mkdir(parents=True, exist_ok=True)
     ruta.write_text(
-        json.dumps(
-            _normalizar_json(contenido),
-            ensure_ascii=False,
-            indent=2,
-        ),
+        json.dumps(_normalizar_json(contenido), ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
-
 
 
 def crear_validacion_fija(
     quick: bool,
 ) -> tuple[Any, Any, tuple[Any, ...], tuple[int, ...]]:
+    """Construye el conjunto inmutable de instancias de validación externa."""
     b04 = next(
-        caso.instancia
-        for caso in crear_casos_benchmark_clasico()
-        if caso.caso_id == "B04_VENTANAS"
+        caso.instancia for caso in crear_casos_benchmark_clasico() if caso.caso_id == "B04_VENTANAS"
     )
     proveedor = ProveedorVialCachePersistente(
         PYTHON_ROOT / "data" / "routing" / "cache_vial.csv",
@@ -525,9 +464,7 @@ def crear_validacion_fija(
     )
     generador = GeneradorInstanciasPoliticaRL(
         GeneradorInstanciasRL(configuracion_base),
-        ConfiguracionGeneradorPoliticaRL(
-            probabilidad_patron_ventanas_conflictivas=0.90
-        ),
+        ConfiguracionGeneradorPoliticaRL(probabilidad_patron_ventanas_conflictivas=0.90),
     )
     cantidad = 24 if quick else 60
     semillas = tuple(range(265_000, 265_000 + cantidad))
@@ -535,23 +472,15 @@ def crear_validacion_fija(
     return b04, proveedor, instancias, semillas
 
 
-
 def main() -> None:
+    """Punto de entrada principal para el entrenamiento curricular de la política RL."""
     args = parse_args()
-    modelo_inicial = (
-        None
-        if args.from_scratch
-        else Path(args.initial_model).expanduser().resolve()
-    )
+    modelo_inicial = None if args.from_scratch else Path(args.initial_model).expanduser().resolve()
     if modelo_inicial is not None and not modelo_inicial.is_file():
-        raise FileNotFoundError(
-            f"No existe el checkpoint inicial: {modelo_inicial}"
-        )
+        raise FileNotFoundError(f"No existe el checkpoint inicial: {modelo_inicial}")
 
     etapas = (
-        crear_curriculum_entrenamiento_rapido()
-        if args.quick
-        else crear_curriculum_entrenamiento()
+        crear_curriculum_entrenamiento_rapido() if args.quick else crear_curriculum_entrenamiento()
     )
     run_dir = PYTHON_ROOT / "rl_artifacts" / args.run_name.strip()
     run_dir.mkdir(parents=True, exist_ok=True)
@@ -562,8 +491,8 @@ def main() -> None:
     )
     configuracion_temporal = ConfiguracionPoliticaRL()
     catalogo_real = preparar_catalogo_real(args, etapas[0])
-    b04, proveedor_b04, validacion_sintetica, semillas_validacion = (
-        crear_validacion_fija(args.quick)
+    b04, proveedor_b04, validacion_sintetica, semillas_validacion = crear_validacion_fija(
+        args.quick
     )
 
     guardar_json(
@@ -619,11 +548,7 @@ def main() -> None:
             best_dir = stage_dir / "internal_best"
             evaluation_dir = stage_dir / "internal_evaluation"
 
-            for directorio in (
-                checkpoint_dir,
-                best_dir,
-                evaluation_dir,
-            ):
+            for directorio in (checkpoint_dir, best_dir, evaluation_dir):
                 directorio.mkdir(parents=True, exist_ok=True)
 
             particion_train = (
@@ -636,24 +561,10 @@ def main() -> None:
                 if args.demand_mode == ModoDemandaGeografica.REAL.value
                 else None
             )
-            configuracion_train = crear_configuracion_generador(
-                args,
-                etapa,
-                particion_train,
-            )
-            configuracion_eval = crear_configuracion_generador(
-                args,
-                etapa,
-                particion_eval,
-            )
-            configuracion_core_train = crear_configuracion_core(
-                args,
-                particion_train,
-            )
-            configuracion_core_eval = crear_configuracion_core(
-                args,
-                particion_eval,
-            )
+            configuracion_train = crear_configuracion_generador(args, etapa, particion_train)
+            configuracion_eval = crear_configuracion_generador(args, etapa, particion_eval)
+            configuracion_core_train = crear_configuracion_core(args, particion_train)
+            configuracion_core_eval = crear_configuracion_core(args, particion_eval)
 
             guardar_json(
                 stage_dir / "stage_config.json",
@@ -662,12 +573,8 @@ def main() -> None:
                     "etapa": asdict(etapa),
                     "generador_train": asdict(configuracion_train),
                     "generador_eval": asdict(configuracion_eval),
-                    "generador_core_train": asdict(
-                        configuracion_core_train
-                    ),
-                    "generador_core_eval": asdict(
-                        configuracion_core_eval
-                    ),
+                    "generador_core_train": asdict(configuracion_core_train),
+                    "generador_core_eval": asdict(configuracion_core_eval),
                     "modelo_inicio": selected_model_path,
                 },
             )
@@ -688,12 +595,7 @@ def main() -> None:
                     for rank in range(args.n_envs)
                 ]
             )
-            semillas_eval = list(
-                range(
-                    266_000 + indice * 1_000,
-                    266_030 + indice * 1_000,
-                )
-            )
+            semillas_eval = list(range(266_000 + indice * 1_000, 266_030 + indice * 1_000))
             eval_env = DummyVecEnv(
                 [
                     crear_env_factory(
@@ -712,26 +614,18 @@ def main() -> None:
 
             if model is None:
                 if modelo_inicial is None:
-                    model = crear_modelo(
-                        train_env,
-                        args.seed,
-                        args.learning_rate,
-                    )
+                    model = crear_modelo(train_env, args.seed, args.learning_rate)
                 else:
                     model = MaskablePPO.load(
                         str(modelo_inicial),
                         env=train_env,
-                        custom_objects={
-                            "learning_rate": args.learning_rate,
-                        },
+                        custom_objects={"learning_rate": args.learning_rate},
                     )
             elif selected_model_path is not None:
                 model = MaskablePPO.load(
                     str(selected_model_path),
                     env=train_env,
-                    custom_objects={
-                        "learning_rate": args.learning_rate,
-                    },
+                    custom_objects={"learning_rate": args.learning_rate},
                 )
             else:
                 model.set_env(train_env)
@@ -748,10 +642,7 @@ def main() -> None:
             callbacks = CallbackList(
                 [
                     CheckpointCallback(
-                        save_freq=max(
-                            etapa.checkpoint_freq // args.n_envs,
-                            1,
-                        ),
+                        save_freq=max(etapa.checkpoint_freq // args.n_envs, 1),
                         save_path=str(checkpoint_dir),
                         name_prefix="rl_policy",
                         verbose=1,
@@ -770,30 +661,13 @@ def main() -> None:
                 ]
             )
 
-            print("")
-            print(f"=== {etapa.nombre} ===")
-            print(
-                "Pedidos: "
-                f"{etapa.min_pedidos_finales}-"
-                f"{etapa.max_pedidos_finales}"
-            )
+            print(f"\n=== {etapa.nombre} ===")
+            print(f"Pedidos: {etapa.min_pedidos_finales}-{etapa.max_pedidos_finales}")
             print(f"Timesteps: {etapa.timesteps}")
-            print(
-                "Patrón conflictivo: "
-                f"{etapa.probabilidad_patron_conflictivo:.0%}"
-            )
-            print(
-                "Replay core: "
-                f"{etapa.probabilidad_replay_core:.0%}"
-            )
+            print(f"Patrón conflictivo: {etapa.probabilidad_patron_conflictivo:.0%}")
+            print(f"Replay core: {etapa.probabilidad_replay_core:.0%}")
 
-            # Registra el modelo de entrada. Si la etapa empeora desde el
-            # primer bloque PPO, este baseline sigue disponible para
-            # revertir y continuar la etapa siguiente.
-            callback_externo.evaluar_modelo_y_guardar(
-                model,
-                int(model.num_timesteps),
-            )
+            callback_externo.evaluar_modelo_y_guardar(model, int(model.num_timesteps))
 
             model.learn(
                 total_timesteps=etapa.timesteps,
@@ -802,27 +676,14 @@ def main() -> None:
             )
             model.save(str(stage_dir / "final_model"))
 
-            # Garantiza una evaluación externa del estado final aun si
-            # el redondeo PPO no coincide exactamente con eval_freq.
-            callback_externo.evaluar_modelo_y_guardar(
-                model,
-                int(model.num_timesteps),
-            )
+            callback_externo.evaluar_modelo_y_guardar(model, int(model.num_timesteps))
             selected_model_path = callback_externo.best_model_path
 
             if not selected_model_path.exists():
-                raise RuntimeError(
-                    "La etapa no generó external_best/best_model.zip."
-                )
+                raise RuntimeError("La etapa no generó external_best/best_model.zip.")
 
-            shutil.copy2(
-                selected_model_path,
-                stage_dir / "external_selected_model.zip",
-            )
-            print(
-                "Modelo elegido para la siguiente etapa: "
-                f"{selected_model_path}"
-            )
+            shutil.copy2(selected_model_path, stage_dir / "external_selected_model.zip")
+            print(f"Modelo elegido para la siguiente etapa: {selected_model_path}")
 
             train_env.close()
             eval_env.close()
@@ -844,10 +705,8 @@ def main() -> None:
             },
         )
 
-        print("")
-        print("Entrenamiento de la política RL finalizado.")
+        print("\nEntrenamiento de la política RL finalizado.")
         print(f"Modelo final seleccionado: {ruta_final}")
-
         print("El modelo productivo no fue modificado.")
 
     except KeyboardInterrupt:

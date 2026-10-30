@@ -1,3 +1,10 @@
+"""Módulo de geocodificación y normalización geográfica de direcciones con Nominatim (OSM).
+
+Convierte cadenas de texto de calles y números extraídas por OCR en coordenadas
+geográficas precisas (latitud, longitud), normalizando municipios y barrios en el
+área de influencia operativa (Granadero Baigorria, Rosario, Ibarlucea, etc.).
+"""
+
 from __future__ import annotations
 
 import argparse
@@ -17,8 +24,12 @@ from geopy.location import Location
 PYTHON_ROOT = Path(__file__).resolve().parents[2]
 
 DEFAULT_INPUT_FILE = PYTHON_ROOT / "data" / "processed" / "extraccion" / "direcciones.json"
-DEFAULT_OUTPUT_FILE = PYTHON_ROOT / "data" / "processed" / "geocoding" / "direcciones_geolocalizadas.csv"
-DEFAULT_DISCARDED_FILE = PYTHON_ROOT / "data" / "processed" / "geocoding" / "direcciones_descartadas.csv"
+DEFAULT_OUTPUT_FILE = (
+    PYTHON_ROOT / "data" / "processed" / "geocoding" / "direcciones_geolocalizadas.csv"
+)
+DEFAULT_DISCARDED_FILE = (
+    PYTHON_ROOT / "data" / "processed" / "geocoding" / "direcciones_descartadas.csv"
+)
 DEFAULT_PROGRESS_FILE = PYTHON_ROOT / "data" / "processed" / "geocoding" / "progreso_geo.json"
 
 CIUDADES_PRIORITARIAS = [
@@ -31,9 +42,32 @@ CIUDADES_PRIORITARIAS = [
 
 ESPERA_ENTRE_REQUESTS = 1.2  # Nominatim exige máximo 1 req/seg
 
+__all__ = [
+    "CIUDADES_PRIORITARIAS",
+    "DEFAULT_DISCARDED_FILE",
+    "DEFAULT_INPUT_FILE",
+    "DEFAULT_OUTPUT_FILE",
+    "DEFAULT_PROGRESS_FILE",
+    "ESPERA_ENTRE_REQUESTS",
+    "cargar_progreso",
+    "ejecutar_geocodificacion",
+    "geolocalizar_direccion",
+    "guardar_progreso",
+    "main",
+    "normalizar_ciudad_osm",
+]
+
 
 def normalizar_ciudad_osm(osm_address: str, ciudad_solicitada: str) -> str:
-    """Extrae y normaliza el municipio detectado en el texto devuelto por OpenStreetMap."""
+    """Extrae y normaliza el municipio detectado en el texto devuelto por OpenStreetMap.
+
+    Args:
+        osm_address: Cadena completa de dirección retornada por la API de OSM.
+        ciudad_solicitada: Nombre de ciudad de búsqueda original como fallback.
+
+    Returns:
+        Nombre de municipio normalizado con acentuación canónica.
+    """
     m = re.search(r"Municipio de ([^,]+)", osm_address)
     if m:
         c = m.group(1).strip()
@@ -72,7 +106,18 @@ def geolocalizar_direccion(
     ciudades: list[str] = CIUDADES_PRIORITARIAS,
     espera: float = ESPERA_ENTRE_REQUESTS,
 ) -> dict[str, Any] | None:
-    """Geocodifica un par calle-altura iterando por ciudades prioritarias en Santa Fe."""
+    """Geocodifica un par calle-altura iterando por ciudades prioritarias en Santa Fe.
+
+    Args:
+        geolocator: Instancia cliente de geopy Nominatim.
+        calle: Nombre de la arteria vial.
+        altura: Numeración catastral o None si no se dispone.
+        ciudades: Lista de localidades donde intentar el matching.
+        espera: Tiempo de delay en segundos para respetar rate limits de OSM.
+
+    Returns:
+        Diccionario con coordenadas, ciudad, barrio y dirección formateada, o None si no se halló.
+    """
     str_altura = str(altura).strip() if altura is not None else ""
     direccion_base = f"{calle} {str_altura}".strip() if str_altura else str(calle).strip()
 
@@ -161,9 +206,16 @@ def _escribir_csv_atomico(df: pd.DataFrame, archivo_destino: Path) -> None:
 
 
 def cargar_progreso(archivo_progreso: Path) -> dict[str, Any]:
-    """Carga el estado del progreso previo si el archivo existe."""
+    """Carga el estado del progreso previo si el archivo existe.
+
+    Args:
+        archivo_progreso: Ruta al JSON de persistencia.
+
+    Returns:
+        Diccionario con conteo de procesados y listas de válidos/descartados.
+    """
     if archivo_progreso.exists():
-        with open(archivo_progreso, "r", encoding="utf-8") as f:
+        with open(archivo_progreso, encoding="utf-8") as f:
             return json.load(f)
     return {"procesados": 0, "validos": [], "descartados": []}
 
@@ -174,7 +226,14 @@ def guardar_progreso(
     validos: list[dict[str, Any]],
     descartados: list[dict[str, Any]],
 ) -> None:
-    """Persiste el progreso actual de geocodificación de forma atómica."""
+    """Persiste el progreso actual de geocodificación de forma atómica.
+
+    Args:
+        archivo_progreso: Ruta al JSON de persistencia.
+        procesados: Total de direcciones evaluadas hasta el momento.
+        validos: Registros exitosamente localizados.
+        descartados: Registros no encontrados.
+    """
     _escribir_json_atomico(
         archivo_progreso,
         {"procesados": procesados, "validos": validos, "descartados": descartados},
@@ -190,11 +249,26 @@ def ejecutar_geocodificacion(
     espera: float = ESPERA_ENTRE_REQUESTS,
     user_agent: str = "ruteo_logistica_reparto_v2",
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
-    """Ejecuta el ciclo de geocodificación sobre las direcciones JSON con recuperación de fallos."""
+    """Ejecuta el ciclo de geocodificación sobre las direcciones JSON con recuperación de fallos.
+
+    Args:
+        archivo_entrada: Archivo JSON de entrada con pares calle-altura.
+        archivo_salida: CSV destino para registros validados y geolocalizados.
+        archivo_descartes: CSV destino para registros no ubicados.
+        archivo_progreso: JSON para guardar checkpoints atómicos.
+        espera: Segundos de espera entre peticiones a Nominatim.
+        user_agent: Identificador de cliente HTTP para Nominatim.
+
+    Returns:
+        Tupla con DataFrames `(df_validos, df_descartados)`.
+
+    Raises:
+        FileNotFoundError: Si el archivo de entrada no existe.
+    """
     if not archivo_entrada.exists():
         raise FileNotFoundError(f"No se encontró el archivo de entrada: {archivo_entrada}")
 
-    with open(archivo_entrada, "r", encoding="utf-8") as f:
+    with open(archivo_entrada, encoding="utf-8") as f:
         datos_crudos: list[dict[str, Any]] = json.load(f)
 
     total = len(datos_crudos)
@@ -245,7 +319,7 @@ def ejecutar_geocodificacion(
     if archivo_progreso.exists():
         archivo_progreso.unlink()
 
-    print(f"\n[OK] Geocodificación finalizada:")
+    print("\n[OK] Geocodificación finalizada:")
     print(f"     Encontradas: {len(df_validos)} en {archivo_salida}")
     print(f"     Descartadas: {len(df_descartados)} en {archivo_descartes}")
     return df_validos, df_descartados
@@ -253,15 +327,41 @@ def ejecutar_geocodificacion(
 
 def _parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(description="Geocodificación de direcciones con Nominatim (OSM)")
-    p.add_argument("--input-file", type=Path, default=DEFAULT_INPUT_FILE, help="Archivo JSON de direcciones")
-    p.add_argument("--output-file", type=Path, default=DEFAULT_OUTPUT_FILE, help="CSV de salida geolocalizadas")
-    p.add_argument("--discarded-file", type=Path, default=DEFAULT_DISCARDED_FILE, help="CSV de direcciones descartadas")
-    p.add_argument("--progress-file", type=Path, default=DEFAULT_PROGRESS_FILE, help="JSON de progreso")
-    p.add_argument("--delay", type=float, default=ESPERA_ENTRE_REQUESTS, help="Espera en segundos entre peticiones")
+    p.add_argument(
+        "--input-file",
+        type=Path,
+        default=DEFAULT_INPUT_FILE,
+        help="Archivo JSON de direcciones",
+    )
+    p.add_argument(
+        "--output-file",
+        type=Path,
+        default=DEFAULT_OUTPUT_FILE,
+        help="CSV de salida geolocalizadas",
+    )
+    p.add_argument(
+        "--discarded-file",
+        type=Path,
+        default=DEFAULT_DISCARDED_FILE,
+        help="CSV de direcciones descartadas",
+    )
+    p.add_argument(
+        "--progress-file",
+        type=Path,
+        default=DEFAULT_PROGRESS_FILE,
+        help="JSON de progreso",
+    )
+    p.add_argument(
+        "--delay",
+        type=float,
+        default=ESPERA_ENTRE_REQUESTS,
+        help="Espera en segundos entre peticiones",
+    )
     return p
 
 
 def main() -> int:
+    """Punto de entrada CLI para la geocodificación de direcciones."""
     args = _parser().parse_args()
     try:
         ejecutar_geocodificacion(
