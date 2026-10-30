@@ -456,7 +456,7 @@ def ejecutar_entrenamiento_v2() -> dict[str, Any]:
 
     hash_v2 = _sha256_archivo(ruta_zip_activo)
 
-    manifiesto_v2 = {
+    manifiesto_v2: dict[str, Any] = {
         "version": VERSION_RUNTIME,
         "modelo": "rl_policy.zip",
         "modelo_respaldo_v1": "rl_policy_v1.zip",
@@ -470,7 +470,7 @@ def ejecutar_entrenamiento_v2() -> dict[str, Any]:
     ruta_json_v2 = MODELS_DIR / "rl_policies_v2.json"
     ruta_json_activo = MODELS_DIR / "rl_policies.json"
 
-    manifiesto_v2_copia = dict(manifiesto_v2)
+    manifiesto_v2_copia: dict[str, Any] = dict(manifiesto_v2)
     manifiesto_v2_copia["modelo"] = "rl_policy_v2.zip"
     ruta_json_v2.write_text(
         json.dumps(manifiesto_v2_copia, ensure_ascii=False, indent=2) + "\n",
