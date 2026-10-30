@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Pre-push hook: Validación estática de código con Ruff antes de enviar cambios al repositorio.
+
+set -e
+
+echo "[pre-push] Verificando estándares de formato y calidad de código..."
+
+if [ -f "./.venv/Scripts/ruff.exe" ]; then
+    RUFF="./.venv/Scripts/ruff.exe"
+elif [ -f "./.venv/bin/ruff" ]; then
+    RUFF="./.venv/bin/ruff"
+elif command -v ruff >/dev/null 2>&1; then
+    RUFF="ruff"
+else
+    exit 0
+fi
+
+$RUFF check python
+$RUFF format --check python
+exit 0

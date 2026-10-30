@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# Pre-commit hook: Formateo y verificación de código Python mediante Ruff.
+
+set -e
+
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep '\.py$' || true)
+
+if [ -z "$STAGED_FILES" ]; then
+    exit 0
+fi
+
+echo "[pre-commit] Formateando archivos Python en stage con Ruff..."
+
+if [ -f "./.venv/Scripts/ruff.exe" ]; then
+    RUFF="./.venv/Scripts/ruff.exe"
+elif [ -f "./.venv/bin/ruff" ]; then
+    RUFF="./.venv/bin/ruff"
+elif command -v ruff >/dev/null 2>&1; then
+    RUFF="ruff"
+else
+    echo "[pre-commit] Advertencia: Ruff no está disponible. Omitiendo formato."
+    exit 0
+fi
+
+$RUFF check --fix $STAGED_FILES
+$RUFF format $STAGED_FILES
+
+git add $STAGED_FILES
+exit 0
