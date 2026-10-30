@@ -129,11 +129,11 @@ def test_cantidades_pedidos_turnos_y_reglas_negocio():
         "DESPUES_DE",
         "ENTRE_X_Y",
     }
-    # Promedio de unidades por día (2 turnos) en torno a ~48-56 unidades (6-7 camiones/día)
-    promedio_unidades_dia = (sum(unidades_por_turno) / n_turnos_muestra) * 2.0
-    assert 36.0 <= promedio_unidades_dia <= 68.0
-    # Volcador ~1 cada 4 días (80 turnos = 40 días -> esperado ~10 volcadores, rango razonable 3..22)
-    assert 2 <= volcadores_totales <= 24
+    # Promedio de unidades por turno en torno a ~48 unidades (~6 camiones llenos por turno)
+    promedio_unidades_turno = sum(unidades_por_turno) / n_turnos_muestra
+    assert 36.0 <= promedio_unidades_turno <= 64.0
+    # Volcador ~1 cada 2 días = 1 cada 4 turnos (80 turnos -> esperado ~20 volcadores, rango razonable 8..36)
+    assert 6 <= volcadores_totales <= 38
 
 
 def test_cargar_y_analizar_historico_real():
