@@ -2,8 +2,10 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import sys
+import tempfile
 import time
 from pathlib import Path
 from typing import Any
@@ -104,6 +106,60 @@ def geolocalizar_direccion(
     return None
 
 
+def _escribir_json_atomico(
+    archivo_destino: Path,
+    datos: Any,
+    indent: int | None = None,
+) -> None:
+    """Escribe un archivo JSON de forma atómica mediante archivo temporal y reemplazo."""
+    archivo_destino.parent.mkdir(parents=True, exist_ok=True)
+    fd, ruta_tmp_str = tempfile.mkstemp(
+        prefix=f".{archivo_destino.stem}_",
+        suffix=".tmp",
+        dir=str(archivo_destino.parent),
+        text=True,
+    )
+    ruta_tmp = Path(ruta_tmp_str)
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as f:
+            json.dump(datos, f, ensure_ascii=False, indent=indent)
+            f.flush()
+            os.fsync(f.fileno())
+        os.replace(ruta_tmp, archivo_destino)
+    except BaseException:
+        if ruta_tmp.exists():
+            try:
+                ruta_tmp.unlink()
+            except OSError:
+                pass
+        raise
+
+
+def _escribir_csv_atomico(df: pd.DataFrame, archivo_destino: Path) -> None:
+    """Exporta un DataFrame a CSV de forma atómica mediante archivo temporal y reemplazo."""
+    archivo_destino.parent.mkdir(parents=True, exist_ok=True)
+    fd, ruta_tmp_str = tempfile.mkstemp(
+        prefix=f".{archivo_destino.stem}_",
+        suffix=".tmp",
+        dir=str(archivo_destino.parent),
+        text=True,
+    )
+    ruta_tmp = Path(ruta_tmp_str)
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8-sig", newline="") as f:
+            df.to_csv(f, index=False)
+            f.flush()
+            os.fsync(f.fileno())
+        os.replace(ruta_tmp, archivo_destino)
+    except BaseException:
+        if ruta_tmp.exists():
+            try:
+                ruta_tmp.unlink()
+            except OSError:
+                pass
+        raise
+
+
 def cargar_progreso(archivo_progreso: Path) -> dict[str, Any]:
     """Carga el estado del progreso previo si el archivo existe."""
     if archivo_progreso.exists():
@@ -118,14 +174,12 @@ def guardar_progreso(
     validos: list[dict[str, Any]],
     descartados: list[dict[str, Any]],
 ) -> None:
-    """Persiste el progreso actual de geocodificación."""
-    archivo_progreso.parent.mkdir(parents=True, exist_ok=True)
-    with open(archivo_progreso, "w", encoding="utf-8") as f:
-        json.dump(
-            {"procesados": procesados, "validos": validos, "descartados": descartados},
-            f,
-            ensure_ascii=False,
-        )
+    """Persiste el progreso actual de geocodificación de forma atómica."""
+    _escribir_json_atomico(
+        archivo_progreso,
+        {"procesados": procesados, "validos": validos, "descartados": descartados},
+        indent=None,
+    )
 
 
 def ejecutar_geocodificacion(
@@ -184,12 +238,9 @@ def ejecutar_geocodificacion(
     df_validos = pd.DataFrame(resultados_validos)
     df_descartados = pd.DataFrame(descartados)
 
-    archivo_salida.parent.mkdir(parents=True, exist_ok=True)
-    archivo_descartes.parent.mkdir(parents=True, exist_ok=True)
-
-    df_validos.to_csv(archivo_salida, index=False, encoding="utf-8-sig")
+    _escribir_csv_atomico(df_validos, archivo_salida)
     if not df_descartados.empty:
-        df_descartados.to_csv(archivo_descartes, index=False, encoding="utf-8-sig")
+        _escribir_csv_atomico(df_descartados, archivo_descartes)
 
     if archivo_progreso.exists():
         archivo_progreso.unlink()

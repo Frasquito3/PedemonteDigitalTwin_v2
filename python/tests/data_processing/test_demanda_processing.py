@@ -10,8 +10,18 @@ from scripts.data_processing.estadistica_demanda import (
     calcular_probabilidades_demanda,
     calcular_resumen_ciudades,
 )
-from scripts.data_processing.extraccion_ocr import obtener_cliente_genai
-from scripts.data_processing.geocoding import normalizar_ciudad_osm
+from scripts.data_processing.extraccion_ocr import (
+    cargar_progreso as cargar_progreso_ocr,
+    cargar_resultado as cargar_resultado_ocr,
+    guardar_progreso as guardar_progreso_ocr,
+    guardar_resultado as guardar_resultado_ocr,
+    obtener_cliente_genai,
+)
+from scripts.data_processing.geocoding import (
+    cargar_progreso as cargar_progreso_geo,
+    guardar_progreso as guardar_progreso_geo,
+    normalizar_ciudad_osm,
+)
 
 
 PYTHON_ROOT = Path(__file__).resolve().parents[2]
@@ -115,3 +125,31 @@ def test_validacion_api_key_inexistente(monkeypatch):
 
     with pytest.raises(ValueError, match="No se encontró una API Key válida"):
         obtener_cliente_genai()
+
+
+def test_escritura_atomica_ocr_y_geocoding_preserva_archivo_ante_fallo(tmp_path: Path):
+    """Verifica que las escrituras atómicas persistan sin dejar .tmp y preserven el archivo previo ante fallos."""
+    ruta_progreso_ocr = tmp_path / "progreso_ocr.json"
+    ruta_resultado_ocr = tmp_path / "direcciones.json"
+    ruta_progreso_geo = tmp_path / "progreso_geo.json"
+
+    guardar_progreso_ocr(ruta_progreso_ocr, {"img_02.jpg", "img_01.jpg"})
+    assert cargar_progreso_ocr(ruta_progreso_ocr) == {"img_01.jpg", "img_02.jpg"}
+
+    datos_iniciales = [{"calle": "San Martín", "altura": "1200"}]
+    guardar_resultado_ocr(ruta_resultado_ocr, datos_iniciales)
+    assert cargar_resultado_ocr(ruta_resultado_ocr) == datos_iniciales
+
+    guardar_progreso_geo(ruta_progreso_geo, 1, datos_iniciales, [])
+    estado_geo = cargar_progreso_geo(ruta_progreso_geo)
+    assert estado_geo["procesados"] == 1
+    assert estado_geo["validos"] == datos_iniciales
+
+    # Si ocurre un error de serialización a mitad de escritura, el archivo original queda intacto
+    # y no quedan archivos temporales (.tmp) huérfanos.
+    with pytest.raises(TypeError):
+        guardar_resultado_ocr(ruta_resultado_ocr, [{"invalido": object()}])  # type: ignore[dict-item]
+
+    assert cargar_resultado_ocr(ruta_resultado_ocr) == datos_iniciales
+    archivos_tmp = list(tmp_path.glob("*.tmp"))
+    assert archivos_tmp == []

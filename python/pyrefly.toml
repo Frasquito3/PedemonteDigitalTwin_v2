@@ -19,3 +19,4 @@ python-version = "3.11"
 
 [errors]
 unnecessary-type-conversion = false
+untyped-import = false

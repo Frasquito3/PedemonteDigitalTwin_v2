@@ -4,6 +4,7 @@ import argparse
 import json
 import os
 import sys
+import tempfile
 import time
 from pathlib import Path
 from typing import Any
@@ -71,6 +72,35 @@ def obtener_cliente_genai(api_key: str | None = None) -> genai.Client:
     return genai.Client(api_key=clave)
 
 
+def _escribir_json_atomico(
+    archivo_destino: Path,
+    datos: Any,
+    indent: int | None = 2,
+) -> None:
+    """Escribe un archivo JSON de forma atómica mediante archivo temporal y reemplazo."""
+    archivo_destino.parent.mkdir(parents=True, exist_ok=True)
+    fd, ruta_tmp_str = tempfile.mkstemp(
+        prefix=f".{archivo_destino.stem}_",
+        suffix=".tmp",
+        dir=str(archivo_destino.parent),
+        text=True,
+    )
+    ruta_tmp = Path(ruta_tmp_str)
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as f:
+            json.dump(datos, f, ensure_ascii=False, indent=indent)
+            f.flush()
+            os.fsync(f.fileno())
+        os.replace(ruta_tmp, archivo_destino)
+    except BaseException:
+        if ruta_tmp.exists():
+            try:
+                ruta_tmp.unlink()
+            except OSError:
+                pass
+        raise
+
+
 def cargar_progreso(archivo_progreso: Path) -> set[str]:
     """Carga el conjunto de nombres de archivos de imagen ya procesados."""
     if archivo_progreso.exists():
@@ -81,9 +111,7 @@ def cargar_progreso(archivo_progreso: Path) -> set[str]:
 
 def guardar_progreso(archivo_progreso: Path, procesadas: set[str]) -> None:
     """Guarda el conjunto de imágenes procesadas de forma atómica."""
-    archivo_progreso.parent.mkdir(parents=True, exist_ok=True)
-    with open(archivo_progreso, "w", encoding="utf-8") as f:
-        json.dump(sorted(list(procesadas)), f, ensure_ascii=False, indent=2)
+    _escribir_json_atomico(archivo_progreso, sorted(list(procesadas)), indent=2)
 
 
 def cargar_resultado(archivo_salida: Path) -> list[dict[str, Any]]:
@@ -95,10 +123,8 @@ def cargar_resultado(archivo_salida: Path) -> list[dict[str, Any]]:
 
 
 def guardar_resultado(archivo_salida: Path, datos: list[dict[str, Any]]) -> None:
-    """Guarda la lista acumulada de direcciones extraídas."""
-    archivo_salida.parent.mkdir(parents=True, exist_ok=True)
-    with open(archivo_salida, "w", encoding="utf-8") as f:
-        json.dump(datos, f, indent=4, ensure_ascii=False)
+    """Guarda la lista acumulada de direcciones extraídas de forma atómica."""
+    _escribir_json_atomico(archivo_salida, datos, indent=4)
 
 
 def extraer_direcciones(
