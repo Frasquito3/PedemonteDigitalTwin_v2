@@ -1,0 +1,87 @@
+{% extends "frame.html.jinja2" %}
+{% block title %}Pedemonte Digital Twin • Gemelo Digital v2{% endblock %}
+
+{% block style %}
+    {{ super() | safe }}
+    <style>
+        header.pdoc {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px solid var(--accent2);
+        }
+
+        header.pdoc .repo-brand {
+            font-size: 1.35rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        header.pdoc input[type=search] {
+            outline-offset: 0;
+            font-size: 0.95rem;
+            min-width: 280px;
+            max-width: 480px;
+            flex-grow: 1;
+            padding: 0.5rem 0.85rem;
+            border-radius: 8px;
+            border: 1px solid var(--accent2);
+            background-color: var(--code);
+            color: var(--text);
+        }
+    </style>
+{% endblock %}
+
+{% block nav %}
+    <h2>Paquetes Principales</h2>
+    <ul>
+        <li><a href="planner.html"><strong>planner</strong></a></li>
+        <li><a href="scripts.html"><strong>scripts</strong></a></li>
+    </ul>
+
+    <h2>Módulos del Sistema</h2>
+    <ul>
+        <li><a href="planner/algorithms.html">planner.algorithms</a></li>
+        <li><a href="planner/rl.html">planner.rl</a></li>
+        <li><a href="planner/routing.html">planner.routing</a></li>
+        <li><a href="planner/domain.html">planner.domain</a></li>
+        <li><a href="planner/core.html">planner.core</a></li>
+        <li><a href="planner/integration.html">planner.integration</a></li>
+    </ul>
+
+    <h2>Scripts y Pipelines</h2>
+    <ul>
+        <li><a href="scripts/simulation.html">scripts.simulation</a></li>
+        <li><a href="scripts/data_processing.html">scripts.data_processing</a></li>
+        <li><a href="scripts/training.html">scripts.training</a></li>
+        <li><a href="scripts/rl.html">scripts.rl</a></li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+    <header class="pdoc">
+        <a class="repo-brand" href="index.html">Pedemonte Digital Twin • Gemelo Digital v2</a>
+        {% if search %}
+            <input type="search" placeholder="Buscar en la documentación..." aria-label="search box">
+        {% endif %}
+    </header>
+
+    {% set readme_content %}
+{% include "repo_readme.md" %}
+    {% endset %}
+
+    <main class="pdoc">
+        {{ readme_content | to_html | safe }}
+    </main>
+
+    {% if search %}
+        {% include "search.html.jinja2" %}
+    {% endif %}
+{% endblock %}
+

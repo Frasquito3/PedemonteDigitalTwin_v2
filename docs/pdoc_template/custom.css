@@ -1,0 +1,367 @@
+:root {
+    --pdoc-background: #ffffff;
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-mono: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+}
+
+body {
+    font-family: var(--font-sans);
+    letter-spacing: -0.011em;
+    background-color: var(--pdoc-background);
+}
+
+.pdoc {
+    --text: #0f172a;
+    --muted: #64748b;
+    --link: #2563eb;
+    --link-hover: #1d4ed8;
+    --code: #f1f5f9;
+    --active: #e2e8f0;
+    --accent: #f8fafc;
+    --accent2: #e2e8f0;
+    --nav-hover: rgba(37, 99, 235, 0.08);
+    --name: #1e40af;
+    --def: #047857;
+    --annotation: #4338ca;
+}
+
+/* Modo oscuro automático */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --pdoc-background: #0b0f19;
+    }
+
+    body {
+        background-color: var(--pdoc-background);
+    }
+
+    .pdoc {
+        --text: #e2e8f0;
+        --muted: #94a3b8;
+        --link: #38bdf8;
+        --link-hover: #7dd3fc;
+        --code: #161e2e;
+        --active: #1e293b;
+        --accent: #0e1424;
+        --accent2: #1e293b;
+        --nav-hover: rgba(56, 189, 248, 0.12);
+        --name: #60a5fa;
+        --def: #34d399;
+        --annotation: #a5b4fc;
+    }
+
+    nav.pdoc {
+        background-color: #0e1424 !important;
+        border-right: 1px solid #1e293b !important;
+        box-shadow: none !important;
+    }
+
+    .pdoc .pdoc-code {
+        background-color: #111827 !important;
+        border: 1px solid #1f2937 !important;
+    }
+
+    .pdoc input[type="search"] {
+        background-color: #1e293b !important;
+        border-color: #334155 !important;
+        color: #f1f5f9 !important;
+    }
+
+    /* Contraste reforzado para diagramas Mermaid en modo oscuro */
+    .pdoc .mermaid .actor {
+        fill: #1e293b !important;
+        stroke: #60a5fa !important;
+    }
+    .pdoc .mermaid text.actor > tspan {
+        fill: #f8fafc !important;
+    }
+    .pdoc .mermaid .actor-line {
+        stroke: #64748b !important;
+        stroke-width: 1.5px !important;
+    }
+    .pdoc .mermaid .messageLine0,
+    .pdoc .mermaid .messageLine1 {
+        stroke: #38bdf8 !important;
+        stroke-width: 2px !important;
+    }
+    .pdoc .mermaid text.messageText {
+        fill: #f1f5f9 !important;
+        font-weight: 500 !important;
+    }
+    .pdoc .mermaid #arrowhead path,
+    .pdoc .mermaid #crosshead path {
+        fill: #38bdf8 !important;
+        stroke: #38bdf8 !important;
+    }
+    .pdoc .mermaid .labelText {
+        fill: #f8fafc !important;
+    }
+    .pdoc .mermaid .loopText,
+    .pdoc .mermaid .loopText > tspan {
+        fill: #38bdf8 !important;
+        font-weight: bold !important;
+    }
+    .pdoc .mermaid .loopLine {
+        stroke: #475569 !important;
+    }
+    .pdoc .mermaid rect.rect {
+        fill: #111827 !important;
+        stroke: #475569 !important;
+    }
+
+    /* Estilos de Flowchart / Diagramas de bloques en modo oscuro */
+    .pdoc .mermaid .node rect,
+    .pdoc .mermaid .node polygon {
+        fill: #1e293b !important;
+        stroke: #38bdf8 !important;
+    }
+    .pdoc .mermaid .node .label {
+        color: #f8fafc !important;
+        fill: #f8fafc !important;
+    }
+    .pdoc .mermaid .node .label text,
+    .pdoc .mermaid .node text {
+        fill: #f8fafc !important;
+    }
+    .pdoc .mermaid .edgePath .path {
+        stroke: #38bdf8 !important;
+        stroke-width: 1.5px !important;
+    }
+    .pdoc .mermaid .edgeLabel {
+        background-color: #0b0f19 !important;
+        color: #f8fafc !important;
+        fill: #f8fafc !important;
+    }
+    .pdoc .mermaid .cluster rect {
+        fill: #0e1424 !important;
+        stroke: #334155 !important;
+    }
+    .pdoc .mermaid .cluster text {
+        fill: #94a3b8 !important;
+        font-weight: 600 !important;
+    }
+}
+
+/* ==========================================================================
+   Ajuste de Disposición: Barra Lateral y Contenido Principal
+   ========================================================================== */
+
+@media (min-width: 770px) {
+    :root {
+        --sidebar-width: clamp(15rem, 25vw, 21rem);
+    }
+
+    nav.pdoc {
+        position: fixed;
+        width: var(--sidebar-width);
+        box-shadow: none;
+        border-right: 1px solid var(--accent2);
+        background-color: var(--accent);
+    }
+
+    main, header {
+        padding: 3rem 3rem 4rem calc(var(--sidebar-width) + 3.5rem) !important;
+        width: calc(56rem + var(--sidebar-width)) !important;
+        max-width: 100% !important;
+    }
+}
+
+/* ==========================================================================
+   Barra Lateral: Experiencia de Desarrollador Limpia y Escaneable
+   ========================================================================== */
+
+nav.pdoc {
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+
+nav.pdoc h2 {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+nav.pdoc input[type="search"] {
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    padding: 0.5rem 0.85rem;
+    font-size: 0.875rem;
+    transition: all 0.15s ease-in-out;
+    margin-bottom: 1.25rem;
+}
+
+nav.pdoc input[type="search"]:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* 
+ * FILTRADO CLAVE DE EXPERIENCIA DE DESARROLLADOR:
+ * Ocultamos atributos/variables y constructores redundantes de la barra lateral.
+ * La barra lateral debe actuar como un índice ágil de Clases y Funciones,
+ * evitando que 40 variables de una dataclass colapsen el árbol de navegación.
+ */
+nav.pdoc a.variable,
+nav.pdoc li:has(> a.variable),
+nav.pdoc a.function[href*=".__init__"],
+nav.pdoc li:has(> a.function[href*=".__init__"]) {
+    display: none !important;
+}
+
+/* Ocultar listas anidadas que hayan quedado vacías tras filtrar variables */
+nav.pdoc ul.memberlist:empty,
+nav.pdoc ul.memberlist:not(:has(> li:not([style*="display: none"]))) {
+    margin-bottom: 0;
+}
+
+/* Distinción visual entre clases y funciones en la barra lateral */
+nav.pdoc .class {
+    font-weight: 600;
+    color: var(--text);
+}
+
+nav.pdoc .class:before {
+    content: "class ";
+    font-size: 0.75rem;
+    font-weight: normal;
+    color: var(--muted);
+    opacity: 0.85;
+}
+
+nav.pdoc .function {
+    color: var(--link);
+}
+
+nav.pdoc .function:after {
+    content: "()";
+    font-size: 0.8rem;
+    color: var(--muted);
+}
+
+nav.pdoc li {
+    margin-top: 0.15rem;
+    margin-bottom: 0.15rem;
+    border-radius: 4px;
+}
+
+nav.pdoc li:hover {
+    background-color: var(--nav-hover);
+}
+
+/* ==========================================================================
+   Tipografía y Títulos
+   ========================================================================== */
+
+h1, h2, h3, h4 {
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    color: var(--text);
+}
+
+h1 {
+    font-size: 2.25rem;
+    border-bottom: 2px solid var(--accent2);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.75rem;
+}
+
+h2 {
+    font-size: 1.45rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--accent2);
+    padding-bottom: 0.35rem;
+}
+
+h3 {
+    font-size: 1.2rem;
+    margin-top: 1.75rem;
+}
+
+/* ==========================================================================
+   Tarjetas de Clase, Función y Código
+   ========================================================================== */
+
+.pdoc .item {
+    margin-bottom: 2.5rem;
+}
+
+.pdoc .def {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.pdoc .name {
+    font-weight: 700;
+}
+
+.pdoc pre {
+    border-radius: 8px;
+    border: 1px solid var(--accent2);
+}
+
+.pdoc code {
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    background-color: var(--code);
+    padding: 0.15em 0.35em;
+    border-radius: 4px;
+}
+
+.pdoc pre code {
+    background: none;
+    padding: 0;
+}
+
+.pdoc .pdoc-button {
+    border-radius: 6px;
+    border: 1px solid var(--accent2);
+    font-weight: 500;
+    background-color: var(--pdoc-background);
+    color: var(--muted);
+}
+
+.pdoc .pdoc-button:hover {
+    background-color: var(--accent);
+    color: var(--text);
+}
+
+/* ==========================================================================
+   Tablas de Datos
+   ========================================================================== */
+
+.pdoc table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid var(--accent2);
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 1.25rem 0;
+    font-size: 0.9rem;
+}
+
+.pdoc th {
+    background-color: var(--accent);
+    color: var(--text);
+    font-weight: 600;
+    text-align: left;
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid var(--accent2);
+}
+
+.pdoc td {
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid var(--accent2);
+}
+
+.pdoc tr:last-child td {
+    border-bottom: none;
+}

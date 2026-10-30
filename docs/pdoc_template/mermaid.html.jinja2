@@ -1,0 +1,97 @@
+{# Plantilla de Mermaid.js con soporte adaptable de alto contraste para modo claro y oscuro #}
+<style>
+    .pdoc .mermaid-pre {
+        border: none !important;
+        background: transparent !important;
+        display: flex;
+        justify-content: center;
+        margin: 2rem 0;
+        padding: 0;
+        overflow-x: auto;
+    }
+    .pdoc .mermaid {
+        width: 100%;
+        max-width: 900px;
+        text-align: center;
+    }
+    .pdoc .mermaid svg {
+        height: auto;
+        max-width: 100%;
+    }
+</style>
+<script type="module" defer>
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+    
+    const isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    mermaid.initialize({
+        startOnLoad: false,
+        theme: isDark ? 'dark' : 'neutral',
+        securityLevel: 'loose',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif',
+        themeVariables: isDark ? {
+            darkMode: true,
+            background: '#0b0f19',
+            primaryColor: '#1e293b',
+            primaryTextColor: '#f8fafc',
+            primaryBorderColor: '#60a5fa',
+            lineColor: '#38bdf8',
+            actorLineColor: '#94a3b8',
+            signalColor: '#38bdf8',
+            signalTextColor: '#f8fafc',
+            labelBoxBkgColor: '#1e293b',
+            labelBoxBorderColor: '#38bdf8',
+            labelTextColor: '#f8fafc',
+            altSectionBkgColor: '#111827',
+            sequenceNumberColor: '#38bdf8',
+            nodeBorder: '#38bdf8',
+            clusterBkg: '#0e1424',
+            clusterBorder: '#334155',
+            titleColor: '#f8fafc',
+            edgeLabelBackground: '#0b0f19'
+        } : {
+            primaryColor: '#f8fafc',
+            primaryTextColor: '#0f172a',
+            primaryBorderColor: '#2563eb',
+            lineColor: '#2563eb',
+            actorLineColor: '#64748b',
+            signalColor: '#2563eb',
+            signalTextColor: '#0f172a'
+        },
+        flowchart: {
+            curve: 'basis',
+            useMaxWidth: true,
+            htmlLabels: true
+        },
+        sequence: {
+            useMaxWidth: true,
+            showSequenceNumbers: true,
+            mirrorActors: false
+        }
+    });
+
+    const renderMermaid = async () => {
+        const elements = document.querySelectorAll(".mermaid");
+        for (const el of elements) {
+            if (!el.dataset.processed) {
+                el.textContent = el.textContent
+                    .replace(/&gt;/g, '>')
+                    .replace(/&lt;/g, '<')
+                    .replace(/&amp;/g, '&');
+            }
+        }
+        try {
+            await mermaid.run();
+        } catch (err) {
+            console.error("Error al renderizar diagrama Mermaid:", err);
+        }
+    };
+
+    document.addEventListener("DOMContentLoaded", async () => {
+        await renderMermaid();
+        new MutationObserver(async () => await renderMermaid()).observe(
+            document.querySelector("main.pdoc").parentNode,
+            { childList: true }
+        );
+    });
+</script>

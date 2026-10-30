@@ -1,0 +1,68 @@
+{% extends "default/module.html.jinja2" %}
+
+{% block nav_index %}
+    {% set index = module.docstring | to_markdown | to_html | attr("toc_html") %}
+    {% if index %}
+        <h2>Índice</h2>
+        {{ index | safe }}
+    {% endif %}
+{% endblock %}
+
+{% block nav_submodules %}
+    {% if module.submodules %}
+        <h2>Submódulos</h2>
+        <ul>
+            {% for submodule in module.submodules if is_public(submodule) | trim %}
+                <li>{{ submodule.taken_from | link(text=submodule.name) }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
+
+{% block nav_members %}
+    {% set classes = [] %}
+    {% set functions = [] %}
+    {% for m in module.members.values() if is_public(m) | trim %}
+        {% if m.kind == "class" %}
+            {% set _ = classes.append(m) %}
+        {% elif m.kind == "function" %}
+            {% set _ = functions.append(m) %}
+        {% endif %}
+    {% endfor %}
+
+    {% if classes %}
+        <h2>Clases</h2>
+        <ul class="memberlist">
+            {% for c in classes %}
+                <li>
+                    <a class="class" href="#{{ c.qualname }}">{{ c.name }}</a>
+                    {% set methods = [] %}
+                    {% for m in c.own_members if is_public(m) | trim and m.kind == "function" and m.name != "__init__" and not m.name.startswith("_") %}
+                        {% set _ = methods.append(m) %}
+                    {% endfor %}
+                    {% if methods %}
+                        <ul class="memberlist">
+                            {% for m in methods %}
+                                <li>
+                                    <a class="function" href="#{{ m.qualname }}">{{ m.name }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if functions %}
+        <h2>Funciones</h2>
+        <ul class="memberlist">
+            {% for f in functions %}
+                <li>
+                    <a class="function" href="#{{ f.qualname }}">{{ f.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
+
