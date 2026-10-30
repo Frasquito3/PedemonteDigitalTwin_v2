@@ -192,6 +192,18 @@
 		<ActiveObjectClass>
 			<Id>1786555084415</Id>
 			<Name><![CDATA[Main]]></Name>
+			<DestroyCode><![CDATA[if (estudioTemporizadorSimulacion != null) {
+    estudioTemporizadorSimulacion.stop();
+    estudioTemporizadorSimulacion = null;
+}
+
+if (
+    estudioProcesoSimulacion != null
+    &&
+    estudioProcesoSimulacion.isAlive()
+) {
+    estudioProcesoSimulacion.destroy();
+}]]></DestroyCode>
 			<Generic>false</Generic>
 			<GenericParameter>
 				<Id>1786555084420</Id>
@@ -2299,6 +2311,546 @@
 					<Id>1791914083361</Id>
 					<Name><![CDATA[unidadesVolcadorFormulario]]></Name>
 					<X>-1180</X><Y>4030</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[""]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1793377766777</Id>
+					<Name><![CDATA[estudioConfiguracionValidada]]></Name>
+					<X>-1180</X><Y>4060</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[boolean]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[false]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1793377781137</Id>
+					<Name><![CDATA[estudioTurnosValidados]]></Name>
+					<X>-1180</X><Y>4090</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[int]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[0]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1793377798537</Id>
+					<Name><![CDATA[estudioRepeticionesValidadas]]></Name>
+					<X>-1180</X><Y>4120</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[int]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[0]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1793377812737</Id>
+					<Name><![CDATA[estudioSemillaValidada]]></Name>
+					<X>-1180</X><Y>4150</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[long]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[0L]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1793377841561</Id>
+					<Name><![CDATA[estudioTurnoValidado]]></Name>
+					<X>-1180</X><Y>4180</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[""]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1793377856345</Id>
+					<Name><![CDATA[estudioCorridasPrevistas]]></Name>
+					<X>-1180</X><Y>4210</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[long]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[0L]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1793377882730</Id>
+					<Name><![CDATA[estudioMensajeConfiguracion]]></Name>
+					<X>-1180</X><Y>4240</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA["Configuración pendiente de validar."]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1793380034663</Id>
+					<Name><![CDATA[estudioProcesoGeneracion]]></Name>
+					<X>-1180</X><Y>4270</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[java.lang.Process]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[null]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1793380057879</Id>
+					<Name><![CDATA[estudioDirectorioEscenarios]]></Name>
+					<X>-1180</X><Y>4300</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[""]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1793380072015</Id>
+					<Name><![CDATA[estudioErrorGeneracion]]></Name>
+					<X>-1180</X><Y>4330</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[""]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1793382663669</Id>
+					<Name><![CDATA[estudioFlujoActivo]]></Name>
+					<X>-1180</X><Y>4360</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[boolean]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[false]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1793382675500</Id>
+					<Name><![CDATA[estudioEscenariosVialesPreparados]]></Name>
+					<X>-1180</X><Y>4390</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[int]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[0]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1793382685424</Id>
+					<Name><![CDATA[estudioCarpetaVial]]></Name>
+					<X>-1180</X><Y>4420</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[""]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1793382701804</Id>
+					<Name><![CDATA[estudioEstadoVial]]></Name>
+					<X>-1180</X><Y>4450</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA["Preparación vial pendiente."]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1793382760667</Id>
+					<Name><![CDATA[estudioTemporizadorFlujo]]></Name>
+					<X>-1180</X><Y>4480</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[javax.swing.Timer]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[null]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1793385539574</Id>
+					<Name><![CDATA[estudioProcesoSimulacion]]></Name>
+					<X>-1180</X><Y>4510</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[java.lang.Process]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[null]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1793385558798</Id>
+					<Name><![CDATA[estudioTemporizadorSimulacion]]></Name>
+					<X>-1180</X><Y>4540</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[javax.swing.Timer]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[null]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1793385593439</Id>
+					<Name><![CDATA[estudioArchivoLogSimulacion]]></Name>
+					<X>-1180</X><Y>4570</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[""]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1793385618495</Id>
+					<Name><![CDATA[estudioDirectorioResultados]]></Name>
+					<X>-1180</X><Y>4600</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[""]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1793385628518</Id>
+					<Name><![CDATA[estudioPosicionLogSimulacion]]></Name>
+					<X>-1180</X><Y>4630</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[long]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[0L]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1793385643351</Id>
+					<Name><![CDATA[estudioSimulacionEnCurso]]></Name>
+					<X>-1180</X><Y>4660</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[boolean]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[false]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1793385651975</Id>
+					<Name><![CDATA[estudioSimulacionCompleta]]></Name>
+					<X>-1180</X><Y>4690</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[boolean]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[false]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1793385659863</Id>
+					<Name><![CDATA[estudioSimulacionesFinalizadas]]></Name>
+					<X>-1180</X><Y>4720</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[int]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[0]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1793385673094</Id>
+					<Name><![CDATA[estudioSimulacionesFallidas]]></Name>
+					<X>-1180</X><Y>4750</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[int]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[0]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1793385682247</Id>
+					<Name><![CDATA[estudioEstadoSimulacion]]></Name>
+					<X>-1180</X><Y>4780</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA["Sin simulaciones ejecutadas."]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1793387994554</Id>
+					<Name><![CDATA[estudioResultadosCargados]]></Name>
+					<X>-1180</X><Y>4810</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[boolean]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[false]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1793388011002</Id>
+					<Name><![CDATA[estudioEstadoResultados]]></Name>
+					<X>-1180</X><Y>4840</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA["Sin resultados cargados."]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1793388021866</Id>
+					<Name><![CDATA[estudioFilasResultados]]></Name>
+					<X>-1180</X><Y>4870</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[int]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[0]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1793388035353</Id>
+					<Name><![CDATA[estudioFilasValidas]]></Name>
+					<X>-1180</X><Y>4900</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[int]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[0]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1793388093089</Id>
+					<Name><![CDATA[estudioFilasNoValidas]]></Name>
+					<X>-1180</X><Y>4930</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[int]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[0]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1793388110617</Id>
+					<Name><![CDATA[estudioMediasSimuladas]]></Name>
+					<X>-1180</X><Y>4960</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[double[][]]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[new double[5][6]]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1793388215948</Id>
+					<Name><![CDATA[estudioConteosSimulados]]></Name>
+					<X>-1180</X><Y>4990</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[int[]]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[new int[5]]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1793388265892</Id>
+					<Name><![CDATA[estudioDiferenciasRL]]></Name>
+					<X>-1180</X><Y>5020</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[double[][]]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[new double[5][6]]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1793388305660</Id>
+					<Name><![CDATA[estudioIC95RL]]></Name>
+					<X>-1180</X><Y>5050</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[double[][]]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[new double[5][6]]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1793388336644</Id>
+					<Name><![CDATA[estudioNPareados]]></Name>
+					<X>-1180</X><Y>5080</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[int[]]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[new int[5]]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1793388425036</Id>
+					<Name><![CDATA[estudioArchivoCargado]]></Name>
+					<X>-1180</X><Y>5110</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -32341,6 +32893,3113 @@ traceln(
 return true;
 ]]></Body>
 				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[boolean]]></ReturnType>
+					<Id>1793367292203</Id>
+					<Name><![CDATA[asegurarCacheVialInstanciaActual]]></Name>
+					<X>-810</X><Y>7150</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[// =====================================================
+// PREPARACION AUTOMATICA DE LA MATRIZ VIAL
+// =====================================================
+
+// No debe modificarse la matriz durante una ejecución.
+
+if (instanciaInterfazActual == null) {
+
+    mensajeInterfazPlanificacion =
+        "No existe una instancia preparada.";
+
+    return false;
+}
+
+if (ejecucionEnCurso || pypelineSolicitudEnCurso) {
+
+    mensajeInterfazPlanificacion =
+        "Existe una operación en curso.";
+
+    return false;
+}
+
+// Primero comprobamos la caché existente.
+// No se consulta nuevamente un recorrido disponible.
+
+if (verificarCacheVialInstanciaActual()) {
+
+    traceln(
+        "CACHE VIAL | Matriz existente completa."
+    );
+
+    return true;
+}
+
+// Se encontraron recorridos faltantes.
+
+traceln(
+    "CACHE VIAL | Preparación automática."
+    + " Tramos faltantes: "
+    + cacheVialTramosFaltantes
+);
+
+mensajeInterfazPlanificacion =
+    "Preparando matriz vial."
+    + "\nConsultando los recorridos faltantes...";
+
+// Bloqueamos temporalmente otras operaciones.
+
+pypelineSolicitudEnCurso = true;
+
+boolean exportacionCorrecta = false;
+
+try {
+
+    exportacionCorrecta =
+        exportarCacheVialInstanciaActual();
+
+} catch (Exception ex) {
+
+    traceln(
+        "ERROR PREPARANDO MATRIZ VIAL: "
+        + ex.getMessage()
+    );
+
+    ex.printStackTrace();
+
+} finally {
+
+    pypelineSolicitudEnCurso = false;
+}
+
+// Nunca continuar con una matriz incompleta.
+
+if (!exportacionCorrecta) {
+
+    cacheVialInstanciaCompleta = false;
+
+    mensajeInterfazPlanificacion =
+        "No fue posible completar la matriz vial."
+        + "\nRevisá la consola de AnyLogic.";
+
+    return false;
+}
+
+if (!verificarCacheVialInstanciaActual()) {
+
+    mensajeInterfazPlanificacion =
+        "La matriz vial sigue incompleta."
+        + "\nTramos faltantes: "
+        + cacheVialTramosFaltantes;
+
+    return false;
+}
+
+mensajeInterfazPlanificacion =
+    "Matriz vial preparada correctamente."
+    + "\nTodos los recorridos están disponibles.";
+
+traceln(
+    "CACHE VIAL | Preparación automática completada."
+    + " | tramos="
+    + cacheVialTramosRequeridos
+);
+
+return true;]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1793368643444</Id>
+					<Name><![CDATA[irAVistaEstudioExperimental]]></Name>
+					<X>-810</X><Y>7180</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[getExperimentHost().navigateTo(
+    viewEstudioExperimental
+);]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1793377925202</Id>
+					<Name><![CDATA[invalidarConfiguracionEstudio]]></Name>
+					<X>-810</X><Y>7210</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[
+if (
+    estudioFlujoActivo
+    ||
+    generacionActivaEstudio()
+    ||
+    estudioSimulacionEnCurso
+) {
+    estudioMensajeConfiguracion =
+        "Hay un proceso del estudio en ejecución.";
+    return;
+}
+
+estudioConfiguracionValidada = false;
+
+estudioTurnosValidados = 0;
+estudioRepeticionesValidadas = 0;
+estudioSemillaValidada = 0L;
+estudioTurnoValidado = "";
+estudioCorridasPrevistas = 0L;
+
+estudioMensajeConfiguracion =
+    "Cambios pendientes de validar.";
+
+// Desvincular los escenarios anteriores.
+// No eliminar sus archivos.
+estudioProcesoGeneracion = null;
+estudioDirectorioEscenarios = "";
+estudioErrorGeneracion = "";
+
+estudioEscenariosVialesPreparados = 0;
+estudioCarpetaVial = "";
+estudioEstadoVial =
+    "Preparación vial pendiente.";
+
+// Detener el seguimiento anterior.
+if (estudioTemporizadorSimulacion != null) {
+    estudioTemporizadorSimulacion.stop();
+    estudioTemporizadorSimulacion = null;
+}
+
+estudioProcesoSimulacion = null;
+estudioArchivoLogSimulacion = "";
+estudioDirectorioResultados = "";
+estudioPosicionLogSimulacion = 0L;
+
+estudioSimulacionEnCurso = false;
+estudioSimulacionCompleta = false;
+
+estudioSimulacionesFinalizadas = 0;
+estudioSimulacionesFallidas = 0;
+
+estudioEstadoSimulacion =
+    "Sin simulaciones ejecutadas.";
+
+// Limpiar solo el dashboard.
+// No borrar resultados persistidos.
+limpiarResultadosEstudio();
+
+btnGenerarEscenariosEstudio.setText(
+    "Generar escenarios"
+);
+
+btnEjecutarEstudio.setText(
+    "Ejecutar estudio"
+);
+]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[boolean]]></ReturnType>
+					<Id>1793377944248</Id>
+					<Name><![CDATA[validarConfiguracionEstudio]]></Name>
+					<X>-810</X><Y>7240</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[// =============================================
+// VALIDACION DE LA CONFIGURACION EXPERIMENTAL
+// =============================================
+
+invalidarConfiguracionEstudio();
+
+try {
+
+    // Leer directamente los controles.
+
+    String textoTurnos =
+        editTurnosEstudio.getText().trim();
+
+    String textoRepeticiones =
+        editRepeticionesEstudio.getText().trim();
+
+    String textoSemilla =
+        editSemillaEstudio.getText().trim();
+
+    String turno =
+        comboTurnoEstudio.getValue();
+
+    if (
+        textoTurnos.isEmpty()
+        ||
+        textoRepeticiones.isEmpty()
+        ||
+        textoSemilla.isEmpty()
+    ) {
+
+        throw new IllegalArgumentException(
+            "Completá los tres campos numéricos."
+        );
+    }
+
+    // Convertir a valores numéricos.
+
+    int cantidadTurnos =
+        Integer.parseInt(textoTurnos);
+
+    int repeticiones =
+        Integer.parseInt(textoRepeticiones);
+
+    long semilla =
+        Long.parseLong(textoSemilla);
+
+    // =========================================
+    // VALIDACION DE RANGOS
+    // =========================================
+
+    if (
+        cantidadTurnos < 1
+        ||
+        cantidadTurnos > 1000
+    ) {
+
+        throw new IllegalArgumentException(
+            "Los turnos deben estar entre 1 y 1000."
+        );
+    }
+
+    if (
+        repeticiones < 1
+        ||
+        repeticiones > 100
+    ) {
+
+        throw new IllegalArgumentException(
+            "Las repeticiones deben estar "
+            + "entre 1 y 100."
+        );
+    }
+
+    if (
+        semilla < 1L
+        ||
+        semilla > 2147483647L
+    ) {
+
+        throw new IllegalArgumentException(
+            "La semilla debe estar entre "
+            + "1 y 2147483647."
+        );
+    }
+
+    // =========================================
+    // VALIDACION DEL TURNO
+    // =========================================
+
+    if (
+        turno == null
+        ||
+        (
+            !"MANANA".equals(turno)
+            &&
+            !"TARDE".equals(turno)
+            &&
+            !"MIXTO".equals(turno)
+        )
+    ) {
+
+        throw new IllegalArgumentException(
+            "Seleccioná un turno válido."
+        );
+    }
+
+    // =========================================
+    // CALCULO DE CORRIDAS
+    // =========================================
+
+    final int cantidadAlgoritmos = 5;
+
+    long corridas =
+        (long) cantidadTurnos
+        * repeticiones
+        * cantidadAlgoritmos;
+
+    // Limite operativo inicial de esta interfaz.
+
+    if (corridas > 5000L) {
+
+        throw new IllegalArgumentException(
+            "Máximo 5000 corridas por estudio."
+        );
+    }
+
+    // =========================================
+    // GUARDAR CONFIGURACION VALIDADA
+    // =========================================
+
+    estudioTurnosValidados =
+        cantidadTurnos;
+
+    estudioRepeticionesValidadas =
+        repeticiones;
+
+    estudioSemillaValidada =
+        semilla;
+
+    estudioTurnoValidado =
+        turno;
+
+    estudioCorridasPrevistas =
+        corridas;
+
+    estudioConfiguracionValidada =
+        true;
+
+    estudioMensajeConfiguracion =
+        "Configuración válida: "
+        + corridas
+        + " simulaciones previstas.";
+
+    traceln(
+        "================================"
+    );
+
+    traceln(
+        "ESTUDIO EXPERIMENTAL CONFIGURADO"
+    );
+
+    traceln(
+        "Turnos: " + cantidadTurnos
+    );
+
+    traceln(
+        "Repeticiones: " + repeticiones
+    );
+
+    traceln(
+        "Turno: " + turno
+    );
+
+    traceln(
+        "Semilla: " + semilla
+    );
+
+    traceln(
+        "Algoritmos: " + cantidadAlgoritmos
+    );
+
+    traceln(
+        "Simulaciones previstas: " + corridas
+    );
+
+    traceln(
+        "================================"
+    );
+
+    return true;
+
+} catch (NumberFormatException ex) {
+
+    estudioMensajeConfiguracion =
+        "Ingresá números enteros válidos.";
+
+    traceln(
+        "ERROR CONFIGURACION: "
+        + ex.getMessage()
+    );
+
+    return false;
+
+} catch (IllegalArgumentException ex) {
+
+    estudioMensajeConfiguracion =
+        "Error: " + ex.getMessage();
+
+    traceln(
+        "ERROR CONFIGURACION: "
+        + ex.getMessage()
+    );
+
+    return false;
+}]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[boolean]]></ReturnType>
+					<Id>1793380255320</Id>
+					<Name><![CDATA[generacionActivaEstudio]]></Name>
+					<X>-810</X><Y>7270</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[return estudioProcesoGeneracion != null
+    && estudioProcesoGeneracion.isAlive();]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[int]]></ReturnType>
+					<Id>1793380280399</Id>
+					<Name><![CDATA[contarEscenariosGeneradosEstudio]]></Name>
+					<X>-810</X><Y>7300</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[if (
+    estudioDirectorioEscenarios == null
+    ||
+    estudioDirectorioEscenarios.trim().isEmpty()
+) {
+
+    return 0;
+}
+
+java.io.File carpeta =
+    new java.io.File(
+        estudioDirectorioEscenarios
+    );
+
+if (!carpeta.isDirectory()) {
+
+    return 0;
+}
+
+java.io.File[] archivos =
+    carpeta.listFiles(
+        (directorio, nombre) ->
+            nombre.startsWith("pedidos_dia_")
+            &&
+            nombre.endsWith(".xlsx")
+            &&
+            !nombre.contains("consolidado")
+    );
+
+return archivos == null
+    ? 0
+    : archivos.length;]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[boolean]]></ReturnType>
+					<Id>1793380297303</Id>
+					<Name><![CDATA[generacionCompletaEstudio]]></Name>
+					<X>-810</X><Y>7330</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[if (
+    estudioProcesoGeneracion == null
+    ||
+    generacionActivaEstudio()
+    ||
+    !estudioConfiguracionValidada
+    ||
+    estudioTurnosValidados <= 0
+    ||
+    estudioDirectorioEscenarios == null
+    ||
+    estudioDirectorioEscenarios.isEmpty()
+) {
+
+    return false;
+}
+
+try {
+
+    if (estudioProcesoGeneracion.exitValue() != 0) {
+
+        return false;
+    }
+
+    java.io.File metadata =
+        new java.io.File(
+            estudioDirectorioEscenarios,
+            "metadata_generacion.json"
+        );
+
+    return
+        metadata.isFile()
+        &&
+        contarEscenariosGeneradosEstudio()
+            == estudioTurnosValidados;
+
+} catch (IllegalThreadStateException ex) {
+
+    return false;
+}]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[String]]></ReturnType>
+					<Id>1793380328255</Id>
+					<Name><![CDATA[estadoGeneracionEstudio]]></Name>
+					<X>-810</X><Y>7360</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[if (
+    estudioErrorGeneracion != null
+    &&
+    !estudioErrorGeneracion.isEmpty()
+) {
+
+    return "Error al iniciar la generación.";
+}
+
+if (estudioProcesoGeneracion == null) {
+
+    return "Sin generación iniciada";
+}
+
+if (generacionActivaEstudio()) {
+
+    return
+        "Generando "
+        + contarEscenariosGeneradosEstudio()
+        + " / "
+        + estudioTurnosValidados;
+}
+
+if (generacionCompletaEstudio()) {
+
+    return
+        "Generación completa: "
+        + estudioTurnosValidados
+        + " turnos.";
+}
+
+return
+    "Generación fallida o incompleta."
+    + " Revisá generacion.log.";]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[boolean]]></ReturnType>
+					<Id>1793380350055</Id>
+					<Name><![CDATA[generarEscenariosEstudio]]></Name>
+					<X>-810</X><Y>7390</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[// =====================================================
+// GENERACION DE ESCENARIOS EXPERIMENTALES
+// =====================================================
+
+// No modificar Python ni los algoritmos.
+// Se ejecuta el generador existente en otro proceso.
+
+if (!estudioConfiguracionValidada) {
+
+    estudioErrorGeneracion =
+        "Primero validá la configuración.";
+
+    return false;
+}
+
+if (generacionActivaEstudio()) {
+
+    traceln(
+        "ESTUDIO | Ya hay una generación en curso."
+    );
+
+    return false;
+}
+
+if (ejecucionEnCurso || pypelineSolicitudEnCurso) {
+
+    estudioErrorGeneracion =
+        "Hay otra operación en curso.";
+
+    return false;
+}
+
+try {
+
+    // =================================================
+    // LOCALIZAR EL PROYECTO Y EL GENERADOR
+    // =================================================
+
+    String raizPython =
+        resolverRaizPythonPypeline();
+
+    java.io.File carpetaPython =
+        new java.io.File(
+            raizPython
+        ).getCanonicalFile();
+
+    java.io.File carpetaProyecto =
+        carpetaPython.getParentFile();
+
+    if (carpetaProyecto == null) {
+
+        throw new IllegalStateException(
+            "No se pudo localizar la raíz del proyecto."
+        );
+    }
+
+    java.io.File script =
+        new java.io.File(
+            carpetaPython,
+            "scripts/data_processing/generar_pedidos_dia.py"
+        ).getCanonicalFile();
+
+    if (!script.isFile()) {
+
+        throw new java.io.FileNotFoundException(
+            "No se encontró el generador: "
+            + script.getCanonicalPath()
+        );
+    }
+
+    // =================================================
+    // LOCALIZAR EL ENTORNO PYTHON
+    // =================================================
+
+    java.io.File ejecutablePython =
+        new java.io.File(
+            carpetaProyecto,
+            ".venv/Scripts/python.exe"
+        ).getCanonicalFile();
+
+    if (!ejecutablePython.isFile()) {
+
+        ejecutablePython =
+            new java.io.File(
+                carpetaProyecto,
+                ".venv/bin/python"
+            ).getCanonicalFile();
+    }
+
+    if (!ejecutablePython.isFile()) {
+
+        throw new java.io.FileNotFoundException(
+            "No se encontró Python en .venv."
+            + " Revisá el entorno virtual del proyecto."
+        );
+    }
+
+    // =================================================
+    // CREAR CARPETA DE RESULTADOS DEL LOTE
+    // =================================================
+
+    String marcaTiempo =
+        new java.text.SimpleDateFormat(
+            "yyyyMMdd_HHmmss_SSS"
+        ).format(
+            new java.util.Date()
+        );
+
+    String nombreLote =
+        "seed_"
+        + estudioSemillaValidada
+        + "_"
+        + marcaTiempo;
+
+    java.io.File carpetaSalida =
+        new java.io.File(
+            carpetaPython,
+            "data/experiments/" + nombreLote
+        ).getCanonicalFile();
+
+    if (
+        carpetaSalida.exists()
+        ||
+        !carpetaSalida.mkdirs()
+    ) {
+
+        throw new java.io.IOException(
+            "No se pudo crear una carpeta nueva: "
+            + carpetaSalida.getCanonicalPath()
+        );
+    }
+
+    java.io.File archivoLog =
+        new java.io.File(
+            carpetaSalida,
+            "generacion.log"
+        );
+
+    // =================================================
+    // ARMAR EL COMANDO SIN UTILIZAR UNA SHELL
+    // =================================================
+
+    java.util.ArrayList<String> comando =
+        new java.util.ArrayList<String>();
+
+    comando.add(
+        ejecutablePython.getCanonicalPath()
+    );
+
+    comando.add(
+        script.getCanonicalPath()
+    );
+
+    comando.add("--dias");
+    comando.add(
+        String.valueOf(estudioTurnosValidados)
+    );
+
+    comando.add("--pedidos-por-dia");
+    comando.add("historico");
+
+    comando.add("--turno");
+    comando.add(estudioTurnoValidado);
+
+    comando.add("--seed");
+    comando.add(
+        String.valueOf(estudioSemillaValidada)
+    );
+
+    comando.add("--formato");
+    comando.add("ambos");
+
+    comando.add("--output-dir");
+    comando.add(
+        carpetaSalida.getCanonicalPath()
+    );
+
+    comando.add("--sin-timestamp");
+
+    comando.add("--max-tareas");
+    comando.add("30");
+
+    // =================================================
+    // INICIAR PROCESO INDEPENDIENTE
+    // =================================================
+
+    java.lang.ProcessBuilder constructor =
+        new java.lang.ProcessBuilder(
+            comando
+        );
+
+    constructor.directory(
+        carpetaPython
+    );
+
+    constructor.redirectErrorStream(
+        true
+    );
+
+    constructor.redirectOutput(
+        archivoLog
+    );
+
+    java.lang.Process proceso =
+        constructor.start();
+
+    estudioProcesoGeneracion =
+        proceso;
+
+    estudioDirectorioEscenarios =
+        carpetaSalida.getCanonicalPath();
+
+    estudioErrorGeneracion = "";
+
+    traceln(
+        "========================================"
+    );
+
+    traceln(
+        "ESTUDIO | GENERACION INICIADA"
+    );
+
+    traceln(
+        "Turnos: " + estudioTurnosValidados
+    );
+
+    traceln(
+        "Semilla: " + estudioSemillaValidada
+    );
+
+    traceln(
+        "Turno: " + estudioTurnoValidado
+    );
+
+    traceln(
+        "Carpeta: "
+        + estudioDirectorioEscenarios
+    );
+
+    traceln(
+        "Log: "
+        + archivoLog.getCanonicalPath()
+    );
+
+    traceln(
+        "========================================"
+    );
+
+    return true;
+
+} catch (Exception ex) {
+
+    estudioErrorGeneracion =
+        "No se pudo iniciar la generación: "
+        + ex.getMessage();
+
+    traceln(
+        "ESTUDIO | ERROR DE GENERACION"
+        + " | "
+        + estudioErrorGeneracion
+    );
+
+    ex.printStackTrace();
+
+    return false;
+}]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[boolean]]></ReturnType>
+					<Id>1793382807707</Id>
+					<Name><![CDATA[prepararEscenarioVialEstudio]]></Name>
+					<X>-810</X><Y>7420</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[numeroTurno]]></Name>
+						<Type><![CDATA[int]]></Type>
+					</Parameter>
+					<Body><![CDATA[
+if (
+    numeroTurno < 1
+    ||
+    numeroTurno > estudioTurnosValidados
+) {
+    estudioEstadoVial = "Número de turno inválido.";
+    return false;
+}
+
+if (
+    instanciaInterfazActual != null
+    ||
+    ejecucionEnCurso
+    ||
+    pypelineSolicitudEnCurso
+) {
+    estudioEstadoVial =
+        "Hay una operación individual activa. "
+        + "Usá una ejecución limpia para el estudio.";
+    return false;
+}
+
+// Guardar el estado previo de Main.
+InstanciaTurno instanciaAnterior =
+    instanciaInterfazActual;
+
+String mensajeAnterior =
+    mensajeInterfazPlanificacion;
+
+boolean completaAnterior =
+    cacheVialInstanciaCompleta;
+
+int requeridosAnteriores =
+    cacheVialTramosRequeridos;
+
+int faltantesAnteriores =
+    cacheVialTramosFaltantes;
+
+String estadoAnterior =
+    cacheVialEstadoInterfaz;
+
+try {
+    java.io.File carpeta =
+        new java.io.File(
+            estudioDirectorioEscenarios
+        ).getCanonicalFile();
+
+    String nombre =
+        String.format(
+            java.util.Locale.US,
+            "pedidos_dia_%02d.csv",
+            numeroTurno
+        );
+
+    java.io.File archivo =
+        new java.io.File(carpeta, nombre);
+
+    if (!archivo.isFile()) {
+        throw new java.io.FileNotFoundException(
+            "No se encontró " + nombre
+        );
+    }
+
+    java.util.List<String> lineas =
+        java.nio.file.Files.readAllLines(
+            archivo.toPath(),
+            java.nio.charset.StandardCharsets.UTF_8
+        );
+
+    if (lineas.size() < 2) {
+        throw new IllegalStateException(
+            "El escenario no contiene pedidos."
+        );
+    }
+
+    // Leer las columnas geográficas
+    // del formato CSV producido por el generador.
+    String[] encabezados =
+        lineas.get(0)
+            .replace("\uFEFF", "")
+            .split(",", -1);
+
+    int cId = -1;
+    int cLat = -1;
+    int cLon = -1;
+    int cTurno = -1;
+
+    for (int i = 0; i < encabezados.length; i++) {
+        String columna =
+            encabezados[i]
+                .replace("\"", "")
+                .trim();
+
+        if ("pedido_id".equals(columna)) cId = i;
+        if ("latitud".equals(columna)) cLat = i;
+        if ("longitud".equals(columna)) cLon = i;
+        if ("turno".equals(columna)) cTurno = i;
+    }
+
+    if (
+        cId < 0 || cLat < 0
+        || cLon < 0 || cTurno < 0
+    ) {
+        throw new IllegalStateException(
+            "Faltan columnas geográficas obligatorias."
+        );
+    }
+
+    int ultimaColumna =
+        Math.max(
+            Math.max(cId, cLat),
+            Math.max(cLon, cTurno)
+        );
+
+    InstanciaTurno temporal =
+        new InstanciaTurno();
+
+    temporal.instanciaId =
+        "ESTUDIO-VIAL-"
+        + carpeta.getName()
+        + "-"
+        + numeroTurno;
+
+    temporal.fechaOperacion =
+        new java.text.SimpleDateFormat(
+            "yyyy-MM-dd"
+        ).format(new java.util.Date());
+
+    temporal.latCorralon = LAT_CORRALON;
+    temporal.lonCorralon = LON_CORRALON;
+
+    java.util.HashSet<String> ids =
+        new java.util.HashSet<String>();
+
+    Turno turnoEncontrado = null;
+
+    for (int fila = 1; fila < lineas.size(); fila++) {
+        String linea = lineas.get(fila).trim();
+
+        if (linea.isEmpty()) {
+            continue;
+        }
+
+        // El generador escribe estos campos
+        // sin comas internas.
+        String[] datos = linea.split(",", -1);
+
+        if (datos.length <= ultimaColumna) {
+            throw new IllegalStateException(
+                "Fila incompleta: " + (fila + 1)
+            );
+        }
+
+        String id =
+            datos[cId].replace("\"", "").trim();
+
+        double lat =
+            Double.parseDouble(datos[cLat].trim());
+
+        double lon =
+            Double.parseDouble(datos[cLon].trim());
+
+        String textoTurno =
+            datos[cTurno]
+                .replace("\"", "")
+                .trim()
+                .toUpperCase(java.util.Locale.ROOT);
+
+        if (id.isEmpty() || !ids.add(id)) {
+            throw new IllegalStateException(
+                "Identificador vacío o duplicado: " + id
+            );
+        }
+
+        if (
+            !Double.isFinite(lat)
+            ||
+            !Double.isFinite(lon)
+            ||
+            lat < -90 || lat > 90
+            ||
+            lon < -180 || lon > 180
+        ) {
+            throw new IllegalStateException(
+                "Coordenadas inválidas: " + id
+            );
+        }
+
+        Turno turnoPedido;
+
+        if ("MANANA".equals(textoTurno)) {
+            turnoPedido = Turno.MANANA;
+        } else if ("TARDE".equals(textoTurno)) {
+            turnoPedido = Turno.TARDE;
+        } else {
+            throw new IllegalStateException(
+                "Turno no reconocido: " + textoTurno
+            );
+        }
+
+        if (turnoEncontrado == null) {
+            turnoEncontrado = turnoPedido;
+        } else if (turnoEncontrado != turnoPedido) {
+            throw new IllegalStateException(
+                "El escenario mezcla turnos operativos."
+            );
+        }
+
+        PedidoInput pedido =
+            new PedidoInput();
+
+        pedido.pedidoId = id;
+        pedido.pedidoOriginalId = id;
+        pedido.numeroParte = 1;
+        pedido.totalPartes = 1;
+        pedido.turno = turnoPedido;
+        pedido.latitud = lat;
+        pedido.longitud = lon;
+
+        temporal.pedidos.add(pedido);
+    }
+
+    if (temporal.pedidos.isEmpty()) {
+        throw new IllegalStateException(
+            "No hay destinos para preparar."
+        );
+    }
+
+    temporal.turno = turnoEncontrado;
+
+    // La referencia temporal solo se utiliza
+    // para llamar al exportador vial existente.
+    instanciaInterfazActual = temporal;
+
+    boolean lista =
+        verificarCacheVialInstanciaActual();
+
+    if (!lista) {
+        boolean exportada =
+            exportarCacheVialInstanciaActual();
+
+        if (!exportada) {
+            throw new IllegalStateException(
+                "La exportación vial no finalizó. "
+                + "Revisá el registro de AnyLogic."
+            );
+        }
+
+        lista =
+            verificarCacheVialInstanciaActual();
+    }
+
+    if (!lista || cacheVialTramosFaltantes != 0) {
+        throw new IllegalStateException(
+            "La matriz sigue incompleta. "
+            + "Tramos faltantes: "
+            + cacheVialTramosFaltantes
+        );
+    }
+
+    traceln(
+        "ESTUDIO VIAL | OK"
+        + " | turno=" + numeroTurno
+        + " | pedidos=" + temporal.pedidos.size()
+        + " | tramos=" + cacheVialTramosRequeridos
+    );
+
+    return true;
+
+} catch (Exception ex) {
+    estudioEstadoVial =
+        "Error vial en turno "
+        + numeroTurno
+        + ": "
+        + ex.getMessage();
+
+    traceln(
+        "ESTUDIO VIAL | ERROR | "
+        + estudioEstadoVial
+    );
+
+    ex.printStackTrace();
+    return false;
+
+} finally {
+    // Restaurar el contexto de la vista individual.
+    instanciaInterfazActual =
+        instanciaAnterior;
+
+    mensajeInterfazPlanificacion =
+        mensajeAnterior;
+
+    cacheVialInstanciaCompleta =
+        completaAnterior;
+
+    cacheVialTramosRequeridos =
+        requeridosAnteriores;
+
+    cacheVialTramosFaltantes =
+        faltantesAnteriores;
+
+    cacheVialEstadoInterfaz =
+        estadoAnterior;
+}
+]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1793382833723</Id>
+					<Name><![CDATA[avanzarPreparacionEstudio]]></Name>
+					<X>-810</X><Y>7450</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[
+if (!estudioFlujoActivo) {
+    return;
+}
+
+// Primera etapa: esperar a Python.
+if (generacionActivaEstudio()) {
+    estudioEstadoVial =
+        "Generando pedidos: "
+        + contarEscenariosGeneradosEstudio()
+        + " / "
+        + estudioTurnosValidados;
+
+    return;
+}
+
+// Si terminó el proceso, verificar el resultado.
+if (!generacionCompletaEstudio()) {
+    estudioEstadoVial =
+        "La generación de pedidos no terminó "
+        + "correctamente. Revisá generacion.log.";
+
+    estudioFlujoActivo = false;
+
+    if (estudioTemporizadorFlujo != null) {
+        estudioTemporizadorFlujo.stop();
+    }
+
+    btnGenerarEscenariosEstudio.setText(
+        "Reintentar generación"
+    );
+
+    return;
+}
+
+// Segunda etapa: preparar rutas.
+if (
+    !estudioDirectorioEscenarios.equals(
+        estudioCarpetaVial
+    )
+) {
+    estudioCarpetaVial =
+        estudioDirectorioEscenarios;
+
+    estudioEscenariosVialesPreparados = 0;
+}
+
+if (
+    estudioEscenariosVialesPreparados
+    >= estudioTurnosValidados
+) {
+    estudioEstadoVial =
+        "Escenarios y matrices viales listos.";
+
+    estudioFlujoActivo = false;
+
+    if (estudioTemporizadorFlujo != null) {
+        estudioTemporizadorFlujo.stop();
+    }
+
+    btnGenerarEscenariosEstudio.setText(
+        "Escenarios listos"
+    );
+
+    traceln(
+        "ESTUDIO | LOTE VIAL COMPLETO"
+        + " | escenarios="
+        + estudioEscenariosVialesPreparados
+        + " | carpeta="
+        + estudioCarpetaVial
+    );
+
+    return;
+}
+
+int siguienteTurno =
+    estudioEscenariosVialesPreparados + 1;
+
+estudioEstadoVial =
+    "Preparando rutas: "
+    + siguienteTurno
+    + " / "
+    + estudioTurnosValidados;
+
+boolean correcta =
+    prepararEscenarioVialEstudio(
+        siguienteTurno
+    );
+
+if (!correcta) {
+    estudioFlujoActivo = false;
+
+    if (estudioTemporizadorFlujo != null) {
+        estudioTemporizadorFlujo.stop();
+    }
+
+    btnGenerarEscenariosEstudio.setText(
+        "Reintentar rutas"
+    );
+
+    // No avanzar el índice:
+    // se reintentará este mismo escenario.
+    return;
+}
+
+estudioEscenariosVialesPreparados++;
+
+estudioEstadoVial =
+    "Matrices completas: "
+    + estudioEscenariosVialesPreparados
+    + " / "
+    + estudioTurnosValidados;
+
+if (
+    estudioEscenariosVialesPreparados
+    == estudioTurnosValidados
+) {
+    estudioEstadoVial =
+        "Escenarios y matrices viales listos.";
+
+    estudioFlujoActivo = false;
+
+    if (estudioTemporizadorFlujo != null) {
+        estudioTemporizadorFlujo.stop();
+    }
+
+    btnGenerarEscenariosEstudio.setText(
+        "Escenarios listos"
+    );
+}
+]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[boolean]]></ReturnType>
+					<Id>1793382848251</Id>
+					<Name><![CDATA[iniciarGeneracionYPreparacionEstudio]]></Name>
+					<X>-810</X><Y>7480</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[
+if (!estudioConfiguracionValidada) {
+    estudioEstadoVial =
+        "Primero validá la configuración.";
+    return false;
+}
+
+if (estudioFlujoActivo) {
+    return false;
+}
+
+if (
+    instanciaInterfazActual != null
+    ||
+    ejecucionEnCurso
+    ||
+    pypelineSolicitudEnCurso
+) {
+    estudioEstadoVial =
+        "No se puede iniciar el estudio "
+        + "mientras hay una operación individual preparada.";
+
+    return false;
+}
+
+boolean generacionDisponible =
+    generacionCompletaEstudio();
+
+if (!generacionDisponible) {
+    // Crear un lote nuevo mediante la función
+    // existente del PASO 8.
+    boolean iniciado =
+        generarEscenariosEstudio();
+
+    if (!iniciado) {
+        estudioEstadoVial =
+            "No se pudo iniciar la generación. "
+            + estudioErrorGeneracion;
+
+        return false;
+    }
+
+    estudioEscenariosVialesPreparados = 0;
+    estudioCarpetaVial = "";
+
+    estudioEstadoVial =
+        "Generando pedidos del estudio.";
+
+    btnGenerarEscenariosEstudio.setText(
+        "Generando escenarios..."
+    );
+
+} else {
+    // Ya hay un lote generado:
+    // no volver a modificar sus pedidos ni semillas.
+    if (
+        !estudioDirectorioEscenarios.equals(
+            estudioCarpetaVial
+        )
+    ) {
+        estudioCarpetaVial =
+            estudioDirectorioEscenarios;
+
+        estudioEscenariosVialesPreparados = 0;
+    }
+
+    if (
+        estudioEscenariosVialesPreparados
+        >= estudioTurnosValidados
+    ) {
+        estudioEstadoVial =
+            "El lote ya está preparado.";
+
+        return false;
+    }
+
+    estudioEstadoVial =
+        "Reanudando preparación vial.";
+
+    btnGenerarEscenariosEstudio.setText(
+        "Preparando rutas..."
+    );
+}
+
+estudioFlujoActivo = true;
+
+// Detener un temporizador anterior si existiera.
+if (estudioTemporizadorFlujo != null) {
+    estudioTemporizadorFlujo.stop();
+}
+
+// Revisar periódicamente el proceso.
+// Se procesa como máximo un escenario
+// por activación del temporizador.
+estudioTemporizadorFlujo =
+    new javax.swing.Timer(
+        400,
+        evento -> avanzarPreparacionEstudio()
+    );
+
+estudioTemporizadorFlujo.setRepeats(true);
+estudioTemporizadorFlujo.setCoalesce(true);
+estudioTemporizadorFlujo.start();
+
+traceln(
+    "ESTUDIO | FLUJO AUTOMATICO INICIADO"
+);
+
+return true;
+]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[boolean]]></ReturnType>
+					<Id>1793385747667</Id>
+					<Name><![CDATA[iniciarSimulacionEstudio]]></Name>
+					<X>-810</X><Y>7510</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[
+if (
+    !estudioConfiguracionValidada
+    ||
+    !generacionCompletaEstudio()
+    ||
+    estudioFlujoActivo
+    ||
+    estudioSimulacionEnCurso
+    ||
+    estudioEscenariosVialesPreparados
+        != estudioTurnosValidados
+    ||
+    !estudioDirectorioEscenarios.equals(
+        estudioCarpetaVial
+    )
+) {
+    estudioEstadoSimulacion =
+        "Primero completá los escenarios y sus rutas.";
+    return false;
+}
+
+if (
+    ejecucionEnCurso
+    ||
+    pypelineSolicitudEnCurso
+    ||
+    instanciaInterfazActual != null
+) {
+    estudioEstadoSimulacion =
+        "Hay otra operación activa.";
+    return false;
+}
+
+try {
+    // Localizar Python y el modelo AnyLogic exportado.
+    java.io.File raizPython =
+        new java.io.File(
+            resolverRaizPythonPypeline()
+        ).getCanonicalFile();
+
+    java.io.File raizProyecto =
+        raizPython.getParentFile();
+
+    if (raizProyecto == null) {
+        throw new IllegalStateException(
+            "No se encontró la raíz del proyecto."
+        );
+    }
+
+    java.io.File python =
+        new java.io.File(
+            raizProyecto,
+            ".venv/Scripts/python.exe"
+        ).getCanonicalFile();
+
+    if (!python.isFile()) {
+        throw new java.io.FileNotFoundException(
+            "No se encontró el entorno Python .venv."
+        );
+    }
+
+    java.io.File modelo =
+        new java.io.File(
+            raizPython,
+            "anylogic_export/simulated_comparison/"
+            + "PedemonteDigitalTwin_v2.zip"
+        ).getCanonicalFile();
+
+    if (!modelo.isFile()) {
+        throw new java.io.FileNotFoundException(
+            "No se encontró el modelo AnyLogic exportado."
+        );
+    }
+
+    java.io.File carpetaEscenarios =
+        new java.io.File(
+            estudioDirectorioEscenarios
+        ).getCanonicalFile();
+
+    java.io.File metadata =
+        new java.io.File(
+            carpetaEscenarios,
+            "metadata_generacion.json"
+        );
+
+    if (
+        !carpetaEscenarios.isDirectory()
+        ||
+        !metadata.isFile()
+    ) {
+        throw new IllegalStateException(
+            "El lote de escenarios no está disponible."
+        );
+    }
+
+    // Una carpeta de salida independiente por ejecución.
+    String marcaTiempo =
+        new java.text.SimpleDateFormat(
+            "yyyyMMdd_HHmmss_SSS"
+        ).format(new java.util.Date());
+
+    java.io.File carpetaSalida =
+        new java.io.File(
+            raizPython,
+            "data/results/estudios/"
+            + carpetaEscenarios.getName()
+            + "/ejecucion_"
+            + marcaTiempo
+        ).getCanonicalFile();
+
+    if (
+        carpetaSalida.exists()
+        ||
+        !carpetaSalida.mkdirs()
+    ) {
+        throw new java.io.IOException(
+            "No se pudo crear la carpeta de resultados."
+        );
+    }
+
+    java.io.File archivoLog =
+        new java.io.File(
+            carpetaSalida,
+            "simulacion.log"
+        );
+
+    // Invocación del ejecutor que ya probamos.
+    // No se modifica ningún archivo Python.
+    // Fallback vial desactivado expresamente.
+
+    String codigoPython =
+        "import sys\n"
+        + "from pathlib import Path\n"
+        + "raiz = Path(sys.argv[1]).resolve()\n"
+        + "sys.path.insert(0, str(raiz))\n"
+        + "from scripts.simulation.run_simulated_comparison "
+        + "import ejecutar_experimento_comparacion\n"
+        + "resultado = ejecutar_experimento_comparacion(\n"
+        + "    raiz_python=raiz,\n"
+        + "    modelo_exportado=Path(sys.argv[2]),\n"
+        + "    directorio_turnos=Path(sys.argv[3]),\n"
+        + "    turno='AUTO',\n"
+        + "    repeticiones=int(sys.argv[4]),\n"
+        + "    seed=int(sys.argv[5]),\n"
+        + "    directorio_salida=Path(sys.argv[6]),\n"
+        + "    permitir_fallback_vial=False,\n"
+        + "    solo_estimado=False,\n"
+        + "    timeout=240,\n"
+        + "    horizonte_min=600.0\n"
+        + ")\n"
+        + "completo = bool(resultado.get('completa', False))\n"
+        + "print('ESTUDIO_COMPLETO:', completo, flush=True)\n"
+        + "sys.exit(0 if completo else 1)\n";
+
+    java.util.ArrayList<String> comando =
+        new java.util.ArrayList<String>();
+
+    comando.add(python.getCanonicalPath());
+    comando.add("-u");
+    comando.add("-c");
+    comando.add(codigoPython);
+    comando.add(raizPython.getCanonicalPath());
+    comando.add(modelo.getCanonicalPath());
+    comando.add(carpetaEscenarios.getCanonicalPath());
+    comando.add(
+        String.valueOf(estudioRepeticionesValidadas)
+    );
+    comando.add(
+        String.valueOf(estudioSemillaValidada)
+    );
+    comando.add(carpetaSalida.getCanonicalPath());
+
+    java.lang.ProcessBuilder constructor =
+        new java.lang.ProcessBuilder(comando);
+
+    constructor.directory(raizPython);
+    constructor.redirectErrorStream(true);
+    constructor.redirectOutput(archivoLog);
+
+    constructor.environment().put(
+        "PYTHONUNBUFFERED",
+        "1"
+    );
+
+    java.lang.Process proceso =
+        constructor.start();
+
+    estudioProcesoSimulacion = proceso;
+    estudioArchivoLogSimulacion =
+        archivoLog.getCanonicalPath();
+
+    estudioDirectorioResultados =
+        carpetaSalida.getCanonicalPath();
+
+    estudioPosicionLogSimulacion = 0L;
+    estudioSimulacionesFinalizadas = 0;
+    estudioSimulacionesFallidas = 0;
+
+    estudioSimulacionCompleta = false;
+    estudioSimulacionEnCurso = true;
+
+    estudioEstadoSimulacion =
+        "Iniciando simulaciones de AnyLogic: 0 / "
+        + estudioCorridasPrevistas;
+
+    btnEjecutarEstudio.setText("Simulando...");
+
+    if (estudioTemporizadorSimulacion != null) {
+        estudioTemporizadorSimulacion.stop();
+    }
+
+    estudioTemporizadorSimulacion =
+        new javax.swing.Timer(
+            1000,
+            evento -> actualizarSimulacionEstudio()
+        );
+
+    estudioTemporizadorSimulacion.setRepeats(true);
+    estudioTemporizadorSimulacion.setCoalesce(true);
+    estudioTemporizadorSimulacion.start();
+
+    traceln(
+        "========================================"
+    );
+    traceln("ESTUDIO | SIMULACION INICIADA");
+    traceln(
+        "Escenarios: " + estudioTurnosValidados
+    );
+    traceln(
+        "Repeticiones: "
+        + estudioRepeticionesValidadas
+    );
+    traceln(
+        "Corridas previstas: "
+        + estudioCorridasPrevistas
+    );
+    traceln(
+        "Fallback vial: DESACTIVADO"
+    );
+    traceln(
+        "Motor: AnyLogic mediante Alpyne"
+    );
+    traceln(
+        "Resultados: "
+        + estudioDirectorioResultados
+    );
+    traceln(
+        "Registro: "
+        + estudioArchivoLogSimulacion
+    );
+    traceln(
+        "========================================"
+    );
+
+    return true;
+
+} catch (Exception ex) {
+    estudioEstadoSimulacion =
+        "No se pudo iniciar el estudio: "
+        + ex.getMessage();
+
+    estudioSimulacionEnCurso = false;
+
+    traceln(
+        "ESTUDIO | ERROR | "
+        + estudioEstadoSimulacion
+    );
+
+    ex.printStackTrace();
+    return false;
+}
+]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1793385761092</Id>
+					<Name><![CDATA[actualizarSimulacionEstudio]]></Name>
+					<X>-810</X><Y>7540</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[
+if (
+    estudioProcesoSimulacion == null
+    ||
+    !estudioSimulacionEnCurso
+) {
+    return;
+}
+
+try {
+    java.io.File log =
+        new java.io.File(
+            estudioArchivoLogSimulacion
+        );
+
+    if (log.isFile()) {
+        try (
+            java.io.RandomAccessFile lector =
+                new java.io.RandomAccessFile(log, "r")
+        ) {
+            if (
+                estudioPosicionLogSimulacion
+                > lector.length()
+            ) {
+                estudioPosicionLogSimulacion = 0L;
+            }
+
+            lector.seek(
+                estudioPosicionLogSimulacion
+            );
+
+            String linea;
+
+            while ((linea = lector.readLine()) != null) {
+
+                // El ejecutor escribe una línea METODO
+                // por cada algoritmo evaluado.
+                if (linea.startsWith("METODO | ")) {
+
+                    if (
+                        linea.contains(
+                            "| estado=FINALIZADO |"
+                        )
+                    ) {
+                        estudioSimulacionesFinalizadas++;
+
+                    } else if (
+                        linea.contains("| estado=")
+                    ) {
+                        estudioSimulacionesFallidas++;
+                    }
+                }
+            }
+
+            estudioPosicionLogSimulacion =
+                lector.getFilePointer();
+        }
+    }
+
+    if (estudioProcesoSimulacion.isAlive()) {
+        estudioEstadoSimulacion =
+            "Simulaciones completas: "
+            + estudioSimulacionesFinalizadas
+            + " / "
+            + estudioCorridasPrevistas
+            + " | Fallidas: "
+            + estudioSimulacionesFallidas;
+
+        return;
+    }
+
+    // El proceso terminó: comprobar su resultado.
+    int codigoSalida =
+        estudioProcesoSimulacion.exitValue();
+
+    // Buscar el directorio creado por el ejecutor.
+    java.io.File carpetaBase =
+        new java.io.File(
+            estudioDirectorioResultados
+        );
+
+    java.io.File[] carpetas =
+        carpetaBase.listFiles(
+            archivo ->
+                archivo.isDirectory()
+                &&
+                archivo.getName().startsWith("seed_")
+        );
+
+    java.io.File carpetaFinal = null;
+
+    if (carpetas != null && carpetas.length == 1) {
+        carpetaFinal = carpetas[0];
+    }
+
+    boolean archivosValidos = false;
+
+    if (carpetaFinal != null) {
+        java.io.File metadata =
+            new java.io.File(
+                carpetaFinal,
+                "metadata_experimento.json"
+            );
+
+        java.io.File resumen =
+            new java.io.File(
+                carpetaFinal,
+                "resumen_resultados.csv"
+            );
+
+        archivosValidos =
+            metadata.isFile()
+            &&
+            resumen.isFile();
+
+        if (archivosValidos) {
+            estudioDirectorioResultados =
+                carpetaFinal.getCanonicalPath();
+        }
+    }
+
+    estudioSimulacionCompleta =
+        codigoSalida == 0
+        &&
+        archivosValidos
+        &&
+        estudioSimulacionesFallidas == 0
+        &&
+        estudioSimulacionesFinalizadas
+            == estudioCorridasPrevistas;
+
+    estudioSimulacionEnCurso = false;
+
+    if (estudioTemporizadorSimulacion != null) {
+        estudioTemporizadorSimulacion.stop();
+    }
+
+    if (estudioSimulacionCompleta) {
+        estudioEstadoSimulacion =
+            "Estudio completo: "
+            + estudioSimulacionesFinalizadas
+            + " simulaciones de AnyLogic.";
+
+        btnEjecutarEstudio.setText(
+            "Ejecutar otra vez"
+        );
+
+        traceln(
+            "ESTUDIO | SIMULACION COMPLETA"
+            + " | corridas="
+            + estudioSimulacionesFinalizadas
+            + " | resultados="
+            + estudioDirectorioResultados
+        );
+
+    } else {
+        estudioEstadoSimulacion =
+            "Estudio incompleto: "
+            + estudioSimulacionesFinalizadas
+            + " / "
+            + estudioCorridasPrevistas
+            + " simulaciones finalizadas. "
+            + "Revisá simulacion.log.";
+
+        btnEjecutarEstudio.setText(
+            "Ejecutar otra vez"
+        );
+
+        traceln(
+            "ESTUDIO | SIMULACION INCOMPLETA"
+            + " | codigoSalida="
+            + codigoSalida
+            + " | completas="
+            + estudioSimulacionesFinalizadas
+            + " | fallidas="
+            + estudioSimulacionesFallidas
+        );
+    }
+
+} catch (Exception ex) {
+    estudioEstadoSimulacion =
+        "Error en seguimiento: "
+        + ex.getMessage();
+
+    traceln(
+        "ESTUDIO | ERROR SEGUIMIENTO | "
+        + estudioEstadoSimulacion
+    );
+
+    estudioSimulacionEnCurso = false;
+    estudioSimulacionCompleta = false;
+
+    if (estudioTemporizadorSimulacion != null) {
+        estudioTemporizadorSimulacion.stop();
+    }
+
+    ex.printStackTrace();
+}
+]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1793388512946</Id>
+					<Name><![CDATA[limpiarResultadosEstudio]]></Name>
+					<X>-810</X><Y>7570</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[
+estudioResultadosCargados = false;
+estudioEstadoResultados = "Sin resultados cargados.";
+
+estudioFilasResultados = 0;
+estudioFilasValidas = 0;
+estudioFilasNoValidas = 0;
+
+estudioMediasSimuladas = new double[5][6];
+estudioConteosSimulados = new int[5];
+
+estudioDiferenciasRL = new double[5][6];
+estudioIC95RL = new double[5][6];
+estudioNPareados = new int[5];
+
+estudioArchivoCargado = "";
+]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[int]]></ReturnType>
+					<Id>1793388543595</Id>
+					<Name><![CDATA[indiceMetricaEstudio]]></Name>
+					<X>-810</X><Y>7600</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[
+String metrica = comboMetricaEstudio.getValue();
+
+if (metrica == null) {
+    return 0;
+}
+
+switch (metrica) {
+    case "Distancia":
+        return 1;
+    case "Duración":
+        return 2;
+    case "Viajes":
+        return 3;
+    case "Tardanza":
+        return 4;
+    case "Desbalance":
+        return 5;
+    default:
+        return 0;
+}
+]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[String]]></ReturnType>
+					<Id>1793388578130</Id>
+					<Name><![CDATA[valorPromedioEstudio]]></Name>
+					<X>-810</X><Y>7630</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[metodo]]></Name>
+						<Type><![CDATA[int]]></Type>
+					</Parameter>
+					<Body><![CDATA[if (
+    !estudioResultadosCargados
+    ||
+    metodo < 0
+    ||
+    metodo >= 5
+    ||
+    estudioConteosSimulados[metodo] == 0
+) {
+    return "N/D";
+}
+
+int metrica = indiceMetricaEstudio();
+
+return formatearValorCompactoEstudio(
+    estudioMediasSimuladas[metodo][metrica]
+) + "   (n=" + estudioConteosSimulados[metodo] + ")";]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1793388735738</Id>
+					<Name><![CDATA[proporcionBarraEstudio]]></Name>
+					<X>-810</X><Y>7660</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[metodo]]></Name>
+						<Type><![CDATA[int]]></Type>
+					</Parameter>
+					<Body><![CDATA[if (
+    !estudioResultadosCargados
+    ||
+    metodo < 0
+    ||
+    metodo >= 5
+    ||
+    estudioConteosSimulados[metodo] == 0
+) {
+    return 0.0;
+}
+
+int metrica = indiceMetricaEstudio();
+
+double minimo = Double.POSITIVE_INFINITY;
+double maximo = Double.NEGATIVE_INFINITY;
+
+for (int i = 0; i < 5; i++) {
+    if (estudioConteosSimulados[i] > 0) {
+        double valor = estudioMediasSimuladas[i][metrica];
+        minimo = Math.min(minimo, valor);
+        maximo = Math.max(maximo, valor);
+    }
+}
+
+double valorActual =
+    estudioMediasSimuladas[metodo][metrica];
+
+if (
+    !Double.isFinite(minimo)
+    ||
+    !Double.isFinite(maximo)
+) {
+    return 0.0;
+}
+
+// Si todos los métodos tienen el mismo valor,
+// todas las barras se muestran completas.
+if (Math.abs(maximo - minimo) < 1e-9) {
+    return 1.0;
+}
+
+// En nuestras métricas, menor = mejor.
+// Queremos que el mejor valor tenga la barra más larga.
+// Dejamos un mínimo visual de 15 % para que
+// la peor barra no desaparezca por completo.
+
+double proporcion =
+    0.15
+    + 0.85
+    * (maximo - valorActual)
+    / (maximo - minimo);
+
+return Math.max(
+    0.15,
+    Math.min(1.0, proporcion)
+);]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1793388755410</Id>
+					<Name><![CDATA[valorTCriticoEstudio]]></Name>
+					<X>-810</X><Y>7690</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[cantidadEscenarios]]></Name>
+						<Type><![CDATA[int]]></Type>
+					</Parameter>
+					<Body><![CDATA[
+if (cantidadEscenarios < 2) {
+    return Double.NaN;
+}
+
+// Cuantiles bilaterales de Student para 95 %,
+// con grados de libertad de 1 a 30.
+double[] tabla = {
+    0.0,
+    12.706, 4.303, 3.182, 2.776, 2.571,
+    2.447, 2.365, 2.306, 2.262, 2.228,
+    2.201, 2.179, 2.160, 2.145, 2.131,
+    2.120, 2.110, 2.101, 2.093, 2.086,
+    2.080, 2.074, 2.069, 2.064, 2.060,
+    2.056, 2.052, 2.048, 2.045, 2.042
+};
+
+int gl = cantidadEscenarios - 1;
+
+if (gl <= 30) {
+    return tabla[gl];
+}
+
+// Aproximación asintótica para muestras mayores.
+double n = (double) gl;
+
+return 1.9599639845
+    + 2.372271 / n
+    + 2.822 / (n * n);
+]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[String]]></ReturnType>
+					<Id>1793388775850</Id>
+					<Name><![CDATA[textoDiferenciaRLEstudio]]></Name>
+					<X>-810</X><Y>7720</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[metodo]]></Name>
+						<Type><![CDATA[int]]></Type>
+					</Parameter>
+					<Body><![CDATA[String[] nombres = {
+    "RL",
+    "Híbrido",
+    "Greedy",
+    "Random",
+    "GA"
+};
+
+if (
+    !estudioResultadosCargados
+    ||
+    metodo < 1
+    ||
+    metodo >= 5
+) {
+    return "";
+}
+
+int n = estudioNPareados[metodo];
+
+if (n == 0) {
+    return nombres[metodo]
+        + ": sin comparaciones válidas";
+}
+
+int metrica = indiceMetricaEstudio();
+
+double diferencia =
+    estudioDiferenciasRL[metodo][metrica];
+
+String textoDif =
+    (diferencia >= 0 ? "+" : "")
+    + formatearValorCompactoEstudio(diferencia);
+
+if (n == 1) {
+    return nombres[metodo]
+        + ": "
+        + textoDif
+        + "   (n=1)";
+}
+
+double margen =
+    estudioIC95RL[metodo][metrica];
+
+String textoMargen =
+    Double.isFinite(margen)
+        ? formatearValorCompactoEstudio(margen)
+        : "N/D";
+
+return nombres[metodo]
+    + ": "
+    + textoDif
+    + " ± "
+    + textoMargen
+    + "   (n="
+    + n
+    + ")";]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[boolean]]></ReturnType>
+					<Id>1793388797306</Id>
+					<Name><![CDATA[cargarResultadosEstudio]]></Name>
+					<X>-810</X><Y>7750</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[rutaCarpeta]]></Name>
+						<Type><![CDATA[String]]></Type>
+					</Parameter>
+					<Body><![CDATA[
+if (estudioSimulacionEnCurso) {
+    estudioEstadoResultados =
+        "No se pueden cargar resultados mientras se simula.";
+    return false;
+}
+
+// Limpiar resultados anteriores antes de una nueva carga.
+limpiarResultadosEstudio();
+
+try {
+
+    // ==================================================
+    // 1. RESOLVER ARCHIVO SELECCIONADO
+    // ==================================================
+
+    if (
+        rutaCarpeta == null
+        ||
+        rutaCarpeta.trim().isEmpty()
+    ) {
+        throw new IllegalArgumentException(
+            "No se seleccionó ningún archivo CSV."
+        );
+    }
+
+    java.io.File seleccion =
+        new java.io.File(
+            rutaCarpeta.trim()
+        ).getCanonicalFile();
+
+    java.io.File archivo;
+
+    // El File Chooser de AnyLogic proporciona
+    // la ruta del archivo seleccionado o subido.
+
+    if (seleccion.isFile()) {
+
+        archivo = seleccion;
+
+    } else if (seleccion.isDirectory()) {
+
+        // Compatibilidad con llamadas anteriores
+        // que proporcionaban una carpeta.
+        archivo = new java.io.File(
+            seleccion,
+            "resumen_resultados.csv"
+        );
+
+    } else {
+
+        throw new java.io.FileNotFoundException(
+            "No se encontró el archivo: "
+            + seleccion.getAbsolutePath()
+        );
+    }
+
+    if (!archivo.isFile()) {
+        throw new java.io.FileNotFoundException(
+            "No se encontró resumen_resultados.csv."
+        );
+    }
+
+    if (
+        !archivo.getName()
+            .toLowerCase(java.util.Locale.ROOT)
+            .endsWith(".csv")
+    ) {
+        throw new IllegalArgumentException(
+            "El archivo seleccionado debe ser CSV."
+        );
+    }
+
+    // La copia subida por File Chooser puede estar
+    // en una carpeta temporal sin los metadatos.
+    // El CSV contiene las columnas necesarias
+    // para realizar los cálculos.
+
+    java.io.File carpeta =
+        archivo.getParentFile();
+
+    java.io.File metadata =
+        new java.io.File(
+            carpeta,
+            "metadata_experimento.json"
+        );
+
+    if (!metadata.isFile()) {
+        traceln(
+            "ESTUDIO | METADATA NO ADJUNTA"
+            + " | Se analizará el CSV seleccionado."
+        );
+    }
+
+    traceln(
+        "ESTUDIO | CSV RESUELTO"
+        + " | archivo="
+        + archivo.getCanonicalPath()
+    );
+
+    // ==================================================
+    // 2. LEER CSV
+    // ==================================================
+
+    String contenido = new String(
+        java.nio.file.Files.readAllBytes(
+            archivo.toPath()
+        ),
+        java.nio.charset.StandardCharsets.UTF_8
+    );
+
+    // Eliminar BOM UTF-8 si existe.
+    if (contenido.startsWith("\uFEFF")) {
+        contenido = contenido.substring(1);
+    }
+
+    java.util.ArrayList<java.util.List<String>>
+        registros = new java.util.ArrayList<>();
+
+    java.util.ArrayList<String> fila =
+        new java.util.ArrayList<>();
+
+    StringBuilder campo = new StringBuilder();
+
+    boolean entreComillas = false;
+
+    // Parser CSV compatible con:
+    // - Comas en campos entrecomillados.
+    // - Comillas escapadas.
+    // - Saltos de línea dentro de campos.
+
+    for (int i = 0; i < contenido.length(); i++) {
+
+        char c = contenido.charAt(i);
+
+        if (c == '"') {
+
+            if (
+                entreComillas
+                &&
+                i + 1 < contenido.length()
+                &&
+                contenido.charAt(i + 1) == '"'
+            ) {
+
+                campo.append('"');
+                i++;
+
+            } else {
+
+                entreComillas = !entreComillas;
+            }
+
+        } else if (
+            c == ','
+            &&
+            !entreComillas
+        ) {
+
+            fila.add(campo.toString());
+            campo.setLength(0);
+
+        } else if (
+            (c == '\n' || c == '\r')
+            &&
+            !entreComillas
+        ) {
+
+            fila.add(campo.toString());
+            campo.setLength(0);
+
+            if (
+                !(fila.size() == 1
+                && fila.get(0).isEmpty())
+            ) {
+                registros.add(fila);
+            }
+
+            fila = new java.util.ArrayList<>();
+
+            if (
+                c == '\r'
+                &&
+                i + 1 < contenido.length()
+                &&
+                contenido.charAt(i + 1) == '\n'
+            ) {
+                i++;
+            }
+
+        } else {
+
+            campo.append(c);
+        }
+    }
+
+    if (entreComillas) {
+        throw new IllegalStateException(
+            "El CSV contiene comillas sin cerrar."
+        );
+    }
+
+    if (
+        campo.length() > 0
+        ||
+        !fila.isEmpty()
+    ) {
+
+        fila.add(campo.toString());
+        registros.add(fila);
+    }
+
+    if (registros.size() < 2) {
+        throw new IllegalStateException(
+            "El archivo CSV no contiene corridas."
+        );
+    }
+
+    // ==================================================
+    // 3. VALIDAR ENCABEZADOS
+    // ==================================================
+
+    java.util.Map<String, Integer> columnas =
+        new java.util.HashMap<>();
+
+    java.util.List<String> encabezado =
+        registros.get(0);
+
+    for (int i = 0; i < encabezado.size(); i++) {
+
+        columnas.put(
+            encabezado.get(i).trim(),
+            i
+        );
+    }
+
+    String[] metricas = {
+        "costo_simulado",
+        "distancia_simulada_km",
+        "duracion_simulada_min",
+        "viajes_simulados",
+        "tardanza_simulada_min",
+        "desbalance_simulado_min"
+    };
+
+    String[] columnasObligatorias = {
+        "dia_numero",
+        "seed_escenario",
+        "seed_ejecucion",
+        "repeticion",
+        "metodo",
+        "estado_simulado",
+        "algoritmo_simulado",
+        "costo_simulado",
+        "distancia_simulada_km",
+        "duracion_simulada_min",
+        "viajes_simulados",
+        "tardanza_simulada_min",
+        "desbalance_simulado_min"
+    };
+
+    for (String nombre : columnasObligatorias) {
+
+        if (!columnas.containsKey(nombre)) {
+
+            throw new IllegalStateException(
+                "Falta la columna obligatoria: "
+                + nombre
+            );
+        }
+    }
+
+    // ==================================================
+    // 4. ESTRUCTURAS DE ANÁLISIS
+    // ==================================================
+
+    String[] nombresMetodos = {
+        "RL",
+        "HIBRIDO",
+        "GREEDY",
+        "RANDOM",
+        "GA"
+    };
+
+    double[][] sumas = new double[5][6];
+
+    int[] conteos = new int[5];
+
+    // Estructura:
+    // Escenario -> Repetición -> Método -> Métricas
+
+    java.util.Map<
+        String,
+        java.util.Map<
+            String,
+            java.util.Map<String, double[]>
+        >
+    > muestras = new java.util.LinkedHashMap<>();
+
+    java.util.Set<String> registrosUnicos =
+        new java.util.HashSet<>();
+
+    int validas = 0;
+    int noValidas = 0;
+
+    // ==================================================
+    // 5. PROCESAR CORRIDAS
+    // ==================================================
+
+    for (int f = 1; f < registros.size(); f++) {
+
+        java.util.List<String> valores =
+            registros.get(f);
+
+        if (
+            valores.size()
+            != encabezado.size()
+        ) {
+
+            throw new IllegalStateException(
+                "Cantidad incorrecta de columnas "
+                + "en el registro " + (f + 1)
+            );
+        }
+
+        String metodo =
+            valores.get(
+                columnas.get("metodo")
+            )
+            .trim()
+            .toUpperCase(java.util.Locale.ROOT);
+
+        int indiceMetodo = -1;
+
+        for (int m = 0; m < 5; m++) {
+
+            if (
+                nombresMetodos[m].equals(metodo)
+            ) {
+
+                indiceMetodo = m;
+                break;
+            }
+        }
+
+        if (indiceMetodo < 0) {
+            throw new IllegalStateException(
+                "Método desconocido: "
+                + metodo
+            );
+        }
+
+        String dia =
+            valores.get(
+                columnas.get("dia_numero")
+            ).trim();
+
+        String semillaEscenario =
+            valores.get(
+                columnas.get("seed_escenario")
+            ).trim();
+
+        String repeticion =
+            valores.get(
+                columnas.get("repeticion")
+            ).trim();
+
+        String semillaEjecucion =
+            valores.get(
+                columnas.get("seed_ejecucion")
+            ).trim();
+
+        if (
+            dia.isEmpty()
+            ||
+            semillaEscenario.isEmpty()
+            ||
+            repeticion.isEmpty()
+            ||
+            semillaEjecucion.isEmpty()
+        ) {
+
+            throw new IllegalStateException(
+                "Faltan identificadores en "
+                + "el registro " + (f + 1)
+            );
+        }
+
+        String claveEscenario =
+            dia + "|" + semillaEscenario;
+
+        String claveRepeticion =
+            repeticion + "|" + semillaEjecucion;
+
+        String claveUnica =
+            claveEscenario
+            + "|"
+            + claveRepeticion
+            + "|"
+            + metodo;
+
+        if (
+            !registrosUnicos.add(claveUnica)
+        ) {
+
+            throw new IllegalStateException(
+                "Corrida duplicada: "
+                + claveUnica
+            );
+        }
+
+        String estado =
+            valores.get(
+                columnas.get("estado_simulado")
+            ).trim();
+
+        String aplicado =
+            valores.get(
+                columnas.get("algoritmo_simulado")
+            ).trim();
+
+        // Solo utilizar corridas simuladas
+        // que finalizaron realmente.
+
+        if (
+            !"FINALIZADO".equals(estado)
+            ||
+            aplicado.isEmpty()
+        ) {
+
+            noValidas++;
+            continue;
+        }
+
+        double[] datos = new double[6];
+
+        boolean numericosValidos = true;
+
+        for (int j = 0; j < 6; j++) {
+
+            try {
+
+                String texto =
+                    valores.get(
+                        columnas.get(metricas[j])
+                    ).trim();
+
+                datos[j] =
+                    Double.parseDouble(texto);
+
+                if (
+                    !Double.isFinite(datos[j])
+                    ||
+                    datos[j] < 0.0
+                ) {
+
+                    numericosValidos = false;
+                    break;
+                }
+
+            } catch (
+                NumberFormatException ex
+            ) {
+
+                numericosValidos = false;
+                break;
+            }
+        }
+
+        if (!numericosValidos) {
+
+            noValidas++;
+            continue;
+        }
+
+        // Sumar resultados del método solicitado.
+        // HÍBRIDO sigue siendo HÍBRIDO aunque
+        // el plan aplicado provenga de GA o RL.
+
+        for (int j = 0; j < 6; j++) {
+
+            sumas[indiceMetodo][j] +=
+                datos[j];
+        }
+
+        conteos[indiceMetodo]++;
+
+        validas++;
+
+        // Guardar observaciones para la
+        // comparación emparejada con RL.
+
+        java.util.Map<
+            String,
+            java.util.Map<String, double[]>
+        > porRepeticion =
+            muestras.get(claveEscenario);
+
+        if (porRepeticion == null) {
+
+            porRepeticion =
+                new java.util.LinkedHashMap<>();
+
+            muestras.put(
+                claveEscenario,
+                porRepeticion
+            );
+        }
+
+        java.util.Map<String, double[]>
+            porMetodo =
+                porRepeticion.get(
+                    claveRepeticion
+                );
+
+        if (porMetodo == null) {
+
+            porMetodo =
+                new java.util.HashMap<>();
+
+            porRepeticion.put(
+                claveRepeticion,
+                porMetodo
+            );
+        }
+
+        porMetodo.put(
+            metodo,
+            datos
+        );
+    }
+
+    if (validas == 0) {
+
+        throw new IllegalStateException(
+            "No se encontraron corridas "
+            + "simuladas válidas."
+        );
+    }
+
+    // ==================================================
+    // 6. CALCULAR PROMEDIOS POR ALGORITMO
+    // ==================================================
+
+    double[][] medias = new double[5][6];
+
+    for (int m = 0; m < 5; m++) {
+
+        if (conteos[m] > 0) {
+
+            for (int j = 0; j < 6; j++) {
+
+                medias[m][j] =
+                    sumas[m][j]
+                    / conteos[m];
+            }
+        }
+    }
+
+    // ==================================================
+    // 7. DIFERENCIAS EMPAREJADAS CON RL
+    // ==================================================
+
+    double[][] sumasDiferencias =
+        new double[5][6];
+
+    double[][] sumasCuadrados =
+        new double[5][6];
+
+    int[] nPareados = new int[5];
+
+    // Cada escenario constituye una unidad
+    // estadística independiente.
+    //
+    // Primero promediamos sus diferencias
+    // entre repeticiones equivalentes.
+
+    for (
+        java.util.Map<
+            String,
+            java.util.Map<String, double[]>
+        > escenario : muestras.values()
+    ) {
+
+        // Índice 0: RL
+        // Índices 1-4: competidores
+
+        for (int m = 1; m < 5; m++) {
+
+            double[] sumaEscenario =
+                new double[6];
+
+            int repeticionesPareadas = 0;
+
+            for (
+                java.util.Map<String, double[]> rep
+                : escenario.values()
+            ) {
+
+                double[] valoresRL =
+                    rep.get("RL");
+
+                double[] valoresOtro =
+                    rep.get(nombresMetodos[m]);
+
+                if (
+                    valoresRL == null
+                    ||
+                    valoresOtro == null
+                ) {
+                    continue;
+                }
+
+                repeticionesPareadas++;
+
+                for (int j = 0; j < 6; j++) {
+
+                    sumaEscenario[j] +=
+                        valoresRL[j]
+                        - valoresOtro[j];
+                }
+            }
+
+            if (repeticionesPareadas == 0) {
+                continue;
+            }
+
+            nPareados[m]++;
+
+            for (int j = 0; j < 6; j++) {
+
+                double diferencia =
+                    sumaEscenario[j]
+                    / repeticionesPareadas;
+
+                sumasDiferencias[m][j] +=
+                    diferencia;
+
+                sumasCuadrados[m][j] +=
+                    diferencia * diferencia;
+            }
+        }
+    }
+
+    // ==================================================
+    // 8. INTERVALOS DE CONFIANZA DEL 95 %
+    // ==================================================
+
+    double[][] diferencias =
+        new double[5][6];
+
+    double[][] intervalos =
+        new double[5][6];
+
+    for (int m = 1; m < 5; m++) {
+
+        int n = nPareados[m];
+
+        for (int j = 0; j < 6; j++) {
+
+            if (n == 0) {
+
+                diferencias[m][j] =
+                    Double.NaN;
+
+                intervalos[m][j] =
+                    Double.NaN;
+
+                continue;
+            }
+
+            double media =
+                sumasDiferencias[m][j] / n;
+
+            diferencias[m][j] =
+                media;
+
+            if (n < 2) {
+
+                intervalos[m][j] =
+                    Double.NaN;
+
+                continue;
+            }
+
+            double numeradorVarianza =
+                sumasCuadrados[m][j]
+                - n * media * media;
+
+            double varianza =
+                Math.max(
+                    0.0,
+                    numeradorVarianza / (n - 1)
+                );
+
+            double errorEstandar =
+                Math.sqrt(
+                    varianza / n
+                );
+
+            intervalos[m][j] =
+                valorTCriticoEstudio(n)
+                * errorEstandar;
+        }
+    }
+
+    // ==================================================
+    // 9. PUBLICAR RESULTADOS EN MAIN
+    // ==================================================
+
+    estudioMediasSimuladas =
+        medias;
+
+    estudioConteosSimulados =
+        conteos;
+
+    estudioDiferenciasRL =
+        diferencias;
+
+    estudioIC95RL =
+        intervalos;
+
+    estudioNPareados =
+        nPareados;
+
+    estudioFilasResultados =
+        registros.size() - 1;
+
+    estudioFilasValidas =
+        validas;
+
+    estudioFilasNoValidas =
+        noValidas;
+
+    estudioArchivoCargado =
+        archivo.getCanonicalPath();
+
+    estudioResultadosCargados =
+        true;
+
+    estudioEstadoResultados =
+        "Resultados cargados: "
+        + validas
+        + " corridas válidas, "
+        + noValidas
+        + " no válidas; "
+        + muestras.size()
+        + " escenarios con datos.";
+
+    // ==================================================
+    // 10. REGISTRO DE CONTROL
+    // ==================================================
+
+    traceln(
+        "========================================"
+    );
+
+    traceln(
+        "ESTUDIO | RESULTADOS CARGADOS"
+    );
+
+    traceln(
+        "Filas totales: "
+        + estudioFilasResultados
+    );
+
+    traceln(
+        "Corridas válidas: "
+        + estudioFilasValidas
+    );
+
+    traceln(
+        "Corridas no válidas: "
+        + estudioFilasNoValidas
+    );
+
+    traceln(
+        "Escenarios con datos: "
+        + muestras.size()
+    );
+
+    for (int m = 0; m < 5; m++) {
+
+        traceln(
+            "METODO | "
+            + nombresMetodos[m]
+            + " | corridas_validas="
+            + conteos[m]
+            + (
+                m == 0
+                ? ""
+                : " | escenarios_pareados_RL="
+                  + nPareados[m]
+            )
+        );
+    }
+
+    traceln(
+        "Archivo: "
+        + estudioArchivoCargado
+    );
+
+    traceln(
+        "========================================"
+    );
+
+    return true;
+
+} catch (Exception ex) {
+
+    estudioResultadosCargados =
+        false;
+
+    estudioEstadoResultados =
+        "Error al cargar resultados: "
+        + ex.getMessage();
+
+    traceln(
+        "ESTUDIO | ERROR RESULTADOS | "
+        + estudioEstadoResultados
+    );
+
+    ex.printStackTrace();
+
+    return false;
+}
+]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+					<ReturnType><![CDATA[String]]></ReturnType>
+					<Id>1793390835818</Id>
+					<Name><![CDATA[formatearValorCompactoEstudio]]></Name>
+					<X>-810</X><Y>7780</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[valor]]></Name>
+						<Type><![CDATA[double]]></Type>
+					</Parameter>
+					<Body><![CDATA[if (!Double.isFinite(valor)) {
+    return "N/D";
+}
+
+double abs = Math.abs(valor);
+
+if (abs >= 1000000.0) {
+    return String.format(
+        java.util.Locale.US,
+        "%.2fM",
+        valor / 1000000.0
+    );
+}
+
+if (abs >= 1000.0) {
+    return String.format(
+        java.util.Locale.US,
+        "%.2fk",
+        valor / 1000.0
+    );
+}
+
+return String.format(
+    java.util.Locale.US,
+    "%.2f",
+    valor
+);]]></Body>
+				</Function>
 			</Functions>
 
 			<EmbeddedObjects>
@@ -32430,7 +36089,13 @@ return true;
 						<Parameter>
 							<Name><![CDATA[pythonExecPath]]></Name>
 							<Value Class="CodeValue">
-								<Code><![CDATA[new java.io.File("F:/Facultad/4°/Simulación/PedemonteDigitalTwin_v2/.venv/Scripts/python.exe").exists() ? "F:/Facultad/4°/Simulación/PedemonteDigitalTwin_v2/.venv/Scripts/python.exe" : new java.io.File("C:/Users/Propietario.DESKTOP-QTLGQ35/Desktop/PedemonteDigitalTwin_v2/.venv/Scripts/python.exe").exists() ? "C:/Users/Propietario.DESKTOP-QTLGQ35/Desktop/PedemonteDigitalTwin_v2/.venv/Scripts/python.exe" : "C:/Users/ricar/OneDrive/Documentos/PROGRAMACION/PedemonteDigitalTwin_v2/.venv/Scripts/python.exe"]]></Code>
+								<Code><![CDATA[new java.io.File("C:/Users/franc/OneDrive/Documentos/PedemonteDigitalTwin_v2/.venv/Scripts/python.exe").exists()
+    ? "C:/Users/franc/OneDrive/Documentos/PedemonteDigitalTwin_v2/.venv/Scripts/python.exe"
+    : new java.io.File("F:/Facultad/4°/Simulación/PedemonteDigitalTwin_v2/.venv/Scripts/python.exe").exists()
+        ? "F:/Facultad/4°/Simulación/PedemonteDigitalTwin_v2/.venv/Scripts/python.exe"
+        : new java.io.File("C:/Users/Propietario.DESKTOP-QTLGQ35/Desktop/PedemonteDigitalTwin_v2/.venv/Scripts/python.exe").exists()
+            ? "C:/Users/Propietario.DESKTOP-QTLGQ35/Desktop/PedemonteDigitalTwin_v2/.venv/Scripts/python.exe"
+            : "C:/Users/ricar/OneDrive/Documentos/PROGRAMACION/PedemonteDigitalTwin_v2/.venv/Scripts/python.exe"]]></Code>
 							</Value>
 						</Parameter>
 						<Parameter>
@@ -32878,6 +36543,28 @@ if (
 					<Latitude>0.0</Latitude>
 					<Longitude>0.0</Longitude>
                 </EmbeddedObjectPresentation>
+				<Rectangle>
+					<Id>1793369716744</Id>
+					<Name><![CDATA[rectFondoEstudio]]></Name>
+					<X>5400</X><Y>0</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-722949</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>1600</Width>
+					<Height>900</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-722949</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
 				<Rectangle>
 					<Id>1787517007554</Id>
 					<Name><![CDATA[rectFondoDashboard]]></Name>
@@ -33474,7 +37161,7 @@ if (
 					<CustomTileURL>false</CustomTileURL>
 					<TileURL><![CDATA[https://a.tile.openstreetmap.org/[zoom]/[x]/[y].png]]></TileURL>				
 					<RouteProviderType>WEB_SERVICE</RouteProviderType>
-					<RouteNotFound>CREATE_STRAIGHT_LINE</RouteNotFound>
+					<RouteNotFound>SHOW_ERROR_DIALOG</RouteNotFound>
 					<TransportType>CAR</TransportType>
 					<RoutingMethod>FASTEST</RoutingMethod>
 					<PathfindingAlgorithm>DIJKSTRABI</PathfindingAlgorithm>
@@ -33572,15 +37259,12 @@ instanciaInterfazActual == null
     InstanciaTurno nuevaInstancia =
         construirInstanciaFormulario();
 
-
     guardarInstanciaBaseRepetible(
         nuevaInstancia
     );
 
-
     instanciaInterfazActual =
         crearCopiaInstanciaBaseRepetible();
-
 
     if (!instanciaBaseAisladaDeActual()) {
 
@@ -33590,96 +37274,74 @@ instanciaInterfazActual == null
         );
     }
 
-
     mostrarInstanciaEnGIS(
         instanciaInterfazActual
     );
-
 
     indexarPuntosPedidosGIS(
         instanciaInterfazActual
     );
 
-
     limpiarComparacionEstimadaLocal();
 
+    // =================================================
+    // NUEVO: PREPARACION AUTOMATICA DE LA MATRIZ VIAL
+    // =================================================
 
     boolean matrizLista =
-        verificarCacheVialInstanciaActual();
-
+        asegurarCacheVialInstanciaActual();
 
     if (matrizLista) {
 
         mensajeInterfazPlanificacion =
             "Instancia preparada."
-            + "\nMatriz vial lista."
+            + "\nMatriz vial completa."
             + "\nPuede planificar.";
 
     } else {
 
         mensajeInterfazPlanificacion =
             "Instancia preparada."
-            + "\nFaltan "
-            + cacheVialTramosFaltantes
-            + " tramos viales."
-            + "\nExporte la matriz.";
+            + "\nNo se pudo completar la matriz vial."
+            + "\nRevisá la consola y los tramos faltantes.";
     }
-
 
     traceln(
         resumenInstanciaInterfaz()
     );
-
 
     traceln(
         "INSTANCIA BASE AISLADA | "
         + instanciaBaseAisladaDeActual()
     );
 
-
 } catch (Exception ex) {
 
-    instanciaInterfazActual =
-        null;
-
+    instanciaInterfazActual = null;
 
     limpiarComparacionEstimadaLocal();
 
-
     limpiarInstanciaBaseRepetible();
 
+    cacheVialInstanciaCompleta = false;
 
-    cacheVialInstanciaCompleta =
-        false;
+    cacheVialTramosRequeridos = 0;
 
+    cacheVialTramosFaltantes = 0;
 
-    cacheVialTramosRequeridos =
-        0;
-
-
-    cacheVialTramosFaltantes =
-        0;
-
-
-    cacheVialEstadoInterfaz =
-        "ERROR";
-
+    cacheVialEstadoInterfaz = "ERROR";
 
     limpiarPedidosGIS();
 
-
     mensajeInterfazPlanificacion =
         "Error al preparar instancia: "
-        + ex.getClass()
-            .getSimpleName()
+        + ex.getClass().getSimpleName()
         + ": "
         + ex.getMessage();
-
 
     traceln(
         mensajeInterfazPlanificacion
     );
-
 
     ex.printStackTrace();
 }]]></ActionCode>
@@ -36485,7 +40147,7 @@ String.format(
 					</BasicProperties>
 					<ExtendedProperties>
 						<Font Name="SansSerif" Size="10" Style="1"/>
-						<LabelText><![CDATA[Generar matriz vial]]></LabelText>
+						<LabelText><![CDATA[Reintentar matriz vial]]></LabelText>
 					</ExtendedProperties>
 				</Control>
 				<Text>
@@ -39566,8 +43228,26 @@ simulado]]></Text>
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<TextColor>-15257011</TextColor>
 						<Enabled>true</Enabled>
-						<EnableExpression><![CDATA[instanciaListaParaComparacion()]]></EnableExpression>
-						<ActionCode><![CDATA[ejecutarComparacionEstimadaPypeline();]]></ActionCode>
+						<EnableExpression><![CDATA[instanciaInterfazActual != null
+&&
+!ejecucionEnCurso
+&&
+!pypelineSolicitudEnCurso]]></EnableExpression>
+						<ActionCode><![CDATA[if (asegurarCacheVialInstanciaActual()) {
+
+    ejecutarComparacionEstimadaPypeline();
+
+} else {
+
+    comparacionEstimadaEstado =
+        "No se pudo preparar la matriz vial."
+        + " Revisá el estado de la operación.";
+
+    traceln(
+        "COMPARACION | No se inicia:"
+        + " matriz vial incompleta."
+    );
+}]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
 						<Font Name="SansSerif" Size="9" Style="1"/>
@@ -44043,6 +47723,2676 @@ getExperimentHost().showMessageDialog(
 					</Font>
 					<Alignment>LEFT</Alignment>
 				</Text>
+				<Control Type="Button">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1793368673170</Id>
+					<Name><![CDATA[btnNavEstudioEnPedidos]]></Name>
+					<X>20</X><Y>305</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="180" Height="46">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<TextColor>-15257011</TextColor>
+						<Enabled>true</Enabled>
+						<ActionCode><![CDATA[irAVistaEstudioExperimental();]]></ActionCode>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="12" Style="1"/>
+						<LabelText><![CDATA[Estudio experimental]]></LabelText>
+					</ExtendedProperties>
+				</Control>
+				<Control Type="Button">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1793368758947</Id>
+					<Name><![CDATA[btnNavEstudioEnOperacion]]></Name>
+					<X>1820</X><Y>304</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="180" Height="46">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<TextColor>-15257011</TextColor>
+						<Enabled>true</Enabled>
+						<ActionCode><![CDATA[irAVistaEstudioExperimental();]]></ActionCode>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="12" Style="1"/>
+						<LabelText><![CDATA[Estudio experimental]]></LabelText>
+					</ExtendedProperties>
+				</Control>
+				<Control Type="Button">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1793368808351</Id>
+					<Name><![CDATA[btnNavEstudioEnComparacion]]></Name>
+					<X>3620</X><Y>304</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="180" Height="46">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<TextColor>-15257011</TextColor>
+						<Enabled>true</Enabled>
+						<ActionCode><![CDATA[irAVistaEstudioExperimental();]]></ActionCode>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="12" Style="1"/>
+						<LabelText><![CDATA[Estudio experimental]]></LabelText>
+					</ExtendedProperties>
+				</Control>
+				<Rectangle>
+					<Id>1793368882960</Id>
+					<Name><![CDATA[rectSidebarEstudio]]></Name>
+					<X>5400</X><Y>0</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-15257011</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>220</Width>
+					<Height>900</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-15257011</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Line>
+					<Id>1793368882962</Id>
+					<Name><![CDATA[lineSidebarSeparadorEstudio]]></Name>
+					<X>5420</X><Y>100</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-11836809</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<BeginArrowSize>1</BeginArrowSize>
+					<BeginArrowStyle>0</BeginArrowStyle>
+					<EndArrowSize>1</EndArrowSize>
+					<EndArrowStyle>0</EndArrowStyle>
+					<Dx>180</Dx>
+					<Dy>0</Dy>
+					<Dz>0</Dz>
+				</Line>
+				<Rectangle>
+					<Id>1793368882964</Id>
+					<Name><![CDATA[rectIndicadorActivoComparacion1]]></Name>
+					<X>5408</X><Y>304</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-15157310</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>5</Width>
+					<Height>46</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-15157310</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Control Type="Button">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1793368882966</Id>
+					<Name><![CDATA[btnNavComparacionEnEstudio]]></Name>
+					<X>5420</X><Y>246</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="180" Height="46">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<TextColor>-15257011</TextColor>
+						<Enabled>false</Enabled>
+						<ActionCode><![CDATA[irAVistaComparacion();]]></ActionCode>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="12" Style="1"/>
+						<LabelText><![CDATA[Comparación]]></LabelText>
+					</ExtendedProperties>
+				</Control>
+				<Control Type="Button">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1793368882968</Id>
+					<Name><![CDATA[btnNavPedidosEnEstudio]]></Name>
+					<X>5420</X><Y>130</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="180" Height="46">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<TextColor>-15257011</TextColor>
+						<Enabled>true</Enabled>
+						<ActionCode><![CDATA[irAVistaPedidos();]]></ActionCode>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="12" Style="1"/>
+						<LabelText><![CDATA[Pedidos]]></LabelText>
+					</ExtendedProperties>
+				</Control>
+				<Text>
+					<Id>1793368882970</Id>
+					<Name><![CDATA[txtSidebarSubtituloEstudio]]></Name>
+					<X>5420</X><Y>61</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-4010021</Color>
+					<Text><![CDATA[Gemelo digital logístico]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Control Type="Button">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1793368882972</Id>
+					<Name><![CDATA[btnNavOperacionEnEstudio]]></Name>
+					<X>5420</X><Y>188</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="180" Height="46">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<TextColor>-15257011</TextColor>
+						<Enabled>true</Enabled>
+						<ActionCode><![CDATA[irAVistaOperacion();]]></ActionCode>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="12" Style="1"/>
+						<LabelText><![CDATA[Operación]]></LabelText>
+					</ExtendedProperties>
+				</Control>
+				<Text>
+					<Id>1793368882974</Id>
+					<Name><![CDATA[txtSidebarTituloEstudio]]></Name>
+					<X>5420</X><Y>24</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-1</Color>
+					<Text><![CDATA[Pedemonte Digital Twin]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>16</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Control Type="Button">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1793368882976</Id>
+					<Name><![CDATA[btnNavEstudioEnEstudio]]></Name>
+					<X>5420</X><Y>304</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="180" Height="46">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<TextColor>-15257011</TextColor>
+						<Enabled>false</Enabled>
+						<ActionCode><![CDATA[irAVistaEstudioExperimental();]]></ActionCode>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="12" Style="1"/>
+						<LabelText><![CDATA[Estudio experimental]]></LabelText>
+					</ExtendedProperties>
+				</Control>
+				<Rectangle>
+					<Id>1793370243354</Id>
+					<Name><![CDATA[rectEncabezadoEstudio]]></Name>
+					<X>5640</X><Y>15</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-15257011</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>1340</Width>
+					<Height>65</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-15257011</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Text>
+					<Id>1793370243356</Id>
+					<Name><![CDATA[txtTituloEstudio]]></Name>
+					<X>5665</X><Y>37</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-1</Color>
+					<Text><![CDATA[Estudio experimental]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>22</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793370243358</Id>
+					<Name><![CDATA[txtSubtituloEstudio]]></Name>
+					<X>5665</X><Y>64</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-2300176</Color>
+					<Text><![CDATA[Simulación de múltiples turnos y análisis estadístico de algoritmos]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>11</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793370243360</Id>
+					<Name><![CDATA[txtMarcaEstudio]]></Name>
+					<X>6770</X><Y>50</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-1</Color>
+					<Text><![CDATA[ANÁLISIS EXPERIMENTAL]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>11</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Rectangle>
+					<Id>1793371377494</Id>
+					<Name><![CDATA[rectConfiguracionEstudio]]></Name>
+					<X>5640</X><Y>98</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-2563606</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>860</Width>
+					<Height>320</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-1</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Text>
+					<Id>1793371413769</Id>
+					<Name><![CDATA[txtTituloConfiguracionEstudio]]></Name>
+					<X>5665</X><Y>123</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-15257011</Color>
+					<Text><![CDATA[Configuración del estudio]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>14</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793371586544</Id>
+					<Name><![CDATA[txtDescripcionConfiguracionEstudio]]></Name>
+					<X>5665</X><Y>151</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-11836809</Color>
+					<Text><![CDATA[Seleccioná los escenarios y repeticiones que querés evaluar.]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Line>
+					<Id>1793371855732</Id>
+					<Name><![CDATA[lineSeparadorConfiguracionEstudio]]></Name>
+					<X>5665</X><Y>182</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-2563606</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<BeginArrowSize>1</BeginArrowSize>
+					<BeginArrowStyle>0</BeginArrowStyle>
+					<EndArrowSize>1</EndArrowSize>
+					<EndArrowStyle>0</EndArrowStyle>
+					<Dx>810</Dx>
+					<Dy>0</Dy>
+					<Dz>0</Dz>
+				</Line>
+				<Text>
+					<Id>1793374236521</Id>
+					<Name><![CDATA[txtLabelTurnosEstudio]]></Name>
+					<X>5665</X><Y>198</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-13418155</Color>
+					<Text><![CDATA[Turnos a simular]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793374269668</Id>
+					<Name><![CDATA[txtLabelRepeticionesEstudio]]></Name>
+					<X>5925</X><Y>198</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-13418155</Color>
+					<Text><![CDATA[Repeticiones por turno]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793374287867</Id>
+					<Name><![CDATA[txtLabelSemillaEstudio]]></Name>
+					<X>6185</X><Y>198</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-13418155</Color>
+					<Text><![CDATA[Semilla inicial]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793374325941</Id>
+					<Name><![CDATA[txtLabelTurnoEstudio]]></Name>
+					<X>5665</X><Y>274</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-13418155</Color>
+					<Text><![CDATA[Turno de operación]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793374342590</Id>
+					<Name><![CDATA[txtLabelDemandaEstudio]]></Name>
+					<X>5925</X><Y>274</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-13418155</Color>
+					<Text><![CDATA[Distribución de pedidos]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793374363954</Id>
+					<Name><![CDATA[txtLabelMetodosEstudio]]></Name>
+					<X>6185</X><Y>274</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-13418155</Color>
+					<Text><![CDATA[Métodos evaluados]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Line>
+					<Id>1793374392075</Id>
+					<Name><![CDATA[lineSeparadorAccionesEstudio]]></Name>
+					<X>5665</X><Y>343</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-2563606</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<BeginArrowSize>1</BeginArrowSize>
+					<BeginArrowStyle>0</BeginArrowStyle>
+					<EndArrowSize>1</EndArrowSize>
+					<EndArrowStyle>0</EndArrowStyle>
+					<Dx>810</Dx>
+					<Dy>0</Dy>
+					<Dz>0</Dz>
+				</Line>
+				<Control Type="EditBox">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1793374557445</Id>
+					<Name><![CDATA[editTurnosEstudio]]></Name>
+					<X>5665</X><Y>220</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="235" Height="34">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<FillColor>-1</FillColor>
+						<TextColor>-15257011</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[!estudioFlujoActivo
+&& !generacionActivaEstudio()
+&& !estudioSimulacionEnCurso
+&& !ejecucionEnCurso
+&& !pypelineSolicitudEnCurso]]></EnableExpression>
+						<ActionCode><![CDATA[invalidarConfiguracionEstudio();]]></ActionCode>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="11" Style="0"/>
+						<DefaultValueCode><![CDATA["5"]]></DefaultValueCode>
+						<LinkTo>false</LinkTo>
+					</ExtendedProperties>
+				</Control>
+				<Control Type="EditBox">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1793374631753</Id>
+					<Name><![CDATA[editRepeticionesEstudio]]></Name>
+					<X>5925</X><Y>220</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="235" Height="34">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<FillColor>-1</FillColor>
+						<TextColor>-15257011</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[!estudioFlujoActivo
+&& !generacionActivaEstudio()
+&& !estudioSimulacionEnCurso
+&& !ejecucionEnCurso
+&& !pypelineSolicitudEnCurso]]></EnableExpression>
+						<ActionCode><![CDATA[invalidarConfiguracionEstudio();]]></ActionCode>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="11" Style="0"/>
+						<DefaultValueCode><![CDATA["1"]]></DefaultValueCode>
+						<LinkTo>false</LinkTo>
+					</ExtendedProperties>
+				</Control>
+				<Control Type="EditBox">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1793374653446</Id>
+					<Name><![CDATA[editSemillaEstudio]]></Name>
+					<X>6185</X><Y>220</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="290" Height="34">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<FillColor>-1</FillColor>
+						<TextColor>-15257011</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[!estudioFlujoActivo
+&& !generacionActivaEstudio()
+&& !estudioSimulacionEnCurso
+&& !ejecucionEnCurso
+&& !pypelineSolicitudEnCurso]]></EnableExpression>
+						<ActionCode><![CDATA[invalidarConfiguracionEstudio();]]></ActionCode>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="11" Style="0"/>
+						<DefaultValueCode><![CDATA["20261030"]]></DefaultValueCode>
+						<LinkTo>false</LinkTo>
+					</ExtendedProperties>
+				</Control>
+				<Control Type="ComboBox">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1793374694262</Id>
+					<Name><![CDATA[comboTurnoEstudio]]></Name>
+					<X>5665</X><Y>296</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="235" Height="34">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<FillColor>-1</FillColor>
+						<TextColor>-15257011</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[!estudioFlujoActivo
+&& !generacionActivaEstudio()
+&& !estudioSimulacionEnCurso
+&& !ejecucionEnCurso
+&& !pypelineSolicitudEnCurso]]></EnableExpression>
+						<ActionCode><![CDATA[invalidarConfiguracionEstudio();]]></ActionCode>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="11" Style="0"/>
+						<DefaultValueCode><![CDATA["MIXTO"]]></DefaultValueCode>
+						<Editable>false</Editable>
+						<Button><![CDATA[MIXTO]]></Button>
+						<Button><![CDATA[MANANA]]></Button>
+						<Button><![CDATA[TARDE]]></Button>
+						<LinkTo>false</LinkTo>
+					</ExtendedProperties>
+				</Control>
+				<Rectangle>
+					<Id>1793374788782</Id>
+					<Name><![CDATA[rectDemandaEstudio]]></Name>
+					<X>5925</X><Y>296</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-2563606</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>235</Width>
+					<Height>34</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-460036</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Text>
+					<Id>1793374836189</Id>
+					<Name><![CDATA[txtDemandaPrincipalEstudio]]></Name>
+					<X>5937</X><Y>302</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-15257011</Color>
+					<Text><![CDATA[Distribución histórica]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793374863277</Id>
+					<Name><![CDATA[txtDemandaDetalleEstudio]]></Name>
+					<X>5937</X><Y>317</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-10063739</Color>
+					<Text><![CDATA[Según registros de turnos]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>8</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Rectangle>
+					<Id>1793374907725</Id>
+					<Name><![CDATA[rectMetodosEstudio]]></Name>
+					<X>6185</X><Y>296</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-2563606</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>290</Width>
+					<Height>34</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-460036</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Text>
+					<Id>1793374942757</Id>
+					<Name><![CDATA[txtMetodosPrincipalEstudio]]></Name>
+					<X>6197</X><Y>302</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-15257011</Color>
+					<Text><![CDATA[	RL  -  Híbrido  -  Greedy]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793375010261</Id>
+					<Name><![CDATA[txtMetodosSecundarioEstudio]]></Name>
+					<X>6197</X><Y>317</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-10063739</Color>
+					<Text><![CDATA[Random  -  GA]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Control Type="Button">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1793375066029</Id>
+					<Name><![CDATA[btnValidarConfiguracionEstudio]]></Name>
+					<X>5665</X><Y>359</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="235" Height="38">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<TextColor>-15257011</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[!estudioFlujoActivo
+&& !generacionActivaEstudio()
+&& !estudioSimulacionEnCurso
+&& !ejecucionEnCurso
+&& !pypelineSolicitudEnCurso]]></EnableExpression>
+						<ActionCode><![CDATA[validarConfiguracionEstudio();]]></ActionCode>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="11" Style="1"/>
+						<LabelText><![CDATA[Validar configuración]]></LabelText>
+					</ExtendedProperties>
+				</Control>
+				<Text>
+					<Id>1793375112197</Id>
+					<Name><![CDATA[txtEstadoConfiguracionEstudio]]></Name>
+					<X>5925</X><Y>370</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-10063739</Color>
+					<Text><![CDATA[Configuración pendiente de validar]]></Text>
+					<TextCode><![CDATA[estudioMensajeConfiguracion]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Rectangle>
+					<Id>1793375218869</Id>
+					<Name><![CDATA[rectResumenEstudio]]></Name>
+					<X>6520</X><Y>98</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-2563606</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>460</Width>
+					<Height>320</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-1</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Text>
+					<Id>1793375249459</Id>
+					<Name><![CDATA[txtTituloResumenEstudio]]></Name>
+					<X>6545</X><Y>123</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-15257011</Color>
+					<Text><![CDATA[Resumen del estudio]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>14</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793375275395</Id>
+					<Name><![CDATA[txtDescripcionResumenEstudio]]></Name>
+					<X>6545</X><Y>151</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-11836809</Color>
+					<Text><![CDATA[Cantidad de ejecuciones previstas.]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Line>
+					<Id>1793375300819</Id>
+					<Name><![CDATA[lineSeparadorResumenEstudio]]></Name>
+					<X>6545</X><Y>182</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-2563606</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<BeginArrowSize>1</BeginArrowSize>
+					<BeginArrowStyle>0</BeginArrowStyle>
+					<EndArrowSize>1</EndArrowSize>
+					<EndArrowStyle>0</EndArrowStyle>
+					<Dx>410</Dx>
+					<Dy>0</Dy>
+					<Dz>0</Dz>
+				</Line>
+				<Rectangle>
+					<Id>1793375335906</Id>
+					<Name><![CDATA[rectCantidadCorridasEstudio]]></Name>
+					<X>6545</X><Y>201</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-2563606</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>410</Width>
+					<Height>113</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-460036</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Text>
+					<Id>1793375372331</Id>
+					<Name><![CDATA[txtEtiquetaCorridasEstudio]]></Name>
+					<X>6562</X><Y>218</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-11836809</Color>
+					<Text><![CDATA[SIMULACIONES PREVISTAS]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793375399066</Id>
+					<Name><![CDATA[txtValorCorridasEstudio]]></Name>
+					<X>6562</X><Y>249</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-15257011</Color>
+					<Text><![CDATA[—]]></Text>
+					<TextCode><![CDATA[estudioConfiguracionValidada
+    ? String.valueOf(estudioCorridasPrevistas)
+    : "—"]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>26</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793375454459</Id>
+					<Name><![CDATA[txtFormulaCorridasEstudio]]></Name>
+					<X>6562</X><Y>289</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-11836809</Color>
+					<Text><![CDATA[Turnos × repeticiones × 5 métodos]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793375480666</Id>
+					<Name><![CDATA[txtEtiquetaEstadoResumenEstudio]]></Name>
+					<X>6545</X><Y>336</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-11836809</Color>
+					<Text><![CDATA[ESTADO DE LA CONFIGURACIÓN]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793375509123</Id>
+					<Name><![CDATA[txtEstadoResumenEstudio]]></Name>
+					<X>6545</X><Y>356</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-15257011</Color>
+					<Text><![CDATA[Pendiente de validar]]></Text>
+					<TextCode><![CDATA[estudioConfiguracionValidada
+    ? "Configuración válida"
+    : "Pendiente de validar"]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>12</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793375535675</Id>
+					<Name><![CDATA[txtNotaResumenEstudio]]></Name>
+					<X>6545</X><Y>383</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-10063739</Color>
+					<Text><![CDATA[Sin corridas ejecutadas ni resultados cargados.]]></Text>
+					<TextCode><![CDATA[estudioProcesoSimulacion == null
+    ? "Sin corridas ejecutadas ni resultados cargados."
+    : (
+        estudioSimulacionEnCurso
+        ? "Ejecutando simulaciones del estudio."
+        : (
+            estudioSimulacionCompleta
+            ? "Resultados simulados disponibles."
+            : "Estudio incompleto. Revisá el registro."
+        )
+    )]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Rectangle>
+					<Id>1793375724237</Id>
+					<Name><![CDATA[rectSeguimientoEstudio]]></Name>
+					<X>5640</X><Y>434</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-2563606</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>1340</Width>
+					<Height>185</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-1</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Text>
+					<Id>1793375755391</Id>
+					<Name><![CDATA[txtTituloSeguimientoEstudio]]></Name>
+					<X>5665</X><Y>454</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-15257011</Color>
+					<Text><![CDATA[Seguimiento del experimento]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>14</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793375805805</Id>
+					<Name><![CDATA[txtDescripcionSeguimientoEstudio]]></Name>
+					<X>6020</X><Y>457</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-10063739</Color>
+					<Text><![CDATA[Avance por turnos y repeticiones]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Line>
+					<Id>1793375830758</Id>
+					<Name><![CDATA[lineSeparadorSeguimientoEstudio]]></Name>
+					<X>5665</X><Y>486</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-2563606</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<BeginArrowSize>1</BeginArrowSize>
+					<BeginArrowStyle>0</BeginArrowStyle>
+					<EndArrowSize>1</EndArrowSize>
+					<EndArrowStyle>0</EndArrowStyle>
+					<Dx>1290</Dx>
+					<Dy>0</Dy>
+					<Dz>0</Dz>
+				</Line>
+				<Rectangle>
+					<Id>1793375864893</Id>
+					<Name><![CDATA[rectTurnosPrevistosEstudio]]></Name>
+					<X>5665</X><Y>500</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-2563606</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>250</Width>
+					<Height>62</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-460036</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Rectangle>
+					<Id>1793375907402</Id>
+					<Name><![CDATA[rectEscenariosGeneradosEstudio]]></Name>
+					<X>5925</X><Y>500</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-2563606</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>250</Width>
+					<Height>62</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-460036</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Rectangle>
+					<Id>1793375925571</Id>
+					<Name><![CDATA[rectTurnosCompletadosEstudio]]></Name>
+					<X>6185</X><Y>500</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-2563606</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>250</Width>
+					<Height>62</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-460036</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Rectangle>
+					<Id>1793375938531</Id>
+					<Name><![CDATA[rectTurnosPendientesEstudio]]></Name>
+					<X>6445</X><Y>500</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-2563606</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>250</Width>
+					<Height>62</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-460036</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Rectangle>
+					<Id>1793375951283</Id>
+					<Name><![CDATA[rectTurnosFallidosEstudio]]></Name>
+					<X>6705</X><Y>500</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-2563606</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>250</Width>
+					<Height>62</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-460036</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Text>
+					<Id>1793375975046</Id>
+					<Name><![CDATA[txtLabelTurnosPrevistosEstudio]]></Name>
+					<X>5677</X><Y>508</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-10063739</Color>
+					<Text><![CDATA[Turnos previstos]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793376027721</Id>
+					<Name><![CDATA[txtLabelEscenariosGeneradosEstudio]]></Name>
+					<X>5937</X><Y>508</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-10063739</Color>
+					<Text><![CDATA[Escenarios generados]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793376052427</Id>
+					<Name><![CDATA[txtLabelTurnosCompletadosEstudio]]></Name>
+					<X>6197</X><Y>508</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-10063739</Color>
+					<Text><![CDATA[Simulaciones completas]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793376071726</Id>
+					<Name><![CDATA[txtLabelTurnosPendientesEstudio]]></Name>
+					<X>6457</X><Y>508</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-10063739</Color>
+					<Text><![CDATA[Simulaciones restantes]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793376090330</Id>
+					<Name><![CDATA[txtLabelTurnosFallidosEstudio]]></Name>
+					<X>6717</X><Y>508</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-10063739</Color>
+					<Text><![CDATA[Simulaciones fallidas]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793376137685</Id>
+					<Name><![CDATA[txtValorTurnosPrevistosEstudio]]></Name>
+					<X>5677</X><Y>528</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-15257011</Color>
+					<Text><![CDATA[—]]></Text>
+					<TextCode><![CDATA[estudioConfiguracionValidada
+    ? String.valueOf(estudioTurnosValidados)
+    : "—"]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>18</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793376174472</Id>
+					<Name><![CDATA[txtValorEscenariosGeneradosEstudio]]></Name>
+					<X>5937</X><Y>528</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-15257011</Color>
+					<Text><![CDATA[—]]></Text>
+					<TextCode><![CDATA[estudioProcesoGeneracion == null
+    ? "—"
+    : String.valueOf(
+        contarEscenariosGeneradosEstudio()
+    )]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>18</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793376186575</Id>
+					<Name><![CDATA[txtValorTurnosCompletadosEstudio]]></Name>
+					<X>6197</X><Y>528</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-15257011</Color>
+					<Text><![CDATA[—]]></Text>
+					<TextCode><![CDATA[estudioProcesoSimulacion == null
+    ? "—"
+    : String.valueOf(estudioSimulacionesFinalizadas)]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>18</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793376203167</Id>
+					<Name><![CDATA[txtValorTurnosPendientesEstudio]]></Name>
+					<X>6457</X><Y>528</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-15257011</Color>
+					<Text><![CDATA[—]]></Text>
+					<TextCode><![CDATA[estudioProcesoSimulacion == null
+    ? "—"
+    : String.valueOf(
+        Math.max(
+            0L,
+            estudioCorridasPrevistas
+                - estudioSimulacionesFinalizadas
+                - estudioSimulacionesFallidas
+        )
+    )]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>18</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793376218509</Id>
+					<Name><![CDATA[txtValorTurnosFallidosEstudio]]></Name>
+					<X>6717</X><Y>528</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-15257011</Color>
+					<Text><![CDATA[—]]></Text>
+					<TextCode><![CDATA[estudioProcesoSimulacion == null
+    ? "—"
+    : String.valueOf(estudioSimulacionesFallidas)]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>18</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793376242141</Id>
+					<Name><![CDATA[txtLabelProgresoEstudio]]></Name>
+					<X>5665</X><Y>568</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-13418155</Color>
+					<Text><![CDATA[AVANCE DE TURNOS SIMULADOS]]></Text>
+					<TextCode><![CDATA[estudioProcesoSimulacion != null
+    ? "EJECUCIÓN DE SIMULACIONES ANYLOGIC"
+    : (
+        estudioFlujoActivo
+        ? (
+            generacionActivaEstudio()
+            ? "GENERACIÓN DE PEDIDOS"
+            : "PREPARACIÓN DE MATRICES VIALES"
+        )
+        : "ESTADO DE PREPARACIÓN DEL ESTUDIO"
+    )]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793376310750</Id>
+					<Name><![CDATA[txtEstadoProgresoEstudio]]></Name>
+					<X>6865</X><Y>568</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-10063739</Color>
+					<Text><![CDATA[Sin ejecución iniciada]]></Text>
+					<TextCode><![CDATA[estudioProcesoSimulacion != null
+    ? (
+        estudioSimulacionesFinalizadas
+        + " / "
+        + estudioCorridasPrevistas
+    )
+    : (
+        estudioFlujoActivo
+        ? (
+            generacionActivaEstudio()
+            ? contarEscenariosGeneradosEstudio()
+                + " / " + estudioTurnosValidados
+            : estudioEscenariosVialesPreparados
+                + " / " + estudioTurnosValidados
+        )
+        : "Sin simulaciones"
+    )]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Rectangle>
+					<Id>1793376346902</Id>
+					<Name><![CDATA[rectFondoProgresoEstudio]]></Name>
+					<X>5665</X><Y>584</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>0</LineWidth>
+					<LineColor>-1906448</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>1290</Width>
+					<Height>10</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-1906448</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Text>
+					<Id>1793376389862</Id>
+					<Name><![CDATA[txtNotaSeguimientoEstudio]]></Name>
+					<X>5665</X><Y>600</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-10063739</Color>
+					<Text><![CDATA[El progreso se calculará a partir de las corridas registradas.]]></Text>
+					<TextCode><![CDATA[estudioProcesoSimulacion != null
+    ? estudioEstadoSimulacion
+    : estudioEstadoVial]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Rectangle>
+					<Id>1793376605910</Id>
+					<Name><![CDATA[rectResultadosEstudio]]></Name>
+					<X>5640</X><Y>635</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-2563606</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>1340</Width>
+					<Height>240</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-1</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Text>
+					<Id>1793376698598</Id>
+					<Name><![CDATA[txtTituloResultadosEstudio]]></Name>
+					<X>5665</X><Y>655</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-15257011</Color>
+					<Text><![CDATA[Resultados experimentales]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>14</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793376745436</Id>
+					<Name><![CDATA[txtDescripcionResultadosEstudio]]></Name>
+					<X>5925</X><Y>658</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-10063739</Color>
+					<Text><![CDATA[Comparación agregada de corridas reales de AnyLogic]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Line>
+					<Id>1793376839124</Id>
+					<Name><![CDATA[lineSeparadorResultadosEstudio]]></Name>
+					<X>5665</X><Y>690</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-2563606</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<BeginArrowSize>1</BeginArrowSize>
+					<BeginArrowStyle>0</BeginArrowStyle>
+					<EndArrowSize>1</EndArrowSize>
+					<EndArrowStyle>0</EndArrowStyle>
+					<Dx>1290</Dx>
+					<Dy>0</Dy>
+					<Dz>0</Dz>
+				</Line>
+				<Rectangle>
+					<Id>1793376896227</Id>
+					<Name><![CDATA[rectGraficoDesempenoEstudio]]></Name>
+					<X>5665</X><Y>703</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-2563606</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>632</Width>
+					<Height>140</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-460036</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Text>
+					<Id>1793376929771</Id>
+					<Name><![CDATA[txtTituloGraficoDesempenoEstudio]]></Name>
+					<X>5682</X><Y>717</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-15257011</Color>
+					<Text><![CDATA[Desempeño por algoritmo]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>11</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Control Type="ComboBox">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1793376960763</Id>
+					<Name><![CDATA[comboMetricaEstudio]]></Name>
+					<X>6088</X><Y>713</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="190" Height="24">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<FillColor>-1</FillColor>
+						<TextColor>-15257011</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[estudioResultadosCargados
+&& !estudioSimulacionEnCurso]]></EnableExpression>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="10" Style="0"/>
+						<DefaultValueCode><![CDATA["Costo total"]]></DefaultValueCode>
+						<Editable>false</Editable>
+						<Button><![CDATA[Costo total]]></Button>
+						<Button><![CDATA[Distancia]]></Button>
+						<Button><![CDATA[Duración]]></Button>
+						<Button><![CDATA[Viajes]]></Button>
+						<Button><![CDATA[Tardanza]]></Button>
+						<Button><![CDATA[Desbalance]]></Button>
+						<LinkTo>false</LinkTo>
+					</ExtendedProperties>
+				</Control>
+				<Text>
+					<Id>1793377048323</Id>
+					<Name><![CDATA[txtSinDatosDesempenoEstudio]]></Name>
+					<X>5682</X><Y>760</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA[!estudioResultadosCargados]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-10063739</Color>
+					<Text><![CDATA[Sin resultados simulados cargados]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>12</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793377077736</Id>
+					<Name><![CDATA[txtAyudaGraficoDesempenoEstudio]]></Name>
+					<X>5682</X><Y>784</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA[!estudioResultadosCargados]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-10063739</Color>
+					<Text><![CDATA[Acá aparecerá el promedio por algoritmo.]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793377097399</Id>
+					<Name><![CDATA[txtNotaGraficoDesempenoEstudio]]></Name>
+					<X>5682</X><Y>806</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA[!estudioResultadosCargados]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-10063739</Color>
+					<Text><![CDATA[Los métodos sin corridas válidas se indicarán como N/D.]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Rectangle>
+					<Id>1793377143987</Id>
+					<Name><![CDATA[rectComparacionEstadisticaEstudio]]></Name>
+					<X>6312</X><Y>703</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-2563606</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>643</Width>
+					<Height>140</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-460036</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Text>
+					<Id>1793377185115</Id>
+					<Name><![CDATA[txtTituloComparacionEstadisticaEstudio]]></Name>
+					<X>6329</X><Y>717</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-15257011</Color>
+					<Text><![CDATA[Comparación estadística con RL]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>11</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793377223371</Id>
+					<Name><![CDATA[txtDescripcionEstadisticaEstudio]]></Name>
+					<X>6329</X><Y>742</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-10063739</Color>
+					<Text><![CDATA[Δ = RL - método. Negativo favorece RL.]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793377258723</Id>
+					<Name><![CDATA[txtSinDatosEstadisticosEstudio]]></Name>
+					<X>6329</X><Y>775</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA[!estudioResultadosCargados]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-10063739</Color>
+					<Text><![CDATA[No hay observaciones válidas para analizar.]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>11</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793377321763</Id>
+					<Name><![CDATA[txtNotaEstadisticaEstudio]]></Name>
+					<X>6329</X><Y>802</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA[!estudioResultadosCargados]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-10063739</Color>
+					<Text><![CDATA[Solo se compararán escenarios y repeticiones equivalentes.]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793377352004</Id>
+					<Name><![CDATA[txtNotaResultadosEstudio]]></Name>
+					<X>5665</X><Y>848</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-10063739</Color>
+					<Text><![CDATA[Fuente: simulaciones AnyLogic. Los resultados faltantes no se reemplazan por cero.]]></Text>
+					<TextCode><![CDATA[estudioResultadosCargados
+    ? estudioEstadoResultados
+    : "Seleccioná un archivo CSV de resultados para visualizar el resumen experimental."]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Control Type="Button">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1793379922397</Id>
+					<Name><![CDATA[btnGenerarEscenariosEstudio]]></Name>
+					<X>6455</X><Y>449</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="240" Height="32">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<TextColor>-15257011</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[estudioConfiguracionValidada
+&&
+!estudioFlujoActivo
+&&
+!ejecucionEnCurso
+&&
+!pypelineSolicitudEnCurso
+&&
+instanciaInterfazActual == null
+&&
+(
+    !generacionCompletaEstudio()
+    ||
+    !estudioDirectorioEscenarios.equals(
+        estudioCarpetaVial
+    )
+    ||
+    estudioEscenariosVialesPreparados
+        < estudioTurnosValidados
+)]]></EnableExpression>
+						<ActionCode><![CDATA[iniciarGeneracionYPreparacionEstudio();]]></ActionCode>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="10" Style="1"/>
+						<LabelText><![CDATA[Generar escenarios]]></LabelText>
+					</ExtendedProperties>
+				</Control>
+				<Rectangle>
+					<Id>1793380707393</Id>
+					<Name><![CDATA[rectAvanceGeneracionEstudio]]></Name>
+					<X>5665</X><Y>584</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<VisibleCode><![CDATA[estudioProcesoGeneracion != null
+&&
+estudioTurnosValidados > 0
+&&
+contarEscenariosGeneradosEstudio() > 0]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<ScaleXCode><![CDATA[estudioTurnosValidados <= 0
+    ? 0.0
+    : Math.min(
+        1.0,
+        (double) contarEscenariosGeneradosEstudio()
+        / estudioTurnosValidados
+    )]]></ScaleXCode>
+					<ScaleYCode><![CDATA[1]]></ScaleYCode>
+					<LineWidth>0</LineWidth>
+					<LineColor>-15157310</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>1290</Width>
+					<Height>10</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-15157310</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Control Type="Button">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1793385487417</Id>
+					<Name><![CDATA[btnEjecutarEstudio]]></Name>
+					<X>6715</X><Y>449</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="240" Height="32">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<TextColor>-15257011</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[estudioConfiguracionValidada
+&& generacionCompletaEstudio()
+&& !estudioFlujoActivo
+&& !estudioSimulacionEnCurso
+&& estudioTurnosValidados > 0
+&& estudioEscenariosVialesPreparados == estudioTurnosValidados
+&& estudioDirectorioEscenarios.equals(estudioCarpetaVial)
+&& !ejecucionEnCurso
+&& !pypelineSolicitudEnCurso
+&& instanciaInterfazActual == null]]></EnableExpression>
+						<ActionCode><![CDATA[if (iniciarSimulacionEstudio()) {
+    limpiarResultadosEstudio();
+}]]></ActionCode>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="10" Style="1"/>
+						<LabelText><![CDATA[Ejecutar estudio]]></LabelText>
+					</ExtendedProperties>
+				</Control>
+				<Text>
+					<Id>1793388926722</Id>
+					<Name><![CDATA[txtMetodoRLEstudio]]></Name>
+					<X>5682</X><Y>750</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA[estudioResultadosCargados]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-15257011</Color>
+					<Text><![CDATA[RL]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793388976780</Id>
+					<Name><![CDATA[txtMetodoHibridoEstudio]]></Name>
+					<X>5682</X><Y>768</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA[estudioResultadosCargados]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-15257011</Color>
+					<Text><![CDATA[Híbrido]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793388995439</Id>
+					<Name><![CDATA[txtMetodoGreedyEstudio]]></Name>
+					<X>5682</X><Y>786</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA[estudioResultadosCargados]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-15257011</Color>
+					<Text><![CDATA[Greedy]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793389031499</Id>
+					<Name><![CDATA[txtMetodoRandomEstudio]]></Name>
+					<X>5682</X><Y>804</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA[estudioResultadosCargados]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-15257011</Color>
+					<Text><![CDATA[Random]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793389050329</Id>
+					<Name><![CDATA[txtMetodoGAEstudio]]></Name>
+					<X>5682</X><Y>822</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA[estudioResultadosCargados]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-15257011</Color>
+					<Text><![CDATA[GA]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Rectangle>
+					<Id>1793389075178</Id>
+					<Name><![CDATA[rectBarraRLEstudio]]></Name>
+					<X>5748</X><Y>753</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<VisibleCode><![CDATA[estudioResultadosCargados]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<ScaleXCode><![CDATA[proporcionBarraEstudio(0)]]></ScaleXCode>
+					<ScaleYCode><![CDATA[1]]></ScaleYCode>
+					<LineWidth>0</LineWidth>
+					<LineColor>-16777216</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>290</Width>
+					<Height>10</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-15157310</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Rectangle>
+					<Id>1793389199784</Id>
+					<Name><![CDATA[rectBarraHibridoEstudio]]></Name>
+					<X>5748</X><Y>771</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<VisibleCode><![CDATA[estudioResultadosCargados]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<ScaleXCode><![CDATA[proporcionBarraEstudio(1)]]></ScaleXCode>
+					<ScaleYCode><![CDATA[1]]></ScaleYCode>
+					<LineWidth>0</LineWidth>
+					<LineColor>-16777216</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>290</Width>
+					<Height>10</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-9924669</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Rectangle>
+					<Id>1793389234379</Id>
+					<Name><![CDATA[rectBarraGreedyEstudio]]></Name>
+					<X>5748</X><Y>789</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<VisibleCode><![CDATA[estudioResultadosCargados]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<ScaleXCode><![CDATA[proporcionBarraEstudio(2)]]></ScaleXCode>
+					<ScaleYCode><![CDATA[1]]></ScaleYCode>
+					<LineWidth>0</LineWidth>
+					<LineColor>-16777216</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>290</Width>
+					<Height>10</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-8612949</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Rectangle>
+					<Id>1793389257731</Id>
+					<Name><![CDATA[rectBarraRandomEstudio]]></Name>
+					<X>5748</X><Y>807</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<VisibleCode><![CDATA[estudioResultadosCargados]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<ScaleXCode><![CDATA[proporcionBarraEstudio(3)]]></ScaleXCode>
+					<ScaleYCode><![CDATA[1]]></ScaleYCode>
+					<LineWidth>0</LineWidth>
+					<LineColor>-16777216</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>290</Width>
+					<Height>10</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-4733743</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Rectangle>
+					<Id>1793389299135</Id>
+					<Name><![CDATA[rectBarraGAEstudio]]></Name>
+					<X>5748</X><Y>825</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<VisibleCode><![CDATA[estudioResultadosCargados]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<ScaleXCode><![CDATA[proporcionBarraEstudio(4)]]></ScaleXCode>
+					<ScaleYCode><![CDATA[1]]></ScaleYCode>
+					<LineWidth>0</LineWidth>
+					<LineColor>-16777216</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>290</Width>
+					<Height>10</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-11169914</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Text>
+					<Id>1793389329554</Id>
+					<Name><![CDATA[txtMediaRLEstudio]]></Name>
+					<X>6060</X><Y>750</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA[estudioResultadosCargados]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-13418155</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA[valorPromedioEstudio(0)]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793389371652</Id>
+					<Name><![CDATA[txtMediaHibridoEstudio]]></Name>
+					<X>6060</X><Y>768</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA[estudioResultadosCargados]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-13418155</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA[valorPromedioEstudio(1)]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793389393531</Id>
+					<Name><![CDATA[txtMediaGreedyEstudio]]></Name>
+					<X>6060</X><Y>786</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA[estudioResultadosCargados]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-13418155</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA[valorPromedioEstudio(2)]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793389421284</Id>
+					<Name><![CDATA[txtMediaRandomEstudio]]></Name>
+					<X>6060</X><Y>804</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA[estudioResultadosCargados]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-13418155</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA[valorPromedioEstudio(3)]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793389436272</Id>
+					<Name><![CDATA[txtMediaGAEstudio]]></Name>
+					<X>6060</X><Y>822</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA[estudioResultadosCargados]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-13418155</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA[valorPromedioEstudio(4)]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793389567146</Id>
+					<Name><![CDATA[txtComparacionHibridoEstudio]]></Name>
+					<X>6329</X><Y>761</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA[estudioResultadosCargados]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-15257011</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA[textoDiferenciaRLEstudio(1)]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793389604475</Id>
+					<Name><![CDATA[txtComparacionGreedyEstudio]]></Name>
+					<X>6329</X><Y>779</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA[estudioResultadosCargados]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-15257011</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA[textoDiferenciaRLEstudio(2)]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793389623464</Id>
+					<Name><![CDATA[txtComparacionRandomEstudio]]></Name>
+					<X>6329</X><Y>797</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA[estudioResultadosCargados]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-15257011</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA[textoDiferenciaRLEstudio(3)]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793389639156</Id>
+					<Name><![CDATA[txtComparacionGAEstudio]]></Name>
+					<X>6329</X><Y>815</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA[estudioResultadosCargados]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-15257011</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA[textoDiferenciaRLEstudio(4)]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Control Type="FileChooser">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1793390111955</Id>
+					<Name><![CDATA[fileChooserResultadosEstudio]]></Name>
+					<X>6750</X><Y>650</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="205" Height="30">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<FillColor>-460036</FillColor>
+						<TextColor>-15257011</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[!estudioSimulacionEnCurso
+&& !estudioFlujoActivo]]></EnableExpression>
+						<ActionCode><![CDATA[
+if (
+    value == null
+    ||
+    value.trim().isEmpty()
+) {
+
+    estudioEstadoResultados =
+        "No se seleccionó ningún archivo CSV.";
+
+} else {
+
+    traceln(
+        "ESTUDIO | ARCHIVO SELECCIONADO"
+        + " | value="
+        + value
+    );
+
+    boolean cargado =
+        cargarResultadosEstudio(value);
+
+    if (cargado) {
+
+        traceln(
+            "ESTUDIO | CARGA CORRECTA"
+            + " | archivo="
+            + estudioArchivoCargado
+        );
+
+    } else {
+
+        traceln(
+            "ESTUDIO | CARGA FALLIDA"
+            + " | "
+            + estudioEstadoResultados
+        );
+    }
+}
+]]></ActionCode>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="10" Style="1"/>
+						<Title><![CDATA[Cargar resultados CSV]]></Title>
+						<Type>UPLOAD</Type>
+						<Filters>.csv</Filters>
+						<FileName>file.txt</FileName>
+					</ExtendedProperties>
+				</Control>
+				<Text>
+					<Id>1793390928975</Id>
+					<Name><![CDATA[txtLabelMetricaEstudio]]></Name>
+					<X>6040</X><Y>720</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-13418155</Color>
+					<Text><![CDATA[Métrica]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>10</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
 			</Presentation>
 
 				</Level>
@@ -44076,6 +50426,18 @@ getExperimentHost().showMessageDialog(
 					<Id>1788038888089</Id>
 					<Name><![CDATA[viewComparacion]]></Name>
 					<X>3600</X><Y>0</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<Title><![CDATA[]]></Title>
+					<Width>1600</Width>
+					<Height>900</Height>
+				</Area>
+				<Area>
+					<Id>1793368594596</Id>
+					<Name><![CDATA[viewEstudioExperimental]]></Name>
+					<X>5400</X><Y>0</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
