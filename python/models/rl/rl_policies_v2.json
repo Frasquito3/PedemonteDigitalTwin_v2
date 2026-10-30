@@ -1,0 +1,50 @@
+{
+  "version": "pedemonte-rl-single-policy-v1",
+  "modelo": "rl_policy_v2.zip",
+  "modelo_respaldo_v1": "rl_policy_v1.zip",
+  "sha256_modelo": "df2e08f0918a3fa6d68843abd31484187969c8d28a8172d69083a5d24163956c",
+  "max_pedidos_rl_validado": 35,
+  "usar_mascara_temporal_dura": true,
+  "ordenar_slots_canonicamente": true,
+  "num_rollouts": 4,
+  "validacion_comparativa_v1_vs_v2": {
+    "turnos_6_a_12_tareas": {
+      "RL_V1": {
+        "tardios": 10,
+        "tardanza_min": 285.60982233903405,
+        "costo_promedio": 13920.996519930626,
+        "exitos": 20
+      },
+      "RL_V2": {
+        "tardios": 10,
+        "tardanza_min": 299.76581781598065,
+        "costo_promedio": 13608.6656505215,
+        "exitos": 20
+      },
+      "GREEDY": {
+        "tardios": 24,
+        "tardanza_min": 832.2318809096561,
+        "costo_promedio": 22845.65669623399,
+        "exitos": 20
+      }
+    },
+    "turnos_14_a_32_tareas": {
+      "RL_V1": {
+        "ejecutables": 0,
+        "fallos_por_tope_12": 20
+      },
+      "RL_V2": {
+        "ejecutables": 20,
+        "tardios": 83,
+        "tardanza_min": 7211.522281564593,
+        "costo_promedio": 92247.9075936593
+      },
+      "GREEDY": {
+        "ejecutables": 20,
+        "tardios": 202,
+        "tardanza_min": 13857.909441121881,
+        "costo_promedio": 146204.992686714
+      }
+    }
+  }
+}
