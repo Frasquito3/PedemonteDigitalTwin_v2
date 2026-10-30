@@ -1,3 +1,5 @@
+"""Módulo de ejecución productiva (runtime) para políticas de Aprendizaje por Refuerzo."""
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -15,6 +17,16 @@ from planner.rl.policy_config import ConfiguracionPoliticaRL
 from planner.routing.objective import EstimacionPlan, evaluar_plan_estimado
 from planner.routing.travel import ProveedorViaje, construir_matriz_viaje
 
+__all__ = [
+    "VERSION_RUNTIME",
+    "FUENTE_RL_UNICA",
+    "PlanificadorCompatible",
+    "ConfiguracionOperacionRL",
+    "MetricasOperacionRL",
+    "DecisionOperacionRL",
+    "cargar_configuracion_operacional",
+    "PlanificadorOperativoRL",
+]
 
 VERSION_RUNTIME = "pedemonte-rl-single-policy-v1"
 FUENTE_RL_UNICA = "POLITICA_UNICA"
@@ -22,12 +34,15 @@ TOLERANCIA = 1e-9
 
 
 class PlanificadorCompatible(Protocol):
-    def generar_plan(self, instancia: InstanciaTurno) -> PlanTurno:
-        ...
+    """Protocolo compatible para inferencia de planes mediante modelos RL."""
+
+    def generar_plan(self, instancia: InstanciaTurno) -> PlanTurno: ...
 
 
 @dataclass(frozen=True)
 class ConfiguracionOperacionRL:
+    """Metadatos y parámetros de validación para un modelo RL en producción."""
+
     version: str
     modelo: Path
     sha256_modelo: str
@@ -39,6 +54,8 @@ class ConfiguracionOperacionRL:
 
 @dataclass(frozen=True)
 class MetricasOperacionRL:
+    """Métricas operacionales de la solución generada por la política RL."""
+
     pedidos_tardios: int
     tardanza_total_min: float
     costo_total: float
@@ -46,6 +63,8 @@ class MetricasOperacionRL:
 
 @dataclass(frozen=True)
 class DecisionOperacionRL:
+    """Auditoría de decisión e inferencia de la política de Aprendizaje por Refuerzo."""
+
     cantidad_pedidos: int
     fuente_seleccionada: str
     metricas: MetricasOperacionRL
@@ -53,6 +72,7 @@ class DecisionOperacionRL:
     mascara_temporal_dura: bool
 
     def serializar(self) -> str:
+        """Serializa la auditoría de inferencia en formato clave=valor."""
         mascara = "DURA" if self.mascara_temporal_dura else "NORMAL"
         return (
             f"version={VERSION_RUNTIME}"
@@ -86,18 +106,16 @@ def _resolver_ruta(base: Path, valor: str) -> Path:
 def cargar_configuracion_operacional(
     manifest_path: str | Path,
 ) -> ConfiguracionOperacionRL:
+    """Carga y valida el manifiesto JSON de una política RL productiva."""
     manifest = Path(manifest_path).expanduser().resolve()
     if not manifest.is_file():
-        raise FileNotFoundError(
-            f"No existe el manifiesto de la política RL: {manifest}"
-        )
+        raise FileNotFoundError(f"No existe el manifiesto de la política RL: {manifest}")
 
     datos = loads(manifest.read_text(encoding="utf-8"))
     version = str(datos.get("version", ""))
     if version != VERSION_RUNTIME:
         raise ValueError(
-            "Versión de manifiesto RL no soportada: "
-            f"{version!r}. Esperada: {VERSION_RUNTIME!r}."
+            f"Versión de manifiesto RL no soportada: {version!r}. Esperada: {VERSION_RUNTIME!r}."
         )
 
     modelo = _resolver_ruta(manifest.parent, str(datos["modelo"]))
@@ -114,9 +132,7 @@ def cargar_configuracion_operacional(
 
     mascara_dura = datos.get("usar_mascara_temporal_dura", True)
     if not isinstance(mascara_dura, bool):
-        raise ValueError(
-            "usar_mascara_temporal_dura debe ser booleano."
-        )
+        raise ValueError("usar_mascara_temporal_dura debe ser booleano.")
 
     ordenar_canonico = bool(datos.get("ordenar_slots_canonicamente", False))
     num_rollouts = max(1, int(datos.get("num_rollouts", 1)))
@@ -133,12 +149,11 @@ def cargar_configuracion_operacional(
 
 
 class PlanificadorOperativoRL:
-    """
-    Planificador RL productivo con una única política.
+    """Planificador RL productivo con una única política de inferencia.
 
-    La política genera el plan sin ejecutar Greedy, GA ni otro checkpoint.
-    El manifiesto fija el modelo, su SHA-256, el rango validado y la
-    configuración de máscara temporal utilizada durante la inferencia.
+    La política genera el plan sin ejecutar heurísticas adicionales.
+    El manifiesto fija el modelo, su SHA-256, el rango técnico validado
+    y la configuración de máscara temporal utilizada durante la inferencia.
     """
 
     VERSION_PLANIFICADOR = "RL_POLITICA_UNICA"
@@ -164,12 +179,8 @@ class PlanificadorOperativoRL:
 
         if configuracion_operacional is None:
             if manifest_path is None:
-                raise ValueError(
-                    "Se requiere manifest_path o configuracion_operacional."
-                )
-            configuracion_operacional = cargar_configuracion_operacional(
-                manifest_path
-            )
+                raise ValueError("Se requiere manifest_path o configuracion_operacional.")
+            configuracion_operacional = cargar_configuracion_operacional(manifest_path)
         self.configuracion_operacional = configuracion_operacional
 
         if planner_rl is None:
@@ -180,14 +191,8 @@ class PlanificadorOperativoRL:
                 configuracion=self.configuracion,
                 proveedor_viaje=self.proveedor_viaje,
                 configuracion_temporal=ConfiguracionPoliticaRL(
-                    usar_mascara_temporal_dura=(
-                        configuracion_operacional
-                        .usar_mascara_temporal_dura
-                    ),
-                    ordenar_slots_canonicamente=(
-                        configuracion_operacional
-                        .ordenar_slots_canonicamente
-                    ),
+                    usar_mascara_temporal_dura=configuracion_operacional.usar_mascara_temporal_dura,
+                    ordenar_slots_canonicamente=configuracion_operacional.ordenar_slots_canonicamente,
                 ),
                 max_pedidos=max_pedidos,
                 deterministic=deterministic,
@@ -203,14 +208,12 @@ class PlanificadorOperativoRL:
         return tuple(getattr(self.planner_rl, "ultimas_permutaciones", ()))
 
     def generar_plan(self, instancia: InstanciaTurno) -> PlanTurno:
+        """Genera un plan de turno validado mediante la política neuronal RL."""
         cantidad_pedidos = len(instancia.pedidos)
-        maximo = (
-            self.configuracion_operacional.max_pedidos_rl_validado
-        )
+        maximo = self.configuracion_operacional.max_pedidos_rl_validado
         if cantidad_pedidos > maximo:
             raise RuntimeError(
-                "La política RL única está fuera del rango técnico "
-                f"validado: pedidos={cantidad_pedidos}, máximo={maximo}."
+                f"La política RL única está fuera del rango técnico validado: pedidos={cantidad_pedidos}, máximo={maximo}."
             )
 
         inicio = perf_counter()
@@ -219,15 +222,13 @@ class PlanificadorOperativoRL:
             plan = self.planner_rl.generar_plan(instancia)
         except Exception as exc:
             raise RuntimeError(
-                "La política RL única no pudo generar un plan ejecutable: "
-                f"{type(exc).__name__}: {exc}"
+                f"La política RL única no pudo generar un plan ejecutable: {type(exc).__name__}: {exc}"
             ) from exc
 
         validacion = validar_plan(instancia, plan)
         if not validacion.valido:
             raise RuntimeError(
-                "La política RL única produjo un plan inválido: "
-                + " | ".join(validacion.errores)
+                "La política RL única produjo un plan inválido: " + " | ".join(validacion.errores)
             )
 
         matriz = construir_matriz_viaje(
@@ -246,9 +247,7 @@ class PlanificadorOperativoRL:
             getattr(
                 estimacion,
                 "pedidos_tardios",
-                0
-                if estimacion.tardanza_total_min <= TOLERANCIA
-                else 1,
+                0 if estimacion.tardanza_total_min <= TOLERANCIA else 1,
             )
         )
         metricas = MetricasOperacionRL(
@@ -264,9 +263,7 @@ class PlanificadorOperativoRL:
             or not isfinite(metricas.costo_total)
             or metricas.costo_total < 0.0
         ):
-            raise RuntimeError(
-                "La política RL única produjo métricas inválidas."
-            )
+            raise RuntimeError("La política RL única produjo métricas inválidas.")
 
         plan.costo_estimado = metricas.costo_total
         plan.tiempo_computo_ms = (perf_counter() - inicio) * 1000.0
@@ -278,10 +275,7 @@ class PlanificadorOperativoRL:
             fuente_seleccionada=FUENTE_RL_UNICA,
             metricas=metricas,
             tiempo_total_ms=plan.tiempo_computo_ms,
-            mascara_temporal_dura=(
-                self.configuracion_operacional
-                .usar_mascara_temporal_dura
-            ),
+            mascara_temporal_dura=self.configuracion_operacional.usar_mascara_temporal_dura,
         )
         self.ultima_decision = decision
         self.ultimo_detalle = decision.serializar()

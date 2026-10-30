@@ -1,24 +1,40 @@
+"""Batería canónica de casos de prueba y benchmarks para RL.
+
+Este módulo define casos sintéticos controlados y reproducibles con diferentes
+estructuras operativas (multiviaje, restricciones de horario/ventana, volcador,
+pedidos divididos / split) para evaluar y contrastar políticas de RL contra
+heurísticas de referencia.
+"""
+
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import Final
 
-from planner.core.schema import (
-    InstanciaTurno,
-    PedidoInput,
-    Turno,
-)
+from planner.core.schema import InstanciaTurno, PedidoInput, Turno
 
+__all__ = [
+    "COORDENADA_CERCANA",
+    "COORDENADA_ESTE",
+    "COORDENADA_NORTE",
+    "LAT_CORRALON",
+    "LON_CORRALON",
+    "CasoBenchmarkClasico",
+    "crear_casos_benchmark_clasico",
+]
 
-LAT_CORRALON = -32.8495006
-LON_CORRALON = -60.722653
+LAT_CORRALON: Final[float] = -32.8495006
+LON_CORRALON: Final[float] = -60.722653
 
-COORDENADA_NORTE = (-32.8310000, -60.7190000)
-COORDENADA_ESTE = (-32.8595006, -60.7026530)
-COORDENADA_CERCANA = (-32.8410000, -60.7210000)
+COORDENADA_NORTE: Final[tuple[float, float]] = (-32.8310000, -60.7190000)
+COORDENADA_ESTE: Final[tuple[float, float]] = (-32.8595006, -60.7026530)
+COORDENADA_CERCANA: Final[tuple[float, float]] = (-32.8410000, -60.7210000)
 
 
 @dataclass(frozen=True)
 class CasoBenchmarkClasico:
+    """Descriptor de un caso de prueba unitario y reproducible para algoritmos de RL."""
+
     caso_id: str
     categoria: str
     descripcion: str
@@ -41,11 +57,7 @@ def _pedido(
 ) -> PedidoInput:
     return PedidoInput(
         pedido_id=pedido_id,
-        pedido_original_id=(
-            pedido_original_id
-            if pedido_original_id is not None
-            else pedido_id
-        ),
+        pedido_original_id=pedido_original_id if pedido_original_id is not None else pedido_id,
         numero_parte=numero_parte,
         total_partes=total_partes,
         turno=Turno.MANANA,
@@ -53,9 +65,7 @@ def _pedido(
         longitud=coordenada[1],
         unidades_capacidad=unidades,
         requiere_volcador=requiere_volcador,
-        tiene_ventana_especifica=(
-            tiene_ventana_especifica
-        ),
+        tiene_ventana_especifica=tiene_ventana_especifica,
         hora_desde_min=hora_desde_min,
         hora_hasta_min=hora_hasta_min,
         cliente=cliente or pedido_id,
@@ -88,34 +98,27 @@ def _instancia(
     )
 
 
-def crear_casos_benchmark_clasico(
-) -> tuple[CasoBenchmarkClasico, ...]:
-    """
-    Crea una batería estable de instancias pequeñas y auditables.
+def crear_casos_benchmark_clasico() -> tuple[CasoBenchmarkClasico, ...]:
+    """Crea una batería canónica y determinista de instancias de evaluación.
 
-    Todas las ubicaciones pertenecen al conjunto vial validado en las
-    validaciones históricas del proyecto. Los casos de split reutilizan coordenadas, por
-    lo que no requieren tramos viales adicionales.
+    Todas las ubicaciones pertenecen a coordenadas validadas del corralón y
+    la red vial real. Cubre patrones típicos:
+    - B01: Simple (dos pedidos pequeños en un solo viaje).
+    - B02: Carga paralela (dos pedidos grandes de capacidad completa).
+    - B03: Multiviaje (tres pedidos grandes requiriendo retorno intermedio).
+    - B04: Ventanas horarias diferenciadas (mañana, media, tarde).
+    - B05: Volcador (pedido final en camión volquete).
+    - B06: Split (pedido original dividido en dos entregas fraccionadas).
     """
     simple = CasoBenchmarkClasico(
         caso_id="B01_SIMPLE",
         categoria="SIMPLE",
-        descripcion=(
-            "Dos pedidos pequeños que caben en un único viaje."
-        ),
+        descripcion="Dos pedidos pequeños que caben en un único viaje.",
         instancia=_instancia(
             "BENCH-B01-SIMPLE",
             [
-                _pedido(
-                    "B01-NORTE",
-                    coordenada=COORDENADA_NORTE,
-                    unidades=1,
-                ),
-                _pedido(
-                    "B01-ESTE",
-                    coordenada=COORDENADA_ESTE,
-                    unidades=1,
-                ),
+                _pedido("B01-NORTE", coordenada=COORDENADA_NORTE, unidades=1),
+                _pedido("B01-ESTE", coordenada=COORDENADA_ESTE, unidades=1),
             ],
             seed=15_101,
         ),
@@ -124,23 +127,12 @@ def crear_casos_benchmark_clasico(
     carga_paralela = CasoBenchmarkClasico(
         caso_id="B02_CARGA_PARALELA",
         categoria="CARGA_PARALELA",
-        descripcion=(
-            "Dos pedidos de capacidad completa; obliga a usar los "
-            "dos camiones desde el comienzo."
-        ),
+        descripcion="Dos pedidos de capacidad completa; obliga a usar los dos camiones desde el comienzo.",
         instancia=_instancia(
             "BENCH-B02-CARGA-PARALELA",
             [
-                _pedido(
-                    "B02-NORTE-8",
-                    coordenada=COORDENADA_NORTE,
-                    unidades=8,
-                ),
-                _pedido(
-                    "B02-ESTE-8",
-                    coordenada=COORDENADA_ESTE,
-                    unidades=8,
-                ),
+                _pedido("B02-NORTE-8", coordenada=COORDENADA_NORTE, unidades=8),
+                _pedido("B02-ESTE-8", coordenada=COORDENADA_ESTE, unidades=8),
             ],
             seed=15_102,
         ),
@@ -149,28 +141,13 @@ def crear_casos_benchmark_clasico(
     multiviaje = CasoBenchmarkClasico(
         caso_id="B03_MULTIVIAJE",
         categoria="MULTIVIAJE",
-        descripcion=(
-            "Tres pedidos de capacidad completa; uno de los camiones "
-            "debe realizar un segundo viaje."
-        ),
+        descripcion="Tres pedidos de capacidad completa; uno de los camiones debe realizar un segundo viaje.",
         instancia=_instancia(
             "BENCH-B03-MULTIVIAJE",
             [
-                _pedido(
-                    "B03-NORTE-8",
-                    coordenada=COORDENADA_NORTE,
-                    unidades=8,
-                ),
-                _pedido(
-                    "B03-ESTE-8",
-                    coordenada=COORDENADA_ESTE,
-                    unidades=8,
-                ),
-                _pedido(
-                    "B03-CERCANA-8",
-                    coordenada=COORDENADA_CERCANA,
-                    unidades=8,
-                ),
+                _pedido("B03-NORTE-8", coordenada=COORDENADA_NORTE, unidades=8),
+                _pedido("B03-ESTE-8", coordenada=COORDENADA_ESTE, unidades=8),
+                _pedido("B03-CERCANA-8", coordenada=COORDENADA_CERCANA, unidades=8),
             ],
             seed=15_103,
         ),
@@ -179,9 +156,7 @@ def crear_casos_benchmark_clasico(
     ventanas = CasoBenchmarkClasico(
         caso_id="B04_VENTANAS",
         categoria="VENTANAS",
-        descripcion=(
-            "Tres pedidos con ventanas diferenciadas dentro del turno."
-        ),
+        descripcion="Tres pedidos con ventanas diferenciadas dentro del turno.",
         instancia=_instancia(
             "BENCH-B04-VENTANAS",
             [
@@ -217,29 +192,18 @@ def crear_casos_benchmark_clasico(
     volcador = CasoBenchmarkClasico(
         caso_id="B05_VOLCADOR",
         categoria="VOLCADOR",
-        descripcion=(
-            "Combina pedidos normales y un pedido con volcador, que "
-            "debe quedar último en su viaje."
-        ),
+        descripcion="Combina pedidos normales y un pedido con volcador, que debe quedar último en su viaje.",
         instancia=_instancia(
             "BENCH-B05-VOLCADOR",
             [
-                _pedido(
-                    "B05-NORMAL-NORTE",
-                    coordenada=COORDENADA_NORTE,
-                    unidades=2,
-                ),
+                _pedido("B05-NORMAL-NORTE", coordenada=COORDENADA_NORTE, unidades=2),
                 _pedido(
                     "B05-VOLCADOR-ESTE",
                     coordenada=COORDENADA_ESTE,
                     unidades=6,
                     requiere_volcador=True,
                 ),
-                _pedido(
-                    "B05-NORMAL-CERCANA",
-                    coordenada=COORDENADA_CERCANA,
-                    unidades=4,
-                ),
+                _pedido("B05-NORMAL-CERCANA", coordenada=COORDENADA_CERCANA, unidades=4),
             ],
             seed=15_105,
         ),
@@ -248,10 +212,7 @@ def crear_casos_benchmark_clasico(
     split = CasoBenchmarkClasico(
         caso_id="B06_SPLIT",
         categoria="SPLIT",
-        descripcion=(
-            "Pedido original dividido en dos partes, junto con otro "
-            "pedido que permite distintas combinaciones de viajes."
-        ),
+        descripcion="Pedido original dividido en dos partes, junto con otro pedido que permite distintas combinaciones.",
         instancia=_instancia(
             "BENCH-B06-SPLIT",
             [
@@ -271,11 +232,7 @@ def crear_casos_benchmark_clasico(
                     coordenada=COORDENADA_NORTE,
                     unidades=4,
                 ),
-                _pedido(
-                    "B06-ESTE-4",
-                    coordenada=COORDENADA_ESTE,
-                    unidades=4,
-                ),
+                _pedido("B06-ESTE-4", coordenada=COORDENADA_ESTE, unidades=4),
             ],
             seed=15_106,
         ),

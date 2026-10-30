@@ -1,21 +1,43 @@
+"""Importación y validación exhaustiva de planillas Excel de pedidos.
+
+Este módulo provee utilidades para leer, validar y normalizar archivos `.xlsx`
+con información operativa de pedidos, mapeando columnas heterogéneas mediante
+sinónimos fonéticos/alfanuméricos, verificando ventanas horarias de turno,
+unidades de carga y restricciones para camiones volcadores.
+"""
+
 from __future__ import annotations
 
+import re
+import unicodedata
+from collections.abc import Iterable
 from dataclasses import dataclass
 from datetime import datetime, time, timedelta
 from math import ceil, isfinite
 from pathlib import Path
-import re
-import unicodedata
-from typing import Any, Iterable
+from typing import Any, Final
 
 from openpyxl import load_workbook
+
 from planner.integration.alpyne_codec import MAX_PEDIDOS_ALPYNE
 
+__all__ = [
+    "HOJA_PEDIDOS_PREFERIDA",
+    "HORARIOS_TURNO",
+    "VERSION_IMPORTADOR",
+    "ErrorFilaExcel",
+    "ErrorImportacionExcel",
+    "PedidoExcel",
+    "ResultadoImportacionExcel",
+    "formatear_minutos_hora",
+    "importar_pedidos_excel",
+    "parsear_hora_a_minutos",
+]
 
-VERSION_IMPORTADOR = "pedemonte-orders-xlsx-v2"
-HOJA_PEDIDOS_PREFERIDA = "Pedidos"
+VERSION_IMPORTADOR: Final[str] = "pedemonte-orders-xlsx-v2"
+HOJA_PEDIDOS_PREFERIDA: Final[str] = "Pedidos"
 
-HORARIOS_TURNO: dict[str, tuple[int, int]] = {
+HORARIOS_TURNO: Final[dict[str, tuple[int, int]]] = {
     "MANANA": (7 * 60 + 30, 12 * 60),
     "TARDE": (14 * 60, 17 * 60),
 }
@@ -23,6 +45,8 @@ HORARIOS_TURNO: dict[str, tuple[int, int]] = {
 
 @dataclass(frozen=True)
 class ErrorFilaExcel:
+    """Detalle de inconsistencia o error de validación en una fila de la planilla."""
+
     fila: int
     campo: str
     mensaje: str
@@ -30,6 +54,8 @@ class ErrorFilaExcel:
 
 @dataclass(frozen=True)
 class PedidoExcel:
+    """Registro higienizado de un pedido importado desde una fila de Excel."""
+
     fila_excel: int
     pedido_id: str
     cliente: str
@@ -48,6 +74,8 @@ class PedidoExcel:
 
 @dataclass(frozen=True)
 class ResultadoImportacionExcel:
+    """Resultado estructurado de la lectura y validación de una planilla Excel."""
+
     archivo: Path
     hoja: str
     turno: str
@@ -58,110 +86,54 @@ class ResultadoImportacionExcel:
 
 
 class ErrorImportacionExcel(ValueError):
-    def __init__(
-        self,
-        errores: Iterable[ErrorFilaExcel],
-    ) -> None:
-        self.errores = tuple(errores)
+    """Excepción consolidada que agrupa todos los errores encontrados en la planilla."""
 
+    def __init__(self, errores: Iterable[ErrorFilaExcel]) -> None:
+        self.errores = tuple(errores)
         if not self.errores:
             mensaje = "La planilla no pudo validarse."
         else:
             mensaje = " | ".join(
-                (
-                    f"fila {error.fila}, "
-                    f"{error.campo}: {error.mensaje}"
-                )
-                for error in self.errores
+                f"fila {error.fila}, {error.campo}: {error.mensaje}" for error in self.errores
             )
-
         super().__init__(mensaje)
 
 
-_ALIAS_COLUMNAS: dict[str, set[str]] = {
-    "pedido_id": {
-        "pedidoid",
-        "idpedido",
-        "id",
-        "codigo",
-    },
-    "cliente": {
-        "cliente",
-        "nombrecliente",
-    },
-    "direccion": {
-        "direccion",
-        "domicilio",
-    },
-    "barrio": {
-        "barrio",
-        "zona",
-    },
-    "unidades": {
-        "unidades",
-        "unidadescapacidad",
-        "cantidad",
-        "carga",
-    },
-    "latitud": {
-        "latitud",
-        "lat",
-    },
-    "longitud": {
-        "longitud",
-        "lon",
-        "lng",
-    },
-    "requiere_volcador": {
-        "requierevolcador",
-        "volcador",
-        "requierevolquete",
-    },
+_ALIAS_COLUMNAS: Final[dict[str, set[str]]] = {
+    "pedido_id": {"pedidoid", "idpedido", "id", "codigo"},
+    "cliente": {"cliente", "nombrecliente"},
+    "direccion": {"direccion", "domicilio"},
+    "barrio": {"barrio", "zona"},
+    "unidades": {"unidades", "unidadescapacidad", "cantidad", "carga"},
+    "latitud": {"latitud", "lat"},
+    "longitud": {"longitud", "lon", "lng"},
+    "requiere_volcador": {"requierevolcador", "volcador", "requierevolquete"},
     "unidades_volcador": {
         "unidadesvolcador",
         "unidadesconvolcador",
         "cantidadvolcador",
         "cantidadconvolcador",
     },
-    "tiene_ventana": {
-        "tieneventana",
-        "ventana",
-        "tieneventanaespecifica",
-    },
-    "hora_desde": {
-        "horadesde",
-        "desde",
-        "inicioventana",
-    },
-    "hora_hasta": {
-        "horahasta",
-        "hasta",
-        "finventana",
-    },
-    "turno": {
-        "turno",
-    },
-    "observaciones": {
-        "observaciones",
-        "observacion",
-        "notas",
-    },
+    "tiene_ventana": {"tieneventana", "ventana", "tieneventanaespecifica"},
+    "hora_desde": {"horadesde", "desde", "inicioventana"},
+    "hora_hasta": {"horahasta", "hasta", "finventana"},
+    "turno": {"turno"},
+    "observaciones": {"observaciones", "observacion", "notas"},
 }
 
-_COLUMNAS_OBLIGATORIAS = {
-    "pedido_id",
-    "unidades",
-    "latitud",
-    "longitud",
-    "requiere_volcador",
-    "hora_desde",
-    "hora_hasta",
-}
-
-
-_RE_HORA = re.compile(
-    r"^(?P<hora>[01]?\d|2[0-3]):(?P<minuto>[0-5]\d)$"
+_COLUMNAS_OBLIGATORIAS: Final[frozenset[str]] = frozenset(
+    {
+        "pedido_id",
+        "unidades",
+        "latitud",
+        "longitud",
+        "requiere_volcador",
+        "hora_desde",
+        "hora_hasta",
+    }
 )
+
+_RE_HORA: Final[re.Pattern[str]] = re.compile(r"^(?P<hora>[01]?\d|2[0-3]):(?P<minuto>[0-5]\d)$")
 
 
 def importar_pedidos_excel(
@@ -172,67 +144,50 @@ def importar_pedidos_excel(
     max_tareas: int = MAX_PEDIDOS_ALPYNE,
     hoja: str | None = None,
 ) -> ResultadoImportacionExcel:
+    """Importa, valida y parsea una planilla Excel `.xlsx` de pedidos operativos.
+
+    Args:
+        archivo: Ruta del archivo Excel.
+        turno: Turno objetivo ('MANANA' o 'TARDE').
+        capacidad_camion: Capacidad de los camiones para estimar splitting de pedidos.
+        max_tareas: Cantidad máxima permitida de subtareas generadas tras el split.
+        hoja: Nombre opcional de la hoja a importar; de omitirse se busca 'Pedidos'.
+
+    Returns:
+        ResultadoImportacionExcel con los pedidos validados y metadatos.
+
+    Raises:
+        FileNotFoundError: Si el archivo no existe.
+        ValueError: Si los argumentos o formato de archivo son inválidos.
+        ErrorImportacionExcel: Si hay inconsistencias o errores en los datos.
+    """
     ruta = Path(archivo).expanduser().resolve()
-
     if not ruta.is_file():
-        raise FileNotFoundError(
-            f"No existe la planilla: {ruta}"
-        )
-
+        raise FileNotFoundError(f"No existe la planilla: {ruta}")
     if ruta.suffix.lower() != ".xlsx":
-        raise ValueError(
-            "Solo se admiten archivos .xlsx."
-        )
+        raise ValueError("Solo se admiten archivos .xlsx.")
 
     turno_normalizado = _normalizar_turno(turno)
-
     if capacidad_camion <= 0:
-        raise ValueError(
-            "capacidad_camion debe ser > 0."
-        )
-
+        raise ValueError("capacidad_camion debe ser > 0.")
     if max_tareas <= 0:
-        raise ValueError(
-            "max_tareas debe ser > 0."
-        )
+        raise ValueError("max_tareas debe ser > 0.")
 
-    libro = load_workbook(
-        ruta,
-        read_only=True,
-        data_only=True,
-    )
-
+    libro = load_workbook(ruta, read_only=True, data_only=True)
     try:
-        hoja_excel = _seleccionar_hoja(
-            libro,
-            hoja,
+        hoja_excel = _seleccionar_hoja(libro, hoja)
+        fila_encabezado, columnas = _detectar_encabezado(
+            hoja_excel.iter_rows(min_row=1, max_row=20, values_only=True)
         )
 
-        fila_encabezado, columnas = (
-            _detectar_encabezado(
-                hoja_excel.iter_rows(
-                    min_row=1,
-                    max_row=20,
-                    values_only=True,
-                )
-            )
-        )
-
-        faltantes = sorted(
-            _COLUMNAS_OBLIGATORIAS
-            - set(columnas)
-        )
-
+        faltantes = sorted(_COLUMNAS_OBLIGATORIAS - set(columnas))
         if faltantes:
             raise ErrorImportacionExcel(
                 [
                     ErrorFilaExcel(
                         fila=fila_encabezado,
                         campo="encabezado",
-                        mensaje=(
-                            "faltan columnas obligatorias: "
-                            + ", ".join(faltantes)
-                        ),
+                        mensaje="faltan columnas obligatorias: " + ", ".join(faltantes),
                     )
                 ]
             )
@@ -243,18 +198,11 @@ def importar_pedidos_excel(
         ids_vistos: dict[str, int] = {}
 
         for numero_fila, valores in enumerate(
-            hoja_excel.iter_rows(
-                min_row=fila_encabezado + 1,
-                values_only=True,
-            ),
+            hoja_excel.iter_rows(min_row=fila_encabezado + 1, values_only=True),
             start=fila_encabezado + 1,
         ):
             fila = {
-                nombre: (
-                    valores[indice]
-                    if indice < len(valores)
-                    else None
-                )
+                nombre: (valores[indice] if indice < len(valores) else None)
                 for nombre, indice in columnas.items()
             }
 
@@ -262,14 +210,8 @@ def importar_pedidos_excel(
                 filas_ignoradas += 1
                 continue
 
-            pedido_id_crudo = _texto(
-                fila.get("pedido_id")
-            )
-            fila_anterior = (
-                ids_vistos.get(pedido_id_crudo)
-                if pedido_id_crudo
-                else None
-            )
+            pedido_id_crudo = _texto(fila.get("pedido_id"))
+            fila_anterior = ids_vistos.get(pedido_id_crudo) if pedido_id_crudo else None
             duplicado = fila_anterior is not None
 
             if pedido_id_crudo and not duplicado:
@@ -280,24 +222,14 @@ def importar_pedidos_excel(
                     ErrorFilaExcel(
                         fila=numero_fila,
                         campo="pedido_id",
-                        mensaje=(
-                            "ID duplicado; ya aparece en "
-                            f"la fila {fila_anterior}."
-                        ),
+                        mensaje=f"ID duplicado; ya aparece en la fila {fila_anterior}.",
                     )
                 )
 
-            pedido, errores_fila = _parsear_fila(
-                numero_fila,
-                fila,
-                turno=turno_normalizado,
-            )
-
+            pedido, errores_fila = _parsear_fila(numero_fila, fila, turno=turno_normalizado)
             errores.extend(errores_fila)
-
             if pedido is None or duplicado:
                 continue
-
             pedidos.append(pedido)
 
         if not pedidos and not errores:
@@ -305,19 +237,12 @@ def importar_pedidos_excel(
                 ErrorFilaExcel(
                     fila=fila_encabezado + 1,
                     campo="pedidos",
-                    mensaje=(
-                        "no se encontraron filas de pedidos."
-                    ),
+                    mensaje="no se encontraron filas de pedidos.",
                 )
             )
 
-        # El split se realiza por modalidad, no solamente por carga
-        # total: una tarea no mezcla unidades normales y volcador.
         tareas_estimadas = sum(
-            ceil(
-                (pedido.unidades - pedido.unidades_volcador)
-                / capacidad_camion
-            )
+            ceil((pedido.unidades - pedido.unidades_volcador) / capacidad_camion)
             + ceil(pedido.unidades_volcador / capacidad_camion)
             for pedido in pedidos
         )
@@ -328,10 +253,8 @@ def importar_pedidos_excel(
                     fila=fila_encabezado,
                     campo="pedidos",
                     mensaje=(
-                        "la importación generaría "
-                        f"{tareas_estimadas} tareas después "
-                        "del split y supera el máximo "
-                        f"permitido de {max_tareas}."
+                        f"la importación generaría {tareas_estimadas} tareas después del split "
+                        f"y supera el máximo permitido de {max_tareas}."
                     ),
                 )
             )
@@ -347,71 +270,43 @@ def importar_pedidos_excel(
             tareas_estimadas=tareas_estimadas,
             filas_ignoradas=filas_ignoradas,
         )
-
     finally:
         libro.close()
 
 
 def parsear_hora_a_minutos(valor: Any) -> int:
-    if isinstance(valor, datetime):
+    """Convierte diversos formatos de tiempo (datetime, time, float fraccional, string) a minutos."""
+    if isinstance(valor, (datetime, time)):
         return valor.hour * 60 + valor.minute
-
-    if isinstance(valor, time):
-        return valor.hour * 60 + valor.minute
-
     if isinstance(valor, timedelta):
-        minutos = valor.total_seconds() / 60.0
-        return _validar_minuto_numerico(minutos)
-
+        return _validar_minuto_numerico(valor.total_seconds() / 60.0)
     if isinstance(valor, bool):
-        raise ValueError(
-            "el valor booleano no representa una hora."
-        )
-
+        raise ValueError("el valor booleano no representa una hora.")
     if isinstance(valor, (int, float)):
         numero = float(valor)
-
         if not isfinite(numero):
-            raise ValueError(
-                "la hora no es un número finito."
-            )
-
+            raise ValueError("la hora no es un número finito.")
         if 0.0 <= numero < 1.0:
-            return _validar_minuto_numerico(
-                numero * 24.0 * 60.0
-            )
-
+            return _validar_minuto_numerico(numero * 24.0 * 60.0)
         return _validar_minuto_numerico(numero)
 
     texto = _texto(valor)
-
     if not texto:
         raise ValueError("la hora está vacía.")
-
     if texto.isdigit():
-        return _validar_minuto_numerico(
-            float(texto)
-        )
+        return _validar_minuto_numerico(float(texto))
 
     coincidencia = _RE_HORA.fullmatch(texto)
-
     if coincidencia is None:
-        raise ValueError(
-            "use una hora como 07:30 o 14:45."
-        )
+        raise ValueError("use una hora como 07:30 o 14:45.")
 
-    return (
-        int(coincidencia.group("hora")) * 60
-        + int(coincidencia.group("minuto"))
-    )
+    return int(coincidencia.group("hora")) * 60 + int(coincidencia.group("minuto"))
 
 
 def formatear_minutos_hora(minutos: int) -> str:
+    """Formatea minutos enteros transcurridos desde medianoche a formato HH:MM."""
     if minutos < 0 or minutos >= 24 * 60:
-        raise ValueError(
-            "Los minutos deben estar entre 0 y 1439."
-        )
-
+        raise ValueError("Los minutos deben estar entre 0 y 1439.")
     return f"{minutos // 60:02d}:{minutos % 60:02d}"
 
 
@@ -423,86 +318,29 @@ def _parsear_fila(
 ) -> tuple[PedidoExcel | None, list[ErrorFilaExcel]]:
     errores: list[ErrorFilaExcel] = []
 
-    pedido_id = _texto(
-        fila.get("pedido_id")
-    )
-
+    pedido_id = _texto(fila.get("pedido_id"))
     if not pedido_id:
-        errores.append(
-            ErrorFilaExcel(
-                numero_fila,
-                "pedido_id",
-                "es obligatorio.",
-            )
-        )
+        errores.append(ErrorFilaExcel(numero_fila, "pedido_id", "es obligatorio."))
 
-    unidades = _parsear_entero_positivo(
-        fila.get("unidades"),
-        numero_fila,
-        "unidades",
-        errores,
-    )
+    unidades = _parsear_entero_positivo(fila.get("unidades"), numero_fila, "unidades", errores)
+    latitud = _parsear_decimal(fila.get("latitud"), numero_fila, "latitud", errores)
+    longitud = _parsear_decimal(fila.get("longitud"), numero_fila, "longitud", errores)
 
-    latitud = _parsear_decimal(
-        fila.get("latitud"),
-        numero_fila,
-        "latitud",
-        errores,
-    )
-
-    longitud = _parsear_decimal(
-        fila.get("longitud"),
-        numero_fila,
-        "longitud",
-        errores,
-    )
-
-    if (
-        latitud is not None
-        and not -90.0 <= latitud <= 90.0
-    ):
-        errores.append(
-            ErrorFilaExcel(
-                numero_fila,
-                "latitud",
-                "debe estar entre -90 y 90.",
-            )
-        )
-
-    if (
-        longitud is not None
-        and not -180.0 <= longitud <= 180.0
-    ):
-        errores.append(
-            ErrorFilaExcel(
-                numero_fila,
-                "longitud",
-                "debe estar entre -180 y 180.",
-            )
-        )
+    if latitud is not None and not -90.0 <= latitud <= 90.0:
+        errores.append(ErrorFilaExcel(numero_fila, "latitud", "debe estar entre -90 y 90."))
+    if longitud is not None and not -180.0 <= longitud <= 180.0:
+        errores.append(ErrorFilaExcel(numero_fila, "longitud", "debe estar entre -180 y 180."))
 
     requiere_volcador = _parsear_booleano(
-        fila.get("requiere_volcador"),
-        numero_fila,
-        "requiere_volcador",
-        errores,
-        default=False,
+        fila.get("requiere_volcador"), numero_fila, "requiere_volcador", errores, default=False
     )
 
-    # Una planilla vieja sin la columna conserva la interpretación
-    # original del booleano: SI = todas las unidades requieren volcador.
-    # En las planillas nuevas, la cantidad es explícita por pedido.
     unidades_volcador: int | None = None
     tiene_columna_volcador = "unidades_volcador" in fila
 
-    if (
-        unidades is not None
-        and requiere_volcador is not None
-    ):
+    if unidades is not None and requiere_volcador is not None:
         if not tiene_columna_volcador:
-            unidades_volcador = (
-                unidades if requiere_volcador else 0
-            )
+            unidades_volcador = unidades if requiere_volcador else 0
         else:
             cantidad_cruda = fila["unidades_volcador"]
             if cantidad_cruda is None or _texto(cantidad_cruda) == "":
@@ -511,18 +349,14 @@ def _parsear_fila(
                         ErrorFilaExcel(
                             numero_fila,
                             "unidades_volcador",
-                            "ingresá la cantidad de unidades "
-                            "con volcador cuando requiere_volcador es SI.",
+                            "ingresá la cantidad de unidades con volcador cuando requiere_volcador es SI.",
                         )
                     )
                 else:
                     unidades_volcador = 0
             else:
                 unidades_volcador = _parsear_entero_no_negativo(
-                    cantidad_cruda,
-                    numero_fila,
-                    "unidades_volcador",
-                    errores,
+                    cantidad_cruda, numero_fila, "unidades_volcador", errores
                 )
 
             if unidades_volcador is not None:
@@ -539,29 +373,23 @@ def _parsear_fila(
                         ErrorFilaExcel(
                             numero_fila,
                             "unidades_volcador",
-                            "debe ser mayor que cero exactamente "
-                            "cuando requiere_volcador es SI.",
+                            "debe ser mayor que cero exactamente cuando requiere_volcador es SI.",
                         )
                     )
 
-    # El Excel antiguo exportado por WebToolkit no incluía tiene_ventana.
-    # En ese formato, la presencia de ambas horas determina la ventana.
     if "tiene_ventana" not in fila:
         desde_crudo = _texto(fila.get("hora_desde"))
         hasta_crudo = _texto(fila.get("hora_hasta"))
         if bool(desde_crudo) != bool(hasta_crudo):
-            errores.append(ErrorFilaExcel(
-                numero_fila, "ventana",
-                "completá hora_desde y hora_hasta, o ninguna.",
-            ))
+            errores.append(
+                ErrorFilaExcel(
+                    numero_fila, "ventana", "completá hora_desde y hora_hasta, o ninguna."
+                )
+            )
         tiene_ventana = bool(desde_crudo) and bool(hasta_crudo)
     else:
         tiene_ventana = _parsear_booleano(
-            fila.get("tiene_ventana"),
-            numero_fila,
-            "tiene_ventana",
-            errores,
-            default=False,
+            fila.get("tiene_ventana"), numero_fila, "tiene_ventana", errores, default=False
         )
 
     if "turno" in fila and _texto(fila["turno"]):
@@ -571,58 +399,35 @@ def _parsear_fila(
             errores.append(ErrorFilaExcel(numero_fila, "turno", "turno inválido."))
         else:
             if turno_fila != turno:
-                errores.append(ErrorFilaExcel(
-                    numero_fila, "turno", f"no coincide con el turno seleccionado ({turno})."
-                ))
-
+                errores.append(
+                    ErrorFilaExcel(
+                        numero_fila, "turno", f"no coincide con el turno seleccionado ({turno})."
+                    )
+                )
 
     hora_inicio, hora_fin = HORARIOS_TURNO[turno]
     hora_desde = hora_inicio
     hora_hasta = hora_fin
 
     if tiene_ventana:
-        hora_desde = _parsear_hora_campo(
-            fila.get("hora_desde"),
-            numero_fila,
-            "hora_desde",
-            errores,
-        )
+        hora_desde = _parsear_hora_campo(fila.get("hora_desde"), numero_fila, "hora_desde", errores)
+        hora_hasta = _parsear_hora_campo(fila.get("hora_hasta"), numero_fila, "hora_hasta", errores)
 
-        hora_hasta = _parsear_hora_campo(
-            fila.get("hora_hasta"),
-            numero_fila,
-            "hora_hasta",
-            errores,
-        )
-
-        if (
-            hora_desde is not None
-            and hora_hasta is not None
-        ):
+        if hora_desde is not None and hora_hasta is not None:
             if hora_desde >= hora_hasta:
                 errores.append(
                     ErrorFilaExcel(
-                        numero_fila,
-                        "ventana",
-                        "hora_desde debe ser anterior "
-                        "a hora_hasta.",
+                        numero_fila, "ventana", "hora_desde debe ser anterior a hora_hasta."
                     )
                 )
-
-            if (
-                hora_desde < hora_inicio
-                or hora_hasta > hora_fin
-            ):
+            if hora_desde < hora_inicio or hora_hasta > hora_fin:
                 errores.append(
                     ErrorFilaExcel(
                         numero_fila,
                         "ventana",
                         (
-                            "debe quedar completamente "
-                            f"dentro del turno {turno} "
-                            f"({formatear_minutos_hora(hora_inicio)}"
-                            "–"
-                            f"{formatear_minutos_hora(hora_fin)})."
+                            f"debe quedar completamente dentro del turno {turno} "
+                            f"({formatear_minutos_hora(hora_inicio)}–{formatear_minutos_hora(hora_fin)})."
                         ),
                     )
                 )
@@ -644,9 +449,7 @@ def _parsear_fila(
             fila_excel=numero_fila,
             pedido_id=pedido_id,
             cliente=_texto(fila.get("cliente")),
-            direccion=_texto(
-                fila.get("direccion")
-            ),
+            direccion=_texto(fila.get("direccion")),
             barrio=_texto(fila.get("barrio")),
             unidades=unidades,
             latitud=latitud,
@@ -656,29 +459,19 @@ def _parsear_fila(
             tiene_ventana=tiene_ventana,
             hora_desde_min=hora_desde,
             hora_hasta_min=hora_hasta,
-            observaciones=_texto(
-                fila.get("observaciones")
-            ),
+            observaciones=_texto(fila.get("observaciones")),
         ),
         [],
     )
 
 
-def _seleccionar_hoja(
-    libro: Any,
-    hoja_solicitada: str | None,
-) -> Any:
+def _seleccionar_hoja(libro: Any, hoja_solicitada: str | None) -> Any:
     if hoja_solicitada:
         if hoja_solicitada not in libro.sheetnames:
-            raise ValueError(
-                "No existe la hoja solicitada: "
-                f"{hoja_solicitada}."
-            )
+            raise ValueError(f"No existe la hoja solicitada: {hoja_solicitada}.")
         return libro[hoja_solicitada]
-
     if HOJA_PEDIDOS_PREFERIDA in libro.sheetnames:
         return libro[HOJA_PEDIDOS_PREFERIDA]
-
     return libro.active
 
 
@@ -686,28 +479,17 @@ def _detectar_encabezado(
     filas: Iterable[tuple[Any, ...]],
 ) -> tuple[int, dict[str, int]]:
     mejor: tuple[int, dict[str, int]] | None = None
-
-    for numero_fila, valores in enumerate(
-        filas,
-        start=1,
-    ):
+    for numero_fila, valores in enumerate(filas, start=1):
         columnas: dict[str, int] = {}
-
         for indice, valor in enumerate(valores):
             normalizado = _normalizar_columna(valor)
-
             if not normalizado:
                 continue
-
             for nombre, aliases in _ALIAS_COLUMNAS.items():
                 if normalizado in aliases:
                     columnas.setdefault(nombre, indice)
                     break
-
-        if (
-            "pedido_id" in columnas
-            and len(columnas) >= 6
-        ):
+        if "pedido_id" in columnas and len(columnas) >= 6:
             mejor = (numero_fila, columnas)
             break
 
@@ -717,57 +499,30 @@ def _detectar_encabezado(
                 ErrorFilaExcel(
                     fila=1,
                     campo="encabezado",
-                    mensaje=(
-                        "no se encontró una fila de "
-                        "encabezados válida dentro de las "
-                        "primeras 20 filas."
-                    ),
+                    mensaje="no se encontró una fila de encabezados válida dentro de las primeras 20 filas.",
                 )
             ]
         )
-
     return mejor
 
 
 def _normalizar_columna(valor: Any) -> str:
-    texto = unicodedata.normalize(
-        "NFKD",
-        _texto(valor).lower(),
-    )
-
-    sin_acentos = "".join(
-        caracter
-        for caracter in texto
-        if not unicodedata.combining(caracter)
-    )
-
-    return "".join(
-        caracter
-        for caracter in sin_acentos
-        if caracter.isalnum()
-    )
+    texto = unicodedata.normalize("NFKD", _texto(valor).lower())
+    sin_acentos = "".join(c for c in texto if not unicodedata.combining(c))
+    return "".join(c for c in sin_acentos if c.isalnum())
 
 
 def _normalizar_turno(turno: str) -> str:
     valor = _texto(turno).upper()
-
     if valor == "MAÑANA":
         valor = "MANANA"
-
     if valor not in HORARIOS_TURNO:
-        raise ValueError(
-            "Turno no soportado: "
-            f"{turno}. Use MANANA o TARDE."
-        )
-
+        raise ValueError(f"Turno no soportado: {turno}. Use MANANA o TARDE.")
     return valor
 
 
 def _texto(valor: Any) -> str:
-    if valor is None:
-        return ""
-
-    return str(valor).strip()
+    return "" if valor is None else str(valor).strip()
 
 
 def _fila_vacia(valores: Iterable[Any]) -> bool:
@@ -783,29 +538,15 @@ def _parsear_entero_positivo(
     try:
         if isinstance(valor, bool):
             raise ValueError
-
-        numero = float(
-            _texto(valor).replace(",", ".")
-        )
-
+        numero = float(_texto(valor).replace(",", "."))
         if not isfinite(numero):
             raise ValueError
-
         entero = int(numero)
-
         if numero != entero or entero <= 0:
             raise ValueError
-
         return entero
-
     except (TypeError, ValueError):
-        errores.append(
-            ErrorFilaExcel(
-                fila,
-                campo,
-                "debe ser un entero mayor que cero.",
-            )
-        )
+        errores.append(ErrorFilaExcel(fila, campo, "debe ser un entero mayor que cero."))
         return None
 
 
@@ -818,25 +559,15 @@ def _parsear_entero_no_negativo(
     try:
         if isinstance(valor, bool):
             raise ValueError
-
         numero = float(_texto(valor).replace(",", "."))
         if not isfinite(numero):
             raise ValueError
-
         entero = int(numero)
         if numero != entero or entero < 0:
             raise ValueError
-
         return entero
-
     except (TypeError, ValueError, OverflowError):
-        errores.append(
-            ErrorFilaExcel(
-                fila,
-                campo,
-                "debe ser un entero mayor o igual que cero.",
-            )
-        )
+        errores.append(ErrorFilaExcel(fila, campo, "debe ser un entero mayor o igual que cero."))
         return None
 
 
@@ -849,24 +580,12 @@ def _parsear_decimal(
     try:
         if isinstance(valor, bool):
             raise ValueError
-
-        numero = float(
-            _texto(valor).replace(",", ".")
-        )
-
+        numero = float(_texto(valor).replace(",", "."))
         if not isfinite(numero):
             raise ValueError
-
         return numero
-
     except (TypeError, ValueError):
-        errores.append(
-            ErrorFilaExcel(
-                fila,
-                campo,
-                "debe ser un número válido.",
-            )
-        )
+        errores.append(ErrorFilaExcel(fila, campo, "debe ser un número válido."))
         return None
 
 
@@ -880,25 +599,16 @@ def _parsear_booleano(
 ) -> bool | None:
     if valor is None or _texto(valor) == "":
         return default
-
     if isinstance(valor, bool):
         return valor
 
     texto = _normalizar_columna(valor)
-
     if texto in {"si", "s", "true", "verdadero", "1"}:
         return True
-
     if texto in {"no", "n", "false", "falso", "0"}:
         return False
 
-    errores.append(
-        ErrorFilaExcel(
-            fila,
-            campo,
-            "use SI o NO.",
-        )
-    )
+    errores.append(ErrorFilaExcel(fila, campo, "use SI o NO."))
     return None
 
 
@@ -911,29 +621,14 @@ def _parsear_hora_campo(
     try:
         return parsear_hora_a_minutos(valor)
     except ValueError as ex:
-        errores.append(
-            ErrorFilaExcel(
-                fila,
-                campo,
-                str(ex),
-            )
-        )
+        errores.append(ErrorFilaExcel(fila, campo, str(ex)))
         return None
 
 
-def _validar_minuto_numerico(
-    minutos: float,
-) -> int:
+def _validar_minuto_numerico(minutos: float) -> int:
     redondeado = int(round(minutos))
-
     if abs(minutos - redondeado) > 1e-6:
-        raise ValueError(
-            "la hora debe resolverse a minutos enteros."
-        )
-
+        raise ValueError("la hora debe resolverse a minutos enteros.")
     if redondeado < 0 or redondeado >= 24 * 60:
-        raise ValueError(
-            "la hora debe estar entre 00:00 y 23:59."
-        )
-
+        raise ValueError("la hora debe estar entre 00:00 y 23:59.")
     return redondeado

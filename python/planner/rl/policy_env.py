@@ -1,3 +1,5 @@
+"""Entorno Gymnasium refinado para el entrenamiento y evaluación de políticas de ruteo RL."""
+
 from __future__ import annotations
 
 from dataclasses import replace
@@ -6,14 +8,9 @@ from typing import Any
 import numpy as np
 
 from planner.core.config import ConfiguracionPlanificacion
-from planner.core.schema import InstanciaTurno, PedidoInput
+from planner.core.schema import InstanciaTurno
 from planner.rl.base_env import PedemontePlanEnv
-from planner.rl.reward import ConfiguracionRewardRL
 from planner.rl.policy_config import ConfiguracionPoliticaRL
-from planner.rl.schedule_estimator import (
-    ResumenTemporalPrefijo,
-    analizar_prefijo_temporal,
-)
 from planner.rl.policy_estimator import (
     ConsecuenciaAccionRL,
     ResultadoArrepentimientoLocal,
@@ -22,7 +19,17 @@ from planner.rl.policy_estimator import (
     proyectar_consecuencias_segundo_orden,
     seleccionar_mejor_consecuencia,
 )
+from planner.rl.reward import ConfiguracionRewardRL
+from planner.rl.schedule_estimator import (
+    ResumenTemporalPrefijo,
+    analizar_prefijo_temporal,
+)
 from planner.routing.travel import ProveedorViaje
+
+__all__ = [
+    "ordenar_pedidos_canonicamente",
+    "EntornoPlanificacionRL",
+]
 
 
 def ordenar_pedidos_canonicamente(
@@ -44,7 +51,12 @@ def ordenar_pedidos_canonicamente(
 
 
 class EntornoPlanificacionRL(PedemontePlanEnv):
-    """Entorno productivo con consecuencias de segundo orden y reward jerárquico."""
+    """Entorno Gymnasium productivo con consecuencias de segundo orden y reward jerárquico.
+
+    Enriquece el espacio de observaciones de `PedemontePlanEnv` con características
+    de proyección temporal (holguras, arrepentimiento normalizado y ventanas) y aplica
+    máscaras duras para podar acciones que comprometan la factibilidad temporal.
+    """
 
     FEATURES_POR_PEDIDO = 23
     FEATURES_GLOBALES = 12
@@ -72,12 +84,8 @@ class EntornoPlanificacionRL(PedemontePlanEnv):
 
         self._cache_prefijo: tuple[str, ...] | None = None
         self._cache_resumen: ResumenTemporalPrefijo | None = None
-        self._cache_consecuencias: (
-            dict[str, ConsecuenciaAccionRL] | None
-        ) = None
-        self._cache_arrepentimientos: (
-            dict[str, ResultadoArrepentimientoLocal] | None
-        ) = None
+        self._cache_consecuencias: dict[str, ConsecuenciaAccionRL] | None = None
+        self._cache_arrepentimientos: dict[str, ResultadoArrepentimientoLocal] | None = None
 
         super().__init__(
             instancia=instancia,
@@ -175,33 +183,24 @@ class EntornoPlanificacionRL(PedemontePlanEnv):
     def action_masks(self) -> np.ndarray:
         mascara = super().action_masks()
 
-        if (
-            not self.configuracion_politica.usar_mascara_temporal_dura
-            or self._episodio_finalizado
-        ):
+        if not self.configuracion_politica.usar_mascara_temporal_dura or self._episodio_finalizado:
             return mascara
 
         _, consecuencias, _ = self._obtener_estado()
         indices_validos = [
-            indice
-            for indice in range(self.cantidad_pedidos)
-            if bool(mascara[indice])
+            indice for indice in range(self.cantidad_pedidos) if bool(mascara[indice])
         ]
 
         if len(indices_validos) <= 1 or not consecuencias:
             return mascara
 
         minimo_tardios = min(
-            consecuencia.pedidos_tardios_finales
-            for consecuencia in consecuencias.values()
+            consecuencia.pedidos_tardios_finales for consecuencia in consecuencias.values()
         )
 
         for indice in indices_validos:
             pedido_id = self.pedidos[indice].pedido_id
-            if (
-                consecuencias[pedido_id].pedidos_tardios_finales
-                > minimo_tardios
-            ):
+            if consecuencias[pedido_id].pedidos_tardios_finales > minimo_tardios:
                 mascara[indice] = False
 
         if not bool(mascara[: self.cantidad_pedidos].any()):
@@ -217,10 +216,7 @@ class EntornoPlanificacionRL(PedemontePlanEnv):
         mascara_antes = self.action_masks()
         resultado_local: ResultadoArrepentimientoLocal | None = None
 
-        if (
-            0 <= accion < self.cantidad_pedidos
-            and bool(mascara_antes[accion])
-        ):
+        if 0 <= accion < self.cantidad_pedidos and bool(mascara_antes[accion]):
             pedido_id = self.pedidos[accion].pedido_id
             _, _, arrepentimientos = self._obtener_estado()
             resultado_local = arrepentimientos[pedido_id]
@@ -238,9 +234,7 @@ class EntornoPlanificacionRL(PedemontePlanEnv):
             return observacion, reward_base, terminado, truncado, info
 
         if resultado_local is None:
-            raise RuntimeError(
-                "No se calculó el arrepentimiento de una acción válida."
-            )
+            raise RuntimeError("No se calculó el arrepentimiento de una acción válida.")
 
         resumen_despues, _, _ = self._obtener_estado()
         reward_terminal = 0.0
@@ -264,30 +258,18 @@ class EntornoPlanificacionRL(PedemontePlanEnv):
         info.update(
             {
                 "version_entorno_rl": self.VERSION_ENTORNO,
-                "reward_costo_base_no_usado_directamente": float(
-                    reward_base
-                ),
-                "reward_arrepentimiento_local": (
-                    resultado_local.reward_local
-                ),
-                "arrepentimiento_local_normalizado": (
-                    resultado_local.arrepentimiento_normalizado
-                ),
+                "reward_costo_base_no_usado_directamente": float(reward_base),
+                "reward_arrepentimiento_local": resultado_local.reward_local,
+                "arrepentimiento_local_normalizado": resultado_local.arrepentimiento_normalizado,
                 "mejor_accion_local_id": resultado_local.mejor_pedido_id,
-                "accion_elegida_es_mejor_local": (
-                    resultado_local.es_mejor_accion
-                ),
+                "accion_elegida_es_mejor_local": resultado_local.es_mejor_accion,
                 "reward_terminal": reward_terminal,
-                "componente_terminal_factibilidad": (
-                    componente_factibilidad
-                ),
+                "componente_terminal_factibilidad": componente_factibilidad,
                 "componente_terminal_costo_acotado": componente_costo,
                 "factible_temporal_terminal": factible_terminal,
                 "reward_total": reward_total,
                 "pedidos_tardios_prefijo": resumen_despues.pedidos_tardios,
-                "tardanza_prefijo_min": (
-                    resumen_despues.tardanza_total_min
-                ),
+                "tardanza_prefijo_min": resumen_despues.tardanza_total_min,
             }
         )
 
@@ -299,14 +281,10 @@ class EntornoPlanificacionRL(PedemontePlanEnv):
 
         horizonte = max(
             1.0,
-            self.instancia.hora_fin_tolerancia_min
-            - self.instancia.hora_inicio_turno_min,
+            self.instancia.hora_fin_tolerancia_min - self.instancia.hora_inicio_turno_min,
         )
         cantidad_total = max(1, self.cantidad_pedidos)
-        seleccionados = {
-            registro.pedido_id: registro
-            for registro in resumen.registros
-        }
+        seleccionados = {registro.pedido_id: registro for registro in resumen.registros}
 
         for indice in range(self.cantidad_pedidos):
             pedido = self.pedidos[indice]
@@ -321,35 +299,20 @@ class EntornoPlanificacionRL(PedemontePlanEnv):
                 continue
 
             observacion[base + 9] = float(
-                (registro.minuto_llegada - self.instancia.hora_inicio_turno_min)
-                / horizonte
+                (registro.minuto_llegada - self.instancia.hora_inicio_turno_min) / horizonte
             )
-            observacion[base + 10] = float(
-                registro.espera_apertura_min / horizonte
-            )
-            observacion[base + 11] = float(
-                max(0.0, registro.holgura_llegada_min) / horizonte
-            )
-            observacion[base + 12] = float(
-                registro.tardanza_llegada_min / horizonte
-            )
-            observacion[base + 13] = float(
-                pedido.tiene_ventana_especifica
-            )
+            observacion[base + 10] = float(registro.espera_apertura_min / horizonte)
+            observacion[base + 11] = float(max(0.0, registro.holgura_llegada_min) / horizonte)
+            observacion[base + 12] = float(registro.tardanza_llegada_min / horizonte)
+            observacion[base + 13] = float(pedido.tiene_ventana_especifica)
 
             if consecuencia is None:
                 continue
 
             arrepentimiento = arrepentimientos[pedido.pedido_id]
-            observacion[base + 14] = float(
-                consecuencia.pedidos_tardios_finales / cantidad_total
-            )
-            observacion[base + 15] = float(
-                consecuencia.tardanza_total_final_min / horizonte
-            )
-            observacion[base + 16] = float(
-                consecuencia.pedidos_nuevos_en_riesgo / cantidad_total
-            )
+            observacion[base + 14] = float(consecuencia.pedidos_tardios_finales / cantidad_total)
+            observacion[base + 15] = float(consecuencia.tardanza_total_final_min / horizonte)
+            observacion[base + 16] = float(consecuencia.pedidos_nuevos_en_riesgo / cantidad_total)
             observacion[base + 17] = float(
                 consecuencia.perdida_holgura_total_min
                 / self.configuracion_politica.escala_perdida_holgura_min
@@ -365,43 +328,26 @@ class EntornoPlanificacionRL(PedemontePlanEnv):
                 consecuencia.duracion_operacion_final_min
                 / self.configuracion_politica.escala_duracion_min
             )
-            observacion[base + 21] = float(
-                arrepentimiento.arrepentimiento_normalizado
-            )
-            observacion[base + 22] = float(
-                arrepentimiento.es_mejor_accion
-            )
+            observacion[base + 21] = float(arrepentimiento.arrepentimiento_normalizado)
+            observacion[base + 22] = float(arrepentimiento.es_mejor_accion)
 
         base_global = self.max_pedidos * self.FEATURES_POR_PEDIDO
         pendientes = max(1, self.cantidad_pedidos - len(self._permutacion))
 
         observacion[base_global + 6] = float(
-            (resumen.minuto_referencia - self.instancia.hora_inicio_turno_min)
-            / horizonte
+            (resumen.minuto_referencia - self.instancia.hora_inicio_turno_min) / horizonte
         )
-        observacion[base_global + 7] = float(
-            resumen.pedidos_tardios / cantidad_total
-        )
-        observacion[base_global + 8] = float(
-            resumen.tardanza_total_min / horizonte
-        )
+        observacion[base_global + 7] = float(resumen.pedidos_tardios / cantidad_total)
+        observacion[base_global + 8] = float(resumen.tardanza_total_min / horizonte)
 
         if consecuencias:
             mejor = seleccionar_mejor_consecuencia(consecuencias)
             sin_riesgo = sum(
-                1
-                for consecuencia in consecuencias.values()
-                if consecuencia.sin_riesgo_final
+                1 for consecuencia in consecuencias.values() if consecuencia.sin_riesgo_final
             )
-            observacion[base_global + 9] = float(
-                mejor.pedidos_tardios_finales / cantidad_total
-            )
-            observacion[base_global + 10] = float(
-                mejor.tardanza_total_final_min / horizonte
-            )
-            observacion[base_global + 11] = float(
-                sin_riesgo / pendientes
-            )
+            observacion[base_global + 9] = float(mejor.pedidos_tardios_finales / cantidad_total)
+            observacion[base_global + 10] = float(mejor.tardanza_total_final_min / horizonte)
+            observacion[base_global + 11] = float(sin_riesgo / pendientes)
 
         np.clip(observacion, 0.0, 1.0, out=observacion)
         return observacion

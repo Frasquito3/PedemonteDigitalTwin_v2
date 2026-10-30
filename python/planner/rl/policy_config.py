@@ -1,20 +1,23 @@
+"""Configuración de hiperparámetros y escalas de arrepentimiento para la política RL."""
+
 from __future__ import annotations
 
 from dataclasses import dataclass
 
+__all__ = ["ConfiguracionPoliticaRL"]
+
 
 @dataclass(frozen=True)
 class ConfiguracionPoliticaRL:
-    """
-    Parámetros de la política RL productiva.
+    """Parámetros de la política RL productiva y funciones de arrepentimiento local.
 
-    La señal densa usa arrepentimiento local de segundo orden: cada acción
-    candidata se completa con una heurística temporal común y se compara con
-    la mejor alternativa disponible en el mismo estado.
+    La señal densa usa arrepentimiento local de segundo orden: cada acción candidata
+    se completa con una heurística temporal común y se compara con la mejor alternativa
+    disponible en el mismo estado.
 
-    La recompensa terminal separa primero la factibilidad temporal y luego
-    utiliza un término de costo acotado. La máscara temporal dura forma parte
-    de la configuración validada del checkpoint productivo actual.
+    La recompensa terminal separa primero la factibilidad temporal y luego utiliza
+    un término de costo acotado. La máscara temporal dura forma parte de la configuración
+    validada del checkpoint productivo actual.
     """
 
     # Escalas de normalización de las consecuencias temporales.
@@ -40,8 +43,7 @@ class ConfiguracionPoliticaRL:
     penalizacion_terminal_tardanza_max: float = 2.0
     peso_terminal_costo_acotado: float = 0.50
 
-    # La máscara dura elimina acciones con más pedidos tardíos proyectados
-    # que la mejor alternativa y nunca deja el espacio de acciones vacío.
+    # Máscara temporal dura para podar acciones infactibles
     usar_mascara_temporal_dura: bool = True
     ordenar_slots_canonicamente: bool = False
 
@@ -52,17 +54,11 @@ class ConfiguracionPoliticaRL:
     def __post_init__(self) -> None:
         positivos = {
             "escala_tardanza_min": self.escala_tardanza_min,
-            "escala_perdida_holgura_min": (
-                self.escala_perdida_holgura_min
-            ),
+            "escala_perdida_holgura_min": self.escala_perdida_holgura_min,
             "escala_espera_min": self.escala_espera_min,
             "escala_duracion_min": self.escala_duracion_min,
-            "bonificacion_terminal_factible": (
-                self.bonificacion_terminal_factible
-            ),
-            "penalizacion_terminal_no_factible": (
-                self.penalizacion_terminal_no_factible
-            ),
+            "bonificacion_terminal_factible": self.bonificacion_terminal_factible,
+            "penalizacion_terminal_no_factible": self.penalizacion_terminal_no_factible,
             "epsilon_tiempo": self.epsilon_tiempo,
             "epsilon_mejor_accion": self.epsilon_mejor_accion,
         }
@@ -72,36 +68,16 @@ class ConfiguracionPoliticaRL:
                 raise ValueError(f"{nombre} debe ser > 0.")
 
         no_negativos = {
-            "peso_arrepentimiento_pedidos_tardios": (
-                self.peso_arrepentimiento_pedidos_tardios
-            ),
-            "peso_arrepentimiento_tardanza": (
-                self.peso_arrepentimiento_tardanza
-            ),
-            "peso_arrepentimiento_nuevos_riesgos": (
-                self.peso_arrepentimiento_nuevos_riesgos
-            ),
-            "peso_arrepentimiento_holgura": (
-                self.peso_arrepentimiento_holgura
-            ),
-            "peso_arrepentimiento_espera": (
-                self.peso_arrepentimiento_espera
-            ),
-            "penalizacion_arrepentimiento_max": (
-                self.penalizacion_arrepentimiento_max
-            ),
-            "bonificacion_mejor_accion_local": (
-                self.bonificacion_mejor_accion_local
-            ),
-            "penalizacion_terminal_por_pedido_tardio": (
-                self.penalizacion_terminal_por_pedido_tardio
-            ),
-            "penalizacion_terminal_tardanza_max": (
-                self.penalizacion_terminal_tardanza_max
-            ),
-            "peso_terminal_costo_acotado": (
-                self.peso_terminal_costo_acotado
-            ),
+            "peso_arrepentimiento_pedidos_tardios": self.peso_arrepentimiento_pedidos_tardios,
+            "peso_arrepentimiento_tardanza": self.peso_arrepentimiento_tardanza,
+            "peso_arrepentimiento_nuevos_riesgos": self.peso_arrepentimiento_nuevos_riesgos,
+            "peso_arrepentimiento_holgura": self.peso_arrepentimiento_holgura,
+            "peso_arrepentimiento_espera": self.peso_arrepentimiento_espera,
+            "penalizacion_arrepentimiento_max": self.penalizacion_arrepentimiento_max,
+            "bonificacion_mejor_accion_local": self.bonificacion_mejor_accion_local,
+            "penalizacion_terminal_por_pedido_tardio": self.penalizacion_terminal_por_pedido_tardio,
+            "penalizacion_terminal_tardanza_max": self.penalizacion_terminal_tardanza_max,
+            "peso_terminal_costo_acotado": self.peso_terminal_costo_acotado,
         }
 
         for nombre, valor in no_negativos.items():
@@ -117,6 +93,4 @@ class ConfiguracionPoliticaRL:
         )
 
         if abs(suma_pesos - 1.0) > 1e-9:
-            raise ValueError(
-                "Los pesos del arrepentimiento local deben sumar 1."
-            )
+            raise ValueError("Los pesos del arrepentimiento local deben sumar 1.")

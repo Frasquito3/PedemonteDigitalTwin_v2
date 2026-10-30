@@ -1,36 +1,51 @@
+"""Hibridación secuencial RL -> GA: sembrado de poblaciones genéticas mediante Aprendizaje por Refuerzo."""
+
 from __future__ import annotations
 
+from collections.abc import Callable
 from dataclasses import dataclass
 from enum import Enum
 from math import isfinite
 from time import perf_counter
-from typing import Callable, Protocol
+from typing import Protocol
 
-from planner.algorithms.ga import (
-    ConfiguracionGA,
-    GeneticAlgorithmPlanner,
-)
+from planner.algorithms.ga import ConfiguracionGA, GeneticAlgorithmPlanner
 from planner.core.config import ConfiguracionPlanificacion
 from planner.core.schema import InstanciaTurno, PlanTurno
 from planner.domain.validator import validar_plan
 from planner.routing.decoder import Cromosoma, validar_permutacion
 from planner.routing.travel import ProveedorViaje
 
+__all__ = [
+    "PlanificadorCompatible",
+    "GeneradorGARefinado",
+    "FuenteResultadoHibrido",
+    "MotivoResultadoHibrido",
+    "ConfiguracionHibridaRLGA",
+    "DecisionHibridaRLGA",
+    "HybridRLGAPlanner",
+]
+
 
 class PlanificadorCompatible(Protocol):
-    def generar_plan(self, instancia: InstanciaTurno) -> PlanTurno:
-        ...
+    """Protocolo que debe satisfacer cualquier modelo o wrapper RL para sembrar el algoritmo genético."""
+
+    def generar_plan(self, instancia: InstanciaTurno) -> PlanTurno: ...
 
 
 GeneradorGARefinado = Callable[[InstanciaTurno, Cromosoma], PlanTurno]
 
 
 class FuenteResultadoHibrido(str, Enum):
+    """Origen de la solución final seleccionada por el optimizador híbrido."""
+
     SEMILLA_RL = "SEMILLA_RL"
     REFINADO_GA = "REFINADO_GA"
 
 
 class MotivoResultadoHibrido(str, Enum):
+    """Causa por la cual se adoptó o descartó el refinamiento genético."""
+
     GA_MEJORA_SEMILLA_RL = "GA_MEJORA_SEMILLA_RL"
     SEMILLA_RL_CONSERVADA = "SEMILLA_RL_CONSERVADA"
     GA_NO_EJECUTABLE = "GA_NO_EJECUTABLE"
@@ -38,6 +53,14 @@ class MotivoResultadoHibrido(str, Enum):
 
 @dataclass(frozen=True)
 class ConfiguracionHibridaRLGA:
+    """Parámetros de tolerancia y configuración de la hibridación RL -> GA.
+
+    Attributes:
+        tolerancia_mejora: Umbral mínimo absoluto que el GA debe superar respecto al RL para reemplazarlo.
+        fraccion_variantes_semilla_rl: Proporción de la población de GA poblada con variantes de la semilla RL.
+        incluir_semilla_greedy_en_refinamiento: Si es `True`, agrega también la semilla voraz en el GA.
+    """
+
     tolerancia_mejora: float = 1e-9
     fraccion_variantes_semilla_rl: float = 0.50
     incluir_semilla_greedy_en_refinamiento: bool = False
@@ -46,13 +69,13 @@ class ConfiguracionHibridaRLGA:
         if self.tolerancia_mejora < 0.0:
             raise ValueError("tolerancia_mejora no puede ser negativa.")
         if not 0.0 <= self.fraccion_variantes_semilla_rl <= 1.0:
-            raise ValueError(
-                "fraccion_variantes_semilla_rl debe estar entre 0 y 1."
-            )
+            raise ValueError("fraccion_variantes_semilla_rl debe estar entre 0 y 1.")
 
 
 @dataclass(frozen=True)
 class DecisionHibridaRLGA:
+    """Diagnóstico detallado y comparativa de costos entre la solución RL y el refinamiento GA."""
+
     instancia_id: str
     fuente_rl: str
     resultado: FuenteResultadoHibrido
@@ -71,21 +94,19 @@ class DecisionHibridaRLGA:
 
     @property
     def mejoro_semilla_rl(self) -> bool:
+        """Indica si el refinamiento genético logró reducir estrictamente el costo del plan RL."""
         return self.resultado == FuenteResultadoHibrido.REFINADO_GA
 
 
 class HybridRLGAPlanner:
-    """
-    Híbrido secuencial RL -> GA.
+    """Planificador híbrido en dos fases: RL para arranque en caliente (warm-start) y GA para refinamiento.
 
-    1. Obtiene un plan del modo RL puro.
-    2. Convierte el orden de ese plan en un cromosoma.
-    3. Inyecta ese cromosoma y variantes cercanas en la población del GA.
-    4. Conserva la semilla RL si el refinamiento no la mejora.
-
-    GREEDY no se ejecuta como candidato independiente y, por defecto, tampoco
-    se inyecta como semilla en el refinamiento. El resultado es por lo tanto un
-    refinamiento genuinamente guiado por RL, no un selector min(Greedy, GA, RL).
+    Flujo de ejecución:
+    1. Obtiene una solución inicial completa mediante la política de Aprendizaje por Refuerzo.
+    2. Transforma la secuencia de entregas del plan RL en un cromosoma de permutación.
+    3. Inyecta el cromosoma y sus variantes vecinales en la población inicial del GA.
+    4. Ejecuta la evolución metaheurística. Si el GA supera al RL por más de la tolerancia,
+       se adopta el plan refinado; en caso contrario, se preserva de forma segura el plan RL.
     """
 
     VERSION_PLANIFICADOR = "HIBRIDO_RL_GA_SEEDED_V1"
@@ -110,6 +131,14 @@ class HybridRLGAPlanner:
         self.ultima_decision: DecisionHibridaRLGA | None = None
 
     def generar_plan(self, instancia: InstanciaTurno) -> PlanTurno:
+        """Ejecuta la resolución híbrida evaluando y refinando la propuesta de RL.
+
+        Args:
+            instancia: Escenario del turno a planificar.
+
+        Returns:
+            PlanTurno óptimo consolidado, con advertencias diagnósticas y tiempos de cómputo.
+        """
         inicio_total = perf_counter()
 
         inicio_rl = perf_counter()
@@ -117,29 +146,23 @@ class HybridRLGAPlanner:
             plan_rl = self.planner_rl.generar_plan(instancia)
         except Exception as exc:
             raise RuntimeError(
-                "No se pudo obtener la semilla RL del híbrido: "
-                f"{type(exc).__name__}: {exc}"
+                f"No se pudo obtener la semilla RL del híbrido: {type(exc).__name__}: {exc}"
             ) from exc
         tiempo_rl_ms = (perf_counter() - inicio_rl) * 1000.0
 
-        self._exigir_plan_ejecutable(
-            instancia=instancia,
-            plan=plan_rl,
-            nombre="semilla RL",
-        )
+        self._exigir_plan_ejecutable(instancia=instancia, plan=plan_rl, nombre="semilla RL")
 
         cromosoma_rl = self._plan_a_cromosoma(instancia, plan_rl)
         semillas_rl: list[Cromosoma] = [cromosoma_rl]
         for perm_extra in getattr(self.planner_rl, "ultimas_permutaciones", ()):
             if perm_extra and perm_extra not in semillas_rl:
                 semillas_rl.append(tuple(perm_extra))
+
         fuente_rl = self._fuente_rl_seleccionada()
         costo_semilla_rl = float(plan_rl.costo_estimado)
 
         seed_base = (
-            instancia.seed_ejecucion
-            if instancia.seed_ejecucion > 0
-            else instancia.seed_escenario
+            instancia.seed_ejecucion if instancia.seed_ejecucion > 0 else instancia.seed_escenario
         )
         seed_ga = seed_base + 9001
         tiempo_ga_ms = 0.0
@@ -151,10 +174,7 @@ class HybridRLGAPlanner:
         inicio_ga = perf_counter()
         try:
             if self.generador_ga_refinado is not None:
-                plan_ga = self.generador_ga_refinado(
-                    instancia,
-                    cromosoma_rl,
-                )
+                plan_ga = self.generador_ga_refinado(instancia, cromosoma_rl)
             else:
                 planner_ga = GeneticAlgorithmPlanner(
                     configuracion=self.configuracion_planificacion,
@@ -165,21 +185,17 @@ class HybridRLGAPlanner:
                     incluir_semilla_greedy=(
                         self.configuracion.incluir_semilla_greedy_en_refinamiento
                     ),
-                    fraccion_variantes_semilla=(
-                        self.configuracion.fraccion_variantes_semilla_rl
-                    ),
+                    fraccion_variantes_semilla=(self.configuracion.fraccion_variantes_semilla_rl),
                 )
                 plan_ga = planner_ga.generar_plan(instancia)
                 generaciones_ga = planner_ga.generaciones_ejecutadas
 
             self._exigir_plan_ejecutable(
-                instancia=instancia,
-                plan=plan_ga,
-                nombre="refinamiento GA",
+                instancia=instancia, plan=plan_ga, nombre="refinamiento GA"
             )
             costo_ga = float(plan_ga.costo_estimado)
 
-        except Exception as exc:  # noqa: BLE001 - queda auditado y conserva RL
+        except Exception as exc:  # noqa: BLE001 - queda auditado y preserva RL
             errores_ga = (f"{type(exc).__name__}: {exc}",)
             plan_ga = None
             costo_ga = None
@@ -189,8 +205,7 @@ class HybridRLGAPlanner:
         if (
             plan_ga is not None
             and costo_ga is not None
-            and costo_ga
-            < costo_semilla_rl - self.configuracion.tolerancia_mejora
+            and costo_ga < costo_semilla_rl - self.configuracion.tolerancia_mejora
         ):
             seleccionado = plan_ga
             resultado = FuenteResultadoHibrido.REFINADO_GA
@@ -207,9 +222,7 @@ class HybridRLGAPlanner:
             mejora_absoluta = 0.0
 
         mejora_porcentual = (
-            mejora_absoluta / costo_semilla_rl * 100.0
-            if costo_semilla_rl > 0.0
-            else 0.0
+            mejora_absoluta / costo_semilla_rl * 100.0 if costo_semilla_rl > 0.0 else 0.0
         )
         tiempo_total_ms = (perf_counter() - inicio_total) * 1000.0
 
@@ -246,30 +259,16 @@ class HybridRLGAPlanner:
         return str(getattr(fuente, "value", fuente)).upper()
 
     @staticmethod
-    def _plan_a_cromosoma(
-        instancia: InstanciaTurno,
-        plan: PlanTurno,
-    ) -> Cromosoma:
+    def _plan_a_cromosoma(instancia: InstanciaTurno, plan: PlanTurno) -> Cromosoma:
         cromosoma = tuple(
-            pedido_id
-            for camion in plan.camiones
-            for viaje in camion.viajes
-            for pedido_id in viaje.pedido_ids
+            p_id for cam in plan.camiones for v in cam.viajes for p_id in v.pedido_ids
         )
-        pedidos_por_id = {
-            pedido.pedido_id: pedido
-            for pedido in instancia.pedidos
-        }
-        validar_permutacion(pedidos_por_id, cromosoma)
+        pedidos_dict = {p.pedido_id: p for p in instancia.pedidos}
+        validar_permutacion(pedidos_dict, cromosoma)
         return cromosoma
 
     @staticmethod
-    def _exigir_plan_ejecutable(
-        *,
-        instancia: InstanciaTurno,
-        plan: PlanTurno,
-        nombre: str,
-    ) -> None:
+    def _exigir_plan_ejecutable(*, instancia: InstanciaTurno, plan: PlanTurno, nombre: str) -> None:
         if plan is None:
             raise RuntimeError(f"El {nombre} es nulo.")
 
@@ -277,12 +276,7 @@ class HybridRLGAPlanner:
         errores = list(validacion.errores)
 
         if not isfinite(plan.costo_estimado) or plan.costo_estimado < 0.0:
-            errores.append(
-                f"Costo inválido de {nombre}: {plan.costo_estimado}."
-            )
+            errores.append(f"Costo inválido de {nombre}: {plan.costo_estimado}.")
 
         if errores:
-            raise RuntimeError(
-                f"El {nombre} no es ejecutable: " + " | ".join(errores)
-            )
-
+            raise RuntimeError(f"El {nombre} no es ejecutable: " + " | ".join(errores))

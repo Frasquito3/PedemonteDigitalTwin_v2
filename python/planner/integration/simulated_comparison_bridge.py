@@ -1,42 +1,63 @@
+"""Puente Pypeline para la comparación multialgoritmo simulada.
+
+Este módulo conecta AnyLogic con el orquestador de comparaciones simuladas, verificando
+la consistencia criptográfica de las firmas entre la etapa estimada y simulada, y
+codificando las métricas resultantes para su consumo en Java.
+"""
+
 from __future__ import annotations
 
+from collections.abc import Sequence
 from math import isfinite
 from pathlib import Path
-from typing import Sequence
+from typing import Final
 
+from planner.integration import selector_bridge
 from planner.integration.alpyne_codec import CODIGO_ALGORITMO
 from planner.integration.estimated_comparison import firmar_instancia_vector
-from planner.integration import selector_bridge
 from planner.integration.simulated_comparison import (
-    ComparacionSimulada,
     ESTADO_ERROR,
     ESTADO_FINALIZADO,
     ESTADO_OMITIDO,
     METODOS_COMPARACION_SIMULADA,
+    ComparacionSimulada,
     ejecutar_comparacion_simulada,
     normalizar_metodo_simulado,
 )
 
+__all__ = [
+    "CAMPOS_POR_METODO_SIMULADO",
+    "CODIGO_ALGORITMO_APLICADO",
+    "CODIGO_ESTADO_SIMULADO",
+    "CODIGO_METODO_SIMULADO",
+    "TAMANO_CABECERA_COMPARACION_SIMULADA",
+    "VALOR_NO_DISPONIBLE",
+    "VERSION_PROTOCOLO_COMPARACION_SIMULADA",
+    "codificar_comparacion_simulada",
+    "comparar_simulado_vector",
+    "limpiar_comparacion_simulada",
+    "obtener_estado_metodo_comparacion_simulada",
+    "obtener_firma_comparacion_simulada",
+    "obtener_resumen_comparacion_simulada",
+]
 
-VERSION_PROTOCOLO_COMPARACION_SIMULADA = 1
-CAMPOS_POR_METODO_SIMULADO = 21
-TAMANO_CABECERA_COMPARACION_SIMULADA = 4
-VALOR_NO_DISPONIBLE = -1.0
+VERSION_PROTOCOLO_COMPARACION_SIMULADA: Final[int] = 1
+CAMPOS_POR_METODO_SIMULADO: Final[int] = 21
+TAMANO_CABECERA_COMPARACION_SIMULADA: Final[int] = 4
+VALOR_NO_DISPONIBLE: Final[float] = -1.0
 
-CODIGO_METODO_SIMULADO: dict[str, int] = {
-    metodo: indice
-    for indice, metodo in enumerate(METODOS_COMPARACION_SIMULADA)
+CODIGO_METODO_SIMULADO: Final[dict[str, int]] = {
+    metodo: indice for indice, metodo in enumerate(METODOS_COMPARACION_SIMULADA)
 }
 
-CODIGO_ESTADO_SIMULADO: dict[str, int] = {
+CODIGO_ESTADO_SIMULADO: Final[dict[str, int]] = {
     ESTADO_FINALIZADO: 1,
     ESTADO_ERROR: 2,
     ESTADO_OMITIDO: 3,
 }
 
-CODIGO_ALGORITMO_APLICADO: dict[str, int] = {
-    algoritmo.value: codigo
-    for algoritmo, codigo in CODIGO_ALGORITMO.items()
+CODIGO_ALGORITMO_APLICADO: Final[dict[str, int]] = {
+    algoritmo.value: codigo for algoritmo, codigo in CODIGO_ALGORITMO.items()
 }
 
 _ultima_comparacion_simulada: ComparacionSimulada | None = None
@@ -55,56 +76,30 @@ def comparar_simulado_vector(
     timeout_segundos_por_metodo: int = 240,
     horizonte_simulacion_min: float = 600.0,
 ) -> list[float]:
-    """
-    Ejecuta los planes ya almacenados por la comparación estimada.
-
-    Cada método corre en un proceso AnyLogic externo, nuevo e independiente.
-    La función rechaza cualquier diferencia entre la firma estimada y la firma
-    de la instancia que se intenta simular.
-    """
+    """Ejecuta los planes almacenados de la comparación estimada en motores AnyLogic externos."""
     global _ultima_comparacion_simulada
 
     _ultima_comparacion_simulada = None
-
-    vector = _vector_finito_no_vacio(
-        instancia_vector,
-        "instancia_vector",
-    )
-
-    firma_estimada = (
-        selector_bridge.obtener_firma_comparacion_estimada()
-    )
+    vector = _vector_finito_no_vacio(instancia_vector, "instancia_vector")
+    firma_estimada = selector_bridge.obtener_firma_comparacion_estimada()
 
     if firma_estimada == "SIN_COMPARACION":
-        raise RuntimeError(
-            "No existe una comparación estimada disponible."
-        )
+        raise RuntimeError("No existe una comparación estimada disponible.")
 
-    firma_recibida = firmar_instancia_vector(
-        vector,
-        int(seed_escenario),
-        int(seed_ejecucion),
-    )
-
+    firma_recibida = firmar_instancia_vector(vector, int(seed_escenario), int(seed_ejecucion))
     if firma_estimada != firma_recibida:
         raise RuntimeError(
-            "La firma de la instancia no coincide con la comparación "
-            "estimada almacenada. "
+            f"La firma de la instancia no coincide con la comparación estimada almacenada. "
             f"estimada={firma_estimada}, recibida={firma_recibida}."
         )
 
     planes_por_metodo: dict[str, list[float]] = {}
-
     for metodo in METODOS_COMPARACION_SIMULADA:
         try:
             planes_por_metodo[metodo] = list(
-                selector_bridge.obtener_plan_comparacion_vector(
-                    metodo
-                )
+                selector_bridge.obtener_plan_comparacion_vector(metodo)
             )
         except RuntimeError:
-            # Un método no factible se representa como OMITIDO dentro del
-            # controlador de comparación simulada.
             continue
 
     comparacion = ejecutar_comparacion_simulada(
@@ -112,40 +107,29 @@ def comparar_simulado_vector(
         raiz_python=Path(raiz_python),
         instancia_vector=vector,
         planes_por_metodo=planes_por_metodo,
-        identificadores_pedidos=str(
-            identificadores_pedidos
-        ).strip(),
+        identificadores_pedidos=str(identificadores_pedidos).strip(),
         instancia_id=str(instancia_id).strip(),
         fecha_operacion=str(fecha_operacion).strip(),
         seed_escenario=int(seed_escenario),
         seed_ejecucion=int(seed_ejecucion),
-        proveedores_habilitados=bool(
-            proveedores_habilitados
-        ),
-        timeout_segundos_por_metodo=int(
-            timeout_segundos_por_metodo
-        ),
-        horizonte_simulacion_min=float(
-            horizonte_simulacion_min
-        ),
+        proveedores_habilitados=bool(proveedores_habilitados),
+        timeout_segundos_por_metodo=int(timeout_segundos_por_metodo),
+        horizonte_simulacion_min=float(horizonte_simulacion_min),
         continuar_ante_error=True,
     )
 
     if comparacion.firma_instancia != firma_estimada:
         raise RuntimeError(
-            "La comparación simulada devolvió una firma diferente. "
-            f"estimada={firma_estimada}, "
-            f"simulada={comparacion.firma_instancia}."
+            f"La comparación simulada devolvió una firma diferente. "
+            f"estimada={firma_estimada}, simulada={comparacion.firma_instancia}."
         )
 
     _ultima_comparacion_simulada = comparacion
-
     return codificar_comparacion_simulada(comparacion)
 
 
-def codificar_comparacion_simulada(
-    comparacion: ComparacionSimulada,
-) -> list[float]:
+def codificar_comparacion_simulada(comparacion: ComparacionSimulada) -> list[float]:
+    """Codifica los resultados de la comparación simulada al vector binario/double de AnyLogic."""
     if comparacion is None:
         raise ValueError("comparacion no puede ser null.")
 
@@ -157,14 +141,8 @@ def codificar_comparacion_simulada(
     ]
 
     for fila in comparacion.resultados:
-        metodo = normalizar_metodo_simulado(
-            fila.metodo_solicitado
-        )
-
-        codigo_estado = CODIGO_ESTADO_SIMULADO.get(
-            fila.estado,
-            0,
-        )
+        metodo = normalizar_metodo_simulado(fila.metodo_solicitado)
+        codigo_estado = CODIGO_ESTADO_SIMULADO.get(fila.estado, 0)
 
         if fila.resultado is None:
             vector.extend(
@@ -179,10 +157,7 @@ def codificar_comparacion_simulada(
             continue
 
         resultado = fila.resultado
-        codigo_algoritmo = CODIGO_ALGORITMO_APLICADO.get(
-            resultado.algoritmo_aplicado,
-            -1,
-        )
+        codigo_algoritmo = CODIGO_ALGORITMO_APLICADO.get(resultado.algoritmo_aplicado, -1)
 
         vector.extend(
             [
@@ -199,10 +174,7 @@ def codificar_comparacion_simulada(
                 float(resultado.tareas_no_entregadas),
                 float(resultado.ocupacion_global_pct),
                 float(resultado.costo_tareas_no_entregadas),
-                float(
-                    resultado
-                    .costo_pedidos_originales_incompletos
-                ),
+                float(resultado.costo_pedidos_originales_incompletos),
                 float(resultado.costo_tardanza),
                 float(resultado.costo_exceso_tolerancia),
                 float(resultado.costo_operacion),
@@ -215,92 +187,59 @@ def codificar_comparacion_simulada(
 
     longitud_esperada = (
         TAMANO_CABECERA_COMPARACION_SIMULADA
-        + len(comparacion.resultados)
-        * CAMPOS_POR_METODO_SIMULADO
+        + len(comparacion.resultados) * CAMPOS_POR_METODO_SIMULADO
     )
-
     if len(vector) != longitud_esperada:
         raise AssertionError(
-            "Longitud inesperada del protocolo simulado. "
-            f"esperada={longitud_esperada}, recibida={len(vector)}."
+            f"Longitud inesperada del protocolo simulado. esperada={longitud_esperada}, recibida={len(vector)}."
         )
 
     if not all(isfinite(valor) for valor in vector):
-        raise AssertionError(
-            "El protocolo simulado contiene valores no finitos."
-        )
+        raise AssertionError("El protocolo simulado contiene valores no finitos.")
 
     return vector
 
 
 def obtener_resumen_comparacion_simulada() -> str:
+    """Retorna el resumen textual de la última comparación simulada."""
     if _ultima_comparacion_simulada is None:
         return "SIN_COMPARACION_SIMULADA"
-
     return _ultima_comparacion_simulada.resumen()
 
 
 def obtener_firma_comparacion_simulada() -> str:
+    """Retorna la firma hash de la última comparación simulada."""
     if _ultima_comparacion_simulada is None:
         return "SIN_COMPARACION_SIMULADA"
-
     return _ultima_comparacion_simulada.firma_instancia
 
 
-def obtener_estado_metodo_comparacion_simulada(
-    metodo: str,
-) -> str:
+def obtener_estado_metodo_comparacion_simulada(metodo: str) -> str:
+    """Retorna el estado y error del método solicitado en la última comparación simulada."""
     if _ultima_comparacion_simulada is None:
         return "SIN_COMPARACION_SIMULADA"
 
-    fila = _ultima_comparacion_simulada.obtener_resultado(
-        metodo
-    )
-
-    error = (
-        fila.error
-        .replace("|", "/")
-        .replace("\r", " ")
-        .replace("\n", " ")
-    )
-
-    algoritmo = (
-        "NO_DISPONIBLE"
-        if fila.resultado is None
-        else fila.resultado.algoritmo_aplicado
-    )
-
+    fila = _ultima_comparacion_simulada.obtener_resultado(metodo)
+    error = fila.error.replace("|", "/").replace("\r", " ").replace("\n", " ")
+    algoritmo = "NO_DISPONIBLE" if fila.resultado is None else fila.resultado.algoritmo_aplicado
     return (
-        f"metodo={fila.metodo_solicitado}"
-        f"|estado={fila.estado}"
-        f"|algoritmo={algoritmo}"
-        f"|error={error}"
+        f"metodo={fila.metodo_solicitado}|estado={fila.estado}|algoritmo={algoritmo}|error={error}"
     )
 
 
 def limpiar_comparacion_simulada() -> str:
+    """Limpia los resultados almacenados de la última comparación simulada."""
     global _ultima_comparacion_simulada
-
     _ultima_comparacion_simulada = None
-
     return "OK|COMPARACION_SIMULADA_LIMPIA"
 
 
-def _vector_finito_no_vacio(
-    valores: Sequence[float],
-    nombre: str,
-) -> list[float]:
+def _vector_finito_no_vacio(valores: Sequence[float], nombre: str) -> list[float]:
     if valores is None:
         raise ValueError(f"{nombre} no puede ser null.")
-
     vector = [float(valor) for valor in valores]
-
     if not vector:
         raise ValueError(f"{nombre} no puede estar vacío.")
-
     if not all(isfinite(valor) for valor in vector):
-        raise ValueError(
-            f"{nombre} debe contener solo valores finitos."
-        )
-
+        raise ValueError(f"{nombre} debe contener solo valores finitos.")
     return vector

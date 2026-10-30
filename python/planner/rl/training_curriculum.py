@@ -1,10 +1,20 @@
+"""Definición y etapas de curriculum learning para el entrenamiento de políticas RL."""
+
 from __future__ import annotations
 
 from dataclasses import dataclass
 
+__all__ = [
+    "EtapaEntrenamientoRL",
+    "crear_curriculum_entrenamiento",
+    "crear_curriculum_entrenamiento_rapido",
+]
+
 
 @dataclass(frozen=True)
 class EtapaEntrenamientoRL:
+    """Configuración de una fase de curriculum learning con dificultad progresiva."""
+
     nombre: str
     min_pedidos_finales: int
     max_pedidos_finales: int
@@ -38,17 +48,11 @@ class EtapaEntrenamientoRL:
                 raise ValueError(f"{nombre} debe ser > 0.")
 
         if self.ancho_ventana_max < self.ancho_ventana_min:
-            raise ValueError(
-                "ancho_ventana_max no puede ser menor que el mínimo."
-            )
+            raise ValueError("ancho_ventana_max no puede ser menor que el mínimo.")
 
         for nombre, valor in {
-            "probabilidad_ventana_especifica": (
-                self.probabilidad_ventana_especifica
-            ),
-            "probabilidad_patron_conflictivo": (
-                self.probabilidad_patron_conflictivo
-            ),
+            "probabilidad_ventana_especifica": self.probabilidad_ventana_especifica,
+            "probabilidad_patron_conflictivo": self.probabilidad_patron_conflictivo,
             "probabilidad_replay_core": self.probabilidad_replay_core,
             "probabilidad_volcador": self.probabilidad_volcador,
             "probabilidad_pedido_grande": self.probabilidad_pedido_grande,
@@ -57,8 +61,8 @@ class EtapaEntrenamientoRL:
                 raise ValueError(f"{nombre} debe estar entre 0 y 1.")
 
 
-def crear_curriculum_entrenamiento(
-) -> list[EtapaEntrenamientoRL]:
+def crear_curriculum_entrenamiento() -> list[EtapaEntrenamientoRL]:
+    """Genera las tres etapas estándar de curriculum learning para producción."""
     return [
         EtapaEntrenamientoRL(
             nombre="refuerzo_base_3_5",
@@ -108,8 +112,8 @@ def crear_curriculum_entrenamiento(
     ]
 
 
-def crear_curriculum_entrenamiento_rapido(
-) -> list[EtapaEntrenamientoRL]:
+def crear_curriculum_entrenamiento_rapido() -> list[EtapaEntrenamientoRL]:
+    """Genera un curriculum acelerado con menor número de timesteps para testing y CI."""
     return [
         EtapaEntrenamientoRL(
             nombre="refuerzo_base_3_5",

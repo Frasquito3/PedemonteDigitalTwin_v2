@@ -1,13 +1,39 @@
+"""Modelos de datos, enumeraciones y estructuras de resultado del planificador."""
+
 from dataclasses import dataclass, field
 from enum import Enum
 
+__all__ = [
+    "Turno",
+    "EstadoPedido",
+    "AlgoritmoPlanificacion",
+    "ModoEjecucion",
+    "TipoActividadCamion",
+    "PedidoInput",
+    "InstanciaTurno",
+    "ViajePlan",
+    "PlanCamion",
+    "PlanTurno",
+    "RegistroActividadCamion",
+    "MetricasCamion",
+    "ResumenPedidoOriginal",
+    "MetricasGlobalesTurno",
+    "DesgloseCostoTurno",
+    "ResultadoValidacionPlan",
+    "ResultadoTurno",
+]
+
 
 class Turno(str, Enum):
+    """Jornada u horario de operación del corralón."""
+
     MANANA = "MANANA"
     TARDE = "TARDE"
 
 
 class EstadoPedido(str, Enum):
+    """Ciclo de vida y estados de entrega de un pedido."""
+
     PENDIENTE = "PENDIENTE"
     PLANIFICADO = "PLANIFICADO"
     CARGADO = "CARGADO"
@@ -19,6 +45,8 @@ class EstadoPedido(str, Enum):
 
 
 class AlgoritmoPlanificacion(str, Enum):
+    """Identificador del algoritmo o estrategia de resolución empleada."""
+
     RL = "RL"
     GA = "GA"
     GREEDY = "GREEDY"
@@ -27,12 +55,17 @@ class AlgoritmoPlanificacion(str, Enum):
 
 
 class ModoEjecucion(str, Enum):
+    """Contexto de ejecución y evaluación del planificador."""
+
     SIMULACION = "SIMULACION"
     RL_TRAINING = "RL_TRAINING"
     RL_EVALUATION = "RL_EVALUATION"
     PRODUCCION = "PRODUCCION"
 
+
 class TipoActividadCamion(str, Enum):
+    """Naturaleza de la actividad operativa registrada en la traza de un camión."""
+
     CARGA = "CARGA"
     VIAJE_CLIENTE = "VIAJE_CLIENTE"
     ESPERA_CLIENTE = "ESPERA_CLIENTE"
@@ -42,6 +75,14 @@ class TipoActividadCamion(str, Enum):
 
 @dataclass
 class PedidoInput:
+    """Demanda individual o fracción de entrega asignable a un camión.
+
+    Si el pedido original excede la capacidad de un camión o requiere divisiones
+    logísticas, se particiona en múltiples fracciones vinculadas por `pedido_original_id`.
+    Las ventanas horarias (`hora_desde_min` y `hora_hasta_min`) se expresan en minutos
+    del día transcurridos desde las 00:00.
+    """
+
     pedido_id: str
     pedido_original_id: str
     numero_parte: int
@@ -61,11 +102,18 @@ class PedidoInput:
 
     @property
     def es_split(self) -> bool:
+        """Indica si la entrega pertenece a un pedido particionado en varias partes."""
         return self.total_partes > 1
 
 
 @dataclass
 class InstanciaTurno:
+    """Definición inmutable del escenario de planificación para un turno de trabajo.
+
+    Contiene los pedidos a distribuir, los parámetros de la flota (capacidad y
+    cantidad de vehículos), los límites horarios del turno y las coordenadas del corralón.
+    """
+
     instancia_id: str
     fecha_operacion: str
     turno: Turno
@@ -83,18 +131,24 @@ class InstanciaTurno:
 
 @dataclass
 class ViajePlan:
+    """Secuencia ordenada de entregas asignadas a una salida del camión desde el depósito."""
+
     numero_viaje: int
     pedido_ids: list[str] = field(default_factory=list)
 
 
 @dataclass
 class PlanCamion:
+    """Itinerario completo y secuencial de viajes asignados a un camión durante el turno."""
+
     camion_id: int
     viajes: list[ViajePlan] = field(default_factory=list)
 
 
 @dataclass
 class PlanTurno:
+    """Plan de distribución generado para la flota en un turno de trabajo."""
+
     instancia_id: str
     algoritmo: AlgoritmoPlanificacion
     camiones: list[PlanCamion] = field(default_factory=list)
@@ -102,8 +156,14 @@ class PlanTurno:
     tiempo_computo_ms: float = 0.0
     warnings: list[str] = field(default_factory=list)
 
+
 @dataclass
 class RegistroActividadCamion:
+    """Evento atómico registrado en la traza cronológica de operaciones de un camión.
+
+    Los momentos `inicio_min_dia` y `fin_min_dia` se expresan en minutos desde las 00:00.
+    """
+
     camion_id: int
     tipo: TipoActividadCamion
     inicio_min_dia: float
@@ -118,6 +178,13 @@ class RegistroActividadCamion:
 
 @dataclass
 class MetricasCamion:
+    """Indicadores consolidados de actividad y desempeño para un vehículo individual.
+
+    Agrupa conteos de entregas, volúmenes transportados, distancias y tiempos acumulados
+    por estado operativo (carga, viaje, espera, descarga e inactividad).
+    Los campos de inicio/fin registran el minuto del día de apertura y cierre (-1.0 si no operó).
+    """
+
     camion_id: int
 
     viajes_completados: int = 0
@@ -152,6 +219,8 @@ class MetricasCamion:
 
 @dataclass
 class ResumenPedidoOriginal:
+    """Estado de satisfacción global de un pedido de cliente y sus entregas parciales."""
+
     pedido_original_id: str
     partes_planificadas: int = 0
     partes_entregadas: int = 0
@@ -159,8 +228,20 @@ class ResumenPedidoOriginal:
     unidades_entregadas: int = 0
     completo: bool = False
 
+
 @dataclass
 class MetricasGlobalesTurno:
+    """Indicadores clave de desempeño (KPIs) consolidados para el turno completo.
+
+    Agrupa métricas de nivel de servicio (entregas en ventana y puntualidad),
+    volumen y demanda, utilización de tiempos de la flota, balance de carga
+    entre vehículos y atención de camiones proveedores en el corralón.
+
+    Nota de unidades:
+        Los tiempos y duraciones se expresan en minutos, las distancias en kilómetros
+        y los instantes cronológicos en minutos transcurridos desde las 00:00 del día.
+    """
+
     tareas_planificadas: int = 0
     tareas_entregadas: int = 0
     tareas_no_entregadas: int = 0
@@ -226,6 +307,8 @@ class MetricasGlobalesTurno:
 
 @dataclass
 class DesgloseCostoTurno:
+    """Desagregación analítica de los componentes de la función objetivo de costos."""
+
     costo_tareas_no_entregadas: float = 0.0
     costo_pedidos_originales_incompletos: float = 0.0
     costo_tardanza: float = 0.0
@@ -236,14 +319,19 @@ class DesgloseCostoTurno:
     costo_desbalance: float = 0.0
     costo_total: float = 0.0
 
+
 @dataclass
 class ResultadoValidacionPlan:
+    """Diagnóstico de consistencia y factibilidad de un plan evaluado."""
+
     valido: bool = True
     errores: list[str] = field(default_factory=list)
 
 
 @dataclass
 class ResultadoTurno:
+    """Contenedor integral con los resultados de simulación y evaluación del turno."""
+
     instancia_id: str
     algoritmo: AlgoritmoPlanificacion
 
@@ -256,28 +344,16 @@ class ResultadoTurno:
     plan_valido: bool = False
     ejecucion_completada: bool = False
 
-    metricas_camiones: list[MetricasCamion] = field(
-        default_factory=list
-    )
+    metricas_camiones: list[MetricasCamion] = field(default_factory=list)
 
-    registros_actividad: list[RegistroActividadCamion] = field(
-        default_factory=list
-    )
+    registros_actividad: list[RegistroActividadCamion] = field(default_factory=list)
 
-    resumenes_pedidos_originales: list[ResumenPedidoOriginal] = field(
-        default_factory=list
-    )
+    resumenes_pedidos_originales: list[ResumenPedidoOriginal] = field(default_factory=list)
 
-    metricas_globales: MetricasGlobalesTurno = field(
-        default_factory=MetricasGlobalesTurno
-    )
+    metricas_globales: MetricasGlobalesTurno = field(default_factory=MetricasGlobalesTurno)
 
-    desglose_costo: DesgloseCostoTurno = field(
-        default_factory=DesgloseCostoTurno
-    )
+    desglose_costo: DesgloseCostoTurno = field(default_factory=DesgloseCostoTurno)
 
     costo_total: float = 0.0
 
-    errores: list[str] = field(
-        default_factory=list
-    )
+    errores: list[str] = field(default_factory=list)

@@ -1,7 +1,9 @@
+"""Simulación determinística de operaciones de carga, ruteo y competencia de recursos en corralón."""
+
 from __future__ import annotations
 
-from dataclasses import dataclass
 import heapq
+from dataclasses import dataclass
 from itertools import count
 
 from planner.core.config import ConfiguracionPlanificacion
@@ -12,17 +14,33 @@ from planner.core.schema import (
     PlanTurno,
     ViajePlan,
 )
-from planner.routing.travel import (
-    MatrizViaje,
-    tiempo_viaje_esperado_min,
-)
+from planner.routing.travel import MatrizViaje, tiempo_viaje_esperado_min
 
+__all__ = [
+    "EstimacionEsperaCliente",
+    "ReservaEmpleadosCorralon",
+    "EstimacionCargaViaje",
+    "ResultadoOperacionEstimada",
+    "tiempo_carga_estimado_min",
+    "tiempo_espera_respuesta_cliente_esperado_min",
+    "estimar_espera_cliente",
+    "tiempo_descarga_estimado_min",
+    "simular_plan_operativo_estimado",
+]
 
 _TOLERANCIA_TIEMPO = 1e-9
 
 
 @dataclass(frozen=True)
 class EstimacionEsperaCliente:
+    """Tiempos de espera proyectados al arribar al destino de un cliente.
+
+    Attributes:
+        tiempo_espera_ventana_min: Minutos de espera ociosa hasta la apertura de ventana horaria.
+        tiempo_espera_respuesta_min: Minutos de espera hasta ser atendido en obra.
+        minuto_inicio_descarga: Minuto del día exacto en que comienza la descarga física.
+    """
+
     tiempo_espera_ventana_min: float
     tiempo_espera_respuesta_min: float
     minuto_inicio_descarga: float
@@ -30,12 +48,13 @@ class EstimacionEsperaCliente:
 
 @dataclass(frozen=True)
 class ReservaEmpleadosCorralon:
-    """
-    Bloqueo determinístico opcional de empleados del corralón.
+    """Bloqueo temporal determinístico de operarios de corralón para auditoría de competencia.
 
-    Sirve para probar y auditar competencia de recursos, por ejemplo
-    cuando un proveedor ya está siendo atendido. No intenta predecir
-    las llegadas estocásticas futuras de proveedores.
+    Attributes:
+        minuto_inicio: Inicio del lapso de bloqueo.
+        minuto_fin: Fin del lapso de bloqueo.
+        empleados_ocupados: Cantidad de operarios asignados a la tarea externa.
+        motivo: Etiqueta descriptiva del bloqueo (ej. 'PROVEEDOR').
     """
 
     minuto_inicio: float
@@ -45,19 +64,15 @@ class ReservaEmpleadosCorralon:
 
     def __post_init__(self) -> None:
         if self.minuto_fin < self.minuto_inicio:
-            raise ValueError(
-                "La reserva de empleados debe cumplir "
-                "minuto_inicio <= minuto_fin."
-            )
-
+            raise ValueError("La reserva de empleados debe cumplir minuto_inicio <= minuto_fin.")
         if self.empleados_ocupados < 0:
-            raise ValueError(
-                "empleados_ocupados no puede ser negativo."
-            )
+            raise ValueError("empleados_ocupados no puede ser negativo.")
 
 
 @dataclass(frozen=True)
 class EstimacionCargaViaje:
+    """Detalle de recursos y cronología de la carga de un viaje en corralón."""
+
     camion_id: int
     numero_viaje: int
     unidades: int
@@ -71,9 +86,10 @@ class EstimacionCargaViaje:
 
 @dataclass(frozen=True)
 class ResultadoOperacionEstimada:
+    """Resultado de la simulación operativa con eventos y tiempos cronológicos consolidados."""
+
     cargas: tuple[EstimacionCargaViaje, ...]
     finales_camiones_min: tuple[float, ...]
-
     distancia_total_m: float
     tiempo_carga_total_min: float
     tiempo_viaje_total_min: float
@@ -87,6 +103,8 @@ class ResultadoOperacionEstimada:
 
 @dataclass
 class _EstadoCamion:
+    """Estado interno del camión durante el avance de la simulación de eventos."""
+
     plan: PlanCamion
     indice_viaje: int = 0
     estado: str = "FINALIZADO"
@@ -101,6 +119,8 @@ class _EstadoCamion:
 
 @dataclass(frozen=True)
 class _ResultadoViaje:
+    """Métricas acumuladas del recorrido y atención de pedidos tras salir del corralón."""
+
     minuto_regreso: float
     distancia_m: float
     tiempo_viaje_min: float
@@ -116,50 +136,41 @@ def tiempo_carga_estimado_min(
     configuracion: ConfiguracionPlanificacion,
     personas: int | None = None,
 ) -> float:
-    """
-    Tiempo esperado de carga sin variación aleatoria.
+    """Calcula la duración estimada de carga en corralón considerando rendimientos decrecientes.
 
-    Cuando personas es None se conserva el comportamiento histórico
-    para heurísticas incrementales. La evaluación final del plan pasa
-    siempre la cantidad dinámica calculada por el simulador operativo.
+    Args:
+        unidades: Volumen total a cargar.
+        configuracion: Parámetros del corralón.
+        personas: Dotación de operarios asignada (usa la estimación de configuración si es `None`).
+
+    Returns:
+        Duración de la carga expresada en minutos.
+
+    Raises:
+        ValueError: Si las unidades o personas son menores o iguales a cero.
     """
     if unidades <= 0:
-        raise ValueError(
-            "unidades debe ser > 0."
-        )
+        raise ValueError("unidades debe ser > 0.")
 
-    personas_estimadas = (
-        configuracion.personas_carga_estimadas
-        if personas is None
-        else personas
-    )
+    personas_estimadas = configuracion.personas_carga_estimadas if personas is None else personas
 
     if personas_estimadas <= 0:
-        raise ValueError(
-            "personas debe ser > 0."
-        )
+        raise ValueError("personas debe ser > 0.")
 
-    personas_efectivas = (
-        1.0
-        + configuracion
-        .carga_eficiencia_persona_adicional
-        * (personas_estimadas - 1)
+    personas_efectivas = 1.0 + configuracion.carga_eficiencia_persona_adicional * (
+        personas_estimadas - 1
     )
 
     return (
         configuracion.carga_setup_min
-        + (
-            configuracion
-            .carga_min_por_unidad_1_persona
-            * unidades
-        )
-        / personas_efectivas
+        + (configuracion.carga_min_por_unidad_1_persona * unidades) / personas_efectivas
     )
 
 
 def tiempo_espera_respuesta_cliente_esperado_min(
     configuracion: ConfiguracionPlanificacion,
 ) -> float:
+    """Calcula el valor esperado de la distribución triangular de respuesta del cliente."""
     return (
         configuracion.cliente_espera_respuesta_min
         + configuracion.cliente_espera_respuesta_moda
@@ -172,6 +183,7 @@ def estimar_espera_cliente(
     minuto_llegada: float,
     configuracion: ConfiguracionPlanificacion,
 ) -> EstimacionEsperaCliente:
+    """Calcula la espera hasta apertura de ventana y tiempo de respuesta en obra."""
     if minuto_llegada > pedido.hora_hasta_min:
         return EstimacionEsperaCliente(
             tiempo_espera_ventana_min=0.0,
@@ -179,28 +191,14 @@ def estimar_espera_cliente(
             minuto_inicio_descarga=minuto_llegada,
         )
 
-    tiempo_espera_ventana_min = max(
-        0.0,
-        pedido.hora_desde_min - minuto_llegada,
-    )
-
-    tiempo_espera_respuesta_min = (
-        tiempo_espera_respuesta_cliente_esperado_min(
-            configuracion
-        )
-    )
+    tiempo_espera_ventana_min = max(0.0, pedido.hora_desde_min - minuto_llegada)
+    tiempo_espera_respuesta_min = tiempo_espera_respuesta_cliente_esperado_min(configuracion)
 
     return EstimacionEsperaCliente(
-        tiempo_espera_ventana_min=(
-            tiempo_espera_ventana_min
-        ),
-        tiempo_espera_respuesta_min=(
-            tiempo_espera_respuesta_min
-        ),
+        tiempo_espera_ventana_min=tiempo_espera_ventana_min,
+        tiempo_espera_respuesta_min=tiempo_espera_respuesta_min,
         minuto_inicio_descarga=(
-            minuto_llegada
-            + tiempo_espera_ventana_min
-            + tiempo_espera_respuesta_min
+            minuto_llegada + tiempo_espera_ventana_min + tiempo_espera_respuesta_min
         ),
     )
 
@@ -209,10 +207,10 @@ def tiempo_descarga_estimado_min(
     pedido: PedidoInput,
     configuracion: ConfiguracionPlanificacion,
 ) -> float:
+    """Calcula el tiempo necesario para posicionar y descargar el pedido en obra."""
     return (
         configuracion.descarga_setup_min
-        + configuracion.descarga_min_por_unidad
-        * pedido.unidades_capacidad
+        + configuracion.descarga_min_por_unidad * pedido.unidades_capacidad
     )
 
 
@@ -223,6 +221,7 @@ def _simular_viaje_despues_carga(
     matriz: MatrizViaje,
     configuracion: ConfiguracionPlanificacion,
 ) -> _ResultadoViaje:
+    """Simula la ruta de entregas de un viaje partiendo del corralón y retornando a él."""
     minuto_actual = minuto_salida
     nodo_actual = configuracion.id_nodo_corralon
 
@@ -236,60 +235,30 @@ def _simular_viaje_despues_carga(
 
     for pedido_id in viaje.pedido_ids:
         pedido = pedidos_por_id[pedido_id]
-
-        distancia_m += matriz.distancia(
-            nodo_actual,
-            pedido_id,
-        )
+        distancia_m += matriz.distancia(nodo_actual, pedido_id)
 
         tiempo_tramo = tiempo_viaje_esperado_min(
-            matriz,
-            nodo_actual,
-            pedido_id,
-            minuto_actual,
-            configuracion,
+            matriz, nodo_actual, pedido_id, minuto_actual, configuracion
         )
-
         tiempo_viaje_min += tiempo_tramo
         minuto_actual += tiempo_tramo
 
-        tardanza_pedido_min = max(
-            0.0,
-            minuto_actual - pedido.hora_hasta_min,
-        )
+        tardanza_pedido_min = max(0.0, minuto_actual - pedido.hora_hasta_min)
         tardanza_min += tardanza_pedido_min
         if tardanza_pedido_min > _TOLERANCIA_TIEMPO:
             pedidos_tardios += 1
 
-        espera = estimar_espera_cliente(
-            pedido,
-            minuto_actual,
-            configuracion,
-        )
-
-        tiempo_espera_ventana_min += (
-            espera.tiempo_espera_ventana_min
-        )
-        tiempo_espera_respuesta_min += (
-            espera.tiempo_espera_respuesta_min
-        )
-
+        espera = estimar_espera_cliente(pedido, minuto_actual, configuracion)
+        tiempo_espera_ventana_min += espera.tiempo_espera_ventana_min
+        tiempo_espera_respuesta_min += espera.tiempo_espera_respuesta_min
         minuto_actual = espera.minuto_inicio_descarga
 
-        descarga = tiempo_descarga_estimado_min(
-            pedido,
-            configuracion,
-        )
-
+        descarga = tiempo_descarga_estimado_min(pedido, configuracion)
         tiempo_descarga_min += descarga
         minuto_actual += descarga
         nodo_actual = pedido_id
 
-    distancia_m += matriz.distancia(
-        nodo_actual,
-        configuracion.id_nodo_corralon,
-    )
-
+    distancia_m += matriz.distancia(nodo_actual, configuracion.id_nodo_corralon)
     tiempo_regreso = tiempo_viaje_esperado_min(
         matriz,
         nodo_actual,
@@ -297,7 +266,6 @@ def _simular_viaje_despues_carga(
         minuto_actual,
         configuracion,
     )
-
     tiempo_viaje_min += tiempo_regreso
     minuto_actual += tiempo_regreso
 
@@ -305,35 +273,25 @@ def _simular_viaje_despues_carga(
         minuto_regreso=minuto_actual,
         distancia_m=distancia_m,
         tiempo_viaje_min=tiempo_viaje_min,
-        tiempo_espera_ventana_min=(
-            tiempo_espera_ventana_min
-        ),
-        tiempo_espera_respuesta_min=(
-            tiempo_espera_respuesta_min
-        ),
+        tiempo_espera_ventana_min=tiempo_espera_ventana_min,
+        tiempo_espera_respuesta_min=tiempo_espera_respuesta_min,
         tiempo_descarga_min=tiempo_descarga_min,
         tardanza_min=tardanza_min,
         pedidos_tardios=pedidos_tardios,
     )
 
 
-def _estado_operativo_en_minuto(
-    estado: _EstadoCamion,
-    minuto: float,
-) -> str:
+def _estado_operativo_en_minuto(estado: _EstadoCamion, minuto: float) -> str:
+    """Determina si un vehículo se encuentra en calle, en corralón o ya finalizó su turno."""
     if estado.estado == "FINALIZADO":
         return "FINALIZADO"
-
     if estado.estado == "ESPERANDO_CARGA":
         return "CORRALON_CON_TRABAJO"
-
     if estado.estado == "OCUPADO":
         if minuto < estado.minuto_fin_carga - _TOLERANCIA_TIEMPO:
             return "CARGANDO"
-
         if minuto < estado.minuto_regreso - _TOLERANCIA_TIEMPO:
             return "EN_CALLE"
-
     return "CORRALON_CON_TRABAJO"
 
 
@@ -342,20 +300,63 @@ def _cantidad_empleados_reservados(
     reservas: tuple[ReservaEmpleadosCorralon, ...],
     cantidad_total: int,
 ) -> int:
+    """Computa cuántos operarios de corralón están comprometidos en tareas reservadas en el minuto dado."""
     ocupados = sum(
         reserva.empleados_ocupados
         for reserva in reservas
-        if (
-            reserva.minuto_inicio
-            <= minuto
-            < reserva.minuto_fin
-        )
+        if reserva.minuto_inicio <= minuto < reserva.minuto_fin
     )
+    return min(cantidad_total, ocupados)
 
-    return min(
-        cantidad_total,
-        ocupados,
+
+def _asignar_dotacion_carga(
+    camion_id: int,
+    estados: dict[int, _EstadoCamion],
+    minuto_evento: float,
+    configuracion: ConfiguracionPlanificacion,
+    reservas_empleados: tuple[ReservaEmpleadosCorralon, ...],
+    empleados_ocupados_hasta: list[float],
+    chofer_ayudante_ocupado_hasta: dict[int, float],
+) -> tuple[list[int], bool, int, int | None]:
+    """Determina la dotación de operarios asignada a la carga respetando la política de corralón."""
+    otros_ids = [c_id for c_id in sorted(estados) if c_id != camion_id]
+    otro_id = otros_ids[0] if otros_ids else None
+
+    if otro_id is None:
+        estado_otro = "FINALIZADO"
+    else:
+        estado_otro = _estado_operativo_en_minuto(estados[otro_id], minuto_evento)
+
+    if estado_otro in {"FINALIZADO", "EN_CALLE"}:
+        max_empleados = 2
+    else:
+        max_empleados = 1
+
+    max_empleados = min(max_empleados, configuracion.cantidad_empleados_corralon)
+    reservados = _cantidad_empleados_reservados(
+        minuto_evento, reservas_empleados, configuracion.cantidad_empleados_corralon
     )
+    indices_reservados = set(range(reservados))
+
+    empleados_disponibles = [
+        emp_id
+        for emp_id, ocupado_hasta in enumerate(empleados_ocupados_hasta)
+        if (
+            emp_id not in indices_reservados and ocupado_hasta <= minuto_evento + _TOLERANCIA_TIEMPO
+        )
+    ]
+    empleados_asignados = empleados_disponibles[:max_empleados]
+
+    chofer_ayudante = False
+    if (
+        otro_id is not None
+        and estado_otro == "FINALIZADO"
+        and chofer_ayudante_ocupado_hasta[otro_id] <= minuto_evento + _TOLERANCIA_TIEMPO
+    ):
+        chofer_ayudante = True
+
+    personas = 1 + len(empleados_asignados) + (1 if chofer_ayudante else 0)
+    return empleados_asignados, chofer_ayudante, personas, otro_id
 
 
 def simular_plan_operativo_estimado(
@@ -363,52 +364,35 @@ def simular_plan_operativo_estimado(
     plan: PlanTurno,
     matriz: MatrizViaje,
     configuracion: ConfiguracionPlanificacion,
-    reservas_empleados: tuple[
-        ReservaEmpleadosCorralon,
-        ...
-    ] = (),
+    reservas_empleados: tuple[ReservaEmpleadosCorralon, ...] = (),
 ) -> ResultadoOperacionEstimada:
+    """Simula determinísticamente la cronología de ejecución del plan con eventos discretos.
+
+    Replica la concurrencia operativa de carga en corralón y los desplazamientos
+    viales de la flota, acumulando las métricas de servicio y tiempos de viaje.
+
+    Args:
+        instancia: Escenario del turno.
+        plan: Rutas asignadas por vehículo.
+        matriz: Matriz de distancias y tiempos de traslado.
+        configuracion: Parámetros del planificador.
+        reservas_empleados: Bloqueos temporales de operarios de corralón.
+
+    Returns:
+        Resultado detallado con tiempos acumulados y trazas de carga.
     """
-    Simula de forma determinística la cronología esperada del plan.
-
-    Replica la política de asignación de trabajadores de AnyLogic para
-    dos camiones:
-    - el chofer propio siempre carga;
-    - si el otro camión tiene trabajo en el corralón, se asigna como
-      máximo un empleado;
-    - si el otro está en la calle, pueden asignarse dos empleados;
-    - si el otro terminó, pueden asignarse dos empleados y su chofer.
-
-    Las cargas que empiezan en el mismo instante se procesan por ID de
-    camión, como desempate determinista. Con dos empleados disponibles,
-    dos camiones que cargan simultáneamente reciben uno cada uno.
-    """
-    pedidos_por_id = {
-        pedido.pedido_id: pedido
-        for pedido in instancia.pedidos
-    }
-
-    planes_por_id = {
-        plan_camion.camion_id: plan_camion
-        for plan_camion in plan.camiones
-    }
+    pedidos_por_id = {p.pedido_id: p for p in instancia.pedidos}
+    planes_por_id = {pc.camion_id: pc for pc in plan.camiones}
 
     estados: dict[int, _EstadoCamion] = {}
-
     for camion_id in range(instancia.cantidad_camiones):
-        plan_camion = planes_por_id.get(
-            camion_id,
-            PlanCamion(camion_id=camion_id),
-        )
-
+        plan_camion = planes_por_id.get(camion_id, PlanCamion(camion_id=camion_id))
         if plan_camion.viajes:
             estado_inicial = "ESPERANDO_CARGA"
             minuto_fin = -1.0
         else:
             estado_inicial = "FINALIZADO"
-            minuto_fin = float(
-                instancia.hora_inicio_turno_min
-            )
+            minuto_fin = float(instancia.hora_inicio_turno_min)
 
         estados[camion_id] = _EstadoCamion(
             plan=plan_camion,
@@ -417,17 +401,10 @@ def simular_plan_operativo_estimado(
         )
 
     empleados_ocupados_hasta = [
-        float("-inf")
-        for _ in range(
-            configuracion.cantidad_empleados_corralon
-        )
+        float("-inf") for _ in range(configuracion.cantidad_empleados_corralon)
     ]
-
     chofer_ayudante_ocupado_hasta = {
-        camion_id: float("-inf")
-        for camion_id in range(
-            instancia.cantidad_camiones
-        )
+        c_id: float("-inf") for c_id in range(instancia.cantidad_camiones)
     }
 
     eventos: list[tuple[float, int, str, int]] = []
@@ -446,7 +423,6 @@ def simular_plan_operativo_estimado(
             )
 
     cargas: list[EstimacionCargaViaje] = []
-
     distancia_total_m = 0.0
     tiempo_carga_total_min = 0.0
     tiempo_viaje_total_min = 0.0
@@ -459,33 +435,18 @@ def simular_plan_operativo_estimado(
 
     while eventos:
         minuto_evento = eventos[0][0]
-        eventos_mismo_instante: list[
-            tuple[float, int, str, int]
-        ] = []
+        eventos_mismo_instante: list[tuple[float, int, str, int]] = []
 
-        while (
-            eventos
-            and abs(eventos[0][0] - minuto_evento)
-            <= _TOLERANCIA_TIEMPO
-        ):
-            eventos_mismo_instante.append(
-                heapq.heappop(eventos)
-            )
+        while eventos and abs(eventos[0][0] - minuto_evento) <= _TOLERANCIA_TIEMPO:
+            eventos_mismo_instante.append(heapq.heappop(eventos))
 
         solicitudes_carga: set[int] = set()
 
-        # Primero procesamos retornos. Así un camión que termina o pide
-        # su siguiente carga queda correctamente visible para el otro.
         for _, _, tipo_evento, camion_id in sorted(
             eventos_mismo_instante,
-            key=lambda evento: (
-                0 if evento[2] == "RETORNO" else 1,
-                evento[3],
-                evento[1],
-            ),
+            key=lambda ev: (0 if ev[2] == "RETORNO" else 1, ev[3], ev[1]),
         ):
             estado = estados[camion_id]
-
             if tipo_evento == "RETORNO":
                 estado.indice_viaje += 1
                 estado.minuto_fin_carga = -1.0
@@ -497,121 +458,41 @@ def simular_plan_operativo_estimado(
                 else:
                     estado.estado = "FINALIZADO"
                     estado.minuto_fin = minuto_evento
-
             elif tipo_evento == "SOLICITUD_CARGA":
                 solicitudes_carga.add(camion_id)
 
         for camion_id in sorted(solicitudes_carga):
             estado = estados[camion_id]
-
             if not estado.tiene_viaje_pendiente:
                 estado.estado = "FINALIZADO"
                 estado.minuto_fin = minuto_evento
                 continue
 
-            otros_ids = [
-                otro_id
-                for otro_id in sorted(estados)
-                if otro_id != camion_id
-            ]
-
-            otro_id = (
-                otros_ids[0]
-                if otros_ids
-                else None
-            )
-
-            if otro_id is None:
-                estado_otro = "FINALIZADO"
-            else:
-                estado_otro = _estado_operativo_en_minuto(
-                    estados[otro_id],
-                    minuto_evento,
-                )
-
-            if estado_otro in {
-                "FINALIZADO",
-                "EN_CALLE",
-            }:
-                max_empleados = 2
-            else:
-                max_empleados = 1
-
-            max_empleados = min(
-                max_empleados,
-                configuracion.cantidad_empleados_corralon,
-            )
-
-            reservados = _cantidad_empleados_reservados(
+            (
+                empleados_asignados,
+                chofer_ayudante,
+                personas,
+                otro_id,
+            ) = _asignar_dotacion_carga(
+                camion_id,
+                estados,
                 minuto_evento,
-                reservas_empleados,
-                configuracion.cantidad_empleados_corralon,
-            )
-
-            indices_reservados = set(
-                range(reservados)
-            )
-
-            empleados_disponibles = [
-                empleado_id
-                for empleado_id, ocupado_hasta
-                in enumerate(empleados_ocupados_hasta)
-                if (
-                    empleado_id not in indices_reservados
-                    and ocupado_hasta
-                    <= minuto_evento + _TOLERANCIA_TIEMPO
-                )
-            ]
-
-            empleados_asignados = empleados_disponibles[
-                :max_empleados
-            ]
-
-            chofer_ayudante = False
-
-            if (
-                otro_id is not None
-                and estado_otro == "FINALIZADO"
-                and chofer_ayudante_ocupado_hasta[otro_id]
-                <= minuto_evento + _TOLERANCIA_TIEMPO
-            ):
-                chofer_ayudante = True
-
-            personas = (
-                1
-                + len(empleados_asignados)
-                + (1 if chofer_ayudante else 0)
-            )
-
-            viaje = estado.plan.viajes[
-                estado.indice_viaje
-            ]
-
-            unidades = sum(
-                pedidos_por_id[pedido_id]
-                .unidades_capacidad
-                for pedido_id in viaje.pedido_ids
-            )
-
-            duracion_carga = tiempo_carga_estimado_min(
-                unidades,
                 configuracion,
-                personas=personas,
+                reservas_empleados,
+                empleados_ocupados_hasta,
+                chofer_ayudante_ocupado_hasta,
             )
 
-            minuto_fin_carga = (
-                minuto_evento + duracion_carga
-            )
+            viaje = estado.plan.viajes[estado.indice_viaje]
+            unidades = sum(pedidos_por_id[p_id].unidades_capacidad for p_id in viaje.pedido_ids)
+            duracion_carga = tiempo_carga_estimado_min(unidades, configuracion, personas=personas)
+            minuto_fin_carga = minuto_evento + duracion_carga
 
-            for empleado_id in empleados_asignados:
-                empleados_ocupados_hasta[empleado_id] = (
-                    minuto_fin_carga
-                )
+            for emp_id in empleados_asignados:
+                empleados_ocupados_hasta[emp_id] = minuto_fin_carga
 
             if chofer_ayudante and otro_id is not None:
-                chofer_ayudante_ocupado_hasta[otro_id] = (
-                    minuto_fin_carga
-                )
+                chofer_ayudante_ocupado_hasta[otro_id] = minuto_fin_carga
 
             cargas.append(
                 EstimacionCargaViaje(
@@ -620,12 +501,8 @@ def simular_plan_operativo_estimado(
                     unidades=unidades,
                     minuto_inicio=minuto_evento,
                     personas_estimadas=personas,
-                    empleados_corralon_asignados=(
-                        len(empleados_asignados)
-                    ),
-                    chofer_ayudante_asignado=(
-                        chofer_ayudante
-                    ),
+                    empleados_corralon_asignados=len(empleados_asignados),
+                    chofer_ayudante_asignado=chofer_ayudante,
                     duracion_min=duracion_carga,
                     minuto_fin=minuto_fin_carga,
                 )
@@ -641,9 +518,7 @@ def simular_plan_operativo_estimado(
 
             estado.estado = "OCUPADO"
             estado.minuto_fin_carga = minuto_fin_carga
-            estado.minuto_regreso = (
-                resultado_viaje.minuto_regreso
-            )
+            estado.minuto_regreso = resultado_viaje.minuto_regreso
 
             heapq.heappush(
                 eventos,
@@ -658,30 +533,15 @@ def simular_plan_operativo_estimado(
             viajes_totales += 1
             tiempo_carga_total_min += duracion_carga
             distancia_total_m += resultado_viaje.distancia_m
-            tiempo_viaje_total_min += (
-                resultado_viaje.tiempo_viaje_min
-            )
-            tiempo_espera_ventana_total_min += (
-                resultado_viaje
-                .tiempo_espera_ventana_min
-            )
-            tiempo_espera_respuesta_total_min += (
-                resultado_viaje
-                .tiempo_espera_respuesta_min
-            )
-            tiempo_descarga_total_min += (
-                resultado_viaje.tiempo_descarga_min
-            )
-            tardanza_total_min += (
-                resultado_viaje.tardanza_min
-            )
+            tiempo_viaje_total_min += resultado_viaje.tiempo_viaje_min
+            tiempo_espera_ventana_total_min += resultado_viaje.tiempo_espera_ventana_min
+            tiempo_espera_respuesta_total_min += resultado_viaje.tiempo_espera_respuesta_min
+            tiempo_descarga_total_min += resultado_viaje.tiempo_descarga_min
+            tardanza_total_min += resultado_viaje.tardanza_min
             pedidos_tardios += resultado_viaje.pedidos_tardios
 
     finales_camiones = tuple(
-        estados[camion_id].minuto_fin
-        for camion_id in range(
-            instancia.cantidad_camiones
-        )
+        estados[c_id].minuto_fin for c_id in range(instancia.cantidad_camiones)
     )
 
     return ResultadoOperacionEstimada(
@@ -690,15 +550,9 @@ def simular_plan_operativo_estimado(
         distancia_total_m=distancia_total_m,
         tiempo_carga_total_min=tiempo_carga_total_min,
         tiempo_viaje_total_min=tiempo_viaje_total_min,
-        tiempo_espera_ventana_total_min=(
-            tiempo_espera_ventana_total_min
-        ),
-        tiempo_espera_respuesta_cliente_total_min=(
-            tiempo_espera_respuesta_total_min
-        ),
-        tiempo_descarga_total_min=(
-            tiempo_descarga_total_min
-        ),
+        tiempo_espera_ventana_total_min=tiempo_espera_ventana_total_min,
+        tiempo_espera_respuesta_cliente_total_min=tiempo_espera_respuesta_total_min,
+        tiempo_descarga_total_min=tiempo_descarga_total_min,
         tardanza_total_min=tardanza_total_min,
         pedidos_tardios=pedidos_tardios,
         viajes_totales=viajes_totales,

@@ -1,12 +1,14 @@
+"""Integración de inferencia con modelos MaskablePPO entrenados para planificación."""
+
 from __future__ import annotations
 
-from pathlib import Path
 import sys
+from pathlib import Path
 from time import perf_counter
 from typing import Any
 
-from gymnasium import spaces
 import numpy as np
+from gymnasium import spaces
 
 # pyrefly: ignore [missing-import]
 from sb3_contrib import MaskablePPO
@@ -18,6 +20,8 @@ from planner.domain.validator import validar_plan
 from planner.rl.policy_config import ConfiguracionPoliticaRL
 from planner.rl.policy_env import EntornoPlanificacionRL
 from planner.routing.travel import ProveedorViaje
+
+__all__ = ["PlanificadorPoliticaRL"]
 
 
 def _asegurar_compatibilidad_numpy() -> None:
@@ -55,11 +59,11 @@ def _detectar_dimensiones_checkpoint(
     ruta_zip: Path,
     max_pedidos_default: int,
 ) -> tuple[int, int]:
-    """
-    Inspecciona `policy.pth` dentro del checkpoint .zip de Stable-Baselines3 para obtener
-    las dimensiones reales `(max_pedidos_checkpoint, dim_obs_checkpoint)` con las que
-    fue entrenado el modelo. Así permite cargar tanto el modelo actual (30 slots, 702 vars)
-    como futuros modelos de mayor capacidad (ej. 35 slots, 817 vars) sin error de shapes.
+    """Inspecciona `policy.pth` dentro del checkpoint .zip de Stable-Baselines3.
+
+    Obtiene las dimensiones reales `(max_pedidos_checkpoint, dim_obs_checkpoint)`
+    con las que fue entrenado el modelo, permitiendo cargar tanto modelos estándar
+    (30 slots) como variantes mayores sin discrepancia de tensores.
     """
     dim_obs_default = (
         max_pedidos_default * EntornoPlanificacionRL.FEATURES_POR_PEDIDO
@@ -68,6 +72,7 @@ def _detectar_dimensiones_checkpoint(
     try:
         import io
         import zipfile
+
         import torch
 
         with zipfile.ZipFile(ruta_zip, "r") as zf:
@@ -101,6 +106,12 @@ def _detectar_dimensiones_checkpoint(
 
 
 class PlanificadorPoliticaRL(PlanificadorTurno):
+    """Planificador de turnos basado en inferencia neuronal guiada por máscaras de acción.
+
+    Utiliza una política MaskablePPO para seleccionar secuencialmente el siguiente pedido
+    a despachar, garantizando que ninguna acción viole restricciones duras de turno.
+    """
+
     VERSION_PLANIFICADOR = "RL_POLITICA"
 
     def __init__(
@@ -116,22 +127,11 @@ class PlanificadorPoliticaRL(PlanificadorTurno):
         self.model_path = Path(model_path)
 
         if not self.model_path.exists():
-            raise FileNotFoundError(
-                "No existe el modelo RL de la política RL: "
-                f"{self.model_path}"
-            )
+            raise FileNotFoundError(f"No existe el modelo RL de la política RL: {self.model_path}")
 
-        self.configuracion = (
-            configuracion
-            if configuracion is not None
-            else ConfiguracionPlanificacion()
-        )
+        self.configuracion = configuracion or ConfiguracionPlanificacion()
         self.proveedor_viaje = proveedor_viaje
-        self.configuracion_temporal = (
-            configuracion_temporal
-            if configuracion_temporal is not None
-            else ConfiguracionPoliticaRL()
-        )
+        self.configuracion_temporal = configuracion_temporal or ConfiguracionPoliticaRL()
         self.deterministic = deterministic
         self.num_rollouts = max(1, int(num_rollouts))
         _asegurar_compatibilidad_numpy()
@@ -191,16 +191,11 @@ class PlanificadorPoliticaRL(PlanificadorTurno):
             info_final = dict(info)
 
             if truncado:
-                raise RuntimeError(
-                    "La política RL de la política RL produjo un episodio "
-                    "truncado."
-                )
+                raise RuntimeError("La política RL de la política RL produjo un episodio truncado.")
 
         plan = env.ultimo_plan
         if plan is None:
-            raise RuntimeError(
-                "El entorno de la política RL finalizó sin producir un plan."
-            )
+            raise RuntimeError("El entorno de la política RL finalizó sin producir un plan.")
 
         validacion = validar_plan(instancia, plan)
         if not validacion.valido:
@@ -212,6 +207,7 @@ class PlanificadorPoliticaRL(PlanificadorTurno):
         return plan, env.permutacion_actual, info_final
 
     def generar_plan(self, instancia: InstanciaTurno) -> PlanTurno:
+        """Genera un plan de despacho resolviendo el episodio con la política neuronal."""
         inicio_computo = perf_counter()
         env = EntornoPlanificacionRL(
             instancia=instancia,
@@ -222,18 +218,13 @@ class PlanificadorPoliticaRL(PlanificadorTurno):
         )
 
         try:
-            forma_modelo = getattr(
-                self.model.observation_space,
-                "shape",
-                None,
-            )
+            forma_modelo = getattr(self.model.observation_space, "shape", None)
             forma_entorno = env.observation_space.shape
 
             if forma_modelo != forma_entorno:
                 raise RuntimeError(
-                    "El modelo no es compatible con el entorno temporal "
-                    f"actual. Observación modelo={forma_modelo}, "
-                    f"entorno={forma_entorno}."
+                    f"El modelo no es compatible con el entorno temporal actual. "
+                    f"Observación modelo={forma_modelo}, entorno={forma_entorno}."
                 )
 
             seed_rl = (
@@ -269,9 +260,7 @@ class PlanificadorPoliticaRL(PlanificadorTurno):
                     vistas.add(perm_c)
                     perms_unicas.append(perm_c)
 
-            mejor_plan.tiempo_computo_ms = (
-                perf_counter() - inicio_computo
-            ) * 1000.0
+            mejor_plan.tiempo_computo_ms = (perf_counter() - inicio_computo) * 1000.0
             mejor_plan.warnings.append(self.VERSION_PLANIFICADOR)
             self.ultima_permutacion = mejor_perm
             self.ultimas_permutaciones = tuple(perms_unicas)

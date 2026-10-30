@@ -1,3 +1,11 @@
+"""Ejecución headless de planes en el modelo exportado de AnyLogic vía Alpyne.
+
+Este módulo controla el ciclo de vida del simulador AnyLogic ejecutado como subproceso
+Java, configurando la simulación (`reset`), despachando la acción de ruteo dinámico
+(`take_action`), esperando la convergencia a un estado terminal y parseando las
+métricas operativas detalladas emitidas por el gemelo digital.
+"""
+
 from __future__ import annotations
 
 import atexit
@@ -6,19 +14,32 @@ import os
 import shutil
 import time
 import warnings
+from collections.abc import Callable, Mapping, Sequence
 from dataclasses import asdict, dataclass
 from math import isclose, isfinite
 from pathlib import Path
-from typing import Any, Callable, Mapping, Sequence
+from typing import Any, Final
 
+__all__ = [
+    "ACCION_EJECUTAR_PLAN_DINAMICO",
+    "HORIZONTE_SIMULACION_MIN_PREDETERMINADO",
+    "VERSION_RESULTADO_SIMULADO",
+    "ErrorEjecucionSimulada",
+    "ResultadoEjecucionSimulada",
+    "codificar_identificadores_pedidos",
+    "construir_resultado_simulado",
+    "ejecutar_plan_en_modelo_exportado",
+]
 
-ACCION_EJECUTAR_PLAN_DINAMICO = 2
-VERSION_RESULTADO_SIMULADO = 1
-HORIZONTE_SIMULACION_MIN_PREDETERMINADO = 600.0
+ACCION_EJECUTAR_PLAN_DINAMICO: Final[int] = 2
+VERSION_RESULTADO_SIMULADO: Final[int] = 1
+HORIZONTE_SIMULACION_MIN_PREDETERMINADO: Final[float] = 600.0
 
 
 @dataclass(frozen=True)
 class ResultadoEjecucionSimulada:
+    """Métricas operativas y costos extraídos tras una corrida en AnyLogic."""
+
     version: int
     instancia_id: str
     fecha_operacion: str
@@ -46,12 +67,13 @@ class ResultadoEjecucionSimulada:
     estado_motor: str
 
     def como_dict(self) -> dict[str, Any]:
+        """Serializa a diccionario nativo."""
         return asdict(self)
 
     def resumen(self) -> str:
+        """Retorna un resumen de ejecución delimitado por tuberías (|)."""
         return (
-            "OK"
-            f"|version={self.version}"
+            f"OK|version={self.version}"
             f"|instancia={self.instancia_id}"
             f"|fecha={self.fecha_operacion}"
             f"|algoritmo={self.algoritmo_aplicado}"
@@ -67,7 +89,7 @@ class ResultadoEjecucionSimulada:
 
 
 class ErrorEjecucionSimulada(RuntimeError):
-    pass
+    """Excepción emitida ante fallos de ejecución o contratos en AnyLogic."""
 
 
 def ejecutar_plan_en_modelo_exportado(
@@ -88,7 +110,28 @@ def ejecutar_plan_en_modelo_exportado(
     java_exe: str | Path | None = None,
     sim_factory: Callable[..., Any] | None = None,
 ) -> ResultadoEjecucionSimulada:
-    """Ejecuta un plan en una corrida limpia del modelo AnyLogic exportado."""
+    """Ejecuta un plan en una corrida limpia del modelo AnyLogic exportado.
+
+    Args:
+        modelo_exportado: Ruta al directorio del modelo AnyLogic exportado.
+        raiz_python: Directorio raíz de los módulos Python.
+        instancia_vector: Vector plano de la instancia.
+        plan_vector: Vector plano del plan a ejecutar.
+        identificadores_pedidos: Mapeo codificado de IDs de tareas y pedidos originales.
+        instancia_id: Identificador de la instancia.
+        fecha_operacion: Fecha del turno.
+        seed_escenario: Semilla del escenario.
+        seed_ejecucion: Semilla de la ejecución.
+        proveedores_habilitados: Habilitar interacción de proveedores en AnyLogic.
+        timeout_segundos: Tiempo límite de espera para la ejecución.
+        horizonte_simulacion_min: Horizonte máximo en minutos simulados.
+        log_id: Identificador para los archivos de log de simulación.
+        java_exe: Ruta opcional al ejecutable java.exe.
+        sim_factory: Fábrica opcional para AnyLogicSim (para pruebas).
+
+    Returns:
+        ResultadoEjecucionSimulada con todas las métricas de la corrida.
+    """
     modelo = Path(modelo_exportado).expanduser().resolve()
     raiz = Path(raiz_python).expanduser().resolve()
     ids_limpios = str(identificadores_pedidos).strip()
@@ -96,56 +139,36 @@ def ejecutar_plan_en_modelo_exportado(
     fecha_limpia = str(fecha_operacion).strip()
 
     if not modelo.is_file():
-        raise FileNotFoundError(
-            f"No existe el modelo AnyLogic exportado: {modelo}"
-        )
-
+        raise FileNotFoundError(f"No existe el modelo AnyLogic exportado: {modelo}")
     if not raiz.is_dir():
-        raise NotADirectoryError(
-            f"No existe la raíz Python del proyecto: {raiz}"
-        )
-
+        raise NotADirectoryError(f"No existe la raíz Python del proyecto: {raiz}")
     if not ids_limpios:
         raise ValueError("identificadores_pedidos no puede estar vacío.")
-
     if not id_limpio:
         raise ValueError("instancia_id no puede estar vacío.")
-
     if not fecha_limpia:
         raise ValueError("fecha_operacion no puede estar vacía.")
-
     if int(seed_escenario) <= 0:
         raise ValueError("seed_escenario debe ser > 0.")
-
     if int(seed_ejecucion) <= 0:
         raise ValueError("seed_ejecucion debe ser > 0.")
 
-    instancia = _vector_finito_no_vacio(
-        instancia_vector,
-        "instancia_vector",
-    )
-    plan = _vector_finito_no_vacio(
-        plan_vector,
-        "plan_vector",
-    )
+    instancia = _vector_finito_no_vacio(instancia_vector, "instancia_vector")
+    plan = _vector_finito_no_vacio(plan_vector, "plan_vector")
 
     if timeout_segundos <= 0:
         raise ValueError("timeout_segundos debe ser > 0.")
 
     horizonte = float(horizonte_simulacion_min)
-
     if not isfinite(horizonte) or horizonte <= 0.0:
-        raise ValueError(
-            "horizonte_simulacion_min debe ser finito y > 0."
-        )
+        raise ValueError("horizonte_simulacion_min debe ser finito y > 0.")
 
-    # Desactivar WebToolkit y asegurar ejecucion headless en procesos Java de Alpyne
     os.environ["ALPYNE_SIMULATION"] = "true"
     opciones_jvm = os.environ.get("_JAVA_OPTIONS", "")
     if "-Dwebtoolkit.enabled=false" not in opciones_jvm:
         os.environ["_JAVA_OPTIONS"] = (
-            f"{opciones_jvm} -Dwebtoolkit.enabled=false -Djava.awt.headless=true"
-        ).strip()
+            f"{opciones_jvm} -Dwebtoolkit.enabled=false -Djava.awt.headless=true".strip()
+        )
 
     kwargs_sim: dict[str, Any] = {
         "auto_lock": True,
@@ -161,28 +184,20 @@ def ejecutar_plan_en_modelo_exportado(
     if sim_factory is None:
         try:
             from alpyne.sim import AnyLogicSim
-        except ImportError as exc:  # pragma: no cover - depende del entorno
+        except ImportError as exc:  # pragma: no cover
             raise RuntimeError(
-                "No está instalado anylogic-alpyne. "
-                "Instale python/requirements.txt en el entorno virtual."
+                "No está instalado anylogic-alpyne. Instale python/requirements.txt en el entorno virtual."
             ) from exc
 
         sim_factory = AnyLogicSim
         java_resuelto = _resolver_java(java_exe)
         kwargs_sim["java_exe"] = str(java_resuelto)
     elif java_exe is not None:
-        kwargs_sim["java_exe"] = str(
-            Path(java_exe).expanduser().resolve()
-        )
+        kwargs_sim["java_exe"] = str(Path(java_exe).expanduser().resolve())
 
     sim = None
-
     try:
-        sim = sim_factory(
-            str(modelo),
-            **kwargs_sim,
-        )
-
+        sim = sim_factory(str(modelo), **kwargs_sim)
         estado_inicial = sim.reset(
             instanciaId=id_limpio,
             fechaOperacion=fecha_limpia,
@@ -195,26 +210,17 @@ def ejecutar_plan_en_modelo_exportado(
         )
 
         if estado_inicial is None:
-            raise ErrorEjecucionSimulada(
-                "Alpyne no devolvió estado después de reset()."
-            )
+            raise ErrorEjecucionSimulada("Alpyne no devolvió estado después de reset().")
 
-        observacion_inicial = _a_dict(
-            estado_inicial.observation
-        )
-
+        observacion_inicial = _a_dict(estado_inicial.observation)
         if bool(observacion_inicial.get("error", False)):
             raise ErrorEjecucionSimulada(
                 "El modelo informó un error durante la configuración: "
-                + _normalizar_texto(
-                    observacion_inicial.get("mensaje", "sin detalle")
-                )
+                + _normalizar_texto(observacion_inicial.get("mensaje", "sin detalle"))
             )
 
         if not bool(observacion_inicial.get("configurado", False)):
-            raise ErrorEjecucionSimulada(
-                "El modelo no confirmó la configuración Alpyne."
-            )
+            raise ErrorEjecucionSimulada("El modelo no confirmó la configuración Alpyne.")
 
         estado_accion = sim.take_action(
             accionCodigo=ACCION_EJECUTAR_PLAN_DINAMICO,
@@ -222,9 +228,7 @@ def ejecutar_plan_en_modelo_exportado(
         )
 
         if estado_accion is None:
-            raise ErrorEjecucionSimulada(
-                "Alpyne no devolvió estado después de take_action()."
-            )
+            raise ErrorEjecucionSimulada("Alpyne no devolvió estado después de take_action().")
 
         estado_final = _esperar_resultado_terminal(
             sim,
@@ -233,15 +237,10 @@ def ejecutar_plan_en_modelo_exportado(
             timeout_segundos=timeout_segundos,
         )
 
-        observacion_final = _a_dict(
-            estado_final.observation
-        )
-
+        observacion_final = _a_dict(estado_final.observation)
         resultado = construir_resultado_simulado(
             observacion_final,
-            estado_motor=_nombre_estado(
-                estado_final.state
-            ),
+            estado_motor=_nombre_estado(estado_final.state),
             stop=bool(estado_final.stop),
         )
 
@@ -260,7 +259,6 @@ def ejecutar_plan_en_modelo_exportado(
             _cerrar_simulacion(sim)
 
 
-
 def _esperar_resultado_terminal(
     sim: Any,
     *,
@@ -269,159 +267,74 @@ def _esperar_resultado_terminal(
     timeout_segundos: int | float,
     intervalo_sondeo_segundos: float = 0.05,
 ) -> Any:
-    """
-    Espera una observación final funcional después de enviar la acción.
-
-    ``AnyLogicSim.take_action()`` utiliza internamente un bloqueo sobre
-    estados "ready", que incluye PAUSED. En algunas corridas rápidas puede
-    devolver el PAUSED anterior a la acción antes de que el servidor publique
-    el nuevo estado FINISHED. Por eso no se valida inmediatamente el primer
-    objeto recibido: se consulta ``status()`` hasta observar una secuencia
-    posterior con resultado completo.
-    """
     if timeout_segundos <= 0:
         raise ValueError("timeout_segundos debe ser > 0.")
-
     if intervalo_sondeo_segundos <= 0.0:
-        raise ValueError(
-            "intervalo_sondeo_segundos debe ser > 0."
-        )
+        raise ValueError("intervalo_sondeo_segundos debe ser > 0.")
 
-    secuencia_inicial = _atributo_entero_opcional(
-        estado_inicial,
-        "sequence_id",
-    )
-
+    secuencia_inicial = _atributo_entero_opcional(estado_inicial, "sequence_id")
     ultimo_estado = estado_accion
     limite = time.monotonic() + float(timeout_segundos)
 
     while True:
-        observacion = _a_dict(
-            getattr(
-                ultimo_estado,
-                "observation",
-                {},
-            )
+        observacion = _a_dict(getattr(ultimo_estado, "observation", {}))
+        estado_motor = (
+            _nombre_estado(getattr(ultimo_estado, "state", "DESCONOCIDO")).strip().upper()
         )
-
-        estado_motor = _nombre_estado(
-            getattr(
-                ultimo_estado,
-                "state",
-                "DESCONOCIDO",
-            )
-        ).strip().upper()
-
-        secuencia_actual = _atributo_entero_opcional(
-            ultimo_estado,
-            "sequence_id",
-        )
+        secuencia_actual = _atributo_entero_opcional(ultimo_estado, "sequence_id")
 
         secuencia_avanzada = (
             secuencia_inicial is None
             or secuencia_actual is None
             or secuencia_actual > secuencia_inicial
         )
+        ejecucion_finalizada = bool(observacion.get("ejecucionFinalizada", False))
+        resultado_disponible = bool(observacion.get("resultadoDisponible", False))
 
-        ejecucion_finalizada = bool(
-            observacion.get(
-                "ejecucionFinalizada",
-                False,
-            )
-        )
-
-        resultado_disponible = bool(
-            observacion.get(
-                "resultadoDisponible",
-                False,
-            )
-        )
-
-        if (
-            bool(
-                observacion.get(
-                    "error",
-                    False,
-                )
-            )
-            or estado_motor == "ERROR"
-        ):
+        if bool(observacion.get("error", False)) or estado_motor == "ERROR":
             return ultimo_estado
 
-        if (
-            secuencia_avanzada
-            and ejecucion_finalizada
-            and resultado_disponible
-        ):
+        if secuencia_avanzada and ejecucion_finalizada and resultado_disponible:
             return ultimo_estado
 
         if time.monotonic() >= limite:
             raise ErrorEjecucionSimulada(
-                "La corrida no publicó un resultado terminal "
-                "dentro del tiempo de espera: "
-                f"estado={estado_motor or 'DESCONOCIDO'}, "
-                f"secuencia_inicial={secuencia_inicial}, "
-                f"secuencia_actual={secuencia_actual}, "
-                "ejecucionFinalizada="
-                f"{ejecucion_finalizada}, "
-                "resultadoDisponible="
-                f"{resultado_disponible}."
+                f"La corrida no publicó un resultado terminal dentro del tiempo de espera: "
+                f"estado={estado_motor or 'DESCONOCIDO'}, secuencia_inicial={secuencia_inicial}, "
+                f"secuencia_actual={secuencia_actual}, ejecucionFinalizada={ejecucion_finalizada}, "
+                f"resultadoDisponible={resultado_disponible}."
             )
 
-        consultar_estado = getattr(
-            sim,
-            "status",
-            None,
-        )
-
+        consultar_estado = getattr(sim, "status", None)
         if not callable(consultar_estado):
             raise ErrorEjecucionSimulada(
-                "El comunicador Alpyne no permite consultar "
-                "el estado posterior a la acción."
+                "El comunicador Alpyne no permite consultar el estado posterior a la acción."
             )
 
-        time.sleep(
-            intervalo_sondeo_segundos
-        )
-
+        time.sleep(intervalo_sondeo_segundos)
         estado_consultado = consultar_estado()
-
         if estado_consultado is not None:
             ultimo_estado = estado_consultado
 
 
-def codificar_identificadores_pedidos(
-    pedidos: Sequence[Any],
-) -> str:
+def codificar_identificadores_pedidos(pedidos: Sequence[Any]) -> str:
+    """Codifica pares (pedido_id, pedido_original_id) en formato Base64 para AnyLogic."""
     partes = ["IDMAP1", str(len(pedidos))]
-
     for indice, pedido in enumerate(pedidos):
-        pedido_id = str(
-            getattr(pedido, "pedido_id", "")
-        ).strip()
-        original_id = str(
-            getattr(pedido, "pedido_original_id", "")
-        ).strip() or pedido_id
+        pedido_id = str(getattr(pedido, "pedido_id", "")).strip()
+        original_id = str(getattr(pedido, "pedido_original_id", "")).strip() or pedido_id
 
         if not pedido_id:
-            raise ValueError(
-                f"pedido[{indice}].pedido_id no puede estar vacío."
-            )
-
+            raise ValueError(f"pedido[{indice}].pedido_id no puede estar vacío.")
         if not original_id:
-            raise ValueError(
-                f"pedido[{indice}].pedido_original_id no puede estar vacío."
-            )
+            raise ValueError(f"pedido[{indice}].pedido_original_id no puede estar vacío.")
 
-        tarea_b64 = base64.b64encode(
-            pedido_id.encode("utf-8")
-        ).decode("ascii")
-        original_b64 = base64.b64encode(
-            original_id.encode("utf-8")
-        ).decode("ascii")
+        tarea_b64 = base64.b64encode(pedido_id.encode("utf-8")).decode("ascii")
+        original_b64 = base64.b64encode(original_id.encode("utf-8")).decode("ascii")
         partes.append(f"{tarea_b64}:{original_b64}")
 
     return "|".join(partes)
+
 
 def construir_resultado_simulado(
     observacion: Mapping[str, Any],
@@ -429,53 +342,23 @@ def construir_resultado_simulado(
     estado_motor: str,
     stop: bool,
 ) -> ResultadoEjecucionSimulada:
+    """Construye e higieniza un `ResultadoEjecucionSimulada` a partir del diccionario de AnyLogic."""
     if bool(observacion.get("error", False)):
         raise ErrorEjecucionSimulada(
             "AnyLogic informó un error: "
-            + _normalizar_texto(
-                observacion.get("mensaje", "sin detalle")
-            )
+            + _normalizar_texto(observacion.get("mensaje", "sin detalle"))
         )
 
-    ejecucion_finalizada = bool(
-        observacion.get("ejecucionFinalizada", False)
-    )
-    resultado_disponible = bool(
-        observacion.get("resultadoDisponible", False)
-    )
-    estado_normalizado = _normalizar_texto(
-        estado_motor
-    ).strip().upper()
-
-    # El resultado funcional de AnyLogic es la fuente de verdad.
-    # ``stop`` y el estado del motor se conservan en el resultado para
-    # diagnóstico, pero pueden llegar desfasados respecto de la observación.
-
-    if not ejecucion_finalizada:
-        raise ErrorEjecucionSimulada(
-            "AnyLogic no marcó la ejecución como finalizada."
-        )
-
-    if not resultado_disponible:
-        raise ErrorEjecucionSimulada(
-            "La observación final no contiene un resultado disponible."
-        )
-
+    if not bool(observacion.get("ejecucionFinalizada", False)):
+        raise ErrorEjecucionSimulada("AnyLogic no marcó la ejecución como finalizada.")
+    if not bool(observacion.get("resultadoDisponible", False)):
+        raise ErrorEjecucionSimulada("La observación final no contiene un resultado disponible.")
     if not bool(observacion.get("instanciaAceptada", False)):
-        raise ErrorEjecucionSimulada(
-            "AnyLogic no aceptó la instancia enviada."
-        )
-
+        raise ErrorEjecucionSimulada("AnyLogic no aceptó la instancia enviada.")
     if not bool(observacion.get("planAceptado", False)):
-        raise ErrorEjecucionSimulada(
-            "AnyLogic no aceptó el plan enviado."
-        )
+        raise ErrorEjecucionSimulada("AnyLogic no aceptó el plan enviado.")
 
-    costo_total = _numero(
-        observacion,
-        "costoTotal",
-    )
-
+    costo_total = _numero(observacion, "costoTotal")
     componentes = [
         _numero(observacion, "costoTareasNoEntregadas"),
         _numero(observacion, "costoPedidosOriginalesIncompletos"),
@@ -488,77 +371,30 @@ def construir_resultado_simulado(
     ]
 
     suma_componentes = sum(componentes)
-
-    if not isclose(
-        costo_total,
-        suma_componentes,
-        rel_tol=1e-9,
-        abs_tol=1e-6,
-    ):
+    if not isclose(costo_total, suma_componentes, rel_tol=1e-9, abs_tol=1e-6):
         raise ErrorEjecucionSimulada(
-            "El costo total no coincide con su desglose: "
-            f"total={costo_total}, suma={suma_componentes}."
+            f"El costo total no coincide con su desglose: total={costo_total}, suma={suma_componentes}."
         )
 
-    ocupacion_pct = _numero(
-        observacion,
-        "ocupacionGlobalPct",
-    )
-
+    ocupacion_pct = _numero(observacion, "ocupacionGlobalPct")
     if ocupacion_pct > 100.0 + 1e-9:
-        raise ErrorEjecucionSimulada(
-            "ocupacionGlobalPct no puede superar 100: "
-            f"{ocupacion_pct}."
-        )
+        raise ErrorEjecucionSimulada(f"ocupacionGlobalPct no puede superar 100: {ocupacion_pct}.")
 
     return ResultadoEjecucionSimulada(
         version=VERSION_RESULTADO_SIMULADO,
-        instancia_id=_normalizar_texto(
-            observacion.get("instanciaId", "")
-        ),
-        fecha_operacion=_normalizar_texto(
-            observacion.get("fechaOperacionResultado", "")
-        ),
-        algoritmo_aplicado=_normalizar_texto(
-            observacion.get("algoritmoAplicado", "")
-        ),
-        seed_escenario=_entero(
-            observacion,
-            "seedEscenarioResultado",
-        ),
-        seed_ejecucion=_entero(
-            observacion,
-            "seedEjecucionResultado",
-        ),
+        instancia_id=_normalizar_texto(observacion.get("instanciaId", "")),
+        fecha_operacion=_normalizar_texto(observacion.get("fechaOperacionResultado", "")),
+        algoritmo_aplicado=_normalizar_texto(observacion.get("algoritmoAplicado", "")),
+        seed_escenario=_entero(observacion, "seedEscenarioResultado"),
+        seed_ejecucion=_entero(observacion, "seedEjecucionResultado"),
         costo_total=costo_total,
-        tareas_entregadas=_entero(
-            observacion,
-            "tareasEntregadas",
-        ),
-        tareas_no_entregadas=_entero(
-            observacion,
-            "tareasNoEntregadas",
-        ),
-        viajes_totales=_entero(
-            observacion,
-            "viajesTotales",
-        ),
-        duracion_simulada_min=_numero(
-            observacion,
-            "tiempoSimuladoMin",
-        ),
-        distancia_total_km=_numero(
-            observacion,
-            "distanciaTotalKm",
-        ),
-        tardanza_total_min=_numero(
-            observacion,
-            "tardanzaTotalMin",
-        ),
-        diferencia_fin_camiones_min=_numero(
-            observacion,
-            "diferenciaFinCamionesMin",
-        ),
+        tareas_entregadas=_entero(observacion, "tareasEntregadas"),
+        tareas_no_entregadas=_entero(observacion, "tareasNoEntregadas"),
+        viajes_totales=_entero(observacion, "viajesTotales"),
+        duracion_simulada_min=_numero(observacion, "tiempoSimuladoMin"),
+        distancia_total_km=_numero(observacion, "distanciaTotalKm"),
+        tardanza_total_min=_numero(observacion, "tardanzaTotalMin"),
+        diferencia_fin_camiones_min=_numero(observacion, "diferenciaFinCamionesMin"),
         ocupacion_global_pct=ocupacion_pct,
         costo_tareas_no_entregadas=componentes[0],
         costo_pedidos_originales_incompletos=componentes[1],
@@ -568,31 +404,24 @@ def construir_resultado_simulado(
         costo_distancia=componentes[5],
         costo_viajes=componentes[6],
         costo_desbalance=componentes[7],
-        mensaje=_normalizar_texto(
-            observacion.get("mensaje", "")
-        ),
+        mensaje=_normalizar_texto(observacion.get("mensaje", "")),
         estado_motor=_normalizar_texto(estado_motor),
     )
 
 
 def _cerrar_simulacion(sim: Any) -> None:
-    """Cierra el proceso Java y elimina su carpeta temporal."""
     cerrar = getattr(sim, "_quit_app", None)
-
     if not callable(cerrar):
         return
-
     try:
         atexit.unregister(cerrar)
     except Exception:
         pass
-
     try:
         cerrar()
     except Exception as exc:
         warnings.warn(
-            "No fue posible cerrar limpiamente el motor AnyLogic: "
-            f"{type(exc).__name__}: {exc}",
+            f"No fue posible cerrar limpiamente el motor AnyLogic: {type(exc).__name__}: {exc}",
             RuntimeWarning,
             stacklevel=2,
         )
@@ -607,47 +436,26 @@ def _validar_identidad_resultado(
     seed_ejecucion: int,
 ) -> None:
     diferencias: list[str] = []
-
     if resultado.instancia_id != instancia_id:
-        diferencias.append(
-            "instanciaId="
-            f"{resultado.instancia_id!r} != {instancia_id!r}"
-        )
-
+        diferencias.append(f"instanciaId={resultado.instancia_id!r} != {instancia_id!r}")
     if resultado.fecha_operacion != fecha_operacion:
-        diferencias.append(
-            "fechaOperacion="
-            f"{resultado.fecha_operacion!r} != {fecha_operacion!r}"
-        )
-
+        diferencias.append(f"fechaOperacion={resultado.fecha_operacion!r} != {fecha_operacion!r}")
     if resultado.seed_escenario != seed_escenario:
-        diferencias.append(
-            "seedEscenario="
-            f"{resultado.seed_escenario} != {seed_escenario}"
-        )
-
+        diferencias.append(f"seedEscenario={resultado.seed_escenario} != {seed_escenario}")
     if resultado.seed_ejecucion != seed_ejecucion:
-        diferencias.append(
-            "seedEjecucion="
-            f"{resultado.seed_ejecucion} != {seed_ejecucion}"
-        )
+        diferencias.append(f"seedEjecucion={resultado.seed_ejecucion} != {seed_ejecucion}")
 
     if diferencias:
         raise ErrorEjecucionSimulada(
-            "La corrida no preservó la identidad de la instancia: "
-            + " | ".join(diferencias)
+            "La corrida no preservó la identidad de la instancia: " + " | ".join(diferencias)
         )
 
 
-def _resolver_java(
-    java_exe: str | Path | None,
-) -> Path:
+def _resolver_java(java_exe: str | Path | None) -> Path:
     if java_exe is not None:
         explicito = Path(java_exe).expanduser().resolve()
         if not explicito.is_file():
-            raise FileNotFoundError(
-                f"No existe java.exe en la ruta indicada: {explicito}"
-            )
+            raise FileNotFoundError(f"No existe java.exe en la ruta indicada: {explicito}")
         return explicito
 
     en_path = shutil.which("java")
@@ -668,32 +476,23 @@ def _resolver_java(
                         anylogic / "jdk" / "bin" / "java.exe",
                     ]
                 )
-
         for candidato in candidatos:
             if candidato.is_file():
                 return candidato.resolve()
 
     raise FileNotFoundError(
-        "No se encontró Java. Indique java_exe o utilice "
-        "el JRE incluido con AnyLogic."
+        "No se encontró Java. Indique java_exe o utilice el JRE incluido con AnyLogic."
     )
 
 
-def _vector_finito_no_vacio(
-    valores: Sequence[float],
-    nombre: str,
-) -> list[float]:
+def _vector_finito_no_vacio(valores: Sequence[float], nombre: str) -> list[float]:
     if valores is None:
         raise ValueError(f"{nombre} no puede ser null.")
-
     vector = [float(valor) for valor in valores]
-
     if not vector:
         raise ValueError(f"{nombre} no puede estar vacío.")
-
     if not all(isfinite(valor) for valor in vector):
         raise ValueError(f"{nombre} debe contener solo valores finitos.")
-
     return vector
 
 
@@ -706,58 +505,29 @@ def _a_dict(valor: Any) -> dict[str, Any]:
         ) from exc
 
 
-def _numero(
-    observacion: Mapping[str, Any],
-    campo: str,
-) -> float:
+def _numero(observacion: Mapping[str, Any], campo: str) -> float:
     if campo not in observacion:
-        raise ErrorEjecucionSimulada(
-            f"La observación no contiene el campo {campo}."
-        )
-
+        raise ErrorEjecucionSimulada(f"La observación no contiene el campo {campo}.")
     valor = float(observacion[campo])
-
     if not isfinite(valor):
-        raise ErrorEjecucionSimulada(
-            f"El campo {campo} no es finito: {valor}."
-        )
-
+        raise ErrorEjecucionSimulada(f"El campo {campo} no es finito: {valor}.")
     if valor < 0.0:
-        raise ErrorEjecucionSimulada(
-            f"El campo {campo} no puede ser negativo: {valor}."
-        )
-
+        raise ErrorEjecucionSimulada(f"El campo {campo} no puede ser negativo: {valor}.")
     return valor
 
 
-def _entero(
-    observacion: Mapping[str, Any],
-    campo: str,
-) -> int:
+def _entero(observacion: Mapping[str, Any], campo: str) -> int:
     valor = _numero(observacion, campo)
     redondeado = round(valor)
-
     if not isclose(valor, redondeado, abs_tol=1e-9):
-        raise ErrorEjecucionSimulada(
-            f"El campo {campo} debe ser entero: {valor}."
-        )
-
+        raise ErrorEjecucionSimulada(f"El campo {campo} debe ser entero: {valor}.")
     return int(redondeado)
 
 
-def _atributo_entero_opcional(
-    objeto: Any,
-    nombre: str,
-) -> int | None:
-    valor = getattr(
-        objeto,
-        nombre,
-        None,
-    )
-
+def _atributo_entero_opcional(objeto: Any, nombre: str) -> int | None:
+    valor = getattr(objeto, nombre, None)
     if valor is None:
         return None
-
     try:
         return int(valor)
     except (TypeError, ValueError):
@@ -771,10 +541,8 @@ def _nombre_estado(estado: Any) -> str:
 
 def _normalizar_texto(valor: Any) -> str:
     texto = str(valor)
-
     if "Ã" not in texto and "Â" not in texto:
         return texto
-
     try:
         return texto.encode("cp1252").decode("utf-8")
     except (UnicodeEncodeError, UnicodeDecodeError):
