@@ -567,7 +567,7 @@ function restablecerFormularioWebDespuesDeAlta() {
 
     document.getElementById('coords-display').innerText = 'Lat: - | Lng: -';
     document.getElementById('selected-coords-status').innerText = 'Sin punto marcado';
-    document.getElementById('selected-coords-status').style.color = '#f59e0b';
+    document.getElementById('selected-coords-status').style.color = '#fbbf24';
 
     document.getElementById('input-id').value = getNextDefaultId();
     document.getElementById('input-capacidad').value = '1';
@@ -882,7 +882,7 @@ function establecerCoordenadasSeleccionadas(latitud, longitud, opciones = {}) {
 
     if (coordsStatus) {
         coordsStatus.innerText = 'Punto seleccionado';
-        coordsStatus.style.color = '#10b981';
+        coordsStatus.style.color = '#34d399';
     }
 
     limpiarMarcadorTemporal();
@@ -1251,7 +1251,7 @@ function renderPedidosList() {
 
     if (pedidos.length === 0) {
         container.innerHTML = (
-            '<div style="text-align: center; color: #64748b; '
+            '<div style="text-align: center; color: #b0c4d8; '
             + 'padding: 20px; font-size: 0.85rem;">'
             + 'No hay puntos agregados todavía.</div>'
         );
