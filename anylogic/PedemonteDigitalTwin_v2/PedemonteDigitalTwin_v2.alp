@@ -28357,13 +28357,15 @@ error.put(
 );
 
 
-webAppPedidos
-    .dialog
-    .getBridge()
-    .emit(
-        "pedemonteSelectorError",
-        error
-    );
+if (webToolkitListo && webAppPedidos != null && webAppPedidos.dialog != null) {
+    webAppPedidos
+        .dialog
+        .getBridge()
+        .emit(
+            "pedemonteSelectorError",
+            error
+        );
+}
 
 
 webToolkitEstado =
@@ -29034,7 +29036,11 @@ return true;]]></Body>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>true</ShowLabel>
-					<Body><![CDATA[webAppPedidos
+					<Body><![CDATA[if (!webToolkitListo || webAppPedidos == null || webAppPedidos.dialog == null) {
+    return;
+}
+
+webAppPedidos
     .dialog
     .show();
 
@@ -32439,7 +32445,7 @@ return true;
 						<Parameter>
 							<Name><![CDATA[pythonExecPath]]></Name>
 							<Value Class="CodeValue">
-								<Code><![CDATA["C:/Users/Propietario.DESKTOP-QTLGQ35/Desktop/PedemonteDigitalTwin_v2/.venv/Scripts/python.exe"]]></Code>
+								<Code><![CDATA[new java.io.File("F:/Facultad/4°/Simulación/PedemonteDigitalTwin_v2/.venv/Scripts/python.exe").exists() ? "F:/Facultad/4°/Simulación/PedemonteDigitalTwin_v2/.venv/Scripts/python.exe" : "C:/Users/Propietario.DESKTOP-QTLGQ35/Desktop/PedemonteDigitalTwin_v2/.venv/Scripts/python.exe"]]></Code>
 							</Value>
 						</Parameter>
 						<Parameter>
@@ -47697,6 +47703,9 @@ root.procesarAccionAlpyne(
 
 root.PROVEEDORES_HABILITADOS =
     proveedoresHabilitados;
+
+
+System.setProperty("webtoolkit.enabled", "false");
 
 
 /*

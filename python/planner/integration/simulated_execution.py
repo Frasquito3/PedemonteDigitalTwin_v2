@@ -139,6 +139,14 @@ def ejecutar_plan_en_modelo_exportado(
             "horizonte_simulacion_min debe ser finito y > 0."
         )
 
+    # Desactivar WebToolkit y asegurar ejecucion headless en procesos Java de Alpyne
+    os.environ["ALPYNE_SIMULATION"] = "true"
+    opciones_jvm = os.environ.get("_JAVA_OPTIONS", "")
+    if "-Dwebtoolkit.enabled=false" not in opciones_jvm:
+        os.environ["_JAVA_OPTIONS"] = (
+            f"{opciones_jvm} -Dwebtoolkit.enabled=false -Djava.awt.headless=true"
+        ).strip()
+
     kwargs_sim: dict[str, Any] = {
         "auto_lock": True,
         "auto_finish": True,
