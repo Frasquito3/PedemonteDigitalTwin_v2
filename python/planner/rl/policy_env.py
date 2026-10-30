@@ -1,11 +1,12 @@
 from __future__ import annotations
 
+from dataclasses import replace
 from typing import Any
 
 import numpy as np
 
 from planner.core.config import ConfiguracionPlanificacion
-from planner.core.schema import InstanciaTurno
+from planner.core.schema import InstanciaTurno, PedidoInput
 from planner.rl.base_env import PedemontePlanEnv
 from planner.rl.reward import ConfiguracionRewardRL
 from planner.rl.policy_config import ConfiguracionPoliticaRL
@@ -22,6 +23,24 @@ from planner.rl.policy_estimator import (
     seleccionar_mejor_consecuencia,
 )
 from planner.routing.travel import ProveedorViaje
+
+
+def ordenar_pedidos_canonicamente(
+    instancia: InstanciaTurno,
+) -> InstanciaTurno:
+    """Ordena los pedidos del turno por urgencia de ventana, volcador y volumen."""
+    pedidos_ordenados = sorted(
+        instancia.pedidos,
+        key=lambda p: (
+            not p.tiene_ventana_especifica,
+            p.hora_hasta_min,
+            p.hora_desde_min,
+            not p.requiere_volcador,
+            -p.unidades_capacidad,
+            p.pedido_id,
+        ),
+    )
+    return replace(instancia, pedidos=pedidos_ordenados)
 
 
 class EntornoPlanificacionRL(PedemontePlanEnv):
@@ -48,6 +67,9 @@ class EntornoPlanificacionRL(PedemontePlanEnv):
             if configuracion_temporal is not None
             else ConfiguracionPoliticaRL()
         )
+        if self.configuracion_politica.ordenar_slots_canonicamente:
+            instancia = ordenar_pedidos_canonicamente(instancia)
+
         self._cache_prefijo: tuple[str, ...] | None = None
         self._cache_resumen: ResumenTemporalPrefijo | None = None
         self._cache_consecuencias: (

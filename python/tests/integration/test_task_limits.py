@@ -39,10 +39,10 @@ def _crear_excel(ruta: Path, cantidad: int) -> None:
 
 
 def test_constantes_tareas_compartidas() -> None:
-    assert MAX_PEDIDOS_ALPYNE == MAX_PEDIDOS == 20
+    assert MAX_PEDIDOS_ALPYNE == MAX_PEDIDOS == 35
 
 
-@pytest.mark.parametrize("cantidad,permitido", [(20, True), (21, False)])
+@pytest.mark.parametrize("cantidad,permitido", [(35, True), (36, False)])
 def test_excel_tiene_el_mismo_limite_por_defecto(
     cantidad: int, permitido: bool,
 ) -> None:
@@ -51,7 +51,7 @@ def test_excel_tiene_el_mismo_limite_por_defecto(
         _crear_excel(ruta, cantidad)
         if permitido:
             resultado = importar_pedidos_excel(ruta, turno="MANANA")
-            assert resultado.tareas_estimadas == 20
+            assert resultado.tareas_estimadas == 35
         else:
             with pytest.raises(ErrorImportacionExcel, match="máximo"):
                 importar_pedidos_excel(ruta, turno="MANANA")
@@ -64,7 +64,7 @@ def test_excel_tiene_el_mismo_limite_por_defecto(
         (importar_pedidos_excel_pypeline_v2, "PEDXLSX2"),
     ],
 )
-@pytest.mark.parametrize("cantidad,permitido", [(20, True), (21, False)])
+@pytest.mark.parametrize("cantidad,permitido", [(35, True), (36, False)])
 def test_protocolos_excel_respetan_el_limite_por_defecto(
     funcion, version: str, cantidad: int, permitido: bool,
 ) -> None:
@@ -73,7 +73,7 @@ def test_protocolos_excel_respetan_el_limite_por_defecto(
         _crear_excel(ruta, cantidad)
         salida = funcion(str(ruta), "MANANA")
         if permitido:
-            assert salida.startswith(f"{version}|OK|20|20|")
+            assert salida.startswith(f"{version}|OK|35|35|")
         else:
             assert salida.startswith(f"{version}|ERROR|")
             assert "máximo" in unquote(salida)

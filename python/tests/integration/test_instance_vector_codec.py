@@ -41,22 +41,22 @@ class LimiteVectorTest(unittest.TestCase):
             ])
         return vector
 
-    def test_permite_20_tareas(self) -> None:
+    def test_permite_35_tareas(self) -> None:
         instancia = decodificar_instancia_vector(
-            self.vector_con_tareas(20), 17, 19
+            self.vector_con_tareas(35), 17, 19
         )
-        self.assertEqual(len(instancia.pedidos), 20)
+        self.assertEqual(len(instancia.pedidos), 35)
 
-    def test_rechaza_21_tareas(self) -> None:
+    def test_rechaza_36_tareas(self) -> None:
         with self.assertRaisesRegex(ValueError, "fuera de rango"):
             decodificar_instancia_vector(
-                self.vector_con_tareas(21), 17, 19
+                self.vector_con_tareas(36), 17, 19
             )
 
     def test_constante_compartida_en_ambos_sentidos(self) -> None:
         from planner.integration.alpyne_codec import MAX_PEDIDOS_ALPYNE
         from planner.integration.instance_vector_codec import MAX_PEDIDOS
-        self.assertEqual(MAX_PEDIDOS_ALPYNE, 20)
+        self.assertEqual(MAX_PEDIDOS_ALPYNE, 35)
         self.assertEqual(MAX_PEDIDOS, MAX_PEDIDOS_ALPYNE)
 
 if __name__ == "__main__":

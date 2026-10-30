@@ -111,6 +111,7 @@ class PlanificadorPoliticaRL(PlanificadorTurno):
         configuracion_temporal: ConfiguracionPoliticaRL | None = None,
         max_pedidos: int = 30,
         deterministic: bool = True,
+        num_rollouts: int = 1,
     ) -> None:
         self.model_path = Path(model_path)
 
@@ -132,6 +133,7 @@ class PlanificadorPoliticaRL(PlanificadorTurno):
             else ConfiguracionPoliticaRL()
         )
         self.deterministic = deterministic
+        self.num_rollouts = max(1, int(num_rollouts))
         _asegurar_compatibilidad_numpy()
         max_pedidos_ckpt, dim_obs = _detectar_dimensiones_checkpoint(
             self.model_path,
@@ -154,7 +156,60 @@ class PlanificadorPoliticaRL(PlanificadorTurno):
             custom_objects=custom_objects,
         )
         self.ultima_permutacion: tuple[str, ...] = ()
+        self.ultimas_permutaciones: tuple[tuple[str, ...], ...] = ()
         self.ultima_info_temporal: dict[str, Any] = {}
+
+    def _ejecutar_un_episodio(
+        self,
+        env: EntornoPlanificacionRL,
+        instancia: InstanciaTurno,
+        seed_episodio: int,
+        determinista: bool,
+    ) -> tuple[PlanTurno, tuple[str, ...], dict[str, Any]]:
+        if not determinista and hasattr(self.model, "set_random_seed"):
+            self.model.set_random_seed(seed_episodio)
+
+        observacion, _ = env.reset(seed=seed_episodio)
+        terminado = False
+        info_final: dict[str, Any] = {}
+
+        while not terminado:
+            mascara = env.action_masks()
+            accion, _ = self.model.predict(
+                observacion,
+                action_masks=mascara,
+                deterministic=determinista,
+            )
+            accion_entera = int(np.asarray(accion).item())
+            (
+                observacion,
+                _,
+                terminado,
+                truncado,
+                info,
+            ) = env.step(accion_entera)
+            info_final = dict(info)
+
+            if truncado:
+                raise RuntimeError(
+                    "La política RL de la política RL produjo un episodio "
+                    "truncado."
+                )
+
+        plan = env.ultimo_plan
+        if plan is None:
+            raise RuntimeError(
+                "El entorno de la política RL finalizó sin producir un plan."
+            )
+
+        validacion = validar_plan(instancia, plan)
+        if not validacion.valido:
+            raise RuntimeError(
+                "La política RL de la política RL produjo un plan inválido: "
+                + " | ".join(validacion.errores)
+            )
+
+        return plan, env.permutacion_actual, info_final
 
     def generar_plan(self, instancia: InstanciaTurno) -> PlanTurno:
         inicio_computo = perf_counter()
@@ -186,52 +241,41 @@ class PlanificadorPoliticaRL(PlanificadorTurno):
                 if instancia.seed_ejecucion > 0
                 else instancia.seed_escenario
             )
-            observacion, _ = env.reset(seed=seed_rl)
-            terminado = False
-            info_final: dict[str, Any] = {}
 
-            while not terminado:
-                mascara = env.action_masks()
-                accion, _ = self.model.predict(
-                    observacion,
-                    action_masks=mascara,
-                    deterministic=self.deterministic,
+            candidatos: list[
+                tuple[tuple[int, float, float], PlanTurno, tuple[str, ...], dict[str, Any]]
+            ] = []
+
+            for k in range(self.num_rollouts):
+                usar_det = self.deterministic if k == 0 else False
+                plan_k, perm_k, info_k = self._ejecutar_un_episodio(
+                    env=env,
+                    instancia=instancia,
+                    seed_episodio=seed_rl + k * 997,
+                    determinista=usar_det,
                 )
-                accion_entera = int(np.asarray(accion).item())
-                (
-                    observacion,
-                    _,
-                    terminado,
-                    truncado,
-                    info,
-                ) = env.step(accion_entera)
-                info_final = dict(info)
+                tardios_k = int(info_k.get("pedidos_tardios_terminal", 0))
+                tardanza_k = float(info_k.get("tardanza_total_terminal_min", 0.0))
+                clave_k = (tardios_k, tardanza_k, float(plan_k.costo_estimado))
+                candidatos.append((clave_k, plan_k, perm_k, info_k))
 
-                if truncado:
-                    raise RuntimeError(
-                        "La política RL de la política RL produjo un episodio "
-                        "truncado."
-                    )
+            candidatos.sort(key=lambda item: item[0])
+            _, mejor_plan, mejor_perm, mejor_info = candidatos[0]
 
-            plan = env.ultimo_plan
-            if plan is None:
-                raise RuntimeError(
-                    "El entorno de la política RL finalizó sin producir un plan."
-                )
+            perms_unicas: list[tuple[str, ...]] = []
+            vistas: set[tuple[str, ...]] = set()
+            for _, _, perm_c, _ in candidatos:
+                if perm_c not in vistas:
+                    vistas.add(perm_c)
+                    perms_unicas.append(perm_c)
 
-            validacion = validar_plan(instancia, plan)
-            if not validacion.valido:
-                raise RuntimeError(
-                    "La política RL de la política RL produjo un plan inválido: "
-                    + " | ".join(validacion.errores)
-                )
-
-            plan.tiempo_computo_ms = (
+            mejor_plan.tiempo_computo_ms = (
                 perf_counter() - inicio_computo
             ) * 1000.0
-            plan.warnings.append(self.VERSION_PLANIFICADOR)
-            self.ultima_permutacion = env.permutacion_actual
-            self.ultima_info_temporal = info_final
-            return plan
+            mejor_plan.warnings.append(self.VERSION_PLANIFICADOR)
+            self.ultima_permutacion = mejor_perm
+            self.ultimas_permutaciones = tuple(perms_unicas)
+            self.ultima_info_temporal = mejor_info
+            return mejor_plan
         finally:
             env.close()

@@ -33,6 +33,8 @@ class ConfiguracionOperacionRL:
     sha256_modelo: str
     max_pedidos_rl_validado: int
     usar_mascara_temporal_dura: bool
+    ordenar_slots_canonicamente: bool = False
+    num_rollouts: int = 1
 
 
 @dataclass(frozen=True)
@@ -116,12 +118,17 @@ def cargar_configuracion_operacional(
             "usar_mascara_temporal_dura debe ser booleano."
         )
 
+    ordenar_canonico = bool(datos.get("ordenar_slots_canonicamente", False))
+    num_rollouts = max(1, int(datos.get("num_rollouts", 1)))
+
     return ConfiguracionOperacionRL(
         version=version,
         modelo=modelo,
         sha256_modelo=hash_modelo,
         max_pedidos_rl_validado=max_validado,
         usar_mascara_temporal_dura=mascara_dura,
+        ordenar_slots_canonicamente=ordenar_canonico,
+        num_rollouts=num_rollouts,
     )
 
 
@@ -176,15 +183,24 @@ class PlanificadorOperativoRL:
                     usar_mascara_temporal_dura=(
                         configuracion_operacional
                         .usar_mascara_temporal_dura
-                    )
+                    ),
+                    ordenar_slots_canonicamente=(
+                        configuracion_operacional
+                        .ordenar_slots_canonicamente
+                    ),
                 ),
                 max_pedidos=max_pedidos,
                 deterministic=deterministic,
+                num_rollouts=configuracion_operacional.num_rollouts,
             )
 
         self.planner_rl = planner_rl
         self.ultima_decision: DecisionOperacionRL | None = None
         self.ultimo_detalle = "SIN_DECISION"
+
+    @property
+    def ultimas_permutaciones(self) -> tuple[tuple[str, ...], ...]:
+        return tuple(getattr(self.planner_rl, "ultimas_permutaciones", ()))
 
     def generar_plan(self, instancia: InstanciaTurno) -> PlanTurno:
         cantidad_pedidos = len(instancia.pedidos)

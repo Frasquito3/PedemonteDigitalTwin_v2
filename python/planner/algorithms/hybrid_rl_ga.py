@@ -129,6 +129,10 @@ class HybridRLGAPlanner:
         )
 
         cromosoma_rl = self._plan_a_cromosoma(instancia, plan_rl)
+        semillas_rl: list[Cromosoma] = [cromosoma_rl]
+        for perm_extra in getattr(self.planner_rl, "ultimas_permutaciones", ()):
+            if perm_extra and perm_extra not in semillas_rl:
+                semillas_rl.append(tuple(perm_extra))
         fuente_rl = self._fuente_rl_seleccionada()
         costo_semilla_rl = float(plan_rl.costo_estimado)
 
@@ -157,7 +161,7 @@ class HybridRLGAPlanner:
                     configuracion_ga=self.configuracion_ga,
                     seed=seed_ga,
                     proveedor_viaje=self.proveedor_viaje,
-                    semillas_iniciales=(cromosoma_rl,),
+                    semillas_iniciales=tuple(semillas_rl),
                     incluir_semilla_greedy=(
                         self.configuracion.incluir_semilla_greedy_en_refinamiento
                     ),

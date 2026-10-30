@@ -43,6 +43,7 @@ class ConfiguracionPoliticaRL:
     # La máscara dura elimina acciones con más pedidos tardíos proyectados
     # que la mejor alternativa y nunca deja el espacio de acciones vacío.
     usar_mascara_temporal_dura: bool = True
+    ordenar_slots_canonicamente: bool = False
 
     # Tolerancias numéricas.
     epsilon_tiempo: float = 1e-9

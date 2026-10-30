@@ -47,17 +47,17 @@ class LimiteAlpyneTest(unittest.TestCase):
         ]
         return replace(base, pedidos=pedidos)
 
-    def test_permite_20_tareas(self) -> None:
+    def test_permite_35_tareas(self) -> None:
         vector = codificar_instancia_alpyne(
-            self.crear_instancia_n_tareas(20)
+            self.crear_instancia_n_tareas(35)
         )
-        self.assertEqual(vector[2], 20.0)
-        self.assertEqual(len(vector), 8 + 20 * 10)
+        self.assertEqual(vector[2], 35.0)
+        self.assertEqual(len(vector), 8 + 35 * 10)
 
-    def test_rechaza_21_tareas(self) -> None:
-        with self.assertRaisesRegex(ErrorContratoAlpyne, "21 > 20"):
+    def test_rechaza_36_tareas(self) -> None:
+        with self.assertRaisesRegex(ErrorContratoAlpyne, "36 > 35"):
             codificar_instancia_alpyne(
-                self.crear_instancia_n_tareas(21)
+                self.crear_instancia_n_tareas(36)
             )
 
     def crear_plan_n_tareas(self, cantidad: int) -> PlanTurno:
@@ -77,16 +77,16 @@ class LimiteAlpyneTest(unittest.TestCase):
             ],
         )
 
-    def test_plan_permite_20_tareas(self) -> None:
-        instancia = self.crear_instancia_n_tareas(20)
-        plan = self.crear_plan_n_tareas(20)
+    def test_plan_permite_35_tareas(self) -> None:
+        instancia = self.crear_instancia_n_tareas(35)
+        plan = self.crear_plan_n_tareas(35)
         vector = codificar_plan_alpyne(instancia, plan)
-        self.assertEqual(vector[1], 20.0)
+        self.assertEqual(vector[1], 35.0)
 
-    def test_plan_rechaza_21_tareas(self) -> None:
-        instancia = self.crear_instancia_n_tareas(21)
-        plan = self.crear_plan_n_tareas(21)
-        with self.assertRaisesRegex(ErrorContratoAlpyne, "21 > 20"):
+    def test_plan_rechaza_36_tareas(self) -> None:
+        instancia = self.crear_instancia_n_tareas(36)
+        plan = self.crear_plan_n_tareas(36)
+        with self.assertRaisesRegex(ErrorContratoAlpyne, "36 > 35"):
             codificar_plan_alpyne(instancia, plan)
 
 if __name__ == "__main__":
