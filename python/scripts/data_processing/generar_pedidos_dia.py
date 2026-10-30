@@ -1,17 +1,24 @@
 """
-Generador de pedidos para nuevos días a partir de datos históricos en CSV.
+Generador simplificado de turnos y pedidos para evaluación de algoritmos.
 
-Analiza la información espacial y de demanda de pedidos anteriores y genera
-nuevos escenarios/días de pedidos (N veces) con atributos operativos calibrados
-(unidades, volcador, ventanas horarias, turnos) compatibles con AnyLogic y el optimizador.
+Genera únicamente los atributos operativos necesarios para ejecutar los 5 algoritmos
+y la simulación:
+- pedido_id
+- latitud, longitud
+- unidades (tamaño entero del pedido)
+- requiere_volcador ("SI" / "NO")
+- tiene_ventana ("SI" / "NO"), hora_desde, hora_hasta
+- turno ("MANANA" / "TARDE")
 """
 
 from __future__ import annotations
 
 import argparse
 import csv
-from dataclasses import dataclass, asdict
-from datetime import datetime, time
+from dataclasses import asdict, dataclass
+from datetime import datetime
+import json
+from math import ceil, cos, pi, sin
 from pathlib import Path
 import random
 import sys
@@ -19,25 +26,32 @@ from typing import Any, Sequence
 
 import pandas as pd
 
-# Asegurar importación de módulos internos del proyecto
 PYTHON_ROOT = Path(__file__).resolve().parents[2]
 if str(PYTHON_ROOT) not in sys.path:
     sys.path.insert(0, str(PYTHON_ROOT))
 
 try:
     import openpyxl
-    from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
+    from openpyxl.styles import Alignment, Font, PatternFill
     from openpyxl.utils import get_column_letter
+
     OPENPYXL_DISPONIBLE = True
 except ImportError:
     OPENPYXL_DISPONIBLE = False
 
 # Rutas predeterminadas
 DEFAULT_HISTORICO_CSV = PYTHON_ROOT / "data" / "processed" / "demanda_geografica.csv"
-DEFAULT_FALLBACK_CSV = PYTHON_ROOT / "data" / "processed" / "geocoding" / "direcciones_geolocalizadas.csv"
+DEFAULT_GEOCODING_CSV = (
+    PYTHON_ROOT / "data" / "processed" / "geocoding" / "direcciones_geolocalizadas.csv"
+)
+DEFAULT_PROBABILIDADES_CSV = (
+    PYTHON_ROOT / "data" / "processed" / "estadistica" / "probabilidades_demanda.csv"
+)
+DEFAULT_CANT_PEDIDOS_CSV = PYTHON_ROOT / "data" / "raw" / "cant_pedidos_turnos.csv"
 DEFAULT_OUTPUT_DIR = PYTHON_ROOT / "data" / "processed" / "pedidos_generados"
 
-# Horarios de turnos (en minutos desde las 00:00 y formato HH:MM)
+NOMBRE_METADATA_GENERACION = "metadata_generacion.json"
+
 HORARIOS_TURNOS = {
     "MANANA": {
         "inicio_min": 7 * 60 + 30,  # 07:30 -> 450
@@ -46,7 +60,7 @@ HORARIOS_TURNOS = {
         "fin_str": "12:00",
     },
     "TARDE": {
-        "inicio_min": 14 * 60,       # 14:00 -> 840
+        "inicio_min": 14 * 60,      # 14:00 -> 840
         "fin_min": 17 * 60,         # 17:00 -> 1020
         "inicio_str": "14:00",
         "fin_str": "17:00",
@@ -55,98 +69,170 @@ HORARIOS_TURNOS = {
 
 ENCABEZADOS_PEDIDOS = [
     "pedido_id",
-    "cliente",
-    "direccion",
-    "barrio",
-    "ciudad",
-    "unidades",
     "latitud",
     "longitud",
+    "unidades",
     "requiere_volcador",
-    "unidades_volcador",
     "tiene_ventana",
     "hora_desde",
     "hora_hasta",
     "turno",
-    "observaciones",
 ]
 
 
 @dataclass(frozen=True)
 class UbicacionHistorica:
-    """Representa una ubicación histórica analizada desde el CSV."""
-    calle: str
-    altura: str
-    barrio: str
-    ciudad: str
+    """Coordenada histórica de referencia con su peso de demanda zonal."""
+
     latitud: float
     longitud: float
     peso_frecuencia: float
-    registro_id: str = ""
-
-    @property
-    def direccion_completa(self) -> str:
-        if self.altura:
-            return f"{self.calle} {self.altura}"
-        return self.calle
 
 
 @dataclass
 class PedidoGenerado:
-    """Pedido simulado generado para un día de operación."""
+    """Atributos estrictamente necesarios para planificar y simular un pedido."""
+
     pedido_id: str
-    cliente: str
-    direccion: str
-    barrio: str
-    ciudad: str
-    unidades: int
     latitud: float
     longitud: float
+    unidades: int
     requiere_volcador: str  # "SI" o "NO"
-    unidades_volcador: int
     tiene_ventana: str      # "SI" o "NO"
     hora_desde: str         # "HH:MM"
     hora_hasta: str         # "HH:MM"
     turno: str              # "MANANA" o "TARDE"
-    observaciones: str
 
     def a_dict(self) -> dict[str, Any]:
         return asdict(self)
 
 
-def cargar_y_analizar_historico(ruta_csv: Path) -> list[UbicacionHistorica]:
-    """
-    Lee y analiza el CSV de pedidos históricos, extrayendo ubicaciones y calculando pesos de frecuencia.
-    """
+def generar_semilla_aleatoria() -> int:
+    """Genera una semilla entera positiva aleatoria para reproducibilidad."""
+    return random.SystemRandom().randint(100_000, 999_999_999)
+
+
+def _minutos_a_hora_str(minutos: int) -> str:
+    return f"{minutos // 60:02d}:{minutos % 60:02d}"
+
+
+def estimar_tareas_pedidos(
+    pedidos: Sequence[PedidoGenerado],
+    capacidad_camion: int = 8,
+) -> int:
+    """Calcula la cantidad de tareas luego de dividir por la capacidad del camión."""
+    if capacidad_camion <= 0:
+        raise ValueError("capacidad_camion debe ser > 0.")
+    return sum(ceil(p.unidades / capacidad_camion) for p in pedidos)
+
+
+def cargar_cantidades_pedidos_turnos(
+    ruta_csv: Path = DEFAULT_CANT_PEDIDOS_CSV,
+) -> list[int]:
+    """Lee `cant_pedidos_turnos.csv` y devuelve la lista de cantidades de pedidos por turno."""
     if not ruta_csv.exists():
-        raise FileNotFoundError(f"No se encontró el archivo histórico en: {ruta_csv}")
+        raise FileNotFoundError(f"No se encontró el archivo: {ruta_csv}")
 
     df = pd.read_csv(ruta_csv, encoding="utf-8-sig")
-
-    # Mapeo flexible de nombres de columnas
     cols_lower = {str(c).strip().lower(): c for c in df.columns}
+    col_cant = cols_lower.get("cant_pedidos", df.columns[1] if len(df.columns) >= 2 else None)
+    if col_cant is None:
+        raise ValueError(f"El archivo {ruta_csv} debe tener la columna 'cant_pedidos'.")
 
-    def obtener_columna(nombres_posibles: list[str], default: str = "") -> str:
-        for n in nombres_posibles:
-            if n.lower() in cols_lower:
-                return cols_lower[n.lower()]
-        return default
+    conteos = [
+        int(round(float(v)))
+        for v in df[col_cant]
+        if pd.notna(v) and int(round(float(v))) > 0
+    ]
+    if not conteos:
+        raise ValueError(f"No se encontraron conteos válidos en: {ruta_csv}")
+    return conteos
 
-    col_calle = obtener_columna(["calle", "street", "direccion"])
-    col_altura = obtener_columna(["altura", "number", "numero"])
-    col_barrio = obtener_columna(["barrio", "neighborhood", "zona"])
-    col_ciudad = obtener_columna(["ciudad", "ciudad_detectada", "city", "municipio"])
-    col_lat = obtener_columna(["latitud", "lat"])
-    col_lon = obtener_columna(["longitud", "lon", "lng"])
-    col_freq = obtener_columna(["frecuencia_direccion_fuente", "frecuencia", "frec", "cantidad_pedidos"])
-    col_id = obtener_columna(["registro_id", "id", "clave_direccion_fuente"])
+
+def sortear_cantidad_pedidos_turno(
+    conteos_historicos: Sequence[int],
+    rng: random.Random,
+    min_cota: int = 1,
+    max_cota: int | None = None,
+) -> int:
+    """
+    Elige al azar un conteo histórico de `cant_pedidos_turnos.csv` y aplica una
+    variación discreta (-1, 0, +1) para no repetir rígidamente los mismos valores.
+    """
+    if not conteos_historicos:
+        raise ValueError("conteos_historicos no puede estar vacío.")
+
+    base = int(rng.choice(conteos_historicos))
+    delta = rng.choices([-1, 0, 1], weights=[0.25, 0.50, 0.25], k=1)[0]
+    piso = max(min_cota, min(conteos_historicos))
+    techo = max(conteos_historicos)
+    if max_cota is not None and max_cota > 0:
+        techo = min(techo, max_cota)
+        piso = min(piso, techo)
+
+    return max(piso, min(techo, base + delta))
+
+
+def cargar_probabilidades_demanda(
+    ruta_probabilidades: Path = DEFAULT_PROBABILIDADES_CSV,
+) -> tuple[dict[tuple[str, str], float], dict[str, float]]:
+    """Lee `probabilidades_demanda.csv` y retorna pesos por `(ciudad, barrio)` y por `barrio`."""
+    por_ciudad_barrio: dict[tuple[str, str], float] = {}
+    por_barrio: dict[str, float] = {}
+
+    if not ruta_probabilidades.exists():
+        return por_ciudad_barrio, por_barrio
+
+    df = pd.read_csv(ruta_probabilidades, encoding="utf-8-sig")
+    cols = {str(c).strip().lower(): c for c in df.columns}
+    col_ciudad = cols.get("ciudad", "")
+    col_barrio = cols.get("barrio", "")
+    col_prob = cols.get("probabilidad_demanda", "")
+
+    if not col_barrio or not col_prob:
+        return por_ciudad_barrio, por_barrio
+
+    for _, fila in df.iterrows():
+        ciudad = str(fila.get(col_ciudad, "")).strip().lower() if col_ciudad else ""
+        barrio = str(fila.get(col_barrio, "")).strip().lower()
+        if not barrio or pd.isna(fila.get(col_prob)):
+            continue
+        peso = float(fila[col_prob])
+        if peso > 0:
+            por_ciudad_barrio[(ciudad, barrio)] = (
+                por_ciudad_barrio.get((ciudad, barrio), 0.0) + peso
+            )
+            por_barrio[barrio] = por_barrio.get(barrio, 0.0) + peso
+
+    return por_ciudad_barrio, por_barrio
+
+
+def cargar_y_analizar_historico(
+    ruta_csv: Path = DEFAULT_GEOCODING_CSV,
+    ruta_probabilidades: Path = DEFAULT_PROBABILIDADES_CSV,
+) -> list[UbicacionHistorica]:
+    """
+    Carga coordenadas de referencia desde `direcciones_geolocalizadas.csv` (o `demanda_geografica.csv`)
+    y las pondera con `probabilidades_demanda.csv`.
+    """
+    if not ruta_csv.exists():
+        raise FileNotFoundError(f"No se encontró el archivo de ubicaciones en: {ruta_csv}")
+
+    df = pd.read_csv(ruta_csv, encoding="utf-8-sig")
+    cols = {str(c).strip().lower(): c for c in df.columns}
+
+    col_lat = cols.get("latitud") or cols.get("lat")
+    col_lon = cols.get("longitud") or cols.get("lon") or cols.get("lng")
+    col_barrio = cols.get("barrio", "")
+    col_ciudad = cols.get("ciudad") or cols.get("ciudad_detectada") or ""
 
     if not col_lat or not col_lon:
-        raise ValueError(
-            f"El CSV {ruta_csv} debe contener columnas de coordenadas (latitud y longitud)."
-        )
+        raise ValueError(f"El CSV {ruta_csv} debe contener latitud y longitud.")
 
-    ubicaciones: list[UbicacionHistorica] = []
+    por_cb, por_b = cargar_probabilidades_demanda(ruta_probabilidades)
+    puntos_crudos: list[tuple[float, float, tuple[str, str], str]] = []
+    conteo_cb: dict[tuple[str, str], int] = {}
+    conteo_b: dict[str, int] = {}
 
     for _, fila in df.iterrows():
         try:
@@ -155,52 +241,152 @@ def cargar_y_analizar_historico(ruta_csv: Path) -> list[UbicacionHistorica]:
         except (ValueError, TypeError):
             continue
 
-        calle = str(fila.get(col_calle, "")).strip() if col_calle else "Calle s/n"
-        altura = str(fila.get(col_altura, "")).strip() if col_altura else ""
-        if altura.lower() in ("nan", "none", "0"):
-            altura = ""
+        barrio = str(fila.get(col_barrio, "")).strip().lower() if col_barrio else ""
+        ciudad = str(fila.get(col_ciudad, "")).strip().lower() if col_ciudad else ""
+        clave_cb = (ciudad, barrio)
 
-        barrio = str(fila.get(col_barrio, "")).strip() if col_barrio else "No especificado"
-        if barrio.lower() in ("nan", "none", ""):
-            barrio = "No especificado"
+        conteo_cb[clave_cb] = conteo_cb.get(clave_cb, 0) + 1
+        conteo_b[barrio] = conteo_b.get(barrio, 0) + 1
+        puntos_crudos.append((lat, lon, clave_cb, barrio))
 
-        ciudad = str(fila.get(col_ciudad, "")).strip() if col_ciudad else "Granadero Baigorria"
-        if ciudad.lower() in ("nan", "none", ""):
-            ciudad = "Granadero Baigorria"
+    if not puntos_crudos:
+        raise ValueError(f"No se pudieron extraer coordenadas válidas desde: {ruta_csv}")
 
-        peso = 1.0
-        if col_freq and pd.notna(fila.get(col_freq)):
-            try:
-                peso = max(1.0, float(fila[col_freq]))
-            except (ValueError, TypeError):
-                peso = 1.0
-
-        reg_id = str(fila.get(col_id, "")).strip() if col_id else ""
-
+    ubicaciones: list[UbicacionHistorica] = []
+    for lat, lon, clave_cb, barrio in puntos_crudos:
+        if clave_cb in por_cb:
+            peso = max(1.0, (por_cb[clave_cb] / conteo_cb[clave_cb]) * 10_000.0)
+        elif barrio in por_b:
+            peso = max(1.0, (por_b[barrio] / conteo_b[barrio]) * 10_000.0)
+        else:
+            peso = 1.0
         ubicaciones.append(
-            UbicacionHistorica(
-                calle=calle,
-                altura=altura,
-                barrio=barrio,
-                ciudad=ciudad,
-                latitud=lat,
-                longitud=lon,
-                peso_frecuencia=peso,
-                registro_id=reg_id,
-            )
+            UbicacionHistorica(latitud=lat, longitud=lon, peso_frecuencia=peso)
         )
-
-    if not ubicaciones:
-        raise ValueError(f"No se pudieron extraer ubicaciones válidas desde: {ruta_csv}")
 
     return ubicaciones
 
 
-def _minutos_a_hora_str(minutos: int) -> str:
-    """Convierte minutos del día a string formato 'HH:MM'."""
-    h = minutos // 60
-    m = minutos % 60
-    return f"{h:02d}:{m:02d}"
+def _aplicar_jitter_coordenadas(
+    ubi: UbicacionHistorica,
+    rng: random.Random,
+) -> tuple[float, float]:
+    """
+    Desplaza aleatoriamente la coordenada de referencia entre ~40 m y ~145 m para
+    no repetir nunca la latitud y longitud exacta de un pedido histórico.
+    """
+    radio_grados = rng.uniform(0.00035, 0.00130)
+    angulo = rng.uniform(0.0, 2.0 * pi)
+
+    lat_nueva = round(ubi.latitud + radio_grados * sin(angulo), 6)
+    lon_nueva = round(ubi.longitud + (radio_grados * cos(angulo)) / 0.84, 6)
+
+    if lat_nueva == round(ubi.latitud, 6) and lon_nueva == round(ubi.longitud, 6):
+        lat_nueva = round(ubi.latitud + 0.00045, 6)
+        lon_nueva = round(ubi.longitud - 0.00045, 6)
+
+    return lat_nueva, lon_nueva
+
+
+def _generar_ventana_horaria(
+    inicio_turno_min: int,
+    fin_turno_min: int,
+    prob_ventana: float,
+    rng: random.Random,
+) -> tuple[str, str, str]:
+    """
+    Sortea la ventana horaria del pedido en una de las 4 opciones reales:
+    1. Sin ventana: `tiene_ventana = "NO"`, de inicio a fin del turno.
+    2. Antes de X: desde inicio del turno hasta X (< fin del turno).
+    3. Después de X: desde X (> inicio del turno) hasta fin del turno.
+    4. Entre X e Y: estrictamente dentro del turno (inicio < X < Y < fin).
+    """
+    inicio_str = _minutos_a_hora_str(inicio_turno_min)
+    fin_str = _minutos_a_hora_str(fin_turno_min)
+
+    if rng.random() >= prob_ventana:
+        return "NO", inicio_str, fin_str
+
+    tipo = rng.choices(
+        ["ANTES_DE", "DESPUES_DE", "ENTRE_X_Y"],
+        weights=[0.45, 0.40, 0.15],
+        k=1,
+    )[0]
+
+    if tipo == "ANTES_DE":
+        opciones_hasta = list(range(inicio_turno_min + 60, fin_turno_min, 15))
+        hasta_min = rng.choice(opciones_hasta)
+        return "SI", inicio_str, _minutos_a_hora_str(hasta_min)
+
+    if tipo == "DESPUES_DE":
+        opciones_desde = list(range(inicio_turno_min + 30, fin_turno_min - 45, 15))
+        desde_min = rng.choice(opciones_desde)
+        return "SI", _minutos_a_hora_str(desde_min), fin_str
+
+    opciones_x = list(range(inicio_turno_min + 15, fin_turno_min - 75, 15))
+    desde_min = rng.choice(opciones_x)
+    opciones_y = [
+        m for m in range(desde_min + 45, fin_turno_min, 15) if m - desde_min <= 120
+    ]
+    if not opciones_y:
+        opciones_y = list(range(desde_min + 30, fin_turno_min, 15))
+    hasta_min = rng.choice(opciones_y)
+    return "SI", _minutos_a_hora_str(desde_min), _minutos_a_hora_str(hasta_min)
+
+
+def _asignar_unidades_pedidos_turno(
+    cantidad_pedidos: int,
+    capacidad_camion: int,
+    camiones_turno_promedio: float,
+    rng: random.Random,
+    max_tareas: int | None = None,
+) -> list[int]:
+    """
+    Reparte unidades enteras (>= 1) entre los pedidos del turno de modo que por turno
+    salgan en promedio ~6 camiones llenos (48 unidades por turno entre los 2 camiones),
+    pudiendo variar hasta ~9 camiones llenos (72 unidades) en turnos intensos.
+    """
+    if cantidad_pedidos <= 0:
+        return []
+
+    media_turno = max(1.0, float(camiones_turno_promedio))
+    camiones_turno = rng.triangular(
+        max(1.5, media_turno * 0.60),
+        max(media_turno + 1.0, media_turno * 1.55),
+        media_turno * 0.95,
+    )
+    unidades_objetivo = max(
+        cantidad_pedidos,
+        int(round(camiones_turno * capacidad_camion)),
+    )
+
+    unidades = [1 for _ in range(cantidad_pedidos)]
+    unidades_restantes = unidades_objetivo - cantidad_pedidos
+
+    tareas_extra = (
+        cantidad_pedidos
+        if max_tareas is None
+        else max(0, max_tareas - cantidad_pedidos)
+    )
+    topes: list[int] = []
+    pesos: list[float] = []
+    for _ in range(cantidad_pedidos):
+        if tareas_extra > 0 and rng.random() < 0.15:
+            topes.append(capacidad_camion * 2)
+            tareas_extra -= 1
+            pesos.append(4.0)
+        else:
+            topes.append(capacidad_camion)
+            pesos.append(rng.choices([1.0, 2.0, 3.5], weights=[0.50, 0.35, 0.15], k=1)[0])
+
+    for _ in range(unidades_restantes):
+        candidatos = [i for i in range(cantidad_pedidos) if unidades[i] < topes[i]]
+        if not candidatos:
+            break
+        elegido = rng.choices(candidatos, weights=[pesos[i] for i in candidatos], k=1)[0]
+        unidades[elegido] += 1
+
+    return unidades
 
 
 def generar_pedidos_para_un_dia(
@@ -208,92 +394,58 @@ def generar_pedidos_para_un_dia(
     cantidad_pedidos: int,
     turno: str = "MANANA",
     dia_numero: int = 1,
-    prob_volcador: float = 0.15,
-    prob_ventana: float = 0.65,
-    prob_pedido_grande: float = 0.10,
+    prob_volcador: float | None = None,
+    frecuencia_volcador_turnos: float = 4.0,
+    prob_ventana: float = 0.55,
     capacidad_camion: int = 8,
+    camiones_turno_promedio: float = 6.0,
     rng: random.Random | None = None,
+    max_tareas: int | None = None,
 ) -> list[PedidoGenerado]:
-    """
-    Genera la lista de pedidos para un día de operación específico,
-    muestreando las ubicaciones históricas según su peso de frecuencia y asignando
-    atributos operacionales coherentes con la logística de Pedemonte.
-    """
+    """Genera los pedidos de un turno con únicamente los atributos requeridos por los algoritmos."""
     if rng is None:
         rng = random.Random()
 
     pesos = [u.peso_frecuencia for u in ubicaciones]
-
-    # Muestreo con reemplazo ponderado por frecuencia histórica
-    ubicaciones_seleccionadas = rng.choices(ubicaciones, weights=pesos, k=cantidad_pedidos)
+    seleccionadas = rng.choices(ubicaciones, weights=pesos, k=cantidad_pedidos)
 
     horario = HORARIOS_TURNOS.get(turno, HORARIOS_TURNOS["MANANA"])
-    inicio_turno_min = horario["inicio_min"]
-    fin_turno_min = horario["fin_min"]
+    unidades_lista = _asignar_unidades_pedidos_turno(
+        cantidad_pedidos=cantidad_pedidos,
+        capacidad_camion=capacidad_camion,
+        camiones_turno_promedio=camiones_turno_promedio,
+        rng=rng,
+        max_tareas=max_tareas,
+    )
+
+    if prob_volcador is not None:
+        prob_volc = max(0.0, min(1.0, float(prob_volcador)))
+    else:
+        # 1 volcador cada 2 días = 1 cada 4 turnos -> esperanza 0.25 por turno
+        prob_volc = min(0.50, (1.0 / max(1.0, frecuencia_volcador_turnos)) / max(1, cantidad_pedidos))
 
     pedidos: list[PedidoGenerado] = []
-
-    for idx, ubi in enumerate(ubicaciones_seleccionadas, start=1):
-        pedido_id = f"PED-D{dia_numero:02d}-{idx:02d}"
-        cliente = f"Cliente {ubi.barrio} #{idx:02d}"
-
-        # Unidades de carga
-        if rng.random() < prob_pedido_grande:
-            # Pedido grande (> capacidad camión, ej. 9 a 16 bolsas/m3)
-            unidades = rng.randint(capacidad_camion + 1, capacidad_camion * 2)
-        else:
-            # Pedido estándar dentro de la capacidad de un camión (1 a 8)
-            unidades = rng.randint(1, capacidad_camion)
-
-        # Requerimiento de volcador
-        requiere_volcador_bool = rng.random() < prob_volcador
-        requiere_volcador_str = "SI" if requiere_volcador_bool else "NO"
-        unidades_volcador = unidades if requiere_volcador_bool else 0
-
-        # Ventana horaria de entrega
-        tiene_ventana_bool = rng.random() < prob_ventana
-        tiene_ventana_str = "SI" if tiene_ventana_bool else "NO"
-
-        if tiene_ventana_bool:
-            # Ancho de ventana entre 45 y 120 minutos
-            duracion_ventana = rng.randint(45, 120)
-            max_inicio = fin_turno_min - duracion_ventana
-            if max_inicio <= inicio_turno_min:
-                desde_min = inicio_turno_min
-                hasta_min = fin_turno_min
-            else:
-                desde_min = rng.randint(inicio_turno_min, max_inicio)
-                # Redondear a múltiplos de 15 minutos para realismo humano
-                desde_min = (desde_min // 15) * 15
-                hasta_min = min(fin_turno_min, desde_min + duracion_ventana)
-                hasta_min = ((hasta_min + 14) // 15) * 15
-                hasta_min = min(fin_turno_min, max(hasta_min, desde_min + 30))
-
-            hora_desde = _minutos_a_hora_str(desde_min)
-            hora_hasta = _minutos_a_hora_str(hasta_min)
-        else:
-            hora_desde = horario["inicio_str"]
-            hora_hasta = horario["fin_str"]
-
-        observaciones = f"Histórico ref={ubi.registro_id or 'Demanda'}; Día {dia_numero}"
+    for idx, (ubi, unidades) in enumerate(zip(seleccionadas, unidades_lista), start=1):
+        lat, lon = _aplicar_jitter_coordenadas(ubi, rng)
+        requiere_volcador = "SI" if rng.random() < prob_volc else "NO"
+        tiene_ventana, hora_desde, hora_hasta = _generar_ventana_horaria(
+            inicio_turno_min=horario["inicio_min"],
+            fin_turno_min=horario["fin_min"],
+            prob_ventana=prob_ventana,
+            rng=rng,
+        )
 
         pedidos.append(
             PedidoGenerado(
-                pedido_id=pedido_id,
-                cliente=cliente,
-                direccion=ubi.direccion_completa,
-                barrio=ubi.barrio,
-                ciudad=ubi.ciudad,
-                unidades=unidades,
-                latitud=round(ubi.latitud, 6),
-                longitud=round(ubi.longitud, 6),
-                requiere_volcador=requiere_volcador_str,
-                unidades_volcador=unidades_volcador,
-                tiene_ventana=tiene_ventana_str,
+                pedido_id=f"PED-D{dia_numero:02d}-{idx:02d}",
+                latitud=lat,
+                longitud=lon,
+                unidades=int(unidades),
+                requiere_volcador=requiere_volcador,
+                tiene_ventana=tiene_ventana,
                 hora_desde=hora_desde,
                 hora_hasta=hora_hasta,
                 turno=turno,
-                observaciones=observaciones,
             )
         )
 
@@ -301,7 +453,7 @@ def generar_pedidos_para_un_dia(
 
 
 def exportar_a_csv(pedidos: list[PedidoGenerado], ruta_archivo: Path) -> None:
-    """Exporta los pedidos generados a un archivo CSV estándar UTF-8."""
+    """Exporta los pedidos generados a CSV."""
     ruta_archivo.parent.mkdir(parents=True, exist_ok=True)
     with open(ruta_archivo, "w", encoding="utf-8-sig", newline="") as f:
         escritor = csv.DictWriter(f, fieldnames=ENCABEZADOS_PEDIDOS)
@@ -311,15 +463,11 @@ def exportar_a_csv(pedidos: list[PedidoGenerado], ruta_archivo: Path) -> None:
 
 
 def exportar_a_excel(pedidos: list[PedidoGenerado], ruta_archivo: Path) -> None:
-    """
-    Exporta los pedidos generados a un archivo Excel (.xlsx) estructurado
-    y 100% compatible con AnyLogic y el importador `importar_pedidos_excel`.
-    """
+    """Exporta los pedidos generados a un archivo .xlsx compatible con `importar_pedidos_excel`."""
     if not OPENPYXL_DISPONIBLE:
-        raise RuntimeError("openpyxl no está instalado; no se puede exportar a formato .xlsx.")
+        raise RuntimeError("openpyxl no está instalado.")
 
     ruta_archivo.parent.mkdir(parents=True, exist_ok=True)
-
     wb = openpyxl.Workbook()
     ws = wb.active
     if ws is None:
@@ -327,14 +475,11 @@ def exportar_a_excel(pedidos: list[PedidoGenerado], ruta_archivo: Path) -> None:
     else:
         ws.title = "Pedidos"
 
-    # Encabezado estándar en fila 1
     ws.append(ENCABEZADOS_PEDIDOS)
 
-    # Estilos para el encabezado
     header_font = Font(name="Arial", size=10, bold=True, color="FFFFFF")
     header_fill = PatternFill(start_color="17324D", end_color="17324D", fill_type="solid")
     center_align = Alignment(horizontal="center", vertical="center")
-    left_align = Alignment(horizontal="left", vertical="center")
 
     for col_idx in range(1, len(ENCABEZADOS_PEDIDOS) + 1):
         celda = ws.cell(row=1, column=col_idx)
@@ -342,28 +487,25 @@ def exportar_a_excel(pedidos: list[PedidoGenerado], ruta_archivo: Path) -> None:
         celda.fill = header_fill
         celda.alignment = center_align
 
-    # Agregar filas de datos
     for p in pedidos:
-        fila = [getattr(p, col) for col in ENCABEZADOS_PEDIDOS]
-        ws.append(fila)
+        ws.append([getattr(p, col) for col in ENCABEZADOS_PEDIDOS])
 
-    # Ajustar ancho de columnas automáticamente
     for col_idx, col in enumerate(ws.columns, start=1):
-        max_len = max(len(str(cell.value or '')) for cell in col)
-        col_letter = get_column_letter(col_idx)
-        ws.column_dimensions[col_letter].width = max(max_len + 3, 12)
+        max_len = max(len(str(cell.value or "")) for cell in col)
+        ws.column_dimensions[get_column_letter(col_idx)].width = max(max_len + 3, 12)
 
     wb.save(ruta_archivo)
     wb.close()
 
 
-def parsear_rango_pedidos(valor: str) -> tuple[int, int]:
-    """Parsea un argumento de cantidad de pedidos (ej: '10' o '8-12')."""
+def parsear_rango_pedidos(valor: str) -> tuple[int, int] | None:
+    """Parsea 'historico' -> None, '10' -> (10, 10) o '8-12' -> (8, 12)."""
     valor = valor.strip()
+    if valor.lower() in ("historico", "hist", "auto", "csv"):
+        return None
     if "-" in valor:
         partes = valor.split("-", 1)
-        min_p = int(partes[0].strip())
-        max_p = int(partes[1].strip())
+        min_p, max_p = int(partes[0].strip()), int(partes[1].strip())
         if min_p <= 0 or max_p < min_p:
             raise ValueError(f"Rango de pedidos inválido: {valor}")
         return min_p, max_p
@@ -375,8 +517,10 @@ def parsear_rango_pedidos(valor: str) -> tuple[int, int]:
 
 def ejecutar_generacion(
     dias_n: int = 1,
-    rango_pedidos: tuple[int, int] = (8, 12),
-    ruta_historico: Path = DEFAULT_HISTORICO_CSV,
+    rango_pedidos: tuple[int, int] | None = None,
+    ruta_historico: Path = DEFAULT_GEOCODING_CSV,
+    ruta_probabilidades: Path = DEFAULT_PROBABILIDADES_CSV,
+    ruta_cant_pedidos: Path = DEFAULT_CANT_PEDIDOS_CSV,
     directorio_salida: Path = DEFAULT_OUTPUT_DIR,
     formato: str = "ambos",
     turno: str = "MANANA",
@@ -384,161 +528,188 @@ def ejecutar_generacion(
     crear_consolidado: bool = False,
     seed: int | None = None,
     usar_timestamp: bool = True,
+    prob_volcador: float | None = None,
+    frecuencia_volcador_turnos: float = 4.0,
+    prob_ventana: float = 0.55,
+    capacidad_camion: int = 8,
+    camiones_turno_promedio: float = 6.0,
+    max_tareas: int | None = None,
 ) -> list[tuple[Path, list[PedidoGenerado]]]:
-    """
-    Función principal que ejecuta el pipeline de generación para N días.
-    """
+    """Genera N turnos y guarda los archivos y semillas en `seed_<seed_inicial>_<fecha>`."""
     if dias_n <= 0:
         raise ValueError(f"La cantidad de días (N) debe ser mayor a 0: {dias_n}")
 
-    rng = random.Random(seed) if seed is not None else random.Random()
+    seed_inicial = int(seed) if seed is not None else generar_semilla_aleatoria()
+    if seed_inicial <= 0:
+        raise ValueError(f"La semilla inicial debe ser > 0: {seed_inicial}")
 
-    # Si la ruta principal no existe, intentar fallback
-    if not ruta_historico.exists() and DEFAULT_FALLBACK_CSV.exists():
-        print(f"[AVISO] No se encontró {ruta_historico}. Usando fallback {DEFAULT_FALLBACK_CSV}")
-        ruta_historico = DEFAULT_FALLBACK_CSV
+    rng = random.Random(seed_inicial)
 
-    print(f"=== Analizando datos históricos desde: {ruta_historico} ===")
-    ubicaciones = cargar_y_analizar_historico(ruta_historico)
-    print(f"[OK] {len(ubicaciones)} registros históricos analizados con éxito.")
+    if not ruta_historico.exists() and DEFAULT_HISTORICO_CSV.exists():
+        ruta_historico = DEFAULT_HISTORICO_CSV
 
-    if usar_timestamp:
-        marca_tiempo = datetime.now().strftime("%Y%m%d_%H%M%S")
-        carpeta_destino = directorio_salida / marca_tiempo
-    else:
-        carpeta_destino = directorio_salida
+    ubicaciones = cargar_y_analizar_historico(
+        ruta_historico,
+        ruta_probabilidades=ruta_probabilidades,
+    )
+    conteos_historicos = (
+        cargar_cantidades_pedidos_turnos(ruta_cant_pedidos)
+        if rango_pedidos is None
+        else []
+    )
 
+    ahora = datetime.now()
+    marca_tiempo = ahora.strftime("%Y%m%d_%H%M%S")
+    carpeta_destino = (
+        directorio_salida / f"seed_{seed_inicial}_{marca_tiempo}"
+        if usar_timestamp
+        else directorio_salida
+    )
     carpeta_destino.mkdir(parents=True, exist_ok=True)
+
     resultados: list[tuple[Path, list[PedidoGenerado]]] = []
     todos_los_pedidos: list[PedidoGenerado] = []
-
-    print(f"\n=== Generando {dias_n} día(s) de nuevos pedidos ===")
+    metadata_turnos: list[dict[str, Any]] = []
 
     for i in range(1, dias_n + 1):
-        cant = rng.randint(rango_pedidos[0], rango_pedidos[1])
-        turno_efectivo = turno
-        if turno == "MIXTO":
-            turno_efectivo = "MANANA" if rng.random() < 0.5 else "TARDE"
+        seed_escenario = rng.randint(100_000, 999_999_999)
+        rng_dia = random.Random(seed_escenario)
+
+        if rango_pedidos is not None:
+            cant = rng_dia.randint(rango_pedidos[0], rango_pedidos[1])
+        else:
+            cant = sortear_cantidad_pedidos_turno(
+                conteos_historicos=conteos_historicos,
+                rng=rng_dia,
+                max_cota=max_tareas,
+            )
+
+        turno_efectivo = (
+            ("MANANA" if rng_dia.random() < 0.5 else "TARDE")
+            if turno == "MIXTO"
+            else turno
+        )
 
         pedidos_dia = generar_pedidos_para_un_dia(
             ubicaciones=ubicaciones,
             cantidad_pedidos=cant,
             turno=turno_efectivo,
             dia_numero=i,
-            rng=rng,
+            prob_volcador=prob_volcador,
+            frecuencia_volcador_turnos=frecuencia_volcador_turnos,
+            prob_ventana=prob_ventana,
+            capacidad_camion=capacidad_camion,
+            camiones_turno_promedio=camiones_turno_promedio,
+            rng=rng_dia,
+            max_tareas=max_tareas,
         )
 
         nombre_base = f"{prefijo}_{i:02d}"
-        archivos_creados = []
+        archivo_csv_nombre: str | None = None
+        archivo_xlsx_nombre: str | None = None
+        ruta_principal_dia: Path | None = None
 
         if formato in ("csv", "ambos"):
             ruta_csv = carpeta_destino / f"{nombre_base}.csv"
             exportar_a_csv(pedidos_dia, ruta_csv)
-            archivos_creados.append(ruta_csv.name)
-            resultados.append((ruta_csv, pedidos_dia))
+            archivo_csv_nombre = ruta_csv.name
+            ruta_principal_dia = ruta_csv
 
-        if formato in ("xlsx", "ambos"):
-            if OPENPYXL_DISPONIBLE:
-                ruta_xlsx = carpeta_destino / f"{nombre_base}.xlsx"
-                exportar_a_excel(pedidos_dia, ruta_xlsx)
-                archivos_creados.append(ruta_xlsx.name)
-            else:
-                print(f"[AVISO] No se pudo generar {nombre_base}.xlsx: openpyxl no está instalado.")
+        if formato in ("xlsx", "ambos") and OPENPYXL_DISPONIBLE:
+            ruta_xlsx = carpeta_destino / f"{nombre_base}.xlsx"
+            exportar_a_excel(pedidos_dia, ruta_xlsx)
+            archivo_xlsx_nombre = ruta_xlsx.name
+            if ruta_principal_dia is None:
+                ruta_principal_dia = ruta_xlsx
 
+        if ruta_principal_dia is not None:
+            resultados.append((ruta_principal_dia, pedidos_dia))
+
+        tareas_estimadas = estimar_tareas_pedidos(
+            pedidos_dia,
+            capacidad_camion=capacidad_camion,
+        )
+
+        metadata_turnos.append(
+            {
+                "dia_numero": i,
+                "instancia_id": f"TURNO-{i:02d}-SEED-{seed_escenario}",
+                "seed_escenario": seed_escenario,
+                "turno": turno_efectivo,
+                "cantidad_pedidos": len(pedidos_dia),
+                "tareas_estimadas": tareas_estimadas,
+                "unidades_totales": sum(p.unidades for p in pedidos_dia),
+                "archivo_csv": archivo_csv_nombre,
+                "archivo_xlsx": archivo_xlsx_nombre,
+                "pedidos": [p.a_dict() for p in pedidos_dia],
+            }
+        )
         todos_los_pedidos.extend(pedidos_dia)
-        archivos_str = ", ".join(archivos_creados)
-        print(f"  -> Día {i:02d}: {cant} pedidos ({turno_efectivo}) -> {archivos_str}")
 
     if crear_consolidado and dias_n > 1:
         if formato in ("csv", "ambos"):
-            ruta_cons_csv = carpeta_destino / f"{prefijo}_consolidado.csv"
-            exportar_a_csv(todos_los_pedidos, ruta_cons_csv)
-            print(f"  -> Consolidado CSV guardado en: {ruta_cons_csv.name}")
-
+            exportar_a_csv(todos_los_pedidos, carpeta_destino / f"{prefijo}_consolidado.csv")
         if formato in ("xlsx", "ambos") and OPENPYXL_DISPONIBLE:
-            ruta_cons_xlsx = carpeta_destino / f"{prefijo}_consolidado.xlsx"
-            exportar_a_excel(todos_los_pedidos, ruta_cons_xlsx)
-            print(f"  -> Consolidado Excel guardado en: {ruta_cons_xlsx.name}")
+            exportar_a_excel(todos_los_pedidos, carpeta_destino / f"{prefijo}_consolidado.xlsx")
 
-    print(f"\n[OK] Generación completada con éxito. Archivos guardados en: {carpeta_destino}")
+    metadata_payload = {
+        "version": 1,
+        "seed_inicial": seed_inicial,
+        "fecha_generacion": ahora.isoformat(timespec="seconds"),
+        "marca_tiempo": marca_tiempo,
+        "carpeta_salida": str(carpeta_destino),
+        "parametros": {
+            "dias_n": dias_n,
+            "rango_pedidos": list(rango_pedidos) if rango_pedidos is not None else "historico",
+            "turno_solicitado": turno,
+            "formato": formato,
+            "capacidad_camion": capacidad_camion,
+            "camiones_turno_promedio": camiones_turno_promedio,
+            "frecuencia_volcador_turnos": frecuencia_volcador_turnos,
+            "prob_ventana": prob_ventana,
+            "max_tareas": max_tareas,
+        },
+        "turnos": metadata_turnos,
+    }
+
+    ruta_metadata = carpeta_destino / NOMBRE_METADATA_GENERACION
+    ruta_metadata.write_text(
+        json.dumps(metadata_payload, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
     return resultados
 
 
 def _parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
-        description="Genera nuevos pedidos para nuevos días analizando CSVs históricos de demanda."
+        description="Generador simplificado de turnos de pedidos para benchmarking."
     )
-    p.add_argument(
-        "-n",
-        "--dias",
-        type=int,
-        default=1,
-        help="Cantidad N de días (escenarios) a generar (por defecto: 1)",
-    )
+    p.add_argument("-n", "--dias", type=int, default=1, help="Cantidad de turnos a generar")
     p.add_argument(
         "-p",
         "--pedidos-por-dia",
         type=str,
-        default="8-12",
-        help="Cantidad de pedidos por día. Puede ser un número fijo (ej. 10) o un rango (ej. 8-12). Por defecto: 8-12",
+        default="historico",
+        help="Cantidad de pedidos por turno: 'historico', número fijo o rango (ej. 8-12)",
     )
-    p.add_argument(
-        "--input-file",
-        type=Path,
-        default=DEFAULT_HISTORICO_CSV,
-        help=f"Ruta al CSV con pedidos históricos (por defecto: {DEFAULT_HISTORICO_CSV})",
-    )
-    p.add_argument(
-        "-o",
-        "--output-dir",
-        type=Path,
-        default=DEFAULT_OUTPUT_DIR,
-        help=f"Directorio de salida para los archivos generados (por defecto: {DEFAULT_OUTPUT_DIR})",
-    )
-    p.add_argument(
-        "--sin-timestamp",
-        action="store_true",
-        help="Guarda los archivos directamente en el directorio de salida sin crear una subcarpeta con timestamp",
-    )
-    p.add_argument(
-        "--formato",
-        choices=["csv", "xlsx", "ambos"],
-        default="ambos",
-        help="Formato de exportación: csv, xlsx o ambos (por defecto: ambos)",
-    )
-    p.add_argument(
-        "--turno",
-        choices=["MANANA", "TARDE", "MIXTO"],
-        default="MANANA",
-        help="Turno asignado a los pedidos generados (por defecto: MANANA)",
-    )
-    p.add_argument(
-        "--prefijo",
-        type=str,
-        default="pedidos_dia",
-        help="Prefijo para los nombres de los archivos generados (por defecto: pedidos_dia)",
-    )
-    p.add_argument(
-        "--consolidado",
-        action="store_true",
-        help="Generar además un archivo unificado con todos los pedidos de todos los días",
-    )
-    p.add_argument(
-        "--seed",
-        type=int,
-        default=None,
-        help="Semilla aleatoria para reproducibilidad estricta",
-    )
+    p.add_argument("--input-file", type=Path, default=DEFAULT_GEOCODING_CSV)
+    p.add_argument("-o", "--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
+    p.add_argument("--sin-timestamp", action="store_true")
+    p.add_argument("--formato", choices=["csv", "xlsx", "ambos"], default="ambos")
+    p.add_argument("--turno", choices=["MANANA", "TARDE", "MIXTO"], default="MANANA")
+    p.add_argument("--prefijo", type=str, default="pedidos_dia")
+    p.add_argument("--consolidado", action="store_true")
+    p.add_argument("--seed", type=int, default=None)
+    p.add_argument("--max-tareas", type=int, default=None)
     return p
 
 
 def main() -> int:
     args = _parser().parse_args()
     try:
-        rango = parsear_rango_pedidos(args.pedidos_por_dia)
         ejecutar_generacion(
             dias_n=args.dias,
-            rango_pedidos=rango,
+            rango_pedidos=parsear_rango_pedidos(args.pedidos_por_dia),
             ruta_historico=args.input_file.resolve(),
             directorio_salida=args.output_dir.resolve(),
             formato=args.formato,
@@ -547,6 +718,7 @@ def main() -> int:
             crear_consolidado=args.consolidado,
             seed=args.seed,
             usar_timestamp=not args.sin_timestamp,
+            max_tareas=args.max_tareas,
         )
         return 0
     except Exception as exc:
@@ -556,4 +728,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
-

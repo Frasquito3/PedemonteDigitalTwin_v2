@@ -132,7 +132,12 @@ class HybridRLGAPlanner:
         fuente_rl = self._fuente_rl_seleccionada()
         costo_semilla_rl = float(plan_rl.costo_estimado)
 
-        seed_ga = instancia.seed_escenario + 9001
+        seed_base = (
+            instancia.seed_ejecucion
+            if instancia.seed_ejecucion > 0
+            else instancia.seed_escenario
+        )
+        seed_ga = seed_base + 9001
         tiempo_ga_ms = 0.0
         generaciones_ga = 0
         plan_ga: PlanTurno | None = None

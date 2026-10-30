@@ -188,7 +188,13 @@ class SelectorPlanificadores:
             perf_counter()
         )
 
-        detalle = ""
+        seed_base = (
+            instancia.seed_ejecucion
+            if instancia.seed_ejecucion > 0
+            else instancia.seed_escenario
+        )
+
+        detalle = f"seed={seed_base}"
 
         if (
             modo_normalizado
@@ -205,7 +211,7 @@ class SelectorPlanificadores:
             == ModoPlanificacion.RANDOM
         ):
             seed = (
-                instancia.seed_escenario
+                seed_base
                 + 7001
             )
 
@@ -225,7 +231,7 @@ class SelectorPlanificadores:
             == ModoPlanificacion.GA
         ):
             seed = (
-                instancia.seed_escenario
+                seed_base
                 + 8001
             )
 
@@ -263,8 +269,8 @@ class SelectorPlanificadores:
             )
 
             if detalle_operacional:
-                detalle = str(
-                    detalle_operacional
+                detalle = (
+                    f"{detalle_operacional}|seed={seed_base}"
                 )
 
         else:

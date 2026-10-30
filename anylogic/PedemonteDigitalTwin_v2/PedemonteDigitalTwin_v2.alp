@@ -4,7 +4,7 @@
 	         AnyLogic Project File
 *************************************************
 -->
-<AnyLogicWorkspace WorkspaceVersion="1.9" AnyLogicVersion="8.9.9.202606170507" AlpVersion="8.9.9">
+<AnyLogicWorkspace WorkspaceVersion="1.9" AnyLogicVersion="8.9.9.202607020720" AlpVersion="8.9.9">
 <Model>
 	<Id>1786555084411</Id>
 	<Name><![CDATA[PedemonteDigitalTwin_v2]]></Name>
@@ -2365,7 +2365,7 @@
 						<UnitType><![CDATA[NONE]]></UnitType>
 						<SdArray>false</SdArray>
 						<DefaultValue Class="CodeValue">
-							<Code><![CDATA[20]]></Code>
+							<Code><![CDATA[35]]></Code>
 						</DefaultValue>
 						<ParameterEditor>
 							<Id>1786556400837</Id>
@@ -10724,7 +10724,7 @@ try {
                 "pedemonte_selector_bridge."
                 + "inicializar("
                 + modeloLiteral
-                + ", max_pedidos=30, "
+                + ", max_pedidos=35, "
                 + "deterministic=True, "
                 + "cache_vial_path="
                 + cacheLiteral
@@ -32439,7 +32439,7 @@ return true;
 						<Parameter>
 							<Name><![CDATA[pythonExecPath]]></Name>
 							<Value Class="CodeValue">
-								<Code><![CDATA["C:/Users/franc/OneDrive/Documentos/PedemonteDigitalTwin_v2/.venv/Scripts/python.exe"]]></Code>
+								<Code><![CDATA["C:/Users/Propietario.DESKTOP-QTLGQ35/Desktop/PedemonteDigitalTwin_v2/.venv/Scripts/python.exe"]]></Code>
 							</Value>
 						</Parameter>
 						<Parameter>
@@ -32539,13 +32539,13 @@ return true;
 						<Parameter>
 							<Name><![CDATA[width]]></Name>
 							<Value Class="CodeValue">
-								<Code><![CDATA[1400]]></Code>
+								<Code><![CDATA[getExperiment() != null ? 1400 : 0]]></Code>
 							</Value>
 						</Parameter>
 						<Parameter>
 							<Name><![CDATA[height]]></Name>
 							<Value Class="CodeValue">
-								<Code><![CDATA[900]]></Code>
+								<Code><![CDATA[getExperiment() != null ? 900 : 0]]></Code>
 							</Value>
 						</Parameter>
 						<Parameter>
