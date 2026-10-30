@@ -1128,7 +1128,7 @@ function initMap() {
         maxZoom: 19
     }).addTo(map);
 
-    map.on('click', function(e) {
+    map.on('click', function (e) {
         establecerCoordenadasSeleccionadas(
             e.latlng.lat,
             e.latlng.lng,
@@ -1359,6 +1359,14 @@ async function limpiarTodo() {
     renderPedidosList();
 }
 
+function generarTimestampArchivo(fecha = new Date()) {
+    const pad = valor => String(valor).padStart(2, '0');
+    return (
+        `${fecha.getFullYear()}-${pad(fecha.getMonth() + 1)}-${pad(fecha.getDate())}`
+        + `_${pad(fecha.getHours())}-${pad(fecha.getMinutes())}-${pad(fecha.getSeconds())}`
+    );
+}
+
 async function exportarExcel() {
     if (pedidos.length === 0) {
         alert('No hay pedidos para exportar.');
@@ -1375,11 +1383,11 @@ async function exportarExcel() {
         const filas = datosExportacionPedidos();
         const hoja = XLSX.utils.json_to_sheet(filas, { header: COLUMNAS_EXCEL_PEDIDOS });
         hoja['!cols'] = COLUMNAS_EXCEL_PEDIDOS.map(nombre => ({
-            wch: ['cliente','direccion','observaciones'].includes(nombre) ? 32 : 20
+            wch: ['cliente', 'direccion', 'observaciones'].includes(nombre) ? 32 : 20
         }));
         const libro = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(libro, hoja, 'Pedidos');
-        const nombreArchivo = 'pedidos.xlsx';
+        const nombreArchivo = `pedidos_${generarTimestampArchivo()}.xlsx`;
 
         if (webToolkitDisponible() && AnyLogic.files &&
             typeof AnyLogic.files.saveDialog === 'function' &&
@@ -1398,7 +1406,7 @@ async function exportarExcel() {
             mostrarFeedbackPedidos(`Excel guardado en: ${ruta}`, 'feedback-ok');
         } else {
             XLSX.writeFile(libro, nombreArchivo);
-            mostrarFeedbackPedidos('Archivo Excel exportado. Podés volver a importarlo.', 'feedback-ok');
+            mostrarFeedbackPedidos(`Archivo Excel exportado (${nombreArchivo}). Podés volver a importarlo.`, 'feedback-ok');
         }
     } catch (error) {
         console.error('[PEDEMONTE WEB] Exportación Excel:', error);
@@ -1417,7 +1425,7 @@ function importarExcel(event) {
         return;
     }
     const reader = new FileReader();
-    reader.onload = async function(e) {
+    reader.onload = async function (e) {
         try {
             const datos = new Uint8Array(e.target.result);
             const libro = XLSX.read(datos, { type: 'array' });
@@ -1518,7 +1526,7 @@ function seleccionarResultado(lat, lng) {
     );
 }
 
-window.onload = function() {
+window.onload = function () {
     initMap();
     document.getElementById('input-id').value = getNextDefaultId();
     actualizarCampoUnidadesVolcador();
