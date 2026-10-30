@@ -80,7 +80,7 @@ def _calcular_costos_plan(
     minuto_fin_minimo: float,
     instancia: InstanciaTurno,
     configuracion: ConfiguracionPlanificacion,
-) -> tuple[float, float, float, float, float, float, float, float, float, float]:
+) -> tuple[float, float, float, float, float, float, float, float, float, float, float]:
     """Computa los lapsos horarios, distancias y penalizaciones de la función objetivo.
 
     Returns:
