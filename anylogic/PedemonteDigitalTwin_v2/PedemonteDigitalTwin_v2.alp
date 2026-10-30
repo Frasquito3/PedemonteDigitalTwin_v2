@@ -4,7 +4,7 @@
 	         AnyLogic Project File
 *************************************************
 -->
-<AnyLogicWorkspace WorkspaceVersion="1.9" AnyLogicVersion="8.9.9.202607020720" AlpVersion="8.9.9">
+<AnyLogicWorkspace WorkspaceVersion="1.9" AnyLogicVersion="8.9.10.202609231424" AlpVersion="8.9.10">
 <Model>
 	<Id>1786555084411</Id>
 	<Name><![CDATA[PedemonteDigitalTwin_v2]]></Name>
@@ -222,6 +222,7 @@
 					<Code><![CDATA[10]]></Code>
 					<Unit Class="SpeedUnits"><![CDATA[MPS]]></Unit>
 				</VelocityCode>
+				<MessageType><![CDATA[Object]]></MessageType>
 				<PhysicalLength Class="CodeUnitValue">
 					<Code><![CDATA[1]]></Code>
 					<Unit Class="LengthUnits"><![CDATA[METER]]></Unit>
@@ -236,24 +237,30 @@
 				</PhysicalHeight>
 			</AgentProperties>
 			<EnvironmentProperties>
-					<EnableSteps>false</EnableSteps>
-					<StepDurationCode Class="CodeUnitValue">
-						<Code><![CDATA[1.0]]></Code>
-						<Unit Class="TimeUnits"><![CDATA[SECOND]]></Unit>
-					</StepDurationCode>
-					<SpaceType>GIS</SpaceType>
-					<WidthCode><![CDATA[500]]></WidthCode>
-					<HeightCode><![CDATA[500]]></HeightCode>
-					<ZHeightCode><![CDATA[0]]></ZHeightCode>
-					<ColumnsCountCode><![CDATA[100]]></ColumnsCountCode>
-					<RowsCountCode><![CDATA[100]]></RowsCountCode>
-					<NeigborhoodType>MOORE</NeigborhoodType>
-					<LayoutType>USER_DEF</LayoutType>
-					<NetworkType>USER_DEF</NetworkType>
-					<ConnectionsPerAgentCode><![CDATA[2]]></ConnectionsPerAgentCode>
-					<ConnectionsRangeCode><![CDATA[50]]></ConnectionsRangeCode>
-					<NeighborLinkFractionCode><![CDATA[0.95]]></NeighborLinkFractionCode>
-					<MCode><![CDATA[10]]></MCode>
+				<EnableSteps>false</EnableSteps>
+				<StepDurationCode Class="CodeUnitValue">
+					<Code><![CDATA[1.0]]></Code>
+					<Unit Class="TimeUnits"><![CDATA[SECOND]]></Unit>
+				</StepDurationCode>
+				<SpaceType>GIS</SpaceType>
+				<WidthCode><![CDATA[500]]></WidthCode>
+				<HeightCode><![CDATA[500]]></HeightCode>
+				<ZHeightCode><![CDATA[0]]></ZHeightCode>
+				<ColumnsCountCode><![CDATA[100]]></ColumnsCountCode>
+				<RowsCountCode><![CDATA[100]]></RowsCountCode>
+				<NeigborhoodType>MOORE</NeigborhoodType>
+				<LayoutType>USER_DEF</LayoutType>
+				<NetworkType>USER_DEF</NetworkType>
+				<ConnectionsPerAgentCode><![CDATA[2]]></ConnectionsPerAgentCode>
+				<ConnectionsRangeCode><![CDATA[50]]></ConnectionsRangeCode>
+				<NeighborLinkFractionCode><![CDATA[0.95]]></NeighborLinkFractionCode>
+				<MCode><![CDATA[10]]></MCode>
+				<LineStyle>SOLID</LineStyle>
+				<LineWidth>1</LineWidth>
+				<LineColor>-16777216</LineColor>
+				<LineZOrder>UNDER_AGENTS</LineZOrder>
+				<LineArrow>NONE</LineArrow>
+				<LineArrowPosition>END</LineArrowPosition>
 			</EnvironmentProperties>
 			<DatasetsCreationProperties>
 				<AutoCreate>true</AutoCreate>
@@ -286,7 +293,6 @@
 				<InheritedFromParentAgentType>true</InheritedFromParentAgentType>
 			</ScaleRuler>
 			<CurrentLevel>1786555084421</CurrentLevel>
-			<ConnectionsId>1786555084416</ConnectionsId>
 			<Variables>
 				<Variable Class="PlainVariable">
 					<Id>1786558359212</Id>
@@ -32336,27 +32342,6 @@ return true;
 ]]></Body>
 				</Function>
 			</Functions>
-			<AgentLinks>
-				<AgentLink>
-					<Id>1786555084416</Id>
-					<Name><![CDATA[connections]]></Name>
-					<X>50</X><Y>-50</Y>
-					<Label><X>15</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<HandleReceiveInConnections>false</HandleReceiveInConnections>
-					<AgentLinkType>COLLECTION_OF_LINKS</AgentLinkType>
-					<AgentLinkBidirectional>true</AgentLinkBidirectional>
-					<MessageType><![CDATA[Object]]></MessageType>
-					<LineStyle>SOLID</LineStyle>
-					<LineWidth>1</LineWidth>
-					<LineColor>-16777216</LineColor>
-					<LineZOrder>UNDER_AGENTS</LineZOrder>
-					<LineArrow>NONE</LineArrow>
-					<LineArrowPosition>END</LineArrowPosition>
-				</AgentLink>
-			</AgentLinks>
 
 			<EmbeddedObjects>
 				<EmbeddedObject>
@@ -32445,7 +32430,7 @@ return true;
 						<Parameter>
 							<Name><![CDATA[pythonExecPath]]></Name>
 							<Value Class="CodeValue">
-								<Code><![CDATA[new java.io.File("F:/Facultad/4°/Simulación/PedemonteDigitalTwin_v2/.venv/Scripts/python.exe").exists() ? "F:/Facultad/4°/Simulación/PedemonteDigitalTwin_v2/.venv/Scripts/python.exe" : "C:/Users/Propietario.DESKTOP-QTLGQ35/Desktop/PedemonteDigitalTwin_v2/.venv/Scripts/python.exe"]]></Code>
+								<Code><![CDATA[new java.io.File("F:/Facultad/4°/Simulación/PedemonteDigitalTwin_v2/.venv/Scripts/python.exe").exists() ? "F:/Facultad/4°/Simulación/PedemonteDigitalTwin_v2/.venv/Scripts/python.exe" : new java.io.File("C:/Users/Propietario.DESKTOP-QTLGQ35/Desktop/PedemonteDigitalTwin_v2/.venv/Scripts/python.exe").exists() ? "C:/Users/Propietario.DESKTOP-QTLGQ35/Desktop/PedemonteDigitalTwin_v2/.venv/Scripts/python.exe" : "C:/Users/ricar/OneDrive/Documentos/PROGRAMACION/PedemonteDigitalTwin_v2/.venv/Scripts/python.exe"]]></Code>
 							</Value>
 						</Parameter>
 						<Parameter>
@@ -32874,6 +32859,25 @@ if (
 					<LevelVisibility>DIM_NON_CURRENT</LevelVisibility>
 
 			<Presentation>
+                <EmbeddedObjectPresentation>
+                    <InGis>true</InGis>
+					<Id>1786559212293</Id>
+					<Name><![CDATA[camiones_presentation]]></Name>
+					<X>-1450</X><Y>40</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<ScaleType>AUTOMATICALLY_CALCULATED</ScaleType>
+					<GISScaleForRealEmbeddedObjectPresentationSize>1000</GISScaleForRealEmbeddedObjectPresentationSize>
+					<GISScaleForFixedEmbeddedObjectPresentationSize>1000000000</GISScaleForFixedEmbeddedObjectPresentationSize>
+					<Latitude>0.0</Latitude>
+					<Longitude>0.0</Longitude>
+                </EmbeddedObjectPresentation>
 				<Rectangle>
 					<Id>1787517007554</Id>
 					<Name><![CDATA[rectFondoDashboard]]></Name>
@@ -33482,6 +33486,27 @@ if (
 					<MapScaleBasedGeneralization>true</MapScaleBasedGeneralization>
 					<AbsolutePrecisionGeneralization>1000</AbsolutePrecisionGeneralization>
 
+			<Presentation>
+				<EmbeddedObjectPresentationGIS>
+                    <InGis>true</InGis>
+					<Id>1786559212293</Id>
+					<Name><![CDATA[camiones_presentation]]></Name>
+					<X>-1450</X><Y>40</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<ScaleType>AUTOMATICALLY_CALCULATED</ScaleType>
+					<GISScaleForRealEmbeddedObjectPresentationSize>1000</GISScaleForRealEmbeddedObjectPresentationSize>
+					<GISScaleForFixedEmbeddedObjectPresentationSize>1000000000</GISScaleForFixedEmbeddedObjectPresentationSize>
+					<Latitude>0.0</Latitude>
+					<Longitude>0.0</Longitude>
+				</EmbeddedObjectPresentationGIS>
+			</Presentation>
 
 				</GISMap>
 				<Control Type="ComboBox">
@@ -44021,24 +44046,6 @@ getExperimentHost().showMessageDialog(
 			</Presentation>
 
 				</Level>
-				<EmbeddedObjectPresentation>
-					<Id>1786559212293</Id>
-					<Name><![CDATA[camiones_presentation]]></Name>
-					<X>-1450</X><Y>40</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<Rotation>0.0</Rotation>
-					<ScaleType>AUTOMATICALLY_CALCULATED</ScaleType>
-					<GISScaleForRealEmbeddedObjectPresentationSize>1000</GISScaleForRealEmbeddedObjectPresentationSize>
-					<GISScaleForFixedEmbeddedObjectPresentationSize>1000000000</GISScaleForFixedEmbeddedObjectPresentationSize>
-					<Latitude>0.0</Latitude>
-					<Longitude>0.0</Longitude>
-				</EmbeddedObjectPresentation>
 			</Presentation>
 			<Areas>
 				<Area>
@@ -44151,6 +44158,7 @@ traceln(
 					<Code><![CDATA[10]]></Code>
 					<Unit Class="SpeedUnits"><![CDATA[MPS]]></Unit>
 				</VelocityCode>
+				<MessageType><![CDATA[Object]]></MessageType>
 				<PhysicalLength Class="CodeUnitValue">
 					<Code><![CDATA[1]]></Code>
 					<Unit Class="LengthUnits"><![CDATA[METER]]></Unit>
@@ -44165,24 +44173,30 @@ traceln(
 				</PhysicalHeight>
 			</AgentProperties>
 			<EnvironmentProperties>
-					<EnableSteps>false</EnableSteps>
-					<StepDurationCode Class="CodeUnitValue">
-						<Code><![CDATA[1.0]]></Code>
-						<Unit Class="TimeUnits"><![CDATA[SECOND]]></Unit>
-					</StepDurationCode>
-					<SpaceType>CONTINUOUS</SpaceType>
-					<WidthCode><![CDATA[500]]></WidthCode>
-					<HeightCode><![CDATA[500]]></HeightCode>
-					<ZHeightCode><![CDATA[0]]></ZHeightCode>
-					<ColumnsCountCode><![CDATA[100]]></ColumnsCountCode>
-					<RowsCountCode><![CDATA[100]]></RowsCountCode>
-					<NeigborhoodType>MOORE</NeigborhoodType>
-					<LayoutType>USER_DEF</LayoutType>
-					<NetworkType>USER_DEF</NetworkType>
-					<ConnectionsPerAgentCode><![CDATA[2]]></ConnectionsPerAgentCode>
-					<ConnectionsRangeCode><![CDATA[50]]></ConnectionsRangeCode>
-					<NeighborLinkFractionCode><![CDATA[0.95]]></NeighborLinkFractionCode>
-					<MCode><![CDATA[10]]></MCode>
+				<EnableSteps>false</EnableSteps>
+				<StepDurationCode Class="CodeUnitValue">
+					<Code><![CDATA[1.0]]></Code>
+					<Unit Class="TimeUnits"><![CDATA[SECOND]]></Unit>
+				</StepDurationCode>
+				<SpaceType>CONTINUOUS</SpaceType>
+				<WidthCode><![CDATA[500]]></WidthCode>
+				<HeightCode><![CDATA[500]]></HeightCode>
+				<ZHeightCode><![CDATA[0]]></ZHeightCode>
+				<ColumnsCountCode><![CDATA[100]]></ColumnsCountCode>
+				<RowsCountCode><![CDATA[100]]></RowsCountCode>
+				<NeigborhoodType>MOORE</NeigborhoodType>
+				<LayoutType>USER_DEF</LayoutType>
+				<NetworkType>USER_DEF</NetworkType>
+				<ConnectionsPerAgentCode><![CDATA[2]]></ConnectionsPerAgentCode>
+				<ConnectionsRangeCode><![CDATA[50]]></ConnectionsRangeCode>
+				<NeighborLinkFractionCode><![CDATA[0.95]]></NeighborLinkFractionCode>
+				<MCode><![CDATA[10]]></MCode>
+				<LineStyle>SOLID</LineStyle>
+				<LineWidth>1</LineWidth>
+				<LineColor>-16777216</LineColor>
+				<LineZOrder>UNDER_AGENTS</LineZOrder>
+				<LineArrow>NONE</LineArrow>
+				<LineArrowPosition>END</LineArrowPosition>
 			</EnvironmentProperties>
 			<DatasetsCreationProperties>
 				<AutoCreate>true</AutoCreate>
@@ -44215,7 +44229,6 @@ traceln(
 				<InheritedFromParentAgentType>true</InheritedFromParentAgentType>
 			</ScaleRuler>
 			<CurrentLevel>1786559212055</CurrentLevel>
-			<ConnectionsId>1786559212050</ConnectionsId>
 			<Variables>
 				<Variable Class="PlainVariable">
 					<Id>1786559290524</Id>
@@ -46890,32 +46903,6 @@ return
     desplazamientoLatitud;]]></Body>
 				</Function>
 			</Functions>
-			<AgentLinks>
-				<AgentLink>
-					<Id>1786559212050</Id>
-					<Name><![CDATA[connections]]></Name>
-					<X>50</X><Y>-50</Y>
-					<Label><X>15</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<HandleReceiveInConnections>false</HandleReceiveInConnections>
-					<AgentLinkType>COLLECTION_OF_LINKS</AgentLinkType>
-					<AgentLinkBidirectional>true</AgentLinkBidirectional>
-					<MessageType><![CDATA[Object]]></MessageType>
-					<StatechartReference>
-						<PackageName><![CDATA[pedemontedigitaltwin_v2]]></PackageName>
-						<ClassName><![CDATA[Camion]]></ClassName>
-						<ItemName><![CDATA[scOperacion]]></ItemName>
-					</StatechartReference>
-					<LineStyle>SOLID</LineStyle>
-					<LineWidth>1</LineWidth>
-					<LineColor>-16777216</LineColor>
-					<LineZOrder>UNDER_AGENTS</LineZOrder>
-					<LineArrow>NONE</LineArrow>
-					<LineArrowPosition>END</LineArrowPosition>
-				</AgentLink>
-			</AgentLinks>
 
 			<ContainerLinks>
 				<ContainerLink>
@@ -46984,7 +46971,7 @@ return
 					<ApplyShading>true</ApplyShading>
 					<InternalLighting>OFF</InternalLighting>
 					<IgnoreSceneLights>false</IgnoreSceneLights>
-</Figure3D>
+				</Figure3D>
 			</Presentation>
 
 				</Level>
@@ -49238,7 +49225,14 @@ public class DesgloseCostoTurno implements Serializable {
 	<Uuid>0a27038a-0f3a-48bb-b235-4a44066a1402</Uuid>
 	<Uuid>0a9ec2c3-5e18-4c0a-a183-fd86d9d9a08b</Uuid>
 	<Uuid>2216cdd0-177c-5678-9e88-dd8b95313334</Uuid>
+	<Uuid>92afa9c7-cb47-45df-8559-1b947cbeacee</Uuid>
+	<Uuid>896f4ff2-c039-43e1-8c65-183592ba63e2</Uuid>
+	<Uuid>eada5e9c-56b7-4492-b3b1-03f1eb36a209</Uuid>
 	<Uuid>2216cdd0-177c-5678-9e88-dd8b95313335</Uuid>
 	<Uuid>5b8ebeed-6b58-4c3a-8d5f-0958b1a90ce6</Uuid>
+	<Uuid>c39ae7a6-edcf-4673-923a-96829a5df80c</Uuid>
+	<Uuid>af233c46-2e37-4dd0-a79f-cc6184140b1c</Uuid>
+	<Uuid>53a0a65d-9a11-4cd9-8e3a-c6852af4d6e3</Uuid>
+	<Uuid>01593659-ae66-4c89-b2b6-9a95d1c1f509</Uuid>
 </ConvertersApplied>
 </AnyLogicWorkspace>
