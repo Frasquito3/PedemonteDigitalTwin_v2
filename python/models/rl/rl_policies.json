@@ -2,46 +2,111 @@
   "version": "pedemonte-rl-single-policy-v1",
   "modelo": "rl_policy.zip",
   "modelo_respaldo_v1": "historial/rl_policy_v1.zip",
-  "sha256_modelo": "df2e08f0918a3fa6d68843abd31484187969c8d28a8172d69083a5d24163956c",
+  "sha256_modelo": "df1edc421763eaa7aa426c596ae16998d5867ddc720eda8d2cf88923f5fe434f",
   "max_pedidos_rl_validado": 35,
   "usar_mascara_temporal_dura": true,
   "ordenar_slots_canonicamente": true,
-  "num_rollouts": 16,
+  "num_rollouts": 24,
   "configuracion_entrenamiento": {
-    "archivo_config": "scripts/rl/configs/rl_v2_35slots.json",
-    "experimento_id": "v2",
-    "seed_global": 20261030,
+    "archivo_config": "scripts/rl/configs/rl_v3.json",
+    "experimento_id": "v3",
+    "seed_global": 20261031,
     "modo_inicializacion": "transfer_learning",
-    "modelo_base": "models/rl/historial/rl_policy_v1.zip",
-    "sha256_modelo_base": "7d2838963f578656919822ee258e9c87c38257829ea801bbd3b41fcf26d20da4",
+    "modelo_base": "models/rl/historial/rl_policy_v2.zip",
+    "sha256_modelo_base": "df2e08f0918a3fa6d68843abd31484187969c8d28a8172d69083a5d24163956c",
     "hiperparametros_ppo": {
-      "learning_rate": 1.5e-05,
-      "n_steps": 256,
+      "learning_rate": 1e-05,
+      "lr_schedule": "lineal",
+      "learning_rate_final": 2e-06,
+      "n_steps": 512,
       "batch_size": 128,
       "n_epochs": 6,
       "gamma": 1.0,
       "gae_lambda": 0.95,
-      "clip_range": 0.2,
-      "ent_coef": 0.008
+      "clip_range": 0.12,
+      "ent_coef": 0.004
     },
     "curriculum": [
       {
-        "nombre": "etapa_1_turnos_chicos",
-        "rango_tareas": [6, 14],
-        "timesteps": 2048,
-        "seed_entorno": 101
+        "nombre": "etapa_1_consolidacion_base",
+        "rango_tareas": [
+          6,
+          15
+        ],
+        "timesteps": 4096,
+        "seed_entorno": 1001,
+        "prob_tarde": 0.45,
+        "prob_ventana": 0.55,
+        "escalar_camiones_por_tareas": false
       },
       {
-        "nombre": "etapa_2_turnos_medianos",
-        "rango_tareas": [12, 24],
-        "timesteps": 2048,
-        "seed_entorno": 202
+        "nombre": "etapa_2_carga_operativa_tipica",
+        "rango_tareas": [
+          11,
+          22
+        ],
+        "timesteps": 6144,
+        "seed_entorno": 2002,
+        "prob_tarde": 0.48,
+        "prob_ventana": 0.55,
+        "escalar_camiones_por_tareas": false
       },
       {
-        "nombre": "etapa_3_turnos_grandes",
-        "rango_tareas": [8, 32],
-        "timesteps": 2048,
-        "seed_entorno": 303
+        "nombre": "etapa_3_alta_demanda_y_ventanas",
+        "rango_tareas": [
+          14,
+          30
+        ],
+        "timesteps": 6144,
+        "seed_entorno": 3003,
+        "prob_tarde": 0.5,
+        "prob_ventana": 0.58,
+        "escalar_camiones_por_tareas": false
+      },
+      {
+        "nombre": "etapa_4_dominio_completo_35slots",
+        "rango_tareas": [
+          8,
+          35
+        ],
+        "timesteps": 4096,
+        "seed_entorno": 4004,
+        "prob_tarde": 0.45,
+        "prob_ventana": 0.55,
+        "escalar_camiones_por_tareas": false
+      }
+    ],
+    "mejor_etapa_seleccionada": "etapa_3_alta_demanda_y_ventanas",
+    "historial_validacion_etapas": [
+      {
+        "etapa": "etapa_0_base_transferida",
+        "costo_promedio": 46555.5492,
+        "tardanza_min": 7469.4389,
+        "tardios": 118
+      },
+      {
+        "etapa": "etapa_1_consolidacion_base",
+        "costo_promedio": 46389.5993,
+        "tardanza_min": 7516.3513,
+        "tardios": 116
+      },
+      {
+        "etapa": "etapa_2_carga_operativa_tipica",
+        "costo_promedio": 46104.3889,
+        "tardanza_min": 7449.1776,
+        "tardios": 116
+      },
+      {
+        "etapa": "etapa_3_alta_demanda_y_ventanas",
+        "costo_promedio": 45936.5308,
+        "tardanza_min": 7429.4494,
+        "tardios": 115
+      },
+      {
+        "etapa": "etapa_4_dominio_completo_35slots",
+        "costo_promedio": 46120.1749,
+        "tardanza_min": 7457.1215,
+        "tardios": 116
       }
     ]
   },
@@ -50,39 +115,58 @@
       "RL_V1": {
         "tardios": 10,
         "tardanza_min": 285.60982233903405,
-        "costo_promedio": 13920.996519930626,
-        "exitos": 20
+        "costo_promedio": 11321.628040317622,
+        "exitos": 25
       },
       "RL_V2": {
         "tardios": 10,
-        "tardanza_min": 299.76581781598065,
-        "costo_promedio": 13608.6656505215,
-        "exitos": 20
+        "tardanza_min": 231.0999180788914,
+        "costo_promedio": 8071.242733545368,
+        "exitos": 25
       },
       "GREEDY": {
-        "tardios": 24,
-        "tardanza_min": 832.2318809096561,
-        "costo_promedio": 22845.65669623399,
-        "exitos": 20
+        "tardios": 25,
+        "tardanza_min": 904.331166561891,
+        "costo_promedio": 19267.714683665807,
+        "exitos": 25
+      },
+      "RL_V2_PREVIO": {
+        "tardios": 10,
+        "tardanza_min": 231.0999180788914,
+        "costo_promedio": 8371.435588734781,
+        "exitos": 25
       }
     },
     "turnos_14_a_32_tareas": {
       "RL_V1": {
         "ejecutables": 0,
-        "fallos_por_tope_12": 20
+        "fallos_por_tope_12": 25
       },
       "RL_V2": {
-        "ejecutables": 20,
-        "tardios": 83,
-        "tardanza_min": 7211.522281564593,
-        "costo_promedio": 92247.9075936593
+        "ejecutables": 25,
+        "tardios": 105,
+        "tardanza_min": 7198.349480471454,
+        "costo_promedio": 83801.81890299355
       },
       "GREEDY": {
-        "ejecutables": 20,
-        "tardios": 202,
-        "tardanza_min": 13857.909441121881,
-        "costo_promedio": 146204.992686714
+        "ejecutables": 25,
+        "tardios": 289,
+        "tardanza_min": 21251.399477349827,
+        "costo_promedio": 167896.1205750908
+      },
+      "RL_V2_PREVIO": {
+        "ejecutables": 25,
+        "tardios": 110,
+        "tardanza_min": 7515.299298478526,
+        "costo_promedio": 87171.47925005705
       }
+    },
+    "comparacion_pareada_vs_v2_previo": {
+      "turnos_totales": 50,
+      "victorias_nuevo": 15,
+      "empates": 29,
+      "derrotas_nuevo": 6,
+      "tasa_no_inferioridad_pct": 88.0
     }
   }
 }

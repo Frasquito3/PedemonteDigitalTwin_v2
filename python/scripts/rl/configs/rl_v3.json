@@ -1,0 +1,88 @@
+{
+  "experimento_id": "v3",
+  "descripcion": "Politica RL V3 de 35 slots con curriculum de 4 etapas, ventaja relativa sobre Greedy, decaimiento lineal de LR, baja entropia y seleccion automatica del mejor checkpoint de validacion",
+  "seed_global": 20261031,
+  "activar_como_modelo_actual": true,
+  "arquitectura": {
+    "max_pedidos": 35,
+    "net_arch_pi": [256, 256],
+    "net_arch_vf": [256, 256],
+    "usar_mascara_temporal_dura": true,
+    "ordenar_slots_canonicamente": true,
+    "modo_reward": "VENTAJA_GREEDY_RELATIVA",
+    "peso_terminal_costo_acotado": 2.5
+  },
+  "inicializacion": {
+    "modo": "transfer_learning",
+    "modelo_base": "models/rl/historial/rl_policy_v2.zip",
+    "max_pedidos_modelo_base": 35,
+    "slots_entrenados_modelo_base": 35
+  },
+  "hiperparametros_ppo": {
+    "learning_rate": 1.0e-05,
+    "lr_schedule": "lineal",
+    "learning_rate_final": 2.0e-06,
+    "n_steps": 512,
+    "batch_size": 128,
+    "n_epochs": 6,
+    "gamma": 1.0,
+    "gae_lambda": 0.95,
+    "clip_range": 0.12,
+    "ent_coef": 0.004
+  },
+  "curriculum": [
+    {
+      "nombre": "etapa_1_consolidacion_base",
+      "rango_tareas": [6, 15],
+      "timesteps": 4096,
+      "seed_entorno": 1001,
+      "prob_tarde": 0.45,
+      "prob_ventana": 0.55,
+      "escalar_camiones_por_tareas": false
+    },
+    {
+      "nombre": "etapa_2_carga_operativa_tipica",
+      "rango_tareas": [11, 22],
+      "timesteps": 6144,
+      "seed_entorno": 2002,
+      "prob_tarde": 0.48,
+      "prob_ventana": 0.55,
+      "escalar_camiones_por_tareas": false
+    },
+    {
+      "nombre": "etapa_3_alta_demanda_y_ventanas",
+      "rango_tareas": [14, 30],
+      "timesteps": 6144,
+      "seed_entorno": 3003,
+      "prob_tarde": 0.50,
+      "prob_ventana": 0.58,
+      "escalar_camiones_por_tareas": false
+    },
+    {
+      "nombre": "etapa_4_dominio_completo_35slots",
+      "rango_tareas": [8, 35],
+      "timesteps": 4096,
+      "seed_entorno": 4004,
+      "prob_tarde": 0.45,
+      "prob_ventana": 0.55,
+      "escalar_camiones_por_tareas": false
+    }
+  ],
+  "inferencia_operativa": {
+    "num_rollouts": 24,
+    "deterministic": true
+  },
+  "evaluacion": {
+    "ejecutar_comparacion": true,
+    "seleccionar_mejor_etapa": true,
+    "manifiesto_referencia": "models/rl/historial/rl_policies_v1.json",
+    "manifiesto_v2_previo": "models/rl/historial/rl_policies_v2.json",
+    "cantidad_turnos_por_segmento": 25,
+    "seed_inicio_turnos_chicos": 500001,
+    "paso_seed_turnos_chicos": 17,
+    "rango_tareas_chicos": [6, 12],
+    "seed_inicio_turnos_grandes": 700001,
+    "paso_seed_turnos_grandes": 29,
+    "rango_tareas_grandes": [14, 32]
+  }
+}
