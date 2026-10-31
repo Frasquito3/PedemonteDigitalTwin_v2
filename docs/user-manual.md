@@ -1,14 +1,14 @@
 <div align="center">
 
-# 🎛️ Manual de Uso y Operación
+# Manual de Uso y Operación
 
-[🏠 Inicio](../README.md) •
-[📚 Documentación](README.md) •
-[🚀 Comenzar](getting-started.md) •
-[🏗️ Sistema](system-design.md) •
-**🎛️ Operación** •
-[🧪 Calidad](quality-and-experiments.md) •
-[🛠️ Desarrollo](development-and-deployment.md)
+[Inicio](../README.md) •
+[Documentación](README.md) •
+[Primeros Pasos](getting-started.md) •
+[Diseño del Sistema](system-design.md) •
+**Manual de Operación** •
+[Calidad y Experimentos](quality-and-experiments.md) •
+[Desarrollo y Despliegue](development-and-deployment.md)
 
 </div>
 
@@ -16,78 +16,100 @@
 
 ## 1. Configuración Inicial del Escenario
 
-Para arrancar la operativa, el primer paso es definir las condiciones globales de la ejecución:
-- **Turno:** `MAÑANA` (07:30 a 12:00) o `TARDE` (14:00 a 17:00). Recordá que el sistema ofrece **15 minutos de tolerancia operativa** al finalizar (ej. los camiones pueden regresar al corralón hasta las 12:15 sin recibir una penalidad extrema).
-- **Semilla (Opcional):** Para reproducir escenarios idénticos (por ejemplo, para el método Random o GA).
+Antes de generar un plan de despacho, se deben definir los parámetros operativos del turno:
+
+- **Turno operativo:**
+  - `MANANA`: de 07:30 a 12:00 (con tolerancia operativa hasta las 12:15).
+  - `TARDE`: de 14:00 a 17:00 (con tolerancia operativa hasta las 17:15).
+  - Toda finalización posterior al límite de tolerancia de 15 minutos incurre en una penalización severa en la función objetivo.
+- **Semilla de escenario y ejecución (Opcional):** Permite fijar la secuencia pseudoaleatoria tanto para los métodos estocásticos (`RANDOM`, `GA`, `HIBRIDO`) como para las variables estocásticas de simulación en AnyLogic.
 
 ---
 
-## 2. Carga de Pedidos
+<a id="2-carga-y-generacion-de-pedidos"></a>
+## 2. Carga y Generación de Pedidos
 
-El sistema admite pedidos manuales y carga masiva mediante archivos `.xlsx`. 
-*La capacidad técnica productiva demostrada para el RL es de hasta 12 pedidos.* Si un pedido supera las 8 unidades, el sistema aplicará un *Split Automático* en múltiples tareas con el mismo ID y las mismas reglas de volcador.
+El sistema admite el ingreso manual de pedidos desde el formulario de simulación, la generación de planillas desde la aplicación web local y la importación masiva mediante archivos Excel (`.xlsx`).
 
-### 📄 Carga por Excel (.xlsx)
-El sistema tomará automáticamente la hoja llamada `Pedidos`. Si no existe, tomará la hoja activa. Los encabezados no son *case-sensitive*, pero deben coincidir con la convención:
+- **Límite operativo de tareas:** La política productiva de Aprendizaje por Refuerzo (`rl_policy.zip`) se encuentra entrenada y validada para instancias de **hasta 35 tareas operativas por turno** (`max_pedidos_rl_validado = 35`).
+- **Partición automática (*Order Split*):** La capacidad máxima de cada camión es de **8 unidades**. Si un pedido ingresado supera las 8 unidades, el preprocesador lo divide automáticamente en múltiples tareas (`numero_parte` / `total_partes`) conservando la referencia al `pedido_original_id`, las coordenadas, la ventana horaria y la restricción de descarga por volcador.
 
-| Dato Requerido | Formatos de Encabezado Aceptados | Formato de Celda |
+### 2.1. Interfaz Web de Gestión de Pedidos
+
+El directorio `anylogic/PedemonteDigitalTwin_v2/web/pedidos/` contiene una aplicación web (`pedidos.html`) integrable con AnyLogic y ejecutable en navegador que permite:
+1. Buscar y geocodificar direcciones dentro del área de cobertura o seleccionar ubicaciones directamente sobre el mapa interactivo Leaflet.
+2. Definir unidades de carga, requerimiento de volcador, turno y ventana horaria específica, o cargar un lote de demostración mediante el botón **Demo**.
+3. Exportar la nómina validada a un archivo Excel con marca temporal en el nombre (`pedidos_YYYY-MM-DD_HH-mm-ss.xlsx`), evitando sobrescribir exportaciones previas.
+
+### 2.2. Especificación del Formato Excel (`.xlsx`)
+
+Al importar un archivo `.xlsx`, el importador (`planner.integration.order_excel_import`) selecciona la hoja denominada `Pedidos` o, en su defecto, la primera hoja activa con datos. Los nombres de columna se normalizan sin distinción de mayúsculas, minúsculas ni tildes:
+
+| Campo | Encabezados Aceptados | Tipo y Restricciones |
 | :--- | :--- | :--- |
-| **ID del Pedido** | `ID`, `Código`, `ID pedido` | Texto o Número |
-| **Cantidad** | `Unidades`, `Cantidad`, `Carga` | Número Entero (>0) |
-| **Latitud** | `Latitud`, `Lat` | Número Decimal |
-| **Longitud** | `Longitud`, `Lon`, `Lng` | Número Decimal |
-| **Usa Volcador?** | `Requiere volcador`, `Volcador` | Booleano: `Sí/No`, `True/False`, `1/0` |
-| **Usa Ventana?** | `Tiene ventana`, `Ventana` | Booleano |
-| **Hora Desde** | `Hora desde`, `Desde` | Texto (`HH:mm`) u Hora Excel |
-| **Hora Hasta** | `Hora hasta`, `Hasta` | Texto (`HH:mm`) u Hora Excel |
+| **Identificador** | `pedido_id`, `id`, `codigo`, `id_pedido` | Texto o entero único por fila. |
+| **Cliente** | `cliente`, `nombre_cliente` | Texto (opcional). |
+| **Dirección** | `direccion`, `domicilio`, `calle` | Texto descriptivo (opcional). |
+| **Barrio / Localidad** | `barrio`, `zona`, `localidad` | Texto (opcional). |
+| **Unidades** | `unidades`, `cantidad`, `carga`, `unidades_capacidad` | Entero positivo ($\ge 1$). |
+| **Latitud** | `latitud`, `lat` | Decimal en rango $[-90, 90]$. |
+| **Longitud** | `longitud`, `lon`, `lng`, `long` | Decimal en rango $[-180, 180]$. |
+| **Requiere Volcador** | `requiere_volcador`, `volcador`, `usa_volcador` | Booleano (`SI`/`NO`, `True`/`False`, `1`/`0`). |
+| **Tiene Ventana** | `tiene_ventana`, `ventana`, `ventana_horaria` | Booleano (`SI`/`NO`, `True`/`False`, `1`/`0`). |
+| **Hora Desde** | `hora_desde`, `desde`, `inicio_ventana` | Formato `HH:MM` o tipo hora nativo de Excel. |
+| **Hora Hasta** | `hora_hasta`, `hasta`, `fin_ventana` | Formato `HH:MM` o tipo hora nativo de Excel. |
+| **Observaciones** | `observaciones`, `notas`, `comentario` | Texto libre (opcional). |
 
 ---
 
-## 3. Generación del Plan
+## 3. Generación y Ejecución del Plan
 
-1. Una vez cargados los pedidos, presioná **Preparar Operación**. Esto consolida las cargas, realiza el split y verifica las coordenadas contra la caché vial.
-2. Seleccioná un método en la lista desplegable:
-   - `RL` (Recomendado)
-   - `HÍBRIDO`
-   - `GREEDY` / `RANDOM` / `GA`
-3. Presioná **Generar y Ejecutar Plan**. El sistema mostrará en la consola el *Costo Estimado* y comenzará a mover los camiones en el GIS.
-
----
-
-## 4. Visualización en el Dashboard (GIS)
-
-Podés controlar la vista satelital desde el menú de la izquierda:
-- 🗺️ **General:** Vista amplia del corralón y de todas las rutas de los clientes.
-- 🚛 **Camión 0:** La cámara sigue exclusivamente los movimientos de este camión en tiempo real.
-- 🚛 **Camión 1:** La cámara sigue exclusivamente a este camión.
-
-Los estados transicionales de los camiones irán rotando desde `En corralón`, `Cargando`, `Viajando a <pedido>`, `En cliente <pedido>` hasta `Regresando al corralón`. 
-
-Una vez que ambos finalicen, el estado mostrará **Plan finalizado** y revelará las métricas finales (Costo real, tardanzas y kilómetros). 
-
-> [!TIP]
-> Antes de cargar un nuevo Excel, **debés presionar el botón "Limpiar Operación"**. No intentes reutilizar una simulación a la mitad.
+1. Una vez cargados los pedidos, presionar **Preparar operación**. El sistema ejecuta el preprocesamiento, particiona los pedidos mayores a 8 unidades y valida que todos los pares de coordenadas existan en la caché vial (`cache_vial.csv`).
+2. Seleccionar el algoritmo de planificación:
+   - `RL`: Inferencia mediante política neuronal con máscara temporal dura y selección multi-rollout.
+   - `HIBRIDO`: Sembrado inicial con la solución de `RL` seguido de refinamiento evolutivo con `GA`.
+   - `GA`: Algoritmo Genético por permutaciones con cruce Order Crossover (OX).
+   - `GREEDY`: Heurística constructiva voraz guiada por urgencia horaria y cercanía.
+   - `RANDOM`: Generador estocástico factible utilizado como línea base de contraste.
+3. Presionar **Generar y ejecutar plan** para visualizar el costo estimado del plan y dar inicio a la simulación de despacho en el mapa GIS.
+4. Asimismo, desde la pestaña de **Comparación**, es posible ejecutar los cinco algoritmos sobre la misma instancia para contrastar sus métricas estimadas y simuladas.
 
 ---
 
-## 🛑 Solución de Problemas (Troubleshooting)
+<a id="4-visualizacion-en-el-panel-y-gis"></a>
+## 4. Visualización en el Panel y GIS
+
+Durante la corrida de simulación, el panel lateral permite alternar el encuadre de visualización geográfica:
+- **General:** Vista integral del corralón y de la totalidad de los puntos de entrega del turno.
+- **Camión 0:** Seguimiento centrado en tiempo real sobre el primer vehículo de la flota.
+- **Camión 1:** Seguimiento centrado en tiempo real sobre el segundo vehículo de la flota.
+
+El estado operativo de cada unidad progresa a través de las fases: `En corralón`, `Cargando`, `Viajando a <pedido>`, `En cliente <pedido>` y `Regresando al corralón`. Al concluir todos los viajes programados, el sistema informa **Plan finalizado** y consolida los indicadores definitivos de costo total, kilómetros recorridos, cantidad de viajes, tardanzas y desbalance de cierre entre camiones.
+
+> [!IMPORTANT]
+> Antes de importar un nuevo lote de pedidos o cambiar los parámetros de entrada tras una ejecución, se debe presionar **Limpiar operación** para restablecer el estado de la flota y del entorno.
+
+---
+
+<a id="5-resolucion-de-problemas-troubleshooting"></a>
+## 5. Resolución de Problemas (Troubleshooting)
 
 <details>
-<summary><strong>❌ Pypeline no inicia o no encuentra Python</strong></summary>
+<summary><strong>Pypeline no inicia o no localiza el intérprete de Python</strong></summary>
 
-En el agente `Main` (objeto `pyCommunicator`), verificá la propiedad `pythonExecPath`. Debe apuntar a un path local válido (ej. `C:\Ruta\A\Tu\Repositorio\.venv\Scripts\python.exe`). Si actualizaste repositorios, asegurate de no haber *pusheado* tu ruta local absoluta.
+En el agente `Main` de AnyLogic, inspeccionar el objeto `pyCommunicator` y verificar que la propiedad `pythonExecPath` apunte a la ruta absoluta del ejecutable `.venv\Scripts\python.exe` local y que `pythonCommandType` esté configurado en `PYTHON_PATH`.
 </details>
 
 <details>
-<summary><strong>❌ Error de "Cache Miss" al iniciar la operativa</strong></summary>
+<summary><strong>Error de "Cache Miss" al preparar la operación</strong></summary>
 
-El sistema utiliza una caché vial estricta. Si ingresás unas coordenadas de un cliente que no existen en la matriz (`cache_vial.csv`), Python detendrá la ejecución por seguridad. Deberás añadir el tramo al CSV manualmente o usar las coordenadas probadas previamente. No actives variables locales de *fallback* vial en productivo.
+El planificador opera en modo de caché vial estricta (`permitir_fallback_vial=False`) para garantizar reproducibilidad. Si se ingresan coordenadas que no registran tramos precalculados en `python/data/routing/cache_vial.csv`, la validación detiene el proceso e informa el par faltante. Se deben emplear coordenadas dentro del catálogo geográfico validado o actualizar previamente la matriz vial.
 </details>
 
 <details>
-<summary><strong>❌ La planilla se rechaza y no carga nada</strong></summary>
+<summary><strong>Rechazo de planilla Excel durante la importación</strong></summary>
 
-1. Confirmá que los IDs no estén duplicados antes del split.
-2. Comprobá las ventanas horarias: "Hora inicial" no puede ser mayor a la "Hora final", y ambas deben estar dentro de las franjas de turno (07:30 a 12:00 o 14:00 a 17:00).
-3. Asegurate de que los números no tengan formatos extraños.
+1. Verificar que no existan identificadores (`pedido_id`) duplicados en la planilla de origen.
+2. Comprobar la consistencia de las ventanas horarias: `hora_desde` debe ser estrictamente menor o igual a `hora_hasta`, y ambas deben encontrarse dentro del rango horario del turno seleccionado (`07:30`–`12:00` para mañana o `14:00`–`17:00` para tarde).
+3. Confirmar que el campo `unidades` contenga números enteros positivos y que el total de tareas resultantes tras el *split* no supere el límite del selector.
 </details>

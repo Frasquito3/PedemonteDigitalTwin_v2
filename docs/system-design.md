@@ -1,106 +1,116 @@
 <div align="center">
 
-# 🏗️ Diseño del Sistema
+# Diseño del Sistema y Arquitectura
 
-[🏠 Inicio](../README.md) •
-[📚 Documentación](README.md) •
-[🚀 Comenzar](getting-started.md) •
-**🏗️ Sistema** •
-[🎛️ Operación](user-manual.md) •
-[🧪 Calidad](quality-and-experiments.md) •
-[🛠️ Desarrollo](development-and-deployment.md)
+[Inicio](../README.md) •
+[Documentación](README.md) •
+[Primeros Pasos](getting-started.md) •
+**Diseño del Sistema** •
+[Manual de Operación](user-manual.md) •
+[Calidad y Experimentos](quality-and-experiments.md) •
+[Desarrollo y Despliegue](development-and-deployment.md)
 
 </div>
 
 ---
 
-Pedemonte Digital Twin separa limpiamente la interfaz interactiva y la simulación operativa (AnyLogic) de la lógica de optimización y algoritmos complejos (Python). Esta separación permite la escalabilidad del agente RL y facilita las pruebas automatizadas.
+**Pedemonte Digital Twin** desacopla la simulación de eventos discretos y la interfaz geográfica interactiva (AnyLogic) del motor de optimización combinatoria y aprendizaje por refuerzo (Python). Esta arquitectura modular permite validar matemáticamente los algoritmos en aislamiento, ejecutar pruebas automatizadas en segundos y garantizar que todos los métodos de planificación compitan bajo las mismas reglas de dominio.
 
-## 📐 Arquitectura General
+<a id="arquitectura-general"></a>
+## Arquitectura General
 
 ```mermaid
 sequenceDiagram
-    actor U as Usuario
+    actor U as Operador
     participant A as AnyLogic (Simulador)
-    participant P as Pypeline (Codec)
-    participant S as Python (Selector)
-    participant M as Método Elegido
+    participant P as Pypeline / Alpyne (Codec)
+    participant S as Python (SelectorBridge)
+    participant M as Motor de Planificación
 
-    U->>A: Carga pedidos, turno y elige método
-    A->>A: Split y validación (Dominio visual)
-    A->>P: Envía vector de instancia
-    P->>S: `planificar_vector(...)`
-    S->>M: Genera el plan factible
-    M-->>S: `PlanTurno` y Costo Estimado
-    S->>S: Validación técnica rigurosa
-    S-->>P: Vector de plan decodificado
-    P-->>A: Plan integrado
-    A->>A: Ejecución operativa y simulación GIS
+    U->>A: Ingresa pedidos, turno y selecciona algoritmo
+    A->>P: Codifica vector de instancia
+    P->>S: planificar_vector(...) / comparar_estimado_vector(...)
+    S->>S: Preprocesamiento (Order Split) y carga de Matriz Vial
+    S->>M: Solicita generación de PlanTurno
+    M-->>S: Retorna PlanTurno y desglose de Costo Estimado
+    S->>S: Validación estricta de restricciones duras
+    S-->>P: Serializa vector de plan y auditoría
+    P-->>A: Entrega itinerarios por camión y viaje
+    A->>A: Simulación de eventos discretos y animación GIS
 ```
 
 ### División de Responsabilidades
 
-| AnyLogic | Python |
+| Capa de Simulación y Visualización (AnyLogic) | Núcleo de Planificación y Datos (Python) |
 | :--- | :--- |
-| • Formulario de importación de Excel<br>• Split visual y generación de la instancia<br>• Simulación de camiones y trabajadores<br>• Vista GIS y rutas urbanas<br>• Cálculo de métricas operativas reales | • Algoritmos: RL, GA, Greedy, Random<br>• Matriz vial matemática (Caché Estricta)<br>• Cálculo de Función Objetivo (Determinista)<br>• Validador de factibilidad<br>• Codecs de integración con Pypeline |
+| • Interfaz de usuario de operación, comparación y carga web de pedidos (`web/pedidos`)<br>• Simulación de eventos discretos en corralón (concurrencia de operarios, palas y proveedores)<br>• Dinámica vehicular sobre red GIS (escala 1:10000) y vista 3D<br>• Cómputo de métricas operativas simuladas al cierre del turno | • Preprocesamiento de demanda y partición automática de pedidos (*order split*)<br>• Motores de optimización: `RL`, `HIBRIDO`, `GA`, `GREEDY` y `RANDOM`<br>• Decodificador de rutas, regla de descarga por volcador y validador de factibilidad<br>• Función objetivo multicriterio unificada y caché vial estricta (`cache_vial.csv`)<br>• Pipeline de OCR con Gemini, geocodificación OSM y generación estocástica de turnos |
 
 ---
 
-## 🧠 Algoritmos de Planificación
+<a id="algoritmos-de-planificacion"></a>
+## Algoritmos de Planificación
 
-El corazón de la solución, y la propuesta central del proyecto, es el algoritmo de **Aprendizaje por Refuerzo (RL)**. Sin embargo, el entorno implementa una serie de alternativas (Baselines) para garantizar la robustez matemática, la comparabilidad y mantener opciones de respaldo factibles.
+Todos los optimizadores implementan el protocolo `planner.core.base.PlanificadorTurno` y operan sobre la misma representación de instancia (`InstanciaTurno`) y matriz de viaje (`MatrizViaje`).
 
-### 1. Política Única de RL
-- Inferencia determinista a través de una **máscara temporal dura**.
-- Representa la inteligencia primaria del sistema. La máscara impide que RL tome acciones inviables (ej. enviar un camión fuera de la ventana del cliente).
+### 1. Aprendizaje por Refuerzo (`RL`)
+Constituye la propuesta metodológica central del proyecto (`planner.rl.policy_planner` y `planner.rl.policy_runtime`):
+- **Arquitectura de política:** Red neuronal entrenada mediante **MaskablePPO** (`sb3-contrib`) sobre un entorno Gymnasium (`planner.rl.policy_env`) con representación vectorial fija de hasta **35 slots de tareas** (`max_pedidos_rl_validado = 35`).
+- **Máscara temporal dura (`usar_mascara_temporal_dura = True`):** Impide en tiempo de inferencia y entrenamiento seleccionar acciones que violen la capacidad remanente del camión, la precedencia de descarga por volcador o las ventanas horarias de los clientes.
+- **Ordenamiento canónico y multi-rollout:** Los pedidos se normalizan canónicamente (`ordenar_slots_canonicamente = True`) y el planificador evalúa `num_rollouts = 24` trayectorias para seleccionar aquella de menor costo estimado factible.
 
-### 2. Refinamiento Híbrido (RL → GA)
-El modo Híbrido combina la heurística veloz de RL con el poder de exploración local de los algoritmos genéticos:
-- **Flujo:** `Instancia → RL (Semilla Factible) → GA → Mejora`
-- Si el GA no encuentra un costo mejor que el generado por RL, el sistema **descarta** la solución de GA y conserva la propuesta original de RL.
+### 2. Refinamiento Híbrido (`HIBRIDO`: RL $\rightarrow$ GA)
+Implementado en `planner.algorithms.hybrid_rl_ga`, combina la velocidad de construcción de la política neuronal con la búsqueda local evolutiva:
+1. Obtiene la secuencia inicial factible generada por la política `RL`.
+2. Inyecta dicha secuencia como individuo semilla en la población inicial del Algoritmo Genético (`GA`).
+3. Ejecuta las generaciones evolutivas con operadores de cruce Order Crossover (OX), mutación por intercambio (*swap*) e inversión de subsegmentos.
+4. Aplica un criterio de **no inferioridad garantizada**: si el plan evolucionado por `GA` no supera el costo de la semilla `RL`, el método retiene automáticamente la solución original de `RL`.
 
-### 3. Baselines de Referencia
-- **Greedy:** Enfoque determinista que prioriza siempre la ventana de tiempo, disponibilidad cercana de camiones y capacidad de carga. Es factible e interpretable.
-- **Random:** Utilizado estrictamente para comprobación de regresiones matemáticas; mezcla de manera reproducible mediante una semilla, asegurando rutas válidas pero ineficientes.
-- **Algoritmo Genético (GA):** Búsqueda evolutiva independiente. Útil para observar cómo se comporta la función objetivo si no parte del *warm-start* de RL.
-
----
-
-## 🎯 Función Objetivo Compartida
-
-Independientemente del método elegido, todos los planes se miden contra una **única** función objetivo (en Python) que estima penalizaciones, costos de distancias y minutos. 
-
-| Componente Penalizado | Peso Estándar |
-| :--- | :--- |
-| Tarea no entregada | 10000 |
-| Pedido original incompleto | 5000 |
-| Minuto por encima de tolerancia | 500 |
-| Minuto de tardanza (Ventana) | 100 |
-| Viaje adicional | 5 |
-| Kilómetro recorrido | 2 |
-| Minuto operativo base | 1 |
-| Minuto de desbalance entre camiones | 0.5 |
-
-> [!NOTE]
-> El **Costo Estimado** generado por Python es determinista. El **Costo Real** final devuelto por AnyLogic variará ya que añade tiempos de tráfico micro-simulados y variables probabilísticas operativas menores.
+### 3. Motores de Referencia (Baselines)
+- **Heurística Voraz (`GREEDY` — `planner.algorithms.greedy`):** Algoritmo constructivo determinista que asigna iterativamente la tarea factible de menor costo incremental, priorizando urgencia de ventana horaria, proximidad geográfica y compatibilidad de volcador.
+- **Algoritmo Genético Puro (`GA` — `planner.algorithms.ga`):** Metaheurística poblacional que parte de permutaciones iniciales sin asistencia de la política RL, permitiendo cuantificar el aporte específico del *warm-start* neuronal en el modo Híbrido.
+- **Línea de Base Aleatoria (`RANDOM` — `planner.algorithms.random_feasible`):** Construye planes factibles mediante muestreo estocástico controlado por semilla, estableciendo la cota inferior de desempeño admisible.
 
 ---
 
-## 🗺️ Caché Vial Estricta
+<a id="funcion-objetivo-compartida"></a>
+## Función Objetivo Compartida y Modelo Operativo
 
-Para mantener un comportamiento totalmente reproducible sin necesidad de consultar APIs de ruteo externas constantemente, el sistema utiliza una caché vial registrada en `python/data/routing/cache_vial.csv`.
+Independientemente del algoritmo utilizado, todo `PlanTurno` es evaluado mediante una única función objetivo determinista definida en `planner.routing.objective` (`VERSION_AUDITORIA_COSTO = "estimacion-costo-v3"`) y parametrizada en `ConfiguracionPlanificacion`:
 
-- **Estricta:** Producción usa `permitir_fallback_vial=False`. Si un par (Origen, Destino) no existe en la matriz local, la planificación **falla** explícitamente.
-- **Escala de Seguimiento (GIS):** AnyLogic utiliza una proporción estricta de `1.0 / 10000.0`. Esto altera visualmente el zoom pero no afecta matemáticamente las métricas.
+| Componente de Costo / Penalización | Atributo en `ConfiguracionPlanificacion` | Ponderación |
+| :--- | :--- | :--- |
+| Tarea operativa no entregada | `costo_tarea_no_entregada` | `10000.0` |
+| Pedido original incompleto (partes faltantes) | `costo_pedido_original_incompleto` | `5000.0` |
+| Minuto de exceso sobre la tolerancia del turno | `costo_por_min_exceso_tolerancia` | `500.0` |
+| Minuto de tardanza respecto a ventana de cliente | `costo_por_min_tardanza` | `100.0` |
+| Inicio de viaje desde el corralón | `costo_por_viaje` | `5.0` |
+| Kilómetro recorrido en red vial | `costo_por_km` | `2.0` |
+| Minuto de duración operativa del turno | `costo_por_min_operacion` | `1.0` |
+| Minuto de desbalance de cierre entre camiones | `costo_por_min_desbalance_fin` | `0.5` |
+
+### Modelado de Tiempos Operativos (`planner.routing.operations`)
+El estimador reproduce las restricciones físicas del corralón y de atención en obra:
+- **Concurrencia de carga en corralón (`ReservaEmpleadosCorralon`):** Modela la dotación finita de operarios (`cantidad_empleados_corralon = 2`), aplicando un tiempo de preparación (`carga_setup_min = 2.0`), tiempo base por unidad (`2.5 min`) y rendimiento marginal decreciente por operario adicional (`0.70`).
+- **Espera y descarga en cliente:** Considera el valor esperado de una distribución triangular de atención en obra ($\min = 0.0$, $\text{moda} = 2.0$, $\max = 8.0$ min), más `descarga_setup_min = 1.0` y `1.2 min` por unidad descargada.
+- **Factores de congestión horaria:** Penaliza la velocidad base (`25.0 km/h`) con un factor de `1.20` durante las franjas pico matutina (`07:30`–`09:00`) y vespertina (`16:00`–`17:00`).
 
 ---
 
-## Flujo de Demanda Histórica y Generación Estocástica de Pedidos
+## Caché Vial Estricta
 
-Para evaluar escenarios realistas durante 100 días de operación simulada en AnyLogic, el sistema incorpora un pipeline de procesamiento de remitos/hojas de pedido manuscritas reales:
+Para garantizar que la evaluación de planes y el entrenamiento de RL sean deterministas y libres de latencia de red, el módulo `planner.routing.vial_cache` gestiona una matriz persistente en `python/data/routing/cache_vial.csv` (`version_cache_vial = "pedemonte-vial-v1"`).
 
-1. **Extracción Multimodal (OCR)**: Mediante la API de Google AI Studio (`gemini-2.5-flash`), las imágenes manuscritas de hojas de pedido (`python/data/raw/hojas_pedidos/`) se transforman en registros estructurados `{"calle", "altura"}` en `python/data/processed/extraccion/direcciones.json`.
-2. **Geocodificación y Normalización**: A través de OpenStreetMap (Nominatim), cada dirección es localizada geográficamente (`latitud`, `longitud`), vinculada a su barrio y clasificada en su municipio correspondiente (conurbano norte y Rosario).
-3. **Distribución y Probabilidades**: Se calculan las frecuencias relativas en `probabilidades_demanda.csv` y el resumen municipal en `resumen_ciudades.csv`.
-4. **Consumo en AnyLogic**: Esta distribución empírica permite que el modelo de simulación en AnyLogic instancie estocásticamente pedidos de 100 días de horizonte manteniendo correlación espacial y distribución de volumen realistas.
+- **Modo estricto en operación (`permitir_fallback_vial = False`):** Si una instancia contiene un par $(\text{origen}, \text{destino})$ ausente en la caché vial, el sistema rechaza explícitamente la planificación en lugar de aproximar por distancia euclídea silenciosa.
+- **Alineación con GIS:** El entorno AnyLogic opera con escala de seguimiento GIS `1.0 / 10000.0`, manteniendo consistencia entre las distancias viales de la caché y el desplazamiento simulado de los camiones.
 
+---
+
+## Pipeline de Demanda Histórica y Generación Estocástica de Turnos
+
+El paquete `python/scripts/data_processing/` implementa un flujo reproducible de cinco etapas (orquestado por `run_pipeline_demanda.py`) para transformar registros físicos de operación en escenarios sintéticos de prueba:
+
+1. **Extracción Multimodal OCR (`extraccion_ocr.py`):** Procesa fotografías de hojas de reparto manuscritas (`python/data/raw/hojas_pedidos/`) mediante la API de Google GenAI (`gemini-2.5-flash`), extrayendo pares estructurados `{"calle", "altura"}` con reintentos exponenciales y escritura atómica de progreso (`direcciones.json` y `progreso.json`).
+2. **Geocodificación y Normalización (`geocoding.py`):** Consulta OpenStreetMap (Nominatim) priorizando las localidades del área metropolitana de Granadero Baigorria y Rosario, normaliza nombres de municipios y exporta de manera atómica `direcciones_geolocalizadas.csv`.
+3. **Modelado Estadístico (`estadistica_demanda.py`):** Calcula las distribuciones empíricas de frecuencia por ciudad y barrio (`probabilidades_demanda.csv` y `resumen_ciudades.csv`).
+4. **Análisis Visual (`graficos_demanda.py`):** Genera gráficos exploratorios de concentración geográfica de pedidos.
+5. **Generación Estocástica de Escenarios (`generar_pedidos_dia.py`):** Muestrea la cantidad de pedidos por turno a partir del histórico real (`cant_pedidos_turnos.csv`), aplica una perturbación espacial controlada (*jitter* en anillo de 15 a 65 metros) para no repetir coordenadas exactas del histórico, asigna unidades, requerimiento de volcador y cuatro tipologías de ventana horaria, y exporta los lotes `.xlsx` junto con su `metadata_generacion.json`.
