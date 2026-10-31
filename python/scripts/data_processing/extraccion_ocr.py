@@ -208,10 +208,13 @@ def extraer_direcciones(
         try:
             respuesta = client.models.generate_content(
                 model=modelo,
-                contents=[
-                    types.Part.from_bytes(data=imagen_bytes, mime_type=mime_type),
-                    PROMPT_OCR,
-                ],
+                contents=types.Content(
+                    role="user",
+                    parts=[
+                        types.Part.from_bytes(data=imagen_bytes, mime_type=mime_type),
+                        types.Part.from_text(text=PROMPT_OCR),
+                    ],
+                ),
             )
             texto_json = respuesta.text.strip() if respuesta.text else "[]"
             texto_json = texto_json.replace("```json", "").replace("```", "").strip()

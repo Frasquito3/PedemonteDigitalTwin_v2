@@ -34171,10 +34171,67 @@ estudioEstadoVial =
     + " / "
     + estudioTurnosValidados;
 
+long inicioPreparacionGISNs = System.nanoTime();
+
 boolean correcta =
     prepararEscenarioVialEstudio(
         siguienteTurno
     );
+
+double segundosPreparacionGIS =
+    (System.nanoTime() - inicioPreparacionGISNs)
+    / 1_000_000_000.0;
+
+try {
+    java.nio.file.Path archivoTiemposGIS =
+        java.nio.file.Paths.get(
+            estudioDirectorioEscenarios,
+            "tiempos_preparacion_gis.csv"
+        );
+
+    boolean archivoNuevo =
+        !java.nio.file.Files.exists(archivoTiemposGIS);
+
+    String encabezadoGIS =
+        archivoNuevo
+        ? "numero_turno,preparacion_s,estado\n"
+        : "";
+
+    String registroGIS =
+        siguienteTurno
+        + ","
+        + String.format(
+            java.util.Locale.US,
+            "%.9f",
+            segundosPreparacionGIS
+        )
+        + ","
+        + (correcta ? "OK" : "ERROR")
+        + "\n";
+
+    java.nio.file.Files.write(
+        archivoTiemposGIS,
+        (encabezadoGIS + registroGIS).getBytes(
+            java.nio.charset.StandardCharsets.UTF_8
+        ),
+        java.nio.file.StandardOpenOption.CREATE,
+        java.nio.file.StandardOpenOption.APPEND
+    );
+
+    traceln(
+        "ESTUDIO GIS | turno=" + siguienteTurno
+        + " | segundos=" + segundosPreparacionGIS
+        + " | estado=" + (correcta ? "OK" : "ERROR")
+    );
+
+} catch (Exception errorMedicion) {
+    estudioEstadoVial =
+        "No se pudo guardar el tiempo GIS: "
+        + errorMedicion.getMessage();
+
+    traceln("ESTUDIO GIS | ERROR | " + estudioEstadoVial);
+    correcta = false;
+}
 
 if (!correcta) {
     estudioFlujoActivo = false;
@@ -34671,21 +34728,19 @@ try {
 
                 // El ejecutor escribe una línea METODO
                 // por cada algoritmo evaluado.
-                if (linea.startsWith("METODO | ")) {
-
-                    if (
-                        linea.contains(
-                            "| estado=FINALIZADO |"
-                        )
-                    ) {
-                        estudioSimulacionesFinalizadas++;
-
-                    } else if (
-                        linea.contains("| estado=")
-                    ) {
-                        estudioSimulacionesFallidas++;
-                    }
-                }
+				if (linea.startsWith("PROGRESO_METODO | ")) {
+				
+				    if (linea.contains("| estado=FINALIZADO")) {
+				        estudioSimulacionesFinalizadas++;
+				
+				    } else if (
+				        linea.contains("| estado=ERROR")
+				        ||
+				        linea.contains("| estado=OMITIDO")
+				    ) {
+				        estudioSimulacionesFallidas++;
+				    }
+				}
             }
 
             estudioPosicionLogSimulacion =
@@ -34955,44 +35010,31 @@ return formatearValorCompactoEstudio(
 
 int metrica = indiceMetricaEstudio();
 
-double minimo = Double.POSITIVE_INFINITY;
-double maximo = Double.NEGATIVE_INFINITY;
+double maximo = 0.0;
 
 for (int i = 0; i < 5; i++) {
     if (estudioConteosSimulados[i] > 0) {
-        double valor = estudioMediasSimuladas[i][metrica];
-        minimo = Math.min(minimo, valor);
-        maximo = Math.max(maximo, valor);
+        maximo = Math.max(
+            maximo,
+            estudioMediasSimuladas[i][metrica]
+        );
     }
+}
+
+if (maximo <= 0.0) {
+    return 0.0;
 }
 
 double valorActual =
     estudioMediasSimuladas[metodo][metrica];
 
-if (
-    !Double.isFinite(minimo)
-    ||
-    !Double.isFinite(maximo)
-) {
-    return 0.0;
-}
-
-// Si todos los métodos tienen el mismo valor,
-// todas las barras se muestran completas.
-if (Math.abs(maximo - minimo) < 1e-9) {
-    return 1.0;
-}
-
-// En nuestras métricas, menor = mejor.
-// Queremos que el mejor valor tenga la barra más larga.
+// Barra proporcional al valor real.
 // Dejamos un mínimo visual de 15 % para que
-// la peor barra no desaparezca por completo.
+// un método muy pequeño no desaparezca.
 
 double proporcion =
     0.15
-    + 0.85
-    * (maximo - valorActual)
-    / (maximo - minimo);
+    + 0.85 * (valorActual / maximo);
 
 return Math.max(
     0.15,
@@ -47867,7 +47909,7 @@ getExperimentHost().showMessageDialog(
 					<BasicProperties Width="180" Height="46">
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<TextColor>-15257011</TextColor>
-						<Enabled>false</Enabled>
+						<Enabled>true</Enabled>
 						<ActionCode><![CDATA[irAVistaComparacion();]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
@@ -49326,23 +49368,26 @@ getExperimentHost().showMessageDialog(
 					<Rotation>0.0</Rotation>
 					<Color>-10063739</Color>
 					<Text><![CDATA[Sin ejecución iniciada]]></Text>
-					<TextCode><![CDATA[estudioProcesoSimulacion != null
+					<TextCode><![CDATA[
+estudioProcesoSimulacion != null
+? (
+    (estudioSimulacionesFinalizadas
+        + estudioSimulacionesFallidas)
+    + " / "
+    + estudioCorridasPrevistas
+)
+: (
+    estudioFlujoActivo
     ? (
-        estudioSimulacionesFinalizadas
-        + " / "
-        + estudioCorridasPrevistas
+        generacionActivaEstudio()
+        ? contarEscenariosGeneradosEstudio()
+            + " / " + estudioTurnosValidados
+        : estudioEscenariosVialesPreparados
+            + " / " + estudioTurnosValidados
     )
-    : (
-        estudioFlujoActivo
-        ? (
-            generacionActivaEstudio()
-            ? contarEscenariosGeneradosEstudio()
-                + " / " + estudioTurnosValidados
-            : estudioEscenariosVialesPreparados
-                + " / " + estudioTurnosValidados
-        )
-        : "Sin simulaciones"
-    )]]></TextCode>
+    : "Sin simulaciones"
+)
+]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>9</Size>
@@ -49806,21 +49851,50 @@ instanciaInterfazActual == null
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<VisibleCode><![CDATA[estudioProcesoGeneracion != null
-&&
-estudioTurnosValidados > 0
-&&
-contarEscenariosGeneradosEstudio() > 0]]></VisibleCode>
+					<VisibleCode><![CDATA[
+estudioProcesoSimulacion != null
+||
+(
+    estudioProcesoGeneracion != null
+    &&
+    estudioTurnosValidados > 0
+)
+]]></VisibleCode>
 					<EmbeddedIcon>false</EmbeddedIcon>
 					<Z>0</Z>
 					<ZHeight>10</ZHeight>
-					<ScaleXCode><![CDATA[estudioTurnosValidados <= 0
-    ? 0.0
-    : Math.min(
+					<ScaleXCode><![CDATA[
+estudioProcesoSimulacion != null
+? (
+    estudioCorridasPrevistas > 0
+    ? Math.min(
         1.0,
-        (double) contarEscenariosGeneradosEstudio()
-        / estudioTurnosValidados
-    )]]></ScaleXCode>
+        Math.max(
+            0.0,
+            (estudioSimulacionesFinalizadas
+                + estudioSimulacionesFallidas)
+            / (double) estudioCorridasPrevistas
+        )
+    )
+    : 0.0
+)
+: (
+    estudioTurnosValidados > 0
+    ? Math.min(
+        1.0,
+        Math.max(
+            0.0,
+            (
+                generacionActivaEstudio()
+                ? contarEscenariosGeneradosEstudio()
+                : estudioEscenariosVialesPreparados
+            )
+            / (double) estudioTurnosValidados
+        )
+    )
+    : 0.0
+)
+]]></ScaleXCode>
 					<ScaleYCode><![CDATA[1]]></ScaleYCode>
 					<LineWidth>0</LineWidth>
 					<LineColor>-15157310</LineColor>
@@ -50390,6 +50464,28 @@ if (
 						<Name>SansSerif</Name>
 						<Size>10</Size>
 						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1793391925283</Id>
+					<Name><![CDATA[txtNotaInterpretacionGraficoEstudio]]></Name>
+					<X>5682</X><Y>732</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA[estudioResultadosCargados]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-10063739</Color>
+					<Text><![CDATA[Nota: menor valor = mejor desempeño.]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
 				</Text>

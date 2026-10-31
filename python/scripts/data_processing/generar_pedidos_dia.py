@@ -23,6 +23,7 @@ from dataclasses import asdict, dataclass
 from datetime import datetime
 from math import ceil, cos, pi, sin
 from pathlib import Path
+from time import perf_counter
 from typing import Any
 
 import openpyxl
@@ -242,6 +243,16 @@ def cargar_y_analizar_historico(
 
     df = pd.read_csv(ruta_csv, encoding="utf-8-sig")
     cols = {str(c).strip().lower(): c for c in df.columns}
+
+    # Respetar la clasificacion de calidad del dataset procesado.
+    # Los registros para revision no deben alimentar la demanda sintetica.
+    col_estado = cols.get("estado_calidad")
+    if col_estado is not None:
+        estados = df[col_estado].astype(str).str.strip().str.upper()
+        df = df.loc[estados == "APTO_ENTRENAMIENTO"].copy()
+
+        if df.empty:
+            raise ValueError(f"No hay ubicaciones APTO_ENTRENAMIENTO en: {ruta_csv}")
 
     col_lat = cols.get("latitud") or cols.get("lat")
     col_lon = cols.get("longitud") or cols.get("lon") or cols.get("lng")
@@ -534,7 +545,7 @@ def parsear_rango_pedidos(valor: str) -> tuple[int, int] | None:
 def ejecutar_generacion(
     dias_n: int = 1,
     rango_pedidos: tuple[int, int] | None = None,
-    ruta_historico: Path = DEFAULT_GEOCODING_CSV,
+    ruta_historico: Path = DEFAULT_HISTORICO_CSV,
     ruta_probabilidades: Path = DEFAULT_PROBABILIDADES_CSV,
     ruta_cant_pedidos: Path = DEFAULT_CANT_PEDIDOS_CSV,
     directorio_salida: Path = DEFAULT_OUTPUT_DIR,
@@ -552,6 +563,7 @@ def ejecutar_generacion(
     max_tareas: int | None = 35,
 ) -> list[tuple[Path, list[PedidoGenerado]]]:
     """Genera N turnos y guarda los archivos y semillas en `seed_<seed_inicial>_<fecha>`."""
+    inicio_generacion = perf_counter()
     if dias_n <= 0:
         raise ValueError(f"La cantidad de días (N) debe ser mayor a 0: {dias_n}")
 
@@ -666,6 +678,7 @@ def ejecutar_generacion(
 
     metadata_payload = {
         "version": 1,
+        "tiempo_generacion_s": perf_counter() - inicio_generacion,
         "seed_inicial": seed_inicial,
         "fecha_generacion": ahora.isoformat(timespec="seconds"),
         "marca_tiempo": marca_tiempo,
@@ -704,7 +717,7 @@ def _parser() -> argparse.ArgumentParser:
         default="historico",
         help="Cantidad de pedidos por turno: 'historico', número fijo o rango (ej. 8-12)",
     )
-    p.add_argument("--input-file", type=Path, default=DEFAULT_GEOCODING_CSV)
+    p.add_argument("--input-file", type=Path, default=DEFAULT_HISTORICO_CSV)
     p.add_argument("-o", "--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
     p.add_argument("--sin-timestamp", action="store_true")
     p.add_argument("--formato", choices=["csv", "xlsx", "ambos"], default="ambos")

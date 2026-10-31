@@ -11,13 +11,15 @@ Consolida los resultados y las semillas en carpetas con formato `seed_<seed_inic
 from __future__ import annotations
 
 import argparse
-import csv
 import json
 import random
+import shutil
 import sys
+import typing
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
+from time import perf_counter
 from typing import Any
 
 PYTHON_ROOT = Path(__file__).resolve().parents[2]
@@ -35,6 +37,7 @@ from planner.integration.order_excel_import import (
 from planner.integration.simulated_comparison import (
     METODOS_COMPARACION_SIMULADA,
     ComparacionSimulada,
+    ResultadoMetodoSimulado,
     RunnerSimulado,
     ejecutar_comparacion_simulada,
 )
@@ -49,6 +52,22 @@ from scripts.data_processing.generar_pedidos_dia import (
     ejecutar_generacion,
     generar_semilla_aleatoria,
     parsear_rango_pedidos,
+)
+from scripts.simulation.environment_snapshot import (
+    capturar_entorno_ejecucion,
+)
+from scripts.simulation.experiment_artifacts import (
+    cargar_filas_checkpoint,
+    contexto_versiones,
+    escribir_csv_atomico,
+    escribir_json_atomico,
+    generar_analisis,
+    sha256_archivo,
+)
+from scripts.simulation.experimental_checks import (
+    leer_tiempo_generacion,
+    leer_tiempo_preparacion_gis,
+    verificar_cobertura_vial,
 )
 
 NOMBRE_METADATA_EXPERIMENTO = "metadata_experimento.json"
@@ -406,6 +425,8 @@ def ejecutar_experimento_comparacion(
     timeout: int = 240,
     horizonte_min: float = 600.0,
     runner_simulado: RunnerSimulado = ejecutar_plan_en_modelo_exportado,
+    reanudar_desde: Path | None = None,
+    reintentar_fallidas: bool = False,
 ) -> dict[str, Any]:
     """Ejecuta los 5 algoritmos repeticiones veces sobre cada turno en simulación.
 
@@ -428,6 +449,8 @@ def ejecutar_experimento_comparacion(
         timeout: Segundos máximos por simulación de método.
         horizonte_min: Horizonte de tiempo simulado máximo en minutos.
         runner_simulado: Función que ejecuta el plan en el motor exportado.
+        reanudar_desde: Carpeta previa del experimento para recuperar réplicas.
+        reintentar_fallidas: Reejecuta réplicas que contienen simulaciones fallidas.
 
     Returns:
         Diccionario serializable con la metadata y resultados globales del experimento.
@@ -439,51 +462,274 @@ def ejecutar_experimento_comparacion(
         raise ValueError("repeticiones debe ser >= 1.")
 
     raiz = raiz_python.expanduser().resolve()
-    seed_inicial = int(seed) if seed is not None else generar_semilla_aleatoria()
-    if seed_inicial <= 0:
-        raise ValueError("La semilla inicial debe ser > 0.")
-
-    rng = random.Random(seed_inicial)
+    inicio_sesion = perf_counter()
     inicio_dt = datetime.now()
     marca_tiempo = inicio_dt.strftime("%Y%m%d_%H%M%S")
+    tiempo_generacion_s: float | None = None
+    tiempo_selector_s = 0.0
 
-    base_resultados = (
-        directorio_salida.expanduser().resolve()
-        if directorio_salida is not None
-        else (raiz / "data" / "results")
+    modelo_zip = (
+        modelo_exportado.expanduser().resolve()
+        if modelo_exportado is not None
+        else (raiz / "anylogic_export" / "simulated_comparison" / "PedemonteDigitalTwin_v2.zip")
     )
-    carpeta_experimento = base_resultados / f"seed_{seed_inicial}_{marca_tiempo}"
-    carpeta_corridas = carpeta_experimento / "corridas"
-    carpeta_corridas.mkdir(parents=True, exist_ok=True)
 
-    if generar_dias is not None:
-        if generar_dias <= 0:
-            raise ValueError("generar_dias debe ser >= 1.")
-        carpeta_turnos_gen = carpeta_experimento / "turnos"
-        turno_gen = "MANANA" if turno.upper() == "AUTO" else turno.upper()
-        ejecutar_generacion(
-            dias_n=generar_dias,
-            rango_pedidos=rango_pedidos,
-            ruta_historico=DEFAULT_HISTORICO_CSV,
-            directorio_salida=carpeta_turnos_gen,
-            formato="ambos",
-            turno=turno_gen,
-            prefijo="pedidos_dia",
-            crear_consolidado=True,
-            seed=seed_inicial,
-            usar_timestamp=False,
-            max_tareas=12,
+    if reanudar_desde is not None:
+        carpeta_experimento = reanudar_desde.expanduser().resolve()
+        ruta_manifiesto = carpeta_experimento / "manifest_corridas.json"
+        manifiesto = json.loads(ruta_manifiesto.read_text(encoding="utf-8"))
+        seed_inicial = int(manifiesto["seed_inicial"])
+        repeticiones = int(manifiesto["parametros"]["repeticiones"])
+        solo_estimado = bool(manifiesto["parametros"]["solo_estimado"])
+        sin_proveedores = bool(manifiesto["parametros"]["sin_proveedores"])
+        permitir_fallback_vial = bool(manifiesto["parametros"]["permitir_fallback_vial"])
+        timeout = int(manifiesto["parametros"]["timeout"])
+        horizonte_min = float(manifiesto["parametros"]["horizonte_min"])
+        turno = str(manifiesto["parametros"]["turno"])
+        seed_generacion_origen = manifiesto.get("seed_generacion_origen")
+        turnos_entrada = [
+            TurnoEntrada(
+                dia_numero=int(item["dia_numero"]),
+                archivo_excel=carpeta_experimento / item["archivo_excel_relativo"],
+                seed_escenario=int(item["seed_escenario"]),
+                turno=str(item["turno"]),
+            )
+            for item in manifiesto["entradas"]
+        ]
+        for item, entrada in zip(manifiesto["entradas"], turnos_entrada, strict=True):
+            if sha256_archivo(entrada.archivo_excel) != item["sha256"]:
+                raise ValueError(f"Entrada alterada o ausente: {entrada.archivo_excel}")
+        versiones_nuevas = contexto_versiones(raiz, modelo_zip)
+        versiones_previas = manifiesto["versiones"]["archivos"]
+        for nombre in (
+            "codigo_ejecutor",
+            "codigo_generador",
+            "codigo_validaciones",
+            "codigo_comparador_simulado",
+            "codigo_ejecucion_simulada",
+            "codigo_selector_bridge",
+            "codigo_comparacion_estimada",
+            "codigo_captura_entorno",
+            "modelo_alp",
+            "datos_historicos",
+            "probabilidades_demanda",
+            "cant_pedidos_historicos",
+            "modelo_anylogic_exportado",
+            "modelo_rl",
+            "configuracion_rl",
+            "cache_vial",
+        ):
+            if nombre not in versiones_previas:
+                if nombre in (
+                    "codigo_comparador_simulado",
+                    "codigo_ejecucion_simulada",
+                    "codigo_selector_bridge",
+                    "codigo_comparacion_estimada",
+                    "codigo_captura_entorno",
+                ):
+                    continue
+                raise ValueError(f"Falta hash requerido para reanudar: {nombre}")
+
+            if (
+                versiones_nuevas["archivos"][nombre]["sha256"]
+                != versiones_previas[nombre]["sha256"]
+            ):
+                raise ValueError(f"No es seguro reanudar: cambió {nombre} desde el inicio.")
+        print(f"ESTUDIO | REANUDACION | carpeta={carpeta_experimento}")
+    else:
+        seed_inicial = int(seed) if seed is not None else generar_semilla_aleatoria()
+        if seed_inicial <= 0:
+            raise ValueError("La semilla inicial debe ser > 0.")
+        rng = random.Random(seed_inicial)
+        base_resultados = (
+            directorio_salida.expanduser().resolve()
+            if directorio_salida is not None
+            else (raiz / "data" / "results")
         )
-        directorio_turnos = carpeta_turnos_gen
+        carpeta_experimento = base_resultados / f"seed_{seed_inicial}_{marca_tiempo}"
+        if carpeta_experimento.exists():
+            # No pisar datos de una ejecución anterior con la misma marca temporal.
+            raise FileExistsError(f"El experimento ya existe: {carpeta_experimento}")
+        carpeta_experimento.mkdir(parents=True)
+        if generar_dias is not None:
+            if generar_dias <= 0:
+                raise ValueError("generar_dias debe ser >= 1.")
+            inicio_generacion = perf_counter()
+            carpeta_turnos_gen = carpeta_experimento / "turnos"
+            turno_gen = "MANANA" if turno.upper() == "AUTO" else turno.upper()
+            ejecutar_generacion(
+                dias_n=generar_dias,
+                rango_pedidos=rango_pedidos,
+                ruta_historico=DEFAULT_HISTORICO_CSV,
+                directorio_salida=carpeta_turnos_gen,
+                formato="ambos",
+                turno=turno_gen,
+                prefijo="pedidos_dia",
+                crear_consolidado=True,
+                seed=seed_inicial,
+                usar_timestamp=False,
+                max_tareas=12,
+            )
+            tiempo_generacion_s = perf_counter() - inicio_generacion
+            directorio_turnos = carpeta_turnos_gen
+        turnos_originales, seed_generacion_origen = _resolver_turnos_entrada(
+            archivo_excel=archivo_excel,
+            directorio_turnos=directorio_turnos,
+            seed_escenario_default=seed_escenario_default,
+            turno_forzado=turno,
+            rng=rng,
+        )
+        entradas_archivadas: list[dict[str, Any]] = []
+        turnos_entrada: list[TurnoEntrada] = []
+        carpeta_entradas = carpeta_experimento / "entradas"
+        carpeta_entradas.mkdir(parents=True)
+        for idx, entrada in enumerate(turnos_originales, start=1):
+            # Usar copias de entrada inmutables para poder repetir o reanudar.
+            destino = carpeta_entradas / f"{idx:04d}_{entrada.archivo_excel.name}"
+            shutil.copy2(entrada.archivo_excel, destino)
+            turnos_entrada.append(
+                TurnoEntrada(
+                    dia_numero=entrada.dia_numero,
+                    archivo_excel=destino,
+                    seed_escenario=entrada.seed_escenario,
+                    turno=entrada.turno,
+                )
+            )
+            entradas_archivadas.append(
+                {
+                    "dia_numero": entrada.dia_numero,
+                    "archivo_excel_original": str(entrada.archivo_excel),
+                    "archivo_excel_relativo": destino.relative_to(carpeta_experimento).as_posix(),
+                    "sha256": sha256_archivo(destino),
+                    "seed_escenario": entrada.seed_escenario,
+                    "turno": entrada.turno,
+                }
+            )
+        # Guardar también la metadata y los CSV de generación del lote.
+        if directorio_turnos is not None and directorio_turnos.is_dir():
+            for archivo in directorio_turnos.glob("*.json"):
+                shutil.copy2(archivo, carpeta_entradas / archivo.name)
+            for archivo in directorio_turnos.glob("*.csv"):
+                shutil.copy2(archivo, carpeta_entradas / archivo.name)
 
-    turnos_entrada, seed_generacion_origen = _resolver_turnos_entrada(
-        archivo_excel=archivo_excel,
-        directorio_turnos=directorio_turnos,
-        seed_escenario_default=seed_escenario_default,
-        turno_forzado=turno,
-        rng=rng,
-    )
+        if tiempo_generacion_s is None:
+            tiempo_generacion_s = leer_tiempo_generacion(carpeta_entradas)
 
+        corridas_planeadas: list[dict[str, int]] = []
+        for entrada in turnos_entrada:
+            for rep in range(1, repeticiones + 1):
+                semilla = (
+                    1_000_000 + entrada.seed_escenario
+                    if len(turnos_entrada) == 1
+                    and repeticiones == 1
+                    and seed is None
+                    and salida_archivo_unico is not None
+                    else rng.randint(1_000_000, 999_999_999)
+                )
+                corridas_planeadas.append(
+                    {
+                        "dia_numero": entrada.dia_numero,
+                        "repeticion": rep,
+                        "seed_ejecucion": semilla,
+                    }
+                )
+        manifiesto = {
+            "version": 1,
+            "seed_inicial": seed_inicial,
+            "seed_generacion_origen": seed_generacion_origen,
+            "fecha_inicio": inicio_dt.isoformat(timespec="seconds"),
+            "parametros": {
+                "repeticiones": repeticiones,
+                "solo_estimado": solo_estimado,
+                "sin_proveedores": sin_proveedores,
+                "permitir_fallback_vial": permitir_fallback_vial,
+                "timeout": timeout,
+                "horizonte_min": horizonte_min,
+                "turno": turno,
+            },
+            "entradas": entradas_archivadas,
+            "corridas": corridas_planeadas,
+            "versiones": contexto_versiones(raiz, modelo_zip),
+            "tiempo_generacion_python_s": tiempo_generacion_s,
+        }
+        escribir_json_atomico(carpeta_experimento / "manifest_corridas.json", manifiesto)
+
+    # Documentar el entorno computacional de cada sesion.
+    ruta_entorno = carpeta_experimento / "entorno_ejecucion.json"
+
+    if reanudar_desde is None:
+        destino_entorno = ruta_entorno
+    else:
+        destino_entorno = (
+            carpeta_experimento
+            / "entornos_reanudacion"
+            / f"entorno_{inicio_dt.strftime('%Y%m%d_%H%M%S_%f')}.json"
+        )
+
+    try:
+        escribir_json_atomico(
+            destino_entorno,
+            capturar_entorno_ejecucion(),
+        )
+        print(
+            f"ESTUDIO | ENTORNO_GUARDADO | archivo={destino_entorno}",
+            flush=True,
+        )
+    except Exception as exc:
+        print(
+            f"ESTUDIO | ADVERTENCIA_ENTORNO | error={exc}",
+            flush=True,
+        )
+
+    carpeta_corridas = carpeta_experimento / "corridas"
+    carpeta_planes = carpeta_experimento / "planes"
+    carpeta_instancias = carpeta_experimento / "instancias"
+    for carpeta in (carpeta_corridas, carpeta_planes, carpeta_instancias):
+        carpeta.mkdir(parents=True, exist_ok=True)
+
+    semillas_planeadas = {
+        (int(item["dia_numero"]), int(item["repeticion"])): int(item["seed_ejecucion"])
+        for item in typing.cast(list[dict[str, Any]], manifiesto["corridas"])
+    }
+    # Comprobacion previa a cualquier motor Java.
+    if not solo_estimado:
+        instancias_preflight: list[InstanciaTurno] = []
+
+        for entrada in turnos_entrada:
+            semilla_preflight = semillas_planeadas[(entrada.dia_numero, 1)]
+            instancias_preflight.append(
+                crear_instancia_desde_excel(
+                    archivo_excel=entrada.archivo_excel,
+                    seed_escenario=entrada.seed_escenario,
+                    seed_ejecucion=semilla_preflight,
+                    turno=entrada.turno,
+                    dia_numero=entrada.dia_numero,
+                )
+            )
+
+        comprobacion_vial = verificar_cobertura_vial(
+            instancias_preflight,
+            raiz / "data" / "routing" / "cache_vial.csv",
+        )
+        escribir_json_atomico(
+            carpeta_experimento / "preflight_vial.json",
+            comprobacion_vial,
+        )
+        print(
+            "ESTUDIO | PREFLIGHT_VIAL"
+            f" | requeridos={comprobacion_vial['tramos_requeridos']}"
+            f" | faltantes={comprobacion_vial['faltantes']}"
+        )
+
+        if comprobacion_vial["faltantes"]:
+            raise RuntimeError(
+                "Cobertura vial incompleta: faltan "
+                f"{comprobacion_vial['faltantes']} tramos dirigidos. "
+                "Preparar las rutas desde AnyLogic antes de simular. "
+                "Detalles en preflight_vial.json."
+            )
+
+    inicio_selector = perf_counter()
     estado_selector = selector_bridge.inicializar(
         model_path=str(raiz / "models" / "rl" / "rl_policies.json"),
         max_pedidos=30,
@@ -492,15 +738,42 @@ def ejecutar_experimento_comparacion(
         version_cache_vial="pedemonte-vial-v1",
         permitir_fallback_vial=permitir_fallback_vial,
     )
+    tiempo_selector_s = perf_counter() - inicio_selector
     print(f"SELECTOR | {estado_selector}")
 
-    modelo_zip = (
-        modelo_exportado.expanduser().resolve()
-        if modelo_exportado is not None
-        else (raiz / "anylogic_export" / "simulated_comparison" / "PedemonteDigitalTwin_v2.zip")
+    ruta_resumen_csv = carpeta_experimento / NOMBRE_RESUMEN_CSV
+    ruta_resumen_json = carpeta_experimento / NOMBRE_RESUMEN_JSON
+    filas_resumen = cargar_filas_checkpoint(ruta_resumen_json)
+    # El JSON consolidado es el checkpoint autoritativo ante una interrupción.
+    conteos_grupo: dict[tuple[int, int], int] = {}
+    for fila in filas_resumen:
+        grupo = (int(fila["dia_numero"]), int(fila["repeticion"]))
+        conteos_grupo[grupo] = conteos_grupo.get(grupo, 0) + 1
+    grupos_completos = {
+        grupo
+        for grupo, total in conteos_grupo.items()
+        if total == len(METODOS_COMPARACION_SIMULADA)
+        and (
+            carpeta_corridas
+            / (
+                f"turno_{grupo[0]:02d}_rep_{grupo[1]:02d}_"
+                f"seed_{semillas_planeadas.get(grupo, -1)}.json"
+            )
+        ).is_file()
+    }
+    filas_resumen = [
+        fila
+        for fila in filas_resumen
+        if (int(fila["dia_numero"]), int(fila["repeticion"])) in grupos_completos
+    ]
+    escribir_csv_atomico(ruta_resumen_csv, filas_resumen, COLUMNAS_RESUMEN_CSV)
+    escribir_json_atomico(ruta_resumen_json, filas_resumen)
+    ruta_tiempos = carpeta_experimento / "tiempos_computo.json"
+    tiempos_computo: dict[str, Any] = (
+        json.loads(ruta_tiempos.read_text(encoding="utf-8"))
+        if ruta_tiempos.is_file()
+        else {"repeticiones": [], "sesiones": []}
     )
-
-    filas_resumen: list[dict[str, Any]] = []
     metadata_turnos_evaluados: list[dict[str, Any]] = []
     todas_completas = True
     ultimo_payload_corrida: dict[str, Any] | None = None
@@ -509,21 +782,48 @@ def ejecutar_experimento_comparacion(
         repeticiones_meta: list[dict[str, Any]] = []
 
         for rep in range(1, repeticiones + 1):
-            if (
-                len(turnos_entrada) == 1
-                and repeticiones == 1
-                and seed is None
-                and salida_archivo_unico is not None
-            ):
-                seed_ejecucion = 1_000_000 + entrada.seed_escenario
-            else:
-                seed_ejecucion = rng.randint(1_000_000, 999_999_999)
-
+            seed_ejecucion = semillas_planeadas[(entrada.dia_numero, rep)]
             semillas_metodos = calcular_semillas_por_metodo(
                 entrada.seed_escenario,
                 seed_ejecucion,
             )
-
+            nombre_corrida = (
+                f"turno_{entrada.dia_numero:02d}_rep_{rep:02d}_seed_{seed_ejecucion}.json"
+            )
+            repeticiones_meta.append(
+                {
+                    "repeticion": rep,
+                    "seed_ejecucion": seed_ejecucion,
+                    "semillas_por_metodo": semillas_metodos,
+                    "archivo_resultado": f"corridas/{nombre_corrida}",
+                }
+            )
+            grupo = (entrada.dia_numero, rep)
+            filas_grupo = [
+                fila
+                for fila in filas_resumen
+                if (int(fila["dia_numero"]), int(fila["repeticion"])) == grupo
+            ]
+            completa_previa = grupo in grupos_completos
+            fallida_previa = any(
+                fila["estado_simulado"] not in ("FINALIZADO", "SOLO_ESTIMADO")
+                for fila in filas_grupo
+            )
+            if completa_previa and not (reintentar_fallidas and fallida_previa):
+                if fallida_previa:
+                    todas_completas = False
+                print(
+                    f"ESTUDIO | REUTILIZAR_CHECKPOINT | dia={entrada.dia_numero:02d} "
+                    f"| rep={rep:02d} | metodos={len(filas_grupo)}"
+                )
+                continue
+            filas_resumen = [
+                fila
+                for fila in filas_resumen
+                if (int(fila["dia_numero"]), int(fila["repeticion"])) != grupo
+            ]
+            inicio_repeticion = perf_counter()
+            inicio_importacion = perf_counter()
             instancia = crear_instancia_desde_excel(
                 archivo_excel=entrada.archivo_excel,
                 seed_escenario=entrada.seed_escenario,
@@ -533,6 +833,20 @@ def ejecutar_experimento_comparacion(
             )
             instancia_vector = codificar_instancia_alpyne(instancia)
 
+            tiempo_importacion = perf_counter() - inicio_importacion
+            escribir_json_atomico(
+                carpeta_instancias / nombre_corrida,
+                {
+                    "instancia_id": instancia.instancia_id,
+                    "dia_numero": entrada.dia_numero,
+                    "repeticion": rep,
+                    "seed_escenario": instancia.seed_escenario,
+                    "seed_ejecucion": instancia.seed_ejecucion,
+                    "instancia_vector": list(instancia_vector),
+                    "identificadores_pedidos": codificar_identificadores_pedidos(instancia.pedidos),
+                },
+            )
+            inicio_planificacion = perf_counter()
             selector_bridge.comparar_estimado_vector(
                 instancia_vector,
                 instancia.seed_escenario,
@@ -558,6 +872,38 @@ def ejecutar_experimento_comparacion(
                         f"metodo={metodo} | error={info_est.get('error', '')}"
                     )
 
+            tiempo_planificacion = perf_counter() - inicio_planificacion
+
+            def informar_progreso(
+                resultado_metodo: ResultadoMetodoSimulado,
+            ) -> None:
+                """Informa el estado individual al seguimiento del estudio."""
+                print(
+                    f"PROGRESO_METODO | dia={entrada.dia_numero:02d} "
+                    f"| rep={rep:02d} "
+                    f"| solicitado={resultado_metodo.metodo_solicitado} "
+                    f"| estado={resultado_metodo.estado}",
+                    flush=True,
+                )
+
+            # Conservar un vector íntegro por método, incluyendo fallos de planificación.
+            for metodo in METODOS_COMPARACION_SIMULADA:
+                escribir_json_atomico(
+                    carpeta_planes
+                    / (f"turno_{entrada.dia_numero:02d}_rep_{rep:02d}_{metodo.lower()}.json"),
+                    {
+                        "instancia_id": instancia.instancia_id,
+                        "dia_numero": entrada.dia_numero,
+                        "repeticion": rep,
+                        "metodo": metodo,
+                        "seed_escenario": entrada.seed_escenario,
+                        "seed_ejecucion": seed_ejecucion,
+                        "seed_algoritmo": semillas_metodos[metodo],
+                        "factible_estimado": metodo in planes,
+                        "plan_vector": planes.get(metodo),
+                    },
+                )
+            inicio_simulacion = perf_counter()
             comparacion_sim: ComparacionSimulada | None = None
             if not solo_estimado:
                 comparacion_sim = ejecutar_comparacion_simulada(
@@ -575,6 +921,7 @@ def ejecutar_experimento_comparacion(
                     horizonte_simulacion_min=horizonte_min,
                     continuar_ante_error=True,
                     runner=runner_simulado,
+                    progreso_metodo=informar_progreso,
                 )
                 if not comparacion_sim.completa:
                     todas_completas = False
@@ -604,6 +951,7 @@ def ejecutar_experimento_comparacion(
                         f"desbalance_min={res_sim.diferencia_fin_camiones_min:.6f}"
                     )
 
+            tiempo_simulacion = perf_counter() - inicio_simulacion
             payload_corrida: dict[str, Any] = (
                 comparacion_sim.como_dict()
                 if comparacion_sim is not None
@@ -635,16 +983,7 @@ def ejecutar_experimento_comparacion(
                 f"turno_{entrada.dia_numero:02d}_rep_{rep:02d}_seed_{seed_ejecucion}.json"
             )
             ruta_corrida = carpeta_corridas / nombre_corrida
-            ruta_corrida.write_text(
-                json.dumps(
-                    payload_corrida,
-                    ensure_ascii=False,
-                    indent=2,
-                    sort_keys=True,
-                )
-                + "\n",
-                encoding="utf-8",
-            )
+            escribir_json_atomico(ruta_corrida, payload_corrida)
             ultimo_payload_corrida = payload_corrida
 
             for metodo in METODOS_COMPARACION_SIMULADA:
@@ -708,13 +1047,29 @@ def ejecutar_experimento_comparacion(
                     }
                 )
 
-            repeticiones_meta.append(
+            # Checkpoint durable al finalizar cada réplica de cinco métodos.
+            escribir_json_atomico(ruta_resumen_json, filas_resumen)
+            escribir_csv_atomico(ruta_resumen_csv, filas_resumen, COLUMNAS_RESUMEN_CSV)
+            tiempos_computo["repeticiones"] = [
+                item
+                for item in tiempos_computo["repeticiones"]
+                if (item["dia_numero"], item["repeticion"]) != grupo
+            ]
+            tiempos_computo["repeticiones"].append(
                 {
+                    "dia_numero": entrada.dia_numero,
                     "repeticion": rep,
-                    "seed_ejecucion": seed_ejecucion,
-                    "semillas_por_metodo": semillas_metodos,
-                    "archivo_resultado": f"corridas/{nombre_corrida}",
+                    "importacion_s": tiempo_importacion,
+                    "planificacion_s": tiempo_planificacion,
+                    "simulacion_anylogic_s": tiempo_simulacion,
+                    "total_s": perf_counter() - inicio_repeticion,
                 }
+            )
+            escribir_json_atomico(ruta_tiempos, tiempos_computo)
+            print(
+                f"ESTUDIO | CHECKPOINT | dia={entrada.dia_numero:02d} "
+                f"| rep={rep:02d} | filas={len(filas_resumen)} "
+                f"| tiempo_s={perf_counter() - inicio_repeticion:.3f}"
             )
 
         metadata_turnos_evaluados.append(
@@ -727,27 +1082,55 @@ def ejecutar_experimento_comparacion(
             }
         )
 
-    ruta_resumen_csv = carpeta_experimento / NOMBRE_RESUMEN_CSV
-    with open(ruta_resumen_csv, "w", encoding="utf-8-sig", newline="") as f_csv:
-        writer = csv.DictWriter(f_csv, fieldnames=COLUMNAS_RESUMEN_CSV)
-        writer.writeheader()
-        for fila in filas_resumen:
-            writer.writerow(fila)
-
-    ruta_resumen_json = carpeta_experimento / NOMBRE_RESUMEN_JSON
-    ruta_resumen_json.write_text(
-        json.dumps(filas_resumen, ensure_ascii=False, indent=2) + "\n",
-        encoding="utf-8",
+    escribir_json_atomico(ruta_resumen_json, filas_resumen)
+    escribir_csv_atomico(ruta_resumen_csv, filas_resumen, COLUMNAS_RESUMEN_CSV)
+    tiempos_computo["sesiones"].append(
+        {
+            "fecha_inicio": inicio_dt.isoformat(timespec="seconds"),
+            "tiempo_total_s": perf_counter() - inicio_sesion,
+            "tiempo_preparacion_selector_s": tiempo_selector_s,
+        }
     )
+    generacion_medida = manifiesto.get("tiempo_generacion_python_s")
+
+    if (
+        not isinstance(generacion_medida, (int, float))
+        or isinstance(generacion_medida, bool)
+        or generacion_medida <= 0
+    ):
+        generacion_medida = leer_tiempo_generacion(carpeta_experimento / "entradas")
+
+    tiempos_computo["generacion_python_s"] = generacion_medida
+    tiempo_gis = leer_tiempo_preparacion_gis(
+        carpeta_experimento / "entradas",
+        len(turnos_entrada),
+    )
+    tiempos_computo["preparacion_gis_s"] = tiempo_gis
+    tiempos_computo["nota_gis"] = (
+        "No medido: no se recibieron tiempos GIS."
+        if tiempo_gis is None
+        else "Suma de los tiempos GIS registrados por AnyLogic, incluidos reintentos."
+    )
+    escribir_json_atomico(ruta_tiempos, tiempos_computo)
+    auditoria = generar_analisis(carpeta_experimento)
+    if (
+        auditoria["faltantes"]
+        or auditoria["duplicados"]
+        or auditoria["archivos_faltantes"]
+        or auditoria["identificadores_inesperados"]
+        or auditoria["auditoria_costos"]["inconsistentes"]
+        or (not solo_estimado and auditoria["corridas_invalidas"])
+    ):
+        todas_completas = False
 
     fin_dt = datetime.now()
     metadata_experimento = {
-        "version": 1,
+        "version": 2,
         "seed_inicial": seed_inicial,
         "seed_generacion_origen": seed_generacion_origen,
-        "fecha_inicio": inicio_dt.isoformat(timespec="seconds"),
+        "fecha_inicio": manifiesto["fecha_inicio"],
         "fecha_fin": fin_dt.isoformat(timespec="seconds"),
-        "marca_tiempo": marca_tiempo,
+        "marca_tiempo": carpeta_experimento.name,
         "carpeta_experimento": str(carpeta_experimento),
         "parametros": {
             "cantidad_turnos": len(turnos_entrada),
@@ -764,13 +1147,18 @@ def ejecutar_experimento_comparacion(
         },
         "turnos_evaluados": metadata_turnos_evaluados,
         "completa": todas_completas,
+        "manifiesto": "manifest_corridas.json",
+        "entorno_ejecucion": ("entorno_ejecucion.json" if ruta_entorno.is_file() else None),
+        "planes": "planes/",
+        "instancias": "instancias/",
+        "tiempos_computo": "tiempos_computo.json",
+        "auditoria": "analisis/auditoria.json",
+        "desglose_costos": "analisis/desglose_costos.csv",
+        "preflight_vial": "preflight_vial.json" if not solo_estimado else None,
     }
 
     ruta_metadata_exp = carpeta_experimento / NOMBRE_METADATA_EXPERIMENTO
-    ruta_metadata_exp.write_text(
-        json.dumps(metadata_experimento, ensure_ascii=False, indent=2) + "\n",
-        encoding="utf-8",
-    )
+    escribir_json_atomico(ruta_metadata_exp, metadata_experimento)
 
     if salida_archivo_unico is not None and ultimo_payload_corrida is not None:
         salida_resuelta = salida_archivo_unico.expanduser().resolve()
@@ -863,6 +1251,11 @@ def _parser() -> argparse.ArgumentParser:
     )
     parser.add_argument("--sin-proveedores", action="store_true")
     parser.add_argument(
+        "--permitir-fallback-vial",
+        action="store_true",
+        help="Permite respaldo geometrico en planificacion estimada.",
+    )
+    parser.add_argument(
         "--solo-estimado",
         action="store_true",
         help="Ejecuta los 5 algoritmos y registra métricas estimadas sin invocar el motor Java AnyLogic.",
@@ -876,6 +1269,17 @@ def _parser() -> argparse.ArgumentParser:
         "--salida",
         default=None,
         help="Ruta opcional a un archivo JSON adicional para compatibilidad con corridas individuales.",
+    )
+    parser.add_argument(
+        "--reanudar-desde",
+        type=Path,
+        default=None,
+        help="Directorio seed_... existente; recupera las réplicas terminadas.",
+    )
+    parser.add_argument(
+        "--reintentar-fallidas",
+        action="store_true",
+        help="Al reanudar, reejecuta réplicas con simulaciones fallidas.",
     )
     return parser
 
@@ -904,8 +1308,11 @@ def main() -> int:
         salida_archivo_unico=salida_unica,
         solo_estimado=args.solo_estimado,
         sin_proveedores=args.sin_proveedores,
+        permitir_fallback_vial=(args.permitir_fallback_vial or args.solo_estimado),
         timeout=args.timeout,
         horizonte_min=args.horizonte_min,
+        reanudar_desde=args.reanudar_desde,
+        reintentar_fallidas=args.reintentar_fallidas,
     )
 
     return 0 if bool(metadata.get("completa", False)) else 1

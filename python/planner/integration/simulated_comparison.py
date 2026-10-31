@@ -159,6 +159,7 @@ def ejecutar_comparacion_simulada(
     horizonte_simulacion_min: float = 600.0,
     continuar_ante_error: bool = True,
     runner: RunnerSimulado = ejecutar_plan_en_modelo_exportado,
+    progreso_metodo: Callable[[ResultadoMetodoSimulado], None] | None = None,
 ) -> ComparacionSimulada:
     """Ejecuta cada método de ruteo en un proceso AnyLogic independiente.
 
@@ -177,9 +178,21 @@ def ejecutar_comparacion_simulada(
         horizonte_simulacion_min: Minutos de horizonte de simulación.
         continuar_ante_error: Si es False, detiene la suite al primer fallo.
         runner: Función ejecutora de la simulación.
+        progreso_metodo: Callback opcional que recibe el resultado de cada método
+            inmediatamente después de su ejecución, independientemente de si
+            finalizó correctamente, presentó un error o fue omitido. Permite
+            informar el avance individual del experimento sin esperar a que
+            terminen los cinco algoritmos. Los errores del callback se registran
+            como advertencias y no modifican los resultados de la simulación.
 
     Returns:
-        ComparacionSimulada consolidada.
+        ComparacionSimulada consolidada con los resultados individuales de los
+        métodos evaluados, sus estados de ejecución y el tiempo total empleado.
+
+    Raises:
+        ValueError: Si el timeout o el horizonte de simulación no son válidos,
+            o si los vectores de entrada y los planes no cumplen las
+            validaciones requeridas.
     """
     if timeout_segundos_por_metodo <= 0:
         raise ValueError("timeout_segundos_por_metodo debe ser > 0.")
@@ -195,6 +208,21 @@ def ejecutar_comparacion_simulada(
     inicio_total = perf_counter()
     resultados: list[ResultadoMetodoSimulado] = []
 
+    def notificar_progreso(resultado_metodo: ResultadoMetodoSimulado) -> None:
+        """Informa el resultado de un método sin alterar la ejecución experimental."""
+        if progreso_metodo is None:
+            return
+
+        try:
+            progreso_metodo(resultado_metodo)
+        except Exception as exc:
+            print(
+                "PROGRESO | ADVERTENCIA"
+                f" | metodo={resultado_metodo.metodo_solicitado}"
+                f" | error={type(exc).__name__}: {exc}",
+                flush=True,
+            )
+
     for metodo in METODOS_COMPARACION_SIMULADA:
         plan = planes.get(metodo)
         if plan is None:
@@ -207,6 +235,7 @@ def ejecutar_comparacion_simulada(
                     tiempo_motor_segundos=0.0,
                 )
             )
+            notificar_progreso(resultados[-1])
             continue
 
         inicio_metodo = perf_counter()
@@ -235,6 +264,8 @@ def ejecutar_comparacion_simulada(
                     tiempo_motor_segundos=perf_counter() - inicio_metodo,
                 )
             )
+            notificar_progreso(resultados[-1])
+
         except Exception as exc:
             resultados.append(
                 ResultadoMetodoSimulado(
@@ -245,6 +276,8 @@ def ejecutar_comparacion_simulada(
                     tiempo_motor_segundos=perf_counter() - inicio_metodo,
                 )
             )
+            notificar_progreso(resultados[-1])
+
             if not continuar_ante_error:
                 break
 
