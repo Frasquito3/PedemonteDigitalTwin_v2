@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
+from tempfile import TemporaryDirectory
 
 import pytest
 from planner.integration.simulated_execution import (
@@ -159,255 +160,197 @@ def test_rechaza_ocupacion_superior_a_cien():
         )
 
 
-def test_envia_identidad_configuracion_y_accion_correctas(tmp_path: Path):
-    modelo = tmp_path / "modelo.zip"
-    modelo.write_bytes(b"zip")
-    raiz = tmp_path / "python"
-    raiz.mkdir()
+def test_envia_identidad_configuracion_y_accion_correctas():
+    with TemporaryDirectory() as temporal_str:
+        temporal = Path(temporal_str)
+        modelo = temporal / "modelo.zip"
+        modelo.write_bytes(b"zip")
+        raiz = temporal / "python"
+        raiz.mkdir()
 
-    creado: list[SimFalso] = []
+        creado: list[SimFalso] = []
 
-    def fabrica(*args, **kwargs):
-        sim = SimFalso(*args, **kwargs)
-        creado.append(sim)
-        return sim
+        def fabrica(*args, **kwargs):
+            sim = SimFalso(*args, **kwargs)
+            creado.append(sim)
+            return sim
 
-    resultado = ejecutar_plan_en_modelo_exportado(
-        modelo_exportado=modelo,
-        raiz_python=raiz,
-        instancia_vector=[1.0, 2.0],
-        plan_vector=[1.0, 1.0, 2.0],
-        identificadores_pedidos="IDMAP1|1|VEFSRUE=:T1JJR0lOQUw=",
-        instancia_id="UI-2026-08-30-6001",
-        fecha_operacion="2026-08-30",
-        seed_escenario=6001,
-        seed_ejecucion=1006001,
-        proveedores_habilitados=True,
-        timeout_segundos=99,
-        sim_factory=fabrica,
-    )
-
-    sim = creado[0]
-    assert sim.configuracion == {
-        "instanciaId": "UI-2026-08-30-6001",
-        "fechaOperacion": "2026-08-30",
-        "identificadoresPedidos": "IDMAP1|1|VEFSRUE=:T1JJR0lOQUw=",
-        "seedEscenario": 6001,
-        "seedEjecucion": 1006001,
-        "instanciaVector": [1.0, 2.0],
-        "rutaPythonProyectoPypeline": str(raiz.resolve()),
-        "proveedoresHabilitados": True,
-    }
-    assert sim.accion == {
-        "accionCodigo": 2,
-        "planVector": [1.0, 1.0, 2.0],
-    }
-    assert sim.kwargs["auto_finish"] is True
-    assert sim.kwargs["lock_defaults"] == {"timeout": 99}
-    assert sim.kwargs["engine_overrides"] == {"stop_time": 600.0}
-    assert sim.cierres == 1
-    assert resultado.instancia_id == "UI-2026-08-30-6001"
-
-
-def test_rechaza_identidad_distinta(tmp_path: Path):
-    modelo = tmp_path / "modelo.zip"
-    modelo.write_bytes(b"zip")
-    raiz = tmp_path / "python"
-    raiz.mkdir()
-
-    class SimIdentidadIncorrecta(SimFalso):
-        def take_action(self, **kwargs):
-            observacion = dict(OBSERVACION_FINAL)
-            observacion["seedEscenarioResultado"] = 9999
-            return EstadoFalso(
-                observation=observacion,
-                state="FINISHED",
-                stop=True,
-            )
-
-    with pytest.raises(
-        ErrorEjecucionSimulada,
-        match="no preservó la identidad",
-    ):
-        ejecutar_plan_en_modelo_exportado(
+        resultado = ejecutar_plan_en_modelo_exportado(
             modelo_exportado=modelo,
             raiz_python=raiz,
-            instancia_vector=[1.0],
-            plan_vector=[1.0],
+            instancia_vector=[1.0, 2.0],
+            plan_vector=[1.0, 1.0, 2.0],
             identificadores_pedidos="IDMAP1|1|VEFSRUE=:T1JJR0lOQUw=",
             instancia_id="UI-2026-08-30-6001",
             fecha_operacion="2026-08-30",
             seed_escenario=6001,
             seed_ejecucion=1006001,
             proveedores_habilitados=True,
-            sim_factory=SimIdentidadIncorrecta,
+            timeout_segundos=99,
+            sim_factory=fabrica,
         )
 
+        sim = creado[0]
+        assert sim.configuracion == {
+            "instanciaId": "UI-2026-08-30-6001",
+            "fechaOperacion": "2026-08-30",
+            "identificadoresPedidos": "IDMAP1|1|VEFSRUE=:T1JJR0lOQUw=",
+            "seedEscenario": 6001,
+            "seedEjecucion": 1006001,
+            "instanciaVector": [1.0, 2.0],
+            "rutaPythonProyectoPypeline": str(raiz.resolve()),
+            "proveedoresHabilitados": True,
+        }
+        assert sim.accion == {
+            "accionCodigo": 2,
+            "planVector": [1.0, 1.0, 2.0],
+        }
+        assert sim.kwargs["auto_finish"] is True
+        assert sim.kwargs["lock_defaults"] == {"timeout": 99}
+        assert sim.kwargs["engine_overrides"] == {"stop_time": 600.0}
+        assert sim.cierres == 1
+        assert resultado.instancia_id == "UI-2026-08-30-6001"
 
-def test_acepta_motor_finished_con_resultado_completo_aunque_stop_sea_false(
-    tmp_path: Path,
-):
-    modelo = tmp_path / "modelo.zip"
-    modelo.write_bytes(b"zip")
-    raiz = tmp_path / "python"
-    raiz.mkdir()
-    creado: list[SimFalso] = []
 
-    class SimFinishedSinStop(SimFalso):
-        def take_action(self, **kwargs):
-            self.accion = kwargs
-            return EstadoFalso(
-                observation=dict(OBSERVACION_FINAL),
-                state="FINISHED",
-                stop=False,
+def test_rechaza_identidad_distinta():
+    with TemporaryDirectory() as temporal_str:
+        temporal = Path(temporal_str)
+        modelo = temporal / "modelo.zip"
+        modelo.write_bytes(b"zip")
+        raiz = temporal / "python"
+        raiz.mkdir()
+
+        class SimIdentidadIncorrecta(SimFalso):
+            def take_action(self, **kwargs):
+                observacion = dict(OBSERVACION_FINAL)
+                observacion["seedEscenarioResultado"] = 9999
+                return EstadoFalso(
+                    observation=observacion,
+                    state="FINISHED",
+                    stop=True,
+                )
+
+        with pytest.raises(
+            ErrorEjecucionSimulada,
+            match="no preservó la identidad",
+        ):
+            ejecutar_plan_en_modelo_exportado(
+                modelo_exportado=modelo,
+                raiz_python=raiz,
+                instancia_vector=[1.0],
+                plan_vector=[1.0],
+                identificadores_pedidos="IDMAP1|1|VEFSRUE=:T1JJR0lOQUw=",
+                instancia_id="UI-2026-08-30-6001",
+                fecha_operacion="2026-08-30",
+                seed_escenario=6001,
+                seed_ejecucion=1006001,
+                proveedores_habilitados=True,
+                sim_factory=SimIdentidadIncorrecta,
             )
 
-    def fabrica(*args, **kwargs):
-        sim = SimFinishedSinStop(*args, **kwargs)
-        creado.append(sim)
-        return sim
 
-    resultado = ejecutar_plan_en_modelo_exportado(
-        modelo_exportado=modelo,
-        raiz_python=raiz,
-        instancia_vector=[1.0],
-        plan_vector=[1.0],
-        identificadores_pedidos="IDMAP1|1|WA==:WA==",
-        instancia_id="UI-2026-08-30-6001",
-        fecha_operacion="2026-08-30",
-        seed_escenario=6001,
-        seed_ejecucion=1006001,
-        proveedores_habilitados=True,
-        sim_factory=fabrica,
-    )
+def test_acepta_motor_finished_con_resultado_completo_aunque_stop_sea_false():
+    with TemporaryDirectory() as temporal_str:
+        temporal = Path(temporal_str)
+        modelo = temporal / "modelo.zip"
+        modelo.write_bytes(b"zip")
+        raiz = temporal / "python"
+        raiz.mkdir()
+        creado: list[SimFalso] = []
 
-    assert resultado.estado_motor == "FINISHED"
-    assert resultado.costo_total == 235.0
-    assert creado[0].cierres == 1
+        class SimFinishedSinStop(SimFalso):
+            def take_action(self, **kwargs):
+                self.accion = kwargs
+                return EstadoFalso(
+                    observation=dict(OBSERVACION_FINAL),
+                    state="FINISHED",
+                    stop=False,
+                )
 
+        def fabrica(*args, **kwargs):
+            sim = SimFinishedSinStop(*args, **kwargs)
+            creado.append(sim)
+            return sim
 
-def test_recupera_estado_terminal_si_take_action_devuelve_paused_obsoleto(
-    tmp_path: Path,
-):
-    modelo = tmp_path / "modelo.zip"
-    modelo.write_bytes(b"zip")
-    raiz = tmp_path / "python"
-    raiz.mkdir()
-    creado = []
+        resultado = ejecutar_plan_en_modelo_exportado(
+            modelo_exportado=modelo,
+            raiz_python=raiz,
+            instancia_vector=[1.0],
+            plan_vector=[1.0],
+            identificadores_pedidos="IDMAP1|1|WA==:WA==",
+            instancia_id="UI-2026-08-30-6001",
+            fecha_operacion="2026-08-30",
+            seed_escenario=6001,
+            seed_ejecucion=1006001,
+            proveedores_habilitados=True,
+            sim_factory=fabrica,
+        )
 
-    @dataclass
-    class EstadoConSecuencia(EstadoFalso):
-        sequence_id: int = 0
-
-    class SimEstadoObsoleto(SimFalso):
-        def __init__(self, *args, **kwargs):
-            super().__init__(*args, **kwargs)
-            self.consultas_estado = 0
-
-        def reset(self, **kwargs):
-            self.configuracion = kwargs
-            return EstadoConSecuencia(
-                observation={
-                    "error": False,
-                    "mensaje": "ESPERANDO ACCIÓN",
-                    "configurado": True,
-                },
-                state="PAUSED",
-                stop=False,
-                sequence_id=1,
-            )
-
-        def take_action(self, **kwargs):
-            self.accion = kwargs
-            return EstadoConSecuencia(
-                observation={
-                    "error": False,
-                    "configurado": True,
-                    "ejecucionFinalizada": False,
-                    "resultadoDisponible": False,
-                },
-                state="PAUSED",
-                stop=False,
-                sequence_id=1,
-            )
-
-        def status(self):
-            self.consultas_estado += 1
-            return EstadoConSecuencia(
-                observation=dict(OBSERVACION_FINAL),
-                state="FINISHED",
-                stop=False,
-                sequence_id=2,
-            )
-
-    def fabrica(*args, **kwargs):
-        sim = SimEstadoObsoleto(*args, **kwargs)
-        creado.append(sim)
-        return sim
-
-    resultado = ejecutar_plan_en_modelo_exportado(
-        modelo_exportado=modelo,
-        raiz_python=raiz,
-        instancia_vector=[1.0],
-        plan_vector=[1.0],
-        identificadores_pedidos="IDMAP1|1|WA==:WA==",
-        instancia_id="UI-2026-08-30-6001",
-        fecha_operacion="2026-08-30",
-        seed_escenario=6001,
-        seed_ejecucion=1006001,
-        proveedores_habilitados=True,
-        timeout_segundos=1,
-        sim_factory=fabrica,
-    )
-
-    assert resultado.estado_motor == "FINISHED"
-    assert resultado.costo_total == 235.0
-    assert creado[0].consultas_estado >= 1
-    assert creado[0].cierres == 1
+        assert resultado.estado_motor == "FINISHED"
+        assert resultado.costo_total == 235.0
+        assert creado[0].cierres == 1
 
 
-def test_cierra_motor_si_el_resultado_terminal_nunca_se_publica(
-    tmp_path: Path,
-):
-    modelo = tmp_path / "modelo.zip"
-    modelo.write_bytes(b"zip")
-    raiz = tmp_path / "python"
-    raiz.mkdir()
-    creado: list[SimFalso] = []
+def test_recupera_estado_terminal_si_take_action_devuelve_paused_obsoleto():
+    with TemporaryDirectory() as temporal_str:
+        temporal = Path(temporal_str)
+        modelo = temporal / "modelo.zip"
+        modelo.write_bytes(b"zip")
+        raiz = temporal / "python"
+        raiz.mkdir()
+        creado = []
 
-    observacion_no_terminal = {
-        "error": False,
-        "configurado": True,
-        "ejecucionFinalizada": False,
-        "resultadoDisponible": False,
-    }
+        @dataclass
+        class EstadoConSecuencia(EstadoFalso):
+            sequence_id: int = 0
 
-    class SimPausadoSinResultado(SimFalso):
-        def take_action(self, **kwargs):
-            self.accion = kwargs
-            return EstadoFalso(
-                observation=dict(observacion_no_terminal),
-                state="PAUSED",
-                stop=False,
-            )
+        class SimEstadoObsoleto(SimFalso):
+            def __init__(self, *args, **kwargs):
+                super().__init__(*args, **kwargs)
+                self.consultas_estado = 0
 
-        def status(self):
-            return EstadoFalso(
-                observation=dict(observacion_no_terminal),
-                state="PAUSED",
-                stop=False,
-            )
+            def reset(self, **kwargs):
+                self.configuracion = kwargs
+                return EstadoConSecuencia(
+                    observation={
+                        "error": False,
+                        "mensaje": "ESPERANDO ACCIÓN",
+                        "configurado": True,
+                    },
+                    state="PAUSED",
+                    stop=False,
+                    sequence_id=1,
+                )
 
-    def fabrica(*args, **kwargs):
-        sim = SimPausadoSinResultado(*args, **kwargs)
-        creado.append(sim)
-        return sim
+            def take_action(self, **kwargs):
+                self.accion = kwargs
+                return EstadoConSecuencia(
+                    observation={
+                        "error": False,
+                        "configurado": True,
+                        "ejecucionFinalizada": False,
+                        "resultadoDisponible": False,
+                    },
+                    state="PAUSED",
+                    stop=False,
+                    sequence_id=1,
+                )
 
-    with pytest.raises(
-        ErrorEjecucionSimulada,
-        match="no publicó un resultado terminal",
-    ):
-        ejecutar_plan_en_modelo_exportado(
+            def status(self):
+                self.consultas_estado += 1
+                return EstadoConSecuencia(
+                    observation=dict(OBSERVACION_FINAL),
+                    state="FINISHED",
+                    stop=False,
+                    sequence_id=2,
+                )
+
+        def fabrica(*args, **kwargs):
+            sim = SimEstadoObsoleto(*args, **kwargs)
+            creado.append(sim)
+            return sim
+
+        resultado = ejecutar_plan_en_modelo_exportado(
             modelo_exportado=modelo,
             raiz_python=raiz,
             instancia_vector=[1.0],
@@ -422,33 +365,97 @@ def test_cierra_motor_si_el_resultado_terminal_nunca_se_publica(
             sim_factory=fabrica,
         )
 
-    assert creado[0].cierres == 1
+        assert resultado.estado_motor == "FINISHED"
+        assert resultado.costo_total == 235.0
+        assert creado[0].consultas_estado >= 1
+        assert creado[0].cierres == 1
 
 
-def test_rechaza_horizonte_simulado_no_positivo(tmp_path: Path):
-    modelo = tmp_path / "modelo.zip"
-    modelo.write_bytes(b"zip")
-    raiz = tmp_path / "python"
-    raiz.mkdir()
+def test_cierra_motor_si_el_resultado_terminal_nunca_se_publica():
+    with TemporaryDirectory() as temporal_str:
+        temporal = Path(temporal_str)
+        modelo = temporal / "modelo.zip"
+        modelo.write_bytes(b"zip")
+        raiz = temporal / "python"
+        raiz.mkdir()
+        creado: list[SimFalso] = []
 
-    with pytest.raises(
-        ValueError,
-        match="horizonte_simulacion_min",
-    ):
-        ejecutar_plan_en_modelo_exportado(
-            modelo_exportado=modelo,
-            raiz_python=raiz,
-            instancia_vector=[1.0],
-            plan_vector=[1.0],
-            identificadores_pedidos="IDMAP1|1|WA==:WA==",
-            instancia_id="UI-2026-08-30-6001",
-            fecha_operacion="2026-08-30",
-            seed_escenario=6001,
-            seed_ejecucion=1006001,
-            proveedores_habilitados=True,
-            horizonte_simulacion_min=0.0,
-            sim_factory=SimFalso,
-        )
+        observacion_no_terminal = {
+            "error": False,
+            "configurado": True,
+            "ejecucionFinalizada": False,
+            "resultadoDisponible": False,
+        }
+
+        class SimPausadoSinResultado(SimFalso):
+            def take_action(self, **kwargs):
+                self.accion = kwargs
+                return EstadoFalso(
+                    observation=dict(observacion_no_terminal),
+                    state="PAUSED",
+                    stop=False,
+                )
+
+            def status(self):
+                return EstadoFalso(
+                    observation=dict(observacion_no_terminal),
+                    state="PAUSED",
+                    stop=False,
+                )
+
+        def fabrica(*args, **kwargs):
+            sim = SimPausadoSinResultado(*args, **kwargs)
+            creado.append(sim)
+            return sim
+
+        with pytest.raises(
+            ErrorEjecucionSimulada,
+            match="no publicó un resultado terminal",
+        ):
+            ejecutar_plan_en_modelo_exportado(
+                modelo_exportado=modelo,
+                raiz_python=raiz,
+                instancia_vector=[1.0],
+                plan_vector=[1.0],
+                identificadores_pedidos="IDMAP1|1|WA==:WA==",
+                instancia_id="UI-2026-08-30-6001",
+                fecha_operacion="2026-08-30",
+                seed_escenario=6001,
+                seed_ejecucion=1006001,
+                proveedores_habilitados=True,
+                timeout_segundos=1,
+                sim_factory=fabrica,
+            )
+
+        assert creado[0].cierres == 1
+
+
+def test_rechaza_horizonte_simulado_no_positivo():
+    with TemporaryDirectory() as temporal_str:
+        temporal = Path(temporal_str)
+        modelo = temporal / "modelo.zip"
+        modelo.write_bytes(b"zip")
+        raiz = temporal / "python"
+        raiz.mkdir()
+
+        with pytest.raises(
+            ValueError,
+            match="horizonte_simulacion_min",
+        ):
+            ejecutar_plan_en_modelo_exportado(
+                modelo_exportado=modelo,
+                raiz_python=raiz,
+                instancia_vector=[1.0],
+                plan_vector=[1.0],
+                identificadores_pedidos="IDMAP1|1|WA==:WA==",
+                instancia_id="UI-2026-08-30-6001",
+                fecha_operacion="2026-08-30",
+                seed_escenario=6001,
+                seed_ejecucion=1006001,
+                proveedores_habilitados=True,
+                horizonte_simulacion_min=0.0,
+                sim_factory=SimFalso,
+            )
 
 
 def test_codifica_identificadores_en_orden():

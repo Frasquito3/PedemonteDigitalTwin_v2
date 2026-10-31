@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from tempfile import TemporaryDirectory
 
 import pandas as pd
 import pytest
@@ -137,29 +138,31 @@ def test_validacion_api_key_inexistente(monkeypatch):
         obtener_cliente_genai()
 
 
-def test_escritura_atomica_ocr_y_geocoding_preserva_archivo_ante_fallo(tmp_path: Path):
+def test_escritura_atomica_ocr_y_geocoding_preserva_archivo_ante_fallo():
     """Verifica que las escrituras atómicas persistan sin dejar .tmp y preserven el archivo previo ante fallos."""
-    ruta_progreso_ocr = tmp_path / "progreso_ocr.json"
-    ruta_resultado_ocr = tmp_path / "direcciones.json"
-    ruta_progreso_geo = tmp_path / "progreso_geo.json"
+    with TemporaryDirectory() as temporal_str:
+        temporal = Path(temporal_str)
+        ruta_progreso_ocr = temporal / "progreso_ocr.json"
+        ruta_resultado_ocr = temporal / "direcciones.json"
+        ruta_progreso_geo = temporal / "progreso_geo.json"
 
-    guardar_progreso_ocr(ruta_progreso_ocr, {"img_02.jpg", "img_01.jpg"})
-    assert cargar_progreso_ocr(ruta_progreso_ocr) == {"img_01.jpg", "img_02.jpg"}
+        guardar_progreso_ocr(ruta_progreso_ocr, {"img_02.jpg", "img_01.jpg"})
+        assert cargar_progreso_ocr(ruta_progreso_ocr) == {"img_01.jpg", "img_02.jpg"}
 
-    datos_iniciales = [{"calle": "San Martín", "altura": "1200"}]
-    guardar_resultado_ocr(ruta_resultado_ocr, datos_iniciales)
-    assert cargar_resultado_ocr(ruta_resultado_ocr) == datos_iniciales
+        datos_iniciales = [{"calle": "San Martín", "altura": "1200"}]
+        guardar_resultado_ocr(ruta_resultado_ocr, datos_iniciales)
+        assert cargar_resultado_ocr(ruta_resultado_ocr) == datos_iniciales
 
-    guardar_progreso_geo(ruta_progreso_geo, 1, datos_iniciales, [])
-    estado_geo = cargar_progreso_geo(ruta_progreso_geo)
-    assert estado_geo["procesados"] == 1
-    assert estado_geo["validos"] == datos_iniciales
+        guardar_progreso_geo(ruta_progreso_geo, 1, datos_iniciales, [])
+        estado_geo = cargar_progreso_geo(ruta_progreso_geo)
+        assert estado_geo["procesados"] == 1
+        assert estado_geo["validos"] == datos_iniciales
 
-    # Si ocurre un error de serialización a mitad de escritura, el archivo original queda intacto
-    # y no quedan archivos temporales (.tmp) huérfanos.
-    with pytest.raises(TypeError):
-        guardar_resultado_ocr(ruta_resultado_ocr, [{"invalido": object()}])  # type: ignore[dict-item]
+        # Si ocurre un error de serialización a mitad de escritura, el archivo original queda intacto
+        # y no quedan archivos temporales (.tmp) huérfanos.
+        with pytest.raises(TypeError):
+            guardar_resultado_ocr(ruta_resultado_ocr, [{"invalido": object()}])  # type: ignore[dict-item]
 
-    assert cargar_resultado_ocr(ruta_resultado_ocr) == datos_iniciales
-    archivos_tmp = list(tmp_path.glob("*.tmp"))
-    assert archivos_tmp == []
+        assert cargar_resultado_ocr(ruta_resultado_ocr) == datos_iniciales
+        archivos_tmp = list(temporal.glob("*.tmp"))
+        assert archivos_tmp == []

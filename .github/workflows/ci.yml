@@ -5,17 +5,41 @@ on:
     branches: [main]
     paths:
       - "python/**"
+      - "pyproject.toml"
       - ".github/workflows/ci.yml"
   pull_request:
     branches: [main]
     paths:
       - "python/**"
+      - "pyproject.toml"
       - ".github/workflows/ci.yml"
 
 permissions:
   contents: read
 
 jobs:
+  lint:
+    name: Estilo y Formato (Ruff)
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: python/requirements.txt
+
+      - name: Instalar dependencias
+        run: python -m pip install -r python/requirements.txt
+
+      - name: Verificar lint con Ruff
+        run: python -m ruff check python
+
+      - name: Verificar formato con Ruff
+        run: python -m ruff format --check python
+
   test:
     name: Tests
     runs-on: ubuntu-latest
