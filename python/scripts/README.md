@@ -34,5 +34,6 @@ Automatiza las corridas de simulación con el modelo AnyLogic:
 
 ### 3. `training` y `rl` — Entrenamiento de Políticas RL
 - `train_rl_policy.py`: Entrenamiento curricular con máscaras duras, selección lexicográfica y validación sobre benchmarks externos.
-- `train_rl_v2.py`: Transferencia de pesos por simetría para escalar el soporte de 30 a 35 tareas simultáneas.
+- `train_rl.py`: Pipeline unificado y reproducible de entrenamiento RL guiado por archivos JSON en `configs/`.
+- `train_rl_v2.py`: Wrapper de compatibilidad que delega en `train_rl.py` con la configuración V2.
 

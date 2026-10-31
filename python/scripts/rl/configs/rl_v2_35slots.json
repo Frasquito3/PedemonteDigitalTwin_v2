@@ -1,0 +1,64 @@
+{
+  "experimento_id": "v2",
+  "descripcion": "Politica RL de 35 slots con ordenamiento canonico, mascara temporal dura y transferencia de pesos desde V1",
+  "seed_global": 20261030,
+  "activar_como_modelo_actual": true,
+  "arquitectura": {
+    "max_pedidos": 35,
+    "net_arch_pi": [256, 256],
+    "net_arch_vf": [256, 256],
+    "usar_mascara_temporal_dura": true,
+    "ordenar_slots_canonicamente": true
+  },
+  "inicializacion": {
+    "modo": "transfer_learning",
+    "modelo_base": "models/rl/historial/rl_policy_v1.zip",
+    "max_pedidos_modelo_base": 30,
+    "slots_entrenados_modelo_base": 12
+  },
+  "hiperparametros_ppo": {
+    "learning_rate": 1.5e-05,
+    "n_steps": 256,
+    "batch_size": 128,
+    "n_epochs": 6,
+    "gamma": 1.0,
+    "gae_lambda": 0.95,
+    "clip_range": 0.2,
+    "ent_coef": 0.008
+  },
+  "curriculum": [
+    {
+      "nombre": "etapa_1_turnos_chicos",
+      "rango_tareas": [6, 14],
+      "timesteps": 2048,
+      "seed_entorno": 101
+    },
+    {
+      "nombre": "etapa_2_turnos_medianos",
+      "rango_tareas": [12, 24],
+      "timesteps": 2048,
+      "seed_entorno": 202
+    },
+    {
+      "nombre": "etapa_3_turnos_grandes",
+      "rango_tareas": [8, 32],
+      "timesteps": 2048,
+      "seed_entorno": 303
+    }
+  ],
+  "inferencia_operativa": {
+    "num_rollouts": 16,
+    "deterministic": true
+  },
+  "evaluacion": {
+    "ejecutar_comparacion": true,
+    "manifiesto_referencia": "models/rl/historial/rl_policies_v1.json",
+    "cantidad_turnos_por_segmento": 20,
+    "seed_inicio_turnos_chicos": 500001,
+    "paso_seed_turnos_chicos": 17,
+    "rango_tareas_chicos": [6, 12],
+    "seed_inicio_turnos_grandes": 700001,
+    "paso_seed_turnos_grandes": 29,
+    "rango_tareas_grandes": [14, 32]
+  }
+}

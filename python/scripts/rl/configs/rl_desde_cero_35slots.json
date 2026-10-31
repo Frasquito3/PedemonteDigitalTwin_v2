@@ -1,0 +1,64 @@
+{
+  "experimento_id": "v2_scratch",
+  "descripcion": "Entrenamiento curricular desde cero para politica RL de 35 slots sin transferencia previa",
+  "seed_global": 20261101,
+  "activar_como_modelo_actual": false,
+  "arquitectura": {
+    "max_pedidos": 35,
+    "net_arch_pi": [256, 256],
+    "net_arch_vf": [256, 256],
+    "usar_mascara_temporal_dura": true,
+    "ordenar_slots_canonicamente": true
+  },
+  "inicializacion": {
+    "modo": "desde_cero",
+    "modelo_base": null,
+    "max_pedidos_modelo_base": 35,
+    "slots_entrenados_modelo_base": 0
+  },
+  "hiperparametros_ppo": {
+    "learning_rate": 3e-04,
+    "n_steps": 512,
+    "batch_size": 128,
+    "n_epochs": 10,
+    "gamma": 1.0,
+    "gae_lambda": 0.95,
+    "clip_range": 0.2,
+    "ent_coef": 0.01
+  },
+  "curriculum": [
+    {
+      "nombre": "etapa_1_turnos_chicos",
+      "rango_tareas": [6, 12],
+      "timesteps": 10240,
+      "seed_entorno": 1101
+    },
+    {
+      "nombre": "etapa_2_turnos_medianos",
+      "rango_tareas": [10, 22],
+      "timesteps": 15360,
+      "seed_entorno": 1202
+    },
+    {
+      "nombre": "etapa_3_turnos_grandes",
+      "rango_tareas": [8, 32],
+      "timesteps": 20480,
+      "seed_entorno": 1303
+    }
+  ],
+  "inferencia_operativa": {
+    "num_rollouts": 16,
+    "deterministic": true
+  },
+  "evaluacion": {
+    "ejecutar_comparacion": true,
+    "manifiesto_referencia": "models/rl/historial/rl_policies_v1.json",
+    "cantidad_turnos_por_segmento": 20,
+    "seed_inicio_turnos_chicos": 500001,
+    "paso_seed_turnos_chicos": 17,
+    "rango_tareas_chicos": [6, 12],
+    "seed_inicio_turnos_grandes": 700001,
+    "paso_seed_turnos_grandes": 29,
+    "rango_tareas_grandes": [14, 32]
+  }
+}

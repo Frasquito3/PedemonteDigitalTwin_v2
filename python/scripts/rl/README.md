@@ -1,14 +1,29 @@
-# Módulo `scripts.rl` — Evolución y Actualización de Modelos RL
+# Módulo `scripts.rl` — Entrenamiento Reproducible de Modelos RL por Configuración JSON
 
-Este módulo contiene scripts de transferencia de conocimiento y escalamiento dimensional para las políticas neuronales de ruteo.
+Este módulo centraliza el entrenamiento de políticas de Aprendizaje por Refuerzo (`MaskablePPO`) guiado por archivos de configuración JSON para garantizar **100% de reproducibilidad**.
 
 ---
 
-## Archivos del Módulo
+## Estructura de Modelos (`python/models/rl/`)
 
-### `train_rl_v2.py`
-Entrena la versión extendida de la política (RL_V2, hasta 35 tareas):
-- Respalda el modelo original en `rl_policy_v1.zip` y `rl_policies_v1.json`.
-- Transfiere los pesos aprendidos de 30 a 35 slots mediante simetría y escalamiento de varianza.
-- Ejecuta un curriculum en 3 etapas (baja, media y alta complejidad) y actualiza los artefactos productivos en `models/rl/`.
+- `python/models/rl/rl_policy.zip`: **Único modelo activo en producción** consumido por AnyLogic.
+- `python/models/rl/rl_policies.json`: **Manifiesto activo** con el hash SHA-256, configuración operativa y los parámetros exactos con los que fue entrenado.
+- `python/models/rl/historial/`: Carpeta con todos los modelos anteriores y experimentales (`rl_policy_v1.zip`, `rl_policy_v2.zip`, etc.) junto a sus respectivos manifiestos JSON.
 
+---
+
+## Cómo Entrenar un Modelo o Correr un Nuevo Experimento
+
+1. **Definir o elegir el archivo JSON de parámetros** en `python/scripts/rl/configs/`:
+   - `configs/rl_v2_35slots.json`: Configuración del modelo V2 actual (35 slots, orden canónico, currículum de 3 etapas con transferencia de pesos desde V1).
+   - `configs/rl_desde_cero_35slots.json`: Plantilla para entrenar un modelo de 35 slots desde cero sin transferencia previa.
+
+2. **Ejecutar el script único de entrenamiento (`train_rl.py`)**:
+
+```bash
+# Entrenar con la configuración de un experimento específico
+python python/scripts/rl/train_rl.py --config python/scripts/rl/configs/rl_v2_35slots.json
+
+# Entrenar un experimento nuevo y guardarlo solo en models/rl/historial/ sin pisar el modelo activo de AnyLogic
+python python/scripts/rl/train_rl.py --config python/scripts/rl/configs/rl_desde_cero_35slots.json --no-activar
+```
