@@ -308,7 +308,7 @@ def crear_instancia_desde_excel(
                 archivo_excel,
                 turno=candidato,
                 capacidad_camion=8,
-                max_tareas=30,
+                max_tareas=35,
             )
             break
         except ErrorImportacionExcel as exc:
@@ -412,7 +412,7 @@ def ejecutar_experimento_comparacion(
     archivo_excel: Path | None = None,
     directorio_turnos: Path | None = None,
     generar_dias: int | None = None,
-    rango_pedidos: tuple[int, int] | None = (8, 12),
+    rango_pedidos: tuple[int, int] | None = None,
     turno: str = "AUTO",
     repeticiones: int = 3,
     seed: int | None = None,
@@ -568,7 +568,7 @@ def ejecutar_experimento_comparacion(
                 crear_consolidado=True,
                 seed=seed_inicial,
                 usar_timestamp=False,
-                max_tareas=12,
+                max_tareas=35,
             )
             tiempo_generacion_s = perf_counter() - inicio_generacion
             directorio_turnos = carpeta_turnos_gen
@@ -732,7 +732,7 @@ def ejecutar_experimento_comparacion(
     inicio_selector = perf_counter()
     estado_selector = selector_bridge.inicializar(
         model_path=str(raiz / "models" / "rl" / "rl_policies.json"),
-        max_pedidos=30,
+        max_pedidos=35,
         deterministic=True,
         cache_vial_path=str(raiz / "data" / "routing" / "cache_vial.csv"),
         version_cache_vial="pedemonte-vial-v1",
@@ -1215,8 +1215,8 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--pedidos-por-dia",
         type=str,
-        default="8-12",
-        help="Rango de pedidos por día al usar --generar-dias (por defecto: 8-12).",
+        default="bootstrap",
+        help="Rango de pedidos por día al usar --generar-dias (por defecto: bootstrap).",
     )
     parser.add_argument(
         "--turno",
