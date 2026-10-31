@@ -83,7 +83,7 @@ def _hardware_windows() -> dict[str, Any]:
     try:
         proceso = subprocess.run(
             [
-                powershell,
+                str(powershell),
                 "-NoProfile",
                 "-NonInteractive",
                 "-Command",
