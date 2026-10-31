@@ -40,6 +40,7 @@ from planner.rl.policy_planner import (
     _asegurar_compatibilidad_numpy,
 )
 from planner.rl.policy_runtime import VERSION_RUNTIME, PlanificadorOperativoRL
+from planner.rl.reward import ConfiguracionRewardRL, ModoRewardRL
 from planner.routing.objective import evaluar_plan_estimado
 from planner.routing.travel import ProveedorHaversineAjustado, construir_matriz_viaje
 
@@ -143,21 +144,31 @@ def construir_instancia_entrenamiento(
     rango_tareas: tuple[int, int],
     seed_escenario: int,
     max_pedidos: int = MAX_PEDIDOS_V2,
+    *,
+    prob_tarde: float = 0.45,
+    prob_ventana: float = 0.55,
+    escalar_camiones_por_tareas: bool = False,
 ) -> InstanciaTurno:
     """Genera una InstanciaTurno sintética y realista para etapas de entrenamiento RL."""
     rng = random.Random(seed_escenario)
-    turno_str = "MANANA" if rng.random() < 0.55 else "TARDE"
+    prob_manana = max(0.0, min(1.0, 1.0 - float(prob_tarde)))
+    turno_str = "MANANA" if rng.random() < prob_manana else "TARDE"
     turno_enum = Turno.MANANA if turno_str == "MANANA" else Turno.TARDE
     inicio_min, fin_obj_min, fin_tol_min = (
         (450, 720, 735) if turno_enum == Turno.MANANA else (840, 1020, 1035)
     )
 
     tareas_objetivo = rng.randint(rango_tareas[0], rango_tareas[1])
+    camiones_prom = (
+        max(2.0, min(9.5, tareas_objetivo * 0.38)) if escalar_camiones_por_tareas else 6.0
+    )
     pedidos_gen = generar_pedidos_para_un_dia(
         ubicaciones=ubicaciones,
         cantidad_pedidos=tareas_objetivo,
         turno=turno_str,
         dia_numero=1,
+        prob_ventana=prob_ventana,
+        camiones_turno_promedio=camiones_prom,
         rng=rng,
         max_tareas=tareas_objetivo,
     )
@@ -223,17 +234,28 @@ class EntornoCurricularMultiInstancia(gym.Env[np.ndarray, int]):
         max_pedidos: int = MAX_PEDIDOS_V2,
         usar_mascara_temporal_dura: bool = True,
         ordenar_slots_canonicamente: bool = True,
+        *,
+        prob_tarde: float = 0.45,
+        prob_ventana: float = 0.55,
+        escalar_camiones_por_tareas: bool = False,
+        modo_reward: ModoRewardRL = ModoRewardRL.ABSOLUTO,
+        peso_terminal_costo_acotado: float = 0.50,
     ) -> None:
         super().__init__()
         self.ubicaciones = ubicaciones
         self.rango_tareas = rango_tareas
         self.rng = random.Random(seed_base)
         self.max_pedidos = max_pedidos
+        self.prob_tarde = prob_tarde
+        self.prob_ventana = prob_ventana
+        self.escalar_camiones_por_tareas = escalar_camiones_por_tareas
         self.config_plan = ConfiguracionPlanificacion()
         self.proveedor = ProveedorHaversineAjustado()
+        self.config_reward = ConfiguracionRewardRL(modo=modo_reward)
         self.config_pol = ConfiguracionPoliticaRL(
             usar_mascara_temporal_dura=usar_mascara_temporal_dura,
             ordenar_slots_canonicamente=ordenar_slots_canonicamente,
+            peso_terminal_costo_acotado=peso_terminal_costo_acotado,
         )
         self._env_interno = self._crear_env_nuevo()
         self.action_space = self._env_interno.action_space
@@ -246,12 +268,16 @@ class EntornoCurricularMultiInstancia(gym.Env[np.ndarray, int]):
             self.rango_tareas,
             seed_esc,
             max_pedidos=self.max_pedidos,
+            prob_tarde=self.prob_tarde,
+            prob_ventana=self.prob_ventana,
+            escalar_camiones_por_tareas=self.escalar_camiones_por_tareas,
         )
         return EntornoPlanificacionRL(
             instancia=instancia,
             configuracion=self.config_plan,
             proveedor_viaje=self.proveedor,
             max_pedidos=self.max_pedidos,
+            configuracion_reward=self.config_reward,
             configuracion_temporal=self.config_pol,
         )
 
@@ -358,13 +384,81 @@ def transferir_pesos_v1_a_v2(
     modelo_v2.policy.load_state_dict(sd_v2)
 
 
+def _evaluar_modelo_en_memoria(
+    modelo: MaskablePPO,
+    instancias_val: list[InstanciaTurno],
+    config_pol: ConfiguracionPoliticaRL,
+    max_pedidos: int,
+    num_rollouts: int = 8,
+) -> tuple[float, float, int]:
+    """Evalúa el modelo actual en memoria sobre un lote de validación sin tocar el RNG global."""
+    estado_py = random.getstate()
+    estado_np = np.random.get_state()
+    estado_torch = torch.get_rng_state()
+
+    config_plan = ConfiguracionPlanificacion()
+    proveedor = ProveedorHaversineAjustado()
+    total_tardios = 0
+    total_tardanza = 0.0
+    total_costo = 0.0
+
+    try:
+        for inst in instancias_val:
+            env = EntornoPlanificacionRL(
+                instancia=inst,
+                configuracion=config_plan,
+                proveedor_viaje=proveedor,
+                configuracion_temporal=config_pol,
+                max_pedidos=max_pedidos,
+            )
+            try:
+                seed_rl = inst.seed_ejecucion if inst.seed_ejecucion > 0 else inst.seed_escenario
+                mejor_clave: tuple[float, float, int] | None = None
+                for k in range(max(1, num_rollouts)):
+                    determinista = k == 0
+                    seed_ep = seed_rl + k * 997
+                    if not determinista and hasattr(modelo, "set_random_seed"):
+                        modelo.set_random_seed(seed_ep)
+                    obs, _ = env.reset(seed=seed_ep)
+                    terminado = False
+                    while not terminado:
+                        mascara = env.action_masks()
+                        accion, _ = modelo.predict(
+                            obs,
+                            action_masks=mascara,
+                            deterministic=determinista,
+                        )
+                        accion_int = int(np.asarray(accion).item())
+                        obs, _, terminado, _, _ = env.step(accion_int)
+                    plan_k = env.ultimo_plan
+                    est_k = env.ultima_estimacion
+                    costo_k = float(plan_k.costo_estimado) if plan_k is not None else 1e9
+                    tardios_k = int(est_k.pedidos_tardios) if est_k is not None else 999
+                    tardanza_k = float(est_k.tardanza_total_min) if est_k is not None else 1e9
+                    clave_k = (costo_k, tardanza_k, tardios_k)
+                    if mejor_clave is None or clave_k < mejor_clave:
+                        mejor_clave = clave_k
+                assert mejor_clave is not None
+                total_costo += mejor_clave[0] / max(1, len(instancias_val))
+                total_tardanza += mejor_clave[1]
+                total_tardios += mejor_clave[2]
+            finally:
+                env.close()
+    finally:
+        random.setstate(estado_py)
+        np.random.set_state(estado_np)
+        torch.set_rng_state(estado_torch)
+
+    return (round(total_costo, 4), round(total_tardanza, 4), total_tardios)
+
+
 def evaluar_lote_comparativo(
     ubicaciones: list[UbicacionHistorica],
     ruta_manifiesto_v1: Path,
     ruta_manifiesto_v2: Path,
     config_eval: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    """Compara el modelo de referencia (V1), el nuevo modelo entrenado y GREEDY."""
+    """Compara el modelo de referencia (V1), el nuevo modelo entrenado, V2 previo (opcional) y GREEDY."""
     cfg = config_eval or {}
     n_turnos = int(cfg.get("cantidad_turnos_por_segmento", 20))
     seed_chicos = int(cfg.get("seed_inicio_turnos_chicos", 500_001))
@@ -393,31 +487,69 @@ def evaluar_lote_comparativo(
         max_pedidos=MAX_PEDIDOS_V2,
     )
 
+    planner_prev: PlanificadorOperativoRL | None = None
+    ref_prev_rel = cfg.get("manifiesto_v2_previo")
+    if ref_prev_rel:
+        ruta_prev = (PYTHON_ROOT / str(ref_prev_rel)).resolve()
+        if ruta_prev.is_file() and ruta_prev != ruta_manifiesto_v2.resolve():
+            planner_prev = PlanificadorOperativoRL(
+                manifest_path=ruta_prev,
+                configuracion=config,
+                proveedor_viaje=proveedor,
+                max_pedidos=MAX_PEDIDOS_V2,
+            )
+
     semillas_chicas = [seed_chicos + i * paso_chicos for i in range(n_turnos)]
     res_chicos: dict[str, dict[str, Any]] = {
         "RL_V1": {"tardios": 0, "tardanza_min": 0.0, "costo_promedio": 0.0, "exitos": 0},
         "RL_V2": {"tardios": 0, "tardanza_min": 0.0, "costo_promedio": 0.0, "exitos": 0},
         "GREEDY": {"tardios": 0, "tardanza_min": 0.0, "costo_promedio": 0.0, "exitos": 0},
     }
+    if planner_prev is not None:
+        res_chicos["RL_V2_PREVIO"] = {
+            "tardios": 0,
+            "tardanza_min": 0.0,
+            "costo_promedio": 0.0,
+            "exitos": 0,
+        }
+
+    victorias_vs_prev = 0
+    empates_vs_prev = 0
+    derrotas_vs_prev = 0
 
     for s in semillas_chicas:
         inst = construir_instancia_entrenamiento(ubicaciones, rango_chicos, s)
         matriz = construir_matriz_viaje(inst, config, proveedor)
 
-        for nombre, fn in (
+        metodos_chicos: list[tuple[str, Any]] = [
             ("RL_V1", planner_v1.generar_plan),
             ("RL_V2", planner_v2.generar_plan),
             (
                 "GREEDY",
                 lambda x: generar_plan_greedy(x, configuracion=config, proveedor_viaje=proveedor),
             ),
-        ):
+        ]
+        if planner_prev is not None:
+            metodos_chicos.append(("RL_V2_PREVIO", planner_prev.generar_plan))
+
+        costos_turno: dict[str, float] = {}
+        for nombre, fn in metodos_chicos:
             plan = fn(inst)
             est = evaluar_plan_estimado(inst, plan, matriz, config)
             res_chicos[nombre]["tardios"] += int(est.pedidos_tardios)
             res_chicos[nombre]["tardanza_min"] += float(est.tardanza_total_min)
             res_chicos[nombre]["costo_promedio"] += float(est.costo_total) / len(semillas_chicas)
             res_chicos[nombre]["exitos"] += 1
+            costos_turno[nombre] = float(est.costo_total)
+
+        if "RL_V2_PREVIO" in costos_turno:
+            diff = costos_turno["RL_V2"] - costos_turno["RL_V2_PREVIO"]
+            if diff < -1e-6:
+                victorias_vs_prev += 1
+            elif diff > 1e-6:
+                derrotas_vs_prev += 1
+            else:
+                empates_vs_prev += 1
 
     semillas_grandes = [seed_grandes + i * paso_grandes for i in range(n_turnos)]
     res_grandes: dict[str, dict[str, Any]] = {
@@ -435,6 +567,13 @@ def evaluar_lote_comparativo(
             "costo_promedio": 0.0,
         },
     }
+    if planner_prev is not None:
+        res_grandes["RL_V2_PREVIO"] = {
+            "ejecutables": 0,
+            "tardios": 0,
+            "tardanza_min": 0.0,
+            "costo_promedio": 0.0,
+        }
 
     for s in semillas_grandes:
         inst = construir_instancia_entrenamiento(ubicaciones, rango_grandes, s)
@@ -453,6 +592,23 @@ def evaluar_lote_comparativo(
         res_grandes["RL_V2"]["tardanza_min"] += float(est_v2.tardanza_total_min)
         res_grandes["RL_V2"]["costo_promedio"] += float(est_v2.costo_total) / len(semillas_grandes)
 
+        if planner_prev is not None:
+            plan_prev = planner_prev.generar_plan(inst)
+            est_prev = evaluar_plan_estimado(inst, plan_prev, matriz, config)
+            res_grandes["RL_V2_PREVIO"]["ejecutables"] += 1
+            res_grandes["RL_V2_PREVIO"]["tardios"] += int(est_prev.pedidos_tardios)
+            res_grandes["RL_V2_PREVIO"]["tardanza_min"] += float(est_prev.tardanza_total_min)
+            res_grandes["RL_V2_PREVIO"]["costo_promedio"] += float(est_prev.costo_total) / len(
+                semillas_grandes
+            )
+            diff_g = float(est_v2.costo_total) - float(est_prev.costo_total)
+            if diff_g < -1e-6:
+                victorias_vs_prev += 1
+            elif diff_g > 1e-6:
+                derrotas_vs_prev += 1
+            else:
+                empates_vs_prev += 1
+
         plan_gr = generar_plan_greedy(inst, configuracion=config, proveedor_viaje=proveedor)
         est_gr = evaluar_plan_estimado(inst, plan_gr, matriz, config)
         res_grandes["GREEDY"]["ejecutables"] += 1
@@ -460,10 +616,22 @@ def evaluar_lote_comparativo(
         res_grandes["GREEDY"]["tardanza_min"] += float(est_gr.tardanza_total_min)
         res_grandes["GREEDY"]["costo_promedio"] += float(est_gr.costo_total) / len(semillas_grandes)
 
-    return {
+    salida: dict[str, Any] = {
         "turnos_6_a_12_tareas": res_chicos,
         "turnos_14_a_32_tareas": res_grandes,
     }
+    if planner_prev is not None:
+        total_eval = len(semillas_chicas) + len(semillas_grandes)
+        salida["comparacion_pareada_vs_v2_previo"] = {
+            "turnos_totales": total_eval,
+            "victorias_nuevo": victorias_vs_prev,
+            "empates": empates_vs_prev,
+            "derrotas_nuevo": derrotas_vs_prev,
+            "tasa_no_inferioridad_pct": round(
+                100.0 * (victorias_vs_prev + empates_vs_prev) / max(1, total_eval), 2
+            ),
+        }
+    return salida
 
 
 def ejecutar_entrenamiento_desde_config(
@@ -482,6 +650,13 @@ def ejecutar_entrenamiento_desde_config(
     orden_canonico = bool(arq.get("ordenar_slots_canonicamente", True))
     net_pi = [int(x) for x in arq.get("net_arch_pi", [256, 256])]
     net_vf = [int(x) for x in arq.get("net_arch_vf", [256, 256])]
+    modo_reward_str = str(arq.get("modo_reward", "ABSOLUTO")).strip().upper()
+    modo_reward_enum = (
+        ModoRewardRL.VENTAJA_GREEDY_RELATIVA
+        if modo_reward_str == "VENTAJA_GREEDY_RELATIVA"
+        else ModoRewardRL.ABSOLUTO
+    )
+    peso_costo_terminal = float(arq.get("peso_terminal_costo_acotado", 0.50))
 
     ppo_cfg = config["hiperparametros_ppo"]
     init_cfg = config["inicializacion"]
@@ -508,12 +683,29 @@ def ejecutar_entrenamiento_desde_config(
         max_pedidos=max_pedidos,
         usar_mascara_temporal_dura=usar_mascara,
         ordenar_slots_canonicamente=orden_canonico,
+        prob_tarde=float(primera_etapa.get("prob_tarde", 0.45)),
+        prob_ventana=float(primera_etapa.get("prob_ventana", 0.55)),
+        escalar_camiones_por_tareas=bool(primera_etapa.get("escalar_camiones_por_tareas", False)),
+        modo_reward=modo_reward_enum,
+        peso_terminal_costo_acotado=peso_costo_terminal,
     )
+
+    lr_ini = float(ppo_cfg.get("learning_rate", 1.5e-5))
+    lr_tipo = str(ppo_cfg.get("lr_schedule", "constante")).strip().lower()
+    if lr_tipo == "lineal":
+        lr_fin = float(ppo_cfg.get("learning_rate_final", lr_ini * 0.25))
+
+        def lr_schedule_fn(prog: float | int) -> float:
+            return lr_fin + float(prog) * (lr_ini - lr_fin)
+
+        lr_param: Any = lr_schedule_fn
+    else:
+        lr_param = lr_ini
 
     modelo = MaskablePPO(
         "MlpPolicy",
         env_inicial,
-        learning_rate=float(ppo_cfg.get("learning_rate", 1.5e-5)),
+        learning_rate=lr_param,
         n_steps=int(ppo_cfg.get("n_steps", 256)),
         batch_size=int(ppo_cfg.get("batch_size", 128)),
         n_epochs=int(ppo_cfg.get("n_epochs", 6)),
@@ -544,6 +736,73 @@ def ejecutar_entrenamiento_desde_config(
         )
         print(f"[OK] Pesos transferidos desde {ruta_base.name} a {max_pedidos} slots.")
 
+    eval_cfg = config.get("evaluacion", {})
+    seleccionar_mejor = bool(eval_cfg.get("seleccionar_mejor_etapa", False))
+    inf_cfg = config.get("inferencia_operativa", {})
+    num_rollouts = int(inf_cfg.get("num_rollouts", 16))
+    config_pol_val = ConfiguracionPoliticaRL(
+        usar_mascara_temporal_dura=usar_mascara,
+        ordenar_slots_canonicamente=orden_canonico,
+    )
+
+    instancias_val_etapa: list[InstanciaTurno] = []
+    mejor_puntaje_etapa: tuple[float, float, int] | None = None
+    mejor_state_dict: dict[str, torch.Tensor] | None = None
+    mejor_nombre_etapa = "final"
+    historial_etapas: list[dict[str, Any]] = []
+
+    if seleccionar_mejor:
+        estado_py = random.getstate()
+        try:
+            n_val_chicos = int(eval_cfg.get("cantidad_turnos_por_segmento", 20))
+            s_ch = int(eval_cfg.get("seed_inicio_turnos_chicos", 500_001))
+            p_ch = int(eval_cfg.get("paso_seed_turnos_chicos", 17))
+            r_ch = (
+                int(eval_cfg.get("rango_tareas_chicos", [6, 12])[0]),
+                int(eval_cfg.get("rango_tareas_chicos", [6, 12])[1]),
+            )
+            s_gr = int(eval_cfg.get("seed_inicio_turnos_grandes", 700_001))
+            p_gr = int(eval_cfg.get("paso_seed_turnos_grandes", 29))
+            r_gr = (
+                int(eval_cfg.get("rango_tareas_grandes", [14, 32])[0]),
+                int(eval_cfg.get("rango_tareas_grandes", [14, 32])[1]),
+            )
+            for i in range(n_val_chicos):
+                instancias_val_etapa.append(
+                    construir_instancia_entrenamiento(ubicaciones, r_ch, s_ch + i * p_ch)
+                )
+            for i in range(n_val_chicos):
+                instancias_val_etapa.append(
+                    construir_instancia_entrenamiento(ubicaciones, r_gr, s_gr + i * p_gr)
+                )
+        finally:
+            random.setstate(estado_py)
+
+        puntaje_ini = _evaluar_modelo_en_memoria(
+            modelo=modelo,
+            instancias_val=instancias_val_etapa,
+            config_pol=config_pol_val,
+            max_pedidos=max_pedidos,
+            num_rollouts=num_rollouts,
+        )
+        mejor_puntaje_etapa = puntaje_ini
+        mejor_state_dict = {
+            k: v.detach().cpu().clone() for k, v in modelo.policy.state_dict().items()
+        }
+        mejor_nombre_etapa = "etapa_0_base_transferida"
+        historial_etapas.append(
+            {
+                "etapa": mejor_nombre_etapa,
+                "costo_promedio": puntaje_ini[0],
+                "tardanza_min": puntaje_ini[1],
+                "tardios": puntaje_ini[2],
+            }
+        )
+        print(
+            f"   [VAL] {mejor_nombre_etapa}: costo_prom={puntaje_ini[0]:.2f}, "
+            f"tardanza={puntaje_ini[1]:.2f}m, tardios={puntaje_ini[2]}"
+        )
+
     for idx, etapa in enumerate(curriculum):
         nombre_etapa = str(etapa.get("nombre", f"etapa_{idx + 1}"))
         rango = (int(etapa["rango_tareas"][0]), int(etapa["rango_tareas"][1]))
@@ -558,11 +817,47 @@ def ejecutar_entrenamiento_desde_config(
                 max_pedidos=max_pedidos,
                 usar_mascara_temporal_dura=usar_mascara,
                 ordenar_slots_canonicamente=orden_canonico,
+                prob_tarde=float(etapa.get("prob_tarde", 0.45)),
+                prob_ventana=float(etapa.get("prob_ventana", 0.55)),
+                escalar_camiones_por_tareas=bool(etapa.get("escalar_camiones_por_tareas", False)),
+                modo_reward=modo_reward_enum,
+                peso_terminal_costo_acotado=peso_costo_terminal,
             )
             modelo.set_env(env_etapa)
 
         print(f"-> Entrenando {nombre_etapa} ({rango[0]}..{rango[1]} tareas, {timesteps} pasos)...")
         modelo.learn(total_timesteps=timesteps, reset_num_timesteps=(idx == 0))
+
+        if seleccionar_mejor and instancias_val_etapa:
+            puntaje_et = _evaluar_modelo_en_memoria(
+                modelo=modelo,
+                instancias_val=instancias_val_etapa,
+                config_pol=config_pol_val,
+                max_pedidos=max_pedidos,
+                num_rollouts=num_rollouts,
+            )
+            historial_etapas.append(
+                {
+                    "etapa": nombre_etapa,
+                    "costo_promedio": puntaje_et[0],
+                    "tardanza_min": puntaje_et[1],
+                    "tardios": puntaje_et[2],
+                }
+            )
+            print(
+                f"   [VAL] {nombre_etapa}: costo_prom={puntaje_et[0]:.2f}, "
+                f"tardanza={puntaje_et[1]:.2f}m, tardios={puntaje_et[2]}"
+            )
+            if mejor_puntaje_etapa is None or puntaje_et <= mejor_puntaje_etapa:
+                mejor_puntaje_etapa = puntaje_et
+                mejor_state_dict = {
+                    k: v.detach().cpu().clone() for k, v in modelo.policy.state_dict().items()
+                }
+                mejor_nombre_etapa = nombre_etapa
+
+    if seleccionar_mejor and mejor_state_dict is not None:
+        modelo.policy.load_state_dict(mejor_state_dict)
+        print(f"[OK] Mejor checkpoint seleccionado: {mejor_nombre_etapa} ({mejor_puntaje_etapa})")
 
     nombre_zip_hist = f"rl_policy_{exp_id}.zip"
     nombre_json_hist = f"rl_policies_{exp_id}.json"
@@ -590,6 +885,9 @@ def ejecutar_entrenamiento_desde_config(
         "hiperparametros_ppo": ppo_cfg,
         "curriculum": curriculum,
     }
+    if seleccionar_mejor and historial_etapas:
+        bloque_entrenamiento["mejor_etapa_seleccionada"] = mejor_nombre_etapa
+        bloque_entrenamiento["historial_validacion_etapas"] = historial_etapas
 
     manifiesto_hist: dict[str, Any] = {
         "version": VERSION_RUNTIME,
