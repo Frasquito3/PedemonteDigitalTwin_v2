@@ -140,6 +140,37 @@ body {
         fill: #94a3b8 !important;
         font-weight: 600 !important;
     }
+
+    /* Alertas y Callouts adaptados a modo oscuro */
+    .pdoc .alert {
+        border-width: 1px !important;
+        border-style: solid !important;
+    }
+    .pdoc .alert.note {
+        background-color: #0f2342 !important;
+        color: #93c5fd !important;
+        border-color: #1e3a8a !important;
+    }
+    .pdoc .alert.important {
+        background-color: #082f49 !important;
+        color: #7dd3fc !important;
+        border-color: #0369a1 !important;
+    }
+    .pdoc .alert.tip {
+        background-color: #062817 !important;
+        color: #6ee7b7 !important;
+        border-color: #047857 !important;
+    }
+    .pdoc .alert.warning {
+        background-color: #3b2203 !important;
+        color: #fde047 !important;
+        border-color: #854d0e !important;
+    }
+    .pdoc .alert.caution {
+        background-color: #3f1118 !important;
+        color: #fca5a5 !important;
+        border-color: #991b1b !important;
+    }
 }
 
 /* ==========================================================================
