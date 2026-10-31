@@ -68,6 +68,35 @@ class GeneticAlgorithmTest(unittest.TestCase):
                     if posiciones:
                         self.assertEqual(posiciones[0], len(viaje.pedido_ids) - 1)
 
+    def test_tasas_adaptativas_bajan_crossover_y_suben_mutacion(self) -> None:
+        cfg = ConfiguracionGA(
+            generaciones=50,
+            generaciones_sin_mejora_max=20,
+            probabilidad_crossover=0.90,
+            probabilidad_crossover_min=0.65,
+            probabilidad_mutacion_swap=0.20,
+            probabilidad_mutacion_swap_max=0.45,
+            probabilidad_mutacion_inversion=0.10,
+            probabilidad_mutacion_inversion_max=0.30,
+            usar_tasas_adaptativas=True,
+        )
+        planner = GeneticAlgorithmPlanner(configuracion_ga=cfg)
+        c_ini, s_ini, i_ini = planner._calcular_tasas_generacion(
+            numero_generacion=1, generaciones_sin_mejora=0
+        )
+        c_fin, s_fin, i_fin = planner._calcular_tasas_generacion(
+            numero_generacion=50, generaciones_sin_mejora=20
+        )
+        self.assertAlmostEqual(c_ini, 0.90)
+        self.assertAlmostEqual(s_ini, 0.20)
+        self.assertAlmostEqual(i_ini, 0.10)
+        self.assertLess(c_fin, c_ini)
+        self.assertAlmostEqual(c_fin, 0.65)
+        self.assertGreater(s_fin, s_ini)
+        self.assertAlmostEqual(s_fin, 0.45)
+        self.assertGreater(i_fin, i_ini)
+        self.assertAlmostEqual(i_fin, 0.30)
+
 
 if __name__ == "__main__":
     unittest.main()

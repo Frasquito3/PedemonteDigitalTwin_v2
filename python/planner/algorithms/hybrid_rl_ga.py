@@ -62,8 +62,8 @@ class ConfiguracionHibridaRLGA:
     """
 
     tolerancia_mejora: float = 1e-9
-    fraccion_variantes_semilla_rl: float = 0.50
-    incluir_semilla_greedy_en_refinamiento: bool = False
+    fraccion_variantes_semilla_rl: float = 0.35
+    incluir_semilla_greedy_en_refinamiento: bool = True
 
     def __post_init__(self) -> None:
         if self.tolerancia_mejora < 0.0:

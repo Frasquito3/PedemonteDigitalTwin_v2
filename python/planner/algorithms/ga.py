@@ -59,6 +59,10 @@ class ConfiguracionGA:
     probabilidad_mutacion_inversion: float = 0.10
     generaciones_sin_mejora_max: int = 30
     tolerancia_mejora: float = 1e-9
+    usar_tasas_adaptativas: bool = True
+    probabilidad_crossover_min: float = 0.65
+    probabilidad_mutacion_swap_max: float = 0.45
+    probabilidad_mutacion_inversion_max: float = 0.30
 
     def __post_init__(self) -> None:
         if self.tamano_poblacion < 2:
@@ -80,6 +84,9 @@ class ConfiguracionGA:
             self.probabilidad_crossover,
             self.probabilidad_mutacion_swap,
             self.probabilidad_mutacion_inversion,
+            self.probabilidad_crossover_min,
+            self.probabilidad_mutacion_swap_max,
+            self.probabilidad_mutacion_inversion_max,
         )
         if any(p < 0.0 or p > 1.0 for p in probabilidades):
             raise ValueError("Las probabilidades deben estar entre 0 y 1.")
@@ -185,7 +192,12 @@ class GeneticAlgorithmPlanner(PlanificadorTurno):
         self.mejor_costo_por_generacion.append(mejor_global.costo)
 
         for numero_generacion in range(1, self.configuracion_ga.generaciones + 1):
-            nueva_poblacion = self._crear_siguiente_generacion(evaluados, rng)
+            nueva_poblacion = self._crear_siguiente_generacion(
+                evaluados,
+                rng,
+                numero_generacion=numero_generacion,
+                generaciones_sin_mejora=generaciones_sin_mejora,
+            )
             evaluados = self._evaluar_poblacion(
                 instancia, matriz, pedidos_por_id, nueva_poblacion, cache_costos
             )
@@ -364,25 +376,64 @@ class GeneticAlgorithmPlanner(PlanificadorTurno):
         evaluados.sort(key=lambda ind: (ind.costo, ind.cromosoma))
         return evaluados
 
+    def _calcular_tasas_generacion(
+        self,
+        numero_generacion: int = 1,
+        generaciones_sin_mejora: int = 0,
+    ) -> tuple[float, float, float]:
+        """Calcula las tasas efectivas de crossover y mutación según progreso y estancamiento."""
+        cfg = self.configuracion_ga
+        if not cfg.usar_tasas_adaptativas:
+            return (
+                cfg.probabilidad_crossover,
+                cfg.probabilidad_mutacion_swap,
+                cfg.probabilidad_mutacion_inversion,
+            )
+
+        progreso_gen = (max(1, numero_generacion) - 1) / max(1, cfg.generaciones - 1)
+        progreso_estanc = max(0, generaciones_sin_mejora) / max(1, cfg.generaciones_sin_mejora_max)
+        alpha = min(1.0, max(0.0, max(progreso_gen, progreso_estanc)))
+
+        p_cross_min = min(cfg.probabilidad_crossover, cfg.probabilidad_crossover_min)
+        p_swap_max = max(cfg.probabilidad_mutacion_swap, cfg.probabilidad_mutacion_swap_max)
+        p_inv_max = max(
+            cfg.probabilidad_mutacion_inversion, cfg.probabilidad_mutacion_inversion_max
+        )
+
+        p_cross = cfg.probabilidad_crossover - alpha * (cfg.probabilidad_crossover - p_cross_min)
+        p_swap = cfg.probabilidad_mutacion_swap + alpha * (
+            p_swap_max - cfg.probabilidad_mutacion_swap
+        )
+        p_inv = cfg.probabilidad_mutacion_inversion + alpha * (
+            p_inv_max - cfg.probabilidad_mutacion_inversion
+        )
+        return p_cross, p_swap, p_inv
+
     def _crear_siguiente_generacion(
         self,
         evaluados: list[IndividuoEvaluado],
         rng: Random,
+        numero_generacion: int = 1,
+        generaciones_sin_mejora: int = 0,
     ) -> list[Cromosoma]:
         """Aplica elitismo, selección por torneo, cruce OX y mutación para formar la nueva población."""
+        p_cross, p_swap, p_inv = self._calcular_tasas_generacion(
+            numero_generacion=numero_generacion,
+            generaciones_sin_mejora=generaciones_sin_mejora,
+        )
         nueva_poblacion = [ind.cromosoma for ind in evaluados[: self.configuracion_ga.tamano_elite]]
 
         while len(nueva_poblacion) < self.configuracion_ga.tamano_poblacion:
             padre_a = self._seleccion_torneo(evaluados, rng)
             padre_b = self._seleccion_torneo(evaluados, rng)
 
-            if len(padre_a) >= 2 and rng.random() < self.configuracion_ga.probabilidad_crossover:
+            if len(padre_a) >= 2 and rng.random() < p_cross:
                 hijo_a, hijo_b = self._crossover_ordenado(padre_a, padre_b, rng)
             else:
                 hijo_a, hijo_b = padre_a, padre_b
 
-            hijo_a = self._mutar(hijo_a, rng)
-            hijo_b = self._mutar(hijo_b, rng)
+            hijo_a = self._mutar(hijo_a, rng, prob_swap=p_swap, prob_inversion=p_inv)
+            hijo_b = self._mutar(hijo_b, rng, prob_swap=p_swap, prob_inversion=p_inv)
 
             nueva_poblacion.append(hijo_a)
             if len(nueva_poblacion) < self.configuracion_ga.tamano_poblacion:
@@ -445,15 +496,29 @@ class GeneticAlgorithmPlanner(PlanificadorTurno):
 
         return tuple(g for g in hijo if g is not None)
 
-    def _mutar(self, cromosoma: Cromosoma, rng: Random) -> Cromosoma:
+    def _mutar(
+        self,
+        cromosoma: Cromosoma,
+        rng: Random,
+        prob_swap: float | None = None,
+        prob_inversion: float | None = None,
+    ) -> Cromosoma:
         """Aplica mutaciones estocásticas por intercambio (swap) y/o inversión de subcadena."""
         genes = list(cromosoma)
+        p_swap = (
+            self.configuracion_ga.probabilidad_mutacion_swap if prob_swap is None else prob_swap
+        )
+        p_inv = (
+            self.configuracion_ga.probabilidad_mutacion_inversion
+            if prob_inversion is None
+            else prob_inversion
+        )
 
-        if len(genes) >= 2 and rng.random() < self.configuracion_ga.probabilidad_mutacion_swap:
+        if len(genes) >= 2 and rng.random() < p_swap:
             pos_a, pos_b = rng.sample(range(len(genes)), 2)
             genes[pos_a], genes[pos_b] = genes[pos_b], genes[pos_a]
 
-        if len(genes) >= 3 and rng.random() < self.configuracion_ga.probabilidad_mutacion_inversion:
+        if len(genes) >= 3 and rng.random() < p_inv:
             inicio, fin = sorted(rng.sample(range(len(genes)), 2))
             genes[inicio : fin + 1] = reversed(genes[inicio : fin + 1])
 
