@@ -179,6 +179,7 @@ def ejecutar_plan_en_modelo_exportado(
         "java_log_level": True,
         "log_id": log_id,
         "startup_delay": 1.0,
+        "max_server_await_time": 45.0,
     }
 
     if sim_factory is None:
@@ -197,7 +198,23 @@ def ejecutar_plan_en_modelo_exportado(
 
     sim = None
     try:
-        sim = sim_factory(str(modelo), **kwargs_sim)
+        intentos_max_arranque = 2
+        for intento in range(1, intentos_max_arranque + 1):
+            try:
+                sim = sim_factory(str(modelo), **kwargs_sim)
+                break
+            except Exception as exc:
+                if intento < intentos_max_arranque and (
+                    "failed to start" in str(exc).lower()
+                    or "modelerror" in type(exc).__name__.lower()
+                ):
+                    time.sleep(2.0 * intento)
+                    continue
+                raise
+
+        if sim is None:
+            raise ErrorEjecucionSimulada("No fue posible inicializar el comunicador Alpyne.")
+
         estado_inicial = sim.reset(
             instanciaId=id_limpio,
             fechaOperacion=fecha_limpia,
@@ -425,6 +442,8 @@ def _cerrar_simulacion(sim: Any) -> None:
             RuntimeWarning,
             stacklevel=2,
         )
+    finally:
+        time.sleep(0.5)
 
 
 def _validar_identidad_resultado(
