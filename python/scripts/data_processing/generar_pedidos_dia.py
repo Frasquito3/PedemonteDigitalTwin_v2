@@ -175,16 +175,17 @@ def sortear_cantidad_pedidos_turno(
     rng: random.Random,
     min_cota: int = 1,
     max_cota: int | None = None,
+    suavizado: bool = True,
 ) -> int:
     """
-    Elige al azar un conteo histórico de `cant_pedidos_turnos.csv` y aplica una
-    variación discreta (-1, 0, +1) para no repetir rígidamente los mismos valores.
+    Elige al azar un conteo histórico de `cant_pedidos_turnos.csv` mediante Bootstrap
+    empírico y, si `suavizado=True`, aplica una variación discreta (-1, 0, +1) de media 0.
     """
     if not conteos_historicos:
         raise ValueError("conteos_historicos no puede estar vacío.")
 
     base = int(rng.choice(conteos_historicos))
-    delta = rng.choices([-1, 0, 1], weights=[0.25, 0.50, 0.25], k=1)[0]
+    delta = rng.choices([-1, 0, 1], weights=[0.25, 0.50, 0.25], k=1)[0] if suavizado else 0
     piso = max(min_cota, min(conteos_historicos))
     techo = max(conteos_historicos)
     if max_cota is not None and max_cota > 0:
@@ -413,7 +414,7 @@ def generar_pedidos_para_un_dia(
     capacidad_camion: int = 8,
     camiones_turno_promedio: float = 6.0,
     rng: random.Random | None = None,
-    max_tareas: int | None = None,
+    max_tareas: int | None = 35,
 ) -> list[PedidoGenerado]:
     """Genera los pedidos de un turno con únicamente los atributos requeridos por los algoritmos."""
     if rng is None:
@@ -548,7 +549,7 @@ def ejecutar_generacion(
     prob_ventana: float = 0.55,
     capacidad_camion: int = 8,
     camiones_turno_promedio: float = 6.0,
-    max_tareas: int | None = None,
+    max_tareas: int | None = 35,
 ) -> list[tuple[Path, list[PedidoGenerado]]]:
     """Genera N turnos y guarda los archivos y semillas en `seed_<seed_inicial>_<fecha>`."""
     if dias_n <= 0:
@@ -711,7 +712,7 @@ def _parser() -> argparse.ArgumentParser:
     p.add_argument("--prefijo", type=str, default="pedidos_dia")
     p.add_argument("--consolidado", action="store_true")
     p.add_argument("--seed", type=int, default=None)
-    p.add_argument("--max-tareas", type=int, default=None)
+    p.add_argument("--max-tareas", type=int, default=35)
     return p
 
 

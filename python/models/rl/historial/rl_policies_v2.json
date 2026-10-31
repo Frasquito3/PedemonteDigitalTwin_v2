@@ -6,7 +6,45 @@
   "max_pedidos_rl_validado": 35,
   "usar_mascara_temporal_dura": true,
   "ordenar_slots_canonicamente": true,
-  "num_rollouts": 4,
+  "num_rollouts": 16,
+  "configuracion_entrenamiento": {
+    "archivo_config": "scripts/rl/configs/rl_v2_35slots.json",
+    "experimento_id": "v2",
+    "seed_global": 20261030,
+    "modo_inicializacion": "transfer_learning",
+    "modelo_base": "models/rl/historial/rl_policy_v1.zip",
+    "sha256_modelo_base": "7d2838963f578656919822ee258e9c87c38257829ea801bbd3b41fcf26d20da4",
+    "hiperparametros_ppo": {
+      "learning_rate": 1.5e-05,
+      "n_steps": 256,
+      "batch_size": 128,
+      "n_epochs": 6,
+      "gamma": 1.0,
+      "gae_lambda": 0.95,
+      "clip_range": 0.2,
+      "ent_coef": 0.008
+    },
+    "curriculum": [
+      {
+        "nombre": "etapa_1_turnos_chicos",
+        "rango_tareas": [6, 14],
+        "timesteps": 2048,
+        "seed_entorno": 101
+      },
+      {
+        "nombre": "etapa_2_turnos_medianos",
+        "rango_tareas": [12, 24],
+        "timesteps": 2048,
+        "seed_entorno": 202
+      },
+      {
+        "nombre": "etapa_3_turnos_grandes",
+        "rango_tareas": [8, 32],
+        "timesteps": 2048,
+        "seed_entorno": 303
+      }
+    ]
+  },
   "validacion_comparativa_v1_vs_v2": {
     "turnos_6_a_12_tareas": {
       "RL_V1": {

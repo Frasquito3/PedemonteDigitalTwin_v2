@@ -102,6 +102,8 @@ git_audit_*.txt
 /python/checkpoints/
 /python/tensorboard/
 /python/data/processed/pedidos_generados/
+/python/data/experiments/
+/python/data/results/
 
 
 # =====================================================
