@@ -148,6 +148,7 @@ class PlanificadorPoliticaRL(PlanificadorTurno):
                 dtype=np.float32,
             ),
             "action_space": spaces.Discrete(self.max_pedidos),
+            "learning_rate": 0.0,
             "lr_schedule": lambda _: 0.0,
             "clip_range": lambda _: 0.2,
         }

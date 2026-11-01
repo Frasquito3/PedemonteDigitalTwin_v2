@@ -16353,6 +16353,8 @@ try {
                     destino[1]
                 );
 
+            String fuenteDistanciaFila =
+                "ANYLOGIC_ROUTE_PROVIDER";
 
             if (
                 !Double.isFinite(
@@ -16362,13 +16364,34 @@ try {
                 distanciaVial <= 0.0
             ) {
 
-                throw new IllegalStateException(
-                    "El proveedor vial no devolvió "
-                    + "una distancia válida para "
+                double distHaversine =
+                    calcularDistanciaHaversineMetros(
+                        origen[0],
+                        origen[1],
+                        destino[0],
+                        destino[1]
+                    );
+
+                distanciaVial =
+                    Math.max(
+                        distHaversine
+                        * TRAFICO_FACTOR_URBANO_DISTANCIA,
+                        10.0
+                    );
+
+                fuenteDistanciaFila =
+                    "HAVERSINE_FALLBACK";
+
+                traceln(
+                    "CACHE VIAL | AVISO | Tramo sin ruta GIS ("
                     + claveTramo
-                    + ". Valor="
-                    + distanciaVial
-                    + "."
+                    + "). Usando Haversine ajustado: "
+                    + String.format(
+                        java.util.Locale.US,
+                        "%.3f",
+                        distanciaVial
+                    )
+                    + " m"
                 );
             }
 
@@ -16396,7 +16419,7 @@ try {
                 + ","
                 + ""
                 + ","
-                + "ANYLOGIC_ROUTE_PROVIDER"
+                + fuenteDistanciaFila
                 + ","
                 + "VELOCIDAD_BASE_CONFIG";
 
