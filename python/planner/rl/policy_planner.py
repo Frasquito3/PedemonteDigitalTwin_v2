@@ -140,6 +140,8 @@ class PlanificadorPoliticaRL(PlanificadorTurno):
             max_pedidos_default=max_pedidos,
         )
         self.max_pedidos = max_pedidos_ckpt
+        # Se fija learning_rate=0.0 para neutralizar la funcion serializada de entrenamiento
+        # y prevenir violaciones de acceso de memoria (access violation) al deserializar en Python 3.14+
         custom_objects = {
             "observation_space": spaces.Box(
                 low=0.0,
