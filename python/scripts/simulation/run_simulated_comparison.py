@@ -42,6 +42,7 @@ from planner.integration.simulated_comparison import (
     ejecutar_comparacion_simulada,
 )
 from planner.integration.simulated_execution import (
+    HORIZONTE_SIMULACION_MIN_PREDETERMINADO,
     codificar_identificadores_pedidos,
     ejecutar_plan_en_modelo_exportado,
 )
@@ -423,7 +424,7 @@ def ejecutar_experimento_comparacion(
     sin_proveedores: bool = False,
     permitir_fallback_vial: bool = True,
     timeout: int = 240,
-    horizonte_min: float = 600.0,
+    horizonte_min: float = HORIZONTE_SIMULACION_MIN_PREDETERMINADO,
     runner_simulado: RunnerSimulado = ejecutar_plan_en_modelo_exportado,
     reanudar_desde: Path | None = None,
     reintentar_fallidas: bool = False,
@@ -1246,7 +1247,7 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--horizonte-min",
         type=float,
-        default=600.0,
+        default=HORIZONTE_SIMULACION_MIN_PREDETERMINADO,
         help="Horizonte máximo de tiempo simulado, en minutos, para cada motor AnyLogic.",
     )
     parser.add_argument("--sin-proveedores", action="store_true")

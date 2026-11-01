@@ -15,6 +15,7 @@ from typing import Final
 from planner.integration import selector_bridge
 from planner.integration.alpyne_codec import CODIGO_ALGORITMO
 from planner.integration.estimated_comparison import firmar_instancia_vector
+from planner.integration.simulated_execution import HORIZONTE_SIMULACION_MIN_PREDETERMINADO
 from planner.integration.simulated_comparison import (
     ESTADO_ERROR,
     ESTADO_FINALIZADO,
@@ -74,7 +75,7 @@ def comparar_simulado_vector(
     fecha_operacion: str,
     proveedores_habilitados: bool = True,
     timeout_segundos_por_metodo: int = 240,
-    horizonte_simulacion_min: float = 600.0,
+    horizonte_simulacion_min: float = HORIZONTE_SIMULACION_MIN_PREDETERMINADO,
 ) -> list[float]:
     """Ejecuta los planes almacenados de la comparación estimada en motores AnyLogic externos."""
     global _ultima_comparacion_simulada

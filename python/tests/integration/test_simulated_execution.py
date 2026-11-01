@@ -207,7 +207,7 @@ def test_envia_identidad_configuracion_y_accion_correctas():
         }
         assert sim.kwargs["auto_finish"] is True
         assert sim.kwargs["lock_defaults"] == {"timeout": 99}
-        assert sim.kwargs["engine_overrides"] == {"stop_time": 600.0}
+        assert sim.kwargs["engine_overrides"] == {"stop_time": 900.0}
         assert sim.cierres == 1
         assert resultado.instancia_id == "UI-2026-08-30-6001"
 
@@ -428,6 +428,108 @@ def test_cierra_motor_si_el_resultado_terminal_nunca_se_publica():
             )
 
         assert creado[0].cierres == 1
+
+
+
+def test_finished_sin_resultado_se_detecta_sin_esperar_timeout():
+    """Un horizonte agotado no debe bloquear 240 s ni producir un exito falso."""
+    with TemporaryDirectory() as temporal_str:
+        temporal = Path(temporal_str)
+        modelo = temporal / "modelo.zip"
+        modelo.write_bytes(b"zip")
+        raiz = temporal / "python"
+        raiz.mkdir()
+
+        class EstadoFinalSinResultado:
+            observation = {
+                "error": False,
+                "configurado": True,
+                "ejecucionFinalizada": False,
+                "resultadoDisponible": False,
+            }
+            state = "FINISHED"
+            stop = True
+            message = "STOP_TIMEDATE"
+            sequence_id = 2
+
+        class SimFinalSinResultado(SimFalso):
+            consultas = 0
+
+            def reset(self, **kwargs):
+                inicial = super().reset(**kwargs)
+                inicial.sequence_id = 1
+                return inicial
+
+            def take_action(self, **kwargs):
+                return EstadoFinalSinResultado()
+
+            def status(self):
+                self.consultas += 1
+                return EstadoFinalSinResultado()
+
+        sim_creado = []
+
+        def fabrica(*args, **kwargs):
+            sim = SimFinalSinResultado(*args, **kwargs)
+            sim_creado.append(sim)
+            return sim
+
+        with pytest.raises(ErrorEjecucionSimulada, match="HORIZONTE_AGOTADO"):
+            ejecutar_plan_en_modelo_exportado(
+                modelo_exportado=modelo,
+                raiz_python=raiz,
+                instancia_vector=[1.0],
+                plan_vector=[1.0],
+                identificadores_pedidos="IDMAP1|1|WA==:WA==",
+                instancia_id="UI-2026-08-30-6001",
+                fecha_operacion="2026-08-30",
+                seed_escenario=6001,
+                seed_ejecucion=1006001,
+                proveedores_habilitados=True,
+                timeout_segundos=240,
+                horizonte_simulacion_min=900.0,
+                sim_factory=fabrica,
+            )
+
+        assert sim_creado[0].consultas == 0
+        assert sim_creado[0].cierres == 1
+
+
+def test_finished_sin_motivo_de_parada_da_error_diagnostico():
+    """No atribuir falsamente un stop a horizonte si Alpyne no dio motivo."""
+    with TemporaryDirectory() as temporal_str:
+        temporal = Path(temporal_str)
+        modelo = temporal / "modelo.zip"
+        modelo.write_bytes(b"zip")
+        raiz = temporal / "python"
+        raiz.mkdir()
+
+        class SimSinMotivo(SimFalso):
+            def take_action(self, **kwargs):
+                return EstadoFalso(
+                    observation={
+                        "error": False,
+                        "ejecucionFinalizada": False,
+                        "resultadoDisponible": False,
+                    },
+                    state="FINISHED",
+                    stop=True,
+                )
+
+        with pytest.raises(ErrorEjecucionSimulada, match="FINISHED_SIN_RESULTADO"):
+            ejecutar_plan_en_modelo_exportado(
+                modelo_exportado=modelo,
+                raiz_python=raiz,
+                instancia_vector=[1.0],
+                plan_vector=[1.0],
+                identificadores_pedidos="IDMAP1|1|WA==:WA==",
+                instancia_id="UI-2026-08-30-6001",
+                fecha_operacion="2026-08-30",
+                seed_escenario=6001,
+                seed_ejecucion=1006001,
+                proveedores_habilitados=True,
+                sim_factory=SimSinMotivo,
+            )
 
 
 def test_rechaza_horizonte_simulado_no_positivo():

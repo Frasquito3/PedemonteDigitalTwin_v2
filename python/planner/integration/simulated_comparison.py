@@ -16,6 +16,7 @@ from typing import Any, Final
 
 from planner.integration.estimated_comparison import firmar_instancia_vector
 from planner.integration.simulated_execution import (
+    HORIZONTE_SIMULACION_MIN_PREDETERMINADO,
     ResultadoEjecucionSimulada,
     ejecutar_plan_en_modelo_exportado,
 )
@@ -156,7 +157,7 @@ def ejecutar_comparacion_simulada(
     seed_ejecucion: int,
     proveedores_habilitados: bool,
     timeout_segundos_por_metodo: int = 240,
-    horizonte_simulacion_min: float = 600.0,
+    horizonte_simulacion_min: float = HORIZONTE_SIMULACION_MIN_PREDETERMINADO,
     continuar_ante_error: bool = True,
     runner: RunnerSimulado = ejecutar_plan_en_modelo_exportado,
     progreso_metodo: Callable[[ResultadoMetodoSimulado], None] | None = None,

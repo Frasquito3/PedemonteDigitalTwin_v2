@@ -33,7 +33,7 @@ __all__ = [
 
 ACCION_EJECUTAR_PLAN_DINAMICO: Final[int] = 2
 VERSION_RESULTADO_SIMULADO: Final[int] = 1
-HORIZONTE_SIMULACION_MIN_PREDETERMINADO: Final[float] = 600.0
+HORIZONTE_SIMULACION_MIN_PREDETERMINADO: Final[float] = 900.0
 
 
 @dataclass(frozen=True)
@@ -252,6 +252,7 @@ def ejecutar_plan_en_modelo_exportado(
             estado_inicial=estado_inicial,
             estado_accion=estado_accion,
             timeout_segundos=timeout_segundos,
+            horizonte_simulacion_min=horizonte,
         )
 
         observacion_final = _a_dict(estado_final.observation)
@@ -282,6 +283,7 @@ def _esperar_resultado_terminal(
     estado_inicial: Any,
     estado_accion: Any,
     timeout_segundos: int | float,
+    horizonte_simulacion_min: float = HORIZONTE_SIMULACION_MIN_PREDETERMINADO,
     intervalo_sondeo_segundos: float = 0.05,
 ) -> Any:
     if timeout_segundos <= 0:
@@ -313,6 +315,27 @@ def _esperar_resultado_terminal(
 
         if secuencia_avanzada and ejecucion_finalizada and resultado_disponible:
             return ultimo_estado
+
+        # FINISHED es terminal para Alpyne: no llegaran mas eventos ni
+        # observaciones. No esperar 240 s por un resultado imposible.
+        if estado_motor == "FINISHED":
+            mensaje_motor = _normalizar_texto(
+                getattr(ultimo_estado, "message", "") or ""
+            ).strip()
+            causa = (
+                "HORIZONTE_AGOTADO"
+                if "STOP_TIMEDATE" in mensaje_motor.upper()
+                else "FINISHED_SIN_RESULTADO"
+            )
+            raise ErrorEjecucionSimulada(
+                f"{causa}: AnyLogic finalizo sin publicar metricas completas. "
+                f"horizonte_simulacion_min={horizonte_simulacion_min:g}, "
+                f"ejecucionFinalizada={ejecucion_finalizada}, "
+                f"resultadoDisponible={resultado_disponible}, "
+                f"secuencia_inicial={secuencia_inicial}, "
+                f"secuencia_actual={secuencia_actual}, "
+                f"motivo_motor={mensaje_motor or 'NO_DISPONIBLE'}."
+            )
 
         if time.monotonic() >= limite:
             raise ErrorEjecucionSimulada(

@@ -24396,7 +24396,7 @@ try {
         + fechaLiteral
         + ", proveedores_habilitados=True"
         + ", timeout_segundos_por_metodo=240"
-        + ", horizonte_simulacion_min=600.0"
+        + ", horizonte_simulacion_min=900.0"
         + ")";
 
 
@@ -34556,7 +34556,7 @@ try {
         + "    permitir_fallback_vial=False,\n"
         + "    solo_estimado=False,\n"
         + "    timeout=240,\n"
-        + "    horizonte_min=600.0\n"
+        + "    horizonte_min=900.0\n"
         + ")\n"
         + "completo = bool(resultado.get('completa', False))\n"
         + "print('ESTUDIO_COMPLETO:', completo, flush=True)\n"
@@ -53716,8 +53716,8 @@ return
 				<StopOption><![CDATA[Stop at specified time]]></StopOption>
 				<InitialDate><![CDATA[1786492800000]]></InitialDate>
 				<InitialTime><![CDATA[0.0]]></InitialTime>
-				<FinalDate><![CDATA[1786528800000]]></FinalDate>
-				<FinalTime><![CDATA[600.0]]></FinalTime>
+				<FinalDate><![CDATA[1786546800000]]></FinalDate>
+				<FinalTime><![CDATA[900.0]]></FinalTime>
 			</ModelTimeProperties>
 			<BypassInitialScreen>true</BypassInitialScreen>
 		</SimulationExperiment>	
