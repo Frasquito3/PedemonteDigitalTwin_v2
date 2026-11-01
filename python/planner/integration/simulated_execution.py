@@ -319,9 +319,7 @@ def _esperar_resultado_terminal(
         # FINISHED es terminal para Alpyne: no llegaran mas eventos ni
         # observaciones. No esperar 240 s por un resultado imposible.
         if estado_motor == "FINISHED":
-            mensaje_motor = _normalizar_texto(
-                getattr(ultimo_estado, "message", "") or ""
-            ).strip()
+            mensaje_motor = _normalizar_texto(getattr(ultimo_estado, "message", "") or "").strip()
             causa = (
                 "HORIZONTE_AGOTADO"
                 if "STOP_TIMEDATE" in mensaje_motor.upper()

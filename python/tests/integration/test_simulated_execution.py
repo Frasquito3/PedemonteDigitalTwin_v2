@@ -430,7 +430,6 @@ def test_cierra_motor_si_el_resultado_terminal_nunca_se_publica():
         assert creado[0].cierres == 1
 
 
-
 def test_finished_sin_resultado_se_detecta_sin_esperar_timeout():
     """Un horizonte agotado no debe bloquear 240 s ni producir un exito falso."""
     with TemporaryDirectory() as temporal_str:
@@ -440,32 +439,44 @@ def test_finished_sin_resultado_se_detecta_sin_esperar_timeout():
         raiz = temporal / "python"
         raiz.mkdir()
 
-        class EstadoFinalSinResultado:
-            observation = {
-                "error": False,
-                "configurado": True,
-                "ejecucionFinalizada": False,
-                "resultadoDisponible": False,
-            }
-            state = "FINISHED"
-            stop = True
-            message = "STOP_TIMEDATE"
-            sequence_id = 2
+        @dataclass
+        class EstadoInicialConSecuencia(EstadoFalso):
+            sequence_id: int = 1
+
+        @dataclass
+        class EstadoFinalSinResultado(EstadoFalso):
+            sequence_id: int = 2
+            message: str = "STOP_TIMEDATE"
+
+        def estado_final_sin_resultado() -> EstadoFinalSinResultado:
+            return EstadoFinalSinResultado(
+                observation={
+                    "error": False,
+                    "configurado": True,
+                    "ejecucionFinalizada": False,
+                    "resultadoDisponible": False,
+                },
+                state="FINISHED",
+                stop=True,
+            )
 
         class SimFinalSinResultado(SimFalso):
             consultas = 0
 
             def reset(self, **kwargs):
                 inicial = super().reset(**kwargs)
-                inicial.sequence_id = 1
-                return inicial
+                return EstadoInicialConSecuencia(
+                    observation=inicial.observation,
+                    state=inicial.state,
+                    stop=inicial.stop,
+                )
 
             def take_action(self, **kwargs):
-                return EstadoFinalSinResultado()
+                return estado_final_sin_resultado()
 
             def status(self):
                 self.consultas += 1
-                return EstadoFinalSinResultado()
+                return estado_final_sin_resultado()
 
         sim_creado = []
 

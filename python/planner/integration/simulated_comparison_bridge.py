@@ -15,7 +15,6 @@ from typing import Final
 from planner.integration import selector_bridge
 from planner.integration.alpyne_codec import CODIGO_ALGORITMO
 from planner.integration.estimated_comparison import firmar_instancia_vector
-from planner.integration.simulated_execution import HORIZONTE_SIMULACION_MIN_PREDETERMINADO
 from planner.integration.simulated_comparison import (
     ESTADO_ERROR,
     ESTADO_FINALIZADO,
@@ -25,6 +24,7 @@ from planner.integration.simulated_comparison import (
     ejecutar_comparacion_simulada,
     normalizar_metodo_simulado,
 )
+from planner.integration.simulated_execution import HORIZONTE_SIMULACION_MIN_PREDETERMINADO
 
 __all__ = [
     "CAMPOS_POR_METODO_SIMULADO",
