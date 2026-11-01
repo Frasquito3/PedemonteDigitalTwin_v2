@@ -1,52 +1,74 @@
 <div align="center">
 
-# 🛠️ Desarrollo, Decisiones y Despliegue
+# Desarrollo, Decisiones Arquitectónicas y Despliegue
 
-[🏠 Inicio](../README.md) •
-[📚 Documentación](README.md) •
-[🚀 Comenzar](getting-started.md) •
-[🏗️ Sistema](system-design.md) •
-[🎛️ Operación](user-manual.md) •
-[🧪 Calidad](quality-and-experiments.md) •
-**🛠️ Desarrollo**
+[Inicio](../README.md) •
+[Documentación](README.md) •
+[Primeros Pasos](getting-started.md) •
+[Diseño del Sistema](system-design.md) •
+[Manual de Operación](user-manual.md) •
+[Calidad y Experimentos](quality-and-experiments.md) •
+**Desarrollo y Despliegue**
 
 </div>
 
 ---
 
-En esta sección se explican las razones técnicas detrás del diseño actual del gemelo digital y se definen los parámetros de su posible evolución y soporte futuro.
+Este documento registra los fundamentos de las decisiones de diseño adoptadas en **Pedemonte Digital Twin**, el flujo de trabajo para introducir cambios en el código y las consideraciones de despliegue del sistema.
 
-## 📝 Decisiones Arquitectónicas
+## Decisiones Arquitectónicas Fundamentales
 
-1. **Python Local + AnyLogic de Escritorio (Pypeline)**
-   *Decisión:* El sistema es totalmente monolítico en escritorio. Esto simplifica enormemente la evaluación local del aprendizaje por refuerzo, ya que no se incurre en latencias de HTTP para el validador, y no se lidia con persistencia distribuida del estado.
-2. **Máscara Temporal Dura (RL)**
-   *Decisión:* Se rechazó una estrategia de recompensas negativas masivas (Soft Mask) a favor de un bloqueo algorítmico estricto en la matriz de decisión (Hard Mask). Esto obliga al RL a proponer movimientos únicamente factibles, eliminando planes imposibles rápidamente y disminuyendo drásticamente el espacio de búsqueda inútil.
-3. **Caché Vial Estricta y No-Fallback**
-   *Decisión:* Se descartó utilizar la API de ruteo local de AnyLogic u OpenStreetMap dinámico para evitar la contaminación de métricas. Todas las simulaciones utilizan la *exacta misma* distancia en metros guardada en el CSV, logrando 100% de reproducibilidad entre ejecuciones.
+1. **Integración Local AnyLogic Desktop + Python (Pypeline / Alpyne)**
+   - *Justificación:* La ejecución en un entorno local unificado elimina la latencia de red durante la inferencia y la validación de planes, simplifica la sincronización del estado entre el simulador de eventos discretos y los optimizadores en Python, y permite ejecutar campañas de benchmarking headless mediante Alpyne sin infraestructura externa.
+2. **Máscara Temporal Dura en Aprendizaje por Refuerzo (MaskablePPO)**
+   - *Justificación:* En lugar de penalizar acciones inválidas únicamente mediante recompensas negativas (*soft constraints*), el entorno `planner.rl.policy_env` aplica un enmascaramiento estricto sobre el espacio de acciones. Esto garantiza que la política neuronal solo explore transiciones que respeten la capacidad del camión, las ventanas horarias y la regla física de descarga por volcador.
+3. **Caché Vial Estricta sin Fallback Silencioso**
+   - *Justificación:* Para evitar que variaciones en servicios externos de ruteo (OSRM / OpenStreetMap) alteren los tiempos de viaje entre corridas o contaminen las comparaciones entre algoritmos, toda la planificación productiva consulta exclusivamente la matriz precalculada en `python/data/routing/cache_vial.csv` con `permitir_fallback_vial=False`.
+4. **Persistencia Atómica en Pipelines de Datos**
+   - *Justificación:* Los procesos de extracción OCR y geocodificación operan sobre lotes extensos sujetos a límites de cuota o interrupciones de red. La escritura mediante archivos temporales en el mismo volumen seguida de reemplazo atómico (`os.replace`) previene la corrupción de los archivos de estado (`progreso.json`, `direcciones.json` y CSVs geolocalizados).
 
 ---
 
-## 🚫 Despliegue: AnyLogic Cloud
+<a id="flujo-de-desarrollo-y-calidad-de-codigo"></a>
+## Flujo de Desarrollo y Calidad de Código
+
+Para mantener la estabilidad del repositorio al incorporar mejoras o corregir defectos, se aplica el siguiente flujo de validación:
+
+1. **Formateo y análisis estático con Ruff (`pyproject.toml`):**
+   - Los hooks en `.githooks/pre-commit` y `.githooks/pre-push` ejecutan `ruff check` y `ruff format` sobre los archivos Python modificados.
+2. **Verificación de tipos con Pyrefly (`python/pyrefly.toml`):**
+   - Todo módulo, script o prueba debe conservar compatibilidad de tipos bajo Python 3.11 (`pyrefly check` sin errores ni advertencias).
+3. **Integración Continua (`.github/workflows/ci.yml`):**
+   - Cada `push` o `pull_request` hacia `main` ejecuta tres trabajos independientes en GitHub Actions (`ubuntu-latest`, Python 3.11):
+     - `lint`: `python -m ruff check python` y `python -m ruff format --check python`.
+     - `test`: `python -m pytest -q --tb=short`.
+     - `typecheck`: `pyrefly check`.
+4. **Despliegue Automático de Documentación API (`.github/workflows/docs.yml`):**
+   - Los docstrings en formato Google de los paquetes `planner` y `scripts`, junto con los diagramas Mermaid y la plantilla personalizada en `docs/pdoc_template/`, se compilan mediante `pdoc` y se publican automáticamente en GitHub Pages.
+
+---
+
+<a id="restricciones-de-despliegue-anylogic-cloud"></a>
+## Restricciones de Despliegue: AnyLogic Cloud
 
 > [!CAUTION]
-> El proyecto actual **NO ES COMPATIBLE** con AnyLogic Cloud y no debe intentarse subirlo como un producto productivo en ese entorno.
+> La arquitectura actual está diseñada para **AnyLogic Desktop** y **ejecución headless local con Alpyne**; no es directamente ejecutable dentro del entorno sandboxed de **AnyLogic Cloud**.
 
-**¿Por qué?**
-Pypeline, el puente que une AnyLogic con Python, se apoya en un binario ejecutable (`python.exe`) con acceso local a discos, modelos y librerías C (como Numpy). AnyLogic Cloud opera en un entorno web que bloquea ejecuciones binarias por seguridad y carece de la topología local (las carpetas `/models/rl/` o `/data/routing/`). 
+**Motivos técnicos:**
+- El conector Pypeline invoca un intérprete local de Python (`python.exe` / `python3`) con acceso directo al sistema de archivos (`python/models/rl/`, `python/data/routing/cache_vial.csv`) y librerías nativas (`numpy`, `torch`, `stable-baselines3`).
+- El entorno de ejecución compartido de AnyLogic Cloud restringe la creación de subprocesos locales arbitrarios y no dispone del entorno virtual Python ni de los artefactos del repositorio en disco.
 
-### Posibles Alternativas Futuras
-Para llegar a la nube, se requiere un refactor completo a un esquema de microservicios:
-- Un backend (FastAPI o Flask) donde se aloje el código Python, el validador y el pipeline del modelo RL, que exponga endpoints REST.
-- El modelo AnyLogic Cloud haría peticiones HTTP hacia estos endpoints.
-- Las penalizaciones por red y latencias obligarían a diseñar procesos asíncronos en el código Java.
+### Arquitectura Requerida para un Eventual Despliegue en Nube
+En caso de requerirse en el futuro una versión compatible con AnyLogic Cloud, la integración deberá migrar de un esquema IPC local (Pypeline) a una arquitectura cliente-servidor:
+1. Exponer el paquete `planner` a través de un servicio HTTP/REST (por ejemplo, mediante FastAPI) desplegado en un contenedor independiente con los modelos RL y la caché vial embebidos.
+2. Reemplazar las llamadas a `pyCommunicator` en AnyLogic por peticiones HTTP hacia dicho servicio.
 
 ---
 
-## 🔮 Trabajo Futuro (Roadmap Posible)
+## Líneas de Evolución Futura
 
-Los siguientes componentes están definidos y estudiados, pero **permanecen fuera del alcance temporal productivo**:
+Los siguientes ejes constituyen extensiones posibles sobre la base actual del proyecto:
 
-- **Plugin HTML (App Web):** Una interfaz de formulario web donde el cliente local no necesite abrir AnyLogic. Esta UI consumiría un archivo y delegaría a la lógica local.
-- **Vista Urbana 3D:** Renderizado tridimensional de la ciudad, con edificios representativos y los camiones en escala real. Aunque es vistoso, el costo computacional de AnyLogic 3D interfiere en las simulaciones repetitivas y fue descartado de la versión principal 2D por eficiencia.
-- **Tercer Camión y Segmentación Dinámica:** Extender el simulador para que el planificador pueda incorporar dinámicamente el "Tercer Camión de Respaldo", lo que requerirá un re-entrenamiento del entorno RL.
+- **Servicio REST Desacoplado:** Encapsular `selector_bridge` en una API web liviana para permitir planificación remota desde clientes externos o entornos en la nube.
+- **Dimensionamiento Dinámico de Flota:** Extender el espacio de observación y acción del entorno RL para admitir un número variable de camiones activos (por ejemplo, evaluación de incorporación de un tercer camión en días de demanda pico).
+- **Actualización Automatizada de Matriz Vial:** Incorporar un utilitario que detecte coordenadas nuevas al importar una planilla, consulte las distancias reales sobre la red vial de OpenStreetMap/OSRM y actualice de forma controlada y versionada `cache_vial.csv`.
