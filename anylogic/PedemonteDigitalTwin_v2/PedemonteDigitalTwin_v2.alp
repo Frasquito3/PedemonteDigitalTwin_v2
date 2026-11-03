@@ -4830,10 +4830,6 @@ if (instancia.instanciaId == null
 }
 
 
-// -----------------------------------------------------
-// Mapa de pedidos válidos
-// -----------------------------------------------------
-
 java.util.HashMap<String, PedidoInput> pedidosPorId =
     new java.util.HashMap<String, PedidoInput>();
 
@@ -4883,10 +4879,6 @@ for (PedidoInput pedido : instancia.pedidos) {
 }
 
 
-// -----------------------------------------------------
-// Camiones
-// -----------------------------------------------------
-
 if (plan.camiones == null) {
 
     resultado.agregarError(
@@ -4915,15 +4907,10 @@ java.util.HashMap<String, Integer> cantidadAsignaciones =
     new java.util.HashMap<String, Integer>();
 
 
-// Inicializamos el contador de todos los pedidos.
 for (String pedidoId : pedidosPorId.keySet()) {
     cantidadAsignaciones.put(pedidoId, 0);
 }
 
-
-// -----------------------------------------------------
-// Recorremos el plan
-// -----------------------------------------------------
 
 for (PlanCamion planCamion : plan.camiones) {
 
@@ -5065,10 +5052,6 @@ for (PlanCamion planCamion : plan.camiones) {
         }
 
 
-        // ---------------------------------------------
-        // Capacidad
-        // ---------------------------------------------
-
         if (cargaViaje
             > instancia.capacidadCamion) {
 
@@ -5084,10 +5067,6 @@ for (PlanCamion planCamion : plan.camiones) {
             );
         }
 
-
-        // ---------------------------------------------
-        // Volcador
-        // ---------------------------------------------
 
         if (cantidadVolcadores > 1) {
 
@@ -5119,10 +5098,6 @@ for (PlanCamion planCamion : plan.camiones) {
     }
 }
 
-
-// -----------------------------------------------------
-// Todos los pedidos exactamente una vez
-// -----------------------------------------------------
 
 for (
     java.util.Map.Entry<String, Integer> entry
@@ -5239,9 +5214,6 @@ traceln(
 );
 
 
-// La función central decide si puede cerrar
-// inmediatamente o si debe esperar proveedores.
-
 intentarFinalizarEjecucion();]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
@@ -5290,10 +5262,6 @@ if (!validacion.valido) {
 }
 
 
-// -----------------------------------------------------
-// Estado general
-// -----------------------------------------------------
-
 hojaRutaExportada = false;
 
 hojaRutaExportacionEnCurso = false;
@@ -5336,18 +5304,10 @@ camionesFinalizados =
     0;
 
 
-// -----------------------------------------------------
-// Crear runtime
-// -----------------------------------------------------
-
 prepararPedidosRuntime(
     instanciaActual
 );
 
-
-// -----------------------------------------------------
-// Marcar asignaciones
-// -----------------------------------------------------
 
 for (
     PlanCamion planCamion
@@ -5392,10 +5352,6 @@ for (
     }
 }
 
-
-// -----------------------------------------------------
-// Asignar plan a cada agente Camion
-// -----------------------------------------------------
 
 for (Camion camion : camiones) {
 
@@ -5560,10 +5516,6 @@ rngProveedor =
 					<Body><![CDATA[trabajadores.clear();
 
 
-// =====================================================
-// CHOFER CAMIÓN 0
-// =====================================================
-
 TrabajadorRuntime chofer0 =
     new TrabajadorRuntime();
 
@@ -5580,10 +5532,6 @@ trabajadores.add(
     chofer0
 );
 
-
-// =====================================================
-// CHOFER CAMIÓN 1
-// =====================================================
 
 TrabajadorRuntime chofer1 =
     new TrabajadorRuntime();
@@ -5602,10 +5550,6 @@ trabajadores.add(
 );
 
 
-// =====================================================
-// EMPLEADO 0
-// =====================================================
-
 TrabajadorRuntime empleado0 =
     new TrabajadorRuntime();
 
@@ -5619,10 +5563,6 @@ trabajadores.add(
     empleado0
 );
 
-
-// =====================================================
-// EMPLEADO 1
-// =====================================================
 
 TrabajadorRuntime empleado1 =
     new TrabajadorRuntime();
@@ -5722,10 +5662,6 @@ throw new IllegalStateException(
     new java.util.ArrayList<TrabajadorRuntime>();
 
 
-// =====================================================
-// 1. El chofer propio siempre participa
-// =====================================================
-
 TrabajadorRuntime choferPropio =
     obtenerChofer(
         camion.camionId
@@ -5750,10 +5686,6 @@ asignados.add(
 );
 
 
-// =====================================================
-// 2. Analizamos al otro camión
-// =====================================================
-
 Camion otroCamion =
     obtenerOtroCamion(
         camion.camionId
@@ -5767,26 +5699,11 @@ boolean otroSinTrabajo =
 int maxEmpleadosCorralon;
 
 
-// -----------------------------------------------------
-// CASO A:
-// El otro camión ya no tiene trabajo.
-// Los dos empleados pueden ayudar.
-// Además puede ayudar el otro chofer.
-// -----------------------------------------------------
-
 if (otroSinTrabajo) {
 
     maxEmpleadosCorralon = 2;
 }
 
-
-// -----------------------------------------------------
-// CASO B:
-// El otro camión está en la calle.
-//
-// Chofer propio + ambos empleados
-// -> normalmente 3 personas.
-// -----------------------------------------------------
 
 else if (otroCamion.enCalle) {
 
@@ -5794,24 +5711,11 @@ else if (otroCamion.enCalle) {
 }
 
 
-// -----------------------------------------------------
-// CASO C:
-// Ambos camiones tienen trabajo y están
-// en el corralón.
-//
-// Intentamos repartir:
-// chofer + 1 empleado para cada uno.
-// -----------------------------------------------------
-
 else {
 
     maxEmpleadosCorralon = 1;
 }
 
-
-// =====================================================
-// 3. Empleados permanentes disponibles
-// =====================================================
 
 int empleadosAsignados = 0;
 
@@ -5852,11 +5756,6 @@ for (
     empleadosAsignados++;
 }
 
-
-// =====================================================
-// 4. Si el otro camión terminó,
-// puede ayudar su chofer.
-// =====================================================
 
 if (otroSinTrabajo) {
 
@@ -5915,8 +5814,6 @@ camion.trabajadoresCarga.clear();
 camion.cargandoAhora =
     false;
     
-// Una solicitud de proveedor podría estar
-// esperando exactamente por estos empleados.
 intentarAtenderProveedoresPendientes();]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
@@ -5961,20 +5858,12 @@ if (rngCarga == null) {
 }
 
 
-// =====================================================
-// Eficiencia efectiva del equipo
-// =====================================================
-
 double personasEfectivas =
     1.0
     +
     CARGA_EFICIENCIA_PERSONA_ADICIONAL
     * (personas - 1);
 
-
-// =====================================================
-// Tiempo esperado base
-// =====================================================
 
 double tiempoBase =
     CARGA_SETUP_MIN
@@ -5985,10 +5874,6 @@ double tiempoBase =
     )
     / personasEfectivas;
 
-
-// =====================================================
-// Variabilidad
-// =====================================================
 
 double factorVariacion =
     triangular(
@@ -6092,10 +5977,6 @@ if (pedido.tieneVentanaEspecifica) {
 }
 
 
-// =====================================================
-// CASO 1: LLEGADA TEMPRANA
-// =====================================================
-
 if (minutoLlegada < desde) {
 
     double anticipacion =
@@ -6132,11 +6013,6 @@ if (minutoLlegada < desde) {
     }
 
 
-    // -------------------------------------------------
-    // No acepta antes:
-    // espera hasta apertura + tiempo de respuesta.
-    // -------------------------------------------------
-
     double esperaHastaVentana =
         desde - minutoLlegada;
 
@@ -6157,10 +6033,6 @@ if (minutoLlegada < desde) {
     return resultado;
 }
 
-
-// =====================================================
-// CASO 2: DENTRO DE LA VENTANA
-// =====================================================
 
 if (minutoLlegada <= hasta) {
 
@@ -6192,10 +6064,6 @@ if (minutoLlegada <= hasta) {
     return resultado;
 }
 
-
-// =====================================================
-// CASO 3: LLEGADA TARDÍA
-// =====================================================
 
 resultado.llegadaTardia =
     true;
@@ -6314,9 +6182,6 @@ if (
     );
 }
 
-
-// Muestreo exponencial mediante
-// transformación inversa.
 
 double u =
     rngProveedor.nextDouble();
@@ -6544,8 +6409,6 @@ traceln(
         < solicitud.empleadosRequeridos
     ) {
 
-        // FIFO:
-        // la primera solicitud espera.
         break;
     }
 
@@ -6630,8 +6493,6 @@ double minutoProximo =
     + demora;
 
 
-// No generamos proveedores
-// después del horizonte operativo.
 if (
     minutoProximo
     > instanciaActual.horaFinToleranciaMin
@@ -6768,14 +6629,8 @@ for (
 }
 
 
-// Puede haber un proveedor esperando
-// justamente por estos empleados.
-
 intentarAtenderProveedoresPendientes();
 
-
-// Si los camiones ya finalizaron, esta atención
-// podría haber sido la última actividad pendiente.
 
 intentarFinalizarEjecucion();]]></Body>
 				</Function>
@@ -6826,10 +6681,6 @@ double ahora =
     minutoDiaActual();
 
 
-// =====================================================
-// Solicitudes que estaban siendo atendidas
-// =====================================================
-
 for (
     SolicitudProveedorRuntime solicitud
     : proveedoresEnAtencion
@@ -6856,10 +6707,6 @@ for (
         "FIN_EJECUCION_CAMIONES";
 }
 
-
-// =====================================================
-// Solicitudes que seguían esperando
-// =====================================================
 
 for (
     SolicitudProveedorRuntime solicitud
@@ -7435,8 +7282,7 @@ traceln(
 );
 
 
-return matriz;
-]]></Body>
+return matriz;]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>VOID</ReturnModificator>
@@ -7616,10 +7462,6 @@ double personaMinCarga =
     0.0;
 
 
-// =====================================================
-// ACTIVIDADES
-// =====================================================
-
 for (
     RegistroActividadCamion registro
     : camion.historialActividades
@@ -7684,10 +7526,6 @@ for (
 }
 
 
-// =====================================================
-// TOTALES TEMPORALES
-// =====================================================
-
 metricas.distanciaTotalKm =
     metricas.distanciaTotalMetros
     / 1000.0;
@@ -7720,10 +7558,6 @@ if (metricas.tiempoCargaMin > 0.0) {
         / metricas.tiempoCargaMin;
 }
 
-
-// =====================================================
-// PEDIDOS ASIGNADOS AL CAMIÓN
-// =====================================================
 
 for (
     PedidoRuntime runtime
@@ -7773,10 +7607,6 @@ for (
 metricas.unidadesRetornadas =
     camion.unidadesRetornadasCorralon;
 
-
-// =====================================================
-// VIAJES Y OCUPACIÓN
-// =====================================================
 
 metricas.viajesCompletados =
     camion.indiceViaje;
@@ -8116,10 +7946,6 @@ double mayorTiempoActivo =
     Double.NEGATIVE_INFINITY;
 
 
-// =====================================================
-// MÉTRICAS POR CAMIÓN
-// =====================================================
-
 for (
     MetricasCamion m
     : resultado.metricasCamiones
@@ -8201,10 +8027,6 @@ for (
 }
 
 
-// =====================================================
-// PEDIDOS / TAREAS
-// =====================================================
-
 for (
     PedidoRuntime runtime
     : pedidosRuntime.values()
@@ -8249,22 +8071,6 @@ for (
             pedido.unidadesCapacidad;
 
 
-        /*
-         * Toda tarea entregada debe pertenecer
-         * exactamente a una de estas categorías:
-         *
-         * 1. Aceptada antes de la ventana.
-         * 2. Entregada después de una llegada tardía
-         *    que el cliente aceptó.
-         * 3. Entregada normalmente dentro de la
-         *    ventana o después de esperar su apertura.
-         *
-         * En el tercer caso no debe usarse únicamente
-         * minutoLlegada, porque el camión puede llegar
-         * antes, esperar hasta la apertura de la ventana
-         * y efectuar correctamente la entrega.
-         */
-
         if (runtime.aceptadoAntes) {
 
             global.entregasAceptadasAntes++;
@@ -8305,10 +8111,6 @@ for (
     }
 }
 
-
-// =====================================================
-// VALIDACIÓN DE CLASIFICACIÓN DE ENTREGAS
-// =====================================================
 
 int entregasClasificadas =
     global.entregasEnVentana
@@ -8370,10 +8172,6 @@ global.entregasSinTardanza =
     global.entregasAceptadasAntes;
 
 
-// =====================================================
-// PEDIDOS ORIGINALES
-// =====================================================
-
 for (
     ResumenPedidoOriginal resumen
     : resultado.resumenesPedidosOriginales
@@ -8398,10 +8196,6 @@ for (
     }
 }
 
-
-// =====================================================
-// PORCENTAJES
-// =====================================================
 
 global.porcentajeTareasEntregadas =
     divisionSegura(
@@ -8444,10 +8238,6 @@ global.tardanzaPromedioMin =
         global.cantidadLlegadasTardias
     );
 
-
-// =====================================================
-// FINALIZACIÓN Y OVERTIME
-// =====================================================
 
 if (!resultado.metricasCamiones.isEmpty()) {
 
@@ -8504,10 +8294,6 @@ if (!resultado.metricasCamiones.isEmpty()) {
 }
 
 
-// =====================================================
-// OCUPACIÓN GLOBAL
-// =====================================================
-
 double capacidadTotalViajes =
     global.viajesTotales
     * instanciaActual.capacidadCamion;
@@ -8526,10 +8312,6 @@ global.promedioPersonasCargaGlobal =
         global.tiempoCargaTotalMin
     );
 
-
-// =====================================================
-// PROVEEDORES
-// =====================================================
 
 global.proveedoresLlegados =
     historialProveedores.size();
@@ -8587,12 +8369,7 @@ for (
         solicitud.minutoFinReal >= 0.0
     ) {
 
-        /*
-         * Nunca comenzó la atención y quedó
-         * esperando hasta el cierre de la
-         * ejecución.
-         */
-
+        
         esperaProveedor =
             solicitud.minutoFinReal
             - solicitud.minutoLlegada;
@@ -8783,10 +8560,6 @@ resultado.ejecucionCompletada =
     ejecucionFinalizada;
 
 
-// =====================================================
-// CAMIONES Y ACTIVIDADES
-// =====================================================
-
 for (Camion camion : camiones) {
 
     MetricasCamion metricas =
@@ -8806,18 +8579,10 @@ for (Camion camion : camiones) {
 }
 
 
-// =====================================================
-// PEDIDOS ORIGINALES
-// =====================================================
-
 resultado.resumenesPedidosOriginales.addAll(
     construirResumenesPedidosOriginales()
 );
 
-
-// =====================================================
-// KPI GLOBAL
-// =====================================================
 
 resultado.metricasGlobales =
     construirMetricasGlobales(
@@ -8832,10 +8597,6 @@ if (resultado.metricasGlobales == null) {
     );
 }
 
-
-// =====================================================
-// VALIDACIÓN DEFENSIVA DE CLASIFICACIÓN
-// =====================================================
 
 int entregasClasificadas =
     resultado.metricasGlobales
@@ -8874,10 +8635,6 @@ if (
     );
 }
 
-
-// =====================================================
-// COSTO
-// =====================================================
 
 resultado.desgloseCosto =
     evaluarCostoTurno(
@@ -9174,10 +8931,6 @@ instancia.seedEjecucion =
     seed;
 
 
-// Pedido pequeño y cercano al corralón.
-// La intención es terminar el episodio
-// bastante antes de 60 minutos simulados.
-
 PedidoInput pedido =
     crearPedidoPrueba(
         "ALP-P001",
@@ -9244,10 +8997,6 @@ plan.tiempoComputoMs =
     0.0;
 
 
-// =====================================================
-// CAMIÓN 0
-// =====================================================
-
 PlanCamion camion0 =
     new PlanCamion();
 
@@ -9271,24 +9020,12 @@ camion0.viajes.add(
 );
 
 
-// =====================================================
-// CAMIÓN 1
-// =====================================================
-//
-// Se incluye porque el validador exige exactamente
-// CANTIDAD_CAMIONES elementos PlanCamion.
-// Puede tener cero viajes.
-
 PlanCamion camion1 =
     new PlanCamion();
 
 camion1.camionId =
     1;
 
-
-// =====================================================
-// PLAN COMPLETO
-// =====================================================
 
 plan.camiones.add(
     camion0
@@ -10252,9 +9989,6 @@ for (
 	
 	} else {
 	
-	    // Un pedido sin ventana específica puede
-	    // atenderse durante todo el horario normal
-	    // del turno.
 	
 	    pedido.horaDesdeMin =
 	        instancia.horaInicioTurnoMin;
@@ -10762,10 +10496,6 @@ return plan;]]></Body>
     new java.util.ArrayList<java.io.File>();
 
 
-// =====================================================
-// RUTA CONSERVADA POR EL EXPERIMENTO ALPYNE
-// =====================================================
-
 String rutaPropiedadSistema =
     System.getProperty(
         "pedemonte.python.root",
@@ -10789,10 +10519,6 @@ if (
 }
 
 
-// =====================================================
-// RUTA CONFIGURADA DIRECTAMENTE EN MAIN
-// =====================================================
-
 if (
     rutaPythonProyectoPypeline != null
     &&
@@ -10808,10 +10534,6 @@ if (
     );
 }
 
-
-// =====================================================
-// BÚSQUEDA RELATIVA DESDE user.dir
-// =====================================================
 
 java.io.File actual =
     new java.io.File(
@@ -10844,10 +10566,6 @@ for (
         actual.getParentFile();
 }
 
-
-// =====================================================
-// VALIDACIÓN DE CANDIDATOS
-// =====================================================
 
 for (
     java.io.File candidato
@@ -10885,10 +10603,7 @@ for (
             pyrefly.isFile()
         ) {
 
-            /*
-             * Se conserva también en Main para que el
-             * resto de la ejecución pueda consultarla.
-             */
+            
             rutaPythonProyectoPypeline =
                 raiz.getCanonicalPath();
 
@@ -10900,14 +10615,9 @@ for (
         java.io.IOException ex
     ) {
 
-        // Se prueba el siguiente candidato.
     }
 }
 
-
-// =====================================================
-// ERROR EXPLÍCITO
-// =====================================================
 
 throw new IllegalStateException(
     "No se encontró la carpeta python "
@@ -11378,8 +11088,7 @@ try {
 
 
     return false;
-}
-]]></Body>
+}]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
@@ -12025,8 +11734,6 @@ try {
             unidadesParte;
 
 
-        // Cada parte hereda el volcador.
-
         pedido.requiereVolcador =
             requiereVolcadorFormulario;
 
@@ -12426,15 +12133,10 @@ return instancia;]]></Body>
 }
 
 
-// Aseguramos que el mapa esté visible.
-
 mapaGIS.setVisible(
     true
 );
 
-
-// Si ya existía un punto del corralón,
-// lo retiramos antes de volver a crearlo.
 
 if (puntoCorralonGIS != null) {
 
@@ -12446,8 +12148,6 @@ if (puntoCorralonGIS != null) {
         null;
 }
 
-
-// Creamos el punto geográfico.
 
 puntoCorralonGIS =
     new com.anylogic.engine.markup.GISPoint(
@@ -12492,20 +12192,10 @@ puntoCorralonGIS.setVisible(
 );
 
 
-// IMPORTANTE:
-//
-// Crear el GISPoint no alcanza para que
-// aparezca dinámicamente en la animación.
-// Debemos agregarlo al conjunto de dibujo
-// del mapa.
-
 mapaGIS.add(
     puntoCorralonGIS
 );
 
-
-// Centramos y damos un encuadre inicial
-// alrededor del corralón.
 
 mapaGIS.fitBounds(
     LAT_CORRALON - 0.004,
@@ -12651,14 +12341,6 @@ limpiarMarcadoresCamionesGIS();
 limpiarPedidosGIS();
 
 
-// =====================================================
-// AGRUPAR TAREAS POR PEDIDO ORIGINAL
-// =====================================================
-//
-// Las partes de un pedido dividido comparten
-// ubicación. Mostramos un solo punto por pedido
-// original para evitar puntos superpuestos.
-
 java.util.LinkedHashMap<
     String,
     java.util.ArrayList<PedidoInput>
@@ -12721,10 +12403,6 @@ for (
 }
 
 
-// =====================================================
-// LÍMITES PARA AJUSTAR AUTOMÁTICAMENTE EL MAPA
-// =====================================================
-
 double latitudMinima =
     instancia.latCorralon;
 
@@ -12737,10 +12415,6 @@ double longitudMinima =
 double longitudMaxima =
     instancia.lonCorralon;
 
-
-// =====================================================
-// CREAR LOS PUNTOS DE LOS CLIENTES
-// =====================================================
 
 for (
     java.util.Map.Entry<
@@ -12844,9 +12518,6 @@ for (
         }
 
 
-        // Todas las partes del pedido original
-        // deberían compartir las coordenadas.
-
         if (
             Math.abs(
                 parte.latitud
@@ -12886,10 +12557,6 @@ for (
     }
 
 
-    // =================================================
-    // COLOR DEL PUNTO
-    // =================================================
-
     java.awt.Color colorRelleno;
 
 
@@ -12899,8 +12566,6 @@ for (
         tieneVentana
     ) {
 
-        // Magenta:
-        // ventana y volcador.
 
         colorRelleno =
             new java.awt.Color(
@@ -12911,8 +12576,6 @@ for (
 
     } else if (requiereVolcador) {
 
-        // Naranja:
-        // requiere volcador.
 
         colorRelleno =
             new java.awt.Color(
@@ -12923,8 +12586,6 @@ for (
 
     } else if (tieneVentana) {
 
-        // Violeta:
-        // tiene ventana específica.
 
         colorRelleno =
             new java.awt.Color(
@@ -12935,8 +12596,6 @@ for (
 
     } else {
 
-        // Azul:
-        // pedido normal.
 
         colorRelleno =
             new java.awt.Color(
@@ -12946,10 +12605,6 @@ for (
             );
     }
 
-
-    // =================================================
-    // CREACIÓN DEL GISPOINT
-    // =================================================
 
     com.anylogic.engine.markup.GISPoint punto =
         new com.anylogic.engine.markup.GISPoint(
@@ -13016,11 +12671,6 @@ for (
     );
 
 
-    // IMPORTANTE:
-    //
-    // Esta llamada agrega el punto al conjunto
-    // de elementos que el mapa debe representar.
-
     mapaGIS.add(
         punto
     );
@@ -13030,9 +12680,6 @@ for (
         punto
     );
 
-
-    // Actualizamos los límites para encuadrar
-    // automáticamente todos los puntos.
 
     latitudMinima =
         Math.min(
@@ -13083,10 +12730,6 @@ for (
 }
 
 
-// =====================================================
-// AJUSTAR ENCUADRE DEL MAPA
-// =====================================================
-
 double diferenciaLatitud =
     latitudMaxima
     - latitudMinima;
@@ -13095,10 +12738,6 @@ double diferenciaLongitud =
     longitudMaxima
     - longitudMinima;
 
-
-// Margen mínimo para evitar que un punto quede
-// pegado al borde o que el mapa intente ajustar
-// un rectángulo de tamaño cero.
 
 double margenLatitud =
     Math.max(
@@ -13129,10 +12768,6 @@ mapaGIS.fitBounds(
         + margenLongitud
 );
 
-
-// =====================================================
-// ESTADO FINAL
-// =====================================================
 
 mensajeGIS =
     "GIS actualizado: corralón + "
@@ -13314,7 +12949,6 @@ throw new IllegalArgumentException(
 					</Parameter>
 					<Body><![CDATA[if (camionId == 0) {
 
-    // Verde fuerte.
 
     return new java.awt.Color(
         46,
@@ -13326,9 +12960,6 @@ throw new IllegalArgumentException(
 
 if (camionId == 1) {
 
-    // Violeta oscuro.
-    // Se diferencia claramente del verde
-    // incluso cuando las rutas se cruzan.
 
     return new java.awt.Color(
         123,
@@ -13337,9 +12968,6 @@ if (camionId == 1) {
     );
 }
 
-
-// Colores defensivos para posibles
-// camiones adicionales.
 
 int indice =
     Math.abs(
@@ -13503,9 +13131,6 @@ if (
 }
 
 
-// Un segmento entre dos coordenadas
-// exactamente iguales no sería visible.
-
 if (
     Math.abs(
         latitudOrigen
@@ -13540,13 +13165,6 @@ if (ruta == null) {
     );
 }
 
-
-// El Camión 1 utiliza una línea violeta más ancha.
-// El Camión 0 utiliza una línea verde más fina.
-//
-// Cuando ambas rutas coinciden, la verde queda
-// visible en el centro y la violeta permanece
-// visible en los bordes.
 
 double anchoRuta =
     4.0;
@@ -13652,14 +13270,6 @@ if (!validacion.valido) {
     );
 }
 
-
-/*
- * Ya no dibujamos el plan completo.
- *
- * Cada agente Camion solicitará la representación
- * de su viaje actual al comenzar la carga y la
- * eliminará cuando vuelva al corralón.
- */
 
 limpiarRutasPlanGIS();
 
@@ -13809,10 +13419,6 @@ for (
 }
 
 
-// Los marcadores se preparan desde el inicio.
-// Las rutas aparecerán cuando cada camión inicie
-// su viaje correspondiente.
-
 inicializarMarcadoresCamionesGIS(
     instancia
 );
@@ -13840,8 +13446,7 @@ traceln(
     + tramosPlanificados
     + " | camionesConViajes="
     + camionesConViajes
-);
-]]></Body>
+);]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>VOID</ReturnModificator>
@@ -13988,10 +13593,6 @@ if (estadoNormalizado.isEmpty()) {
 }
 
 
-// =====================================================
-// ELIMINAR EL MARCADOR ANTERIOR
-// =====================================================
-
 com.anylogic.engine.markup.GISPoint marcadorAnterior =
     marcadoresCamionesGIS.get(
         camionId
@@ -14011,10 +13612,6 @@ marcadoresCamionesGIS.remove(
 );
 
 
-// =====================================================
-// CONSERVAR EL ESTADO TEXTUAL
-// =====================================================
-
 estadosCamionesGIS.put(
     camionId,
     estadoNormalizado
@@ -14028,10 +13625,6 @@ mensajeCamionesGIS =
     + estadoNormalizado
     + ".";
 
-
-// =====================================================
-// MARCADOR CIRCULAR OPCIONAL
-// =====================================================
 
 if (!mostrarMarcadoresDiagnosticoGIS) {
 
@@ -14324,10 +13917,6 @@ if (estadoNormalizado.isEmpty()) {
 }
 
 
-// =====================================================
-// COORDENADAS REALES Y VISUALES
-// =====================================================
-
 double latitudVisual =
     latitud;
 
@@ -14346,10 +13935,6 @@ boolean estaEnCorralon =
         - LON_CORRALON
     ) < 0.000000001;
 
-
-// =====================================================
-// SEPARACIÓN VISUAL EN EL CORRALÓN
-// =====================================================
 
 if (estaEnCorralon) {
 
@@ -14390,10 +13975,6 @@ if (estaEnCorralon) {
         desplazamientoLatitud;
 
 
-// =====================================================
-// SEPARACIÓN VISUAL EN CLIENTES
-// =====================================================
-
 } else {
 
     /*
@@ -14420,8 +14001,6 @@ if (estaEnCorralon) {
 
     if (posicionVisual == 0) {
 
-        // Camión 0:
-        // arriba y a la derecha.
 
         latitudVisual +=
             separacionBase;
@@ -14431,8 +14010,6 @@ if (estaEnCorralon) {
 
     } else if (posicionVisual == 1) {
 
-        // Camión 1:
-        // abajo y a la izquierda.
 
         latitudVisual -=
             separacionBase;
@@ -14442,8 +14019,6 @@ if (estaEnCorralon) {
 
     } else if (posicionVisual == 2) {
 
-        // Camión adicional:
-        // arriba y a la izquierda.
 
         latitudVisual +=
             separacionBase;
@@ -14453,8 +14028,6 @@ if (estaEnCorralon) {
 
     } else {
 
-        // Camión adicional:
-        // abajo y a la derecha.
 
         latitudVisual -=
             separacionBase;
@@ -14465,10 +14038,6 @@ if (estaEnCorralon) {
 }
 
 
-// =====================================================
-// ACTUALIZAR EL MARCADOR
-// =====================================================
-
 actualizarMarcadorCamionGIS(
     camionId,
     latitudVisual,
@@ -14476,10 +14045,6 @@ actualizarMarcadorCamionGIS(
     estadoNormalizado
 );
 
-
-// =====================================================
-// DIAGNÓSTICO
-// =====================================================
 
 traceln(
     "GIS POSICIÓN OPERATIVA"
@@ -14632,8 +14197,6 @@ if (
     pedido.tieneVentanaEspecifica
 ) {
 
-    // Magenta:
-    // ventana y volcador.
 
     return new java.awt.Color(
         194,
@@ -14645,8 +14208,6 @@ if (
 
 if (pedido.requiereVolcador) {
 
-    // Naranja:
-    // requiere volcador.
 
     return new java.awt.Color(
         251,
@@ -14660,8 +14221,6 @@ if (
     pedido.tieneVentanaEspecifica
 ) {
 
-    // Violeta:
-    // ventana específica.
 
     return new java.awt.Color(
         103,
@@ -14670,9 +14229,6 @@ if (
     );
 }
 
-
-// Azul:
-// pedido normal.
 
 return new java.awt.Color(
     30,
@@ -15281,10 +14837,6 @@ if (
 }
 
 
-// =====================================================
-// ELIMINAR EL PUNTO ANTERIOR
-// =====================================================
-
 if (puntoAnterior != null) {
 
     mapaGIS.remove(
@@ -15297,10 +14849,6 @@ if (puntoAnterior != null) {
     );
 }
 
-
-// =====================================================
-// COLORES
-// =====================================================
 
 java.awt.Color colorBase =
     colorBasePedidoGIS(
@@ -15322,10 +14870,6 @@ java.awt.Color colorBorde =
     ? java.awt.Color.BLACK
     : colorBase;
 
-
-// =====================================================
-// CREAR EL NUEVO PUNTO
-// =====================================================
 
 com.anylogic.engine.markup.GISPoint puntoNuevo =
     new com.anylogic.engine.markup.GISPoint(
@@ -15862,14 +15406,6 @@ try {
     }
 
 
-    /*
-     * Las coordenadas se normalizan a seis
-     * decimales, igual que el proveedor Python.
-     *
-     * LinkedHashMap conserva un orden estable
-     * y elimina ubicaciones duplicadas.
-     */
-
     java.util.LinkedHashMap<String, double[]>
         coordenadasUnicas =
             new java.util.LinkedHashMap<
@@ -15995,11 +15531,6 @@ try {
             "cache_vial.csv"
         );
 
-
-    /*
-     * Las filas existentes se leen y normalizan.
-     * No se pierden tramos exportados anteriormente.
-     */
 
     java.util.TreeMap<String, String>
         filasCache =
@@ -16353,8 +15884,6 @@ try {
                     destino[1]
                 );
 
-            String fuenteDistanciaFila =
-                "ANYLOGIC_ROUTE_PROVIDER";
 
             if (
                 !Double.isFinite(
@@ -16364,34 +15893,13 @@ try {
                 distanciaVial <= 0.0
             ) {
 
-                double distHaversine =
-                    calcularDistanciaHaversineMetros(
-                        origen[0],
-                        origen[1],
-                        destino[0],
-                        destino[1]
-                    );
-
-                distanciaVial =
-                    Math.max(
-                        distHaversine
-                        * TRAFICO_FACTOR_URBANO_DISTANCIA,
-                        10.0
-                    );
-
-                fuenteDistanciaFila =
-                    "HAVERSINE_FALLBACK";
-
-                traceln(
-                    "CACHE VIAL | AVISO | Tramo sin ruta GIS ("
+                throw new IllegalStateException(
+                    "El proveedor vial no devolvió "
+                    + "una distancia válida para "
                     + claveTramo
-                    + "). Usando Haversine ajustado: "
-                    + String.format(
-                        java.util.Locale.US,
-                        "%.3f",
-                        distanciaVial
-                    )
-                    + " m"
+                    + ". Valor="
+                    + distanciaVial
+                    + "."
                 );
             }
 
@@ -16404,12 +15912,6 @@ try {
                 );
 
 
-            /*
-             * tiempo_base_min queda vacío.
-             * Python lo derivará utilizando
-             * velocidad_base_kmh.
-             */
-
             String nuevaFila =
                 VERSION_CACHE
                 + ","
@@ -16419,7 +15921,7 @@ try {
                 + ","
                 + ""
                 + ","
-                + fuenteDistanciaFila
+                + "ANYLOGIC_ROUTE_PROVIDER"
                 + ","
                 + "VELOCIDAD_BASE_CONFIG";
 
@@ -16445,11 +15947,6 @@ try {
         }
     }
 
-
-    /*
-     * Ningún archivo se modifica hasta que todas
-     * las consultas necesarias hayan finalizado.
-     */
 
     filasCache.putAll(
         nuevasFilas
@@ -17253,10 +16750,6 @@ uiSelectorSeedGA =
     -1L;
 
 
-/*
- * La bandera se reutiliza para indicar que el panel
- * debe mostrar las cuatro líneas especializadas.
- */
 uiSelectorPoliticaOperacional =
     "RL".equals(
         uiSelectorModoSolicitado
@@ -17360,10 +16853,6 @@ actualizarColoresSelectorVisual();]]></Body>
 }
 
 
-// =====================================================
-// DATOS GENERALES
-// =====================================================
-
 String modo =
     campoDecisionSelector(
         decision,
@@ -17406,7 +16895,6 @@ String version =
     );
 
 
-
 boolean esRLPuro =
     "RL_PURO_POLITICA_UNICA".equalsIgnoreCase(
         arquitectura
@@ -17439,10 +16927,6 @@ if (!modo.isEmpty()) {
         modo.toUpperCase();
 }
 
-
-// =====================================================
-// COSTO Y TIEMPO GENERALES
-// =====================================================
 
 uiSelectorCostoElegido =
     numeroDecisionSelector(
@@ -17508,14 +16992,8 @@ uiSelectorAviso =
     "";
 
 
-// =====================================================
-// MODO RL PURO
-// =====================================================
-
 if (esRLPuro) {
 
-    // El protocolo conserva POLITICA_UNICA para auditoría,
-    // pero el dashboard muestra el nombre comprensible del método.
     uiSelectorFuente =
         "RL";
 
@@ -17656,10 +17134,6 @@ if (esRLPuro) {
     }
 
 
-// =====================================================
-// MODO HÍBRIDO RL → GA
-// =====================================================
-
 } else if (esHibridoRLGA) {
 
     String fuenteRL =
@@ -17674,7 +17148,6 @@ if (esRLPuro) {
             decision,
             "resultado"
         );
-
 
 
     String costoRefinadoTexto =
@@ -17734,8 +17207,6 @@ if (esRLPuro) {
         : motivo.toUpperCase();
 
 
-    // El resultado sigue auditando si GA refinó o se conservó RL,
-    // pero el modo visible para el usuario es HÍBRIDO.
     uiSelectorFuente =
         "HÍBRIDO";
 
@@ -17844,10 +17315,6 @@ if (esRLPuro) {
             "La mejora con GA no pudo completarse.";
     }
 
-
-// =====================================================
-// MODOS DIRECTOS
-// =====================================================
 
 } else {
 
@@ -17985,10 +17452,6 @@ if (esRLPuro) {
     }
 }
 
-
-// =====================================================
-// ESTADO FINAL
-// =====================================================
 
 uiSelectorEstado =
     uiSelectorAviso.isEmpty()
@@ -18153,8 +17616,7 @@ return String.format(
     java.util.Locale.US,
     "Cálculo: %.2f ms",
     uiSelectorTiempoMs
-);
-]]></Body>
+);]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
@@ -18679,8 +18141,6 @@ if (texto.isEmpty()) {
     );
 }
 
-
-// Conserva compatibilidad con valores antiguos en minutos.
 
 if (texto.matches("\\d+")) {
 
@@ -19342,8 +18802,6 @@ try {
 }
 
 
-// Los camiones todavía siguen operando.
-
 if (
     camionesFinalizados
     < CANTIDAD_CAMIONES
@@ -19353,20 +18811,11 @@ if (
 }
 
 
-// Desde este momento no deben llegar
-// nuevos proveedores.
-
 eventoLlegadaProveedor.reset();
 
 
-// Si había proveedores pendientes y ahora
-// existen empleados libres, se inicia su atención.
-
 intentarAtenderProveedoresPendientes();
 
-
-// La ejecución no termina mientras exista
-// algún proveedor esperando o siendo atendido.
 
 if (
     !proveedoresPendientes.isEmpty()
@@ -19402,10 +18851,6 @@ if (
 }
 
 
-// =====================================================
-// CIERRE DEFINITIVO
-// =====================================================
-
 ejecucionEnCurso =
     false;
 
@@ -19413,8 +18858,6 @@ ejecucionEnCurso =
 ejecucionFinalizada =
     true;
 
-// Habilitar exportación cuando finaliza
-// una operación con un plan válido.
 
 if (
     planActual != null
@@ -19432,9 +18875,6 @@ if (
     );
 }
 
-// En este punto las listas deberían estar vacías.
-// La función conserva su responsabilidad de
-// limpiar eventos y recursos remanentes.
 
 cerrarSistemaProveedores();
 
@@ -20013,8 +19453,6 @@ if (texto.isEmpty()) {
 }
 
 
-// Permite escribir decimales con punto o coma.
-
 texto =
     texto.replace(
         ',',
@@ -20455,14 +19893,12 @@ modoVistaGIS =
     camionId;
 
 
-// Primero ubicamos el centro en la posición actual.
 mapaGIS.setProjectionCenter(
     latitud,
     longitud
 );
 
 
-// La escala es una proporción: 1 / 20000.
 mapaGIS.setMapScale(
     escalaSeguimientoGIS
 );
@@ -22598,9 +22034,6 @@ reiniciarPanelSelectorVisual(
 );
 
 
-// La vista utiliza una presentación común para
-// cualquier plan recuperado de la comparación.
-
 uiSelectorPoliticaOperacional =
     false;
 
@@ -23353,9 +22786,6 @@ if (
     );
 }
 
-
-// Las asignaciones se realizan al final para evitar
-// dejar un estado parcialmente construido.
 
 instanciaBaseRepetible =
     copiaBase;
@@ -25330,11 +24760,6 @@ for (
 }
 
 
-// Ordenamiento estable ascendente.
-// Se comparan los costos redondeados a dos
-// decimales para evitar desempates por ruido
-// numérico de punto flotante.
-
 for (
     int posicion = 0;
     posicion < metodos.length - 1;
@@ -27164,9 +26589,6 @@ if (
 }
 
 
-// Se agrega un margen del 5 % para que el punto
-// de mayor tiempo no toque el borde derecho.
-
 double limiteSuperior =
     maximo
     *
@@ -27355,20 +26777,11 @@ final com.anylogic.engine.ExperimentSimulation<?>
         ) experimento;
 
 
-// La propiedad pertenece al proceso Java,
-// no al agente Main.
-//
-// Por eso sobrevive a la destrucción del modelo
-// y puede ser leída por el nuevo Main.
-
 System.setProperty(
     "pedemonte.restart.mode",
     "NUEVA_OPERACION"
 );
 
-
-// Eliminamos cualquier dato residual que en el futuro
-// pertenezca al flujo de repetición de instancia.
 
 System.clearProperty(
     "pedemonte.restart.payload"
@@ -27488,10 +26901,6 @@ if (modoReinicio.isEmpty()) {
 }
 
 
-// =====================================================
-// NUEVA OPERACIÓN
-// =====================================================
-
 if (
     "NUEVA_OPERACION".equals(
         modoReinicio
@@ -27548,10 +26957,6 @@ if (
     return true;
 }
 
-
-// =====================================================
-// REPETIR INSTANCIA
-// =====================================================
 
 if (
     !"REPETIR_INSTANCIA".equals(
@@ -29644,7 +29049,6 @@ javax.swing.SwingUtilities.invokeLater(
 
             try {
 
-                // Recupera la ventana si quedó minimizada.
                 ventana.setExtendedState(
                     java.awt.Frame.NORMAL
                 );
@@ -29655,14 +29059,6 @@ javax.swing.SwingUtilities.invokeLater(
                 );
 
 
-                /*
-                 * La dejamos temporalmente por encima.
-                 *
-                 * Esto obliga a Windows a mostrarla
-                 * delante de AnyLogic, pero no la deja
-                 * permanentemente sobre todas las
-                 * aplicaciones.
-                 */
                 ventana.setAlwaysOnTop(
                     true
                 );
@@ -31100,14 +30496,6 @@ try {
             : pedido.pedidoOriginalId.trim();
 
 
-        /*
-         * Los pedidos no divididos pueden no tener
-         * pedidoOriginalId informado.
-         *
-         * En ese caso se utiliza pedidoId, igual que
-         * al construir la lista autoritativa web.
-         */
-
         if (idCandidato.isEmpty()) {
 
             idCandidato =
@@ -31898,12 +31286,6 @@ try {
     );
 
 
-    /*
-     * Se deja un intervalo corto para que JavaScript
-     * procese el evento de confirmación antes de
-     * ocultar la ventana.
-     */
-
     javax.swing.Timer temporizadorCierre =
         new javax.swing.Timer(
             150,
@@ -32316,10 +31698,6 @@ if (!pypelineSelectorInicializado) {
 }
 
 
-// =====================================================
-// 1. Validar que el vector contiene un plan válido
-// =====================================================
-
 PlanTurno planReconstruido =
     crearPlanAlpyneDinamico(
         planVector,
@@ -32340,10 +31718,6 @@ if (!validacion.valido) {
     );
 }
 
-
-// =====================================================
-// 2. Recuperar la información real de los pedidos
-// =====================================================
 
 int cantidadPedidos =
     instancia.pedidos.size();
@@ -32401,19 +31775,11 @@ for (int i = 0; i < cantidadPedidos; i++) {
 }
 
 
-// =====================================================
-// 3. Recuperar la instancia operativa original
-// =====================================================
-
 double[] instanciaVector =
     construirVectorInstanciaPypeline(
         instancia
     );
 
-
-// =====================================================
-// 4. Resolver la raíz del proyecto
-// =====================================================
 
 String raizPython =
     resolverRaizPythonPypeline();
@@ -32436,10 +31802,6 @@ if (directorioProyecto == null) {
 String rutaProyecto =
     directorioProyecto.getAbsolutePath();
 
-
-// =====================================================
-// 5. Serializar los argumentos para Python
-// =====================================================
 
 String instanciaLiteral =
     pyCommunicator.toJson(
@@ -32483,20 +31845,12 @@ String rutaProyectoLiteral =
     );
 
 
-// =====================================================
-// 6. Importar el puente de exportación
-// =====================================================
-
 pyCommunicator.run(
     "from planner.integration import "
     + "route_excel_bridge "
     + "as pedemonte_route_excel_bridge"
 );
 
-
-// =====================================================
-// 7. Ejecutar la exportación en Python
-// =====================================================
 
 String comando =
     "pedemonte_route_excel_bridge."
@@ -32526,10 +31880,6 @@ String rutaExportada =
         comando
     );
 
-
-// =====================================================
-// 8. Verificar el resultado
-// =====================================================
 
 if (
     rutaExportada == null
@@ -32591,8 +31941,7 @@ traceln(
     "===================================="
 );
 
-return archivoExportado.getAbsolutePath();
-]]></Body>
+return archivoExportado.getAbsolutePath();]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
@@ -32617,10 +31966,6 @@ if (!requiereVolcadorFormulario) {
     return agregado;
 }
 
-
-// =====================================================
-// 1. Validar cantidad de unidades con volcador
-// =====================================================
 
 int unidadesTotales;
 int unidadesVolcador;
@@ -32667,8 +32012,6 @@ try {
     unidadesNormales =
         unidadesTotales - unidadesVolcador;
 
-
-    // Cantidad de tareas homogéneas.
 
     int partesNormales =
         unidadesNormales == 0
@@ -32723,10 +32066,6 @@ try {
 }
 
 
-// =====================================================
-// 2. Conservar la validación existente
-// =====================================================
-
 int indiceInicial =
     pedidosFormulario.size();
 
@@ -32738,9 +32077,6 @@ if (!agregado) {
 }
 
 
-// Si todas las unidades requieren volcador,
-// el split anterior ya es correcto.
-
 if (unidadesNormales == 0) {
 
     unidadesVolcadorFormulario = "";
@@ -32748,10 +32084,6 @@ if (unidadesNormales == 0) {
     return true;
 }
 
-
-// =====================================================
-// 3. Reconstruir únicamente las partes del pedido
-// =====================================================
 
 PedidoInput plantilla =
     copiarPedidoInput(
@@ -32838,10 +32170,6 @@ for (int grupo = 0; grupo < 2; grupo++) {
 }
 
 
-// =====================================================
-// 4. Sustituir solo las partes recién generadas
-// =====================================================
-
 pedidosFormulario.subList(
     indiceInicial,
     pedidosFormulario.size()
@@ -32851,10 +32179,6 @@ pedidosFormulario.addAll(
     partesNuevas
 );
 
-
-// =====================================================
-// 5. Confirmar conservación de unidades
-// =====================================================
 
 int sumaTotal = 0;
 int sumaVolcador = 0;
@@ -32883,10 +32207,6 @@ if (
 }
 
 
-// =====================================================
-// 6. Resultado
-// =====================================================
-
 unidadesVolcadorFormulario = "";
 
 mensajeFormulario =
@@ -32913,8 +32233,7 @@ traceln(
     + cantidadPartes
 );
 
-return true;
-]]></Body>
+return true;]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
@@ -32926,11 +32245,7 @@ return true;
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>true</ShowLabel>
-					<Body><![CDATA[// =====================================================
-// PREPARACION AUTOMATICA DE LA MATRIZ VIAL
-// =====================================================
-
-// No debe modificarse la matriz durante una ejecución.
+					<Body><![CDATA[
 
 if (instanciaInterfazActual == null) {
 
@@ -32948,8 +32263,6 @@ if (ejecucionEnCurso || pypelineSolicitudEnCurso) {
     return false;
 }
 
-// Primero comprobamos la caché existente.
-// No se consulta nuevamente un recorrido disponible.
 
 if (verificarCacheVialInstanciaActual()) {
 
@@ -32960,7 +32273,6 @@ if (verificarCacheVialInstanciaActual()) {
     return true;
 }
 
-// Se encontraron recorridos faltantes.
 
 traceln(
     "CACHE VIAL | Preparación automática."
@@ -32972,7 +32284,6 @@ mensajeInterfazPlanificacion =
     "Preparando matriz vial."
     + "\nConsultando los recorridos faltantes...";
 
-// Bloqueamos temporalmente otras operaciones.
 
 pypelineSolicitudEnCurso = true;
 
@@ -32997,7 +32308,6 @@ try {
     pypelineSolicitudEnCurso = false;
 }
 
-// Nunca continuar con una matriz incompleta.
 
 if (!exportacionCorrecta) {
 
@@ -33080,8 +32390,6 @@ estudioCorridasPrevistas = 0L;
 estudioMensajeConfiguracion =
     "Cambios pendientes de validar.";
 
-// Desvincular los escenarios anteriores.
-// No eliminar sus archivos.
 estudioProcesoGeneracion = null;
 estudioDirectorioEscenarios = "";
 estudioErrorGeneracion = "";
@@ -33091,7 +32399,6 @@ estudioCarpetaVial = "";
 estudioEstadoVial =
     "Preparación vial pendiente.";
 
-// Detener el seguimiento anterior.
 if (estudioTemporizadorSimulacion != null) {
     estudioTemporizadorSimulacion.stop();
     estudioTemporizadorSimulacion = null;
@@ -33111,8 +32418,6 @@ estudioSimulacionesFallidas = 0;
 estudioEstadoSimulacion =
     "Sin simulaciones ejecutadas.";
 
-// Limpiar solo el dashboard.
-// No borrar resultados persistidos.
 limpiarResultadosEstudio();
 
 btnGenerarEscenariosEstudio.setText(
@@ -33121,8 +32426,7 @@ btnGenerarEscenariosEstudio.setText(
 
 btnEjecutarEstudio.setText(
     "Ejecutar estudio"
-);
-]]></Body>
+);]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
@@ -33134,15 +32438,11 @@ btnEjecutarEstudio.setText(
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>true</ShowLabel>
-					<Body><![CDATA[// =============================================
-// VALIDACION DE LA CONFIGURACION EXPERIMENTAL
-// =============================================
-
+					<Body><![CDATA[
 invalidarConfiguracionEstudio();
 
 try {
 
-    // Leer directamente los controles.
 
     String textoTurnos =
         editTurnosEstudio.getText().trim();
@@ -33169,7 +32469,6 @@ try {
         );
     }
 
-    // Convertir a valores numéricos.
 
     int cantidadTurnos =
         Integer.parseInt(textoTurnos);
@@ -33180,9 +32479,6 @@ try {
     long semilla =
         Long.parseLong(textoSemilla);
 
-    // =========================================
-    // VALIDACION DE RANGOS
-    // =========================================
 
     if (
         cantidadTurnos < 1
@@ -33219,9 +32515,6 @@ try {
         );
     }
 
-    // =========================================
-    // VALIDACION DEL TURNO
-    // =========================================
 
     if (
         turno == null
@@ -33240,9 +32533,6 @@ try {
         );
     }
 
-    // =========================================
-    // CALCULO DE CORRIDAS
-    // =========================================
 
     final int cantidadAlgoritmos = 5;
 
@@ -33251,7 +32541,6 @@ try {
         * repeticiones
         * cantidadAlgoritmos;
 
-    // Limite operativo inicial de esta interfaz.
 
     if (corridas > 5000L) {
 
@@ -33260,9 +32549,6 @@ try {
         );
     }
 
-    // =========================================
-    // GUARDAR CONFIGURACION VALIDADA
-    // =========================================
 
     estudioTurnosValidados =
         cantidadTurnos;
@@ -33512,12 +32798,7 @@ return
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>true</ShowLabel>
-					<Body><![CDATA[// =====================================================
-// GENERACION DE ESCENARIOS EXPERIMENTALES
-// =====================================================
-
-// No modificar Python ni los algoritmos.
-// Se ejecuta el generador existente en otro proceso.
+					<Body><![CDATA[
 
 if (!estudioConfiguracionValidada) {
 
@@ -33546,9 +32827,6 @@ if (ejecucionEnCurso || pypelineSolicitudEnCurso) {
 
 try {
 
-    // =================================================
-    // LOCALIZAR EL PROYECTO Y EL GENERADOR
-    // =================================================
 
     String raizPython =
         resolverRaizPythonPypeline();
@@ -33582,9 +32860,6 @@ try {
         );
     }
 
-    // =================================================
-    // LOCALIZAR EL ENTORNO PYTHON
-    // =================================================
 
     java.io.File ejecutablePython =
         new java.io.File(
@@ -33609,9 +32884,6 @@ try {
         );
     }
 
-    // =================================================
-    // CREAR CARPETA DE RESULTADOS DEL LOTE
-    // =================================================
 
     String marcaTiempo =
         new java.text.SimpleDateFormat(
@@ -33650,9 +32922,6 @@ try {
             "generacion.log"
         );
 
-    // =================================================
-    // ARMAR EL COMANDO SIN UTILIZAR UNA SHELL
-    // =================================================
 
     java.util.ArrayList<String> comando =
         new java.util.ArrayList<String>();
@@ -33694,9 +32963,6 @@ try {
     comando.add("--max-tareas");
     comando.add("30");
 
-    // =================================================
-    // INICIAR PROCESO INDEPENDIENTE
-    // =================================================
 
     java.lang.ProcessBuilder constructor =
         new java.lang.ProcessBuilder(
@@ -33816,7 +33082,6 @@ if (
     return false;
 }
 
-// Guardar el estado previo de Main.
 InstanciaTurno instanciaAnterior =
     instanciaInterfazActual;
 
@@ -33869,8 +33134,6 @@ try {
         );
     }
 
-    // Leer las columnas geográficas
-    // del formato CSV producido por el generador.
     String[] encabezados =
         lineas.get(0)
             .replace("\uFEFF", "")
@@ -33937,8 +33200,6 @@ try {
             continue;
         }
 
-        // El generador escribe estos campos
-        // sin comas internas.
         String[] datos = linea.split(",", -1);
 
         if (datos.length <= ultimaColumna) {
@@ -34024,8 +33285,6 @@ try {
 
     temporal.turno = turnoEncontrado;
 
-    // La referencia temporal solo se utiliza
-    // para llamar al exportador vial existente.
     instanciaInterfazActual = temporal;
 
     boolean lista =
@@ -34079,7 +33338,6 @@ try {
     return false;
 
 } finally {
-    // Restaurar el contexto de la vista individual.
     instanciaInterfazActual =
         instanciaAnterior;
 
@@ -34097,8 +33355,7 @@ try {
 
     cacheVialEstadoInterfaz =
         estadoAnterior;
-}
-]]></Body>
+}]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>VOID</ReturnModificator>
@@ -34115,7 +33372,6 @@ if (!estudioFlujoActivo) {
     return;
 }
 
-// Primera etapa: esperar a Python.
 if (generacionActivaEstudio()) {
     estudioEstadoVial =
         "Generando pedidos: "
@@ -34126,7 +33382,6 @@ if (generacionActivaEstudio()) {
     return;
 }
 
-// Si terminó el proceso, verificar el resultado.
 if (!generacionCompletaEstudio()) {
     estudioEstadoVial =
         "La generación de pedidos no terminó "
@@ -34145,7 +33400,6 @@ if (!generacionCompletaEstudio()) {
     return;
 }
 
-// Segunda etapa: preparar rutas.
 if (
     !estudioDirectorioEscenarios.equals(
         estudioCarpetaVial
@@ -34267,8 +33521,6 @@ if (!correcta) {
         "Reintentar rutas"
     );
 
-    // No avanzar el índice:
-    // se reintentará este mismo escenario.
     return;
 }
 
@@ -34296,8 +33548,7 @@ if (
     btnGenerarEscenariosEstudio.setText(
         "Escenarios listos"
     );
-}
-]]></Body>
+}]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
@@ -34338,8 +33589,6 @@ boolean generacionDisponible =
     generacionCompletaEstudio();
 
 if (!generacionDisponible) {
-    // Crear un lote nuevo mediante la función
-    // existente del PASO 8.
     boolean iniciado =
         generarEscenariosEstudio();
 
@@ -34362,8 +33611,6 @@ if (!generacionDisponible) {
     );
 
 } else {
-    // Ya hay un lote generado:
-    // no volver a modificar sus pedidos ni semillas.
     if (
         !estudioDirectorioEscenarios.equals(
             estudioCarpetaVial
@@ -34395,14 +33642,10 @@ if (!generacionDisponible) {
 
 estudioFlujoActivo = true;
 
-// Detener un temporizador anterior si existiera.
 if (estudioTemporizadorFlujo != null) {
     estudioTemporizadorFlujo.stop();
 }
 
-// Revisar periódicamente el proceso.
-// Se procesa como máximo un escenario
-// por activación del temporizador.
 estudioTemporizadorFlujo =
     new javax.swing.Timer(
         400,
@@ -34417,8 +33660,7 @@ traceln(
     "ESTUDIO | FLUJO AUTOMATICO INICIADO"
 );
 
-return true;
-]]></Body>
+return true;]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
@@ -34465,7 +33707,6 @@ if (
 }
 
 try {
-    // Localizar Python y el modelo AnyLogic exportado.
     java.io.File raizPython =
         new java.io.File(
             resolverRaizPythonPypeline()
@@ -34526,7 +33767,6 @@ try {
         );
     }
 
-    // Una carpeta de salida independiente por ejecución.
     String marcaTiempo =
         new java.text.SimpleDateFormat(
             "yyyyMMdd_HHmmss_SSS"
@@ -34557,9 +33797,6 @@ try {
             "simulacion.log"
         );
 
-    // Invocación del ejecutor que ya probamos.
-    // No se modifica ningún archivo Python.
-    // Fallback vial desactivado expresamente.
 
     String codigoPython =
         "import sys\n"
@@ -34701,8 +33938,7 @@ try {
 
     ex.printStackTrace();
     return false;
-}
-]]></Body>
+}]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>VOID</ReturnModificator>
@@ -34749,8 +33985,6 @@ try {
 
             while ((linea = lector.readLine()) != null) {
 
-                // El ejecutor escribe una línea METODO
-                // por cada algoritmo evaluado.
 				if (linea.startsWith("PROGRESO_METODO | ")) {
 				
 				    if (linea.contains("| estado=FINALIZADO")) {
@@ -34783,11 +34017,9 @@ try {
         return;
     }
 
-    // El proceso terminó: comprobar su resultado.
     int codigoSalida =
         estudioProcesoSimulacion.exitValue();
 
-    // Buscar el directorio creado por el ejecutor.
     java.io.File carpetaBase =
         new java.io.File(
             estudioDirectorioResultados
@@ -34909,8 +34141,7 @@ try {
     }
 
     ex.printStackTrace();
-}
-]]></Body>
+}]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>VOID</ReturnModificator>
@@ -34937,8 +34168,7 @@ estudioDiferenciasRL = new double[5][6];
 estudioIC95RL = new double[5][6];
 estudioNPareados = new int[5];
 
-estudioArchivoCargado = "";
-]]></Body>
+estudioArchivoCargado = "";]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
@@ -34970,8 +34200,7 @@ switch (metrica) {
         return 5;
     default:
         return 0;
-}
-]]></Body>
+}]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
@@ -35051,9 +34280,6 @@ if (maximo <= 0.0) {
 double valorActual =
     estudioMediasSimuladas[metodo][metrica];
 
-// Barra proporcional al valor real.
-// Dejamos un mínimo visual de 15 % para que
-// un método muy pequeño no desaparezca.
 
 double proporcion =
     0.15
@@ -35101,13 +34327,11 @@ if (gl <= 30) {
     return tabla[gl];
 }
 
-// Aproximación asintótica para muestras mayores.
 double n = (double) gl;
 
 return 1.9599639845
     + 2.372271 / n
-    + 2.822 / (n * n);
-]]></Body>
+    + 2.822 / (n * n);]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
@@ -35202,14 +34426,10 @@ if (estudioSimulacionEnCurso) {
     return false;
 }
 
-// Limpiar resultados anteriores antes de una nueva carga.
 limpiarResultadosEstudio();
 
 try {
 
-    // ==================================================
-    // 1. RESOLVER ARCHIVO SELECCIONADO
-    // ==================================================
 
     if (
         rutaCarpeta == null
@@ -35228,8 +34448,6 @@ try {
 
     java.io.File archivo;
 
-    // El File Chooser de AnyLogic proporciona
-    // la ruta del archivo seleccionado o subido.
 
     if (seleccion.isFile()) {
 
@@ -35237,8 +34455,6 @@ try {
 
     } else if (seleccion.isDirectory()) {
 
-        // Compatibilidad con llamadas anteriores
-        // que proporcionaban una carpeta.
         archivo = new java.io.File(
             seleccion,
             "resumen_resultados.csv"
@@ -35268,10 +34484,6 @@ try {
         );
     }
 
-    // La copia subida por File Chooser puede estar
-    // en una carpeta temporal sin los metadatos.
-    // El CSV contiene las columnas necesarias
-    // para realizar los cálculos.
 
     java.io.File carpeta =
         archivo.getParentFile();
@@ -35295,9 +34507,6 @@ try {
         + archivo.getCanonicalPath()
     );
 
-    // ==================================================
-    // 2. LEER CSV
-    // ==================================================
 
     String contenido = new String(
         java.nio.file.Files.readAllBytes(
@@ -35306,7 +34515,6 @@ try {
         java.nio.charset.StandardCharsets.UTF_8
     );
 
-    // Eliminar BOM UTF-8 si existe.
     if (contenido.startsWith("\uFEFF")) {
         contenido = contenido.substring(1);
     }
@@ -35321,10 +34529,6 @@ try {
 
     boolean entreComillas = false;
 
-    // Parser CSV compatible con:
-    // - Comas en campos entrecomillados.
-    // - Comillas escapadas.
-    // - Saltos de línea dentro de campos.
 
     for (int i = 0; i < contenido.length(); i++) {
 
@@ -35413,9 +34617,6 @@ try {
         );
     }
 
-    // ==================================================
-    // 3. VALIDAR ENCABEZADOS
-    // ==================================================
 
     java.util.Map<String, Integer> columnas =
         new java.util.HashMap<>();
@@ -35467,9 +34668,6 @@ try {
         }
     }
 
-    // ==================================================
-    // 4. ESTRUCTURAS DE ANÁLISIS
-    // ==================================================
 
     String[] nombresMetodos = {
         "RL",
@@ -35483,8 +34681,6 @@ try {
 
     int[] conteos = new int[5];
 
-    // Estructura:
-    // Escenario -> Repetición -> Método -> Métricas
 
     java.util.Map<
         String,
@@ -35500,9 +34696,6 @@ try {
     int validas = 0;
     int noValidas = 0;
 
-    // ==================================================
-    // 5. PROCESAR CORRIDAS
-    // ==================================================
 
     for (int f = 1; f < registros.size(); f++) {
 
@@ -35616,8 +34809,6 @@ try {
                 columnas.get("algoritmo_simulado")
             ).trim();
 
-        // Solo utilizar corridas simuladas
-        // que finalizaron realmente.
 
         if (
             !"FINALIZADO".equals(estado)
@@ -35670,9 +34861,6 @@ try {
             continue;
         }
 
-        // Sumar resultados del método solicitado.
-        // HÍBRIDO sigue siendo HÍBRIDO aunque
-        // el plan aplicado provenga de GA o RL.
 
         for (int j = 0; j < 6; j++) {
 
@@ -35684,8 +34872,6 @@ try {
 
         validas++;
 
-        // Guardar observaciones para la
-        // comparación emparejada con RL.
 
         java.util.Map<
             String,
@@ -35735,9 +34921,6 @@ try {
         );
     }
 
-    // ==================================================
-    // 6. CALCULAR PROMEDIOS POR ALGORITMO
-    // ==================================================
 
     double[][] medias = new double[5][6];
 
@@ -35754,9 +34937,6 @@ try {
         }
     }
 
-    // ==================================================
-    // 7. DIFERENCIAS EMPAREJADAS CON RL
-    // ==================================================
 
     double[][] sumasDiferencias =
         new double[5][6];
@@ -35766,11 +34946,6 @@ try {
 
     int[] nPareados = new int[5];
 
-    // Cada escenario constituye una unidad
-    // estadística independiente.
-    //
-    // Primero promediamos sus diferencias
-    // entre repeticiones equivalentes.
 
     for (
         java.util.Map<
@@ -35779,8 +34954,6 @@ try {
         > escenario : muestras.values()
     ) {
 
-        // Índice 0: RL
-        // Índices 1-4: competidores
 
         for (int m = 1; m < 5; m++) {
 
@@ -35839,9 +35012,6 @@ try {
         }
     }
 
-    // ==================================================
-    // 8. INTERVALOS DE CONFIANZA DEL 95 %
-    // ==================================================
 
     double[][] diferencias =
         new double[5][6];
@@ -35901,9 +35071,6 @@ try {
         }
     }
 
-    // ==================================================
-    // 9. PUBLICAR RESULTADOS EN MAIN
-    // ==================================================
 
     estudioMediasSimuladas =
         medias;
@@ -35944,9 +35111,6 @@ try {
         + muestras.size()
         + " escenarios con datos.";
 
-    // ==================================================
-    // 10. REGISTRO DE CONTROL
-    // ==================================================
 
     traceln(
         "========================================"
@@ -36020,8 +35184,7 @@ try {
     ex.printStackTrace();
 
     return false;
-}
-]]></Body>
+}]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
@@ -37349,9 +36512,6 @@ instanciaInterfazActual == null
 
     limpiarComparacionEstimadaLocal();
 
-    // =================================================
-    // NUEVO: PREPARACION AUTOMATICA DE LA MATRIZ VIAL
-    // =================================================
 
     boolean matrizLista =
         asegurarCacheVialInstanciaActual();
@@ -40326,8 +39486,7 @@ String.format(
     )
     ? "EJECUTANDO"
     : uiSelectorEstado
-)
-]]></TextCode>
+)]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>9</Size>
@@ -40376,8 +39535,7 @@ String.format(
         ? "disponibles"
         : cacheVialEstadoInterfaz.toLowerCase()
     )
-)
-]]></TextCode>
+)]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>10</Size>
@@ -40412,8 +39570,7 @@ uiSelectorLineaPrincipal
     + formatoCostoSelector(
         uiSelectorCostoGA
     )
-)
-]]></TextCode>
+)]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>10</Size>
@@ -40448,8 +39605,7 @@ uiSelectorLineaSecundaria
     + formatoCostoSelector(
         uiSelectorCostoElegido
     )
-)
-]]></TextCode>
+)]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>10</Size>
@@ -42087,10 +41243,7 @@ camiones.size() > 1]]></EnableExpression>
 						<EnableExpression><![CDATA[comparacionEstimadaDisponible
 &&
 !pypelineSolicitudEnCurso]]></EnableExpression>
-						<ActionCode><![CDATA[// No se cambia automáticamente la fuente.
-//
-// Cuando la combinación seleccionada no tenga datos,
-// el área del gráfico mostrará una explicación.]]></ActionCode>
+						<ActionCode><![CDATA[]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
 						<Font Name="SansSerif" Size="10" Style="0"/>
@@ -42147,11 +41300,7 @@ camiones.size() > 1]]></EnableExpression>
 						<EnableExpression><![CDATA[comparacionEstimadaDisponible
 &&
 !pypelineSolicitudEnCurso]]></EnableExpression>
-						<ActionCode><![CDATA[// La fuente seleccionada se conserva aunque todavía
-// no existan resultados simulados.
-//
-// graficoComparacionDisponible() decidirá si puede
-// mostrar barras o si debe mostrar un aviso.]]></ActionCode>
+						<ActionCode><![CDATA[]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
 						<Font Name="SansSerif" Size="10" Style="0"/>
@@ -47519,8 +46668,6 @@ try {
     }
 
 
-    // Validar el plan sin regenerarlo.
-
     PlanTurno planVector =
         crearPlanAlpyneDinamico(
             pypelineUltimoPlanVector,
@@ -47591,8 +46738,6 @@ try {
     }
 
 
-    // Exportar solamente cuando se pulsa el botón.
-
     String ruta =
         exportarHojaRutaEstimadaPypeline(
             instanciaActual,
@@ -47609,8 +46754,6 @@ try {
         );
     }
 
-
-    // Registrar el resultado exitoso.
 
     rutaUltimaHojaRuta =
         archivo.getAbsolutePath();
@@ -47684,8 +46827,6 @@ try {
 }
 
 
-// Comprobar el estado REAL de los controles.
-
 traceln(
     "EXPORTACION UI | exportada="
     + hojaRutaExportada
@@ -47700,18 +46841,12 @@ traceln(
 );
 
 
-// Solicitar nuevamente la vista del dashboard.
-
 irAVistaOperacion();
 
 
-// Mostrar la confirmación desde AnyLogic,
-// sin crear ventanas Swing externas.
-
 getExperimentHost().showMessageDialog(
     mensajeResultado
-);
-]]></ActionCode>
+);]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
 						<Font Name="SansSerif" Size="10" Style="1"/>
@@ -49409,8 +48544,7 @@ estudioProcesoSimulacion != null
             + " / " + estudioTurnosValidados
     )
     : "Sin simulaciones"
-)
-]]></TextCode>
+)]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>9</Size>
@@ -49881,8 +49015,7 @@ estudioProcesoSimulacion != null
     estudioProcesoGeneracion != null
     &&
     estudioTurnosValidados > 0
-)
-]]></VisibleCode>
+)]]></VisibleCode>
 					<EmbeddedIcon>false</EmbeddedIcon>
 					<Z>0</Z>
 					<ZHeight>10</ZHeight>
@@ -49916,8 +49049,7 @@ estudioProcesoSimulacion != null
         )
     )
     : 0.0
-)
-]]></ScaleXCode>
+)]]></ScaleXCode>
 					<ScaleYCode><![CDATA[1]]></ScaleYCode>
 					<LineWidth>0</LineWidth>
 					<LineColor>-15157310</LineColor>
@@ -50458,8 +49590,7 @@ if (
             + estudioEstadoResultados
         );
     }
-}
-]]></ActionCode>
+}]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
 						<Font Name="SansSerif" Size="10" Style="1"/>
@@ -50591,13 +49722,6 @@ lonActual =
 nodoActualId =
     main.ID_NODO_CORRALON;
 
-
-/*
- * El agente vive en el espacio GIS de Main.
- *
- * Al iniciar lo ubicamos junto al corralón.
- * La separación es solamente visual.
- */
 
 jumpTo(
     latitudVisualCorralon2D(),
@@ -51877,11 +51001,6 @@ lonActual =
     mainModel().LON_CORRALON;
 
 
-/*
- * Reiniciamos también la posición visual
- * del modelo lorry.
- */
-
 if (debeAnimarCamionGIS()) {
 
     jumpTo(
@@ -51979,12 +51098,6 @@ if (
 abortarViajeActual =
     false;
 
-
-/*
- * El viaje se vuelve visible desde el inicio de
- * la carga. Permanecerá dibujado hasta que el
- * camión vuelva al corralón.
- */
 
 if (debeAnimarCamionGIS()) {
 
@@ -52153,17 +51266,9 @@ duracionDescargaActualMin =
     0.0;
 
 
-// =====================================================
-// MOVIMIENTO CONTINUO DEL MODELO LORRY
-// =====================================================
-
 if (debeAnimarCamionGIS()) {
 
-    /*
-     * Quitamos el desplazamiento visual utilizado
-     * mientras el camión estaba estacionado.
-     */
-
+    
     jumpTo(
         latActual,
         lonActual
@@ -52252,14 +51357,6 @@ pedidoActual.minutoLlegada =
     mainModel().minutoDiaActual();
 
 
-/*
- * moveToInTime debería finalizar exactamente
- * en este momento.
- *
- * jumpTo elimina cualquier diferencia numérica
- * residual y deja el modelo sobre el cliente.
- */
-
 if (debeAnimarCamionGIS()) {
 
     jumpTo(
@@ -52312,10 +51409,6 @@ PedidoInput input =
     pedidoActual.input;
 
 
-// -----------------------------------------------------
-// Defensa operacional adicional para volcador
-// -----------------------------------------------------
-
 if (input.requiereVolcador) {
 
     if (
@@ -52330,7 +51423,6 @@ if (input.requiereVolcador) {
         );
     }
 
-    // El volcador descarga todo.
     cargaActual = 0;
 
 } else {
@@ -52413,14 +51505,6 @@ enCalle =
     false;
 
 
-/*
- * El recorrido terminó en las coordenadas reales
- * del corralón.
- *
- * Volvemos a separar visualmente los camiones
- * estacionados.
- */
-
 if (debeAnimarCamionGIS()) {
 
     jumpTo(
@@ -52438,12 +51522,6 @@ mainModel()
         "EN_CORRALON"
     );
 
-
-/*
- * La ruta permanece visible durante el regreso.
- * Se elimina recién cuando el camión llegó al
- * corralón.
- */
 
 if (debeAnimarCamionGIS()) {
 
@@ -52518,9 +51596,6 @@ indiceViaje++;]]></Body>
 }
 
 
-// Defensa: no debería quedar
-// una actividad abierta.
-
 cerrarActividadActual();
 
 
@@ -52531,12 +51606,6 @@ minutoFinPlan =
 turnoFinalizado =
     true;
 
-
-/*
- * Un plan normal termina en el corralón.
- *
- * El camión sin viajes también permanece allí.
- */
 
 if (debeAnimarCamionGIS()) {
 
@@ -52807,11 +51876,6 @@ traceln(
     );
 }
 
-// Si venimos de EsperandoCliente,
-// cerramos primero esa actividad.
-//
-// Si la descarga es inmediata,
-// actividadActual ya será null.
 
 cerrarActividadActual();
 
@@ -52890,9 +51954,6 @@ traceln(
     + ". La carga permanece en el camión."
 );
 
-
-// IMPORTANTE:
-// NO reducimos cargaActual.
 
 indicePedido++;
 
@@ -53012,8 +52073,6 @@ for (
 }
 
 
-// No intentaremos ningún otro pedido
-// de este viaje.
 indicePedido =
     viajeActual.pedidoIds.size();]]></Body>
 				</Function>
@@ -53051,10 +52110,6 @@ iniciarActividad(
     0
 );
 
-
-// =====================================================
-// MOVIMIENTO CONTINUO DE REGRESO
-// =====================================================
 
 if (debeAnimarCamionGIS()) {
 
@@ -53275,10 +52330,6 @@ historialActividades.add(
     registro
 );
 
-
-// =====================================================
-// RESET
-// =====================================================
 
 actividadActual = null;
 
@@ -54265,9 +53316,7 @@ traceln(
 			<Id>1786556719840</Id>
 			<Name><![CDATA[PedidoInput]]></Name>
 			<Folder>1786556019063</Folder>
-			<Text><![CDATA[/**
- * PedidoInput
- */	
+			<Text><![CDATA[	
 public class PedidoInput implements Serializable {
 
 	public String pedidoId = "";
@@ -54327,9 +53376,7 @@ public class PedidoInput implements Serializable {
 			<Id>1786556831673</Id>
 			<Name><![CDATA[InstanciaTurno]]></Name>
 			<Folder>1786556019063</Folder>
-			<Text><![CDATA[/**
- * InstanciaTurno
- */	
+			<Text><![CDATA[	
 public class InstanciaTurno implements Serializable {
 
 	public String instanciaId = "";
@@ -54378,9 +53425,7 @@ public class InstanciaTurno implements Serializable {
 			<Id>1786556860568</Id>
 			<Name><![CDATA[ViajePlan]]></Name>
 			<Folder>1786556019063</Folder>
-			<Text><![CDATA[/**
- * ViajePlan
- */	
+			<Text><![CDATA[	
 public class ViajePlan implements Serializable {
 
 	public int numeroViaje = 0;
@@ -54404,9 +53449,7 @@ public class ViajePlan implements Serializable {
 			<Id>1786556885507</Id>
 			<Name><![CDATA[PlanCamion]]></Name>
 			<Folder>1786556019063</Folder>
-			<Text><![CDATA[/**
- * PlanCamion
- */	
+			<Text><![CDATA[	
 public class PlanCamion implements Serializable {
 
 	public int camionId = 0;
@@ -54430,9 +53473,7 @@ public class PlanCamion implements Serializable {
 			<Id>1786556911842</Id>
 			<Name><![CDATA[PlanTurno]]></Name>
 			<Folder>1786556019063</Folder>
-			<Text><![CDATA[/**
- * PlanTurno
- */	
+			<Text><![CDATA[	
 public class PlanTurno implements Serializable {
 
 	public String instanciaId = "";
@@ -54469,9 +53510,7 @@ public class PlanTurno implements Serializable {
 			<Id>1786556950491</Id>
 			<Name><![CDATA[ResultadoValidacionPlan]]></Name>
 			<Folder>1786556019063</Folder>
-			<Text><![CDATA[/**
- * ResultadoValidacionPlan
- */	
+			<Text><![CDATA[	
 public class ResultadoValidacionPlan implements Serializable {
 
 	public boolean valido = true;
@@ -54501,9 +53540,7 @@ public class ResultadoValidacionPlan implements Serializable {
 			<Id>1786556982403</Id>
 			<Name><![CDATA[ResultadoTurno]]></Name>
 			<Folder>1786556019063</Folder>
-			<Text><![CDATA[/**
- * ResultadoTurno
- */	
+			<Text><![CDATA[	
 public class ResultadoTurno implements Serializable {
 
 	public String instanciaId = "";
@@ -54556,9 +53593,7 @@ public class ResultadoTurno implements Serializable {
 			<Id>1786558171676</Id>
 			<Name><![CDATA[PedidoRuntime]]></Name>
 			<Folder>1786556019063</Folder>
-			<Text><![CDATA[/**
- * PedidoRuntime
- */	
+			<Text><![CDATA[	
 public class PedidoRuntime implements Serializable {
 
 	public PedidoInput input = null;
@@ -54632,9 +53667,7 @@ public class PedidoRuntime implements Serializable {
 			<Id>1786562122298</Id>
 			<Name><![CDATA[TrabajadorRuntime]]></Name>
 			<Folder>1786556019063</Folder>
-			<Text><![CDATA[/**
- * TrabajadorRuntime
- */	
+			<Text><![CDATA[	
 public class TrabajadorRuntime implements Serializable {
 
 	public String trabajadorId = "";
@@ -54642,14 +53675,10 @@ public class TrabajadorRuntime implements Serializable {
 	public TipoTrabajador tipo =
 	    TipoTrabajador.EMPLEADO_CORRALON;
 
-	// Sólo se usa para choferes.
-	// -1 significa que no tiene camión propio.
 	public int camionPropioId = -1;
 
-	// -1 significa que no está cargando ningún camión.
 	public int cargandoCamionId = -1;
 
-	// Indica si un proveedor ocupa temporalmente el recurso de carga.
 	public boolean ocupadoProveedor = false;
 
 
@@ -54671,9 +53700,7 @@ public class TrabajadorRuntime implements Serializable {
 			<Id>1786577951960</Id>
 			<Name><![CDATA[ResultadoAtencionCliente]]></Name>
 			<Folder>1786556019063</Folder>
-			<Text><![CDATA[/**
- * ResultadoAtencionCliente
- */	
+			<Text><![CDATA[	
 public class ResultadoAtencionCliente implements Serializable {
 
 	public DecisionAtencionCliente decision =
@@ -54712,9 +53739,7 @@ public class ResultadoAtencionCliente implements Serializable {
 			<Id>1786580719003</Id>
 			<Name><![CDATA[SolicitudProveedorRuntime]]></Name>
 			<Folder>1786556019063</Folder>
-			<Text><![CDATA[/**
- * SolicitudProveedorRuntime
- */	
+			<Text><![CDATA[	
 public class SolicitudProveedorRuntime implements Serializable {
 
 	public int solicitudId = -1;
@@ -54788,9 +53813,7 @@ public class SolicitudProveedorRuntime implements Serializable {
 			<Id>1786581982105</Id>
 			<Name><![CDATA[MatrizTiemposViaje]]></Name>
 			<Folder>1786556019063</Folder>
-			<Text><![CDATA[/**
- * MatrizTiemposViaje
- */	
+			<Text><![CDATA[	
 public class MatrizTiemposViaje implements Serializable {
 
 	public String matrizId = "";
@@ -54907,9 +53930,7 @@ public class MatrizTiemposViaje implements Serializable {
 			<Id>1786582312675</Id>
 			<Name><![CDATA[TravelTimeProviderMatriz]]></Name>
 			<Folder>1786556019063</Folder>
-			<Text><![CDATA[/**
- * TravelTimeProviderMatriz
- */	
+			<Text><![CDATA[	
 public class TravelTimeProviderMatriz implements TravelTimeProvider {
 
 	private MatrizTiemposViaje matriz;
@@ -55017,10 +54038,6 @@ public class TravelTimeProviderMatriz implements TravelTimeProvider {
 	}
 
 
-	// =====================================================
-	// Franja horaria
-	// =====================================================
-
 	private double factorBandaHoraria(
 	    double minutoDia
 	) {
@@ -55052,11 +54069,6 @@ public class TravelTimeProviderMatriz implements TravelTimeProvider {
 	    return factorNormal;
 	}
 
-
-	// =====================================================
-	// Ruido estable por:
-	// seed + arco + bucket temporal
-	// =====================================================
 
 	private double factorRuido(
 	    String origenId,
@@ -55103,10 +54115,6 @@ public class TravelTimeProviderMatriz implements TravelTimeProvider {
 	        * (ruidoMax - ruidoMin);
 	}
 
-
-	// =====================================================
-	// Interface
-	// =====================================================
 
 	@Override
 	public double tiempoViajeMin(
@@ -55203,9 +54211,7 @@ public class TravelTimeProviderMatriz implements TravelTimeProvider {
 			<Id>1786624915924</Id>
 			<Name><![CDATA[RegistroActividadCamion]]></Name>
 			<Folder>1786556019063</Folder>
-			<Text><![CDATA[/**
- * RegistroActividadCamion
- */	
+			<Text><![CDATA[	
 public class RegistroActividadCamion implements Serializable {
 
 	public int camionId = -1;
@@ -55253,17 +54259,11 @@ public class RegistroActividadCamion implements Serializable {
 			<Id>1786624944666</Id>
 			<Name><![CDATA[MetricasCamion]]></Name>
 			<Folder>1786556019063</Folder>
-			<Text><![CDATA[/**
- * MetricasCamion
- */	
+			<Text><![CDATA[	
 public class MetricasCamion implements Serializable {
 
 	public int camionId = -1;
 
-
-	// =====================================================
-	// PRODUCCIÓN
-	// =====================================================
 
 	public int viajesCompletados = 0;
 
@@ -55280,18 +54280,10 @@ public class MetricasCamion implements Serializable {
 	public int unidadesRetornadas = 0;
 
 
-	// =====================================================
-	// DISTANCIA
-	// =====================================================
-
 	public double distanciaTotalMetros = 0.0;
 
 	public double distanciaTotalKm = 0.0;
 
-
-	// =====================================================
-	// TIEMPOS
-	// =====================================================
 
 	public double tiempoCargaMin = 0.0;
 
@@ -55310,20 +54302,12 @@ public class MetricasCamion implements Serializable {
 	public double tiempoInactivoMin = 0.0;
 
 
-	// =====================================================
-	// INICIO Y FINALIZACIÓN
-	// =====================================================
-
 	public double minutoInicioOperacion = -1.0;
 
 	public double minutoFinOperacion = -1.0;
 
 	public double duracionOperacionMin = 0.0;
 
-
-	// =====================================================
-	// UTILIZACIÓN
-	// =====================================================
 
 	public double ocupacionPromedioViajes = 0.0;
 
@@ -55356,9 +54340,7 @@ public class MetricasCamion implements Serializable {
 			<Id>1786626144858</Id>
 			<Name><![CDATA[ResumenPedidoOriginal]]></Name>
 			<Folder>1786556019063</Folder>
-			<Text><![CDATA[/**
- * ResumenPedidoOriginal
- */	
+			<Text><![CDATA[	
 public class ResumenPedidoOriginal implements Serializable {
 
 	public String pedidoOriginalId = "";
@@ -55394,14 +54376,9 @@ public class ResumenPedidoOriginal implements Serializable {
 			<Id>1786626165121</Id>
 			<Name><![CDATA[MetricasGlobalesTurno]]></Name>
 			<Folder>1786556019063</Folder>
-			<Text><![CDATA[/**
- * MetricasGlobalesTurno
- */	
+			<Text><![CDATA[	
 public class MetricasGlobalesTurno implements Serializable {
 
-	// =====================================================
-	// ENTREGA POR TAREA
-	// =====================================================
 
 	public int tareasPlanificadas = 0;
 
@@ -55412,10 +54389,6 @@ public class MetricasGlobalesTurno implements Serializable {
 	public double porcentajeTareasEntregadas = 0.0;
 
 
-	// =====================================================
-	// PEDIDOS EMPRESARIALES ORIGINALES
-	// =====================================================
-
 	public int pedidosOriginalesPlanificados = 0;
 
 	public int pedidosOriginalesCompletos = 0;
@@ -55425,10 +54398,6 @@ public class MetricasGlobalesTurno implements Serializable {
 	public double porcentajePedidosOriginalesCompletos = 0.0;
 
 
-	// =====================================================
-	// UNIDADES
-	// =====================================================
-
 	public int unidadesPlanificadas = 0;
 
 	public int unidadesEntregadas = 0;
@@ -55437,10 +54406,6 @@ public class MetricasGlobalesTurno implements Serializable {
 
 	public double porcentajeUnidadesEntregadas = 0.0;
 
-
-	// =====================================================
-	// VENTANAS Y ATENCIÓN
-	// =====================================================
 
 	public int entregasEnVentana = 0;
 
@@ -55457,10 +54422,6 @@ public class MetricasGlobalesTurno implements Serializable {
 	public double porcentajeServicioSinTardanzaSobrePlanificadas = 0.0;
 
 
-	// =====================================================
-	// TARDANZA
-	// =====================================================
-
 	public int cantidadLlegadasTardias = 0;
 
 	public double tardanzaTotalMin = 0.0;
@@ -55469,10 +54430,6 @@ public class MetricasGlobalesTurno implements Serializable {
 
 	public double tardanzaMaxMin = 0.0;
 
-
-	// =====================================================
-	// OPERACIÓN
-	// =====================================================
 
 	public int viajesTotales = 0;
 
@@ -55489,10 +54446,6 @@ public class MetricasGlobalesTurno implements Serializable {
 	public double tiempoActivoAcumuladoCamionesMin = 0.0;
 
 
-	// =====================================================
-	// FINALIZACIÓN DEL TURNO
-	// =====================================================
-
 	public double minutoFinTurnoReal = -1.0;
 
 	public double duracionTurnoRealMin = 0.0;
@@ -55501,10 +54454,6 @@ public class MetricasGlobalesTurno implements Serializable {
 
 	public double excesoToleranciaMin = 0.0;
 
-
-	// =====================================================
-	// OCUPACIÓN Y PERSONAL
-	// =====================================================
 
 	public double ocupacionGlobalViajes = 0.0;
 
@@ -55515,20 +54464,12 @@ public class MetricasGlobalesTurno implements Serializable {
 	public double personaMinProveedor = 0.0;
 
 
-	// =====================================================
-	// BALANCE
-	// =====================================================
-
 	public double diferenciaFinCamionesMin = 0.0;
 
 	public double diferenciaDistanciaCamionesKm = 0.0;
 
 	public double diferenciaTiempoActivoCamionesMin = 0.0;
 
-
-	// =====================================================
-	// PROVEEDORES
-	// =====================================================
 
 	public int proveedoresLlegados = 0;
 
@@ -55572,9 +54513,7 @@ public class MetricasGlobalesTurno implements Serializable {
 			<Id>1786626182095</Id>
 			<Name><![CDATA[DesgloseCostoTurno]]></Name>
 			<Folder>1786556019063</Folder>
-			<Text><![CDATA[/**
- * DesgloseCostoTurno
- */	
+			<Text><![CDATA[	
 public class DesgloseCostoTurno implements Serializable {
 
 	public double costoTareasNoEntregadas = 0.0;
