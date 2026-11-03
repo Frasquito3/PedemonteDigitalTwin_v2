@@ -40,7 +40,7 @@ Para incorporar **Aprendizaje por Refuerzo Profundo (RL)** en la planificación 
 2. **Modelos Matemáticos y Heurísticos Estáticos**: Aunque computacionalmente livianos, ignoran la dinámica temporal y la concurrencia: no modelan las colas de espera en las palas mecánicas, la variabilidad de tiempos de descarga ni la interacción de eventos discretos.
 3. **Simuladores de Dinámica Continua 3D (e.g. Isaac Gym, CARLA)**: Inconvenientes por consumo de cómputo innecesario. La complejidad del problema no radica en la física del neumático o el frenado milimétrico, sino en la logística de colas, eventos y restricciones operativas.
 
-**AnyLogic** proporciona el equilibrio óptimo al integrar simulación de eventos discretos (recursos y tolva de carga del corralón), modelado basado en agentes (comportamiento de los camiones) y un entorno GIS real a escala urbana (1:10000) con tiempos de viaje basados en OpenStreetMap/OSRM. Esto permite entrenar políticas de RL de forma segura y comparar su rendimiento en igualdad de condiciones frente a algoritmos genéticos y heurísticas clásicas.
+**AnyLogic** proporciona el equilibrio óptimo al integrar simulación de eventos discretos (recursos y tiempos de carga en el corralón), modelado basado en agentes (comportamiento de los camiones) y un entorno GIS real a escala urbana (1:10000) con tiempos de viaje basados en OpenStreetMap/OSRM. Esto permite entrenar políticas de RL de forma segura y comparar su rendimiento en igualdad de condiciones frente a algoritmos genéticos y heurísticas clásicas.
 
 ---
 

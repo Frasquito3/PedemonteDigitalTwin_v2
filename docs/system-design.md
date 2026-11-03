@@ -52,11 +52,61 @@ sequenceDiagram
 
 Todos los optimizadores implementan el protocolo `planner.core.base.PlanificadorTurno` y operan sobre la misma representación de instancia (`InstanciaTurno`) y matriz de viaje (`MatrizViaje`).
 
-### 1. Aprendizaje por Refuerzo (`RL`)
+### 1. Aprendizaje por Refuerzo (`RL`) y Simulación con AnyLogic
 Constituye la propuesta metodológica central del proyecto (`planner.rl.policy_planner` y `planner.rl.policy_runtime`):
 - **Arquitectura de política:** Red neuronal entrenada mediante **MaskablePPO** (`sb3-contrib`) sobre un entorno Gymnasium (`planner.rl.policy_env`) con representación vectorial fija de hasta **35 slots de tareas** (`max_pedidos_rl_validado = 35`).
-- **Máscara temporal dura (`usar_mascara_temporal_dura = True`):** Impide en tiempo de inferencia y entrenamiento seleccionar acciones que violen la capacidad remanente del camión, la precedencia de descarga por volcador o las ventanas horarias de los clientes.
+- **Máscara temporal dura (`usar_mascara_temporal_dura = True`):** Impide en tiempo de inferencia y entrenamiento seleccionar acciones que violen la capacidad remanente del camión (8 unidades), la precedencia de descarga por volcador o las ventanas horarias de los clientes.
 - **Ordenamiento canónico y multi-rollout:** Los pedidos se normalizan canónicamente (`ordenar_slots_canonicamente = True`) y el planificador evalúa `num_rollouts = 24` trayectorias para seleccionar aquella de menor costo estimado factible.
+
+#### Cómo se Entrena la Política con AnyLogic (Alpyne)
+
+El gemelo digital en AnyLogic actúa como el entorno de evaluación física de la política. Para conectar AnyLogic con Python de forma desacoplada y sin interfaz gráfica durante entrenamientos masivos, el modelo exporta un experimento de Reinforcement Learning denominado `AlpyneExperiment` (`PedemonteDigitalTwin_v2.alp`):
+
+1. **Configuración del Experimento (Java en AnyLogic):**
+   Al inicializarse cada réplica, AnyLogic recibe los parámetros del turno y configura el entorno en modo evaluación:
+   ```java
+   root.MODO_EJECUCION = ModoEjecucion.RL_EVALUATION;
+   root.PROVEEDORES_HABILITADOS = proveedoresHabilitados;
+   System.setProperty("webtoolkit.enabled", "false");
+
+   String rutaPythonConfigurada = rutaPythonProyectoPypeline == null ? "" : rutaPythonProyectoPypeline.trim();
+   if (!rutaPythonConfigurada.isEmpty()) {
+       System.setProperty("pedemonte.python.root", rutaPythonConfigurada);
+   }
+   root.rutaPythonProyectoPypeline = rutaPythonConfigurada;
+   root.alpyneSeedEjecucion = seedEjecucion;
+   root.alpyneSeedEscenario = seedEscenario;
+   root.alpyneInstanciaVector = instanciaVector == null ? new double[0] : instanciaVector.clone();
+   root.alpyneInstanciaId = instanciaId == null ? "" : instanciaId.trim();
+   root.alpyneFechaOperacion = fechaOperacion == null ? "" : fechaOperacion.trim();
+   root.alpyneIdentificadoresPedidos = identificadoresPedidos == null ? "" : identificadoresPedidos.trim();
+   ```
+
+2. **Recepción y Ejecución del Plan:**
+   Python despacha el plan generado hacia AnyLogic mediante el método de acción:
+   ```java
+   root.alpynePlanVector = planVector == null ? new double[0] : planVector.clone();
+   root.procesarAccionAlpyne(accionCodigo);
+   ```
+   Donde `procesarAccionAlpyne` activa la simulación física de los dos camiones sobre la red vial real:
+   ```java
+   alpyneAccionRecibida = true;
+   alpyneAccionCodigo = accionCodigo;
+   alpyneError = false;
+   alpyneInstanciaAceptada = false;
+   eventoDecisionAlpyne.restart(0.0);
+   ```
+
+3. **Condición de Parada:**
+   La simulación concluye cuando se completan todos los viajes programados o se detecta una inconsistencia operativa:
+   ```java
+   return alpyneError || ejecucionFinalizada;
+   ```
+
+4. **Retorno de Métricas Reales:**
+   AnyLogic devuelve a Python las observaciones y costos operativos finales (`costoTotalAlpyne()`, `tardanzaTotalMin`, `diferenciaFinCamionesMin`, ocupación y demoras en corralón) para auditar el desempeño de la política frente a los métodos clásicos.
+
+El control de este ciclo desde Python se implementa en `planner.integration.simulated_execution` (`ejecutar_plan_en_modelo_exportado`) mediante la API de Alpyne (`AnyLogicModel.reset()` $\rightarrow$ `take_action()` $\rightarrow$ `get_observation()`).
 
 ### 2. Refinamiento Híbrido (`HIBRIDO`: RL $\rightarrow$ GA)
 Implementado en `planner.algorithms.hybrid_rl_ga`, combina la velocidad de construcción de la política neuronal con la búsqueda local evolutiva:

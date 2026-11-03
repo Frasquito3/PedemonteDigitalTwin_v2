@@ -1,7 +1,3 @@
-# =====================================================
-# PYTHON
-# =====================================================
-
 __pycache__/
 *.py[cod]
 *.pyo
@@ -18,11 +14,6 @@ __pycache__/
 .coverage.*
 htmlcov/
 
-
-# =====================================================
-# PYTHON ENVIRONMENTS AND LOCAL CONFIGURATION
-# =====================================================
-
 .venv/
 venv/
 env/
@@ -32,20 +23,10 @@ ENV/
 .env.*
 !.env.example
 
-
-# =====================================================
-# PYTHON BUILD AND PACKAGING
-# =====================================================
-
 build/
 dist/
 *.egg-info/
 pip-wheel-metadata/
-
-
-# =====================================================
-# IDE AND OPERATING SYSTEM
-# =====================================================
 
 .vscode/
 .idea/
@@ -54,11 +35,6 @@ pip-wheel-metadata/
 .DS_Store
 Thumbs.db
 desktop.ini
-
-
-# =====================================================
-# LOGS, TEMPORARY FILES AND BACKUPS
-# =====================================================
 
 *.log
 *.lck
@@ -70,32 +46,14 @@ desktop.ini
 
 git_audit_*.txt
 
-
-# =====================================================
-# JAVA GENERATED FILES
-# =====================================================
-
 *.class
-
-
-# =====================================================
-# ANYLOGIC GENERATED CACHE
-# =====================================================
 
 /anylogic/**/cache/
 *.alp.autosave
 *.progreso_geo.json
-# =====================================================
-# ANYLOGIC GENERATED EXPORTS
-# =====================================================
 
 /python/anylogic_export/*
 !/python/anylogic_export/.gitkeep
-
-
-# =====================================================
-# GENERATED BENCHMARK AND SIMULATION RESULTS
-# =====================================================
 
 /python/results/
 /python/logs/
@@ -106,37 +64,18 @@ git_audit_*.txt
 /python/data/experiments/
 /python/data/results/
 
-
-# =====================================================
-# RL TRAINING ARTIFACTS
-# =====================================================
-
 /python/rl_artifacts/
-
-
-# =====================================================
-# RUNTIME DATA CACHE
-# =====================================================
 
 /python/data/cache/
 
 /data/cache/*
 !/data/cache/.gitkeep
 
-
-# =====================================================
-# OPTIONAL ROOT OUTPUT DIRECTORIES
-# =====================================================
-
 /results/*
 !/results/.gitkeep
 
 /models/*
 !/models/.gitkeep
-
-# =====================================================
-# LOCAL IMPORTS, VALIDATION AND AUDIT ARTIFACTS
-# =====================================================
 
 /anylogic/**/al_uploads/
 /validacion/
@@ -148,14 +87,8 @@ git_audit_*.txt
 /plan_validacion_*.xlsx
 /auditar_limpieza_tecnica*.ps1
 
-# =====================================================
-# EXPORTS
-# =====================================================
 /exports/
 
-# =====================================================
-# DOCUMENTATION BUILD ARTIFACTS
-# =====================================================
 docs_site/
 _site/
 site/
