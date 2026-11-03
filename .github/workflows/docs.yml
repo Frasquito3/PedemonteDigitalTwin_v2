@@ -42,7 +42,13 @@ jobs:
       - name: Compilar documentacion con pdoc
         run: |
           cp README.md docs/pdoc_template/repo_readme.md
-          PYTHONPATH=python python -m pdoc -o _site -t docs/pdoc_template -d google --search --math --mermaid --footer-text "Pedemonte Digital Twin • Gemelo Digital v2" planner scripts
+          sed -i 's/docs\/getting-started\.md/docs\/getting_started.html/g' docs/pdoc_template/repo_readme.md
+          sed -i 's/docs\/system-design\.md/docs\/system_design.html/g' docs/pdoc_template/repo_readme.md
+          sed -i 's/docs\/user-manual\.md/docs\/user_manual.html/g' docs/pdoc_template/repo_readme.md
+          sed -i 's/docs\/quality-and-experiments\.md/docs\/quality_and_experiments.html/g' docs/pdoc_template/repo_readme.md
+          sed -i 's/docs\/development-and-deployment\.md/docs\/development_and_deployment.html/g' docs/pdoc_template/repo_readme.md
+          sed -i 's/docs\/README\.md/docs.html/g' docs/pdoc_template/repo_readme.md
+          PYTHONPATH=python python -m pdoc -o _site -t docs/pdoc_template -d google --search --math --mermaid --footer-text "Pedemonte Digital Twin • Gemelo Digital v2" docs planner scripts
 
       - name: Subir artefacto para GitHub Pages
         uses: actions/upload-pages-artifact@v3

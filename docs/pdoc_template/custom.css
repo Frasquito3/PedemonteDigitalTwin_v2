@@ -396,3 +396,17 @@ h3 {
 .pdoc tr:last-child td {
     border-bottom: none;
 }
+
+/* ==========================================================================
+   Alineación de Encabezado y Barra Lateral
+   ========================================================================== */
+
+header.pdoc + main.pdoc,
+header + main {
+    margin-top: 1rem !important;
+}
+
+nav.pdoc h2 {
+    padding-left: 0.5rem;
+}
+

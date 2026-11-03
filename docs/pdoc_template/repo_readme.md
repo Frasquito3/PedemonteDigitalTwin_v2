@@ -13,11 +13,11 @@
 </p>
 
 <p align="center">
-  <a href="docs/README.md">Documentación Técnica</a> •
-  <a href="docs/getting-started.md">Guía de Instalación</a> •
-  <a href="docs/user-manual.md">Manual de Operación</a> •
-  <a href="docs/system-design.md">Diseño de Arquitectura</a> •
-  <a href="docs/quality-and-experiments.md">Calidad y Experimentos</a>
+  <a href="docs.html">Documentación Técnica</a> •
+  <a href="docs/getting_started.html">Guía de Instalación</a> •
+  <a href="docs/user_manual.html">Manual de Operación</a> •
+  <a href="docs/system_design.html">Diseño de Arquitectura</a> •
+  <a href="docs/quality_and_experiments.html">Calidad y Experimentos</a>
 </p>
 
 ---
@@ -194,11 +194,11 @@ Para vincular el modelo de simulación con el entorno Python:
 
 Para consultar detalles técnicos adicionales, el repositorio cuenta con las siguientes guías:
 
-- **[Primeros Pasos](docs/getting-started.md)**: Instrucciones detalladas de despliegue inicial y resolución de problemas frecuentes.
-- **[Manual de Operación](docs/user-manual.md)**: Guía de uso del panel de control, formatos de planillas Excel y lectura de indicadores clave.
-- **[Diseño del Sistema](docs/system-design.md)**: Fundamentos matemáticos, formulación del problema y arquitectura de agentes.
-- **[Calidad y Experimentos](docs/quality-and-experiments.md)**: Procedimiento de evaluación experimental, reproducibilidad y métricas.
-- **[Desarrollo y Despliegue](docs/development-and-deployment.md)**: Historial de decisiones técnicas, estándares y líneas de trabajo futuro.
+- **[Primeros Pasos](docs/getting_started.html)**: Instrucciones detalladas de despliegue inicial y resolución de problemas frecuentes.
+- **[Manual de Operación](docs/user_manual.html)**: Guía de uso del panel de control, formatos de planillas Excel y lectura de indicadores clave.
+- **[Diseño del Sistema](docs/system_design.html)**: Fundamentos matemáticos, formulación del problema y arquitectura de agentes.
+- **[Calidad y Experimentos](docs/quality_and_experiments.html)**: Procedimiento de evaluación experimental, reproducibilidad y métricas.
+- **[Desarrollo y Despliegue](docs/development_and_deployment.html)**: Historial de decisiones técnicas, estándares y líneas de trabajo futuro.
 
 ---
 
