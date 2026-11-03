@@ -26802,13 +26802,6 @@ traceln(
     + " | modo=NUEVA_OPERACION"
 );
 
-
-// La acción del botón debe terminar antes de destruir
-// el agente Main que la está ejecutando.
-//
-// Por eso stop() y run() se realizan desde un hilo
-// corto, sin volver a utilizar referencias del Main.
-
 Thread hiloReinicio =
     new Thread(
         new Runnable() {
@@ -34309,8 +34302,8 @@ if (cantidadEscenarios < 2) {
     return Double.NaN;
 }
 
-// Cuantiles bilaterales de Student para 95 %,
-// con grados de libertad de 1 a 30.
+// Cuantiles bilaterales de Student para 95 %, con grados de libertad de 1 a 30.
+
 double[] tabla = {
     0.0,
     12.706, 4.303, 3.182, 2.776, 2.571,
