@@ -49040,7 +49040,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786559290524</Id>
 					<Name><![CDATA[camionId]]></Name>
-					<X>-3907</X><Y>131</Y>
+					<X>-1867</X><Y>131</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -49055,7 +49055,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786559315291</Id>
 					<Name><![CDATA[planAsignado]]></Name>
-					<X>-3907</X><Y>164</Y>
+					<X>-1867</X><Y>164</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -49070,7 +49070,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786559327066</Id>
 					<Name><![CDATA[indiceViaje]]></Name>
-					<X>-3907</X><Y>197</Y>
+					<X>-1867</X><Y>197</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -49085,7 +49085,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786559336083</Id>
 					<Name><![CDATA[indicePedido]]></Name>
-					<X>-3907</X><Y>230</Y>
+					<X>-1867</X><Y>230</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -49100,7 +49100,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786559346059</Id>
 					<Name><![CDATA[viajeActual]]></Name>
-					<X>-3907</X><Y>263</Y>
+					<X>-1867</X><Y>263</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -49115,7 +49115,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786559356851</Id>
 					<Name><![CDATA[pedidoActual]]></Name>
-					<X>-3365</X><Y>131</Y>
+					<X>-1325</X><Y>131</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -49130,7 +49130,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786559368067</Id>
 					<Name><![CDATA[unidadesViajeActual]]></Name>
-					<X>-3365</X><Y>164</Y>
+					<X>-1325</X><Y>164</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -49145,7 +49145,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786559375659</Id>
 					<Name><![CDATA[cargaActual]]></Name>
-					<X>-3365</X><Y>197</Y>
+					<X>-1325</X><Y>197</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -49160,7 +49160,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786559383443</Id>
 					<Name><![CDATA[latActual]]></Name>
-					<X>-2617</X><Y>629</Y>
+					<X>-897</X><Y>629</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -49175,7 +49175,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786559394700</Id>
 					<Name><![CDATA[lonActual]]></Name>
-					<X>-2617</X><Y>662</Y>
+					<X>-897</X><Y>662</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -49190,7 +49190,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786559403748</Id>
 					<Name><![CDATA[turnoFinalizado]]></Name>
-					<X>-3365</X><Y>230</Y>
+					<X>-1325</X><Y>230</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -49205,7 +49205,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786562587906</Id>
 					<Name><![CDATA[trabajadoresCarga]]></Name>
-					<X>-2617</X><Y>131</Y>
+					<X>-897</X><Y>131</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -49220,7 +49220,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786562604124</Id>
 					<Name><![CDATA[personasCargaActual]]></Name>
-					<X>-2617</X><Y>164</Y>
+					<X>-897</X><Y>164</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -49235,7 +49235,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786562612706</Id>
 					<Name><![CDATA[duracionCargaActualMin]]></Name>
-					<X>-2617</X><Y>197</Y>
+					<X>-897</X><Y>197</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -49250,7 +49250,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786562622467</Id>
 					<Name><![CDATA[cargandoAhora]]></Name>
-					<X>-2075</X><Y>131</Y>
+					<X>-355</X><Y>131</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -49265,7 +49265,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786562632059</Id>
 					<Name><![CDATA[enCalle]]></Name>
-					<X>-2617</X><Y>695</Y>
+					<X>-897</X><Y>695</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -49280,7 +49280,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786578329243</Id>
 					<Name><![CDATA[decisionClienteActual]]></Name>
-					<X>-3907</X><Y>761</Y>
+					<X>-1867</X><Y>761</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -49295,7 +49295,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786578354851</Id>
 					<Name><![CDATA[duracionEsperaClienteActualMin]]></Name>
-					<X>-3907</X><Y>794</Y>
+					<X>-1867</X><Y>794</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -49310,7 +49310,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786578377186</Id>
 					<Name><![CDATA[duracionDescargaActualMin]]></Name>
-					<X>-3365</X><Y>761</Y>
+					<X>-1325</X><Y>761</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -49325,7 +49325,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786578385467</Id>
 					<Name><![CDATA[unidadesRetornadasCorralon]]></Name>
-					<X>-2075</X><Y>164</Y>
+					<X>-355</X><Y>164</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -49340,7 +49340,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786580481851</Id>
 					<Name><![CDATA[abortarViajeActual]]></Name>
-					<X>-2617</X><Y>728</Y>
+					<X>-897</X><Y>728</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -49355,7 +49355,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786582794261</Id>
 					<Name><![CDATA[nodoActualId]]></Name>
-					<X>-2075</X><Y>629</Y>
+					<X>-355</X><Y>629</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -49370,7 +49370,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786582805389</Id>
 					<Name><![CDATA[duracionViajeActualMin]]></Name>
-					<X>-2075</X><Y>662</Y>
+					<X>-355</X><Y>662</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -49385,7 +49385,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786582813670</Id>
 					<Name><![CDATA[distanciaViajeActualMetros]]></Name>
-					<X>-2075</X><Y>695</Y>
+					<X>-355</X><Y>695</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -49400,7 +49400,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786625013741</Id>
 					<Name><![CDATA[historialActividades]]></Name>
-					<X>-2617</X><Y>1193</Y>
+					<X>-897</X><Y>1193</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -49415,7 +49415,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786625031827</Id>
 					<Name><![CDATA[actividadActual]]></Name>
-					<X>-2617</X><Y>1226</Y>
+					<X>-897</X><Y>1226</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -49430,7 +49430,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786625056138</Id>
 					<Name><![CDATA[inicioActividadActualMin]]></Name>
-					<X>-2617</X><Y>1259</Y>
+					<X>-897</X><Y>1259</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -49445,7 +49445,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786625067272</Id>
 					<Name><![CDATA[pedidoIdActividadActual]]></Name>
-					<X>-2617</X><Y>1292</Y>
+					<X>-897</X><Y>1292</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -49460,7 +49460,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786625080488</Id>
 					<Name><![CDATA[distanciaActividadActualMetros]]></Name>
-					<X>-2075</X><Y>1193</Y>
+					<X>-355</X><Y>1193</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -49475,7 +49475,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786625088943</Id>
 					<Name><![CDATA[personasActividadActual]]></Name>
-					<X>-2075</X><Y>1226</Y>
+					<X>-355</X><Y>1226</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -49490,7 +49490,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786625097846</Id>
 					<Name><![CDATA[unidadesActividadActual]]></Name>
-					<X>-2075</X><Y>1259</Y>
+					<X>-355</X><Y>1259</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -49505,7 +49505,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786625107749</Id>
 					<Name><![CDATA[minutoFinPlan]]></Name>
-					<X>-3365</X><Y>263</Y>
+					<X>-1325</X><Y>263</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -50051,7 +50051,7 @@ evaluarClienteActual();]]></Action>
 					<ReturnType><![CDATA[Main]]></ReturnType>
 					<Id>1786559452107</Id>
 					<Name><![CDATA[mainModel]]></Name>
-					<X>-3907</X><Y>354</Y>
+					<X>-1867</X><Y>354</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -50063,7 +50063,7 @@ evaluarClienteActual();]]></Action>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786559490532</Id>
 					<Name><![CDATA[asignarPlan]]></Name>
-					<X>-3907</X><Y>387</Y>
+					<X>-1867</X><Y>387</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -50232,7 +50232,7 @@ traceln(
 					<ReturnType><![CDATA[boolean]]></ReturnType>
 					<Id>1786559522691</Id>
 					<Name><![CDATA[hayViajePendiente]]></Name>
-					<X>-3907</X><Y>420</Y>
+					<X>-1867</X><Y>420</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -50246,7 +50246,7 @@ traceln(
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786559542932</Id>
 					<Name><![CDATA[prepararViajeActual]]></Name>
-					<X>-2617</X><Y>819</Y>
+					<X>-897</X><Y>819</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -50327,7 +50327,7 @@ traceln(
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786559580547</Id>
 					<Name><![CDATA[finalizarCarga]]></Name>
-					<X>-2617</X><Y>288</Y>
+					<X>-897</X><Y>288</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -50371,7 +50371,7 @@ traceln(
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786559599332</Id>
 					<Name><![CDATA[prepararPedidoActual]]></Name>
-					<X>-3907</X><Y>885</Y>
+					<X>-1867</X><Y>885</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -50526,7 +50526,7 @@ traceln(
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786559645531</Id>
 					<Name><![CDATA[llegarPedidoActual]]></Name>
-					<X>-3907</X><Y>918</Y>
+					<X>-1867</X><Y>918</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -50593,7 +50593,7 @@ traceln(
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786559674498</Id>
 					<Name><![CDATA[finalizarPedidoActual]]></Name>
-					<X>-3907</X><Y>951</Y>
+					<X>-1867</X><Y>951</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -50669,7 +50669,7 @@ pedidoActual = null;]]></Body>
 					<ReturnType><![CDATA[boolean]]></ReturnType>
 					<Id>1786559693523</Id>
 					<Name><![CDATA[hayMasPedidosEnViaje]]></Name>
-					<X>-3907</X><Y>453</Y>
+					<X>-1867</X><Y>453</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -50683,7 +50683,7 @@ pedidoActual = null;]]></Body>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786559729995</Id>
 					<Name><![CDATA[finalizarRegreso]]></Name>
-					<X>-2617</X><Y>852</Y>
+					<X>-897</X><Y>852</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -50787,7 +50787,7 @@ indiceViaje++;]]></Body>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786559744707</Id>
 					<Name><![CDATA[finalizarTurnoCamion]]></Name>
-					<X>-3365</X><Y>354</Y>
+					<X>-1325</X><Y>354</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -50871,7 +50871,7 @@ mainModel()
 					<ReturnType><![CDATA[boolean]]></ReturnType>
 					<Id>1786562644507</Id>
 					<Name><![CDATA[tieneTrabajoRestante]]></Name>
-					<X>-3365</X><Y>387</Y>
+					<X>-1325</X><Y>387</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -50890,7 +50890,7 @@ mainModel()
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786562834010</Id>
 					<Name><![CDATA[iniciarCarga]]></Name>
-					<X>-2617</X><Y>321</Y>
+					<X>-897</X><Y>321</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -50956,7 +50956,7 @@ traceln(
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786563033916</Id>
 					<Name><![CDATA[activarEjecucion]]></Name>
-					<X>-3365</X><Y>420</Y>
+					<X>-1325</X><Y>420</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -50968,7 +50968,7 @@ traceln(
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786578445652</Id>
 					<Name><![CDATA[evaluarClienteActual]]></Name>
-					<X>-3907</X><Y>984</Y>
+					<X>-1867</X><Y>984</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -51022,7 +51022,7 @@ traceln(
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786578462420</Id>
 					<Name><![CDATA[iniciarEsperaCliente]]></Name>
-					<X>-3365</X><Y>885</Y>
+					<X>-1325</X><Y>885</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -51066,7 +51066,7 @@ traceln(
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786578480444</Id>
 					<Name><![CDATA[iniciarDescarga]]></Name>
-					<X>-3365</X><Y>918</Y>
+					<X>-1325</X><Y>918</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -51117,7 +51117,7 @@ traceln(
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786578497196</Id>
 					<Name><![CDATA[finalizarPedidoNoEntregadoActual]]></Name>
-					<X>-3365</X><Y>951</Y>
+					<X>-1325</X><Y>951</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -51183,7 +51183,7 @@ if (hayVolcadorDespues) {
 					<ReturnType><![CDATA[boolean]]></ReturnType>
 					<Id>1786580523308</Id>
 					<Name><![CDATA[hayVolcadorPendienteDespues]]></Name>
-					<X>-2075</X><Y>288</Y>
+					<X>-355</X><Y>288</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -51218,7 +51218,7 @@ return false;]]></Body>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786580550444</Id>
 					<Name><![CDATA[marcarRestantesComoNoEntregados]]></Name>
-					<X>-3365</X><Y>984</Y>
+					<X>-1325</X><Y>984</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -51283,7 +51283,7 @@ indicePedido =
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786582941877</Id>
 					<Name><![CDATA[prepararRegresoCorralon]]></Name>
-					<X>-2617</X><Y>885</Y>
+					<X>-897</X><Y>885</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -51367,7 +51367,7 @@ traceln(
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786625140562</Id>
 					<Name><![CDATA[iniciarActividad]]></Name>
-					<X>-2617</X><Y>1383</Y>
+					<X>-897</X><Y>1383</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -51460,7 +51460,7 @@ unidadesActividadActual =
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1786625203053</Id>
 					<Name><![CDATA[cerrarActividadActual]]></Name>
-					<X>-2075</X><Y>1383</Y>
+					<X>-355</X><Y>1383</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -51550,7 +51550,7 @@ unidadesActividadActual = 0;]]></Body>
 					<ReturnType><![CDATA[boolean]]></ReturnType>
 					<Id>1787158215902</Id>
 					<Name><![CDATA[debeAnimarCamionGIS]]></Name>
-					<X>-2075</X><Y>819</Y>
+					<X>-355</X><Y>819</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -51587,7 +51587,7 @@ return
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1787158232262</Id>
 					<Name><![CDATA[latitudVisualCorralon2D]]></Name>
-					<X>-2075</X><Y>852</Y>
+					<X>-355</X><Y>852</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -51670,8 +51670,8 @@ return
 			<Presentation>
 				<Rectangle>
 					<Id>1794162739077</Id>
-					<Name><![CDATA[orgVisual_Camion_identidad_fondo]]></Name>
-					<X>-3950</X><Y>0</Y>
+					<Name><![CDATA[rectBloqueIdentidad]]></Name>
+					<X>-1910</X><Y>0</Y>
 					<Label><X>10</X><Y>10</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -51684,7 +51684,7 @@ return
 					<LineColor>-3418655</LineColor>
 					<LineMaterial>null</LineMaterial>
 					<LineStyle>SOLID</LineStyle>
-					<Width>1140</Width>
+					<Width>890</Width>
 					<Height>525</Height>
 					<Rotation>0.0</Rotation>
 					<FillColor>-722949</FillColor>
@@ -51692,8 +51692,8 @@ return
 				</Rectangle>
 				<Text>
 					<Id>1794162739078</Id>
-					<Name><![CDATA[orgVisual_Camion_identidad_titulo]]></Name>
-					<X>-3912</X><Y>28</Y>
+					<Name><![CDATA[txtTituloBloqueIdentidad]]></Name>
+					<X>-1872</X><Y>28</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -51703,7 +51703,7 @@ return
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
 					<Color>-15257011</Color>
-					<Text><![CDATA[01 · IDENTIDAD Y PLAN DE VIAJE]]></Text>
+					<Text><![CDATA[01 - IDENTIDAD Y PLAN DE VIAJE]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>16</Size>
@@ -51713,8 +51713,8 @@ return
 				</Text>
 				<Text>
 					<Id>1794162739079</Id>
-					<Name><![CDATA[orgVisual_Camion_identidad_variables]]></Name>
-					<X>-3912</X><Y>97</Y>
+					<Name><![CDATA[txtSubtituloVariablesIdentidad]]></Name>
+					<X>-1872</X><Y>97</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -51724,7 +51724,7 @@ return
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
 					<Color>-10193781</Color>
-					<Text><![CDATA[VARIABLES  (10)]]></Text>
+					<Text><![CDATA[VARIABLES]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>11</Size>
@@ -51734,8 +51734,8 @@ return
 				</Text>
 				<Text>
 					<Id>1794162739080</Id>
-					<Name><![CDATA[orgVisual_Camion_identidad_funciones]]></Name>
-					<X>-3912</X><Y>320</Y>
+					<Name><![CDATA[txtSubtituloFuncionesIdentidad]]></Name>
+					<X>-1872</X><Y>320</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -51745,7 +51745,7 @@ return
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
 					<Color>-10193781</Color>
-					<Text><![CDATA[FUNCIONES  (7)]]></Text>
+					<Text><![CDATA[FUNCIONES]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>11</Size>
@@ -51755,8 +51755,8 @@ return
 				</Text>
 				<Rectangle>
 					<Id>1794162739081</Id>
-					<Name><![CDATA[orgVisual_Camion_cliente_fondo]]></Name>
-					<X>-3950</X><Y>630</Y>
+					<Name><![CDATA[rectBloqueClientes]]></Name>
+					<X>-1910</X><Y>630</Y>
 					<Label><X>10</X><Y>10</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -51769,7 +51769,7 @@ return
 					<LineColor>-3418655</LineColor>
 					<LineMaterial>null</LineMaterial>
 					<LineStyle>SOLID</LineStyle>
-					<Width>1140</Width>
+					<Width>890</Width>
 					<Height>426</Height>
 					<Rotation>0.0</Rotation>
 					<FillColor>-722949</FillColor>
@@ -51777,8 +51777,8 @@ return
 				</Rectangle>
 				<Text>
 					<Id>1794162739082</Id>
-					<Name><![CDATA[orgVisual_Camion_cliente_titulo]]></Name>
-					<X>-3912</X><Y>658</Y>
+					<Name><![CDATA[txtTituloBloqueClientes]]></Name>
+					<X>-1872</X><Y>658</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -51788,7 +51788,7 @@ return
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
 					<Color>-15257011</Color>
-					<Text><![CDATA[02 · CLIENTES Y ENTREGAS]]></Text>
+					<Text><![CDATA[02 - CLIENTES Y ENTREGAS]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>16</Size>
@@ -51798,8 +51798,8 @@ return
 				</Text>
 				<Text>
 					<Id>1794162739083</Id>
-					<Name><![CDATA[orgVisual_Camion_cliente_variables]]></Name>
-					<X>-3912</X><Y>727</Y>
+					<Name><![CDATA[txtSubtituloVariablesClientes]]></Name>
+					<X>-1872</X><Y>727</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -51809,7 +51809,7 @@ return
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
 					<Color>-10193781</Color>
-					<Text><![CDATA[VARIABLES  (3)]]></Text>
+					<Text><![CDATA[VARIABLES]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>11</Size>
@@ -51819,8 +51819,8 @@ return
 				</Text>
 				<Text>
 					<Id>1794162739084</Id>
-					<Name><![CDATA[orgVisual_Camion_cliente_funciones]]></Name>
-					<X>-3912</X><Y>851</Y>
+					<Name><![CDATA[txtSubtituloFuncionesClientes]]></Name>
+					<X>-1872</X><Y>851</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -51830,7 +51830,7 @@ return
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
 					<Color>-10193781</Color>
-					<Text><![CDATA[FUNCIONES  (8)]]></Text>
+					<Text><![CDATA[FUNCIONES]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>11</Size>
@@ -51840,8 +51840,8 @@ return
 				</Text>
 				<Rectangle>
 					<Id>1794162739085</Id>
-					<Name><![CDATA[orgVisual_Camion_carga_fondo]]></Name>
-					<X>-2660</X><Y>0</Y>
+					<Name><![CDATA[rectBloqueCarga]]></Name>
+					<X>-940</X><Y>0</Y>
 					<Label><X>10</X><Y>10</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -51854,7 +51854,7 @@ return
 					<LineColor>-3418655</LineColor>
 					<LineMaterial>null</LineMaterial>
 					<LineStyle>SOLID</LineStyle>
-					<Width>1140</Width>
+					<Width>860</Width>
 					<Height>393</Height>
 					<Rotation>0.0</Rotation>
 					<FillColor>-722949</FillColor>
@@ -51862,8 +51862,8 @@ return
 				</Rectangle>
 				<Text>
 					<Id>1794162739086</Id>
-					<Name><![CDATA[orgVisual_Camion_carga_titulo]]></Name>
-					<X>-2622</X><Y>28</Y>
+					<Name><![CDATA[txtTituloBloqueCarga]]></Name>
+					<X>-902</X><Y>28</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -51873,7 +51873,7 @@ return
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
 					<Color>-15257011</Color>
-					<Text><![CDATA[03 · CARGA Y RECURSOS]]></Text>
+					<Text><![CDATA[03 - CARGA Y RECURSOS]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>16</Size>
@@ -51883,8 +51883,8 @@ return
 				</Text>
 				<Text>
 					<Id>1794162739087</Id>
-					<Name><![CDATA[orgVisual_Camion_carga_variables]]></Name>
-					<X>-2622</X><Y>97</Y>
+					<Name><![CDATA[txtSubtituloVariablesCarga]]></Name>
+					<X>-902</X><Y>97</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -51894,7 +51894,7 @@ return
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
 					<Color>-10193781</Color>
-					<Text><![CDATA[VARIABLES  (5)]]></Text>
+					<Text><![CDATA[VARIABLES]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>11</Size>
@@ -51904,8 +51904,8 @@ return
 				</Text>
 				<Text>
 					<Id>1794162739088</Id>
-					<Name><![CDATA[orgVisual_Camion_carga_funciones]]></Name>
-					<X>-2622</X><Y>254</Y>
+					<Name><![CDATA[txtSubtituloFuncionesCarga]]></Name>
+					<X>-902</X><Y>254</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -51915,7 +51915,7 @@ return
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
 					<Color>-10193781</Color>
-					<Text><![CDATA[FUNCIONES  (3)]]></Text>
+					<Text><![CDATA[FUNCIONES]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>11</Size>
@@ -51925,8 +51925,8 @@ return
 				</Text>
 				<Rectangle>
 					<Id>1794162739089</Id>
-					<Name><![CDATA[orgVisual_Camion_viajes_fondo]]></Name>
-					<X>-2660</X><Y>498</Y>
+					<Name><![CDATA[rectBloqueViajes]]></Name>
+					<X>-940</X><Y>498</Y>
 					<Label><X>10</X><Y>10</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -51939,7 +51939,7 @@ return
 					<LineColor>-3418655</LineColor>
 					<LineMaterial>null</LineMaterial>
 					<LineStyle>SOLID</LineStyle>
-					<Width>1140</Width>
+					<Width>860</Width>
 					<Height>459</Height>
 					<Rotation>0.0</Rotation>
 					<FillColor>-722949</FillColor>
@@ -51947,8 +51947,8 @@ return
 				</Rectangle>
 				<Text>
 					<Id>1794162739090</Id>
-					<Name><![CDATA[orgVisual_Camion_viajes_titulo]]></Name>
-					<X>-2622</X><Y>526</Y>
+					<Name><![CDATA[txtTituloBloqueViajes]]></Name>
+					<X>-902</X><Y>526</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -51958,7 +51958,7 @@ return
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
 					<Color>-15257011</Color>
-					<Text><![CDATA[04 · VIAJES Y SEGUIMIENTO GIS]]></Text>
+					<Text><![CDATA[04 - VIAJES Y SEGUIMIENTO GIS]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>16</Size>
@@ -51968,8 +51968,8 @@ return
 				</Text>
 				<Text>
 					<Id>1794162739091</Id>
-					<Name><![CDATA[orgVisual_Camion_viajes_variables]]></Name>
-					<X>-2622</X><Y>595</Y>
+					<Name><![CDATA[txtSubtituloVariablesViajes]]></Name>
+					<X>-902</X><Y>595</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -51979,7 +51979,7 @@ return
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
 					<Color>-10193781</Color>
-					<Text><![CDATA[VARIABLES  (7)]]></Text>
+					<Text><![CDATA[VARIABLES]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>11</Size>
@@ -51989,8 +51989,8 @@ return
 				</Text>
 				<Text>
 					<Id>1794162739092</Id>
-					<Name><![CDATA[orgVisual_Camion_viajes_funciones]]></Name>
-					<X>-2622</X><Y>785</Y>
+					<Name><![CDATA[txtSubtituloFuncionesViajes]]></Name>
+					<X>-902</X><Y>785</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -52000,7 +52000,7 @@ return
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
 					<Color>-10193781</Color>
-					<Text><![CDATA[FUNCIONES  (5)]]></Text>
+					<Text><![CDATA[FUNCIONES]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>11</Size>
@@ -52011,7 +52011,7 @@ return
 				<Rectangle>
 					<Id>1794162739093</Id>
 					<Name><![CDATA[orgVisual_Camion_historial_fondo]]></Name>
-					<X>-2660</X><Y>1062</Y>
+					<X>-940</X><Y>1062</Y>
 					<Label><X>10</X><Y>10</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -52024,7 +52024,7 @@ return
 					<LineColor>-3418655</LineColor>
 					<LineMaterial>null</LineMaterial>
 					<LineStyle>SOLID</LineStyle>
-					<Width>1140</Width>
+					<Width>860</Width>
 					<Height>393</Height>
 					<Rotation>0.0</Rotation>
 					<FillColor>-722949</FillColor>
@@ -52032,8 +52032,8 @@ return
 				</Rectangle>
 				<Text>
 					<Id>1794162739094</Id>
-					<Name><![CDATA[orgVisual_Camion_historial_titulo]]></Name>
-					<X>-2622</X><Y>1090</Y>
+					<Name><![CDATA[txtTituloBloqueHistorial]]></Name>
+					<X>-902</X><Y>1090</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -52043,7 +52043,7 @@ return
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
 					<Color>-15257011</Color>
-					<Text><![CDATA[05 · HISTORIAL Y MÉTRICAS]]></Text>
+					<Text><![CDATA[05 - HISTORIAL Y MÉTRICAS]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>16</Size>
@@ -52053,8 +52053,8 @@ return
 				</Text>
 				<Text>
 					<Id>1794162739095</Id>
-					<Name><![CDATA[orgVisual_Camion_historial_variables]]></Name>
-					<X>-2622</X><Y>1159</Y>
+					<Name><![CDATA[txtSubtituloVariablesHistorial]]></Name>
+					<X>-902</X><Y>1159</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -52064,7 +52064,7 @@ return
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
 					<Color>-10193781</Color>
-					<Text><![CDATA[VARIABLES  (7)]]></Text>
+					<Text><![CDATA[VARIABLES]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>11</Size>
@@ -52074,8 +52074,8 @@ return
 				</Text>
 				<Text>
 					<Id>1794162739096</Id>
-					<Name><![CDATA[orgVisual_Camion_historial_funciones]]></Name>
-					<X>-2622</X><Y>1349</Y>
+					<Name><![CDATA[txtSubtituloFuncionesHistorial]]></Name>
+					<X>-902</X><Y>1349</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -52085,7 +52085,7 @@ return
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
 					<Color>-10193781</Color>
-					<Text><![CDATA[FUNCIONES  (2)]]></Text>
+					<Text><![CDATA[FUNCIONES]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>11</Size>
