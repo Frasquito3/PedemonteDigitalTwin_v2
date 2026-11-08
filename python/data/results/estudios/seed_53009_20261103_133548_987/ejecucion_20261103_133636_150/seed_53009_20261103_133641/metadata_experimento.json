@@ -1,0 +1,4439 @@
+{
+  "archivos_consolidados": {
+    "resumen_csv": "resumen_resultados.csv",
+    "resumen_json": "resumen_resultados.json"
+  },
+  "auditoria": "analisis/auditoria.json",
+  "carpeta_experimento": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641",
+  "completa": true,
+  "desglose_costos": "analisis/desglose_costos.csv",
+  "entorno_ejecucion": "entorno_ejecucion.json",
+  "fecha_fin": "2026-11-03T17:19:52",
+  "fecha_inicio": "2026-11-03T13:36:41",
+  "instancias": "instancias/",
+  "manifiesto": "manifest_corridas.json",
+  "marca_tiempo": "seed_53009_20261103_133641",
+  "parametros": {
+    "cantidad_turnos": 100,
+    "horizonte_simulacion_min": 900.0,
+    "metodos": [
+      "RL",
+      "HIBRIDO",
+      "GREEDY",
+      "RANDOM",
+      "GA"
+    ],
+    "proveedores_habilitados": true,
+    "repeticiones_por_turno": 3,
+    "solo_estimado": false,
+    "timeout_segundos_por_metodo": 240
+  },
+  "planes": "planes/",
+  "preflight_vial": "preflight_vial.json",
+  "seed_generacion_origen": 53009,
+  "seed_inicial": 53009,
+  "tiempos_computo": "tiempos_computo.json",
+  "turnos_evaluados": [
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0001_pedidos_dia_01.xlsx",
+      "dia_numero": 1,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_01_rep_01_seed_388000726.json",
+          "repeticion": 1,
+          "seed_ejecucion": 388000726,
+          "semillas_por_metodo": {
+            "GA": 388008727,
+            "GREEDY": 388000726,
+            "HIBRIDO": 388009727,
+            "RANDOM": 388007727,
+            "RL": 388000726
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_01_rep_02_seed_843232599.json",
+          "repeticion": 2,
+          "seed_ejecucion": 843232599,
+          "semillas_por_metodo": {
+            "GA": 843240600,
+            "GREEDY": 843232599,
+            "HIBRIDO": 843241600,
+            "RANDOM": 843239600,
+            "RL": 843232599
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_01_rep_03_seed_940613169.json",
+          "repeticion": 3,
+          "seed_ejecucion": 940613169,
+          "semillas_por_metodo": {
+            "GA": 940621170,
+            "GREEDY": 940613169,
+            "HIBRIDO": 940622170,
+            "RANDOM": 940620170,
+            "RL": 940613169
+          }
+        }
+      ],
+      "seed_escenario": 53423319,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0002_pedidos_dia_02.xlsx",
+      "dia_numero": 2,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_02_rep_01_seed_322897130.json",
+          "repeticion": 1,
+          "seed_ejecucion": 322897130,
+          "semillas_por_metodo": {
+            "GA": 322905131,
+            "GREEDY": 322897130,
+            "HIBRIDO": 322906131,
+            "RANDOM": 322904131,
+            "RL": 322897130
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_02_rep_02_seed_582063949.json",
+          "repeticion": 2,
+          "seed_ejecucion": 582063949,
+          "semillas_por_metodo": {
+            "GA": 582071950,
+            "GREEDY": 582063949,
+            "HIBRIDO": 582072950,
+            "RANDOM": 582070950,
+            "RL": 582063949
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_02_rep_03_seed_936761845.json",
+          "repeticion": 3,
+          "seed_ejecucion": 936761845,
+          "semillas_por_metodo": {
+            "GA": 936769846,
+            "GREEDY": 936761845,
+            "HIBRIDO": 936770846,
+            "RANDOM": 936768846,
+            "RL": 936761845
+          }
+        }
+      ],
+      "seed_escenario": 407930649,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0003_pedidos_dia_03.xlsx",
+      "dia_numero": 3,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_03_rep_01_seed_674192873.json",
+          "repeticion": 1,
+          "seed_ejecucion": 674192873,
+          "semillas_por_metodo": {
+            "GA": 674200874,
+            "GREEDY": 674192873,
+            "HIBRIDO": 674201874,
+            "RANDOM": 674199874,
+            "RL": 674192873
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_03_rep_02_seed_864105692.json",
+          "repeticion": 2,
+          "seed_ejecucion": 864105692,
+          "semillas_por_metodo": {
+            "GA": 864113693,
+            "GREEDY": 864105692,
+            "HIBRIDO": 864114693,
+            "RANDOM": 864112693,
+            "RL": 864105692
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_03_rep_03_seed_857556077.json",
+          "repeticion": 3,
+          "seed_ejecucion": 857556077,
+          "semillas_por_metodo": {
+            "GA": 857564078,
+            "GREEDY": 857556077,
+            "HIBRIDO": 857565078,
+            "RANDOM": 857563078,
+            "RL": 857556077
+          }
+        }
+      ],
+      "seed_escenario": 429151672,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0004_pedidos_dia_04.xlsx",
+      "dia_numero": 4,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_04_rep_01_seed_697413579.json",
+          "repeticion": 1,
+          "seed_ejecucion": 697413579,
+          "semillas_por_metodo": {
+            "GA": 697421580,
+            "GREEDY": 697413579,
+            "HIBRIDO": 697422580,
+            "RANDOM": 697420580,
+            "RL": 697413579
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_04_rep_02_seed_181341427.json",
+          "repeticion": 2,
+          "seed_ejecucion": 181341427,
+          "semillas_por_metodo": {
+            "GA": 181349428,
+            "GREEDY": 181341427,
+            "HIBRIDO": 181350428,
+            "RANDOM": 181348428,
+            "RL": 181341427
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_04_rep_03_seed_128899098.json",
+          "repeticion": 3,
+          "seed_ejecucion": 128899098,
+          "semillas_por_metodo": {
+            "GA": 128907099,
+            "GREEDY": 128899098,
+            "HIBRIDO": 128908099,
+            "RANDOM": 128906099,
+            "RL": 128899098
+          }
+        }
+      ],
+      "seed_escenario": 267101337,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0005_pedidos_dia_05.xlsx",
+      "dia_numero": 5,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_05_rep_01_seed_378266883.json",
+          "repeticion": 1,
+          "seed_ejecucion": 378266883,
+          "semillas_por_metodo": {
+            "GA": 378274884,
+            "GREEDY": 378266883,
+            "HIBRIDO": 378275884,
+            "RANDOM": 378273884,
+            "RL": 378266883
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_05_rep_02_seed_58245273.json",
+          "repeticion": 2,
+          "seed_ejecucion": 58245273,
+          "semillas_por_metodo": {
+            "GA": 58253274,
+            "GREEDY": 58245273,
+            "HIBRIDO": 58254274,
+            "RANDOM": 58252274,
+            "RL": 58245273
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_05_rep_03_seed_154664134.json",
+          "repeticion": 3,
+          "seed_ejecucion": 154664134,
+          "semillas_por_metodo": {
+            "GA": 154672135,
+            "GREEDY": 154664134,
+            "HIBRIDO": 154673135,
+            "RANDOM": 154671135,
+            "RL": 154664134
+          }
+        }
+      ],
+      "seed_escenario": 297115028,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0006_pedidos_dia_06.xlsx",
+      "dia_numero": 6,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_06_rep_01_seed_158990683.json",
+          "repeticion": 1,
+          "seed_ejecucion": 158990683,
+          "semillas_por_metodo": {
+            "GA": 158998684,
+            "GREEDY": 158990683,
+            "HIBRIDO": 158999684,
+            "RANDOM": 158997684,
+            "RL": 158990683
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_06_rep_02_seed_894212253.json",
+          "repeticion": 2,
+          "seed_ejecucion": 894212253,
+          "semillas_por_metodo": {
+            "GA": 894220254,
+            "GREEDY": 894212253,
+            "HIBRIDO": 894221254,
+            "RANDOM": 894219254,
+            "RL": 894212253
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_06_rep_03_seed_601535328.json",
+          "repeticion": 3,
+          "seed_ejecucion": 601535328,
+          "semillas_por_metodo": {
+            "GA": 601543329,
+            "GREEDY": 601535328,
+            "HIBRIDO": 601544329,
+            "RANDOM": 601542329,
+            "RL": 601535328
+          }
+        }
+      ],
+      "seed_escenario": 752825041,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0007_pedidos_dia_07.xlsx",
+      "dia_numero": 7,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_07_rep_01_seed_355940308.json",
+          "repeticion": 1,
+          "seed_ejecucion": 355940308,
+          "semillas_por_metodo": {
+            "GA": 355948309,
+            "GREEDY": 355940308,
+            "HIBRIDO": 355949309,
+            "RANDOM": 355947309,
+            "RL": 355940308
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_07_rep_02_seed_114269012.json",
+          "repeticion": 2,
+          "seed_ejecucion": 114269012,
+          "semillas_por_metodo": {
+            "GA": 114277013,
+            "GREEDY": 114269012,
+            "HIBRIDO": 114278013,
+            "RANDOM": 114276013,
+            "RL": 114269012
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_07_rep_03_seed_113923190.json",
+          "repeticion": 3,
+          "seed_ejecucion": 113923190,
+          "semillas_por_metodo": {
+            "GA": 113931191,
+            "GREEDY": 113923190,
+            "HIBRIDO": 113932191,
+            "RANDOM": 113930191,
+            "RL": 113923190
+          }
+        }
+      ],
+      "seed_escenario": 726894793,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0008_pedidos_dia_08.xlsx",
+      "dia_numero": 8,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_08_rep_01_seed_634024951.json",
+          "repeticion": 1,
+          "seed_ejecucion": 634024951,
+          "semillas_por_metodo": {
+            "GA": 634032952,
+            "GREEDY": 634024951,
+            "HIBRIDO": 634033952,
+            "RANDOM": 634031952,
+            "RL": 634024951
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_08_rep_02_seed_493157971.json",
+          "repeticion": 2,
+          "seed_ejecucion": 493157971,
+          "semillas_por_metodo": {
+            "GA": 493165972,
+            "GREEDY": 493157971,
+            "HIBRIDO": 493166972,
+            "RANDOM": 493164972,
+            "RL": 493157971
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_08_rep_03_seed_38408463.json",
+          "repeticion": 3,
+          "seed_ejecucion": 38408463,
+          "semillas_por_metodo": {
+            "GA": 38416464,
+            "GREEDY": 38408463,
+            "HIBRIDO": 38417464,
+            "RANDOM": 38415464,
+            "RL": 38408463
+          }
+        }
+      ],
+      "seed_escenario": 915749671,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0009_pedidos_dia_09.xlsx",
+      "dia_numero": 9,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_09_rep_01_seed_540533096.json",
+          "repeticion": 1,
+          "seed_ejecucion": 540533096,
+          "semillas_por_metodo": {
+            "GA": 540541097,
+            "GREEDY": 540533096,
+            "HIBRIDO": 540542097,
+            "RANDOM": 540540097,
+            "RL": 540533096
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_09_rep_02_seed_898886850.json",
+          "repeticion": 2,
+          "seed_ejecucion": 898886850,
+          "semillas_por_metodo": {
+            "GA": 898894851,
+            "GREEDY": 898886850,
+            "HIBRIDO": 898895851,
+            "RANDOM": 898893851,
+            "RL": 898886850
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_09_rep_03_seed_755059859.json",
+          "repeticion": 3,
+          "seed_ejecucion": 755059859,
+          "semillas_por_metodo": {
+            "GA": 755067860,
+            "GREEDY": 755059859,
+            "HIBRIDO": 755068860,
+            "RANDOM": 755066860,
+            "RL": 755059859
+          }
+        }
+      ],
+      "seed_escenario": 445339537,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0010_pedidos_dia_10.xlsx",
+      "dia_numero": 10,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_10_rep_01_seed_950033239.json",
+          "repeticion": 1,
+          "seed_ejecucion": 950033239,
+          "semillas_por_metodo": {
+            "GA": 950041240,
+            "GREEDY": 950033239,
+            "HIBRIDO": 950042240,
+            "RANDOM": 950040240,
+            "RL": 950033239
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_10_rep_02_seed_33443259.json",
+          "repeticion": 2,
+          "seed_ejecucion": 33443259,
+          "semillas_por_metodo": {
+            "GA": 33451260,
+            "GREEDY": 33443259,
+            "HIBRIDO": 33452260,
+            "RANDOM": 33450260,
+            "RL": 33443259
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_10_rep_03_seed_905844976.json",
+          "repeticion": 3,
+          "seed_ejecucion": 905844976,
+          "semillas_por_metodo": {
+            "GA": 905852977,
+            "GREEDY": 905844976,
+            "HIBRIDO": 905853977,
+            "RANDOM": 905851977,
+            "RL": 905844976
+          }
+        }
+      ],
+      "seed_escenario": 927849202,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0011_pedidos_dia_11.xlsx",
+      "dia_numero": 11,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_11_rep_01_seed_583984449.json",
+          "repeticion": 1,
+          "seed_ejecucion": 583984449,
+          "semillas_por_metodo": {
+            "GA": 583992450,
+            "GREEDY": 583984449,
+            "HIBRIDO": 583993450,
+            "RANDOM": 583991450,
+            "RL": 583984449
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_11_rep_02_seed_491804663.json",
+          "repeticion": 2,
+          "seed_ejecucion": 491804663,
+          "semillas_por_metodo": {
+            "GA": 491812664,
+            "GREEDY": 491804663,
+            "HIBRIDO": 491813664,
+            "RANDOM": 491811664,
+            "RL": 491804663
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_11_rep_03_seed_607349552.json",
+          "repeticion": 3,
+          "seed_ejecucion": 607349552,
+          "semillas_por_metodo": {
+            "GA": 607357553,
+            "GREEDY": 607349552,
+            "HIBRIDO": 607358553,
+            "RANDOM": 607356553,
+            "RL": 607349552
+          }
+        }
+      ],
+      "seed_escenario": 371863066,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0012_pedidos_dia_12.xlsx",
+      "dia_numero": 12,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_12_rep_01_seed_239395790.json",
+          "repeticion": 1,
+          "seed_ejecucion": 239395790,
+          "semillas_por_metodo": {
+            "GA": 239403791,
+            "GREEDY": 239395790,
+            "HIBRIDO": 239404791,
+            "RANDOM": 239402791,
+            "RL": 239395790
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_12_rep_02_seed_454960380.json",
+          "repeticion": 2,
+          "seed_ejecucion": 454960380,
+          "semillas_por_metodo": {
+            "GA": 454968381,
+            "GREEDY": 454960380,
+            "HIBRIDO": 454969381,
+            "RANDOM": 454967381,
+            "RL": 454960380
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_12_rep_03_seed_299748942.json",
+          "repeticion": 3,
+          "seed_ejecucion": 299748942,
+          "semillas_por_metodo": {
+            "GA": 299756943,
+            "GREEDY": 299748942,
+            "HIBRIDO": 299757943,
+            "RANDOM": 299755943,
+            "RL": 299748942
+          }
+        }
+      ],
+      "seed_escenario": 984145558,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0013_pedidos_dia_13.xlsx",
+      "dia_numero": 13,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_13_rep_01_seed_101717090.json",
+          "repeticion": 1,
+          "seed_ejecucion": 101717090,
+          "semillas_por_metodo": {
+            "GA": 101725091,
+            "GREEDY": 101717090,
+            "HIBRIDO": 101726091,
+            "RANDOM": 101724091,
+            "RL": 101717090
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_13_rep_02_seed_658553633.json",
+          "repeticion": 2,
+          "seed_ejecucion": 658553633,
+          "semillas_por_metodo": {
+            "GA": 658561634,
+            "GREEDY": 658553633,
+            "HIBRIDO": 658562634,
+            "RANDOM": 658560634,
+            "RL": 658553633
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_13_rep_03_seed_568559717.json",
+          "repeticion": 3,
+          "seed_ejecucion": 568559717,
+          "semillas_por_metodo": {
+            "GA": 568567718,
+            "GREEDY": 568559717,
+            "HIBRIDO": 568568718,
+            "RANDOM": 568566718,
+            "RL": 568559717
+          }
+        }
+      ],
+      "seed_escenario": 263415473,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0014_pedidos_dia_14.xlsx",
+      "dia_numero": 14,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_14_rep_01_seed_34922073.json",
+          "repeticion": 1,
+          "seed_ejecucion": 34922073,
+          "semillas_por_metodo": {
+            "GA": 34930074,
+            "GREEDY": 34922073,
+            "HIBRIDO": 34931074,
+            "RANDOM": 34929074,
+            "RL": 34922073
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_14_rep_02_seed_58472660.json",
+          "repeticion": 2,
+          "seed_ejecucion": 58472660,
+          "semillas_por_metodo": {
+            "GA": 58480661,
+            "GREEDY": 58472660,
+            "HIBRIDO": 58481661,
+            "RANDOM": 58479661,
+            "RL": 58472660
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_14_rep_03_seed_916105511.json",
+          "repeticion": 3,
+          "seed_ejecucion": 916105511,
+          "semillas_por_metodo": {
+            "GA": 916113512,
+            "GREEDY": 916105511,
+            "HIBRIDO": 916114512,
+            "RANDOM": 916112512,
+            "RL": 916105511
+          }
+        }
+      ],
+      "seed_escenario": 901345732,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0015_pedidos_dia_15.xlsx",
+      "dia_numero": 15,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_15_rep_01_seed_208602492.json",
+          "repeticion": 1,
+          "seed_ejecucion": 208602492,
+          "semillas_por_metodo": {
+            "GA": 208610493,
+            "GREEDY": 208602492,
+            "HIBRIDO": 208611493,
+            "RANDOM": 208609493,
+            "RL": 208602492
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_15_rep_02_seed_722014374.json",
+          "repeticion": 2,
+          "seed_ejecucion": 722014374,
+          "semillas_por_metodo": {
+            "GA": 722022375,
+            "GREEDY": 722014374,
+            "HIBRIDO": 722023375,
+            "RANDOM": 722021375,
+            "RL": 722014374
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_15_rep_03_seed_344598289.json",
+          "repeticion": 3,
+          "seed_ejecucion": 344598289,
+          "semillas_por_metodo": {
+            "GA": 344606290,
+            "GREEDY": 344598289,
+            "HIBRIDO": 344607290,
+            "RANDOM": 344605290,
+            "RL": 344598289
+          }
+        }
+      ],
+      "seed_escenario": 278179685,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0016_pedidos_dia_16.xlsx",
+      "dia_numero": 16,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_16_rep_01_seed_246890778.json",
+          "repeticion": 1,
+          "seed_ejecucion": 246890778,
+          "semillas_por_metodo": {
+            "GA": 246898779,
+            "GREEDY": 246890778,
+            "HIBRIDO": 246899779,
+            "RANDOM": 246897779,
+            "RL": 246890778
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_16_rep_02_seed_59743641.json",
+          "repeticion": 2,
+          "seed_ejecucion": 59743641,
+          "semillas_por_metodo": {
+            "GA": 59751642,
+            "GREEDY": 59743641,
+            "HIBRIDO": 59752642,
+            "RANDOM": 59750642,
+            "RL": 59743641
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_16_rep_03_seed_188556290.json",
+          "repeticion": 3,
+          "seed_ejecucion": 188556290,
+          "semillas_por_metodo": {
+            "GA": 188564291,
+            "GREEDY": 188556290,
+            "HIBRIDO": 188565291,
+            "RANDOM": 188563291,
+            "RL": 188556290
+          }
+        }
+      ],
+      "seed_escenario": 788193510,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0017_pedidos_dia_17.xlsx",
+      "dia_numero": 17,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_17_rep_01_seed_553171181.json",
+          "repeticion": 1,
+          "seed_ejecucion": 553171181,
+          "semillas_por_metodo": {
+            "GA": 553179182,
+            "GREEDY": 553171181,
+            "HIBRIDO": 553180182,
+            "RANDOM": 553178182,
+            "RL": 553171181
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_17_rep_02_seed_825708748.json",
+          "repeticion": 2,
+          "seed_ejecucion": 825708748,
+          "semillas_por_metodo": {
+            "GA": 825716749,
+            "GREEDY": 825708748,
+            "HIBRIDO": 825717749,
+            "RANDOM": 825715749,
+            "RL": 825708748
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_17_rep_03_seed_205497966.json",
+          "repeticion": 3,
+          "seed_ejecucion": 205497966,
+          "semillas_por_metodo": {
+            "GA": 205505967,
+            "GREEDY": 205497966,
+            "HIBRIDO": 205506967,
+            "RANDOM": 205504967,
+            "RL": 205497966
+          }
+        }
+      ],
+      "seed_escenario": 390311101,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0018_pedidos_dia_18.xlsx",
+      "dia_numero": 18,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_18_rep_01_seed_207310485.json",
+          "repeticion": 1,
+          "seed_ejecucion": 207310485,
+          "semillas_por_metodo": {
+            "GA": 207318486,
+            "GREEDY": 207310485,
+            "HIBRIDO": 207319486,
+            "RANDOM": 207317486,
+            "RL": 207310485
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_18_rep_02_seed_908658548.json",
+          "repeticion": 2,
+          "seed_ejecucion": 908658548,
+          "semillas_por_metodo": {
+            "GA": 908666549,
+            "GREEDY": 908658548,
+            "HIBRIDO": 908667549,
+            "RANDOM": 908665549,
+            "RL": 908658548
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_18_rep_03_seed_913074810.json",
+          "repeticion": 3,
+          "seed_ejecucion": 913074810,
+          "semillas_por_metodo": {
+            "GA": 913082811,
+            "GREEDY": 913074810,
+            "HIBRIDO": 913083811,
+            "RANDOM": 913081811,
+            "RL": 913074810
+          }
+        }
+      ],
+      "seed_escenario": 486063760,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0019_pedidos_dia_19.xlsx",
+      "dia_numero": 19,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_19_rep_01_seed_896698189.json",
+          "repeticion": 1,
+          "seed_ejecucion": 896698189,
+          "semillas_por_metodo": {
+            "GA": 896706190,
+            "GREEDY": 896698189,
+            "HIBRIDO": 896707190,
+            "RANDOM": 896705190,
+            "RL": 896698189
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_19_rep_02_seed_556544429.json",
+          "repeticion": 2,
+          "seed_ejecucion": 556544429,
+          "semillas_por_metodo": {
+            "GA": 556552430,
+            "GREEDY": 556544429,
+            "HIBRIDO": 556553430,
+            "RANDOM": 556551430,
+            "RL": 556544429
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_19_rep_03_seed_441534772.json",
+          "repeticion": 3,
+          "seed_ejecucion": 441534772,
+          "semillas_por_metodo": {
+            "GA": 441542773,
+            "GREEDY": 441534772,
+            "HIBRIDO": 441543773,
+            "RANDOM": 441541773,
+            "RL": 441534772
+          }
+        }
+      ],
+      "seed_escenario": 87790002,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0020_pedidos_dia_20.xlsx",
+      "dia_numero": 20,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_20_rep_01_seed_897480950.json",
+          "repeticion": 1,
+          "seed_ejecucion": 897480950,
+          "semillas_por_metodo": {
+            "GA": 897488951,
+            "GREEDY": 897480950,
+            "HIBRIDO": 897489951,
+            "RANDOM": 897487951,
+            "RL": 897480950
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_20_rep_02_seed_26834013.json",
+          "repeticion": 2,
+          "seed_ejecucion": 26834013,
+          "semillas_por_metodo": {
+            "GA": 26842014,
+            "GREEDY": 26834013,
+            "HIBRIDO": 26843014,
+            "RANDOM": 26841014,
+            "RL": 26834013
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_20_rep_03_seed_968545565.json",
+          "repeticion": 3,
+          "seed_ejecucion": 968545565,
+          "semillas_por_metodo": {
+            "GA": 968553566,
+            "GREEDY": 968545565,
+            "HIBRIDO": 968554566,
+            "RANDOM": 968552566,
+            "RL": 968545565
+          }
+        }
+      ],
+      "seed_escenario": 33292985,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0021_pedidos_dia_21.xlsx",
+      "dia_numero": 21,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_21_rep_01_seed_57730113.json",
+          "repeticion": 1,
+          "seed_ejecucion": 57730113,
+          "semillas_por_metodo": {
+            "GA": 57738114,
+            "GREEDY": 57730113,
+            "HIBRIDO": 57739114,
+            "RANDOM": 57737114,
+            "RL": 57730113
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_21_rep_02_seed_592338808.json",
+          "repeticion": 2,
+          "seed_ejecucion": 592338808,
+          "semillas_por_metodo": {
+            "GA": 592346809,
+            "GREEDY": 592338808,
+            "HIBRIDO": 592347809,
+            "RANDOM": 592345809,
+            "RL": 592338808
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_21_rep_03_seed_709566000.json",
+          "repeticion": 3,
+          "seed_ejecucion": 709566000,
+          "semillas_por_metodo": {
+            "GA": 709574001,
+            "GREEDY": 709566000,
+            "HIBRIDO": 709575001,
+            "RANDOM": 709573001,
+            "RL": 709566000
+          }
+        }
+      ],
+      "seed_escenario": 431310407,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0022_pedidos_dia_22.xlsx",
+      "dia_numero": 22,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_22_rep_01_seed_793099520.json",
+          "repeticion": 1,
+          "seed_ejecucion": 793099520,
+          "semillas_por_metodo": {
+            "GA": 793107521,
+            "GREEDY": 793099520,
+            "HIBRIDO": 793108521,
+            "RANDOM": 793106521,
+            "RL": 793099520
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_22_rep_02_seed_843076340.json",
+          "repeticion": 2,
+          "seed_ejecucion": 843076340,
+          "semillas_por_metodo": {
+            "GA": 843084341,
+            "GREEDY": 843076340,
+            "HIBRIDO": 843085341,
+            "RANDOM": 843083341,
+            "RL": 843076340
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_22_rep_03_seed_377205236.json",
+          "repeticion": 3,
+          "seed_ejecucion": 377205236,
+          "semillas_por_metodo": {
+            "GA": 377213237,
+            "GREEDY": 377205236,
+            "HIBRIDO": 377214237,
+            "RANDOM": 377212237,
+            "RL": 377205236
+          }
+        }
+      ],
+      "seed_escenario": 446882672,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0023_pedidos_dia_23.xlsx",
+      "dia_numero": 23,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_23_rep_01_seed_724119043.json",
+          "repeticion": 1,
+          "seed_ejecucion": 724119043,
+          "semillas_por_metodo": {
+            "GA": 724127044,
+            "GREEDY": 724119043,
+            "HIBRIDO": 724128044,
+            "RANDOM": 724126044,
+            "RL": 724119043
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_23_rep_02_seed_293226704.json",
+          "repeticion": 2,
+          "seed_ejecucion": 293226704,
+          "semillas_por_metodo": {
+            "GA": 293234705,
+            "GREEDY": 293226704,
+            "HIBRIDO": 293235705,
+            "RANDOM": 293233705,
+            "RL": 293226704
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_23_rep_03_seed_409489054.json",
+          "repeticion": 3,
+          "seed_ejecucion": 409489054,
+          "semillas_por_metodo": {
+            "GA": 409497055,
+            "GREEDY": 409489054,
+            "HIBRIDO": 409498055,
+            "RANDOM": 409496055,
+            "RL": 409489054
+          }
+        }
+      ],
+      "seed_escenario": 746858500,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0024_pedidos_dia_24.xlsx",
+      "dia_numero": 24,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_24_rep_01_seed_448040353.json",
+          "repeticion": 1,
+          "seed_ejecucion": 448040353,
+          "semillas_por_metodo": {
+            "GA": 448048354,
+            "GREEDY": 448040353,
+            "HIBRIDO": 448049354,
+            "RANDOM": 448047354,
+            "RL": 448040353
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_24_rep_02_seed_847180457.json",
+          "repeticion": 2,
+          "seed_ejecucion": 847180457,
+          "semillas_por_metodo": {
+            "GA": 847188458,
+            "GREEDY": 847180457,
+            "HIBRIDO": 847189458,
+            "RANDOM": 847187458,
+            "RL": 847180457
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_24_rep_03_seed_344974425.json",
+          "repeticion": 3,
+          "seed_ejecucion": 344974425,
+          "semillas_por_metodo": {
+            "GA": 344982426,
+            "GREEDY": 344974425,
+            "HIBRIDO": 344983426,
+            "RANDOM": 344981426,
+            "RL": 344974425
+          }
+        }
+      ],
+      "seed_escenario": 978674655,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0025_pedidos_dia_25.xlsx",
+      "dia_numero": 25,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_25_rep_01_seed_770789410.json",
+          "repeticion": 1,
+          "seed_ejecucion": 770789410,
+          "semillas_por_metodo": {
+            "GA": 770797411,
+            "GREEDY": 770789410,
+            "HIBRIDO": 770798411,
+            "RANDOM": 770796411,
+            "RL": 770789410
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_25_rep_02_seed_546893090.json",
+          "repeticion": 2,
+          "seed_ejecucion": 546893090,
+          "semillas_por_metodo": {
+            "GA": 546901091,
+            "GREEDY": 546893090,
+            "HIBRIDO": 546902091,
+            "RANDOM": 546900091,
+            "RL": 546893090
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_25_rep_03_seed_790039554.json",
+          "repeticion": 3,
+          "seed_ejecucion": 790039554,
+          "semillas_por_metodo": {
+            "GA": 790047555,
+            "GREEDY": 790039554,
+            "HIBRIDO": 790048555,
+            "RANDOM": 790046555,
+            "RL": 790039554
+          }
+        }
+      ],
+      "seed_escenario": 967509790,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0026_pedidos_dia_26.xlsx",
+      "dia_numero": 26,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_26_rep_01_seed_421669529.json",
+          "repeticion": 1,
+          "seed_ejecucion": 421669529,
+          "semillas_por_metodo": {
+            "GA": 421677530,
+            "GREEDY": 421669529,
+            "HIBRIDO": 421678530,
+            "RANDOM": 421676530,
+            "RL": 421669529
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_26_rep_02_seed_229302241.json",
+          "repeticion": 2,
+          "seed_ejecucion": 229302241,
+          "semillas_por_metodo": {
+            "GA": 229310242,
+            "GREEDY": 229302241,
+            "HIBRIDO": 229311242,
+            "RANDOM": 229309242,
+            "RL": 229302241
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_26_rep_03_seed_256613134.json",
+          "repeticion": 3,
+          "seed_ejecucion": 256613134,
+          "semillas_por_metodo": {
+            "GA": 256621135,
+            "GREEDY": 256613134,
+            "HIBRIDO": 256622135,
+            "RANDOM": 256620135,
+            "RL": 256613134
+          }
+        }
+      ],
+      "seed_escenario": 291091008,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0027_pedidos_dia_27.xlsx",
+      "dia_numero": 27,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_27_rep_01_seed_381338894.json",
+          "repeticion": 1,
+          "seed_ejecucion": 381338894,
+          "semillas_por_metodo": {
+            "GA": 381346895,
+            "GREEDY": 381338894,
+            "HIBRIDO": 381347895,
+            "RANDOM": 381345895,
+            "RL": 381338894
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_27_rep_02_seed_350769130.json",
+          "repeticion": 2,
+          "seed_ejecucion": 350769130,
+          "semillas_por_metodo": {
+            "GA": 350777131,
+            "GREEDY": 350769130,
+            "HIBRIDO": 350778131,
+            "RANDOM": 350776131,
+            "RL": 350769130
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_27_rep_03_seed_109954971.json",
+          "repeticion": 3,
+          "seed_ejecucion": 109954971,
+          "semillas_por_metodo": {
+            "GA": 109962972,
+            "GREEDY": 109954971,
+            "HIBRIDO": 109963972,
+            "RANDOM": 109961972,
+            "RL": 109954971
+          }
+        }
+      ],
+      "seed_escenario": 230175718,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0028_pedidos_dia_28.xlsx",
+      "dia_numero": 28,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_28_rep_01_seed_22753687.json",
+          "repeticion": 1,
+          "seed_ejecucion": 22753687,
+          "semillas_por_metodo": {
+            "GA": 22761688,
+            "GREEDY": 22753687,
+            "HIBRIDO": 22762688,
+            "RANDOM": 22760688,
+            "RL": 22753687
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_28_rep_02_seed_338734997.json",
+          "repeticion": 2,
+          "seed_ejecucion": 338734997,
+          "semillas_por_metodo": {
+            "GA": 338742998,
+            "GREEDY": 338734997,
+            "HIBRIDO": 338743998,
+            "RANDOM": 338741998,
+            "RL": 338734997
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_28_rep_03_seed_115299014.json",
+          "repeticion": 3,
+          "seed_ejecucion": 115299014,
+          "semillas_por_metodo": {
+            "GA": 115307015,
+            "GREEDY": 115299014,
+            "HIBRIDO": 115308015,
+            "RANDOM": 115306015,
+            "RL": 115299014
+          }
+        }
+      ],
+      "seed_escenario": 792207381,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0029_pedidos_dia_29.xlsx",
+      "dia_numero": 29,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_29_rep_01_seed_492985277.json",
+          "repeticion": 1,
+          "seed_ejecucion": 492985277,
+          "semillas_por_metodo": {
+            "GA": 492993278,
+            "GREEDY": 492985277,
+            "HIBRIDO": 492994278,
+            "RANDOM": 492992278,
+            "RL": 492985277
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_29_rep_02_seed_302959652.json",
+          "repeticion": 2,
+          "seed_ejecucion": 302959652,
+          "semillas_por_metodo": {
+            "GA": 302967653,
+            "GREEDY": 302959652,
+            "HIBRIDO": 302968653,
+            "RANDOM": 302966653,
+            "RL": 302959652
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_29_rep_03_seed_886044508.json",
+          "repeticion": 3,
+          "seed_ejecucion": 886044508,
+          "semillas_por_metodo": {
+            "GA": 886052509,
+            "GREEDY": 886044508,
+            "HIBRIDO": 886053509,
+            "RANDOM": 886051509,
+            "RL": 886044508
+          }
+        }
+      ],
+      "seed_escenario": 6222446,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0030_pedidos_dia_30.xlsx",
+      "dia_numero": 30,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_30_rep_01_seed_162910451.json",
+          "repeticion": 1,
+          "seed_ejecucion": 162910451,
+          "semillas_por_metodo": {
+            "GA": 162918452,
+            "GREEDY": 162910451,
+            "HIBRIDO": 162919452,
+            "RANDOM": 162917452,
+            "RL": 162910451
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_30_rep_02_seed_560110548.json",
+          "repeticion": 2,
+          "seed_ejecucion": 560110548,
+          "semillas_por_metodo": {
+            "GA": 560118549,
+            "GREEDY": 560110548,
+            "HIBRIDO": 560119549,
+            "RANDOM": 560117549,
+            "RL": 560110548
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_30_rep_03_seed_261376929.json",
+          "repeticion": 3,
+          "seed_ejecucion": 261376929,
+          "semillas_por_metodo": {
+            "GA": 261384930,
+            "GREEDY": 261376929,
+            "HIBRIDO": 261385930,
+            "RANDOM": 261383930,
+            "RL": 261376929
+          }
+        }
+      ],
+      "seed_escenario": 97624499,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0031_pedidos_dia_31.xlsx",
+      "dia_numero": 31,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_31_rep_01_seed_995807493.json",
+          "repeticion": 1,
+          "seed_ejecucion": 995807493,
+          "semillas_por_metodo": {
+            "GA": 995815494,
+            "GREEDY": 995807493,
+            "HIBRIDO": 995816494,
+            "RANDOM": 995814494,
+            "RL": 995807493
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_31_rep_02_seed_123657684.json",
+          "repeticion": 2,
+          "seed_ejecucion": 123657684,
+          "semillas_por_metodo": {
+            "GA": 123665685,
+            "GREEDY": 123657684,
+            "HIBRIDO": 123666685,
+            "RANDOM": 123664685,
+            "RL": 123657684
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_31_rep_03_seed_961890705.json",
+          "repeticion": 3,
+          "seed_ejecucion": 961890705,
+          "semillas_por_metodo": {
+            "GA": 961898706,
+            "GREEDY": 961890705,
+            "HIBRIDO": 961899706,
+            "RANDOM": 961897706,
+            "RL": 961890705
+          }
+        }
+      ],
+      "seed_escenario": 306657388,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0032_pedidos_dia_32.xlsx",
+      "dia_numero": 32,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_32_rep_01_seed_981689807.json",
+          "repeticion": 1,
+          "seed_ejecucion": 981689807,
+          "semillas_por_metodo": {
+            "GA": 981697808,
+            "GREEDY": 981689807,
+            "HIBRIDO": 981698808,
+            "RANDOM": 981696808,
+            "RL": 981689807
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_32_rep_02_seed_764682052.json",
+          "repeticion": 2,
+          "seed_ejecucion": 764682052,
+          "semillas_por_metodo": {
+            "GA": 764690053,
+            "GREEDY": 764682052,
+            "HIBRIDO": 764691053,
+            "RANDOM": 764689053,
+            "RL": 764682052
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_32_rep_03_seed_296887348.json",
+          "repeticion": 3,
+          "seed_ejecucion": 296887348,
+          "semillas_por_metodo": {
+            "GA": 296895349,
+            "GREEDY": 296887348,
+            "HIBRIDO": 296896349,
+            "RANDOM": 296894349,
+            "RL": 296887348
+          }
+        }
+      ],
+      "seed_escenario": 111735324,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0033_pedidos_dia_33.xlsx",
+      "dia_numero": 33,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_33_rep_01_seed_684002227.json",
+          "repeticion": 1,
+          "seed_ejecucion": 684002227,
+          "semillas_por_metodo": {
+            "GA": 684010228,
+            "GREEDY": 684002227,
+            "HIBRIDO": 684011228,
+            "RANDOM": 684009228,
+            "RL": 684002227
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_33_rep_02_seed_92505228.json",
+          "repeticion": 2,
+          "seed_ejecucion": 92505228,
+          "semillas_por_metodo": {
+            "GA": 92513229,
+            "GREEDY": 92505228,
+            "HIBRIDO": 92514229,
+            "RANDOM": 92512229,
+            "RL": 92505228
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_33_rep_03_seed_250889161.json",
+          "repeticion": 3,
+          "seed_ejecucion": 250889161,
+          "semillas_por_metodo": {
+            "GA": 250897162,
+            "GREEDY": 250889161,
+            "HIBRIDO": 250898162,
+            "RANDOM": 250896162,
+            "RL": 250889161
+          }
+        }
+      ],
+      "seed_escenario": 203802588,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0034_pedidos_dia_34.xlsx",
+      "dia_numero": 34,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_34_rep_01_seed_871937895.json",
+          "repeticion": 1,
+          "seed_ejecucion": 871937895,
+          "semillas_por_metodo": {
+            "GA": 871945896,
+            "GREEDY": 871937895,
+            "HIBRIDO": 871946896,
+            "RANDOM": 871944896,
+            "RL": 871937895
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_34_rep_02_seed_2222852.json",
+          "repeticion": 2,
+          "seed_ejecucion": 2222852,
+          "semillas_por_metodo": {
+            "GA": 2230853,
+            "GREEDY": 2222852,
+            "HIBRIDO": 2231853,
+            "RANDOM": 2229853,
+            "RL": 2222852
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_34_rep_03_seed_995930824.json",
+          "repeticion": 3,
+          "seed_ejecucion": 995930824,
+          "semillas_por_metodo": {
+            "GA": 995938825,
+            "GREEDY": 995930824,
+            "HIBRIDO": 995939825,
+            "RANDOM": 995937825,
+            "RL": 995930824
+          }
+        }
+      ],
+      "seed_escenario": 172436395,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0035_pedidos_dia_35.xlsx",
+      "dia_numero": 35,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_35_rep_01_seed_841156456.json",
+          "repeticion": 1,
+          "seed_ejecucion": 841156456,
+          "semillas_por_metodo": {
+            "GA": 841164457,
+            "GREEDY": 841156456,
+            "HIBRIDO": 841165457,
+            "RANDOM": 841163457,
+            "RL": 841156456
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_35_rep_02_seed_920096427.json",
+          "repeticion": 2,
+          "seed_ejecucion": 920096427,
+          "semillas_por_metodo": {
+            "GA": 920104428,
+            "GREEDY": 920096427,
+            "HIBRIDO": 920105428,
+            "RANDOM": 920103428,
+            "RL": 920096427
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_35_rep_03_seed_649295535.json",
+          "repeticion": 3,
+          "seed_ejecucion": 649295535,
+          "semillas_por_metodo": {
+            "GA": 649303536,
+            "GREEDY": 649295535,
+            "HIBRIDO": 649304536,
+            "RANDOM": 649302536,
+            "RL": 649295535
+          }
+        }
+      ],
+      "seed_escenario": 168900612,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0036_pedidos_dia_36.xlsx",
+      "dia_numero": 36,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_36_rep_01_seed_983056031.json",
+          "repeticion": 1,
+          "seed_ejecucion": 983056031,
+          "semillas_por_metodo": {
+            "GA": 983064032,
+            "GREEDY": 983056031,
+            "HIBRIDO": 983065032,
+            "RANDOM": 983063032,
+            "RL": 983056031
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_36_rep_02_seed_258024130.json",
+          "repeticion": 2,
+          "seed_ejecucion": 258024130,
+          "semillas_por_metodo": {
+            "GA": 258032131,
+            "GREEDY": 258024130,
+            "HIBRIDO": 258033131,
+            "RANDOM": 258031131,
+            "RL": 258024130
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_36_rep_03_seed_726411794.json",
+          "repeticion": 3,
+          "seed_ejecucion": 726411794,
+          "semillas_por_metodo": {
+            "GA": 726419795,
+            "GREEDY": 726411794,
+            "HIBRIDO": 726420795,
+            "RANDOM": 726418795,
+            "RL": 726411794
+          }
+        }
+      ],
+      "seed_escenario": 713404331,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0037_pedidos_dia_37.xlsx",
+      "dia_numero": 37,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_37_rep_01_seed_753563939.json",
+          "repeticion": 1,
+          "seed_ejecucion": 753563939,
+          "semillas_por_metodo": {
+            "GA": 753571940,
+            "GREEDY": 753563939,
+            "HIBRIDO": 753572940,
+            "RANDOM": 753570940,
+            "RL": 753563939
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_37_rep_02_seed_669530316.json",
+          "repeticion": 2,
+          "seed_ejecucion": 669530316,
+          "semillas_por_metodo": {
+            "GA": 669538317,
+            "GREEDY": 669530316,
+            "HIBRIDO": 669539317,
+            "RANDOM": 669537317,
+            "RL": 669530316
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_37_rep_03_seed_971040493.json",
+          "repeticion": 3,
+          "seed_ejecucion": 971040493,
+          "semillas_por_metodo": {
+            "GA": 971048494,
+            "GREEDY": 971040493,
+            "HIBRIDO": 971049494,
+            "RANDOM": 971047494,
+            "RL": 971040493
+          }
+        }
+      ],
+      "seed_escenario": 673472999,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0038_pedidos_dia_38.xlsx",
+      "dia_numero": 38,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_38_rep_01_seed_647685349.json",
+          "repeticion": 1,
+          "seed_ejecucion": 647685349,
+          "semillas_por_metodo": {
+            "GA": 647693350,
+            "GREEDY": 647685349,
+            "HIBRIDO": 647694350,
+            "RANDOM": 647692350,
+            "RL": 647685349
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_38_rep_02_seed_944258018.json",
+          "repeticion": 2,
+          "seed_ejecucion": 944258018,
+          "semillas_por_metodo": {
+            "GA": 944266019,
+            "GREEDY": 944258018,
+            "HIBRIDO": 944267019,
+            "RANDOM": 944265019,
+            "RL": 944258018
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_38_rep_03_seed_400847206.json",
+          "repeticion": 3,
+          "seed_ejecucion": 400847206,
+          "semillas_por_metodo": {
+            "GA": 400855207,
+            "GREEDY": 400847206,
+            "HIBRIDO": 400856207,
+            "RANDOM": 400854207,
+            "RL": 400847206
+          }
+        }
+      ],
+      "seed_escenario": 28838036,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0039_pedidos_dia_39.xlsx",
+      "dia_numero": 39,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_39_rep_01_seed_599377906.json",
+          "repeticion": 1,
+          "seed_ejecucion": 599377906,
+          "semillas_por_metodo": {
+            "GA": 599385907,
+            "GREEDY": 599377906,
+            "HIBRIDO": 599386907,
+            "RANDOM": 599384907,
+            "RL": 599377906
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_39_rep_02_seed_568134297.json",
+          "repeticion": 2,
+          "seed_ejecucion": 568134297,
+          "semillas_por_metodo": {
+            "GA": 568142298,
+            "GREEDY": 568134297,
+            "HIBRIDO": 568143298,
+            "RANDOM": 568141298,
+            "RL": 568134297
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_39_rep_03_seed_579324257.json",
+          "repeticion": 3,
+          "seed_ejecucion": 579324257,
+          "semillas_por_metodo": {
+            "GA": 579332258,
+            "GREEDY": 579324257,
+            "HIBRIDO": 579333258,
+            "RANDOM": 579331258,
+            "RL": 579324257
+          }
+        }
+      ],
+      "seed_escenario": 322732154,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0040_pedidos_dia_40.xlsx",
+      "dia_numero": 40,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_40_rep_01_seed_198634959.json",
+          "repeticion": 1,
+          "seed_ejecucion": 198634959,
+          "semillas_por_metodo": {
+            "GA": 198642960,
+            "GREEDY": 198634959,
+            "HIBRIDO": 198643960,
+            "RANDOM": 198641960,
+            "RL": 198634959
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_40_rep_02_seed_226819631.json",
+          "repeticion": 2,
+          "seed_ejecucion": 226819631,
+          "semillas_por_metodo": {
+            "GA": 226827632,
+            "GREEDY": 226819631,
+            "HIBRIDO": 226828632,
+            "RANDOM": 226826632,
+            "RL": 226819631
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_40_rep_03_seed_197636892.json",
+          "repeticion": 3,
+          "seed_ejecucion": 197636892,
+          "semillas_por_metodo": {
+            "GA": 197644893,
+            "GREEDY": 197636892,
+            "HIBRIDO": 197645893,
+            "RANDOM": 197643893,
+            "RL": 197636892
+          }
+        }
+      ],
+      "seed_escenario": 362654248,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0041_pedidos_dia_41.xlsx",
+      "dia_numero": 41,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_41_rep_01_seed_140994815.json",
+          "repeticion": 1,
+          "seed_ejecucion": 140994815,
+          "semillas_por_metodo": {
+            "GA": 141002816,
+            "GREEDY": 140994815,
+            "HIBRIDO": 141003816,
+            "RANDOM": 141001816,
+            "RL": 140994815
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_41_rep_02_seed_715742306.json",
+          "repeticion": 2,
+          "seed_ejecucion": 715742306,
+          "semillas_por_metodo": {
+            "GA": 715750307,
+            "GREEDY": 715742306,
+            "HIBRIDO": 715751307,
+            "RANDOM": 715749307,
+            "RL": 715742306
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_41_rep_03_seed_243491015.json",
+          "repeticion": 3,
+          "seed_ejecucion": 243491015,
+          "semillas_por_metodo": {
+            "GA": 243499016,
+            "GREEDY": 243491015,
+            "HIBRIDO": 243500016,
+            "RANDOM": 243498016,
+            "RL": 243491015
+          }
+        }
+      ],
+      "seed_escenario": 167593550,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0042_pedidos_dia_42.xlsx",
+      "dia_numero": 42,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_42_rep_01_seed_375289038.json",
+          "repeticion": 1,
+          "seed_ejecucion": 375289038,
+          "semillas_por_metodo": {
+            "GA": 375297039,
+            "GREEDY": 375289038,
+            "HIBRIDO": 375298039,
+            "RANDOM": 375296039,
+            "RL": 375289038
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_42_rep_02_seed_365430758.json",
+          "repeticion": 2,
+          "seed_ejecucion": 365430758,
+          "semillas_por_metodo": {
+            "GA": 365438759,
+            "GREEDY": 365430758,
+            "HIBRIDO": 365439759,
+            "RANDOM": 365437759,
+            "RL": 365430758
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_42_rep_03_seed_214902259.json",
+          "repeticion": 3,
+          "seed_ejecucion": 214902259,
+          "semillas_por_metodo": {
+            "GA": 214910260,
+            "GREEDY": 214902259,
+            "HIBRIDO": 214911260,
+            "RANDOM": 214909260,
+            "RL": 214902259
+          }
+        }
+      ],
+      "seed_escenario": 689263718,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0043_pedidos_dia_43.xlsx",
+      "dia_numero": 43,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_43_rep_01_seed_357084918.json",
+          "repeticion": 1,
+          "seed_ejecucion": 357084918,
+          "semillas_por_metodo": {
+            "GA": 357092919,
+            "GREEDY": 357084918,
+            "HIBRIDO": 357093919,
+            "RANDOM": 357091919,
+            "RL": 357084918
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_43_rep_02_seed_272586434.json",
+          "repeticion": 2,
+          "seed_ejecucion": 272586434,
+          "semillas_por_metodo": {
+            "GA": 272594435,
+            "GREEDY": 272586434,
+            "HIBRIDO": 272595435,
+            "RANDOM": 272593435,
+            "RL": 272586434
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_43_rep_03_seed_718448112.json",
+          "repeticion": 3,
+          "seed_ejecucion": 718448112,
+          "semillas_por_metodo": {
+            "GA": 718456113,
+            "GREEDY": 718448112,
+            "HIBRIDO": 718457113,
+            "RANDOM": 718455113,
+            "RL": 718448112
+          }
+        }
+      ],
+      "seed_escenario": 823155773,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0044_pedidos_dia_44.xlsx",
+      "dia_numero": 44,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_44_rep_01_seed_126334852.json",
+          "repeticion": 1,
+          "seed_ejecucion": 126334852,
+          "semillas_por_metodo": {
+            "GA": 126342853,
+            "GREEDY": 126334852,
+            "HIBRIDO": 126343853,
+            "RANDOM": 126341853,
+            "RL": 126334852
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_44_rep_02_seed_966293335.json",
+          "repeticion": 2,
+          "seed_ejecucion": 966293335,
+          "semillas_por_metodo": {
+            "GA": 966301336,
+            "GREEDY": 966293335,
+            "HIBRIDO": 966302336,
+            "RANDOM": 966300336,
+            "RL": 966293335
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_44_rep_03_seed_787070205.json",
+          "repeticion": 3,
+          "seed_ejecucion": 787070205,
+          "semillas_por_metodo": {
+            "GA": 787078206,
+            "GREEDY": 787070205,
+            "HIBRIDO": 787079206,
+            "RANDOM": 787077206,
+            "RL": 787070205
+          }
+        }
+      ],
+      "seed_escenario": 253533359,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0045_pedidos_dia_45.xlsx",
+      "dia_numero": 45,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_45_rep_01_seed_256763524.json",
+          "repeticion": 1,
+          "seed_ejecucion": 256763524,
+          "semillas_por_metodo": {
+            "GA": 256771525,
+            "GREEDY": 256763524,
+            "HIBRIDO": 256772525,
+            "RANDOM": 256770525,
+            "RL": 256763524
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_45_rep_02_seed_732957785.json",
+          "repeticion": 2,
+          "seed_ejecucion": 732957785,
+          "semillas_por_metodo": {
+            "GA": 732965786,
+            "GREEDY": 732957785,
+            "HIBRIDO": 732966786,
+            "RANDOM": 732964786,
+            "RL": 732957785
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_45_rep_03_seed_879953389.json",
+          "repeticion": 3,
+          "seed_ejecucion": 879953389,
+          "semillas_por_metodo": {
+            "GA": 879961390,
+            "GREEDY": 879953389,
+            "HIBRIDO": 879962390,
+            "RANDOM": 879960390,
+            "RL": 879953389
+          }
+        }
+      ],
+      "seed_escenario": 146835763,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0046_pedidos_dia_46.xlsx",
+      "dia_numero": 46,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_46_rep_01_seed_516007273.json",
+          "repeticion": 1,
+          "seed_ejecucion": 516007273,
+          "semillas_por_metodo": {
+            "GA": 516015274,
+            "GREEDY": 516007273,
+            "HIBRIDO": 516016274,
+            "RANDOM": 516014274,
+            "RL": 516007273
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_46_rep_02_seed_811046426.json",
+          "repeticion": 2,
+          "seed_ejecucion": 811046426,
+          "semillas_por_metodo": {
+            "GA": 811054427,
+            "GREEDY": 811046426,
+            "HIBRIDO": 811055427,
+            "RANDOM": 811053427,
+            "RL": 811046426
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_46_rep_03_seed_687430946.json",
+          "repeticion": 3,
+          "seed_ejecucion": 687430946,
+          "semillas_por_metodo": {
+            "GA": 687438947,
+            "GREEDY": 687430946,
+            "HIBRIDO": 687439947,
+            "RANDOM": 687437947,
+            "RL": 687430946
+          }
+        }
+      ],
+      "seed_escenario": 30347955,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0047_pedidos_dia_47.xlsx",
+      "dia_numero": 47,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_47_rep_01_seed_940287196.json",
+          "repeticion": 1,
+          "seed_ejecucion": 940287196,
+          "semillas_por_metodo": {
+            "GA": 940295197,
+            "GREEDY": 940287196,
+            "HIBRIDO": 940296197,
+            "RANDOM": 940294197,
+            "RL": 940287196
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_47_rep_02_seed_41375306.json",
+          "repeticion": 2,
+          "seed_ejecucion": 41375306,
+          "semillas_por_metodo": {
+            "GA": 41383307,
+            "GREEDY": 41375306,
+            "HIBRIDO": 41384307,
+            "RANDOM": 41382307,
+            "RL": 41375306
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_47_rep_03_seed_813847260.json",
+          "repeticion": 3,
+          "seed_ejecucion": 813847260,
+          "semillas_por_metodo": {
+            "GA": 813855261,
+            "GREEDY": 813847260,
+            "HIBRIDO": 813856261,
+            "RANDOM": 813854261,
+            "RL": 813847260
+          }
+        }
+      ],
+      "seed_escenario": 814641747,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0048_pedidos_dia_48.xlsx",
+      "dia_numero": 48,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_48_rep_01_seed_274500357.json",
+          "repeticion": 1,
+          "seed_ejecucion": 274500357,
+          "semillas_por_metodo": {
+            "GA": 274508358,
+            "GREEDY": 274500357,
+            "HIBRIDO": 274509358,
+            "RANDOM": 274507358,
+            "RL": 274500357
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_48_rep_02_seed_66974345.json",
+          "repeticion": 2,
+          "seed_ejecucion": 66974345,
+          "semillas_por_metodo": {
+            "GA": 66982346,
+            "GREEDY": 66974345,
+            "HIBRIDO": 66983346,
+            "RANDOM": 66981346,
+            "RL": 66974345
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_48_rep_03_seed_772768192.json",
+          "repeticion": 3,
+          "seed_ejecucion": 772768192,
+          "semillas_por_metodo": {
+            "GA": 772776193,
+            "GREEDY": 772768192,
+            "HIBRIDO": 772777193,
+            "RANDOM": 772775193,
+            "RL": 772768192
+          }
+        }
+      ],
+      "seed_escenario": 235620996,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0049_pedidos_dia_49.xlsx",
+      "dia_numero": 49,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_49_rep_01_seed_466337244.json",
+          "repeticion": 1,
+          "seed_ejecucion": 466337244,
+          "semillas_por_metodo": {
+            "GA": 466345245,
+            "GREEDY": 466337244,
+            "HIBRIDO": 466346245,
+            "RANDOM": 466344245,
+            "RL": 466337244
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_49_rep_02_seed_966104452.json",
+          "repeticion": 2,
+          "seed_ejecucion": 966104452,
+          "semillas_por_metodo": {
+            "GA": 966112453,
+            "GREEDY": 966104452,
+            "HIBRIDO": 966113453,
+            "RANDOM": 966111453,
+            "RL": 966104452
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_49_rep_03_seed_855958191.json",
+          "repeticion": 3,
+          "seed_ejecucion": 855958191,
+          "semillas_por_metodo": {
+            "GA": 855966192,
+            "GREEDY": 855958191,
+            "HIBRIDO": 855967192,
+            "RANDOM": 855965192,
+            "RL": 855958191
+          }
+        }
+      ],
+      "seed_escenario": 66948932,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0050_pedidos_dia_50.xlsx",
+      "dia_numero": 50,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_50_rep_01_seed_956802494.json",
+          "repeticion": 1,
+          "seed_ejecucion": 956802494,
+          "semillas_por_metodo": {
+            "GA": 956810495,
+            "GREEDY": 956802494,
+            "HIBRIDO": 956811495,
+            "RANDOM": 956809495,
+            "RL": 956802494
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_50_rep_02_seed_597797638.json",
+          "repeticion": 2,
+          "seed_ejecucion": 597797638,
+          "semillas_por_metodo": {
+            "GA": 597805639,
+            "GREEDY": 597797638,
+            "HIBRIDO": 597806639,
+            "RANDOM": 597804639,
+            "RL": 597797638
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_50_rep_03_seed_47415233.json",
+          "repeticion": 3,
+          "seed_ejecucion": 47415233,
+          "semillas_por_metodo": {
+            "GA": 47423234,
+            "GREEDY": 47415233,
+            "HIBRIDO": 47424234,
+            "RANDOM": 47422234,
+            "RL": 47415233
+          }
+        }
+      ],
+      "seed_escenario": 737071855,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0051_pedidos_dia_51.xlsx",
+      "dia_numero": 51,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_51_rep_01_seed_992623684.json",
+          "repeticion": 1,
+          "seed_ejecucion": 992623684,
+          "semillas_por_metodo": {
+            "GA": 992631685,
+            "GREEDY": 992623684,
+            "HIBRIDO": 992632685,
+            "RANDOM": 992630685,
+            "RL": 992623684
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_51_rep_02_seed_855633531.json",
+          "repeticion": 2,
+          "seed_ejecucion": 855633531,
+          "semillas_por_metodo": {
+            "GA": 855641532,
+            "GREEDY": 855633531,
+            "HIBRIDO": 855642532,
+            "RANDOM": 855640532,
+            "RL": 855633531
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_51_rep_03_seed_116582817.json",
+          "repeticion": 3,
+          "seed_ejecucion": 116582817,
+          "semillas_por_metodo": {
+            "GA": 116590818,
+            "GREEDY": 116582817,
+            "HIBRIDO": 116591818,
+            "RANDOM": 116589818,
+            "RL": 116582817
+          }
+        }
+      ],
+      "seed_escenario": 151247773,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0052_pedidos_dia_52.xlsx",
+      "dia_numero": 52,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_52_rep_01_seed_5648157.json",
+          "repeticion": 1,
+          "seed_ejecucion": 5648157,
+          "semillas_por_metodo": {
+            "GA": 5656158,
+            "GREEDY": 5648157,
+            "HIBRIDO": 5657158,
+            "RANDOM": 5655158,
+            "RL": 5648157
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_52_rep_02_seed_29847873.json",
+          "repeticion": 2,
+          "seed_ejecucion": 29847873,
+          "semillas_por_metodo": {
+            "GA": 29855874,
+            "GREEDY": 29847873,
+            "HIBRIDO": 29856874,
+            "RANDOM": 29854874,
+            "RL": 29847873
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_52_rep_03_seed_250460923.json",
+          "repeticion": 3,
+          "seed_ejecucion": 250460923,
+          "semillas_por_metodo": {
+            "GA": 250468924,
+            "GREEDY": 250460923,
+            "HIBRIDO": 250469924,
+            "RANDOM": 250467924,
+            "RL": 250460923
+          }
+        }
+      ],
+      "seed_escenario": 480699887,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0053_pedidos_dia_53.xlsx",
+      "dia_numero": 53,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_53_rep_01_seed_508344624.json",
+          "repeticion": 1,
+          "seed_ejecucion": 508344624,
+          "semillas_por_metodo": {
+            "GA": 508352625,
+            "GREEDY": 508344624,
+            "HIBRIDO": 508353625,
+            "RANDOM": 508351625,
+            "RL": 508344624
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_53_rep_02_seed_263872809.json",
+          "repeticion": 2,
+          "seed_ejecucion": 263872809,
+          "semillas_por_metodo": {
+            "GA": 263880810,
+            "GREEDY": 263872809,
+            "HIBRIDO": 263881810,
+            "RANDOM": 263879810,
+            "RL": 263872809
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_53_rep_03_seed_198544285.json",
+          "repeticion": 3,
+          "seed_ejecucion": 198544285,
+          "semillas_por_metodo": {
+            "GA": 198552286,
+            "GREEDY": 198544285,
+            "HIBRIDO": 198553286,
+            "RANDOM": 198551286,
+            "RL": 198544285
+          }
+        }
+      ],
+      "seed_escenario": 554554344,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0054_pedidos_dia_54.xlsx",
+      "dia_numero": 54,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_54_rep_01_seed_835090477.json",
+          "repeticion": 1,
+          "seed_ejecucion": 835090477,
+          "semillas_por_metodo": {
+            "GA": 835098478,
+            "GREEDY": 835090477,
+            "HIBRIDO": 835099478,
+            "RANDOM": 835097478,
+            "RL": 835090477
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_54_rep_02_seed_964352043.json",
+          "repeticion": 2,
+          "seed_ejecucion": 964352043,
+          "semillas_por_metodo": {
+            "GA": 964360044,
+            "GREEDY": 964352043,
+            "HIBRIDO": 964361044,
+            "RANDOM": 964359044,
+            "RL": 964352043
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_54_rep_03_seed_478486018.json",
+          "repeticion": 3,
+          "seed_ejecucion": 478486018,
+          "semillas_por_metodo": {
+            "GA": 478494019,
+            "GREEDY": 478486018,
+            "HIBRIDO": 478495019,
+            "RANDOM": 478493019,
+            "RL": 478486018
+          }
+        }
+      ],
+      "seed_escenario": 401688774,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0055_pedidos_dia_55.xlsx",
+      "dia_numero": 55,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_55_rep_01_seed_65094198.json",
+          "repeticion": 1,
+          "seed_ejecucion": 65094198,
+          "semillas_por_metodo": {
+            "GA": 65102199,
+            "GREEDY": 65094198,
+            "HIBRIDO": 65103199,
+            "RANDOM": 65101199,
+            "RL": 65094198
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_55_rep_02_seed_802526577.json",
+          "repeticion": 2,
+          "seed_ejecucion": 802526577,
+          "semillas_por_metodo": {
+            "GA": 802534578,
+            "GREEDY": 802526577,
+            "HIBRIDO": 802535578,
+            "RANDOM": 802533578,
+            "RL": 802526577
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_55_rep_03_seed_56524689.json",
+          "repeticion": 3,
+          "seed_ejecucion": 56524689,
+          "semillas_por_metodo": {
+            "GA": 56532690,
+            "GREEDY": 56524689,
+            "HIBRIDO": 56533690,
+            "RANDOM": 56531690,
+            "RL": 56524689
+          }
+        }
+      ],
+      "seed_escenario": 705811945,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0056_pedidos_dia_56.xlsx",
+      "dia_numero": 56,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_56_rep_01_seed_832134140.json",
+          "repeticion": 1,
+          "seed_ejecucion": 832134140,
+          "semillas_por_metodo": {
+            "GA": 832142141,
+            "GREEDY": 832134140,
+            "HIBRIDO": 832143141,
+            "RANDOM": 832141141,
+            "RL": 832134140
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_56_rep_02_seed_119226632.json",
+          "repeticion": 2,
+          "seed_ejecucion": 119226632,
+          "semillas_por_metodo": {
+            "GA": 119234633,
+            "GREEDY": 119226632,
+            "HIBRIDO": 119235633,
+            "RANDOM": 119233633,
+            "RL": 119226632
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_56_rep_03_seed_846525482.json",
+          "repeticion": 3,
+          "seed_ejecucion": 846525482,
+          "semillas_por_metodo": {
+            "GA": 846533483,
+            "GREEDY": 846525482,
+            "HIBRIDO": 846534483,
+            "RANDOM": 846532483,
+            "RL": 846525482
+          }
+        }
+      ],
+      "seed_escenario": 6183100,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0057_pedidos_dia_57.xlsx",
+      "dia_numero": 57,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_57_rep_01_seed_927318699.json",
+          "repeticion": 1,
+          "seed_ejecucion": 927318699,
+          "semillas_por_metodo": {
+            "GA": 927326700,
+            "GREEDY": 927318699,
+            "HIBRIDO": 927327700,
+            "RANDOM": 927325700,
+            "RL": 927318699
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_57_rep_02_seed_784721945.json",
+          "repeticion": 2,
+          "seed_ejecucion": 784721945,
+          "semillas_por_metodo": {
+            "GA": 784729946,
+            "GREEDY": 784721945,
+            "HIBRIDO": 784730946,
+            "RANDOM": 784728946,
+            "RL": 784721945
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_57_rep_03_seed_154340240.json",
+          "repeticion": 3,
+          "seed_ejecucion": 154340240,
+          "semillas_por_metodo": {
+            "GA": 154348241,
+            "GREEDY": 154340240,
+            "HIBRIDO": 154349241,
+            "RANDOM": 154347241,
+            "RL": 154340240
+          }
+        }
+      ],
+      "seed_escenario": 589583286,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0058_pedidos_dia_58.xlsx",
+      "dia_numero": 58,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_58_rep_01_seed_112828927.json",
+          "repeticion": 1,
+          "seed_ejecucion": 112828927,
+          "semillas_por_metodo": {
+            "GA": 112836928,
+            "GREEDY": 112828927,
+            "HIBRIDO": 112837928,
+            "RANDOM": 112835928,
+            "RL": 112828927
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_58_rep_02_seed_435741418.json",
+          "repeticion": 2,
+          "seed_ejecucion": 435741418,
+          "semillas_por_metodo": {
+            "GA": 435749419,
+            "GREEDY": 435741418,
+            "HIBRIDO": 435750419,
+            "RANDOM": 435748419,
+            "RL": 435741418
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_58_rep_03_seed_509046024.json",
+          "repeticion": 3,
+          "seed_ejecucion": 509046024,
+          "semillas_por_metodo": {
+            "GA": 509054025,
+            "GREEDY": 509046024,
+            "HIBRIDO": 509055025,
+            "RANDOM": 509053025,
+            "RL": 509046024
+          }
+        }
+      ],
+      "seed_escenario": 899260502,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0059_pedidos_dia_59.xlsx",
+      "dia_numero": 59,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_59_rep_01_seed_622520581.json",
+          "repeticion": 1,
+          "seed_ejecucion": 622520581,
+          "semillas_por_metodo": {
+            "GA": 622528582,
+            "GREEDY": 622520581,
+            "HIBRIDO": 622529582,
+            "RANDOM": 622527582,
+            "RL": 622520581
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_59_rep_02_seed_588519196.json",
+          "repeticion": 2,
+          "seed_ejecucion": 588519196,
+          "semillas_por_metodo": {
+            "GA": 588527197,
+            "GREEDY": 588519196,
+            "HIBRIDO": 588528197,
+            "RANDOM": 588526197,
+            "RL": 588519196
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_59_rep_03_seed_392496097.json",
+          "repeticion": 3,
+          "seed_ejecucion": 392496097,
+          "semillas_por_metodo": {
+            "GA": 392504098,
+            "GREEDY": 392496097,
+            "HIBRIDO": 392505098,
+            "RANDOM": 392503098,
+            "RL": 392496097
+          }
+        }
+      ],
+      "seed_escenario": 721730691,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0060_pedidos_dia_60.xlsx",
+      "dia_numero": 60,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_60_rep_01_seed_775750679.json",
+          "repeticion": 1,
+          "seed_ejecucion": 775750679,
+          "semillas_por_metodo": {
+            "GA": 775758680,
+            "GREEDY": 775750679,
+            "HIBRIDO": 775759680,
+            "RANDOM": 775757680,
+            "RL": 775750679
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_60_rep_02_seed_925113134.json",
+          "repeticion": 2,
+          "seed_ejecucion": 925113134,
+          "semillas_por_metodo": {
+            "GA": 925121135,
+            "GREEDY": 925113134,
+            "HIBRIDO": 925122135,
+            "RANDOM": 925120135,
+            "RL": 925113134
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_60_rep_03_seed_875270939.json",
+          "repeticion": 3,
+          "seed_ejecucion": 875270939,
+          "semillas_por_metodo": {
+            "GA": 875278940,
+            "GREEDY": 875270939,
+            "HIBRIDO": 875279940,
+            "RANDOM": 875277940,
+            "RL": 875270939
+          }
+        }
+      ],
+      "seed_escenario": 785513540,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0061_pedidos_dia_61.xlsx",
+      "dia_numero": 61,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_61_rep_01_seed_486557454.json",
+          "repeticion": 1,
+          "seed_ejecucion": 486557454,
+          "semillas_por_metodo": {
+            "GA": 486565455,
+            "GREEDY": 486557454,
+            "HIBRIDO": 486566455,
+            "RANDOM": 486564455,
+            "RL": 486557454
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_61_rep_02_seed_918591555.json",
+          "repeticion": 2,
+          "seed_ejecucion": 918591555,
+          "semillas_por_metodo": {
+            "GA": 918599556,
+            "GREEDY": 918591555,
+            "HIBRIDO": 918600556,
+            "RANDOM": 918598556,
+            "RL": 918591555
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_61_rep_03_seed_922940034.json",
+          "repeticion": 3,
+          "seed_ejecucion": 922940034,
+          "semillas_por_metodo": {
+            "GA": 922948035,
+            "GREEDY": 922940034,
+            "HIBRIDO": 922949035,
+            "RANDOM": 922947035,
+            "RL": 922940034
+          }
+        }
+      ],
+      "seed_escenario": 112681625,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0062_pedidos_dia_62.xlsx",
+      "dia_numero": 62,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_62_rep_01_seed_525410839.json",
+          "repeticion": 1,
+          "seed_ejecucion": 525410839,
+          "semillas_por_metodo": {
+            "GA": 525418840,
+            "GREEDY": 525410839,
+            "HIBRIDO": 525419840,
+            "RANDOM": 525417840,
+            "RL": 525410839
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_62_rep_02_seed_576920068.json",
+          "repeticion": 2,
+          "seed_ejecucion": 576920068,
+          "semillas_por_metodo": {
+            "GA": 576928069,
+            "GREEDY": 576920068,
+            "HIBRIDO": 576929069,
+            "RANDOM": 576927069,
+            "RL": 576920068
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_62_rep_03_seed_187130388.json",
+          "repeticion": 3,
+          "seed_ejecucion": 187130388,
+          "semillas_por_metodo": {
+            "GA": 187138389,
+            "GREEDY": 187130388,
+            "HIBRIDO": 187139389,
+            "RANDOM": 187137389,
+            "RL": 187130388
+          }
+        }
+      ],
+      "seed_escenario": 40294878,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0063_pedidos_dia_63.xlsx",
+      "dia_numero": 63,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_63_rep_01_seed_677504182.json",
+          "repeticion": 1,
+          "seed_ejecucion": 677504182,
+          "semillas_por_metodo": {
+            "GA": 677512183,
+            "GREEDY": 677504182,
+            "HIBRIDO": 677513183,
+            "RANDOM": 677511183,
+            "RL": 677504182
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_63_rep_02_seed_445479386.json",
+          "repeticion": 2,
+          "seed_ejecucion": 445479386,
+          "semillas_por_metodo": {
+            "GA": 445487387,
+            "GREEDY": 445479386,
+            "HIBRIDO": 445488387,
+            "RANDOM": 445486387,
+            "RL": 445479386
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_63_rep_03_seed_422337841.json",
+          "repeticion": 3,
+          "seed_ejecucion": 422337841,
+          "semillas_por_metodo": {
+            "GA": 422345842,
+            "GREEDY": 422337841,
+            "HIBRIDO": 422346842,
+            "RANDOM": 422344842,
+            "RL": 422337841
+          }
+        }
+      ],
+      "seed_escenario": 292787038,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0064_pedidos_dia_64.xlsx",
+      "dia_numero": 64,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_64_rep_01_seed_698873170.json",
+          "repeticion": 1,
+          "seed_ejecucion": 698873170,
+          "semillas_por_metodo": {
+            "GA": 698881171,
+            "GREEDY": 698873170,
+            "HIBRIDO": 698882171,
+            "RANDOM": 698880171,
+            "RL": 698873170
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_64_rep_02_seed_519838481.json",
+          "repeticion": 2,
+          "seed_ejecucion": 519838481,
+          "semillas_por_metodo": {
+            "GA": 519846482,
+            "GREEDY": 519838481,
+            "HIBRIDO": 519847482,
+            "RANDOM": 519845482,
+            "RL": 519838481
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_64_rep_03_seed_578838262.json",
+          "repeticion": 3,
+          "seed_ejecucion": 578838262,
+          "semillas_por_metodo": {
+            "GA": 578846263,
+            "GREEDY": 578838262,
+            "HIBRIDO": 578847263,
+            "RANDOM": 578845263,
+            "RL": 578838262
+          }
+        }
+      ],
+      "seed_escenario": 979723570,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0065_pedidos_dia_65.xlsx",
+      "dia_numero": 65,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_65_rep_01_seed_25993857.json",
+          "repeticion": 1,
+          "seed_ejecucion": 25993857,
+          "semillas_por_metodo": {
+            "GA": 26001858,
+            "GREEDY": 25993857,
+            "HIBRIDO": 26002858,
+            "RANDOM": 26000858,
+            "RL": 25993857
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_65_rep_02_seed_331432983.json",
+          "repeticion": 2,
+          "seed_ejecucion": 331432983,
+          "semillas_por_metodo": {
+            "GA": 331440984,
+            "GREEDY": 331432983,
+            "HIBRIDO": 331441984,
+            "RANDOM": 331439984,
+            "RL": 331432983
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_65_rep_03_seed_380039819.json",
+          "repeticion": 3,
+          "seed_ejecucion": 380039819,
+          "semillas_por_metodo": {
+            "GA": 380047820,
+            "GREEDY": 380039819,
+            "HIBRIDO": 380048820,
+            "RANDOM": 380046820,
+            "RL": 380039819
+          }
+        }
+      ],
+      "seed_escenario": 603879517,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0066_pedidos_dia_66.xlsx",
+      "dia_numero": 66,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_66_rep_01_seed_5875390.json",
+          "repeticion": 1,
+          "seed_ejecucion": 5875390,
+          "semillas_por_metodo": {
+            "GA": 5883391,
+            "GREEDY": 5875390,
+            "HIBRIDO": 5884391,
+            "RANDOM": 5882391,
+            "RL": 5875390
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_66_rep_02_seed_810401305.json",
+          "repeticion": 2,
+          "seed_ejecucion": 810401305,
+          "semillas_por_metodo": {
+            "GA": 810409306,
+            "GREEDY": 810401305,
+            "HIBRIDO": 810410306,
+            "RANDOM": 810408306,
+            "RL": 810401305
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_66_rep_03_seed_479454854.json",
+          "repeticion": 3,
+          "seed_ejecucion": 479454854,
+          "semillas_por_metodo": {
+            "GA": 479462855,
+            "GREEDY": 479454854,
+            "HIBRIDO": 479463855,
+            "RANDOM": 479461855,
+            "RL": 479454854
+          }
+        }
+      ],
+      "seed_escenario": 771093173,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0067_pedidos_dia_67.xlsx",
+      "dia_numero": 67,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_67_rep_01_seed_949315725.json",
+          "repeticion": 1,
+          "seed_ejecucion": 949315725,
+          "semillas_por_metodo": {
+            "GA": 949323726,
+            "GREEDY": 949315725,
+            "HIBRIDO": 949324726,
+            "RANDOM": 949322726,
+            "RL": 949315725
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_67_rep_02_seed_707207265.json",
+          "repeticion": 2,
+          "seed_ejecucion": 707207265,
+          "semillas_por_metodo": {
+            "GA": 707215266,
+            "GREEDY": 707207265,
+            "HIBRIDO": 707216266,
+            "RANDOM": 707214266,
+            "RL": 707207265
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_67_rep_03_seed_796748154.json",
+          "repeticion": 3,
+          "seed_ejecucion": 796748154,
+          "semillas_por_metodo": {
+            "GA": 796756155,
+            "GREEDY": 796748154,
+            "HIBRIDO": 796757155,
+            "RANDOM": 796755155,
+            "RL": 796748154
+          }
+        }
+      ],
+      "seed_escenario": 377383720,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0068_pedidos_dia_68.xlsx",
+      "dia_numero": 68,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_68_rep_01_seed_867408380.json",
+          "repeticion": 1,
+          "seed_ejecucion": 867408380,
+          "semillas_por_metodo": {
+            "GA": 867416381,
+            "GREEDY": 867408380,
+            "HIBRIDO": 867417381,
+            "RANDOM": 867415381,
+            "RL": 867408380
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_68_rep_02_seed_72102222.json",
+          "repeticion": 2,
+          "seed_ejecucion": 72102222,
+          "semillas_por_metodo": {
+            "GA": 72110223,
+            "GREEDY": 72102222,
+            "HIBRIDO": 72111223,
+            "RANDOM": 72109223,
+            "RL": 72102222
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_68_rep_03_seed_669057499.json",
+          "repeticion": 3,
+          "seed_ejecucion": 669057499,
+          "semillas_por_metodo": {
+            "GA": 669065500,
+            "GREEDY": 669057499,
+            "HIBRIDO": 669066500,
+            "RANDOM": 669064500,
+            "RL": 669057499
+          }
+        }
+      ],
+      "seed_escenario": 121870369,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0069_pedidos_dia_69.xlsx",
+      "dia_numero": 69,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_69_rep_01_seed_368227712.json",
+          "repeticion": 1,
+          "seed_ejecucion": 368227712,
+          "semillas_por_metodo": {
+            "GA": 368235713,
+            "GREEDY": 368227712,
+            "HIBRIDO": 368236713,
+            "RANDOM": 368234713,
+            "RL": 368227712
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_69_rep_02_seed_79314130.json",
+          "repeticion": 2,
+          "seed_ejecucion": 79314130,
+          "semillas_por_metodo": {
+            "GA": 79322131,
+            "GREEDY": 79314130,
+            "HIBRIDO": 79323131,
+            "RANDOM": 79321131,
+            "RL": 79314130
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_69_rep_03_seed_282819524.json",
+          "repeticion": 3,
+          "seed_ejecucion": 282819524,
+          "semillas_por_metodo": {
+            "GA": 282827525,
+            "GREEDY": 282819524,
+            "HIBRIDO": 282828525,
+            "RANDOM": 282826525,
+            "RL": 282819524
+          }
+        }
+      ],
+      "seed_escenario": 313214061,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0070_pedidos_dia_70.xlsx",
+      "dia_numero": 70,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_70_rep_01_seed_273278533.json",
+          "repeticion": 1,
+          "seed_ejecucion": 273278533,
+          "semillas_por_metodo": {
+            "GA": 273286534,
+            "GREEDY": 273278533,
+            "HIBRIDO": 273287534,
+            "RANDOM": 273285534,
+            "RL": 273278533
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_70_rep_02_seed_524508090.json",
+          "repeticion": 2,
+          "seed_ejecucion": 524508090,
+          "semillas_por_metodo": {
+            "GA": 524516091,
+            "GREEDY": 524508090,
+            "HIBRIDO": 524517091,
+            "RANDOM": 524515091,
+            "RL": 524508090
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_70_rep_03_seed_101598797.json",
+          "repeticion": 3,
+          "seed_ejecucion": 101598797,
+          "semillas_por_metodo": {
+            "GA": 101606798,
+            "GREEDY": 101598797,
+            "HIBRIDO": 101607798,
+            "RANDOM": 101605798,
+            "RL": 101598797
+          }
+        }
+      ],
+      "seed_escenario": 368370894,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0071_pedidos_dia_71.xlsx",
+      "dia_numero": 71,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_71_rep_01_seed_450694192.json",
+          "repeticion": 1,
+          "seed_ejecucion": 450694192,
+          "semillas_por_metodo": {
+            "GA": 450702193,
+            "GREEDY": 450694192,
+            "HIBRIDO": 450703193,
+            "RANDOM": 450701193,
+            "RL": 450694192
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_71_rep_02_seed_650682518.json",
+          "repeticion": 2,
+          "seed_ejecucion": 650682518,
+          "semillas_por_metodo": {
+            "GA": 650690519,
+            "GREEDY": 650682518,
+            "HIBRIDO": 650691519,
+            "RANDOM": 650689519,
+            "RL": 650682518
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_71_rep_03_seed_829343859.json",
+          "repeticion": 3,
+          "seed_ejecucion": 829343859,
+          "semillas_por_metodo": {
+            "GA": 829351860,
+            "GREEDY": 829343859,
+            "HIBRIDO": 829352860,
+            "RANDOM": 829350860,
+            "RL": 829343859
+          }
+        }
+      ],
+      "seed_escenario": 435316210,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0072_pedidos_dia_72.xlsx",
+      "dia_numero": 72,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_72_rep_01_seed_266845788.json",
+          "repeticion": 1,
+          "seed_ejecucion": 266845788,
+          "semillas_por_metodo": {
+            "GA": 266853789,
+            "GREEDY": 266845788,
+            "HIBRIDO": 266854789,
+            "RANDOM": 266852789,
+            "RL": 266845788
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_72_rep_02_seed_421524571.json",
+          "repeticion": 2,
+          "seed_ejecucion": 421524571,
+          "semillas_por_metodo": {
+            "GA": 421532572,
+            "GREEDY": 421524571,
+            "HIBRIDO": 421533572,
+            "RANDOM": 421531572,
+            "RL": 421524571
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_72_rep_03_seed_929971066.json",
+          "repeticion": 3,
+          "seed_ejecucion": 929971066,
+          "semillas_por_metodo": {
+            "GA": 929979067,
+            "GREEDY": 929971066,
+            "HIBRIDO": 929980067,
+            "RANDOM": 929978067,
+            "RL": 929971066
+          }
+        }
+      ],
+      "seed_escenario": 809108547,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0073_pedidos_dia_73.xlsx",
+      "dia_numero": 73,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_73_rep_01_seed_332289318.json",
+          "repeticion": 1,
+          "seed_ejecucion": 332289318,
+          "semillas_por_metodo": {
+            "GA": 332297319,
+            "GREEDY": 332289318,
+            "HIBRIDO": 332298319,
+            "RANDOM": 332296319,
+            "RL": 332289318
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_73_rep_02_seed_61267155.json",
+          "repeticion": 2,
+          "seed_ejecucion": 61267155,
+          "semillas_por_metodo": {
+            "GA": 61275156,
+            "GREEDY": 61267155,
+            "HIBRIDO": 61276156,
+            "RANDOM": 61274156,
+            "RL": 61267155
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_73_rep_03_seed_134247930.json",
+          "repeticion": 3,
+          "seed_ejecucion": 134247930,
+          "semillas_por_metodo": {
+            "GA": 134255931,
+            "GREEDY": 134247930,
+            "HIBRIDO": 134256931,
+            "RANDOM": 134254931,
+            "RL": 134247930
+          }
+        }
+      ],
+      "seed_escenario": 42170002,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0074_pedidos_dia_74.xlsx",
+      "dia_numero": 74,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_74_rep_01_seed_252442416.json",
+          "repeticion": 1,
+          "seed_ejecucion": 252442416,
+          "semillas_por_metodo": {
+            "GA": 252450417,
+            "GREEDY": 252442416,
+            "HIBRIDO": 252451417,
+            "RANDOM": 252449417,
+            "RL": 252442416
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_74_rep_02_seed_352337335.json",
+          "repeticion": 2,
+          "seed_ejecucion": 352337335,
+          "semillas_por_metodo": {
+            "GA": 352345336,
+            "GREEDY": 352337335,
+            "HIBRIDO": 352346336,
+            "RANDOM": 352344336,
+            "RL": 352337335
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_74_rep_03_seed_33027092.json",
+          "repeticion": 3,
+          "seed_ejecucion": 33027092,
+          "semillas_por_metodo": {
+            "GA": 33035093,
+            "GREEDY": 33027092,
+            "HIBRIDO": 33036093,
+            "RANDOM": 33034093,
+            "RL": 33027092
+          }
+        }
+      ],
+      "seed_escenario": 603303610,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0075_pedidos_dia_75.xlsx",
+      "dia_numero": 75,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_75_rep_01_seed_597533812.json",
+          "repeticion": 1,
+          "seed_ejecucion": 597533812,
+          "semillas_por_metodo": {
+            "GA": 597541813,
+            "GREEDY": 597533812,
+            "HIBRIDO": 597542813,
+            "RANDOM": 597540813,
+            "RL": 597533812
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_75_rep_02_seed_657741275.json",
+          "repeticion": 2,
+          "seed_ejecucion": 657741275,
+          "semillas_por_metodo": {
+            "GA": 657749276,
+            "GREEDY": 657741275,
+            "HIBRIDO": 657750276,
+            "RANDOM": 657748276,
+            "RL": 657741275
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_75_rep_03_seed_834153464.json",
+          "repeticion": 3,
+          "seed_ejecucion": 834153464,
+          "semillas_por_metodo": {
+            "GA": 834161465,
+            "GREEDY": 834153464,
+            "HIBRIDO": 834162465,
+            "RANDOM": 834160465,
+            "RL": 834153464
+          }
+        }
+      ],
+      "seed_escenario": 367447962,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0076_pedidos_dia_76.xlsx",
+      "dia_numero": 76,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_76_rep_01_seed_814907129.json",
+          "repeticion": 1,
+          "seed_ejecucion": 814907129,
+          "semillas_por_metodo": {
+            "GA": 814915130,
+            "GREEDY": 814907129,
+            "HIBRIDO": 814916130,
+            "RANDOM": 814914130,
+            "RL": 814907129
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_76_rep_02_seed_639647966.json",
+          "repeticion": 2,
+          "seed_ejecucion": 639647966,
+          "semillas_por_metodo": {
+            "GA": 639655967,
+            "GREEDY": 639647966,
+            "HIBRIDO": 639656967,
+            "RANDOM": 639654967,
+            "RL": 639647966
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_76_rep_03_seed_625946551.json",
+          "repeticion": 3,
+          "seed_ejecucion": 625946551,
+          "semillas_por_metodo": {
+            "GA": 625954552,
+            "GREEDY": 625946551,
+            "HIBRIDO": 625955552,
+            "RANDOM": 625953552,
+            "RL": 625946551
+          }
+        }
+      ],
+      "seed_escenario": 391248774,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0077_pedidos_dia_77.xlsx",
+      "dia_numero": 77,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_77_rep_01_seed_848074989.json",
+          "repeticion": 1,
+          "seed_ejecucion": 848074989,
+          "semillas_por_metodo": {
+            "GA": 848082990,
+            "GREEDY": 848074989,
+            "HIBRIDO": 848083990,
+            "RANDOM": 848081990,
+            "RL": 848074989
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_77_rep_02_seed_4529843.json",
+          "repeticion": 2,
+          "seed_ejecucion": 4529843,
+          "semillas_por_metodo": {
+            "GA": 4537844,
+            "GREEDY": 4529843,
+            "HIBRIDO": 4538844,
+            "RANDOM": 4536844,
+            "RL": 4529843
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_77_rep_03_seed_361080088.json",
+          "repeticion": 3,
+          "seed_ejecucion": 361080088,
+          "semillas_por_metodo": {
+            "GA": 361088089,
+            "GREEDY": 361080088,
+            "HIBRIDO": 361089089,
+            "RANDOM": 361087089,
+            "RL": 361080088
+          }
+        }
+      ],
+      "seed_escenario": 392042799,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0078_pedidos_dia_78.xlsx",
+      "dia_numero": 78,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_78_rep_01_seed_577397628.json",
+          "repeticion": 1,
+          "seed_ejecucion": 577397628,
+          "semillas_por_metodo": {
+            "GA": 577405629,
+            "GREEDY": 577397628,
+            "HIBRIDO": 577406629,
+            "RANDOM": 577404629,
+            "RL": 577397628
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_78_rep_02_seed_429002810.json",
+          "repeticion": 2,
+          "seed_ejecucion": 429002810,
+          "semillas_por_metodo": {
+            "GA": 429010811,
+            "GREEDY": 429002810,
+            "HIBRIDO": 429011811,
+            "RANDOM": 429009811,
+            "RL": 429002810
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_78_rep_03_seed_83280969.json",
+          "repeticion": 3,
+          "seed_ejecucion": 83280969,
+          "semillas_por_metodo": {
+            "GA": 83288970,
+            "GREEDY": 83280969,
+            "HIBRIDO": 83289970,
+            "RANDOM": 83287970,
+            "RL": 83280969
+          }
+        }
+      ],
+      "seed_escenario": 333208908,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0079_pedidos_dia_79.xlsx",
+      "dia_numero": 79,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_79_rep_01_seed_827366381.json",
+          "repeticion": 1,
+          "seed_ejecucion": 827366381,
+          "semillas_por_metodo": {
+            "GA": 827374382,
+            "GREEDY": 827366381,
+            "HIBRIDO": 827375382,
+            "RANDOM": 827373382,
+            "RL": 827366381
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_79_rep_02_seed_629134835.json",
+          "repeticion": 2,
+          "seed_ejecucion": 629134835,
+          "semillas_por_metodo": {
+            "GA": 629142836,
+            "GREEDY": 629134835,
+            "HIBRIDO": 629143836,
+            "RANDOM": 629141836,
+            "RL": 629134835
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_79_rep_03_seed_171356158.json",
+          "repeticion": 3,
+          "seed_ejecucion": 171356158,
+          "semillas_por_metodo": {
+            "GA": 171364159,
+            "GREEDY": 171356158,
+            "HIBRIDO": 171365159,
+            "RANDOM": 171363159,
+            "RL": 171356158
+          }
+        }
+      ],
+      "seed_escenario": 71330625,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0080_pedidos_dia_80.xlsx",
+      "dia_numero": 80,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_80_rep_01_seed_243127016.json",
+          "repeticion": 1,
+          "seed_ejecucion": 243127016,
+          "semillas_por_metodo": {
+            "GA": 243135017,
+            "GREEDY": 243127016,
+            "HIBRIDO": 243136017,
+            "RANDOM": 243134017,
+            "RL": 243127016
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_80_rep_02_seed_38978496.json",
+          "repeticion": 2,
+          "seed_ejecucion": 38978496,
+          "semillas_por_metodo": {
+            "GA": 38986497,
+            "GREEDY": 38978496,
+            "HIBRIDO": 38987497,
+            "RANDOM": 38985497,
+            "RL": 38978496
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_80_rep_03_seed_271990375.json",
+          "repeticion": 3,
+          "seed_ejecucion": 271990375,
+          "semillas_por_metodo": {
+            "GA": 271998376,
+            "GREEDY": 271990375,
+            "HIBRIDO": 271999376,
+            "RANDOM": 271997376,
+            "RL": 271990375
+          }
+        }
+      ],
+      "seed_escenario": 516383005,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0081_pedidos_dia_81.xlsx",
+      "dia_numero": 81,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_81_rep_01_seed_114674248.json",
+          "repeticion": 1,
+          "seed_ejecucion": 114674248,
+          "semillas_por_metodo": {
+            "GA": 114682249,
+            "GREEDY": 114674248,
+            "HIBRIDO": 114683249,
+            "RANDOM": 114681249,
+            "RL": 114674248
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_81_rep_02_seed_353540714.json",
+          "repeticion": 2,
+          "seed_ejecucion": 353540714,
+          "semillas_por_metodo": {
+            "GA": 353548715,
+            "GREEDY": 353540714,
+            "HIBRIDO": 353549715,
+            "RANDOM": 353547715,
+            "RL": 353540714
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_81_rep_03_seed_962411116.json",
+          "repeticion": 3,
+          "seed_ejecucion": 962411116,
+          "semillas_por_metodo": {
+            "GA": 962419117,
+            "GREEDY": 962411116,
+            "HIBRIDO": 962420117,
+            "RANDOM": 962418117,
+            "RL": 962411116
+          }
+        }
+      ],
+      "seed_escenario": 595572354,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0082_pedidos_dia_82.xlsx",
+      "dia_numero": 82,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_82_rep_01_seed_155354494.json",
+          "repeticion": 1,
+          "seed_ejecucion": 155354494,
+          "semillas_por_metodo": {
+            "GA": 155362495,
+            "GREEDY": 155354494,
+            "HIBRIDO": 155363495,
+            "RANDOM": 155361495,
+            "RL": 155354494
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_82_rep_02_seed_262591670.json",
+          "repeticion": 2,
+          "seed_ejecucion": 262591670,
+          "semillas_por_metodo": {
+            "GA": 262599671,
+            "GREEDY": 262591670,
+            "HIBRIDO": 262600671,
+            "RANDOM": 262598671,
+            "RL": 262591670
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_82_rep_03_seed_485674439.json",
+          "repeticion": 3,
+          "seed_ejecucion": 485674439,
+          "semillas_por_metodo": {
+            "GA": 485682440,
+            "GREEDY": 485674439,
+            "HIBRIDO": 485683440,
+            "RANDOM": 485681440,
+            "RL": 485674439
+          }
+        }
+      ],
+      "seed_escenario": 712186250,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0083_pedidos_dia_83.xlsx",
+      "dia_numero": 83,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_83_rep_01_seed_355770015.json",
+          "repeticion": 1,
+          "seed_ejecucion": 355770015,
+          "semillas_por_metodo": {
+            "GA": 355778016,
+            "GREEDY": 355770015,
+            "HIBRIDO": 355779016,
+            "RANDOM": 355777016,
+            "RL": 355770015
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_83_rep_02_seed_117265168.json",
+          "repeticion": 2,
+          "seed_ejecucion": 117265168,
+          "semillas_por_metodo": {
+            "GA": 117273169,
+            "GREEDY": 117265168,
+            "HIBRIDO": 117274169,
+            "RANDOM": 117272169,
+            "RL": 117265168
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_83_rep_03_seed_822761788.json",
+          "repeticion": 3,
+          "seed_ejecucion": 822761788,
+          "semillas_por_metodo": {
+            "GA": 822769789,
+            "GREEDY": 822761788,
+            "HIBRIDO": 822770789,
+            "RANDOM": 822768789,
+            "RL": 822761788
+          }
+        }
+      ],
+      "seed_escenario": 898620046,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0084_pedidos_dia_84.xlsx",
+      "dia_numero": 84,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_84_rep_01_seed_240937539.json",
+          "repeticion": 1,
+          "seed_ejecucion": 240937539,
+          "semillas_por_metodo": {
+            "GA": 240945540,
+            "GREEDY": 240937539,
+            "HIBRIDO": 240946540,
+            "RANDOM": 240944540,
+            "RL": 240937539
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_84_rep_02_seed_616545885.json",
+          "repeticion": 2,
+          "seed_ejecucion": 616545885,
+          "semillas_por_metodo": {
+            "GA": 616553886,
+            "GREEDY": 616545885,
+            "HIBRIDO": 616554886,
+            "RANDOM": 616552886,
+            "RL": 616545885
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_84_rep_03_seed_404756609.json",
+          "repeticion": 3,
+          "seed_ejecucion": 404756609,
+          "semillas_por_metodo": {
+            "GA": 404764610,
+            "GREEDY": 404756609,
+            "HIBRIDO": 404765610,
+            "RANDOM": 404763610,
+            "RL": 404756609
+          }
+        }
+      ],
+      "seed_escenario": 727023598,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0085_pedidos_dia_85.xlsx",
+      "dia_numero": 85,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_85_rep_01_seed_578357597.json",
+          "repeticion": 1,
+          "seed_ejecucion": 578357597,
+          "semillas_por_metodo": {
+            "GA": 578365598,
+            "GREEDY": 578357597,
+            "HIBRIDO": 578366598,
+            "RANDOM": 578364598,
+            "RL": 578357597
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_85_rep_02_seed_436030695.json",
+          "repeticion": 2,
+          "seed_ejecucion": 436030695,
+          "semillas_por_metodo": {
+            "GA": 436038696,
+            "GREEDY": 436030695,
+            "HIBRIDO": 436039696,
+            "RANDOM": 436037696,
+            "RL": 436030695
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_85_rep_03_seed_903687372.json",
+          "repeticion": 3,
+          "seed_ejecucion": 903687372,
+          "semillas_por_metodo": {
+            "GA": 903695373,
+            "GREEDY": 903687372,
+            "HIBRIDO": 903696373,
+            "RANDOM": 903694373,
+            "RL": 903687372
+          }
+        }
+      ],
+      "seed_escenario": 609562125,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0086_pedidos_dia_86.xlsx",
+      "dia_numero": 86,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_86_rep_01_seed_471746657.json",
+          "repeticion": 1,
+          "seed_ejecucion": 471746657,
+          "semillas_por_metodo": {
+            "GA": 471754658,
+            "GREEDY": 471746657,
+            "HIBRIDO": 471755658,
+            "RANDOM": 471753658,
+            "RL": 471746657
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_86_rep_02_seed_4262508.json",
+          "repeticion": 2,
+          "seed_ejecucion": 4262508,
+          "semillas_por_metodo": {
+            "GA": 4270509,
+            "GREEDY": 4262508,
+            "HIBRIDO": 4271509,
+            "RANDOM": 4269509,
+            "RL": 4262508
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_86_rep_03_seed_481920775.json",
+          "repeticion": 3,
+          "seed_ejecucion": 481920775,
+          "semillas_por_metodo": {
+            "GA": 481928776,
+            "GREEDY": 481920775,
+            "HIBRIDO": 481929776,
+            "RANDOM": 481927776,
+            "RL": 481920775
+          }
+        }
+      ],
+      "seed_escenario": 90328350,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0087_pedidos_dia_87.xlsx",
+      "dia_numero": 87,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_87_rep_01_seed_697749033.json",
+          "repeticion": 1,
+          "seed_ejecucion": 697749033,
+          "semillas_por_metodo": {
+            "GA": 697757034,
+            "GREEDY": 697749033,
+            "HIBRIDO": 697758034,
+            "RANDOM": 697756034,
+            "RL": 697749033
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_87_rep_02_seed_535524763.json",
+          "repeticion": 2,
+          "seed_ejecucion": 535524763,
+          "semillas_por_metodo": {
+            "GA": 535532764,
+            "GREEDY": 535524763,
+            "HIBRIDO": 535533764,
+            "RANDOM": 535531764,
+            "RL": 535524763
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_87_rep_03_seed_768781186.json",
+          "repeticion": 3,
+          "seed_ejecucion": 768781186,
+          "semillas_por_metodo": {
+            "GA": 768789187,
+            "GREEDY": 768781186,
+            "HIBRIDO": 768790187,
+            "RANDOM": 768788187,
+            "RL": 768781186
+          }
+        }
+      ],
+      "seed_escenario": 729478103,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0088_pedidos_dia_88.xlsx",
+      "dia_numero": 88,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_88_rep_01_seed_833640220.json",
+          "repeticion": 1,
+          "seed_ejecucion": 833640220,
+          "semillas_por_metodo": {
+            "GA": 833648221,
+            "GREEDY": 833640220,
+            "HIBRIDO": 833649221,
+            "RANDOM": 833647221,
+            "RL": 833640220
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_88_rep_02_seed_921636166.json",
+          "repeticion": 2,
+          "seed_ejecucion": 921636166,
+          "semillas_por_metodo": {
+            "GA": 921644167,
+            "GREEDY": 921636166,
+            "HIBRIDO": 921645167,
+            "RANDOM": 921643167,
+            "RL": 921636166
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_88_rep_03_seed_389063025.json",
+          "repeticion": 3,
+          "seed_ejecucion": 389063025,
+          "semillas_por_metodo": {
+            "GA": 389071026,
+            "GREEDY": 389063025,
+            "HIBRIDO": 389072026,
+            "RANDOM": 389070026,
+            "RL": 389063025
+          }
+        }
+      ],
+      "seed_escenario": 575872721,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0089_pedidos_dia_89.xlsx",
+      "dia_numero": 89,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_89_rep_01_seed_1854459.json",
+          "repeticion": 1,
+          "seed_ejecucion": 1854459,
+          "semillas_por_metodo": {
+            "GA": 1862460,
+            "GREEDY": 1854459,
+            "HIBRIDO": 1863460,
+            "RANDOM": 1861460,
+            "RL": 1854459
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_89_rep_02_seed_820296136.json",
+          "repeticion": 2,
+          "seed_ejecucion": 820296136,
+          "semillas_por_metodo": {
+            "GA": 820304137,
+            "GREEDY": 820296136,
+            "HIBRIDO": 820305137,
+            "RANDOM": 820303137,
+            "RL": 820296136
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_89_rep_03_seed_791674301.json",
+          "repeticion": 3,
+          "seed_ejecucion": 791674301,
+          "semillas_por_metodo": {
+            "GA": 791682302,
+            "GREEDY": 791674301,
+            "HIBRIDO": 791683302,
+            "RANDOM": 791681302,
+            "RL": 791674301
+          }
+        }
+      ],
+      "seed_escenario": 605871414,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0090_pedidos_dia_90.xlsx",
+      "dia_numero": 90,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_90_rep_01_seed_80693250.json",
+          "repeticion": 1,
+          "seed_ejecucion": 80693250,
+          "semillas_por_metodo": {
+            "GA": 80701251,
+            "GREEDY": 80693250,
+            "HIBRIDO": 80702251,
+            "RANDOM": 80700251,
+            "RL": 80693250
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_90_rep_02_seed_305515322.json",
+          "repeticion": 2,
+          "seed_ejecucion": 305515322,
+          "semillas_por_metodo": {
+            "GA": 305523323,
+            "GREEDY": 305515322,
+            "HIBRIDO": 305524323,
+            "RANDOM": 305522323,
+            "RL": 305515322
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_90_rep_03_seed_216903654.json",
+          "repeticion": 3,
+          "seed_ejecucion": 216903654,
+          "semillas_por_metodo": {
+            "GA": 216911655,
+            "GREEDY": 216903654,
+            "HIBRIDO": 216912655,
+            "RANDOM": 216910655,
+            "RL": 216903654
+          }
+        }
+      ],
+      "seed_escenario": 100025635,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0091_pedidos_dia_91.xlsx",
+      "dia_numero": 91,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_91_rep_01_seed_482806163.json",
+          "repeticion": 1,
+          "seed_ejecucion": 482806163,
+          "semillas_por_metodo": {
+            "GA": 482814164,
+            "GREEDY": 482806163,
+            "HIBRIDO": 482815164,
+            "RANDOM": 482813164,
+            "RL": 482806163
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_91_rep_02_seed_968215180.json",
+          "repeticion": 2,
+          "seed_ejecucion": 968215180,
+          "semillas_por_metodo": {
+            "GA": 968223181,
+            "GREEDY": 968215180,
+            "HIBRIDO": 968224181,
+            "RANDOM": 968222181,
+            "RL": 968215180
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_91_rep_03_seed_330566911.json",
+          "repeticion": 3,
+          "seed_ejecucion": 330566911,
+          "semillas_por_metodo": {
+            "GA": 330574912,
+            "GREEDY": 330566911,
+            "HIBRIDO": 330575912,
+            "RANDOM": 330573912,
+            "RL": 330566911
+          }
+        }
+      ],
+      "seed_escenario": 946635016,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0092_pedidos_dia_92.xlsx",
+      "dia_numero": 92,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_92_rep_01_seed_457247785.json",
+          "repeticion": 1,
+          "seed_ejecucion": 457247785,
+          "semillas_por_metodo": {
+            "GA": 457255786,
+            "GREEDY": 457247785,
+            "HIBRIDO": 457256786,
+            "RANDOM": 457254786,
+            "RL": 457247785
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_92_rep_02_seed_986237165.json",
+          "repeticion": 2,
+          "seed_ejecucion": 986237165,
+          "semillas_por_metodo": {
+            "GA": 986245166,
+            "GREEDY": 986237165,
+            "HIBRIDO": 986246166,
+            "RANDOM": 986244166,
+            "RL": 986237165
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_92_rep_03_seed_631296388.json",
+          "repeticion": 3,
+          "seed_ejecucion": 631296388,
+          "semillas_por_metodo": {
+            "GA": 631304389,
+            "GREEDY": 631296388,
+            "HIBRIDO": 631305389,
+            "RANDOM": 631303389,
+            "RL": 631296388
+          }
+        }
+      ],
+      "seed_escenario": 947426222,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0093_pedidos_dia_93.xlsx",
+      "dia_numero": 93,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_93_rep_01_seed_672819141.json",
+          "repeticion": 1,
+          "seed_ejecucion": 672819141,
+          "semillas_por_metodo": {
+            "GA": 672827142,
+            "GREEDY": 672819141,
+            "HIBRIDO": 672828142,
+            "RANDOM": 672826142,
+            "RL": 672819141
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_93_rep_02_seed_49410630.json",
+          "repeticion": 2,
+          "seed_ejecucion": 49410630,
+          "semillas_por_metodo": {
+            "GA": 49418631,
+            "GREEDY": 49410630,
+            "HIBRIDO": 49419631,
+            "RANDOM": 49417631,
+            "RL": 49410630
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_93_rep_03_seed_183258164.json",
+          "repeticion": 3,
+          "seed_ejecucion": 183258164,
+          "semillas_por_metodo": {
+            "GA": 183266165,
+            "GREEDY": 183258164,
+            "HIBRIDO": 183267165,
+            "RANDOM": 183265165,
+            "RL": 183258164
+          }
+        }
+      ],
+      "seed_escenario": 557810670,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0094_pedidos_dia_94.xlsx",
+      "dia_numero": 94,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_94_rep_01_seed_743303906.json",
+          "repeticion": 1,
+          "seed_ejecucion": 743303906,
+          "semillas_por_metodo": {
+            "GA": 743311907,
+            "GREEDY": 743303906,
+            "HIBRIDO": 743312907,
+            "RANDOM": 743310907,
+            "RL": 743303906
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_94_rep_02_seed_256856001.json",
+          "repeticion": 2,
+          "seed_ejecucion": 256856001,
+          "semillas_por_metodo": {
+            "GA": 256864002,
+            "GREEDY": 256856001,
+            "HIBRIDO": 256865002,
+            "RANDOM": 256863002,
+            "RL": 256856001
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_94_rep_03_seed_83996154.json",
+          "repeticion": 3,
+          "seed_ejecucion": 83996154,
+          "semillas_por_metodo": {
+            "GA": 84004155,
+            "GREEDY": 83996154,
+            "HIBRIDO": 84005155,
+            "RANDOM": 84003155,
+            "RL": 83996154
+          }
+        }
+      ],
+      "seed_escenario": 235722940,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0095_pedidos_dia_95.xlsx",
+      "dia_numero": 95,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_95_rep_01_seed_294360380.json",
+          "repeticion": 1,
+          "seed_ejecucion": 294360380,
+          "semillas_por_metodo": {
+            "GA": 294368381,
+            "GREEDY": 294360380,
+            "HIBRIDO": 294369381,
+            "RANDOM": 294367381,
+            "RL": 294360380
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_95_rep_02_seed_155591715.json",
+          "repeticion": 2,
+          "seed_ejecucion": 155591715,
+          "semillas_por_metodo": {
+            "GA": 155599716,
+            "GREEDY": 155591715,
+            "HIBRIDO": 155600716,
+            "RANDOM": 155598716,
+            "RL": 155591715
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_95_rep_03_seed_725969932.json",
+          "repeticion": 3,
+          "seed_ejecucion": 725969932,
+          "semillas_por_metodo": {
+            "GA": 725977933,
+            "GREEDY": 725969932,
+            "HIBRIDO": 725978933,
+            "RANDOM": 725976933,
+            "RL": 725969932
+          }
+        }
+      ],
+      "seed_escenario": 730058250,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0096_pedidos_dia_96.xlsx",
+      "dia_numero": 96,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_96_rep_01_seed_53959361.json",
+          "repeticion": 1,
+          "seed_ejecucion": 53959361,
+          "semillas_por_metodo": {
+            "GA": 53967362,
+            "GREEDY": 53959361,
+            "HIBRIDO": 53968362,
+            "RANDOM": 53966362,
+            "RL": 53959361
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_96_rep_02_seed_676831547.json",
+          "repeticion": 2,
+          "seed_ejecucion": 676831547,
+          "semillas_por_metodo": {
+            "GA": 676839548,
+            "GREEDY": 676831547,
+            "HIBRIDO": 676840548,
+            "RANDOM": 676838548,
+            "RL": 676831547
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_96_rep_03_seed_525830812.json",
+          "repeticion": 3,
+          "seed_ejecucion": 525830812,
+          "semillas_por_metodo": {
+            "GA": 525838813,
+            "GREEDY": 525830812,
+            "HIBRIDO": 525839813,
+            "RANDOM": 525837813,
+            "RL": 525830812
+          }
+        }
+      ],
+      "seed_escenario": 845828967,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0097_pedidos_dia_97.xlsx",
+      "dia_numero": 97,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_97_rep_01_seed_623065062.json",
+          "repeticion": 1,
+          "seed_ejecucion": 623065062,
+          "semillas_por_metodo": {
+            "GA": 623073063,
+            "GREEDY": 623065062,
+            "HIBRIDO": 623074063,
+            "RANDOM": 623072063,
+            "RL": 623065062
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_97_rep_02_seed_801132157.json",
+          "repeticion": 2,
+          "seed_ejecucion": 801132157,
+          "semillas_por_metodo": {
+            "GA": 801140158,
+            "GREEDY": 801132157,
+            "HIBRIDO": 801141158,
+            "RANDOM": 801139158,
+            "RL": 801132157
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_97_rep_03_seed_604965093.json",
+          "repeticion": 3,
+          "seed_ejecucion": 604965093,
+          "semillas_por_metodo": {
+            "GA": 604973094,
+            "GREEDY": 604965093,
+            "HIBRIDO": 604974094,
+            "RANDOM": 604972094,
+            "RL": 604965093
+          }
+        }
+      ],
+      "seed_escenario": 889466675,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0098_pedidos_dia_98.xlsx",
+      "dia_numero": 98,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_98_rep_01_seed_741116589.json",
+          "repeticion": 1,
+          "seed_ejecucion": 741116589,
+          "semillas_por_metodo": {
+            "GA": 741124590,
+            "GREEDY": 741116589,
+            "HIBRIDO": 741125590,
+            "RANDOM": 741123590,
+            "RL": 741116589
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_98_rep_02_seed_319145744.json",
+          "repeticion": 2,
+          "seed_ejecucion": 319145744,
+          "semillas_por_metodo": {
+            "GA": 319153745,
+            "GREEDY": 319145744,
+            "HIBRIDO": 319154745,
+            "RANDOM": 319152745,
+            "RL": 319145744
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_98_rep_03_seed_636210646.json",
+          "repeticion": 3,
+          "seed_ejecucion": 636210646,
+          "semillas_por_metodo": {
+            "GA": 636218647,
+            "GREEDY": 636210646,
+            "HIBRIDO": 636219647,
+            "RANDOM": 636217647,
+            "RL": 636210646
+          }
+        }
+      ],
+      "seed_escenario": 638406221,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0099_pedidos_dia_99.xlsx",
+      "dia_numero": 99,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_99_rep_01_seed_452648359.json",
+          "repeticion": 1,
+          "seed_ejecucion": 452648359,
+          "semillas_por_metodo": {
+            "GA": 452656360,
+            "GREEDY": 452648359,
+            "HIBRIDO": 452657360,
+            "RANDOM": 452655360,
+            "RL": 452648359
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_99_rep_02_seed_752429446.json",
+          "repeticion": 2,
+          "seed_ejecucion": 752429446,
+          "semillas_por_metodo": {
+            "GA": 752437447,
+            "GREEDY": 752429446,
+            "HIBRIDO": 752438447,
+            "RANDOM": 752436447,
+            "RL": 752429446
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_99_rep_03_seed_514159374.json",
+          "repeticion": 3,
+          "seed_ejecucion": 514159374,
+          "semillas_por_metodo": {
+            "GA": 514167375,
+            "GREEDY": 514159374,
+            "HIBRIDO": 514168375,
+            "RANDOM": 514166375,
+            "RL": 514159374
+          }
+        }
+      ],
+      "seed_escenario": 149125244,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "F:\\Facultad\\4°\\Simulación\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_53009_20261103_133548_987\\ejecucion_20261103_133636_150\\seed_53009_20261103_133641\\entradas\\0100_pedidos_dia_100.xlsx",
+      "dia_numero": 100,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_100_rep_01_seed_177556711.json",
+          "repeticion": 1,
+          "seed_ejecucion": 177556711,
+          "semillas_por_metodo": {
+            "GA": 177564712,
+            "GREEDY": 177556711,
+            "HIBRIDO": 177565712,
+            "RANDOM": 177563712,
+            "RL": 177556711
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_100_rep_02_seed_575918541.json",
+          "repeticion": 2,
+          "seed_ejecucion": 575918541,
+          "semillas_por_metodo": {
+            "GA": 575926542,
+            "GREEDY": 575918541,
+            "HIBRIDO": 575927542,
+            "RANDOM": 575925542,
+            "RL": 575918541
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_100_rep_03_seed_708433586.json",
+          "repeticion": 3,
+          "seed_ejecucion": 708433586,
+          "semillas_por_metodo": {
+            "GA": 708441587,
+            "GREEDY": 708433586,
+            "HIBRIDO": 708442587,
+            "RANDOM": 708440587,
+            "RL": 708433586
+          }
+        }
+      ],
+      "seed_escenario": 881380579,
+      "turno": "MANANA"
+    }
+  ],
+  "version": 2
+}

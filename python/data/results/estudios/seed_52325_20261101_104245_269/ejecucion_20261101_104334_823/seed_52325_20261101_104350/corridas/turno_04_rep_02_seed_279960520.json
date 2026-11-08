@@ -1,0 +1,150 @@
+{
+  "archivo_excel": "0004_pedidos_dia_04.xlsx",
+  "cantidad_finalizados": 0,
+  "cantidad_metodos": 5,
+  "cantidad_tareas": 12,
+  "completa": false,
+  "dia_numero": 4,
+  "fecha_operacion": "2026-08-30",
+  "firma_instancia": "d268982c00a8d2bf8227d3b7a3ccb11d455f2d0b8c6e00920566d5a60bbcca80",
+  "instancia_id": "UI-2026-08-30-D04-237723038",
+  "proveedores_habilitados": true,
+  "repeticion": 2,
+  "resultados": [
+    {
+      "error": "ModelError: ModelError[path=, status=Failed to properly start the app. Check the logs., error=None, msg='']",
+      "estado": "ERROR",
+      "metodo_solicitado": "RL",
+      "resultado": null,
+      "tiempo_motor_segundos": 2.7782766000018455
+    },
+    {
+      "error": "ModelError: ModelError[path=, status=Failed to properly start the app. Check the logs., error=None, msg='']",
+      "estado": "ERROR",
+      "metodo_solicitado": "HIBRIDO",
+      "resultado": null,
+      "tiempo_motor_segundos": 2.841084800005774
+    },
+    {
+      "error": "ModelError: ModelError[path=, status=Failed to properly start the app. Check the logs., error=None, msg='']",
+      "estado": "ERROR",
+      "metodo_solicitado": "GREEDY",
+      "resultado": null,
+      "tiempo_motor_segundos": 2.8149726999981795
+    },
+    {
+      "error": "ModelError: ModelError[path=, status=Failed to properly start the app. Check the logs., error=None, msg='']",
+      "estado": "ERROR",
+      "metodo_solicitado": "RANDOM",
+      "resultado": null,
+      "tiempo_motor_segundos": 2.8085970999964047
+    },
+    {
+      "error": "ModelError: ModelError[path=, status=Failed to properly start the app. Check the logs., error=None, msg='']",
+      "estado": "ERROR",
+      "metodo_solicitado": "GA",
+      "resultado": null,
+      "tiempo_motor_segundos": 2.8231652999966173
+    }
+  ],
+  "resultados_estimados": {
+    "GA": {
+      "algoritmo_resultante": "GA",
+      "costo_estimado": 339.5796718321567,
+      "detalle": "seed=279968521",
+      "diferencia_fin_camiones_min": 1.186932997646636,
+      "distancia_total_km": 36.266544,
+      "duracion_operacion_min": 226.45311733333335,
+      "error": "",
+      "factible": true,
+      "metodo_solicitado": "GA",
+      "pedidos_tardios": 0,
+      "seed_algoritmo": 279968521,
+      "tardanza_total_min": 0.0,
+      "tiempo_plan_ms": 713.6389999941457,
+      "tiempo_selector_ms": 713.9019000023836,
+      "viajes_totales": 8
+    },
+    "GREEDY": {
+      "algoritmo_resultante": "GREEDY",
+      "costo_estimado": 350.6316470666667,
+      "detalle": "seed=279960520",
+      "diferencia_fin_camiones_min": 24.48855546666664,
+      "distancia_total_km": 38.467126,
+      "duracion_operacion_min": 226.45311733333335,
+      "error": "",
+      "factible": true,
+      "metodo_solicitado": "GREEDY",
+      "pedidos_tardios": 0,
+      "seed_algoritmo": 279960520,
+      "tardanza_total_min": 0.0,
+      "tiempo_plan_ms": 1.4478000084636733,
+      "tiempo_selector_ms": 1.4784999948460609,
+      "viajes_totales": 7
+    },
+    "HIBRIDO": {
+      "algoritmo_resultante": "GA",
+      "costo_estimado": 337.0469967999998,
+      "detalle": "arquitectura=RL_GA_SEEDED|fuente_rl=POLITICA_UNICA|resultado=REFINADO_GA|motivo=GA_MEJORA_SEMILLA_RL|seed_ga=279969521|costo_semilla_rl=349.2419477333335|costo_refinado_ga=337.0469967999998|costo_final=337.0469967999998|mejora_abs=12.1949509333337|mejora_pct=3.4918345326161253|generaciones_ga=51|error_ga=NINGUNO",
+      "diferencia_fin_camiones_min": 0.11562693333291918,
+      "distancia_total_km": 37.768032999999996,
+      "duracion_operacion_min": 226.45311733333335,
+      "error": "",
+      "factible": true,
+      "metodo_solicitado": "HIBRIDO",
+      "pedidos_tardios": 0,
+      "seed_algoritmo": 279969521,
+      "tardanza_total_min": 0.0,
+      "tiempo_plan_ms": 1673.372000004747,
+      "tiempo_selector_ms": 1673.4239000070374,
+      "viajes_totales": 7
+    },
+    "RANDOM": {
+      "algoritmo_resultante": "RANDOM",
+      "costo_estimado": 6040.667420042519,
+      "detalle": "seed=279967521",
+      "diferencia_fin_camiones_min": 100.53086581657169,
+      "distancia_total_km": 40.605579999999996,
+      "duracion_operacion_min": 243.4699988989248,
+      "error": "",
+      "factible": true,
+      "metodo_solicitado": "RANDOM",
+      "pedidos_tardios": 1,
+      "seed_algoritmo": 279967521,
+      "tardanza_total_min": 56.257208282353076,
+      "tiempo_plan_ms": 1.335799999651499,
+      "tiempo_selector_ms": 1.384999995934777,
+      "viajes_totales": 8
+    },
+    "RL": {
+      "algoritmo_resultante": "RL",
+      "costo_estimado": 349.2419477333335,
+      "detalle": "version=pedemonte-rl-single-policy-v1|arquitectura=RL_PURO_POLITICA_UNICA|pedidos=12|fuente=POLITICA_UNICA|tardios=0|tardanza=0.000000|costo=349.241948|mascara_temporal=DURA|errores=NINGUNO|tiempo_total_ms=750.896|seed=279960520",
+      "diferencia_fin_camiones_min": 4.79566426666679,
+      "distancia_total_km": 37.797667,
+      "duracion_operacion_min": 231.24878160000014,
+      "error": "",
+      "factible": true,
+      "metodo_solicitado": "RL",
+      "pedidos_tardios": 0,
+      "seed_algoritmo": 279960520,
+      "tardanza_total_min": 0.0,
+      "tiempo_plan_ms": 750.8963000000222,
+      "tiempo_selector_ms": 750.9451999940211,
+      "viajes_totales": 8
+    }
+  },
+  "seed_ejecucion": 279960520,
+  "seed_escenario": 237723038,
+  "seed_inicial_experimento": 52325,
+  "semillas_por_metodo": {
+    "GA": 279968521,
+    "GREEDY": 279960520,
+    "HIBRIDO": 279969521,
+    "RANDOM": 279967521,
+    "RL": 279960520
+  },
+  "tiempo_total_segundos": 14.220765899997787,
+  "turno": "MANANA",
+  "version": 1
+}

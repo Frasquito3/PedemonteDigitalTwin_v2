@@ -1,0 +1,46 @@
+{
+  "configuracion_entorno": {
+    "CUBLAS_WORKSPACE_CONFIG": null,
+    "MKL_NUM_THREADS": null,
+    "OMP_NUM_THREADS": null,
+    "PYTHONHASHSEED": null
+  },
+  "fecha_captura": "2026-11-01T10:43:53-03:00",
+  "hardware": {
+    "cpu_modelo": "AMD Ryzen 7 5700G with Radeon Graphics",
+    "gpu_modelos": [
+      "NVIDIA GeForce RTX 4060"
+    ],
+    "nucleos_fisicos": 8,
+    "nucleos_logicos": 16,
+    "ram_total_bytes": 17040801792,
+    "ram_total_gib": 15.87
+  },
+  "observaciones": [
+    "La version Java corresponde al ejecutable en PATH.",
+    "La GPU detectada no implica que se utilice.",
+    "Este registro no garantiza determinismo absoluto."
+  ],
+  "sistema_operativo": {
+    "arquitectura": "AMD64",
+    "nombre": "Windows",
+    "release": "11",
+    "version": "10.0.26200",
+    "zona_horaria": "Hora estándar de Argentina"
+  },
+  "software": {
+    "dependencias": {
+      "anylogic-alpyne": "1.2.0",
+      "gymnasium": "1.4.0",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "scipy": null,
+      "stable-baselines3": "2.9.2",
+      "torch": "2.15.0"
+    },
+    "implementacion_python": "CPython",
+    "java_en_path": "openjdk version \"17.0.9\" 2023-10-17",
+    "python": "3.14.0"
+  },
+  "version": 1
+}
