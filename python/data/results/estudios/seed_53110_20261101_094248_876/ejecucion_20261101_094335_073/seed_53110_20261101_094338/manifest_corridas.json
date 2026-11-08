@@ -1,0 +1,2401 @@
+{
+  "corridas": [
+    {
+      "dia_numero": 1,
+      "repeticion": 1,
+      "seed_ejecucion": 949895587
+    },
+    {
+      "dia_numero": 1,
+      "repeticion": 2,
+      "seed_ejecucion": 714645013
+    },
+    {
+      "dia_numero": 1,
+      "repeticion": 3,
+      "seed_ejecucion": 474139903
+    },
+    {
+      "dia_numero": 2,
+      "repeticion": 1,
+      "seed_ejecucion": 236325969
+    },
+    {
+      "dia_numero": 2,
+      "repeticion": 2,
+      "seed_ejecucion": 200945774
+    },
+    {
+      "dia_numero": 2,
+      "repeticion": 3,
+      "seed_ejecucion": 40702726
+    },
+    {
+      "dia_numero": 3,
+      "repeticion": 1,
+      "seed_ejecucion": 96134468
+    },
+    {
+      "dia_numero": 3,
+      "repeticion": 2,
+      "seed_ejecucion": 835418071
+    },
+    {
+      "dia_numero": 3,
+      "repeticion": 3,
+      "seed_ejecucion": 94858352
+    },
+    {
+      "dia_numero": 4,
+      "repeticion": 1,
+      "seed_ejecucion": 727365290
+    },
+    {
+      "dia_numero": 4,
+      "repeticion": 2,
+      "seed_ejecucion": 591050716
+    },
+    {
+      "dia_numero": 4,
+      "repeticion": 3,
+      "seed_ejecucion": 334014613
+    },
+    {
+      "dia_numero": 5,
+      "repeticion": 1,
+      "seed_ejecucion": 624041095
+    },
+    {
+      "dia_numero": 5,
+      "repeticion": 2,
+      "seed_ejecucion": 615555685
+    },
+    {
+      "dia_numero": 5,
+      "repeticion": 3,
+      "seed_ejecucion": 364053082
+    },
+    {
+      "dia_numero": 6,
+      "repeticion": 1,
+      "seed_ejecucion": 407434710
+    },
+    {
+      "dia_numero": 6,
+      "repeticion": 2,
+      "seed_ejecucion": 602856720
+    },
+    {
+      "dia_numero": 6,
+      "repeticion": 3,
+      "seed_ejecucion": 306491899
+    },
+    {
+      "dia_numero": 7,
+      "repeticion": 1,
+      "seed_ejecucion": 707774751
+    },
+    {
+      "dia_numero": 7,
+      "repeticion": 2,
+      "seed_ejecucion": 14616659
+    },
+    {
+      "dia_numero": 7,
+      "repeticion": 3,
+      "seed_ejecucion": 54896489
+    },
+    {
+      "dia_numero": 8,
+      "repeticion": 1,
+      "seed_ejecucion": 303954138
+    },
+    {
+      "dia_numero": 8,
+      "repeticion": 2,
+      "seed_ejecucion": 346620625
+    },
+    {
+      "dia_numero": 8,
+      "repeticion": 3,
+      "seed_ejecucion": 159935147
+    },
+    {
+      "dia_numero": 9,
+      "repeticion": 1,
+      "seed_ejecucion": 835927571
+    },
+    {
+      "dia_numero": 9,
+      "repeticion": 2,
+      "seed_ejecucion": 46787744
+    },
+    {
+      "dia_numero": 9,
+      "repeticion": 3,
+      "seed_ejecucion": 569142538
+    },
+    {
+      "dia_numero": 10,
+      "repeticion": 1,
+      "seed_ejecucion": 547323088
+    },
+    {
+      "dia_numero": 10,
+      "repeticion": 2,
+      "seed_ejecucion": 467914641
+    },
+    {
+      "dia_numero": 10,
+      "repeticion": 3,
+      "seed_ejecucion": 258604362
+    },
+    {
+      "dia_numero": 11,
+      "repeticion": 1,
+      "seed_ejecucion": 436278018
+    },
+    {
+      "dia_numero": 11,
+      "repeticion": 2,
+      "seed_ejecucion": 199675645
+    },
+    {
+      "dia_numero": 11,
+      "repeticion": 3,
+      "seed_ejecucion": 792317789
+    },
+    {
+      "dia_numero": 12,
+      "repeticion": 1,
+      "seed_ejecucion": 315904043
+    },
+    {
+      "dia_numero": 12,
+      "repeticion": 2,
+      "seed_ejecucion": 585511079
+    },
+    {
+      "dia_numero": 12,
+      "repeticion": 3,
+      "seed_ejecucion": 503978241
+    },
+    {
+      "dia_numero": 13,
+      "repeticion": 1,
+      "seed_ejecucion": 769123285
+    },
+    {
+      "dia_numero": 13,
+      "repeticion": 2,
+      "seed_ejecucion": 251761487
+    },
+    {
+      "dia_numero": 13,
+      "repeticion": 3,
+      "seed_ejecucion": 189893395
+    },
+    {
+      "dia_numero": 14,
+      "repeticion": 1,
+      "seed_ejecucion": 676060987
+    },
+    {
+      "dia_numero": 14,
+      "repeticion": 2,
+      "seed_ejecucion": 742770696
+    },
+    {
+      "dia_numero": 14,
+      "repeticion": 3,
+      "seed_ejecucion": 23170910
+    },
+    {
+      "dia_numero": 15,
+      "repeticion": 1,
+      "seed_ejecucion": 573739844
+    },
+    {
+      "dia_numero": 15,
+      "repeticion": 2,
+      "seed_ejecucion": 148552756
+    },
+    {
+      "dia_numero": 15,
+      "repeticion": 3,
+      "seed_ejecucion": 651541434
+    },
+    {
+      "dia_numero": 16,
+      "repeticion": 1,
+      "seed_ejecucion": 573143113
+    },
+    {
+      "dia_numero": 16,
+      "repeticion": 2,
+      "seed_ejecucion": 338859451
+    },
+    {
+      "dia_numero": 16,
+      "repeticion": 3,
+      "seed_ejecucion": 650308396
+    },
+    {
+      "dia_numero": 17,
+      "repeticion": 1,
+      "seed_ejecucion": 742468569
+    },
+    {
+      "dia_numero": 17,
+      "repeticion": 2,
+      "seed_ejecucion": 249067227
+    },
+    {
+      "dia_numero": 17,
+      "repeticion": 3,
+      "seed_ejecucion": 163860130
+    },
+    {
+      "dia_numero": 18,
+      "repeticion": 1,
+      "seed_ejecucion": 860274241
+    },
+    {
+      "dia_numero": 18,
+      "repeticion": 2,
+      "seed_ejecucion": 812914275
+    },
+    {
+      "dia_numero": 18,
+      "repeticion": 3,
+      "seed_ejecucion": 809047230
+    },
+    {
+      "dia_numero": 19,
+      "repeticion": 1,
+      "seed_ejecucion": 847629648
+    },
+    {
+      "dia_numero": 19,
+      "repeticion": 2,
+      "seed_ejecucion": 648133922
+    },
+    {
+      "dia_numero": 19,
+      "repeticion": 3,
+      "seed_ejecucion": 557291457
+    },
+    {
+      "dia_numero": 20,
+      "repeticion": 1,
+      "seed_ejecucion": 24251731
+    },
+    {
+      "dia_numero": 20,
+      "repeticion": 2,
+      "seed_ejecucion": 677460920
+    },
+    {
+      "dia_numero": 20,
+      "repeticion": 3,
+      "seed_ejecucion": 578867717
+    },
+    {
+      "dia_numero": 21,
+      "repeticion": 1,
+      "seed_ejecucion": 602807596
+    },
+    {
+      "dia_numero": 21,
+      "repeticion": 2,
+      "seed_ejecucion": 177685216
+    },
+    {
+      "dia_numero": 21,
+      "repeticion": 3,
+      "seed_ejecucion": 783048092
+    },
+    {
+      "dia_numero": 22,
+      "repeticion": 1,
+      "seed_ejecucion": 29993109
+    },
+    {
+      "dia_numero": 22,
+      "repeticion": 2,
+      "seed_ejecucion": 189274928
+    },
+    {
+      "dia_numero": 22,
+      "repeticion": 3,
+      "seed_ejecucion": 650356930
+    },
+    {
+      "dia_numero": 23,
+      "repeticion": 1,
+      "seed_ejecucion": 846799864
+    },
+    {
+      "dia_numero": 23,
+      "repeticion": 2,
+      "seed_ejecucion": 629859482
+    },
+    {
+      "dia_numero": 23,
+      "repeticion": 3,
+      "seed_ejecucion": 202354985
+    },
+    {
+      "dia_numero": 24,
+      "repeticion": 1,
+      "seed_ejecucion": 912957291
+    },
+    {
+      "dia_numero": 24,
+      "repeticion": 2,
+      "seed_ejecucion": 745558284
+    },
+    {
+      "dia_numero": 24,
+      "repeticion": 3,
+      "seed_ejecucion": 587641476
+    },
+    {
+      "dia_numero": 25,
+      "repeticion": 1,
+      "seed_ejecucion": 895200932
+    },
+    {
+      "dia_numero": 25,
+      "repeticion": 2,
+      "seed_ejecucion": 607883261
+    },
+    {
+      "dia_numero": 25,
+      "repeticion": 3,
+      "seed_ejecucion": 165397989
+    },
+    {
+      "dia_numero": 26,
+      "repeticion": 1,
+      "seed_ejecucion": 752690070
+    },
+    {
+      "dia_numero": 26,
+      "repeticion": 2,
+      "seed_ejecucion": 519670651
+    },
+    {
+      "dia_numero": 26,
+      "repeticion": 3,
+      "seed_ejecucion": 399761630
+    },
+    {
+      "dia_numero": 27,
+      "repeticion": 1,
+      "seed_ejecucion": 249966601
+    },
+    {
+      "dia_numero": 27,
+      "repeticion": 2,
+      "seed_ejecucion": 554259693
+    },
+    {
+      "dia_numero": 27,
+      "repeticion": 3,
+      "seed_ejecucion": 372492386
+    },
+    {
+      "dia_numero": 28,
+      "repeticion": 1,
+      "seed_ejecucion": 940667315
+    },
+    {
+      "dia_numero": 28,
+      "repeticion": 2,
+      "seed_ejecucion": 447583188
+    },
+    {
+      "dia_numero": 28,
+      "repeticion": 3,
+      "seed_ejecucion": 710013812
+    },
+    {
+      "dia_numero": 29,
+      "repeticion": 1,
+      "seed_ejecucion": 896966829
+    },
+    {
+      "dia_numero": 29,
+      "repeticion": 2,
+      "seed_ejecucion": 177088037
+    },
+    {
+      "dia_numero": 29,
+      "repeticion": 3,
+      "seed_ejecucion": 510295128
+    },
+    {
+      "dia_numero": 30,
+      "repeticion": 1,
+      "seed_ejecucion": 804887392
+    },
+    {
+      "dia_numero": 30,
+      "repeticion": 2,
+      "seed_ejecucion": 311833836
+    },
+    {
+      "dia_numero": 30,
+      "repeticion": 3,
+      "seed_ejecucion": 494514891
+    },
+    {
+      "dia_numero": 31,
+      "repeticion": 1,
+      "seed_ejecucion": 587507863
+    },
+    {
+      "dia_numero": 31,
+      "repeticion": 2,
+      "seed_ejecucion": 932328712
+    },
+    {
+      "dia_numero": 31,
+      "repeticion": 3,
+      "seed_ejecucion": 435784182
+    },
+    {
+      "dia_numero": 32,
+      "repeticion": 1,
+      "seed_ejecucion": 332647640
+    },
+    {
+      "dia_numero": 32,
+      "repeticion": 2,
+      "seed_ejecucion": 107113110
+    },
+    {
+      "dia_numero": 32,
+      "repeticion": 3,
+      "seed_ejecucion": 890440161
+    },
+    {
+      "dia_numero": 33,
+      "repeticion": 1,
+      "seed_ejecucion": 487057036
+    },
+    {
+      "dia_numero": 33,
+      "repeticion": 2,
+      "seed_ejecucion": 810143712
+    },
+    {
+      "dia_numero": 33,
+      "repeticion": 3,
+      "seed_ejecucion": 911159945
+    },
+    {
+      "dia_numero": 34,
+      "repeticion": 1,
+      "seed_ejecucion": 4320471
+    },
+    {
+      "dia_numero": 34,
+      "repeticion": 2,
+      "seed_ejecucion": 76966839
+    },
+    {
+      "dia_numero": 34,
+      "repeticion": 3,
+      "seed_ejecucion": 459005473
+    },
+    {
+      "dia_numero": 35,
+      "repeticion": 1,
+      "seed_ejecucion": 299071510
+    },
+    {
+      "dia_numero": 35,
+      "repeticion": 2,
+      "seed_ejecucion": 345099700
+    },
+    {
+      "dia_numero": 35,
+      "repeticion": 3,
+      "seed_ejecucion": 888760575
+    },
+    {
+      "dia_numero": 36,
+      "repeticion": 1,
+      "seed_ejecucion": 825346251
+    },
+    {
+      "dia_numero": 36,
+      "repeticion": 2,
+      "seed_ejecucion": 236002285
+    },
+    {
+      "dia_numero": 36,
+      "repeticion": 3,
+      "seed_ejecucion": 19003365
+    },
+    {
+      "dia_numero": 37,
+      "repeticion": 1,
+      "seed_ejecucion": 914782592
+    },
+    {
+      "dia_numero": 37,
+      "repeticion": 2,
+      "seed_ejecucion": 793931796
+    },
+    {
+      "dia_numero": 37,
+      "repeticion": 3,
+      "seed_ejecucion": 49439197
+    },
+    {
+      "dia_numero": 38,
+      "repeticion": 1,
+      "seed_ejecucion": 594315371
+    },
+    {
+      "dia_numero": 38,
+      "repeticion": 2,
+      "seed_ejecucion": 193984174
+    },
+    {
+      "dia_numero": 38,
+      "repeticion": 3,
+      "seed_ejecucion": 25641365
+    },
+    {
+      "dia_numero": 39,
+      "repeticion": 1,
+      "seed_ejecucion": 910482894
+    },
+    {
+      "dia_numero": 39,
+      "repeticion": 2,
+      "seed_ejecucion": 136887899
+    },
+    {
+      "dia_numero": 39,
+      "repeticion": 3,
+      "seed_ejecucion": 938770185
+    },
+    {
+      "dia_numero": 40,
+      "repeticion": 1,
+      "seed_ejecucion": 53282331
+    },
+    {
+      "dia_numero": 40,
+      "repeticion": 2,
+      "seed_ejecucion": 119978706
+    },
+    {
+      "dia_numero": 40,
+      "repeticion": 3,
+      "seed_ejecucion": 724558410
+    },
+    {
+      "dia_numero": 41,
+      "repeticion": 1,
+      "seed_ejecucion": 442255402
+    },
+    {
+      "dia_numero": 41,
+      "repeticion": 2,
+      "seed_ejecucion": 580049825
+    },
+    {
+      "dia_numero": 41,
+      "repeticion": 3,
+      "seed_ejecucion": 465247818
+    },
+    {
+      "dia_numero": 42,
+      "repeticion": 1,
+      "seed_ejecucion": 447036671
+    },
+    {
+      "dia_numero": 42,
+      "repeticion": 2,
+      "seed_ejecucion": 727036564
+    },
+    {
+      "dia_numero": 42,
+      "repeticion": 3,
+      "seed_ejecucion": 763430608
+    },
+    {
+      "dia_numero": 43,
+      "repeticion": 1,
+      "seed_ejecucion": 346492703
+    },
+    {
+      "dia_numero": 43,
+      "repeticion": 2,
+      "seed_ejecucion": 305315014
+    },
+    {
+      "dia_numero": 43,
+      "repeticion": 3,
+      "seed_ejecucion": 238301427
+    },
+    {
+      "dia_numero": 44,
+      "repeticion": 1,
+      "seed_ejecucion": 964813448
+    },
+    {
+      "dia_numero": 44,
+      "repeticion": 2,
+      "seed_ejecucion": 246028304
+    },
+    {
+      "dia_numero": 44,
+      "repeticion": 3,
+      "seed_ejecucion": 726966569
+    },
+    {
+      "dia_numero": 45,
+      "repeticion": 1,
+      "seed_ejecucion": 333191872
+    },
+    {
+      "dia_numero": 45,
+      "repeticion": 2,
+      "seed_ejecucion": 598256647
+    },
+    {
+      "dia_numero": 45,
+      "repeticion": 3,
+      "seed_ejecucion": 721315971
+    },
+    {
+      "dia_numero": 46,
+      "repeticion": 1,
+      "seed_ejecucion": 436018852
+    },
+    {
+      "dia_numero": 46,
+      "repeticion": 2,
+      "seed_ejecucion": 688772379
+    },
+    {
+      "dia_numero": 46,
+      "repeticion": 3,
+      "seed_ejecucion": 308703027
+    },
+    {
+      "dia_numero": 47,
+      "repeticion": 1,
+      "seed_ejecucion": 859484203
+    },
+    {
+      "dia_numero": 47,
+      "repeticion": 2,
+      "seed_ejecucion": 385061500
+    },
+    {
+      "dia_numero": 47,
+      "repeticion": 3,
+      "seed_ejecucion": 5369817
+    },
+    {
+      "dia_numero": 48,
+      "repeticion": 1,
+      "seed_ejecucion": 520179141
+    },
+    {
+      "dia_numero": 48,
+      "repeticion": 2,
+      "seed_ejecucion": 283498245
+    },
+    {
+      "dia_numero": 48,
+      "repeticion": 3,
+      "seed_ejecucion": 297567627
+    },
+    {
+      "dia_numero": 49,
+      "repeticion": 1,
+      "seed_ejecucion": 887820822
+    },
+    {
+      "dia_numero": 49,
+      "repeticion": 2,
+      "seed_ejecucion": 410732560
+    },
+    {
+      "dia_numero": 49,
+      "repeticion": 3,
+      "seed_ejecucion": 462000921
+    },
+    {
+      "dia_numero": 50,
+      "repeticion": 1,
+      "seed_ejecucion": 153083360
+    },
+    {
+      "dia_numero": 50,
+      "repeticion": 2,
+      "seed_ejecucion": 454015288
+    },
+    {
+      "dia_numero": 50,
+      "repeticion": 3,
+      "seed_ejecucion": 484692268
+    },
+    {
+      "dia_numero": 51,
+      "repeticion": 1,
+      "seed_ejecucion": 86905813
+    },
+    {
+      "dia_numero": 51,
+      "repeticion": 2,
+      "seed_ejecucion": 359231528
+    },
+    {
+      "dia_numero": 51,
+      "repeticion": 3,
+      "seed_ejecucion": 139093951
+    },
+    {
+      "dia_numero": 52,
+      "repeticion": 1,
+      "seed_ejecucion": 757632135
+    },
+    {
+      "dia_numero": 52,
+      "repeticion": 2,
+      "seed_ejecucion": 530034337
+    },
+    {
+      "dia_numero": 52,
+      "repeticion": 3,
+      "seed_ejecucion": 854860360
+    },
+    {
+      "dia_numero": 53,
+      "repeticion": 1,
+      "seed_ejecucion": 29884113
+    },
+    {
+      "dia_numero": 53,
+      "repeticion": 2,
+      "seed_ejecucion": 676227985
+    },
+    {
+      "dia_numero": 53,
+      "repeticion": 3,
+      "seed_ejecucion": 138805269
+    },
+    {
+      "dia_numero": 54,
+      "repeticion": 1,
+      "seed_ejecucion": 123305872
+    },
+    {
+      "dia_numero": 54,
+      "repeticion": 2,
+      "seed_ejecucion": 336398493
+    },
+    {
+      "dia_numero": 54,
+      "repeticion": 3,
+      "seed_ejecucion": 381913020
+    },
+    {
+      "dia_numero": 55,
+      "repeticion": 1,
+      "seed_ejecucion": 542602920
+    },
+    {
+      "dia_numero": 55,
+      "repeticion": 2,
+      "seed_ejecucion": 975544977
+    },
+    {
+      "dia_numero": 55,
+      "repeticion": 3,
+      "seed_ejecucion": 369082930
+    },
+    {
+      "dia_numero": 56,
+      "repeticion": 1,
+      "seed_ejecucion": 445404487
+    },
+    {
+      "dia_numero": 56,
+      "repeticion": 2,
+      "seed_ejecucion": 956093945
+    },
+    {
+      "dia_numero": 56,
+      "repeticion": 3,
+      "seed_ejecucion": 110323877
+    },
+    {
+      "dia_numero": 57,
+      "repeticion": 1,
+      "seed_ejecucion": 265044376
+    },
+    {
+      "dia_numero": 57,
+      "repeticion": 2,
+      "seed_ejecucion": 921162492
+    },
+    {
+      "dia_numero": 57,
+      "repeticion": 3,
+      "seed_ejecucion": 608818095
+    },
+    {
+      "dia_numero": 58,
+      "repeticion": 1,
+      "seed_ejecucion": 91222330
+    },
+    {
+      "dia_numero": 58,
+      "repeticion": 2,
+      "seed_ejecucion": 799396485
+    },
+    {
+      "dia_numero": 58,
+      "repeticion": 3,
+      "seed_ejecucion": 373508952
+    },
+    {
+      "dia_numero": 59,
+      "repeticion": 1,
+      "seed_ejecucion": 602403819
+    },
+    {
+      "dia_numero": 59,
+      "repeticion": 2,
+      "seed_ejecucion": 626025758
+    },
+    {
+      "dia_numero": 59,
+      "repeticion": 3,
+      "seed_ejecucion": 539623936
+    },
+    {
+      "dia_numero": 60,
+      "repeticion": 1,
+      "seed_ejecucion": 247007492
+    },
+    {
+      "dia_numero": 60,
+      "repeticion": 2,
+      "seed_ejecucion": 107700025
+    },
+    {
+      "dia_numero": 60,
+      "repeticion": 3,
+      "seed_ejecucion": 602817346
+    },
+    {
+      "dia_numero": 61,
+      "repeticion": 1,
+      "seed_ejecucion": 156651944
+    },
+    {
+      "dia_numero": 61,
+      "repeticion": 2,
+      "seed_ejecucion": 611892903
+    },
+    {
+      "dia_numero": 61,
+      "repeticion": 3,
+      "seed_ejecucion": 640505056
+    },
+    {
+      "dia_numero": 62,
+      "repeticion": 1,
+      "seed_ejecucion": 612805498
+    },
+    {
+      "dia_numero": 62,
+      "repeticion": 2,
+      "seed_ejecucion": 832012990
+    },
+    {
+      "dia_numero": 62,
+      "repeticion": 3,
+      "seed_ejecucion": 928811226
+    },
+    {
+      "dia_numero": 63,
+      "repeticion": 1,
+      "seed_ejecucion": 274059514
+    },
+    {
+      "dia_numero": 63,
+      "repeticion": 2,
+      "seed_ejecucion": 15518049
+    },
+    {
+      "dia_numero": 63,
+      "repeticion": 3,
+      "seed_ejecucion": 461073428
+    },
+    {
+      "dia_numero": 64,
+      "repeticion": 1,
+      "seed_ejecucion": 943142350
+    },
+    {
+      "dia_numero": 64,
+      "repeticion": 2,
+      "seed_ejecucion": 923870748
+    },
+    {
+      "dia_numero": 64,
+      "repeticion": 3,
+      "seed_ejecucion": 115981974
+    },
+    {
+      "dia_numero": 65,
+      "repeticion": 1,
+      "seed_ejecucion": 794603902
+    },
+    {
+      "dia_numero": 65,
+      "repeticion": 2,
+      "seed_ejecucion": 975966913
+    },
+    {
+      "dia_numero": 65,
+      "repeticion": 3,
+      "seed_ejecucion": 102438914
+    },
+    {
+      "dia_numero": 66,
+      "repeticion": 1,
+      "seed_ejecucion": 225306618
+    },
+    {
+      "dia_numero": 66,
+      "repeticion": 2,
+      "seed_ejecucion": 902658107
+    },
+    {
+      "dia_numero": 66,
+      "repeticion": 3,
+      "seed_ejecucion": 170708852
+    },
+    {
+      "dia_numero": 67,
+      "repeticion": 1,
+      "seed_ejecucion": 150708073
+    },
+    {
+      "dia_numero": 67,
+      "repeticion": 2,
+      "seed_ejecucion": 516851937
+    },
+    {
+      "dia_numero": 67,
+      "repeticion": 3,
+      "seed_ejecucion": 922315626
+    },
+    {
+      "dia_numero": 68,
+      "repeticion": 1,
+      "seed_ejecucion": 320869789
+    },
+    {
+      "dia_numero": 68,
+      "repeticion": 2,
+      "seed_ejecucion": 660036247
+    },
+    {
+      "dia_numero": 68,
+      "repeticion": 3,
+      "seed_ejecucion": 612225406
+    },
+    {
+      "dia_numero": 69,
+      "repeticion": 1,
+      "seed_ejecucion": 97245370
+    },
+    {
+      "dia_numero": 69,
+      "repeticion": 2,
+      "seed_ejecucion": 134752607
+    },
+    {
+      "dia_numero": 69,
+      "repeticion": 3,
+      "seed_ejecucion": 895339138
+    },
+    {
+      "dia_numero": 70,
+      "repeticion": 1,
+      "seed_ejecucion": 919214421
+    },
+    {
+      "dia_numero": 70,
+      "repeticion": 2,
+      "seed_ejecucion": 441751332
+    },
+    {
+      "dia_numero": 70,
+      "repeticion": 3,
+      "seed_ejecucion": 416579267
+    },
+    {
+      "dia_numero": 71,
+      "repeticion": 1,
+      "seed_ejecucion": 1267924
+    },
+    {
+      "dia_numero": 71,
+      "repeticion": 2,
+      "seed_ejecucion": 700937694
+    },
+    {
+      "dia_numero": 71,
+      "repeticion": 3,
+      "seed_ejecucion": 738614609
+    },
+    {
+      "dia_numero": 72,
+      "repeticion": 1,
+      "seed_ejecucion": 531648356
+    },
+    {
+      "dia_numero": 72,
+      "repeticion": 2,
+      "seed_ejecucion": 627394321
+    },
+    {
+      "dia_numero": 72,
+      "repeticion": 3,
+      "seed_ejecucion": 354519676
+    },
+    {
+      "dia_numero": 73,
+      "repeticion": 1,
+      "seed_ejecucion": 87281434
+    },
+    {
+      "dia_numero": 73,
+      "repeticion": 2,
+      "seed_ejecucion": 717459800
+    },
+    {
+      "dia_numero": 73,
+      "repeticion": 3,
+      "seed_ejecucion": 681058802
+    },
+    {
+      "dia_numero": 74,
+      "repeticion": 1,
+      "seed_ejecucion": 751079753
+    },
+    {
+      "dia_numero": 74,
+      "repeticion": 2,
+      "seed_ejecucion": 654530025
+    },
+    {
+      "dia_numero": 74,
+      "repeticion": 3,
+      "seed_ejecucion": 181150805
+    },
+    {
+      "dia_numero": 75,
+      "repeticion": 1,
+      "seed_ejecucion": 308466892
+    },
+    {
+      "dia_numero": 75,
+      "repeticion": 2,
+      "seed_ejecucion": 752962084
+    },
+    {
+      "dia_numero": 75,
+      "repeticion": 3,
+      "seed_ejecucion": 127410434
+    },
+    {
+      "dia_numero": 76,
+      "repeticion": 1,
+      "seed_ejecucion": 539937634
+    },
+    {
+      "dia_numero": 76,
+      "repeticion": 2,
+      "seed_ejecucion": 260865773
+    },
+    {
+      "dia_numero": 76,
+      "repeticion": 3,
+      "seed_ejecucion": 462761889
+    },
+    {
+      "dia_numero": 77,
+      "repeticion": 1,
+      "seed_ejecucion": 782260432
+    },
+    {
+      "dia_numero": 77,
+      "repeticion": 2,
+      "seed_ejecucion": 13723203
+    },
+    {
+      "dia_numero": 77,
+      "repeticion": 3,
+      "seed_ejecucion": 989576656
+    },
+    {
+      "dia_numero": 78,
+      "repeticion": 1,
+      "seed_ejecucion": 899960021
+    },
+    {
+      "dia_numero": 78,
+      "repeticion": 2,
+      "seed_ejecucion": 401026699
+    },
+    {
+      "dia_numero": 78,
+      "repeticion": 3,
+      "seed_ejecucion": 692899927
+    },
+    {
+      "dia_numero": 79,
+      "repeticion": 1,
+      "seed_ejecucion": 295709986
+    },
+    {
+      "dia_numero": 79,
+      "repeticion": 2,
+      "seed_ejecucion": 525196412
+    },
+    {
+      "dia_numero": 79,
+      "repeticion": 3,
+      "seed_ejecucion": 693059459
+    },
+    {
+      "dia_numero": 80,
+      "repeticion": 1,
+      "seed_ejecucion": 208359275
+    },
+    {
+      "dia_numero": 80,
+      "repeticion": 2,
+      "seed_ejecucion": 470376142
+    },
+    {
+      "dia_numero": 80,
+      "repeticion": 3,
+      "seed_ejecucion": 920340451
+    },
+    {
+      "dia_numero": 81,
+      "repeticion": 1,
+      "seed_ejecucion": 883642223
+    },
+    {
+      "dia_numero": 81,
+      "repeticion": 2,
+      "seed_ejecucion": 502552402
+    },
+    {
+      "dia_numero": 81,
+      "repeticion": 3,
+      "seed_ejecucion": 461824383
+    },
+    {
+      "dia_numero": 82,
+      "repeticion": 1,
+      "seed_ejecucion": 746674088
+    },
+    {
+      "dia_numero": 82,
+      "repeticion": 2,
+      "seed_ejecucion": 846065784
+    },
+    {
+      "dia_numero": 82,
+      "repeticion": 3,
+      "seed_ejecucion": 184990108
+    },
+    {
+      "dia_numero": 83,
+      "repeticion": 1,
+      "seed_ejecucion": 711095059
+    },
+    {
+      "dia_numero": 83,
+      "repeticion": 2,
+      "seed_ejecucion": 246640260
+    },
+    {
+      "dia_numero": 83,
+      "repeticion": 3,
+      "seed_ejecucion": 981334718
+    },
+    {
+      "dia_numero": 84,
+      "repeticion": 1,
+      "seed_ejecucion": 213330309
+    },
+    {
+      "dia_numero": 84,
+      "repeticion": 2,
+      "seed_ejecucion": 963606590
+    },
+    {
+      "dia_numero": 84,
+      "repeticion": 3,
+      "seed_ejecucion": 279596364
+    },
+    {
+      "dia_numero": 85,
+      "repeticion": 1,
+      "seed_ejecucion": 839399779
+    },
+    {
+      "dia_numero": 85,
+      "repeticion": 2,
+      "seed_ejecucion": 127669320
+    },
+    {
+      "dia_numero": 85,
+      "repeticion": 3,
+      "seed_ejecucion": 137774520
+    },
+    {
+      "dia_numero": 86,
+      "repeticion": 1,
+      "seed_ejecucion": 21050946
+    },
+    {
+      "dia_numero": 86,
+      "repeticion": 2,
+      "seed_ejecucion": 618556165
+    },
+    {
+      "dia_numero": 86,
+      "repeticion": 3,
+      "seed_ejecucion": 863355835
+    },
+    {
+      "dia_numero": 87,
+      "repeticion": 1,
+      "seed_ejecucion": 638166724
+    },
+    {
+      "dia_numero": 87,
+      "repeticion": 2,
+      "seed_ejecucion": 497066491
+    },
+    {
+      "dia_numero": 87,
+      "repeticion": 3,
+      "seed_ejecucion": 818552484
+    },
+    {
+      "dia_numero": 88,
+      "repeticion": 1,
+      "seed_ejecucion": 923487806
+    },
+    {
+      "dia_numero": 88,
+      "repeticion": 2,
+      "seed_ejecucion": 944303872
+    },
+    {
+      "dia_numero": 88,
+      "repeticion": 3,
+      "seed_ejecucion": 332447490
+    },
+    {
+      "dia_numero": 89,
+      "repeticion": 1,
+      "seed_ejecucion": 223466389
+    },
+    {
+      "dia_numero": 89,
+      "repeticion": 2,
+      "seed_ejecucion": 223322276
+    },
+    {
+      "dia_numero": 89,
+      "repeticion": 3,
+      "seed_ejecucion": 958874762
+    },
+    {
+      "dia_numero": 90,
+      "repeticion": 1,
+      "seed_ejecucion": 928746909
+    },
+    {
+      "dia_numero": 90,
+      "repeticion": 2,
+      "seed_ejecucion": 568172690
+    },
+    {
+      "dia_numero": 90,
+      "repeticion": 3,
+      "seed_ejecucion": 618120003
+    },
+    {
+      "dia_numero": 91,
+      "repeticion": 1,
+      "seed_ejecucion": 513043211
+    },
+    {
+      "dia_numero": 91,
+      "repeticion": 2,
+      "seed_ejecucion": 911637847
+    },
+    {
+      "dia_numero": 91,
+      "repeticion": 3,
+      "seed_ejecucion": 116185605
+    },
+    {
+      "dia_numero": 92,
+      "repeticion": 1,
+      "seed_ejecucion": 105218152
+    },
+    {
+      "dia_numero": 92,
+      "repeticion": 2,
+      "seed_ejecucion": 257371301
+    },
+    {
+      "dia_numero": 92,
+      "repeticion": 3,
+      "seed_ejecucion": 76532337
+    },
+    {
+      "dia_numero": 93,
+      "repeticion": 1,
+      "seed_ejecucion": 199381723
+    },
+    {
+      "dia_numero": 93,
+      "repeticion": 2,
+      "seed_ejecucion": 826585056
+    },
+    {
+      "dia_numero": 93,
+      "repeticion": 3,
+      "seed_ejecucion": 463211918
+    },
+    {
+      "dia_numero": 94,
+      "repeticion": 1,
+      "seed_ejecucion": 30752543
+    },
+    {
+      "dia_numero": 94,
+      "repeticion": 2,
+      "seed_ejecucion": 861917812
+    },
+    {
+      "dia_numero": 94,
+      "repeticion": 3,
+      "seed_ejecucion": 92372877
+    },
+    {
+      "dia_numero": 95,
+      "repeticion": 1,
+      "seed_ejecucion": 572106175
+    },
+    {
+      "dia_numero": 95,
+      "repeticion": 2,
+      "seed_ejecucion": 619088118
+    },
+    {
+      "dia_numero": 95,
+      "repeticion": 3,
+      "seed_ejecucion": 600050306
+    },
+    {
+      "dia_numero": 96,
+      "repeticion": 1,
+      "seed_ejecucion": 216174990
+    },
+    {
+      "dia_numero": 96,
+      "repeticion": 2,
+      "seed_ejecucion": 726086752
+    },
+    {
+      "dia_numero": 96,
+      "repeticion": 3,
+      "seed_ejecucion": 153025738
+    },
+    {
+      "dia_numero": 97,
+      "repeticion": 1,
+      "seed_ejecucion": 744366622
+    },
+    {
+      "dia_numero": 97,
+      "repeticion": 2,
+      "seed_ejecucion": 238992128
+    },
+    {
+      "dia_numero": 97,
+      "repeticion": 3,
+      "seed_ejecucion": 507057270
+    },
+    {
+      "dia_numero": 98,
+      "repeticion": 1,
+      "seed_ejecucion": 145275181
+    },
+    {
+      "dia_numero": 98,
+      "repeticion": 2,
+      "seed_ejecucion": 730555258
+    },
+    {
+      "dia_numero": 98,
+      "repeticion": 3,
+      "seed_ejecucion": 187761656
+    },
+    {
+      "dia_numero": 99,
+      "repeticion": 1,
+      "seed_ejecucion": 59787764
+    },
+    {
+      "dia_numero": 99,
+      "repeticion": 2,
+      "seed_ejecucion": 418440217
+    },
+    {
+      "dia_numero": 99,
+      "repeticion": 3,
+      "seed_ejecucion": 619236747
+    },
+    {
+      "dia_numero": 100,
+      "repeticion": 1,
+      "seed_ejecucion": 60565063
+    },
+    {
+      "dia_numero": 100,
+      "repeticion": 2,
+      "seed_ejecucion": 599157932
+    },
+    {
+      "dia_numero": 100,
+      "repeticion": 3,
+      "seed_ejecucion": 657862418
+    }
+  ],
+  "entradas": [
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_01.xlsx",
+      "archivo_excel_relativo": "entradas/0001_pedidos_dia_01.xlsx",
+      "dia_numero": 1,
+      "seed_escenario": 137320268,
+      "sha256": "da89fca975ef8581e86c98f6d26365bd4f44d3848874909a04991859d94ed5c5",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_02.xlsx",
+      "archivo_excel_relativo": "entradas/0002_pedidos_dia_02.xlsx",
+      "dia_numero": 2,
+      "seed_escenario": 172057864,
+      "sha256": "f31fb919a618c710029db7fb473cce131933f572acee9761ef766b2ff61389df",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_03.xlsx",
+      "archivo_excel_relativo": "entradas/0003_pedidos_dia_03.xlsx",
+      "dia_numero": 3,
+      "seed_escenario": 68497139,
+      "sha256": "f3b7129fd7d47bd9905b9a135c14ac38260ad6196a3fdbb844ff49bd9ea91d44",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_04.xlsx",
+      "archivo_excel_relativo": "entradas/0004_pedidos_dia_04.xlsx",
+      "dia_numero": 4,
+      "seed_escenario": 974934530,
+      "sha256": "6f03cfea02783bb2e078ab679cc21f7334abfc316231643d211083d6a920d12b",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_05.xlsx",
+      "archivo_excel_relativo": "entradas/0005_pedidos_dia_05.xlsx",
+      "dia_numero": 5,
+      "seed_escenario": 936741286,
+      "sha256": "77c2857e0cbc2d22c102908a81d6446821b1db0d7d8cce0dfa6a5a5ebde715ba",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_06.xlsx",
+      "archivo_excel_relativo": "entradas/0006_pedidos_dia_06.xlsx",
+      "dia_numero": 6,
+      "seed_escenario": 835424788,
+      "sha256": "cce93e0e5de1dd40d6ad8faed148b235ce3544e6e3c0bb22cd63fb5446160a25",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_07.xlsx",
+      "archivo_excel_relativo": "entradas/0007_pedidos_dia_07.xlsx",
+      "dia_numero": 7,
+      "seed_escenario": 149693005,
+      "sha256": "1139fa1dff23b0a409ac21ba2a1887b9841c39ee758e7cb93d07de8b63da7fc1",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_08.xlsx",
+      "archivo_excel_relativo": "entradas/0008_pedidos_dia_08.xlsx",
+      "dia_numero": 8,
+      "seed_escenario": 62349496,
+      "sha256": "0564470cd0c5e76953644392e72a4c2f74404cffc8d37742d8a6ab9e8350e296",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_09.xlsx",
+      "archivo_excel_relativo": "entradas/0009_pedidos_dia_09.xlsx",
+      "dia_numero": 9,
+      "seed_escenario": 130602782,
+      "sha256": "d923a4a9bad82568f5b6630c8a1c9c0d7063e993e1044500fb539046d9e5b912",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_10.xlsx",
+      "archivo_excel_relativo": "entradas/0010_pedidos_dia_10.xlsx",
+      "dia_numero": 10,
+      "seed_escenario": 540382285,
+      "sha256": "2cd6332f5a6f3c783d11d9cd46192039db965cd83c4b8e1bb460bb2ddb8a534d",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_11.xlsx",
+      "archivo_excel_relativo": "entradas/0011_pedidos_dia_11.xlsx",
+      "dia_numero": 11,
+      "seed_escenario": 202708035,
+      "sha256": "f70c42dc7338d25977a67c2c7d175bdb0bba6f4a77c57b650547a0dc7348c911",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_12.xlsx",
+      "archivo_excel_relativo": "entradas/0012_pedidos_dia_12.xlsx",
+      "dia_numero": 12,
+      "seed_escenario": 782144306,
+      "sha256": "57390747fa24eb91e86ae6b58a3ecfcbf0cd169d48abf3c7c0fd0d9c93851c14",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_13.xlsx",
+      "archivo_excel_relativo": "entradas/0013_pedidos_dia_13.xlsx",
+      "dia_numero": 13,
+      "seed_escenario": 262206518,
+      "sha256": "50c6d101a14cefd11ada42338259a5e0d1b0bbdaf160a1180e840cb9495eeed2",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_14.xlsx",
+      "archivo_excel_relativo": "entradas/0014_pedidos_dia_14.xlsx",
+      "dia_numero": 14,
+      "seed_escenario": 505174562,
+      "sha256": "66bc443d97f38f3889ef0cfc69687b6adc2fdbdfb7bbf1c18f1ff1bf959ec91c",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_15.xlsx",
+      "archivo_excel_relativo": "entradas/0015_pedidos_dia_15.xlsx",
+      "dia_numero": 15,
+      "seed_escenario": 147595761,
+      "sha256": "758fa12ff4e3763967f4c4bad8363eb2af72c2a60691c34281cbb119b425fff4",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_16.xlsx",
+      "archivo_excel_relativo": "entradas/0016_pedidos_dia_16.xlsx",
+      "dia_numero": 16,
+      "seed_escenario": 981649242,
+      "sha256": "000ac80470cfca06bddb46a7d8044c22b405f5fa11c97fd50c94cbbd5b76a59c",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_17.xlsx",
+      "archivo_excel_relativo": "entradas/0017_pedidos_dia_17.xlsx",
+      "dia_numero": 17,
+      "seed_escenario": 433043098,
+      "sha256": "aa65fa13ca9421e46b4e1db9acdaa8ec3c7d17624106b508cf6259f6d3d37853",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_18.xlsx",
+      "archivo_excel_relativo": "entradas/0018_pedidos_dia_18.xlsx",
+      "dia_numero": 18,
+      "seed_escenario": 933432762,
+      "sha256": "03fdc222c53346d2ab0615e90d5c04e0864dfcbe6da4e51127a036dabfce3b10",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_19.xlsx",
+      "archivo_excel_relativo": "entradas/0019_pedidos_dia_19.xlsx",
+      "dia_numero": 19,
+      "seed_escenario": 702209185,
+      "sha256": "429003e8748be42aa0510ae8eceba1733dd763e89ab0ad89986a6f3cbd42790c",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_20.xlsx",
+      "archivo_excel_relativo": "entradas/0020_pedidos_dia_20.xlsx",
+      "dia_numero": 20,
+      "seed_escenario": 717159756,
+      "sha256": "d3320662d757bcdb86d1b0f2bdfa7b2a60929ec8964d7dc2863b516e4c345774",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_21.xlsx",
+      "archivo_excel_relativo": "entradas/0021_pedidos_dia_21.xlsx",
+      "dia_numero": 21,
+      "seed_escenario": 950433651,
+      "sha256": "ce5bc030d0fa1de76e72efd5c24216ac13f3a0dd8780024d963ab92212cdb53b",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_22.xlsx",
+      "archivo_excel_relativo": "entradas/0022_pedidos_dia_22.xlsx",
+      "dia_numero": 22,
+      "seed_escenario": 522943970,
+      "sha256": "a1f9761e52ec74c9061b0352d302cd518870d8211c2ab2337a94ce732acc9c0e",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_23.xlsx",
+      "archivo_excel_relativo": "entradas/0023_pedidos_dia_23.xlsx",
+      "dia_numero": 23,
+      "seed_escenario": 991265623,
+      "sha256": "eb3661761984be7feddfaf573fe7a71f139862970d18863e36fad777be330f48",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_24.xlsx",
+      "archivo_excel_relativo": "entradas/0024_pedidos_dia_24.xlsx",
+      "dia_numero": 24,
+      "seed_escenario": 32704009,
+      "sha256": "ea7c18935d7c392ade85e20a9e4d518c9bce3aff7b48b1f0091dcef471339744",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_25.xlsx",
+      "archivo_excel_relativo": "entradas/0025_pedidos_dia_25.xlsx",
+      "dia_numero": 25,
+      "seed_escenario": 395938684,
+      "sha256": "9e95a36f8e769bada2507f81c61f7fde830d20b92568c1e7434b910a51dd67f4",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_26.xlsx",
+      "archivo_excel_relativo": "entradas/0026_pedidos_dia_26.xlsx",
+      "dia_numero": 26,
+      "seed_escenario": 500859177,
+      "sha256": "a4103f53bace097da6607db7ca7fd018e06e110020143af19b4ea456accc8e22",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_27.xlsx",
+      "archivo_excel_relativo": "entradas/0027_pedidos_dia_27.xlsx",
+      "dia_numero": 27,
+      "seed_escenario": 721497778,
+      "sha256": "39bc7894111a883323c484f4d8eeff9c0f77edf5e7e52db0c3c9ddd8b40ed59e",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_28.xlsx",
+      "archivo_excel_relativo": "entradas/0028_pedidos_dia_28.xlsx",
+      "dia_numero": 28,
+      "seed_escenario": 166185801,
+      "sha256": "21063125b8184f74255f6f6aea74600d3ef37be2dc52ebc270dce5e9829e5c52",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_29.xlsx",
+      "archivo_excel_relativo": "entradas/0029_pedidos_dia_29.xlsx",
+      "dia_numero": 29,
+      "seed_escenario": 546007933,
+      "sha256": "9cbce95258185955b5aec02875d1334c4e9e678d30c9060a341ef503165ec8df",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_30.xlsx",
+      "archivo_excel_relativo": "entradas/0030_pedidos_dia_30.xlsx",
+      "dia_numero": 30,
+      "seed_escenario": 414935129,
+      "sha256": "5cbe5452dc80d73a44c42388f3e9662ac28101de5cc8bf51339a2901b216d249",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_31.xlsx",
+      "archivo_excel_relativo": "entradas/0031_pedidos_dia_31.xlsx",
+      "dia_numero": 31,
+      "seed_escenario": 341904784,
+      "sha256": "b327466e825a7826e1153bdbfef6380d5a46156014865afd4d6409ea3d24a723",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_32.xlsx",
+      "archivo_excel_relativo": "entradas/0032_pedidos_dia_32.xlsx",
+      "dia_numero": 32,
+      "seed_escenario": 248935859,
+      "sha256": "f241eafb655c1394bc5cf3af594c36a24a453aa3aa475d93a6a660ec5bc41097",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_33.xlsx",
+      "archivo_excel_relativo": "entradas/0033_pedidos_dia_33.xlsx",
+      "dia_numero": 33,
+      "seed_escenario": 865450682,
+      "sha256": "530ba2e8b81ee77ee3eb2b0c8670d7615c85beba484f207740a56cca53e7181c",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_34.xlsx",
+      "archivo_excel_relativo": "entradas/0034_pedidos_dia_34.xlsx",
+      "dia_numero": 34,
+      "seed_escenario": 130370418,
+      "sha256": "699c59f3fd5d589c9f4b3225a0d24869f1d3a4675651d24ab480d0149b1ceaa5",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_35.xlsx",
+      "archivo_excel_relativo": "entradas/0035_pedidos_dia_35.xlsx",
+      "dia_numero": 35,
+      "seed_escenario": 850350059,
+      "sha256": "cc4392ac1607a12110cb7283a2b8ad5d53b7004a41cf24bc46858343bfdbc201",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_36.xlsx",
+      "archivo_excel_relativo": "entradas/0036_pedidos_dia_36.xlsx",
+      "dia_numero": 36,
+      "seed_escenario": 914648091,
+      "sha256": "5982a8eeb5356e293f07b6ed39c5ec53a02d9bafca66efc52d8931e29ff02f5f",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_37.xlsx",
+      "archivo_excel_relativo": "entradas/0037_pedidos_dia_37.xlsx",
+      "dia_numero": 37,
+      "seed_escenario": 37932243,
+      "sha256": "91219ca444d35d4938afaf3e422c6d2dca449390de2c11f6e99429f4bc0f6203",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_38.xlsx",
+      "archivo_excel_relativo": "entradas/0038_pedidos_dia_38.xlsx",
+      "dia_numero": 38,
+      "seed_escenario": 40018940,
+      "sha256": "3b932d4ca8848740c1d8a122088309307c50391f6f3321d8b48219bd66586f19",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_39.xlsx",
+      "archivo_excel_relativo": "entradas/0039_pedidos_dia_39.xlsx",
+      "dia_numero": 39,
+      "seed_escenario": 475724067,
+      "sha256": "7bb67f36b0727ef7c6a0aa0033b050307e72db37654b3d66e26086cecc2a44b2",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_40.xlsx",
+      "archivo_excel_relativo": "entradas/0040_pedidos_dia_40.xlsx",
+      "dia_numero": 40,
+      "seed_escenario": 493690398,
+      "sha256": "f13a8719c9ee12184a6b6932a609602e5d3763849431cac8c044b5f6b406b5dc",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_41.xlsx",
+      "archivo_excel_relativo": "entradas/0041_pedidos_dia_41.xlsx",
+      "dia_numero": 41,
+      "seed_escenario": 219823388,
+      "sha256": "0ba1d8f5c1983d50a7ebd9c9929669632796a76ad11f2cfcd65c51e70b1221e1",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_42.xlsx",
+      "archivo_excel_relativo": "entradas/0042_pedidos_dia_42.xlsx",
+      "dia_numero": 42,
+      "seed_escenario": 28640892,
+      "sha256": "91175475b1a9ace82e99596ab935687855397458b4221d11d9341b70e45d7e2f",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_43.xlsx",
+      "archivo_excel_relativo": "entradas/0043_pedidos_dia_43.xlsx",
+      "dia_numero": 43,
+      "seed_escenario": 905209341,
+      "sha256": "60b413e9a9b90c1266123b0d04f1160060f699b484108d8c78e4a60264cdc9fd",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_44.xlsx",
+      "archivo_excel_relativo": "entradas/0044_pedidos_dia_44.xlsx",
+      "dia_numero": 44,
+      "seed_escenario": 234417573,
+      "sha256": "92f6f44e0a1bc8d19a588ee31a3f874d7607d81fea60fc6f40b4c2a0fef8a3d1",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_45.xlsx",
+      "archivo_excel_relativo": "entradas/0045_pedidos_dia_45.xlsx",
+      "dia_numero": 45,
+      "seed_escenario": 882859404,
+      "sha256": "56ee5ba70b6bf610c12c306d3700e71d01e31666265e2f71d72be216287a7ece",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_46.xlsx",
+      "archivo_excel_relativo": "entradas/0046_pedidos_dia_46.xlsx",
+      "dia_numero": 46,
+      "seed_escenario": 134439336,
+      "sha256": "4238831516b27efd3681b5f820fbaa306e0d44786ec039f96e3aa4af0d658fd0",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_47.xlsx",
+      "archivo_excel_relativo": "entradas/0047_pedidos_dia_47.xlsx",
+      "dia_numero": 47,
+      "seed_escenario": 793348427,
+      "sha256": "e1208e09d9fdff5b33cd8ef5444bd52aab9031060fc50566c7fe176ece25f836",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_48.xlsx",
+      "archivo_excel_relativo": "entradas/0048_pedidos_dia_48.xlsx",
+      "dia_numero": 48,
+      "seed_escenario": 199989381,
+      "sha256": "8515e18c868cc5b0160b7ae51721f9138da4f225fc18db5150289cecc2b40c27",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_49.xlsx",
+      "archivo_excel_relativo": "entradas/0049_pedidos_dia_49.xlsx",
+      "dia_numero": 49,
+      "seed_escenario": 712826021,
+      "sha256": "0a31fd9781cccac26d5ad8fd070861d5d303398085ca91e9fc8bce092d2d61d8",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_50.xlsx",
+      "archivo_excel_relativo": "entradas/0050_pedidos_dia_50.xlsx",
+      "dia_numero": 50,
+      "seed_escenario": 28622690,
+      "sha256": "da5f28dc5438e04cff28132dee5edf8dd6c82d0235e1123d360fa9174c8acc3e",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_51.xlsx",
+      "archivo_excel_relativo": "entradas/0051_pedidos_dia_51.xlsx",
+      "dia_numero": 51,
+      "seed_escenario": 922084422,
+      "sha256": "498e3ce5c7c05860118bdf4f8ed9e8e2f66b4b4c4cd3407b94da64039d5cb115",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_52.xlsx",
+      "archivo_excel_relativo": "entradas/0052_pedidos_dia_52.xlsx",
+      "dia_numero": 52,
+      "seed_escenario": 670073928,
+      "sha256": "982aab2db370901568879e3c03b03a6196204cade7a37ad1f54d2f60cefd46b7",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_53.xlsx",
+      "archivo_excel_relativo": "entradas/0053_pedidos_dia_53.xlsx",
+      "dia_numero": 53,
+      "seed_escenario": 837074311,
+      "sha256": "5ea7bc0aa725e4e69d4f1bad21b863e9c0b73548cad9e2ea703d5b1ebbb037ee",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_54.xlsx",
+      "archivo_excel_relativo": "entradas/0054_pedidos_dia_54.xlsx",
+      "dia_numero": 54,
+      "seed_escenario": 985759682,
+      "sha256": "dc04db2bf0559a8e29341e566e7ef874a3deff1eab016d6b6c0859b2d0779e8f",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_55.xlsx",
+      "archivo_excel_relativo": "entradas/0055_pedidos_dia_55.xlsx",
+      "dia_numero": 55,
+      "seed_escenario": 254945917,
+      "sha256": "166f8c77b75a4aac3ebb380d9b5bf7f5391e2e7e44b977ee3ed07dfd857fa5e0",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_56.xlsx",
+      "archivo_excel_relativo": "entradas/0056_pedidos_dia_56.xlsx",
+      "dia_numero": 56,
+      "seed_escenario": 611007535,
+      "sha256": "31b0b9dccaeaa5d5cc07daa41365a795bf0e36c67ddc77c8ea7fad4575148d9d",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_57.xlsx",
+      "archivo_excel_relativo": "entradas/0057_pedidos_dia_57.xlsx",
+      "dia_numero": 57,
+      "seed_escenario": 89723413,
+      "sha256": "c560d32f5e02387e4b5e16d3ef6a2d7b70d943fbd1cbc9c39576e1ec6f37634b",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_58.xlsx",
+      "archivo_excel_relativo": "entradas/0058_pedidos_dia_58.xlsx",
+      "dia_numero": 58,
+      "seed_escenario": 960712894,
+      "sha256": "5d0685121eb447c6de507d33db63a13a3e3a8344e7a202328b74bb345f7df5dd",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_59.xlsx",
+      "archivo_excel_relativo": "entradas/0059_pedidos_dia_59.xlsx",
+      "dia_numero": 59,
+      "seed_escenario": 808046563,
+      "sha256": "65ce6f3068056f6a917007b7ca85454042594bb76839e169bd5c1ca96cef3d97",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_60.xlsx",
+      "archivo_excel_relativo": "entradas/0060_pedidos_dia_60.xlsx",
+      "dia_numero": 60,
+      "seed_escenario": 267204535,
+      "sha256": "5e012c7aa0c1a0984bc0b52e45bc1f8b0d27e7beb43f969937b57a23b6d64238",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_61.xlsx",
+      "archivo_excel_relativo": "entradas/0061_pedidos_dia_61.xlsx",
+      "dia_numero": 61,
+      "seed_escenario": 871025687,
+      "sha256": "3bcac728f21424175c169c673b863c9c28f2461a0d4759367f04a0af2dad16a0",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_62.xlsx",
+      "archivo_excel_relativo": "entradas/0062_pedidos_dia_62.xlsx",
+      "dia_numero": 62,
+      "seed_escenario": 520463452,
+      "sha256": "f8cc1ccc414f353401fec22e2e0b691422e41689d4e6d55fc8e0bdcc7531f1e2",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_63.xlsx",
+      "archivo_excel_relativo": "entradas/0063_pedidos_dia_63.xlsx",
+      "dia_numero": 63,
+      "seed_escenario": 218975350,
+      "sha256": "ff8721ed92bf3246f3cb5823e6b9ecf6459f1f68a9768ef879ed742ea38663c5",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_64.xlsx",
+      "archivo_excel_relativo": "entradas/0064_pedidos_dia_64.xlsx",
+      "dia_numero": 64,
+      "seed_escenario": 242957908,
+      "sha256": "7194f836baa3a118011b612c2e492c567099d78b2a94c4a46ae50cfa276ec94e",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_65.xlsx",
+      "archivo_excel_relativo": "entradas/0065_pedidos_dia_65.xlsx",
+      "dia_numero": 65,
+      "seed_escenario": 394525678,
+      "sha256": "db282f437df10d08be1aee97a5f36ee5049976d826c4f520b1a1448b8db8185f",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_66.xlsx",
+      "archivo_excel_relativo": "entradas/0066_pedidos_dia_66.xlsx",
+      "dia_numero": 66,
+      "seed_escenario": 782673906,
+      "sha256": "83bf3603509027e609fc53d8d79a89dd7954d6f0e7778fa7db5d8d008a0ab5e4",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_67.xlsx",
+      "archivo_excel_relativo": "entradas/0067_pedidos_dia_67.xlsx",
+      "dia_numero": 67,
+      "seed_escenario": 898967378,
+      "sha256": "c441db0d7cdd2c34890541405b9cd4d35bbf561b7cc7d0c162725a8a9ee7304b",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_68.xlsx",
+      "archivo_excel_relativo": "entradas/0068_pedidos_dia_68.xlsx",
+      "dia_numero": 68,
+      "seed_escenario": 201848817,
+      "sha256": "47ada407aa2d77ce14c4220a5f0041fcdf73bcd6c38cb649d0c24ddabdc9efc9",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_69.xlsx",
+      "archivo_excel_relativo": "entradas/0069_pedidos_dia_69.xlsx",
+      "dia_numero": 69,
+      "seed_escenario": 634185310,
+      "sha256": "4e19b6b22081625f577d28473523de32e811498d77351af776d657ae5c43d91d",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_70.xlsx",
+      "archivo_excel_relativo": "entradas/0070_pedidos_dia_70.xlsx",
+      "dia_numero": 70,
+      "seed_escenario": 665922688,
+      "sha256": "ff098c34d888bbd59c52e618c13c3bdb36af7fa4852abbead182fbb42522920e",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_71.xlsx",
+      "archivo_excel_relativo": "entradas/0071_pedidos_dia_71.xlsx",
+      "dia_numero": 71,
+      "seed_escenario": 49511938,
+      "sha256": "0bdb84b8e973fa6475a20c2843536b07233e825f3a92b7904449f30cac4f3881",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_72.xlsx",
+      "archivo_excel_relativo": "entradas/0072_pedidos_dia_72.xlsx",
+      "dia_numero": 72,
+      "seed_escenario": 586573944,
+      "sha256": "698e8b7e8fb2dd275455db95289ff1924da2a24d1aaba89945260e0ad648ff8b",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_73.xlsx",
+      "archivo_excel_relativo": "entradas/0073_pedidos_dia_73.xlsx",
+      "dia_numero": 73,
+      "seed_escenario": 742222460,
+      "sha256": "004263d66617d5ad76fd36029e72938f4d50618fcecbb2eb8b171319968730b7",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_74.xlsx",
+      "archivo_excel_relativo": "entradas/0074_pedidos_dia_74.xlsx",
+      "dia_numero": 74,
+      "seed_escenario": 440611141,
+      "sha256": "0cfdbdfe8275ba7315238a8335b00c95e83ea4062e30c1bc892d4fdb7bd31805",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_75.xlsx",
+      "archivo_excel_relativo": "entradas/0075_pedidos_dia_75.xlsx",
+      "dia_numero": 75,
+      "seed_escenario": 344769201,
+      "sha256": "d6afd6d52c3b9d50b4b7e188b9cc03d879146e0c6d9c480fb10b38346baffe1e",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_76.xlsx",
+      "archivo_excel_relativo": "entradas/0076_pedidos_dia_76.xlsx",
+      "dia_numero": 76,
+      "seed_escenario": 476115283,
+      "sha256": "7c2020507a9aa00d9ad8d2311849576f86794465c24fffde59a801cf3172c42b",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_77.xlsx",
+      "archivo_excel_relativo": "entradas/0077_pedidos_dia_77.xlsx",
+      "dia_numero": 77,
+      "seed_escenario": 186823344,
+      "sha256": "85c20c8a87e987269bd5a9b92c462105c6f8f1acfeedac38329454cbdd138074",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_78.xlsx",
+      "archivo_excel_relativo": "entradas/0078_pedidos_dia_78.xlsx",
+      "dia_numero": 78,
+      "seed_escenario": 276541703,
+      "sha256": "7d6663621b2ba79052d94cb9c0890d15e3a3b8400a0e2c1daf5df407c54ad42a",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_79.xlsx",
+      "archivo_excel_relativo": "entradas/0079_pedidos_dia_79.xlsx",
+      "dia_numero": 79,
+      "seed_escenario": 580336793,
+      "sha256": "0a5ae1fd6b9cc421cf0bc3e834b6b323212f3007732bf16d1e8a3e1d8e8b9f6a",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_80.xlsx",
+      "archivo_excel_relativo": "entradas/0080_pedidos_dia_80.xlsx",
+      "dia_numero": 80,
+      "seed_escenario": 406775110,
+      "sha256": "332829d5943920b3b4f219ae58a77451b926207f3f30e550836cdd95a1f8fae8",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_81.xlsx",
+      "archivo_excel_relativo": "entradas/0081_pedidos_dia_81.xlsx",
+      "dia_numero": 81,
+      "seed_escenario": 388254772,
+      "sha256": "c91ff1c2cae3c01efa0fb45354e33cac742a892c2bf8c89ede0ff53ff1b4ff22",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_82.xlsx",
+      "archivo_excel_relativo": "entradas/0082_pedidos_dia_82.xlsx",
+      "dia_numero": 82,
+      "seed_escenario": 408704410,
+      "sha256": "97e6ed307ef331b9ccf1b2e1b20ff268e1aa608331245ab5e7e070fa3a7e6782",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_83.xlsx",
+      "archivo_excel_relativo": "entradas/0083_pedidos_dia_83.xlsx",
+      "dia_numero": 83,
+      "seed_escenario": 373967882,
+      "sha256": "fe681dd425ffb3e6e92795c0ebd1cc6ccfc3c118708d5f3cfd4be5af5e56c620",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_84.xlsx",
+      "archivo_excel_relativo": "entradas/0084_pedidos_dia_84.xlsx",
+      "dia_numero": 84,
+      "seed_escenario": 316314737,
+      "sha256": "750cee59094a21ac2723e08565cf3f072209369f949fc0caa38b8e1667b00f0b",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_85.xlsx",
+      "archivo_excel_relativo": "entradas/0085_pedidos_dia_85.xlsx",
+      "dia_numero": 85,
+      "seed_escenario": 511560765,
+      "sha256": "99279c54dfed68cebe4f6306d89d98f2bcbe3729fde4d2e6877a56ea75d54422",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_86.xlsx",
+      "archivo_excel_relativo": "entradas/0086_pedidos_dia_86.xlsx",
+      "dia_numero": 86,
+      "seed_escenario": 810362939,
+      "sha256": "e0169ccbc615a5647be56afbaa0f2ec2b90db44fd3bc98a26726067fad2eded4",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_87.xlsx",
+      "archivo_excel_relativo": "entradas/0087_pedidos_dia_87.xlsx",
+      "dia_numero": 87,
+      "seed_escenario": 332334133,
+      "sha256": "790ec2bb9c3c33ad4316fcfa7ab22dc97a3559863bbcce8b47a8243117554182",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_88.xlsx",
+      "archivo_excel_relativo": "entradas/0088_pedidos_dia_88.xlsx",
+      "dia_numero": 88,
+      "seed_escenario": 579749152,
+      "sha256": "f85871aa68fe668d7a09a6586aaefbef5bb59b73d418b4363f985199af2236da",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_89.xlsx",
+      "archivo_excel_relativo": "entradas/0089_pedidos_dia_89.xlsx",
+      "dia_numero": 89,
+      "seed_escenario": 438968526,
+      "sha256": "e0ab63981bc38cf4e758ec7a2e2eeafafb149d78666f6b42df7c2ca77273386a",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_90.xlsx",
+      "archivo_excel_relativo": "entradas/0090_pedidos_dia_90.xlsx",
+      "dia_numero": 90,
+      "seed_escenario": 91724204,
+      "sha256": "ee0d572a594a40e662d7845a7eef92477a3aec699d0b77102a80b69c287ae275",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_91.xlsx",
+      "archivo_excel_relativo": "entradas/0091_pedidos_dia_91.xlsx",
+      "dia_numero": 91,
+      "seed_escenario": 330984213,
+      "sha256": "1b3975b09eccedbbed950022dfc2047eb48febe1ca287cb7ae61fc1424e1cbce",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_92.xlsx",
+      "archivo_excel_relativo": "entradas/0092_pedidos_dia_92.xlsx",
+      "dia_numero": 92,
+      "seed_escenario": 505039101,
+      "sha256": "0e88a2c02c174bdb0ee0bb11dfe9444902197c3e1f3933b3ac4da193f0d47c30",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_93.xlsx",
+      "archivo_excel_relativo": "entradas/0093_pedidos_dia_93.xlsx",
+      "dia_numero": 93,
+      "seed_escenario": 830277103,
+      "sha256": "962fcb8c1a4afbdd4543f201f0cadf6af6488702bdb502f0af693a953ee034de",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_94.xlsx",
+      "archivo_excel_relativo": "entradas/0094_pedidos_dia_94.xlsx",
+      "dia_numero": 94,
+      "seed_escenario": 215267081,
+      "sha256": "cd24fb3b139d30b0ae825a25401b8c0d0227fe209fc1ff275b5ec3dd91dd133d",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_95.xlsx",
+      "archivo_excel_relativo": "entradas/0095_pedidos_dia_95.xlsx",
+      "dia_numero": 95,
+      "seed_escenario": 519343115,
+      "sha256": "8f0c96913fb7469bd279491aa5958a45f600828ee9f01013625b96e5abc467d9",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_96.xlsx",
+      "archivo_excel_relativo": "entradas/0096_pedidos_dia_96.xlsx",
+      "dia_numero": 96,
+      "seed_escenario": 81642350,
+      "sha256": "3a4eccae382e3f94fb0f928159926d30a7aa0f52d698db2d0df28b9208227aab",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_97.xlsx",
+      "archivo_excel_relativo": "entradas/0097_pedidos_dia_97.xlsx",
+      "dia_numero": 97,
+      "seed_escenario": 472614135,
+      "sha256": "43f5b9877b7e101b12c80ca2c7172c90d3be5f600e1a12b9d9da6ee95ef7fde6",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_98.xlsx",
+      "archivo_excel_relativo": "entradas/0098_pedidos_dia_98.xlsx",
+      "dia_numero": 98,
+      "seed_escenario": 415500713,
+      "sha256": "9402f4ad903ab80167b1408030fe99ddb0c94ca98bf8ef322ca3cb7951532f7d",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_99.xlsx",
+      "archivo_excel_relativo": "entradas/0099_pedidos_dia_99.xlsx",
+      "dia_numero": 99,
+      "seed_escenario": 757201429,
+      "sha256": "0d75bf5e231af11afc95f4b42a69327ef2fc8c2812660a98eab70162ef083322",
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel_original": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\experiments\\seed_53110_20261101_094248_876\\pedidos_dia_100.xlsx",
+      "archivo_excel_relativo": "entradas/0100_pedidos_dia_100.xlsx",
+      "dia_numero": 100,
+      "seed_escenario": 883050594,
+      "sha256": "6d97464d5ec416cc2844d62bebacab15815706fb22e0031d053afdcbce66e62c",
+      "turno": "MANANA"
+    }
+  ],
+  "fecha_inicio": "2026-11-01T09:43:38",
+  "parametros": {
+    "horizonte_min": 900.0,
+    "permitir_fallback_vial": false,
+    "repeticiones": 3,
+    "sin_proveedores": false,
+    "solo_estimado": false,
+    "timeout": 240,
+    "turno": "AUTO"
+  },
+  "seed_generacion_origen": 53110,
+  "seed_inicial": 53110,
+  "tiempo_generacion_python_s": 1.8335189999779686,
+  "version": 1,
+  "versiones": {
+    "archivos": {
+      "cache_vial": {
+        "ruta": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\routing\\cache_vial.csv",
+        "sha256": "cffc16f460e394010236e6307aad527057646687c2b18f3013c1e19ecaae3417"
+      },
+      "cant_pedidos_historicos": {
+        "ruta": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\raw\\cant_pedidos_turnos.csv",
+        "sha256": "10f5abe784d3bfdb5f7b9f8b6d24a1885b42cbc7e56b8f661cdb1e4c269fcf4b"
+      },
+      "codigo_captura_entorno": {
+        "ruta": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\scripts\\simulation\\environment_snapshot.py",
+        "sha256": "a0a0d15b0f487a619055744a19de432028c92a89f5275239375c964128507b74"
+      },
+      "codigo_comparacion_estimada": {
+        "ruta": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\planner\\integration\\estimated_comparison.py",
+        "sha256": "3f11cb8066cd1f2a1b8a5305afff8c002dc43e7fcba56e3f9ae1e03d5c2b1381"
+      },
+      "codigo_comparador_simulado": {
+        "ruta": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\planner\\integration\\simulated_comparison.py",
+        "sha256": "96259e906139b9c3d890e5f258f5c6117cb40174cdf55f48eae8c7613f0bea05"
+      },
+      "codigo_ejecucion_simulada": {
+        "ruta": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\planner\\integration\\simulated_execution.py",
+        "sha256": "1e5c7734cf0e9351aefed152cea5393255fb036645347d843700982de2803224"
+      },
+      "codigo_ejecutor": {
+        "ruta": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\scripts\\simulation\\run_simulated_comparison.py",
+        "sha256": "927b4ecfb78543e4a95c851051ea2653c4e0ba5d2a558aab60233ef3775b840e"
+      },
+      "codigo_generador": {
+        "ruta": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\scripts\\data_processing\\generar_pedidos_dia.py",
+        "sha256": "f9ad5a2ea05c2b36ffaaaec070b4963e8afb8b1f64c8b696ea3627309cacd7e6"
+      },
+      "codigo_selector_bridge": {
+        "ruta": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\planner\\integration\\selector_bridge.py",
+        "sha256": "5ad8f2459ea9a875d2fce81d75dc50d2dc37804d4708d83fe354a87810bb0d98"
+      },
+      "codigo_validaciones": {
+        "ruta": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\scripts\\simulation\\experimental_checks.py",
+        "sha256": "38ea41a1c32f44c75e6c95ff96ad8301451965cfbb48fd60efcfd3b0f30b551b"
+      },
+      "configuracion_rl": {
+        "ruta": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\models\\rl\\rl_policies.json",
+        "sha256": "6b2a8557dcb72be25c43551058b66dcd7c2ac3654922e14e9d406593435073d3"
+      },
+      "datos_historicos": {
+        "ruta": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\processed\\demanda_geografica.csv",
+        "sha256": "794c5f2dd36fab41da33918c076512cff2fb4570f277fe89967c5bb35bc01c6c"
+      },
+      "modelo_alp": {
+        "ruta": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\anylogic\\PedemonteDigitalTwin_v2\\PedemonteDigitalTwin_v2.alp",
+        "sha256": "4f5aa7ed61b583ac826b900a1d7364000eaea0c107409cd168302d5b490184eb"
+      },
+      "modelo_anylogic_exportado": {
+        "ruta": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\anylogic_export\\simulated_comparison\\PedemonteDigitalTwin_v2.zip",
+        "sha256": "0f1fefe4f556a56d78f96fd07a25a48af6d60a34bbb282e8f2e0cc057e247db1"
+      },
+      "modelo_rl": {
+        "ruta": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\models\\rl\\rl_policy.zip",
+        "sha256": "df1edc421763eaa7aa426c596ae16998d5867ddc720eda8d2cf88923f5fe434f"
+      },
+      "probabilidades_demanda": {
+        "ruta": "C:\\Users\\franc\\OneDrive\\Documentos\\PedemonteDigitalTwin_v2\\python\\data\\processed\\estadistica\\probabilidades_demanda.csv",
+        "sha256": "6cf886185643488b70cba73848716a7475985ea3e5cb3ea5bca0c0643f6c856b"
+      }
+    },
+    "dependencias": {
+      "anylogic-alpyne": "1.2.0",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "stable-baselines3": "2.9.0"
+    },
+    "estado_fuentes_git": {
+      "archivos": [],
+      "cantidad": 0,
+      "modificado": false
+    },
+    "git_commit": "58f73a219847f55b55ac7ce33d95335d5ee79acb",
+    "python_version": "3.11.9"
+  }
+}

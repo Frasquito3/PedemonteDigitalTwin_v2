@@ -532,21 +532,6 @@ if (
 					</Properties>
 				</Variable>
 				<Variable Class="PlainVariable">
-					<Id>1786582598350</Id>
-					<Name><![CDATA[matrizTiemposActual]]></Name>
-					<X>-1180</X><Y>490</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
-						<Type><![CDATA[MatrizTiemposViaje]]></Type>        
-						<InitialValue Class="CodeValue">
-							<Code><![CDATA[null]]></Code>
-						</InitialValue>
-					</Properties>
-				</Variable>
-				<Variable Class="PlainVariable">
 					<Id>1786582626957</Id>
 					<Name><![CDATA[travelTimeProvider]]></Name>
 					<X>-1180</X><Y>520</Y>
@@ -633,21 +618,6 @@ if (
 						<Type><![CDATA[String]]></Type>        
 						<InitialValue Class="CodeValue">
 							<Code><![CDATA[""]]></Code>
-						</InitialValue>
-					</Properties>
-				</Variable>
-				<Variable Class="PlainVariable">
-					<Id>1786647976748</Id>
-					<Name><![CDATA[alpyneAccionCodigo]]></Name>
-					<X>-1180</X><Y>700</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
-						<Type><![CDATA[int]]></Type>        
-						<InitialValue Class="CodeValue">
-							<Code><![CDATA[0]]></Code>
 						</InitialValue>
 					</Properties>
 				</Variable>
@@ -1237,27 +1207,6 @@ if (
 					</Properties>
 				</Variable>
 				<Variable Class="PlainVariable">
-					<Id>1787153299944</Id>
-					<Name><![CDATA[marcadoresCamionesGIS]]></Name>
-					<X>-1180</X><Y>1900</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
-						<Type><![CDATA[java.util.LinkedHashMap<
-    Integer,
-    com.anylogic.engine.markup.GISPoint
->]]></Type>        
-						<InitialValue Class="CodeValue">
-							<Code><![CDATA[new java.util.LinkedHashMap<
-    Integer,
-    com.anylogic.engine.markup.GISPoint
->()]]></Code>
-						</InitialValue>
-					</Properties>
-				</Variable>
-				<Variable Class="PlainVariable">
 					<Id>1787153324656</Id>
 					<Name><![CDATA[estadosCamionesGIS]]></Name>
 					<X>-1180</X><Y>1930</Y>
@@ -1329,21 +1278,6 @@ if (
 						<Type><![CDATA[String]]></Type>        
 						<InitialValue Class="CodeValue">
 							<Code><![CDATA["Sin estados operativos de pedidos."]]></Code>
-						</InitialValue>
-					</Properties>
-				</Variable>
-				<Variable Class="PlainVariable">
-					<Id>1787158153438</Id>
-					<Name><![CDATA[mostrarMarcadoresDiagnosticoGIS]]></Name>
-					<X>-1180</X><Y>2080</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
-						<Type><![CDATA[boolean]]></Type>        
-						<InitialValue Class="CodeValue">
-							<Code><![CDATA[false]]></Code>
 						</InitialValue>
 					</Properties>
 				</Variable>
@@ -1524,21 +1458,6 @@ if (
 						<Type><![CDATA[double]]></Type>        
 						<InitialValue Class="CodeValue">
 							<Code><![CDATA[Double.NaN]]></Code>
-						</InitialValue>
-					</Properties>
-				</Variable>
-				<Variable Class="PlainVariable">
-					<Id>1787598664254</Id>
-					<Name><![CDATA[uiSelectorSeedGA]]></Name>
-					<X>-1180</X><Y>2470</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
-						<Type><![CDATA[long]]></Type>        
-						<InitialValue Class="CodeValue">
-							<Code><![CDATA[-1L]]></Code>
 						</InitialValue>
 					</Properties>
 				</Variable>
@@ -1753,21 +1672,6 @@ if (
 					</Properties>
 				</Variable>
 				<Variable Class="PlainVariable">
-					<Id>1788100711116</Id>
-					<Name><![CDATA[metodoPlanComparacionSeleccionado]]></Name>
-					<X>-1180</X><Y>2920</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
-						<Type><![CDATA[String]]></Type>        
-						<InitialValue Class="CodeValue">
-							<Code><![CDATA["RL"]]></Code>
-						</InitialValue>
-					</Properties>
-				</Variable>
-				<Variable Class="PlainVariable">
 					<Id>1788102574204</Id>
 					<Name><![CDATA[comparacionEstimadaResultados]]></Name>
 					<X>-1180</X><Y>2950</Y>
@@ -1854,96 +1758,6 @@ if (
 						<Type><![CDATA[String]]></Type>        
 						<InitialValue Class="CodeValue">
 							<Code><![CDATA["SIN_COMPARACION"]]></Code>
-						</InitialValue>
-					</Properties>
-				</Variable>
-				<Variable Class="PlainVariable">
-					<Id>1788102679468</Id>
-					<Name><![CDATA[comparacionEstimadaTiempoTotalMs]]></Name>
-					<X>-1180</X><Y>3130</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
-						<Type><![CDATA[double]]></Type>        
-						<InitialValue Class="CodeValue">
-							<Code><![CDATA[0.0]]></Code>
-						</InitialValue>
-					</Properties>
-				</Variable>
-				<Variable Class="PlainVariable">
-					<Id>1788104647268</Id>
-					<Name><![CDATA[planComparacionSeleccionadoActual]]></Name>
-					<X>-1180</X><Y>3160</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
-						<Type><![CDATA[PlanTurno]]></Type>        
-						<InitialValue Class="CodeValue">
-							<Code><![CDATA[null]]></Code>
-						</InitialValue>
-					</Properties>
-				</Variable>
-				<Variable Class="PlainVariable">
-					<Id>1788104675627</Id>
-					<Name><![CDATA[vectorPlanComparacionSeleccionado]]></Name>
-					<X>-1180</X><Y>3190</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
-						<Type><![CDATA[double[]]]></Type>        
-						<InitialValue Class="CodeValue">
-							<Code><![CDATA[new double[0]]]></Code>
-						</InitialValue>
-					</Properties>
-				</Variable>
-				<Variable Class="PlainVariable">
-					<Id>1788104700627</Id>
-					<Name><![CDATA[planComparacionSeleccionadoListo]]></Name>
-					<X>-1180</X><Y>3220</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
-						<Type><![CDATA[boolean]]></Type>        
-						<InitialValue Class="CodeValue">
-							<Code><![CDATA[false]]></Code>
-						</InitialValue>
-					</Properties>
-				</Variable>
-				<Variable Class="PlainVariable">
-					<Id>1788104710067</Id>
-					<Name><![CDATA[metodoPlanComparacionAplicado]]></Name>
-					<X>-1180</X><Y>3250</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
-						<Type><![CDATA[String]]></Type>        
-						<InitialValue Class="CodeValue">
-							<Code><![CDATA[""]]></Code>
-						</InitialValue>
-					</Properties>
-				</Variable>
-				<Variable Class="PlainVariable">
-					<Id>1788104720371</Id>
-					<Name><![CDATA[estadoPlanComparacionSeleccionado]]></Name>
-					<X>-1180</X><Y>3280</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
-						<Type><![CDATA[String]]></Type>        
-						<InitialValue Class="CodeValue">
-							<Code><![CDATA["Seleccione un plan factible."]]></Code>
 						</InitialValue>
 					</Properties>
 				</Variable>
@@ -2109,21 +1923,6 @@ if (
 						<Type><![CDATA[String[]]]></Type>        
 						<InitialValue Class="CodeValue">
 							<Code><![CDATA[new String[5]]]></Code>
-						</InitialValue>
-					</Properties>
-				</Variable>
-				<Variable Class="PlainVariable">
-					<Id>1788112464336</Id>
-					<Name><![CDATA[comparacionSimuladaTiempoTotalSegundos]]></Name>
-					<X>-1180</X><Y>3640</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
-						<Type><![CDATA[double]]></Type>        
-						<InitialValue Class="CodeValue">
-							<Code><![CDATA[0.0]]></Code>
 						</InitialValue>
 					</Properties>
 				</Variable>
@@ -2728,51 +2527,6 @@ if (
 					</Properties>
 				</Variable>
 				<Variable Class="PlainVariable">
-					<Id>1793388021866</Id>
-					<Name><![CDATA[estudioFilasResultados]]></Name>
-					<X>-1180</X><Y>4870</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
-						<Type><![CDATA[int]]></Type>        
-						<InitialValue Class="CodeValue">
-							<Code><![CDATA[0]]></Code>
-						</InitialValue>
-					</Properties>
-				</Variable>
-				<Variable Class="PlainVariable">
-					<Id>1793388035353</Id>
-					<Name><![CDATA[estudioFilasValidas]]></Name>
-					<X>-1180</X><Y>4900</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
-						<Type><![CDATA[int]]></Type>        
-						<InitialValue Class="CodeValue">
-							<Code><![CDATA[0]]></Code>
-						</InitialValue>
-					</Properties>
-				</Variable>
-				<Variable Class="PlainVariable">
-					<Id>1793388093089</Id>
-					<Name><![CDATA[estudioFilasNoValidas]]></Name>
-					<X>-1180</X><Y>4930</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
-						<Type><![CDATA[int]]></Type>        
-						<InitialValue Class="CodeValue">
-							<Code><![CDATA[0]]></Code>
-						</InitialValue>
-					</Properties>
-				</Variable>
-				<Variable Class="PlainVariable">
 					<Id>1793388110617</Id>
 					<Name><![CDATA[estudioMediasSimuladas]]></Name>
 					<X>-1180</X><Y>4960</Y>
@@ -3047,30 +2801,6 @@ if (
 						</DefaultValue>
 						<ParameterEditor>
 							<Id>1786556454355</Id>
-							<EditorContolType>TEXT_BOX</EditorContolType>
-							<MinSliderValue><![CDATA[0]]></MinSliderValue>
-							<MaxSliderValue><![CDATA[100]]></MaxSliderValue>
-							<DelimeterType>NO_DELIMETER</DelimeterType>
-						</ParameterEditor>
-					</Properties>                 
-				</Variable>
-				<Variable Class="Parameter">
-					<Id>1786556463875</Id>
-					<Name><![CDATA[DURACION_MIN_VENTANA_MIN]]></Name>
-					<X>-420</X><Y>280</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<Properties SaveInSnapshot="true" ModificatorType="STATIC">
-						<Type><![CDATA[int]]></Type>
-						<UnitType><![CDATA[NONE]]></UnitType>
-						<SdArray>false</SdArray>
-						<DefaultValue Class="CodeValue">
-							<Code><![CDATA[60]]></Code>
-						</DefaultValue>
-						<ParameterEditor>
-							<Id>1786556463873</Id>
 							<EditorContolType>TEXT_BOX</EditorContolType>
 							<MinSliderValue><![CDATA[0]]></MinSliderValue>
 							<MaxSliderValue><![CDATA[100]]></MaxSliderValue>
@@ -3776,31 +3506,6 @@ if (
 					</Properties>                 
 				</Variable>
 				<Variable Class="Parameter">
-					<Id>1786582053251</Id>
-					<Name><![CDATA[TRAFICO_FACTOR_URBANO_DISTANCIA]]></Name>
-					<Description><![CDATA[SUPUESTO A CALIBRAR]]></Description>
-					<X>-420</X><Y>1150</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<Properties SaveInSnapshot="true" ModificatorType="STATIC">
-						<Type><![CDATA[double]]></Type>
-						<UnitType><![CDATA[NONE]]></UnitType>
-						<SdArray>false</SdArray>
-						<DefaultValue Class="CodeValue">
-							<Code><![CDATA[1.30]]></Code>
-						</DefaultValue>
-						<ParameterEditor>
-							<Id>1786582053249</Id>
-							<EditorContolType>TEXT_BOX</EditorContolType>
-							<MinSliderValue><![CDATA[0]]></MinSliderValue>
-							<MaxSliderValue><![CDATA[100]]></MaxSliderValue>
-							<DelimeterType>NO_DELIMETER</DelimeterType>
-						</ParameterEditor>
-					</Properties>                 
-				</Variable>
-				<Variable Class="Parameter">
 					<Id>1786582061674</Id>
 					<Name><![CDATA[TRAFICO_FACTOR_NORMAL]]></Name>
 					<Description><![CDATA[SUPUESTO A CALIBRAR]]></Description>
@@ -4457,9 +4162,6 @@ programarProximaLlegadaProveedor();]]></Action>
 
     alpyneAccionRecibida =
         false;
-
-    alpyneAccionCodigo =
-        0;
 
     alpynePlanVector =
         new double[0];
@@ -6730,74 +6432,6 @@ proveedoresPendientes.clear();]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
-					<ReturnType><![CDATA[double]]></ReturnType>
-					<Id>1786582161315</Id>
-					<Name><![CDATA[calcularDistanciaHaversineMetros]]></Name>
-					<X>-810</X><Y>1060</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<Parameter>
-						<Name><![CDATA[lat1]]></Name>
-						<Type><![CDATA[double]]></Type>
-					</Parameter>
-					<Parameter>
-						<Name><![CDATA[lon1]]></Name>
-						<Type><![CDATA[double]]></Type>
-					</Parameter>
-					<Parameter>
-						<Name><![CDATA[lat2]]></Name>
-						<Type><![CDATA[double]]></Type>
-					</Parameter>
-					<Parameter>
-						<Name><![CDATA[lon2]]></Name>
-						<Type><![CDATA[double]]></Type>
-					</Parameter>
-					<Body><![CDATA[double radioTierraMetros =
-    6371000.0;
-
-
-double lat1Rad =
-    Math.toRadians(lat1);
-
-double lat2Rad =
-    Math.toRadians(lat2);
-
-double deltaLat =
-    Math.toRadians(
-        lat2 - lat1
-    );
-
-double deltaLon =
-    Math.toRadians(
-        lon2 - lon1
-    );
-
-
-double a =
-    Math.sin(deltaLat / 2.0)
-    * Math.sin(deltaLat / 2.0)
-    +
-    Math.cos(lat1Rad)
-    * Math.cos(lat2Rad)
-    * Math.sin(deltaLon / 2.0)
-    * Math.sin(deltaLon / 2.0);
-
-
-double c =
-    2.0
-    * Math.atan2(
-        Math.sqrt(a),
-        Math.sqrt(1.0 - a)
-    );
-
-
-return radioTierraMetros
-    * c;]]></Body>
-				</Function>
-				<Function AccessType="default" StaticFunction="false">
-					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
 					<ReturnType><![CDATA[MatrizTiemposViaje]]></ReturnType>
 					<Id>1786582219356</Id>
 					<Name><![CDATA[crearMatrizTiemposViaje]]></Name>
@@ -7298,11 +6932,11 @@ return matriz;]]></Body>
 						<Name><![CDATA[instancia]]></Name>
 						<Type><![CDATA[InstanciaTurno]]></Type>
 					</Parameter>
-					<Body><![CDATA[matrizTiemposActual =
+					<Body><![CDATA[
+MatrizTiemposViaje matrizTiemposActual =
     crearMatrizTiemposViaje(
         instancia
     );
-
 
 travelTimeProvider =
     new TravelTimeProviderMatriz(
@@ -7331,13 +6965,13 @@ travelTimeProvider =
         TRAFICO_RUIDO_FACTOR_MAX
     );
 
-
 traceln(
     "TravelTimeProvider: "
     + travelTimeProvider.nombreProvider()
     + " | nodos="
     + matrizTiemposActual.cantidadNodos()
-);]]></Body>
+);
+]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
@@ -9054,9 +8688,6 @@ return plan;]]></Body>
 					</Parameter>
 					<Body><![CDATA[alpyneAccionRecibida =
     true;
-
-alpyneAccionCodigo =
-    accionCodigo;
 
 alpyneError =
     false;
@@ -10930,8 +10561,9 @@ try {
             "No existe la caché vial: "
             + archivoCacheVial
                 .getCanonicalPath()
-            + ". Prepará la instancia y pulsá "
-            + "Exportar matriz vial antes de planificar."
+            + ". Verificá la ruta del proyecto Python "
+			+ "y volvé a preparar la instancia para "
+			+ "regenerar automáticamente la matriz vial."
         );
     }
 
@@ -13458,10 +13090,8 @@ traceln(
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>true</ShowLabel>
-					<Body><![CDATA[if (mapaGIS == null) {
-
-    marcadoresCamionesGIS.clear();
-
+					<Body><![CDATA[
+if (mapaGIS == null) {
     estadosCamionesGIS.clear();
 
     mensajeCamionesGIS =
@@ -13470,33 +13100,15 @@ traceln(
     return;
 }
 
-
-for (
-    com.anylogic.engine.markup.GISPoint marcador
-    : marcadoresCamionesGIS.values()
-) {
-
-    if (marcador != null) {
-
-        mapaGIS.remove(
-            marcador
-        );
-    }
-}
-
-
-marcadoresCamionesGIS.clear();
-
 estadosCamionesGIS.clear();
-
 
 mensajeCamionesGIS =
     "Sin camiones representados en el mapa.";
 
-
 traceln(
-    "GIS MARCADORES DE CAMIONES LIMPIADOS"
-);]]></Body>
+    "GIS ESTADOS DE CAMIONES LIMPIADOS"
+);
+]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>VOID</ReturnModificator>
@@ -13524,32 +13136,24 @@ traceln(
 						<Name><![CDATA[estado]]></Name>
 						<Type><![CDATA[String]]></Type>
 					</Parameter>
-					<Body><![CDATA[if (mapaGIS == null) {
-
+					<Body><![CDATA[
+if (mapaGIS == null) {
     throw new IllegalStateException(
         "No existe mapaGIS."
     );
 }
 
-
 if (camionId < 0) {
-
     throw new IllegalArgumentException(
         "camionId no puede ser negativo."
     );
 }
 
-
 if (
-    !Double.isFinite(
-        latitud
-    )
-    ||
-    latitud < -90.0
-    ||
-    latitud > 90.0
+    !Double.isFinite(latitud)
+    || latitud < -90.0
+    || latitud > 90.0
 ) {
-
     throw new IllegalArgumentException(
         "Latitud inválida para el camión "
         + camionId
@@ -13559,17 +13163,11 @@ if (
     );
 }
 
-
 if (
-    !Double.isFinite(
-        longitud
-    )
-    ||
-    longitud < -180.0
-    ||
-    longitud > 180.0
+    !Double.isFinite(longitud)
+    || longitud < -180.0
+    || longitud > 180.0
 ) {
-
     throw new IllegalArgumentException(
         "Longitud inválida para el camión "
         + camionId
@@ -13579,44 +13177,20 @@ if (
     );
 }
 
-
 String estadoNormalizado =
     estado == null
     ? "SIN_ESTADO"
     : estado.trim();
 
-
 if (estadoNormalizado.isEmpty()) {
-
     estadoNormalizado =
         "SIN_ESTADO";
 }
-
-
-com.anylogic.engine.markup.GISPoint marcadorAnterior =
-    marcadoresCamionesGIS.get(
-        camionId
-    );
-
-
-if (marcadorAnterior != null) {
-
-    mapaGIS.remove(
-        marcadorAnterior
-    );
-}
-
-
-marcadoresCamionesGIS.remove(
-    camionId
-);
-
 
 estadosCamionesGIS.put(
     camionId,
     estadoNormalizado
 );
-
 
 mensajeCamionesGIS =
     "Camión "
@@ -13624,80 +13198,7 @@ mensajeCamionesGIS =
     + ": "
     + estadoNormalizado
     + ".";
-
-
-if (!mostrarMarcadoresDiagnosticoGIS) {
-
-    return;
-}
-
-
-com.anylogic.engine.markup.GISPoint marcadorNuevo =
-    new com.anylogic.engine.markup.GISPoint(
-        mapaGIS,
-        false,
-        latitud,
-        longitud
-    );
-
-
-marcadorNuevo.setTitle(
-    "Diagnóstico Camión "
-    + camionId
-    + " | "
-    + estadoNormalizado
-);
-
-
-marcadorNuevo.setRadius(
-    13.0
-);
-
-
-marcadorNuevo.setFillColor(
-    colorRutaCamionGIS(
-        camionId
-    )
-);
-
-
-marcadorNuevo.setLineColor(
-    java.awt.Color.WHITE
-);
-
-
-marcadorNuevo.setLineWidth(
-    4.0
-);
-
-
-marcadorNuevo.setVisible(
-    true
-);
-
-
-mapaGIS.add(
-    marcadorNuevo
-);
-
-
-marcadoresCamionesGIS.put(
-    camionId,
-    marcadorNuevo
-);
-
-
-traceln(
-    "GIS MARCADOR DIAGNÓSTICO"
-    + " | camion="
-    + camionId
-    + " | estado="
-    + estadoNormalizado
-    + " | lat="
-    + latitud
-    + " | lon="
-    + longitud
-);]]></Body>
+]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>VOID</ReturnModificator>
@@ -13713,55 +13214,35 @@ traceln(
 						<Name><![CDATA[instancia]]></Name>
 						<Type><![CDATA[InstanciaTurno]]></Type>
 					</Parameter>
-					<Body><![CDATA[if (instancia == null) {
-
+					<Body><![CDATA[
+if (instancia == null) {
     throw new IllegalArgumentException(
         "instancia no puede ser null."
     );
 }
 
-
 if (instancia.cantidadCamiones <= 0) {
-
     throw new IllegalArgumentException(
-        "La cantidad de camiones debe ser "
-        + "mayor que cero."
+        "La cantidad de camiones debe ser mayor que cero."
     );
 }
 
-
 if (!gisInicializado) {
-
     inicializarGIS();
 }
 
-
 limpiarMarcadoresCamionesGIS();
-
 
 for (
     int camionId = 0;
     camionId < instancia.cantidadCamiones;
     camionId++
 ) {
-
     double centroIndice =
-        (
-            instancia.cantidadCamiones
-            - 1
-        )
-        /
-        2.0;
-
+        (instancia.cantidadCamiones - 1) / 2.0;
 
     double desplazamientoLatitud =
-        (
-            camionId
-            - centroIndice
-        )
-        *
-        0.00012;
-
+        (camionId - centroIndice) * 0.00012;
 
     actualizarMarcadorCamionGIS(
         camionId,
@@ -13772,28 +13253,15 @@ for (
     );
 }
 
-
 mensajeCamionesGIS =
     "Camiones 2D inicializados: "
     + estadosCamionesGIS.size()
     + ".";
 
-
-if (mostrarMarcadoresDiagnosticoGIS) {
-
-    mensajeCamionesGIS +=
-        " Marcadores diagnósticos visibles.";
-
-} else {
-
-    mensajeCamionesGIS +=
-        " Marcadores diagnósticos ocultos.";
-}
-
-
 traceln(
     mensajeCamionesGIS
-);]]></Body>
+);
+]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>VOID</ReturnModificator>
@@ -16746,10 +16214,6 @@ uiSelectorTiempoMs =
     Double.NaN;
 
 
-uiSelectorSeedGA =
-    -1L;
-
-
 uiSelectorPoliticaOperacional =
     "RL".equals(
         uiSelectorModoSolicitado
@@ -16954,13 +16418,6 @@ if (
             "tiempo_plan_ms"
         );
 }
-
-
-uiSelectorSeedGA =
-    longDecisionSelector(
-        decision,
-        "seed_ga"
-    );
 
 
 uiSelectorCostoGreedy =
@@ -20104,207 +19561,6 @@ traceln(
 				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
 					<ReturnType><![CDATA[String]]></ReturnType>
-					<Id>1788043963409</Id>
-					<Name><![CDATA[detallePedidosFormulario]]></Name>
-					<X>-810</X><Y>3970</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<Body><![CDATA[if (
-    pedidosFormulario == null
-    ||
-    pedidosFormulario.isEmpty()
-) {
-
-    return "Todavía no hay tareas cargadas.";
-}
-
-
-StringBuilder detalle =
-    new StringBuilder();
-
-
-int limiteVisual =
-    7;
-
-int mostradas =
-    0;
-
-
-for (
-    PedidoInput pedido
-    : pedidosFormulario
-) {
-
-    if (pedido == null) {
-        continue;
-    }
-
-
-    if (mostradas >= limiteVisual) {
-        break;
-    }
-
-
-    String pedidoId =
-        pedido.pedidoId == null
-        ? ""
-        : pedido.pedidoId.trim();
-
-
-    if (pedidoId.isEmpty()) {
-
-        pedidoId =
-            "(sin ID)";
-    }
-
-
-    String cliente =
-        pedido.cliente == null
-        ? ""
-        : pedido.cliente.trim();
-
-
-    if (cliente.length() > 22) {
-
-        cliente =
-            cliente.substring(
-                0,
-                19
-            )
-            + "...";
-    }
-
-
-    if (mostradas > 0) {
-
-        detalle.append(
-            "\n"
-        );
-    }
-
-
-    detalle
-        .append(
-            mostradas + 1
-        )
-        .append(
-            ". "
-        )
-        .append(
-            pedidoId
-        );
-
-
-    if (!cliente.isEmpty()) {
-
-        detalle
-            .append(
-                " | "
-            )
-            .append(
-                cliente
-            );
-    }
-
-
-    detalle
-        .append(
-            " | "
-        )
-        .append(
-            pedido.unidadesCapacidad
-        )
-        .append(
-            " u"
-        );
-
-
-    detalle.append(
-        "\n   "
-    );
-
-
-    if (
-        pedido.tieneVentanaEspecifica
-    ) {
-
-        detalle
-            .append(
-                formatearHoraFormulario(
-                    pedido.horaDesdeMin
-                )
-            )
-            .append(
-                "-"
-            )
-            .append(
-                formatearHoraFormulario(
-                    pedido.horaHastaMin
-                )
-            );
-
-    } else {
-
-        detalle.append(
-            "Sin ventana"
-        );
-    }
-
-
-    detalle.append(
-        " | "
-    );
-
-
-    if (
-        pedido.requiereVolcador
-    ) {
-
-        detalle.append(
-            "Requiere volcador"
-        );
-
-    } else {
-
-        detalle.append(
-            "Sin volcador"
-        );
-    }
-
-
-    mostradas++;
-}
-
-
-int restantes =
-    pedidosFormulario.size()
-    - mostradas;
-
-
-if (restantes > 0) {
-
-    detalle
-        .append(
-            "\n... y "
-        )
-        .append(
-            restantes
-        )
-        .append(
-            restantes == 1
-            ? " tarea más."
-            : " tareas más."
-        );
-}
-
-
-return detalle.toString();]]></Body>
-				</Function>
-				<Function AccessType="default" StaticFunction="false">
-					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
-					<ReturnType><![CDATA[String]]></ReturnType>
 					<Id>1788044264583</Id>
 					<Name><![CDATA[resumenPedidosVisual]]></Name>
 					<X>-810</X><Y>4000</Y>
@@ -20485,25 +19741,6 @@ return total == 1
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
-					<ReturnType><![CDATA[boolean]]></ReturnType>
-					<Id>1788101649718</Id>
-					<Name><![CDATA[instanciaListaParaComparacion]]></Name>
-					<X>-810</X><Y>4090</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<Body><![CDATA[return
-    instanciaInterfazActual != null
-    &&
-    cacheVialInstanciaCompleta
-    &&
-    !ejecucionEnCurso
-    &&
-    !pypelineSolicitudEnCurso;]]></Body>
-				</Function>
-				<Function AccessType="default" StaticFunction="false">
-					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
 					<ReturnType><![CDATA[String]]></ReturnType>
 					<Id>1788101666326</Id>
 					<Name><![CDATA[resumenInstanciaComparacion]]></Name>
@@ -20680,41 +19917,25 @@ return
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>true</ShowLabel>
-					<Body><![CDATA[limpiarComparacionSimuladaLocal();
-
-limpiarPlanComparacionSeleccionado();
-
+					<Body><![CDATA[
+limpiarComparacionSimuladaLocal();
 
 comparacionEstimadaResultados =
     new double[5][20];
 
-
 comparacionEstimadaMetodoRecibido =
     new boolean[5];
 
-
-comparacionEstimadaDisponible =
-    false;
-
+comparacionEstimadaDisponible = false;
 
 comparacionEstimadaEstado =
     "Sin comparación estimada.";
 
-
 comparacionEstimadaResumenPython =
     "SIN_COMPARACION";
 
-
 comparacionEstimadaFirmaPython =
-    "SIN_COMPARACION";
-
-
-comparacionEstimadaTiempoTotalMs =
-    0.0;
-
-
-metodoPlanComparacionSeleccionado =
-    "RL";]]></Body>
+    "SIN_COMPARACION";]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
@@ -21242,8 +20463,8 @@ try {
     }
 
 
-    comparacionEstimadaTiempoTotalMs =
-        vectorComparacion[3];
+    double tiempoTotalComparacionMs =
+    	vectorComparacion[3];
 
 
     int metodosFactibles =
@@ -21428,7 +20649,7 @@ try {
         + String.format(
             java.util.Locale.US,
             "%.2f",
-            comparacionEstimadaTiempoTotalMs
+            tiempoTotalComparacionMs
         )
         + " ms.";
 
@@ -21873,575 +21094,6 @@ return String.format(
     "%+.2f",
     diferencia
 );]]></Body>
-				</Function>
-				<Function AccessType="default" StaticFunction="false">
-					<ReturnModificator>VOID</ReturnModificator>
-					<ReturnType><![CDATA[double]]></ReturnType>
-					<Id>1788104740442</Id>
-					<Name><![CDATA[limpiarPlanComparacionSeleccionado]]></Name>
-					<X>-810</X><Y>4570</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<Body><![CDATA[planComparacionSeleccionadoActual =
-    null;
-
-
-vectorPlanComparacionSeleccionado =
-    new double[0];
-
-
-planComparacionSeleccionadoListo =
-    false;
-
-
-metodoPlanComparacionAplicado =
-    "";
-
-
-estadoPlanComparacionSeleccionado =
-    "Seleccione un plan factible.";]]></Body>
-				</Function>
-				<Function AccessType="default" StaticFunction="false">
-					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
-					<ReturnType><![CDATA[String]]></ReturnType>
-					<Id>1788104773722</Id>
-					<Name><![CDATA[estadoSeleccionPlanComparacion]]></Name>
-					<X>-810</X><Y>4600</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<Body><![CDATA[if (
-    planComparacionSeleccionadoListo
-    &&
-    planComparacionSeleccionadoActual != null
-) {
-
-    return
-        estadoPlanComparacionSeleccionado;
-}
-
-
-if (!comparacionEstimadaDisponible) {
-
-    return
-        "Ejecute la comparación estimada "
-        + "para habilitar la selección de planes.";
-}
-
-
-int cantidadFactibles =
-    0;
-
-
-for (
-    int indice = 0;
-    indice < 5;
-    indice++
-) {
-
-    if (
-        comparacionEstimadaMetodoRecibido[
-            indice
-        ]
-        &&
-        comparacionEstimadaResultados[
-            indice
-        ] != null
-        &&
-        comparacionEstimadaResultados[
-            indice
-        ].length == 20
-        &&
-        comparacionEstimadaResultados[
-            indice
-        ][1] >= 0.5
-    ) {
-
-        cantidadFactibles++;
-    }
-}
-
-
-return
-    cantidadFactibles
-    + "/5 métodos factibles. "
-    + "Seleccione el plan que desea utilizar.";]]></Body>
-				</Function>
-				<Function AccessType="default" StaticFunction="false">
-					<ReturnModificator>VOID</ReturnModificator>
-					<ReturnType><![CDATA[double]]></ReturnType>
-					<Id>1788104794339</Id>
-					<Name><![CDATA[prepararVisualPlanComparacion]]></Name>
-					<X>-810</X><Y>4630</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<Parameter>
-						<Name><![CDATA[modo]]></Name>
-						<Type><![CDATA[String]]></Type>
-					</Parameter>
-					<Parameter>
-						<Name><![CDATA[plan]]></Name>
-						<Type><![CDATA[PlanTurno]]></Type>
-					</Parameter>
-					<Body><![CDATA[if (plan == null) {
-
-    throw new IllegalArgumentException(
-        "El plan seleccionado no puede ser null."
-    );
-}
-
-
-double[] resultado =
-    bloqueComparacionEstimada(
-        modo
-    );
-
-
-if (
-    resultado == null
-    ||
-    resultado.length != 20
-) {
-
-    throw new IllegalStateException(
-        "No existe el resultado estimado "
-        + "del método seleccionado."
-    );
-}
-
-
-String modoVisible =
-    "HIBRIDO".equals(
-        modo
-    )
-    ? "HÍBRIDO"
-    : modo;
-
-
-String algoritmoResultante =
-    plan.algoritmo == null
-    ? "—"
-    : plan.algoritmo.toString();
-
-
-reiniciarPanelSelectorVisual(
-    modo
-);
-
-
-uiSelectorPoliticaOperacional =
-    false;
-
-
-uiSelectorModoSolicitado =
-    modo;
-
-
-uiSelectorFuente =
-    modoVisible;
-
-
-uiSelectorMotivo =
-    "COMPARACION_ESTIMADA";
-
-
-uiSelectorEstado =
-    "PLAN LISTO";
-
-
-uiSelectorAviso =
-    "";
-
-
-uiSelectorCostoElegido =
-    resultado[3];
-
-
-uiSelectorTiempoMs =
-    resultado[18];
-
-
-uiSelectorCostoGreedy =
-    Double.NaN;
-
-
-uiSelectorCostoGA =
-    Double.NaN;
-
-
-uiSelectorCostoRL =
-    Double.NaN;
-
-
-uiSelectorMejoraGreedyPct =
-    Double.NaN;
-
-
-uiSelectorSeedGA =
-    -1L;
-
-
-uiSelectorLineaPrincipal =
-    "Costo estimado | "
-    + formatoCostoSelector(
-        resultado[3]
-    );
-
-
-uiSelectorLineaSecundaria =
-    "Método seleccionado | "
-    + modoVisible;
-
-
-uiSelectorLineaDetalle =
-    "Algoritmo resultante | "
-    + algoritmoResultante;
-
-
-uiSelectorLineaResultado =
-    "Resultado | Listo para ejecutar";
-
-
-actualizarColoresSelectorVisual();]]></Body>
-				</Function>
-				<Function AccessType="default" StaticFunction="false">
-					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
-					<ReturnType><![CDATA[boolean]]></ReturnType>
-					<Id>1788104829570</Id>
-					<Name><![CDATA[seleccionarPlanComparacionParaOperacion]]></Name>
-					<X>-810</X><Y>4660</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<Body><![CDATA[if (
-    ejecucionEnCurso
-    ||
-    pypelineSolicitudEnCurso
-) {
-
-    estadoPlanComparacionSeleccionado =
-        "Existe una planificación "
-        + "o ejecución en curso.";
-
-    return false;
-}
-
-
-if (
-    instanciaInterfazActual == null
-) {
-
-    estadoPlanComparacionSeleccionado =
-        "La instancia preparada "
-        + "ya no está disponible.";
-
-    return false;
-}
-
-
-if (!comparacionEstimadaDisponible) {
-
-    estadoPlanComparacionSeleccionado =
-        "Primero debe ejecutarse "
-        + "la comparación estimada.";
-
-    return false;
-}
-
-
-int indiceMetodo =
-    indiceMetodoComparacion(
-        metodoPlanComparacionSeleccionado
-    );
-
-
-if (indiceMetodo < 0) {
-
-    estadoPlanComparacionSeleccionado =
-        "Método seleccionado no reconocido.";
-
-    return false;
-}
-
-
-String modo =
-    nombreMetodoComparacion(
-        indiceMetodo
-    );
-
-
-if (
-    !metodoComparacionFactible(
-        modo
-    )
-) {
-
-    estadoPlanComparacionSeleccionado =
-        "El método "
-        + modo
-        + " no produjo un plan factible.";
-
-    return false;
-}
-
-
-if (
-    !inicializarSelectorPypeline()
-) {
-
-    estadoPlanComparacionSeleccionado =
-        "No fue posible acceder "
-        + "al selector Python.";
-
-    return false;
-}
-
-
-pypelineSolicitudEnCurso =
-    true;
-
-
-try {
-
-    String firmaDisponible =
-        pyCommunicator.runResults(
-            String.class,
-
-            (
-                "pedemonte_selector_bridge."
-                + "obtener_firma_"
-                + "comparacion_estimada()"
-            )
-        );
-
-
-    if (
-        firmaDisponible == null
-        ||
-        "SIN_COMPARACION".equals(
-            firmaDisponible
-        )
-    ) {
-
-        throw new IllegalStateException(
-            "Python ya no conserva "
-            + "la comparación estimada."
-        );
-    }
-
-
-    if (
-        comparacionEstimadaFirmaPython == null
-        ||
-        !comparacionEstimadaFirmaPython.equals(
-            firmaDisponible
-        )
-    ) {
-
-        throw new IllegalStateException(
-            "La firma de la comparación "
-            + "ya no coincide con "
-            + "la instancia preparada."
-        );
-    }
-
-
-    String modoLiteral =
-        pyCommunicator.toJson(
-            modo
-        );
-
-
-    double[] planVector =
-        pyCommunicator.runResults(
-            double[].class,
-
-            (
-                "pedemonte_selector_bridge."
-                + "obtener_plan_"
-                + "comparacion_vector("
-                + modoLiteral
-                + ")"
-            )
-        );
-
-
-    if (
-        planVector == null
-        ||
-        planVector.length < 5
-    ) {
-
-        throw new IllegalStateException(
-            "Python devolvió un plan "
-            + "vacío o incompleto."
-        );
-    }
-
-
-    PlanTurno plan =
-        crearPlanAlpyneDinamico(
-            planVector,
-            instanciaInterfazActual
-        );
-
-
-    ResultadoValidacionPlan validacion =
-        validarPlan(
-            instanciaInterfazActual,
-            plan
-        );
-
-
-    if (!validacion.valido) {
-
-        throw new IllegalStateException(
-            "El plan recuperado no superó "
-            + "la validación de AnyLogic: "
-            + validacion.errores
-        );
-    }
-
-
-    vectorPlanComparacionSeleccionado =
-        planVector.clone();
-
-
-    pypelineUltimoPlanVector =
-        planVector.clone();
-
-
-    planComparacionSeleccionadoActual =
-        plan;
-
-
-    planComparacionSeleccionadoListo =
-        true;
-
-
-    metodoPlanComparacionAplicado =
-        modo;
-
-
-    modoPlanificacionPypeline =
-        modo;
-
-
-    prepararVisualPlanComparacion(
-        modo,
-        plan
-    );
-
-
-    mostrarPlanEnGIS(
-        instanciaInterfazActual,
-        plan
-    );
-
-
-    String modoVisible =
-        "HIBRIDO".equals(
-            modo
-        )
-        ? "HÍBRIDO"
-        : modo;
-
-
-    estadoPlanComparacionSeleccionado =
-        "Plan "
-        + modoVisible
-        + " preparado para su ejecución.";
-
-
-    mensajeInterfazPlanificacion =
-        "Plan "
-        + modoVisible
-        + " recuperado de la comparación."
-        + "\nRevise el GIS y pulse "
-        + "Generar o ejecutar plan.";
-
-
-    traceln(
-        "================================"
-    );
-
-    traceln(
-        "=== PLAN DE COMPARACIÓN ========"
-    );
-
-    traceln(
-        "================================"
-    );
-
-    traceln(
-        "Método seleccionado: "
-        + modoVisible
-    );
-
-    traceln(
-        "Algoritmo resultante: "
-        + plan.algoritmo
-    );
-
-    traceln(
-        "Costo estimado: "
-        + plan.costoEstimado
-    );
-
-    traceln(
-        "Plan recuperado sin regeneración."
-    );
-
-
-    irAVistaOperacion();
-
-
-    return true;
-
-
-} catch (Exception ex) {
-
-    String detalleError =
-        ex.getClass()
-            .getSimpleName()
-        + ": "
-        + String.valueOf(
-            ex.getMessage()
-        );
-
-
-    limpiarPlanComparacionSeleccionado();
-
-
-    estadoPlanComparacionSeleccionado =
-        "Error al seleccionar el plan: "
-        + detalleError;
-
-
-    traceln(
-        "ERROR AL SELECCIONAR PLAN "
-        + "COMPARATIVO: "
-        + detalleError
-    );
-
-
-    ex.printStackTrace();
-
-
-    return false;
-
-
-} finally {
-
-    pypelineSolicitudEnCurso =
-        false;
-}]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
@@ -23299,10 +21951,6 @@ comparacionSimuladaFirmaPython =
     "SIN_COMPARACION_SIMULADA";
 
 
-comparacionSimuladaTiempoTotalSegundos =
-    0.0;
-
-
 comparacionSimuladaDetalleMetodo =
     new String[5];
     
@@ -23946,8 +22594,8 @@ try {
     }
 
 
-    comparacionSimuladaTiempoTotalSegundos =
-        vectorComparacion[3];
+    double tiempoTotalComparacionSegundos =
+    	vectorComparacion[3];
 
 
     int finalizados =
@@ -24186,7 +22834,7 @@ try {
         + String.format(
             java.util.Locale.US,
             "%.2f",
-            comparacionSimuladaTiempoTotalSegundos
+            tiempoTotalComparacionSegundos
         )
         + " s.";
 
@@ -32738,51 +31386,6 @@ try {
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
-					<ReturnType><![CDATA[String]]></ReturnType>
-					<Id>1793380328255</Id>
-					<Name><![CDATA[estadoGeneracionEstudio]]></Name>
-					<X>-810</X><Y>7360</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<Body><![CDATA[if (
-    estudioErrorGeneracion != null
-    &&
-    !estudioErrorGeneracion.isEmpty()
-) {
-
-    return "Error al iniciar la generación.";
-}
-
-if (estudioProcesoGeneracion == null) {
-
-    return "Sin generación iniciada";
-}
-
-if (generacionActivaEstudio()) {
-
-    return
-        "Generando "
-        + contarEscenariosGeneradosEstudio()
-        + " / "
-        + estudioTurnosValidados;
-}
-
-if (generacionCompletaEstudio()) {
-
-    return
-        "Generación completa: "
-        + estudioTurnosValidados
-        + " turnos.";
-}
-
-return
-    "Generación fallida o incompleta."
-    + " Revisá generacion.log.";]]></Body>
-				</Function>
-				<Function AccessType="default" StaticFunction="false">
-					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
 					<ReturnType><![CDATA[boolean]]></ReturnType>
 					<Id>1793380350055</Id>
 					<Name><![CDATA[generarEscenariosEstudio]]></Name>
@@ -34146,13 +32749,8 @@ try {
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>true</ShowLabel>
-					<Body><![CDATA[
-estudioResultadosCargados = false;
+					<Body><![CDATA[estudioResultadosCargados = false;
 estudioEstadoResultados = "Sin resultados cargados.";
-
-estudioFilasResultados = 0;
-estudioFilasValidas = 0;
-estudioFilasNoValidas = 0;
 
 estudioMediasSimuladas = new double[5][6];
 estudioConteosSimulados = new int[5];
@@ -35080,15 +33678,6 @@ try {
     estudioNPareados =
         nPareados;
 
-    estudioFilasResultados =
-        registros.size() - 1;
-
-    estudioFilasValidas =
-        validas;
-
-    estudioFilasNoValidas =
-        noValidas;
-
     estudioArchivoCargado =
         archivo.getCanonicalPath();
 
@@ -35113,20 +33702,21 @@ try {
         "ESTUDIO | RESULTADOS CARGADOS"
     );
 
-    traceln(
-        "Filas totales: "
-        + estudioFilasResultados
-    );
 
-    traceln(
-        "Corridas válidas: "
-        + estudioFilasValidas
-    );
-
-    traceln(
-        "Corridas no válidas: "
-        + estudioFilasNoValidas
-    );
+	traceln(
+	    "Filas totales: "
+	    + (registros.size() - 1)
+	);
+	
+	traceln(
+	    "Corridas válidas: "
+	    + validas
+	);
+	
+	traceln(
+	    "Corridas no válidas: "
+	    + noValidas
+	);
 
     traceln(
         "Escenarios con datos: "
@@ -36458,13 +35048,13 @@ if (
 				 	<EmbeddedIcon>false</EmbeddedIcon>				
 					<Id>1787145329848</Id>
 					<Name><![CDATA[btnPrepararInstancia]]></Name>
-					<X>1145</X><Y>749</Y>
+					<X>1145</X><Y>799</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<BasicProperties Width="195" Height="32">
+					<BasicProperties Width="410" Height="32">
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<TextColor>-15257011</TextColor>
 						<Enabled>true</Enabled>
@@ -36476,57 +35066,48 @@ instanciaInterfazActual == null
 &&
 !pypelineSolicitudEnCurso]]></EnableExpression>
 						<ActionCode><![CDATA[try {
-
     InstanciaTurno nuevaInstancia =
         construirInstanciaFormulario();
 
-    guardarInstanciaBaseRepetible(
-        nuevaInstancia
-    );
+    guardarInstanciaBaseRepetible(nuevaInstancia);
 
     instanciaInterfazActual =
         crearCopiaInstanciaBaseRepetible();
 
     if (!instanciaBaseAisladaDeActual()) {
-
         throw new IllegalStateException(
-            "La instancia activa comparte "
-            + "referencias con la instancia base."
+            "La instancia activa comparte referencias "
+            + "con la instancia base."
         );
     }
 
-    mostrarInstanciaEnGIS(
-        instanciaInterfazActual
-    );
-
-    indexarPuntosPedidosGIS(
-        instanciaInterfazActual
-    );
-
+    mostrarInstanciaEnGIS(instanciaInterfazActual);
+    indexarPuntosPedidosGIS(instanciaInterfazActual);
     limpiarComparacionEstimadaLocal();
-
 
     boolean matrizLista =
         asegurarCacheVialInstanciaActual();
 
     if (matrizLista) {
-
         mensajeInterfazPlanificacion =
             "Instancia preparada."
             + "\nMatriz vial completa."
             + "\nPuede planificar.";
 
-    } else {
+        mensajeFormulario =
+            "Instancia preparada. Matriz vial lista. Puede planificar.";
 
+    } else {
         mensajeInterfazPlanificacion =
             "Instancia preparada."
             + "\nNo se pudo completar la matriz vial."
             + "\nRevisá la consola y los tramos faltantes.";
+
+        mensajeFormulario =
+            "Matriz vial incompleta. Revisá la consola.";
     }
 
-    traceln(
-        resumenInstanciaInterfaz()
-    );
+    traceln(resumenInstanciaInterfaz());
 
     traceln(
         "INSTANCIA BASE AISLADA | "
@@ -36534,19 +35115,14 @@ instanciaInterfazActual == null
     );
 
 } catch (Exception ex) {
-
     instanciaInterfazActual = null;
 
     limpiarComparacionEstimadaLocal();
-
     limpiarInstanciaBaseRepetible();
 
     cacheVialInstanciaCompleta = false;
-
     cacheVialTramosRequeridos = 0;
-
     cacheVialTramosFaltantes = 0;
-
     cacheVialEstadoInterfaz = "ERROR";
 
     limpiarPedidosGIS();
@@ -36557,10 +35133,10 @@ instanciaInterfazActual == null
         + ": "
         + ex.getMessage();
 
-    traceln(
-        mensajeInterfazPlanificacion
-    );
+    mensajeFormulario =
+        "Error al preparar instancia. Revisá la consola.";
 
+    traceln(mensajeInterfazPlanificacion);
     ex.printStackTrace();
 }]]></ActionCode>
 					</BasicProperties>
@@ -36600,7 +35176,12 @@ instanciaInterfazActual == null
 !pypelineSolicitudEnCurso
 &&
 !reinicioCompletoSolicitado]]></EnableExpression>
-						<ActionCode><![CDATA[solicitarNuevaOperacionConReinicioCompleto();]]></ActionCode>
+						<ActionCode><![CDATA[if (solicitarNuevaOperacionConReinicioCompleto()) {
+
+    btnLimpiarInstancia.setText(
+        "Reiniciando..."
+    );
+}]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
 						<Font Name="SansSerif" Size="10" Style="1"/>
@@ -36958,7 +35539,7 @@ instanciaInterfazActual == null
 					<Width>14</Width>
 					<Height>14</Height>
 					<Rotation>0.0</Rotation>
-					<FillColor>-1146130</FillColor>
+					<FillColor>-10011977</FillColor>
 					<FillMaterial>null</FillMaterial>
 				</Rectangle>
 				<Rectangle>
@@ -36980,7 +35561,7 @@ instanciaInterfazActual == null
 					<Width>14</Width>
 					<Height>14</Height>
 					<Rotation>0.0</Rotation>
-					<FillColor>-23296</FillColor>
+					<FillColor>-291840</FillColor>
 					<FillMaterial>null</FillMaterial>
 				</Rectangle>
 				<Control Type="CheckBox">
@@ -37486,7 +36067,7 @@ resumenEstadosCamionesGIS()
 					<Width>14</Width>
 					<Height>14</Height>
 					<Rotation>0.0</Rotation>
-					<FillColor>-16776961</FillColor>
+					<FillColor>-14776091</FillColor>
 					<FillMaterial>null</FillMaterial>
 				</Rectangle>
 				<Rectangle>
@@ -37508,7 +36089,7 @@ resumenEstadosCamionesGIS()
 					<Width>14</Width>
 					<Height>14</Height>
 					<Rotation>0.0</Rotation>
-					<FillColor>-65281</FillColor>
+					<FillColor>-4056997</FillColor>
 					<FillMaterial>null</FillMaterial>
 				</Rectangle>
 				<Rectangle>
@@ -37530,7 +36111,7 @@ resumenEstadosCamionesGIS()
 					<Width>14</Width>
 					<Height>14</Height>
 					<Rotation>0.0</Rotation>
-					<FillColor>-65536</FillColor>
+					<FillColor>-2937041</FillColor>
 					<FillMaterial>null</FillMaterial>
 				</Rectangle>
 				<Text>
@@ -37816,216 +36397,65 @@ resumenEstadosCamionesGIS()
 						<TextColor>-15257011</TextColor>
 						<Enabled>true</Enabled>
 						<EnableExpression><![CDATA[instanciaInterfazActual != null
-&&
-cacheVialInstanciaCompleta
-&&
-!ejecucionEnCurso
-&&
-!pypelineSolicitudEnCurso]]></EnableExpression>
-						<ActionCode><![CDATA[if (
-    ejecucionEnCurso
-    ||
-    pypelineSolicitudEnCurso
-) {
-
+&& !ejecucionEnCurso
+&& !pypelineSolicitudEnCurso]]></EnableExpression>
+						<ActionCode><![CDATA[
+if (ejecucionEnCurso || pypelineSolicitudEnCurso) {
     traceln(
-        "Ya existe una planificación "
-        + "o ejecución en curso."
+        "Ya existe una planificación o ejecución en curso."
     );
-
     return;
 }
 
-
-if (
-    instanciaInterfazActual == null
-) {
-
+if (instanciaInterfazActual == null) {
     mensajeInterfazPlanificacion =
-        "Primero debe cargarse "
-        + "una instancia.";
+        "Primero debe cargarse una instancia.";
 
-    traceln(
-        mensajeInterfazPlanificacion
-    );
-
+    traceln(mensajeInterfazPlanificacion);
     return;
 }
 
-
-if (
-    !verificarCacheVialInstanciaActual()
-) {
-
+if (!asegurarCacheVialInstanciaActual()) {
     mensajeInterfazPlanificacion =
-        "Matriz vial incompleta."
-        + "\nFaltan "
-        + cacheVialTramosFaltantes
-        + " tramos."
-        + "\nExporte la matriz vial.";
+        "No se pudo completar la matriz vial."
+        + "\nRevisá la consola.";
 
-
-    traceln(
-        mensajeInterfazPlanificacion
-    );
-
-
+    traceln(mensajeInterfazPlanificacion);
     return;
 }
 
-
-pypelineSolicitudEnCurso =
-    true;
-
+pypelineSolicitudEnCurso = true;
 
 try {
-
     InstanciaTurno instancia =
         instanciaInterfazActual;
 
+    String modoSolicitado =
+        modoPlanificacionPypeline == null
+        ? ""
+        : modoPlanificacionPypeline
+            .trim()
+            .toUpperCase();
 
-    boolean usarPlanComparacion =
-        planComparacionSeleccionadoListo
-        &&
-        planComparacionSeleccionadoActual
-            != null;
-
-
-    String modoSolicitado;
-
-
-    PlanTurno plan;
-
-
-    traceln(
-        "================================"
+    reiniciarPanelSelectorVisual(
+        modoSolicitado
     );
 
     traceln(
-        "=== SOLICITUD DE PLANIFICACIÓN ="
+        "MODO SOLICITADO: " + modoSolicitado
+    );
+
+    PlanTurno plan =
+        generarPlanSeleccionadoPypeline(instancia);
+
+    traceln("PLAN DEL SELECTOR RECIBIDO");
+
+    traceln(
+        "Algoritmo resultante: " + plan.algoritmo
     );
 
     traceln(
-        "================================"
-    );
-
-    traceln(
-        resumenInstanciaInterfaz()
-    );
-
-
-    if (usarPlanComparacion) {
-
-        modoSolicitado =
-            metodoPlanComparacionAplicado;
-
-
-        if (
-            modoSolicitado == null
-            ||
-            modoSolicitado.trim().isEmpty()
-        ) {
-
-            throw new IllegalStateException(
-                "El plan comparativo no tiene "
-                + "un método asociado."
-            );
-        }
-
-
-        plan =
-            planComparacionSeleccionadoActual;
-
-
-        ResultadoValidacionPlan validacion =
-            validarPlan(
-                instancia,
-                plan
-            );
-
-
-        if (!validacion.valido) {
-
-            throw new IllegalStateException(
-                "El plan comparativo dejó "
-                + "de ser válido: "
-                + validacion.errores
-            );
-        }
-
-
-        if (
-            vectorPlanComparacionSeleccionado
-                == null
-            ||
-            vectorPlanComparacionSeleccionado
-                .length < 5
-        ) {
-
-            throw new IllegalStateException(
-                "No se conserva el vector "
-                + "del plan comparativo."
-            );
-        }
-
-
-        pypelineUltimoPlanVector =
-            vectorPlanComparacionSeleccionado
-                .clone();
-
-
-        prepararVisualPlanComparacion(
-            modoSolicitado,
-            plan
-        );
-
-
-        traceln(
-            "PLAN RECUPERADO DE LA "
-            + "COMPARACIÓN ESTIMADA"
-        );
-
-
-    } else {
-
-        modoSolicitado =
-            modoPlanificacionPypeline == null
-            ? ""
-            : modoPlanificacionPypeline
-                .trim()
-                .toUpperCase();
-
-
-        reiniciarPanelSelectorVisual(
-            modoSolicitado
-        );
-
-
-        traceln(
-            "MODO SOLICITADO: "
-            + modoSolicitado
-        );
-
-
-        plan =
-            generarPlanSeleccionadoPypeline(
-                instancia
-            );
-    }
-
-
-    traceln(
-        "PLAN DEL SELECTOR RECIBIDO"
-    );
-
-    traceln(
-        "Algoritmo resultante: "
-        + plan.algoritmo
-    );
-
-    traceln(
-        "Costo estimado: "
-        + plan.costoEstimado
+        "Costo estimado: " + plan.costoEstimado
     );
 
     traceln(
@@ -38034,131 +36464,83 @@ try {
         + " ms"
     );
 
-
-    mostrarPlanEnGIS(
-        instancia,
-        plan
-    );
-
+    mostrarPlanEnGIS(instancia, plan);
 
     boolean iniciado =
-        ejecutarPlan(
-            instancia,
-            plan
-        );
-
+        ejecutarPlan(instancia, plan);
 
     if (!iniciado) {
-
         throw new IllegalStateException(
             "ejecutarPlan devolvió false."
         );
     }
 
-
     actualizarEstadosPedidosGIS();
-
 
     mensajeInterfazPlanificacion =
         "Plan "
         + plan.algoritmo
         + " en ejecución.";
 
-
     boolean simulacionReanudada =
         runSimulation();
 
-
     if (!simulacionReanudada) {
-
         throw new IllegalStateException(
-            "No fue posible reanudar "
-            + "la simulación."
+            "No fue posible reanudar la simulación."
         );
     }
-
 
     ultimoModoEjecutado =
         modoSolicitado;
 
-
-    instanciaInterfazActual =
-        null;
-
-
-    if (usarPlanComparacion) {
-
-        limpiarPlanComparacionSeleccionado();
-    }
-
+    instanciaInterfazActual = null;
 
 } catch (Exception ex) {
-
     String detalleError =
-        ex.getClass()
-            .getSimpleName()
+        ex.getClass().getSimpleName()
         + ": "
-        + String.valueOf(
-            ex.getMessage()
-        );
+        + String.valueOf(ex.getMessage());
 
-
-    marcarSelectorErrorVisual(
-        detalleError
-    );
-
+    marcarSelectorErrorVisual(detalleError);
 
     String detalleNormalizado =
         detalleError.toLowerCase(
             java.util.Locale.ROOT
         );
 
-
     boolean faltaTramoCacheVial =
         detalleNormalizado.contains(
             "no contiene el tramo dirigido"
         )
-        ||
-        (
-            detalleNormalizado.contains(
-                "keyerror"
-            )
-            &&
-            detalleNormalizado.contains(
-                "vial"
-            )
+        || (
+            detalleNormalizado.contains("keyerror")
+            && detalleNormalizado.contains("vial")
         );
 
-
     if (faltaTramoCacheVial) {
-
         mensajeInterfazPlanificacion =
             "Faltan rutas viales."
-            + "\nExportá la matriz vial"
-            + "\ny volvé a planificar.";
+            + "\nRevisá la conexión GIS"
+            + "\ny prepará nuevamente la operación.";
 
     } else {
-
         mensajeInterfazPlanificacion =
             "Error de planificación."
             + "\nRevisá la consola.";
     }
-
 
     traceln(
         "ERROR SELECTOR PYPELINE: "
         + detalleError
     );
 
-
     ex.printStackTrace();
 
-
 } finally {
-
-    pypelineSolicitudEnCurso =
-        false;
-}]]></ActionCode>
+    pypelineSolicitudEnCurso = false;
+}
+]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
 						<Font Name="SansSerif" Size="10" Style="1"/>
@@ -38575,7 +36957,7 @@ mensajeFormulario =
 				<Rectangle>
 					<Id>1787517087349</Id>
 					<Name><![CDATA[rectEncabezadoDashboard]]></Name>
-					<X>240</X><Y>15</Y>
+					<X>220</X><Y>0</Y>
 					<Label><X>10</X><Y>10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -38588,8 +36970,8 @@ mensajeFormulario =
 					<LineColor>-15257011</LineColor>
 					<LineMaterial>null</LineMaterial>
 					<LineStyle>SOLID</LineStyle>
-					<Width>1340</Width>
-					<Height>65</Height>
+					<Width>1380</Width>
+					<Height>80</Height>
 					<Rotation>0.0</Rotation>
 					<FillColor>-15257011</FillColor>
 					<FillMaterial>null</FillMaterial>
@@ -38932,7 +37314,7 @@ mensajeFormulario =
 				<Text>
 					<Id>1787523587254</Id>
 					<Name><![CDATA[txtTituloEstadoOperativo]]></Name>
-					<X>3005</X><Y>530</Y>
+					<X>3005</X><Y>520</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -39340,34 +37722,6 @@ String.format(
 					</Font>
 					<Alignment>LEFT</Alignment>
 				</Text>
-				<Control Type="Button">
-				 	<EmbeddedIcon>false</EmbeddedIcon>				
-					<Id>1787574102944</Id>
-					<Name><![CDATA[btnExportarCacheVial]]></Name>
-					<X>1355</X><Y>795</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<BasicProperties Width="200" Height="32">
-                        <EmbeddedIcon>false</EmbeddedIcon>	
-						<TextColor>-15257011</TextColor>
-						<Enabled>true</Enabled>
-						<EnableExpression><![CDATA[instanciaInterfazActual != null
-&&
-!cacheVialInstanciaCompleta
-&&
-!ejecucionEnCurso
-&&
-!pypelineSolicitudEnCurso]]></EnableExpression>
-						<ActionCode><![CDATA[exportarCacheVialInstanciaActual();]]></ActionCode>
-					</BasicProperties>
-					<ExtendedProperties>
-						<Font Name="SansSerif" Size="10" Style="1"/>
-						<LabelText><![CDATA[Reintentar matriz vial]]></LabelText>
-					</ExtendedProperties>
-				</Control>
 				<Text>
 					<Id>1787600236993</Id>
 					<Name><![CDATA[txtTituloDecisionSelector]]></Name>
@@ -39687,7 +38041,7 @@ textoMotivoSelector()]]></TextCode>
 				 	<EmbeddedIcon>false</EmbeddedIcon>				
 					<Id>1787862007175</Id>
 					<Name><![CDATA[fileChooserPedidosExcel]]></Name>
-					<X>1145</X><Y>795</Y>
+					<X>1145</X><Y>750</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -40368,7 +38722,7 @@ camiones.size() > 1]]></EnableExpression>
 				<Text>
 					<Id>1787517232141</Id>
 					<Name><![CDATA[txtMarcaDashboard]]></Name>
-					<X>1380</X><Y>50</Y>
+					<X>1420</X><Y>40</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -40389,7 +38743,7 @@ camiones.size() > 1]]></EnableExpression>
 				<Text>
 					<Id>1787517142957</Id>
 					<Name><![CDATA[txtTituloDashboard]]></Name>
-					<X>265</X><Y>36</Y>
+					<X>245</X><Y>17</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -40410,7 +38764,7 @@ camiones.size() > 1]]></EnableExpression>
 				<Text>
 					<Id>1787517186637</Id>
 					<Name><![CDATA[txtSubtituloDashboard]]></Name>
-					<X>265</X><Y>63</Y>
+					<X>248</X><Y>44</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -40749,7 +39103,7 @@ camiones.size() > 1]]></EnableExpression>
 				<Rectangle>
 					<Id>1788045290986</Id>
 					<Name><![CDATA[rectEncabezadoOperacion]]></Name>
-					<X>2040</X><Y>15</Y>
+					<X>2020</X><Y>0</Y>
 					<Label><X>10</X><Y>10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -40762,8 +39116,8 @@ camiones.size() > 1]]></EnableExpression>
 					<LineColor>-15257011</LineColor>
 					<LineMaterial>null</LineMaterial>
 					<LineStyle>SOLID</LineStyle>
-					<Width>1340</Width>
-					<Height>65</Height>
+					<Width>1380</Width>
+					<Height>80</Height>
 					<Rotation>0.0</Rotation>
 					<FillColor>-15257011</FillColor>
 					<FillMaterial>null</FillMaterial>
@@ -40771,7 +39125,7 @@ camiones.size() > 1]]></EnableExpression>
 				<Text>
 					<Id>1788045344849</Id>
 					<Name><![CDATA[txtTituloOperacion]]></Name>
-					<X>2065</X><Y>37</Y>
+					<X>2045</X><Y>17</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -40792,7 +39146,7 @@ camiones.size() > 1]]></EnableExpression>
 				<Text>
 					<Id>1788045373649</Id>
 					<Name><![CDATA[txtSubtituloOperacion]]></Name>
-					<X>2065</X><Y>64</Y>
+					<X>2048</X><Y>44</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -40813,7 +39167,7 @@ camiones.size() > 1]]></EnableExpression>
 				<Text>
 					<Id>1788045449187</Id>
 					<Name><![CDATA[txtMarcaOperacion]]></Name>
-					<X>3190</X><Y>50</Y>
+					<X>3240</X><Y>40</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -40834,7 +39188,7 @@ camiones.size() > 1]]></EnableExpression>
 				<Rectangle>
 					<Id>1788095784354</Id>
 					<Name><![CDATA[rectEncabezadoComparacion]]></Name>
-					<X>3840</X><Y>15</Y>
+					<X>3820</X><Y>0</Y>
 					<Label><X>10</X><Y>10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -40847,8 +39201,8 @@ camiones.size() > 1]]></EnableExpression>
 					<LineColor>-15257011</LineColor>
 					<LineMaterial>null</LineMaterial>
 					<LineStyle>SOLID</LineStyle>
-					<Width>1340</Width>
-					<Height>65</Height>
+					<Width>1380</Width>
+					<Height>80</Height>
 					<Rotation>0.0</Rotation>
 					<FillColor>-15257011</FillColor>
 					<FillMaterial>null</FillMaterial>
@@ -40856,7 +39210,7 @@ camiones.size() > 1]]></EnableExpression>
 				<Text>
 					<Id>1788095815410</Id>
 					<Name><![CDATA[txtTituloComparacion]]></Name>
-					<X>3865</X><Y>37</Y>
+					<X>3845</X><Y>17</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -40877,7 +39231,7 @@ camiones.size() > 1]]></EnableExpression>
 				<Text>
 					<Id>1788095842305</Id>
 					<Name><![CDATA[txtSubtituloComparacion]]></Name>
-					<X>3865</X><Y>64</Y>
+					<X>3848</X><Y>44</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -40898,7 +39252,7 @@ camiones.size() > 1]]></EnableExpression>
 				<Text>
 					<Id>1788095862611</Id>
 					<Name><![CDATA[txtMarcaComparacion]]></Name>
-					<X>4970</X><Y>50</Y>
+					<X>5030</X><Y>40</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -41236,7 +39590,6 @@ camiones.size() > 1]]></EnableExpression>
 						<EnableExpression><![CDATA[comparacionEstimadaDisponible
 &&
 !pypelineSolicitudEnCurso]]></EnableExpression>
-						<ActionCode><![CDATA[]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
 						<Font Name="SansSerif" Size="10" Style="0"/>
@@ -41293,7 +39646,6 @@ camiones.size() > 1]]></EnableExpression>
 						<EnableExpression><![CDATA[comparacionEstimadaDisponible
 &&
 !pypelineSolicitudEnCurso]]></EnableExpression>
-						<ActionCode><![CDATA[]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
 						<Font Name="SansSerif" Size="10" Style="0"/>
@@ -46057,7 +44409,12 @@ instanciaBaseRepetibleDisponible()
 !pypelineSolicitudEnCurso
 &&
 !reinicioCompletoSolicitado]]></EnableExpression>
-						<ActionCode><![CDATA[solicitarRepetirInstanciaConReinicioCompleto();]]></ActionCode>
+						<ActionCode><![CDATA[if (solicitarRepetirInstanciaConReinicioCompleto()) {
+
+    btnRepetirInstancia.setText(
+        "Reiniciando..."
+    );
+}]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
 						<Font Name="SansSerif" Size="9" Style="1"/>
@@ -47176,7 +45533,7 @@ getExperimentHost().showMessageDialog(
 				<Rectangle>
 					<Id>1793370243354</Id>
 					<Name><![CDATA[rectEncabezadoEstudio]]></Name>
-					<X>5640</X><Y>15</Y>
+					<X>5620</X><Y>0</Y>
 					<Label><X>10</X><Y>10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -47189,8 +45546,8 @@ getExperimentHost().showMessageDialog(
 					<LineColor>-15257011</LineColor>
 					<LineMaterial>null</LineMaterial>
 					<LineStyle>SOLID</LineStyle>
-					<Width>1340</Width>
-					<Height>65</Height>
+					<Width>1380</Width>
+					<Height>80</Height>
 					<Rotation>0.0</Rotation>
 					<FillColor>-15257011</FillColor>
 					<FillMaterial>null</FillMaterial>
@@ -47198,7 +45555,7 @@ getExperimentHost().showMessageDialog(
 				<Text>
 					<Id>1793370243356</Id>
 					<Name><![CDATA[txtTituloEstudio]]></Name>
-					<X>5665</X><Y>37</Y>
+					<X>5645</X><Y>17</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -47219,7 +45576,7 @@ getExperimentHost().showMessageDialog(
 				<Text>
 					<Id>1793370243358</Id>
 					<Name><![CDATA[txtSubtituloEstudio]]></Name>
-					<X>5665</X><Y>64</Y>
+					<X>5648</X><Y>44</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -47240,7 +45597,7 @@ getExperimentHost().showMessageDialog(
 				<Text>
 					<Id>1793370243360</Id>
 					<Name><![CDATA[txtMarcaEstudio]]></Name>
-					<X>6770</X><Y>50</Y>
+					<X>6830</X><Y>40</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -47431,30 +45788,9 @@ getExperimentHost().showMessageDialog(
 					<Alignment>LEFT</Alignment>
 				</Text>
 				<Text>
-					<Id>1793374342590</Id>
-					<Name><![CDATA[txtLabelDemandaEstudio]]></Name>
-					<X>5925</X><Y>274</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<Rotation>0.0</Rotation>
-					<Color>-13418155</Color>
-					<Text><![CDATA[Distribución de pedidos]]></Text>
-					<Font>
-						<Name>SansSerif</Name>
-						<Size>10</Size>
-						<Style>1</Style>
-					</Font>
-					<Alignment>LEFT</Alignment>
-				</Text>
-				<Text>
 					<Id>1793374363954</Id>
 					<Name><![CDATA[txtLabelMetodosEstudio]]></Name>
-					<X>6185</X><Y>274</Y>
+					<X>5925</X><Y>274</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -47613,8 +45949,8 @@ getExperimentHost().showMessageDialog(
 					</ExtendedProperties>
 				</Control>
 				<Rectangle>
-					<Id>1793374788782</Id>
-					<Name><![CDATA[rectDemandaEstudio]]></Name>
+					<Id>1793374907725</Id>
+					<Name><![CDATA[rectMetodosEstudio]]></Name>
 					<X>5925</X><Y>296</Y>
 					<Label><X>10</X><Y>10</Y></Label>
 					<PublicFlag>true</PublicFlag>
@@ -47628,15 +45964,15 @@ getExperimentHost().showMessageDialog(
 					<LineColor>-2563606</LineColor>
 					<LineMaterial>null</LineMaterial>
 					<LineStyle>SOLID</LineStyle>
-					<Width>235</Width>
+					<Width>550</Width>
 					<Height>34</Height>
 					<Rotation>0.0</Rotation>
 					<FillColor>-460036</FillColor>
 					<FillMaterial>null</FillMaterial>
 				</Rectangle>
 				<Text>
-					<Id>1793374836189</Id>
-					<Name><![CDATA[txtDemandaPrincipalEstudio]]></Name>
+					<Id>1793374942757</Id>
+					<Name><![CDATA[txtMetodosPrincipalEstudio]]></Name>
 					<X>5937</X><Y>302</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
@@ -47647,71 +45983,7 @@ getExperimentHost().showMessageDialog(
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
 					<Color>-15257011</Color>
-					<Text><![CDATA[Distribución histórica]]></Text>
-					<Font>
-						<Name>SansSerif</Name>
-						<Size>10</Size>
-						<Style>1</Style>
-					</Font>
-					<Alignment>LEFT</Alignment>
-				</Text>
-				<Text>
-					<Id>1793374863277</Id>
-					<Name><![CDATA[txtDemandaDetalleEstudio]]></Name>
-					<X>5937</X><Y>317</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<Rotation>0.0</Rotation>
-					<Color>-10063739</Color>
-					<Text><![CDATA[Según registros de turnos]]></Text>
-					<Font>
-						<Name>SansSerif</Name>
-						<Size>8</Size>
-						<Style>0</Style>
-					</Font>
-					<Alignment>LEFT</Alignment>
-				</Text>
-				<Rectangle>
-					<Id>1793374907725</Id>
-					<Name><![CDATA[rectMetodosEstudio]]></Name>
-					<X>6185</X><Y>296</Y>
-					<Label><X>10</X><Y>10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<ZHeight>10</ZHeight>
-					<LineWidth>1</LineWidth>
-					<LineColor>-2563606</LineColor>
-					<LineMaterial>null</LineMaterial>
-					<LineStyle>SOLID</LineStyle>
-					<Width>290</Width>
-					<Height>34</Height>
-					<Rotation>0.0</Rotation>
-					<FillColor>-460036</FillColor>
-					<FillMaterial>null</FillMaterial>
-				</Rectangle>
-				<Text>
-					<Id>1793374942757</Id>
-					<Name><![CDATA[txtMetodosPrincipalEstudio]]></Name>
-					<X>6197</X><Y>302</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<Rotation>0.0</Rotation>
-					<Color>-15257011</Color>
-					<Text><![CDATA[	RL  -  Híbrido  -  Greedy]]></Text>
+					<Text><![CDATA[	RL  -  Híbrido  -  Greedy  -  Random  -  GA]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>10</Size>
@@ -47722,7 +45994,7 @@ getExperimentHost().showMessageDialog(
 				<Text>
 					<Id>1793375010261</Id>
 					<Name><![CDATA[txtMetodosSecundarioEstudio]]></Name>
-					<X>6197</X><Y>317</Y>
+					<X>5937</X><Y>317</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -47732,7 +46004,7 @@ getExperimentHost().showMessageDialog(
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
 					<Color>-10063739</Color>
-					<Text><![CDATA[Random  -  GA]]></Text>
+					<Text><![CDATA[Los cinco métodos se evalúan sobre los mismos escenarios.]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>9</Size>
@@ -48498,46 +46770,6 @@ getExperimentHost().showMessageDialog(
         )
         : "ESTADO DE PREPARACIÓN DEL ESTUDIO"
     )]]></TextCode>
-					<Font>
-						<Name>SansSerif</Name>
-						<Size>9</Size>
-						<Style>0</Style>
-					</Font>
-					<Alignment>LEFT</Alignment>
-				</Text>
-				<Text>
-					<Id>1793376310750</Id>
-					<Name><![CDATA[txtEstadoProgresoEstudio]]></Name>
-					<X>6865</X><Y>568</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<Rotation>0.0</Rotation>
-					<Color>-10063739</Color>
-					<Text><![CDATA[Sin ejecución iniciada]]></Text>
-					<TextCode><![CDATA[
-estudioProcesoSimulacion != null
-? (
-    (estudioSimulacionesFinalizadas
-        + estudioSimulacionesFallidas)
-    + " / "
-    + estudioCorridasPrevistas
-)
-: (
-    estudioFlujoActivo
-    ? (
-        generacionActivaEstudio()
-        ? contarEscenariosGeneradosEstudio()
-            + " / " + estudioTurnosValidados
-        : estudioEscenariosVialesPreparados
-            + " / " + estudioTurnosValidados
-    )
-    : "Sin simulaciones"
-)]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
 						<Size>9</Size>
@@ -49636,6 +47868,50 @@ if (
 					</Font>
 					<Alignment>LEFT</Alignment>
 				</Text>
+				<Control Type="Button">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1794144776199</Id>
+					<Name><![CDATA[btnVerEstadosCamion0]]></Name>
+					<X>3165</X><Y>518</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="90" Height="28">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<TextColor>-13730510</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[camiones.size() > 0]]></EnableExpression>
+						<ActionCode><![CDATA[camiones.get(0).viewEstadosCamion.navigateTo();]]></ActionCode>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="10" Style="0"/>
+						<LabelText><![CDATA[Estados C0]]></LabelText>
+					</ExtendedProperties>
+				</Control>
+				<Control Type="Button">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1794144809857</Id>
+					<Name><![CDATA[btnVerEstadosCamion1]]></Name>
+					<X>3265</X><Y>518</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="90" Height="28">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<TextColor>-8708190</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[camiones.size() > 0]]></EnableExpression>
+						<ActionCode><![CDATA[camiones.get(1).viewEstadosCamion.navigateTo();]]></ActionCode>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="10" Style="0"/>
+						<LabelText><![CDATA[Estados C1]]></LabelText>
+					</ExtendedProperties>
+				</Control>
 			</Presentation>
 
 				</Level>
@@ -49846,7 +48122,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786559315291</Id>
 					<Name><![CDATA[planAsignado]]></Name>
-					<X>-620</X><Y>80</Y>
+					<X>-620</X><Y>980</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -50296,7 +48572,7 @@ traceln(
 				<Variable Class="PlainVariable">
 					<Id>1786625107749</Id>
 					<Name><![CDATA[minutoFinPlan]]></Name>
-					<X>-620</X><Y>980</Y>
+					<X>-620</X><Y>80</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -50313,8 +48589,8 @@ traceln(
 				<StatechartElement Class="State" ParentState="ROOT_NODE">
 					<Id>1786559800676</Id>
 					<Name><![CDATA[EnCorralon]]></Name>
-					<X>90</X><Y>60</Y>
-					<Label><X>10</X><Y>10</Y></Label>
+					<X>630</X><Y>120</Y>
+					<Label><X>10</X><Y>14</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>true</ShowLabel>
@@ -50325,8 +48601,8 @@ traceln(
 				<StatechartElement Class="State" ParentState="ROOT_NODE">
 					<Id>1786559808564</Id>
 					<Name><![CDATA[Cargando]]></Name>
-					<X>90</X><Y>130</Y>
-					<Label><X>10</X><Y>10</Y></Label>
+					<X>630</X><Y>190</Y>
+					<Label><X>14</X><Y>14</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>true</ShowLabel>
@@ -50337,43 +48613,43 @@ traceln(
 				<StatechartElement Class="State" ParentState="ROOT_NODE">
 					<Id>1786559821755</Id>
 					<Name><![CDATA[EnRutaCliente]]></Name>
-					<X>90</X><Y>200</Y>
-					<Label><X>10</X><Y>10</Y></Label>
+					<X>630</X><Y>260</Y>
+					<Label><X>4</X><Y>14</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>true</ShowLabel>
-					<Properties Width="100" Height="30">
+					<Properties Width="105" Height="30">
 						<FillColor>-10496</FillColor>
 					</Properties>
 				</StatechartElement>
 				<StatechartElement Class="State" ParentState="ROOT_NODE">
 					<Id>1786559828387</Id>
 					<Name><![CDATA[Descargando]]></Name>
-					<X>90</X><Y>340</Y>
-					<Label><X>10</X><Y>10</Y></Label>
+					<X>630</X><Y>400</Y>
+					<Label><X>10</X><Y>14</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>true</ShowLabel>
-					<Properties Width="100" Height="30">
+					<Properties Width="110" Height="30">
 						<FillColor>-10496</FillColor>
 					</Properties>
 				</StatechartElement>
 				<StatechartElement Class="State" ParentState="ROOT_NODE">
 					<Id>1786559844659</Id>
 					<Name><![CDATA[EvaluandoSiguiente]]></Name>
-					<X>90</X><Y>410</Y>
-					<Label><X>10</X><Y>10</Y></Label>
+					<X>630</X><Y>470</Y>
+					<Label><X>16</X><Y>14</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>true</ShowLabel>
-					<Properties Width="100" Height="30">
+					<Properties Width="170" Height="30">
 						<FillColor>-10496</FillColor>
 					</Properties>
 				</StatechartElement>
 				<StatechartElement Class="State" ParentState="ROOT_NODE">
 					<Id>1786559852235</Id>
 					<Name><![CDATA[Regresando]]></Name>
-					<X>90</X><Y>480</Y>
+					<X>630</X><Y>540</Y>
 					<Label><X>10</X><Y>10</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -50385,8 +48661,8 @@ traceln(
 				<StatechartElement Class="State" ParentState="ROOT_NODE">
 					<Id>1786559865243</Id>
 					<Name><![CDATA[FinTurno]]></Name>
-					<X>270</X><Y>60</Y>
-					<Label><X>10</X><Y>10</Y></Label>
+					<X>880</X><Y>120</Y>
+					<Label><X>18</X><Y>14</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>true</ShowLabel>
@@ -50397,31 +48673,31 @@ traceln(
 				<StatechartElement Class="State" ParentState="ROOT_NODE">
 					<Id>1786578626913</Id>
 					<Name><![CDATA[EvaluandoCliente]]></Name>
-					<X>90</X><Y>270</Y>
-					<Label><X>10</X><Y>10</Y></Label>
+					<X>630</X><Y>330</Y>
+					<Label><X>10</X><Y>14</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>true</ShowLabel>
-					<Properties Width="100" Height="30">
+					<Properties Width="140" Height="30">
 						<FillColor>-10496</FillColor>
 					</Properties>
 				</StatechartElement>
 				<StatechartElement Class="State" ParentState="ROOT_NODE">
 					<Id>1786578775394</Id>
 					<Name><![CDATA[EsperandoCliente]]></Name>
-					<X>230</X><Y>310</Y>
-					<Label><X>10</X><Y>10</Y></Label>
+					<X>825</X><Y>370</Y>
+					<Label><X>10</X><Y>14</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>true</ShowLabel>
-					<Properties Width="100" Height="30">
+					<Properties Width="140" Height="30">
 						<FillColor>-10496</FillColor>
 					</Properties>
 				</StatechartElement>
 				<StatechartElement Class="EntryPoint" ParentState="ROOT_NODE">
 					<Id>1786559893140</Id>
 					<Name><![CDATA[scOperacion]]></Name>
-					<X>140</X><Y>20</Y>
+					<X>680</X><Y>80</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -50436,11 +48712,11 @@ traceln(
 				<StatechartElement Class="Transition" ParentState="ROOT_NODE">
 					<Id>1786559961282</Id>
 					<Name><![CDATA[tIniciarViaje]]></Name>
-					<X>140</X><Y>90</Y>
-					<Label><X>10</X><Y>0</Y></Label>
+					<X>680</X><Y>150</Y>
+					<Label><X>-86</X><Y>14</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
+					<ShowLabel>true</ShowLabel>
 					<Points>
 						<Point><X>0</X><Y>0</Y></Point>
 						<Point><X>0</X><Y>40</Y></Point>
@@ -50470,11 +48746,11 @@ iniciarCarga();]]></Action>
 				<StatechartElement Class="Transition" ParentState="ROOT_NODE">
 					<Id>1786559965579</Id>
 					<Name><![CDATA[tFinCarga]]></Name>
-					<X>140</X><Y>160</Y>
-					<Label><X>10</X><Y>0</Y></Label>
+					<X>680</X><Y>220</Y>
+					<Label><X>6</X><Y>12</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
+					<ShowLabel>true</ShowLabel>
 					<Points>
 						<Point><X>0</X><Y>0</Y></Point>
 						<Point><X>0</X><Y>40</Y></Point>
@@ -50510,11 +48786,11 @@ prepararPedidoActual();]]></Action>
 				<StatechartElement Class="Transition" ParentState="ROOT_NODE">
 					<Id>1786559974115</Id>
 					<Name><![CDATA[tLlegadaCliente]]></Name>
-					<X>140</X><Y>230</Y>
-					<Label><X>10</X><Y>0</Y></Label>
+					<X>680</X><Y>290</Y>
+					<Label><X>6</X><Y>12</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
+					<ShowLabel>true</ShowLabel>
 					<Points>
 						<Point><X>0</X><Y>0</Y></Point>
 						<Point><X>0</X><Y>40</Y></Point>
@@ -50542,11 +48818,11 @@ evaluarClienteActual();]]></Action>
 				<StatechartElement Class="Transition" ParentState="ROOT_NODE">
 					<Id>1786559978707</Id>
 					<Name><![CDATA[tFinDescarga]]></Name>
-					<X>140</X><Y>370</Y>
-					<Label><X>10</X><Y>0</Y></Label>
+					<X>680</X><Y>430</Y>
+					<Label><X>6</X><Y>12</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
+					<ShowLabel>true</ShowLabel>
 					<Points>
 						<Point><X>0</X><Y>0</Y></Point>
 						<Point><X>0</X><Y>40</Y></Point>
@@ -50573,11 +48849,11 @@ evaluarClienteActual();]]></Action>
 				<StatechartElement Class="Transition" ParentState="ROOT_NODE">
 					<Id>1786559981780</Id>
 					<Name><![CDATA[tRegresar]]></Name>
-					<X>140</X><Y>440</Y>
-					<Label><X>10</X><Y>0</Y></Label>
+					<X>680</X><Y>500</Y>
+					<Label><X>8</X><Y>12</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
+					<ShowLabel>true</ShowLabel>
 					<Points>
 						<Point><X>0</X><Y>0</Y></Point>
 						<Point><X>0</X><Y>40</Y></Point>
@@ -50605,16 +48881,16 @@ evaluarClienteActual();]]></Action>
 				<StatechartElement Class="Transition" ParentState="ROOT_NODE">
 					<Id>1786560008172</Id>
 					<Name><![CDATA[tSiguientePedido]]></Name>
-					<X>190</X><Y>420</Y>
-					<Label><X>10</X><Y>0</Y></Label>
+					<X>800</X><Y>480</Y>
+					<Label><X>24</X><Y>12</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
+					<ShowLabel>true</ShowLabel>
 					<Points>
 						<Point><X>0</X><Y>0</Y></Point>
-						<Point><X>210</X><Y>0</Y></Point>
-						<Point><X>210</X><Y>-200</Y></Point>
-						<Point><X>0</X><Y>-200</Y></Point>
+						<Point><X>215</X><Y>0</Y></Point>
+						<Point><X>215</X><Y>-200</Y></Point>
+						<Point><X>-65</X><Y>-200</Y></Point>
 					</Points>
 					<IconOffset>20.0</IconOffset>
 					<Properties Source="1786559844659" Target="1786559821755" Trigger="condition">
@@ -50639,15 +48915,15 @@ evaluarClienteActual();]]></Action>
 				<StatechartElement Class="Transition" ParentState="ROOT_NODE">
 					<Id>1786560028243</Id>
 					<Name><![CDATA[tFinRegreso]]></Name>
-					<X>90</X><Y>500</Y>
-					<Label><X>10</X><Y>0</Y></Label>
+					<X>630</X><Y>560</Y>
+					<Label><X>-86</X><Y>16</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
+					<ShowLabel>true</ShowLabel>
 					<Points>
 						<Point><X>0</X><Y>0</Y></Point>
-						<Point><X>-70</X><Y>0</Y></Point>
-						<Point><X>-70</X><Y>-420</Y></Point>
+						<Point><X>-135</X><Y>0</Y></Point>
+						<Point><X>-135</X><Y>-420</Y></Point>
 						<Point><X>0</X><Y>-420</Y></Point>
 					</Points>
 					<IconOffset>20.0</IconOffset>
@@ -50672,14 +48948,14 @@ evaluarClienteActual();]]></Action>
 				<StatechartElement Class="Transition" ParentState="ROOT_NODE">
 					<Id>1786560041099</Id>
 					<Name><![CDATA[tFinPlanCamion]]></Name>
-					<X>190</X><Y>70</Y>
-					<Label><X>10</X><Y>0</Y></Label>
+					<X>730</X><Y>130</Y>
+					<Label><X>24</X><Y>12</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
+					<ShowLabel>true</ShowLabel>
 					<Points>
 						<Point><X>0</X><Y>0</Y></Point>
-						<Point><X>80</X><Y>0</Y></Point>
+						<Point><X>150</X><Y>0</Y></Point>
 					</Points>
 					<IconOffset>20.0</IconOffset>
 					<Properties Source="1786559800676" Target="1786559865243" Trigger="condition">
@@ -50705,11 +48981,11 @@ evaluarClienteActual();]]></Action>
 				<StatechartElement Class="Transition" ParentState="ROOT_NODE">
 					<Id>1786578701417</Id>
 					<Name><![CDATA[tClienteDescargar]]></Name>
-					<X>140</X><Y>300</Y>
-					<Label><X>10</X><Y>0</Y></Label>
+					<X>680</X><Y>360</Y>
+					<Label><X>6</X><Y>14</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
+					<ShowLabel>true</ShowLabel>
 					<Points>
 						<Point><X>0</X><Y>0</Y></Point>
 						<Point><X>0</X><Y>40</Y></Point>
@@ -50737,15 +49013,15 @@ evaluarClienteActual();]]></Action>
 				<StatechartElement Class="Transition" ParentState="ROOT_NODE">
 					<Id>1786578795209</Id>
 					<Name><![CDATA[tClienteEsperar]]></Name>
-					<X>190</X><Y>290</Y>
-					<Label><X>10</X><Y>0</Y></Label>
+					<X>770</X><Y>350</Y>
+					<Label><X>104</X><Y>-6</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
+					<ShowLabel>true</ShowLabel>
 					<Points>
 						<Point><X>0</X><Y>0</Y></Point>
-						<Point><X>90</X><Y>0</Y></Point>
-						<Point><X>92</X><Y>20</Y></Point>
+						<Point><X>107</X><Y>0</Y></Point>
+						<Point><X>107</X><Y>20</Y></Point>
 					</Points>
 					<IconOffset>20.0</IconOffset>
 					<Properties Source="1786578626913" Target="1786578775394" Trigger="condition">
@@ -50770,11 +49046,11 @@ evaluarClienteActual();]]></Action>
 				<StatechartElement Class="Transition" ParentState="ROOT_NODE">
 					<Id>1786578835970</Id>
 					<Name><![CDATA[tClienteNoEntrega]]></Name>
-					<X>90</X><Y>290</Y>
-					<Label><X>10</X><Y>0</Y></Label>
+					<X>630</X><Y>350</Y>
+					<Label><X>-124</X><Y>-14</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
+					<ShowLabel>true</ShowLabel>
 					<Points>
 						<Point><X>0</X><Y>0</Y></Point>
 						<Point><X>-30</X><Y>0</Y></Point>
@@ -50806,15 +49082,15 @@ evaluarClienteActual();]]></Action>
 				<StatechartElement Class="Transition" ParentState="ROOT_NODE">
 					<Id>1786578895418</Id>
 					<Name><![CDATA[tFinEsperaCliente]]></Name>
-					<X>280</X><Y>340</Y>
-					<Label><X>10</X><Y>0</Y></Label>
+					<X>875</X><Y>400</Y>
+					<Label><X>7</X><Y>18</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
+					<ShowLabel>true</ShowLabel>
 					<Points>
 						<Point><X>0</X><Y>0</Y></Point>
 						<Point><X>0</X><Y>20</Y></Point>
-						<Point><X>-90</X><Y>20</Y></Point>
+						<Point><X>-135</X><Y>20</Y></Point>
 					</Points>
 					<IconOffset>20.0</IconOffset>
 					<Properties Source="1786578775394" Target="1786559828387" Trigger="timeout">
@@ -52459,6 +50735,72 @@ return
 					<LevelVisibility>DIM_NON_CURRENT</LevelVisibility>
 
 			<Presentation>
+				<Rectangle>
+					<Id>1794146739454</Id>
+					<Name><![CDATA[rectFondoVistaCamion]]></Name>
+					<X>450</X><Y>0</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-723208</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>600</Width>
+					<Height>660</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-723208</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Rectangle>
+					<Id>1794147024704</Id>
+					<Name><![CDATA[rectPanelStatechartCamion]]></Name>
+					<X>460</X><Y>65</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-2695963</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>580</Width>
+					<Height>525</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-1</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Rectangle>
+					<Id>1794146790584</Id>
+					<Name><![CDATA[rectCabeceraVistaCamion]]></Name>
+					<X>450</X><Y>0</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-15257011</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>600</Width>
+					<Height>56</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-15257011</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
 				<Figure3D>
 					<Id>1786559212265</Id>
 					<Name><![CDATA[lorry]]></Name>
@@ -52497,10 +50839,141 @@ return
 					<InternalLighting>OFF</InternalLighting>
 					<IgnoreSceneLights>false</IgnoreSceneLights>
 				</Figure3D>
+				<Control Type="Button">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1794145659440</Id>
+					<Name><![CDATA[btnVolverOperacionCamion]]></Name>
+					<X>560</X><Y>620</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="204" Height="35">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<TextColor>-15257011</TextColor>
+						<Enabled>true</Enabled>
+						<ActionCode><![CDATA[mainModel().irAVistaOperacion();]]></ActionCode>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="11" Style="1"/>
+						<LabelText><![CDATA[Volver a Operación]]></LabelText>
+					</ExtendedProperties>
+				</Control>
+				<Control Type="Button">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1794146249429</Id>
+					<Name><![CDATA[btnVerOtroCamion]]></Name>
+					<X>770</X><Y>620</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="190" Height="35">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<TextColor>-15257011</TextColor>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[mainModel().camiones.size() >= 2]]></EnableExpression>
+						<ActionCode><![CDATA[Main principal = mainModel();
+
+if (principal.camiones.size() >= 2) {
+
+    Camion otroCamion =
+        principal.camiones.get(0) == this
+        ? principal.camiones.get(1)
+        : principal.camiones.get(0);
+
+    otroCamion.viewEstadosCamion.navigateTo();
+}]]></ActionCode>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="11" Style="1"/>
+						<LabelText><![CDATA[Ver otro camión]]></LabelText>
+					</ExtendedProperties>
+				</Control>
+				<Text>
+					<Id>1794146843689</Id>
+					<Name><![CDATA[txtTituloVistaCamion]]></Name>
+					<X>480</X><Y>10</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-1</Color>
+					<Text><![CDATA[Estados lógicos]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>15</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1794146957462</Id>
+					<Name><![CDATA[txtCamionActual]]></Name>
+					<X>480</X><Y>30</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-2300174</Color>
+					<Text><![CDATA[text]]></Text>
+					<TextCode><![CDATA["Vista actual: Camión " + camionId]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>11</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1794147205430</Id>
+					<Name><![CDATA[txtAyudaStatechartCamion]]></Name>
+					<X>466</X><Y>599</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-10589320</Color>
+					<Text><![CDATA[Se resalta el estado activo en rojo; las transiciones temporizadas aparecen en azul.]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>9</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
 			</Presentation>
 
 				</Level>
 			</Presentation>
+			<Areas>
+				<Area>
+					<Id>1794144652018</Id>
+					<Name><![CDATA[viewEstadosCamion]]></Name>
+					<X>450</X><Y>0</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<Title><![CDATA[Estados lógicos del camión]]></Title>
+					<Width>600</Width>
+					<Height>660</Height>
+				</Area>
+			</Areas>
 
 		</ActiveObjectClass>
 	</ActiveObjectClasses>
@@ -52615,9 +51088,6 @@ return
 					<ParameterName><![CDATA[TOLERANCIA_FIN_TURNO_MIN]]></ParameterName>
 				</Parameter>
 				<Parameter>
-					<ParameterName><![CDATA[DURACION_MIN_VENTANA_MIN]]></ParameterName>
-				</Parameter>
-				<Parameter>
 					<ParameterName><![CDATA[LAT_CORRALON]]></ParameterName>
 				</Parameter>
 				<Parameter>
@@ -52700,9 +51170,6 @@ return
 				</Parameter>
 				<Parameter>
 					<ParameterName><![CDATA[TRAFICO_VELOCIDAD_BASE_KMH]]></ParameterName>
-				</Parameter>
-				<Parameter>
-					<ParameterName><![CDATA[TRAFICO_FACTOR_URBANO_DISTANCIA]]></ParameterName>
 				</Parameter>
 				<Parameter>
 					<ParameterName><![CDATA[TRAFICO_FACTOR_NORMAL]]></ParameterName>

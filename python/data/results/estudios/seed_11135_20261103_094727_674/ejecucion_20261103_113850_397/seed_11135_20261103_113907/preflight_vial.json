@@ -1,0 +1,609 @@
+{
+  "cache_sha256": "bcc4b80664fb9184eb35c86055e0c77e58d2385c45ee8ce1dde1c31dd31e14db",
+  "escenarios": [
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D01-506555629",
+      "puntos": 14,
+      "requeridos": 182
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D02-787266198",
+      "puntos": 19,
+      "requeridos": 342
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D03-345704565",
+      "puntos": 13,
+      "requeridos": 156
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D04-747303426",
+      "puntos": 12,
+      "requeridos": 132
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D05-217294818",
+      "puntos": 24,
+      "requeridos": 552
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D06-412649811",
+      "puntos": 15,
+      "requeridos": 210
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D07-815641775",
+      "puntos": 21,
+      "requeridos": 420
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D08-114967855",
+      "puntos": 26,
+      "requeridos": 650
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D09-345266291",
+      "puntos": 14,
+      "requeridos": 182
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D10-618319589",
+      "puntos": 15,
+      "requeridos": 210
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D11-721265782",
+      "puntos": 24,
+      "requeridos": 552
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D12-840625181",
+      "puntos": 10,
+      "requeridos": 90
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D13-654561849",
+      "puntos": 8,
+      "requeridos": 56
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D14-724181513",
+      "puntos": 21,
+      "requeridos": 420
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D15-774502733",
+      "puntos": 9,
+      "requeridos": 72
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D16-95927214",
+      "puntos": 19,
+      "requeridos": 342
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D17-162070340",
+      "puntos": 24,
+      "requeridos": 552
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D18-147268220",
+      "puntos": 12,
+      "requeridos": 132
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D19-969398656",
+      "puntos": 18,
+      "requeridos": 306
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D20-533621206",
+      "puntos": 8,
+      "requeridos": 56
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D21-910580014",
+      "puntos": 19,
+      "requeridos": 342
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D22-285730622",
+      "puntos": 18,
+      "requeridos": 306
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D23-177298420",
+      "puntos": 14,
+      "requeridos": 182
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D24-598868893",
+      "puntos": 14,
+      "requeridos": 182
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D25-643995323",
+      "puntos": 14,
+      "requeridos": 182
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D26-582390234",
+      "puntos": 20,
+      "requeridos": 380
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D27-191829542",
+      "puntos": 15,
+      "requeridos": 210
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D28-89169259",
+      "puntos": 20,
+      "requeridos": 380
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D29-190275346",
+      "puntos": 20,
+      "requeridos": 380
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D30-331309102",
+      "puntos": 12,
+      "requeridos": 132
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D31-862258122",
+      "puntos": 25,
+      "requeridos": 600
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D32-146380374",
+      "puntos": 15,
+      "requeridos": 210
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D33-514781297",
+      "puntos": 31,
+      "requeridos": 930
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D34-279775630",
+      "puntos": 25,
+      "requeridos": 600
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D35-537994504",
+      "puntos": 15,
+      "requeridos": 210
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D36-908838637",
+      "puntos": 15,
+      "requeridos": 210
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D37-761494836",
+      "puntos": 14,
+      "requeridos": 182
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D38-788031750",
+      "puntos": 10,
+      "requeridos": 90
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D39-362123064",
+      "puntos": 16,
+      "requeridos": 240
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D40-111057726",
+      "puntos": 12,
+      "requeridos": 132
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D41-24598379",
+      "puntos": 15,
+      "requeridos": 210
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D42-641280458",
+      "puntos": 10,
+      "requeridos": 90
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D43-462019752",
+      "puntos": 20,
+      "requeridos": 380
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D44-177876478",
+      "puntos": 21,
+      "requeridos": 420
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D45-18452911",
+      "puntos": 12,
+      "requeridos": 132
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D46-117770264",
+      "puntos": 31,
+      "requeridos": 930
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D47-317527687",
+      "puntos": 9,
+      "requeridos": 72
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D48-221226609",
+      "puntos": 12,
+      "requeridos": 132
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D49-196124004",
+      "puntos": 16,
+      "requeridos": 240
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D50-921949193",
+      "puntos": 18,
+      "requeridos": 306
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D51-981988702",
+      "puntos": 9,
+      "requeridos": 72
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D52-474578123",
+      "puntos": 12,
+      "requeridos": 132
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D53-526297274",
+      "puntos": 16,
+      "requeridos": 240
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D54-825344259",
+      "puntos": 9,
+      "requeridos": 72
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D55-2064495",
+      "puntos": 13,
+      "requeridos": 156
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D56-736313055",
+      "puntos": 29,
+      "requeridos": 812
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D57-888600986",
+      "puntos": 11,
+      "requeridos": 110
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D58-458055012",
+      "puntos": 17,
+      "requeridos": 272
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D59-406565897",
+      "puntos": 22,
+      "requeridos": 462
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D60-594744439",
+      "puntos": 13,
+      "requeridos": 156
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D61-497402624",
+      "puntos": 16,
+      "requeridos": 240
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D62-625276502",
+      "puntos": 10,
+      "requeridos": 90
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D63-981512142",
+      "puntos": 17,
+      "requeridos": 272
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D64-455494708",
+      "puntos": 17,
+      "requeridos": 272
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D65-842758456",
+      "puntos": 13,
+      "requeridos": 156
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D66-107038496",
+      "puntos": 8,
+      "requeridos": 56
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D67-559430139",
+      "puntos": 11,
+      "requeridos": 110
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D68-420380781",
+      "puntos": 15,
+      "requeridos": 210
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D69-878878352",
+      "puntos": 11,
+      "requeridos": 110
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D70-182431018",
+      "puntos": 20,
+      "requeridos": 380
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D71-689705517",
+      "puntos": 19,
+      "requeridos": 342
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D72-812330803",
+      "puntos": 30,
+      "requeridos": 870
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D73-786393445",
+      "puntos": 14,
+      "requeridos": 182
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D74-187213693",
+      "puntos": 16,
+      "requeridos": 240
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D75-497094026",
+      "puntos": 19,
+      "requeridos": 342
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D76-257049353",
+      "puntos": 20,
+      "requeridos": 380
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D77-558162693",
+      "puntos": 17,
+      "requeridos": 272
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D78-312435023",
+      "puntos": 13,
+      "requeridos": 156
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D79-404342308",
+      "puntos": 10,
+      "requeridos": 90
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D80-613427104",
+      "puntos": 14,
+      "requeridos": 182
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D81-844079070",
+      "puntos": 13,
+      "requeridos": 156
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D82-710855608",
+      "puntos": 12,
+      "requeridos": 132
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D83-263248003",
+      "puntos": 18,
+      "requeridos": 306
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D84-174440904",
+      "puntos": 9,
+      "requeridos": 72
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D85-831631859",
+      "puntos": 31,
+      "requeridos": 930
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D86-976392743",
+      "puntos": 8,
+      "requeridos": 56
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D87-120258331",
+      "puntos": 16,
+      "requeridos": 240
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D88-202411522",
+      "puntos": 15,
+      "requeridos": 210
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D89-285595979",
+      "puntos": 10,
+      "requeridos": 90
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D90-282637464",
+      "puntos": 10,
+      "requeridos": 90
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D91-194780505",
+      "puntos": 14,
+      "requeridos": 182
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D92-443549769",
+      "puntos": 11,
+      "requeridos": 110
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D93-973360256",
+      "puntos": 9,
+      "requeridos": 72
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D94-57491106",
+      "puntos": 14,
+      "requeridos": 182
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D95-71736945",
+      "puntos": 17,
+      "requeridos": 272
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D96-262958552",
+      "puntos": 8,
+      "requeridos": 56
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D97-738821547",
+      "puntos": 9,
+      "requeridos": 72
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D98-449589900",
+      "puntos": 20,
+      "requeridos": 380
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D99-990089488",
+      "puntos": 21,
+      "requeridos": 420
+    },
+    {
+      "faltantes": 0,
+      "instancia_id": "UI-2026-08-30-D100-865952792",
+      "puntos": 21,
+      "requeridos": 420
+    }
+  ],
+  "estado": "LISTA",
+  "faltantes": 0,
+  "muestras_faltantes": [],
+  "tramos_requeridos": 26490
+}
