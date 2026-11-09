@@ -87,6 +87,9 @@ git_audit_*.txt
 
 /exports/
 
+/analysis/**/*.md
+/analysis/*.md
+
 docs_site/
 _site/
 site/
