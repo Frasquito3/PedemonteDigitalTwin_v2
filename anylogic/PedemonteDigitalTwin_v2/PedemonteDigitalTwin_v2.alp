@@ -1974,7 +1974,7 @@ if (
 				<Variable Class="PlainVariable">
 					<Id>1788133224320</Id>
 					<Name><![CDATA[webToolkitEstado]]></Name>
-					<X>-987</X><Y>428</Y>
+					<X>-447</X><Y>360</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -2094,7 +2094,7 @@ if (
 				<Variable Class="PlainVariable">
 					<Id>1791909602220</Id>
 					<Name><![CDATA[rutaUltimaHojaRuta]]></Name>
-					<X>-447</X><Y>362</Y>
+					<X>-986</X><Y>428</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -35505,7 +35505,7 @@ if (
 					<LineMaterial>null</LineMaterial>
 					<LineStyle>SOLID</LineStyle>
 					<Width>400</Width>
-					<Height>360</Height>
+					<Height>375</Height>
 					<Rotation>0.0</Rotation>
 					<FillColor>-1</FillColor>
 					<FillMaterial>null</FillMaterial>
@@ -35615,7 +35615,7 @@ if (
 					<LineMaterial>null</LineMaterial>
 					<LineStyle>SOLID</LineStyle>
 					<Width>920</Width>
-					<Height>770</Height>
+					<Height>785</Height>
 					<Rotation>0.0</Rotation>
 					<FillColor>-1</FillColor>
 					<FillMaterial>null</FillMaterial>
