@@ -1,0 +1,4439 @@
+{
+  "archivos_consolidados": {
+    "resumen_csv": "resumen_resultados.csv",
+    "resumen_json": "resumen_resultados.json"
+  },
+  "auditoria": "analisis/auditoria.json",
+  "carpeta_experimento": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648",
+  "completa": true,
+  "desglose_costos": "analisis/desglose_costos.csv",
+  "entorno_ejecucion": "entorno_ejecucion.json",
+  "fecha_fin": "2026-11-02T18:42:01",
+  "fecha_inicio": "2026-11-02T14:46:48",
+  "instancias": "instancias/",
+  "manifiesto": "manifest_corridas.json",
+  "marca_tiempo": "seed_52451_20261102_144648",
+  "parametros": {
+    "cantidad_turnos": 100,
+    "horizonte_simulacion_min": 900.0,
+    "metodos": [
+      "RL",
+      "HIBRIDO",
+      "GREEDY",
+      "RANDOM",
+      "GA"
+    ],
+    "proveedores_habilitados": true,
+    "repeticiones_por_turno": 3,
+    "solo_estimado": false,
+    "timeout_segundos_por_metodo": 240
+  },
+  "planes": "planes/",
+  "preflight_vial": "preflight_vial.json",
+  "seed_generacion_origen": 52451,
+  "seed_inicial": 52451,
+  "tiempos_computo": "tiempos_computo.json",
+  "turnos_evaluados": [
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0001_pedidos_dia_01.xlsx",
+      "dia_numero": 1,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_01_rep_01_seed_810817856.json",
+          "repeticion": 1,
+          "seed_ejecucion": 810817856,
+          "semillas_por_metodo": {
+            "GA": 810825857,
+            "GREEDY": 810817856,
+            "HIBRIDO": 810826857,
+            "RANDOM": 810824857,
+            "RL": 810817856
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_01_rep_02_seed_720064440.json",
+          "repeticion": 2,
+          "seed_ejecucion": 720064440,
+          "semillas_por_metodo": {
+            "GA": 720072441,
+            "GREEDY": 720064440,
+            "HIBRIDO": 720073441,
+            "RANDOM": 720071441,
+            "RL": 720064440
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_01_rep_03_seed_698367599.json",
+          "repeticion": 3,
+          "seed_ejecucion": 698367599,
+          "semillas_por_metodo": {
+            "GA": 698375600,
+            "GREEDY": 698367599,
+            "HIBRIDO": 698376600,
+            "RANDOM": 698374600,
+            "RL": 698367599
+          }
+        }
+      ],
+      "seed_escenario": 257317746,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0002_pedidos_dia_02.xlsx",
+      "dia_numero": 2,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_02_rep_01_seed_269712198.json",
+          "repeticion": 1,
+          "seed_ejecucion": 269712198,
+          "semillas_por_metodo": {
+            "GA": 269720199,
+            "GREEDY": 269712198,
+            "HIBRIDO": 269721199,
+            "RANDOM": 269719199,
+            "RL": 269712198
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_02_rep_02_seed_125721926.json",
+          "repeticion": 2,
+          "seed_ejecucion": 125721926,
+          "semillas_por_metodo": {
+            "GA": 125729927,
+            "GREEDY": 125721926,
+            "HIBRIDO": 125730927,
+            "RANDOM": 125728927,
+            "RL": 125721926
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_02_rep_03_seed_788997498.json",
+          "repeticion": 3,
+          "seed_ejecucion": 788997498,
+          "semillas_por_metodo": {
+            "GA": 789005499,
+            "GREEDY": 788997498,
+            "HIBRIDO": 789006499,
+            "RANDOM": 789004499,
+            "RL": 788997498
+          }
+        }
+      ],
+      "seed_escenario": 796553542,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0003_pedidos_dia_03.xlsx",
+      "dia_numero": 3,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_03_rep_01_seed_376480360.json",
+          "repeticion": 1,
+          "seed_ejecucion": 376480360,
+          "semillas_por_metodo": {
+            "GA": 376488361,
+            "GREEDY": 376480360,
+            "HIBRIDO": 376489361,
+            "RANDOM": 376487361,
+            "RL": 376480360
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_03_rep_02_seed_202028789.json",
+          "repeticion": 2,
+          "seed_ejecucion": 202028789,
+          "semillas_por_metodo": {
+            "GA": 202036790,
+            "GREEDY": 202028789,
+            "HIBRIDO": 202037790,
+            "RANDOM": 202035790,
+            "RL": 202028789
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_03_rep_03_seed_528909974.json",
+          "repeticion": 3,
+          "seed_ejecucion": 528909974,
+          "semillas_por_metodo": {
+            "GA": 528917975,
+            "GREEDY": 528909974,
+            "HIBRIDO": 528918975,
+            "RANDOM": 528916975,
+            "RL": 528909974
+          }
+        }
+      ],
+      "seed_escenario": 619896380,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0004_pedidos_dia_04.xlsx",
+      "dia_numero": 4,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_04_rep_01_seed_8985846.json",
+          "repeticion": 1,
+          "seed_ejecucion": 8985846,
+          "semillas_por_metodo": {
+            "GA": 8993847,
+            "GREEDY": 8985846,
+            "HIBRIDO": 8994847,
+            "RANDOM": 8992847,
+            "RL": 8985846
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_04_rep_02_seed_598401288.json",
+          "repeticion": 2,
+          "seed_ejecucion": 598401288,
+          "semillas_por_metodo": {
+            "GA": 598409289,
+            "GREEDY": 598401288,
+            "HIBRIDO": 598410289,
+            "RANDOM": 598408289,
+            "RL": 598401288
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_04_rep_03_seed_45931298.json",
+          "repeticion": 3,
+          "seed_ejecucion": 45931298,
+          "semillas_por_metodo": {
+            "GA": 45939299,
+            "GREEDY": 45931298,
+            "HIBRIDO": 45940299,
+            "RANDOM": 45938299,
+            "RL": 45931298
+          }
+        }
+      ],
+      "seed_escenario": 878436317,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0005_pedidos_dia_05.xlsx",
+      "dia_numero": 5,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_05_rep_01_seed_167114718.json",
+          "repeticion": 1,
+          "seed_ejecucion": 167114718,
+          "semillas_por_metodo": {
+            "GA": 167122719,
+            "GREEDY": 167114718,
+            "HIBRIDO": 167123719,
+            "RANDOM": 167121719,
+            "RL": 167114718
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_05_rep_02_seed_327418028.json",
+          "repeticion": 2,
+          "seed_ejecucion": 327418028,
+          "semillas_por_metodo": {
+            "GA": 327426029,
+            "GREEDY": 327418028,
+            "HIBRIDO": 327427029,
+            "RANDOM": 327425029,
+            "RL": 327418028
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_05_rep_03_seed_950860688.json",
+          "repeticion": 3,
+          "seed_ejecucion": 950860688,
+          "semillas_por_metodo": {
+            "GA": 950868689,
+            "GREEDY": 950860688,
+            "HIBRIDO": 950869689,
+            "RANDOM": 950867689,
+            "RL": 950860688
+          }
+        }
+      ],
+      "seed_escenario": 34370626,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0006_pedidos_dia_06.xlsx",
+      "dia_numero": 6,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_06_rep_01_seed_884083776.json",
+          "repeticion": 1,
+          "seed_ejecucion": 884083776,
+          "semillas_por_metodo": {
+            "GA": 884091777,
+            "GREEDY": 884083776,
+            "HIBRIDO": 884092777,
+            "RANDOM": 884090777,
+            "RL": 884083776
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_06_rep_02_seed_694433144.json",
+          "repeticion": 2,
+          "seed_ejecucion": 694433144,
+          "semillas_por_metodo": {
+            "GA": 694441145,
+            "GREEDY": 694433144,
+            "HIBRIDO": 694442145,
+            "RANDOM": 694440145,
+            "RL": 694433144
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_06_rep_03_seed_867022836.json",
+          "repeticion": 3,
+          "seed_ejecucion": 867022836,
+          "semillas_por_metodo": {
+            "GA": 867030837,
+            "GREEDY": 867022836,
+            "HIBRIDO": 867031837,
+            "RANDOM": 867029837,
+            "RL": 867022836
+          }
+        }
+      ],
+      "seed_escenario": 289112041,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0007_pedidos_dia_07.xlsx",
+      "dia_numero": 7,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_07_rep_01_seed_138032407.json",
+          "repeticion": 1,
+          "seed_ejecucion": 138032407,
+          "semillas_por_metodo": {
+            "GA": 138040408,
+            "GREEDY": 138032407,
+            "HIBRIDO": 138041408,
+            "RANDOM": 138039408,
+            "RL": 138032407
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_07_rep_02_seed_743078140.json",
+          "repeticion": 2,
+          "seed_ejecucion": 743078140,
+          "semillas_por_metodo": {
+            "GA": 743086141,
+            "GREEDY": 743078140,
+            "HIBRIDO": 743087141,
+            "RANDOM": 743085141,
+            "RL": 743078140
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_07_rep_03_seed_204062551.json",
+          "repeticion": 3,
+          "seed_ejecucion": 204062551,
+          "semillas_por_metodo": {
+            "GA": 204070552,
+            "GREEDY": 204062551,
+            "HIBRIDO": 204071552,
+            "RANDOM": 204069552,
+            "RL": 204062551
+          }
+        }
+      ],
+      "seed_escenario": 784738037,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0008_pedidos_dia_08.xlsx",
+      "dia_numero": 8,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_08_rep_01_seed_503120454.json",
+          "repeticion": 1,
+          "seed_ejecucion": 503120454,
+          "semillas_por_metodo": {
+            "GA": 503128455,
+            "GREEDY": 503120454,
+            "HIBRIDO": 503129455,
+            "RANDOM": 503127455,
+            "RL": 503120454
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_08_rep_02_seed_586257793.json",
+          "repeticion": 2,
+          "seed_ejecucion": 586257793,
+          "semillas_por_metodo": {
+            "GA": 586265794,
+            "GREEDY": 586257793,
+            "HIBRIDO": 586266794,
+            "RANDOM": 586264794,
+            "RL": 586257793
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_08_rep_03_seed_661658730.json",
+          "repeticion": 3,
+          "seed_ejecucion": 661658730,
+          "semillas_por_metodo": {
+            "GA": 661666731,
+            "GREEDY": 661658730,
+            "HIBRIDO": 661667731,
+            "RANDOM": 661665731,
+            "RL": 661658730
+          }
+        }
+      ],
+      "seed_escenario": 449473226,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0009_pedidos_dia_09.xlsx",
+      "dia_numero": 9,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_09_rep_01_seed_59867382.json",
+          "repeticion": 1,
+          "seed_ejecucion": 59867382,
+          "semillas_por_metodo": {
+            "GA": 59875383,
+            "GREEDY": 59867382,
+            "HIBRIDO": 59876383,
+            "RANDOM": 59874383,
+            "RL": 59867382
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_09_rep_02_seed_641457217.json",
+          "repeticion": 2,
+          "seed_ejecucion": 641457217,
+          "semillas_por_metodo": {
+            "GA": 641465218,
+            "GREEDY": 641457217,
+            "HIBRIDO": 641466218,
+            "RANDOM": 641464218,
+            "RL": 641457217
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_09_rep_03_seed_688128789.json",
+          "repeticion": 3,
+          "seed_ejecucion": 688128789,
+          "semillas_por_metodo": {
+            "GA": 688136790,
+            "GREEDY": 688128789,
+            "HIBRIDO": 688137790,
+            "RANDOM": 688135790,
+            "RL": 688128789
+          }
+        }
+      ],
+      "seed_escenario": 592644475,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0010_pedidos_dia_10.xlsx",
+      "dia_numero": 10,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_10_rep_01_seed_725035218.json",
+          "repeticion": 1,
+          "seed_ejecucion": 725035218,
+          "semillas_por_metodo": {
+            "GA": 725043219,
+            "GREEDY": 725035218,
+            "HIBRIDO": 725044219,
+            "RANDOM": 725042219,
+            "RL": 725035218
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_10_rep_02_seed_292236648.json",
+          "repeticion": 2,
+          "seed_ejecucion": 292236648,
+          "semillas_por_metodo": {
+            "GA": 292244649,
+            "GREEDY": 292236648,
+            "HIBRIDO": 292245649,
+            "RANDOM": 292243649,
+            "RL": 292236648
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_10_rep_03_seed_43136235.json",
+          "repeticion": 3,
+          "seed_ejecucion": 43136235,
+          "semillas_por_metodo": {
+            "GA": 43144236,
+            "GREEDY": 43136235,
+            "HIBRIDO": 43145236,
+            "RANDOM": 43143236,
+            "RL": 43136235
+          }
+        }
+      ],
+      "seed_escenario": 447932957,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0011_pedidos_dia_11.xlsx",
+      "dia_numero": 11,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_11_rep_01_seed_463082439.json",
+          "repeticion": 1,
+          "seed_ejecucion": 463082439,
+          "semillas_por_metodo": {
+            "GA": 463090440,
+            "GREEDY": 463082439,
+            "HIBRIDO": 463091440,
+            "RANDOM": 463089440,
+            "RL": 463082439
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_11_rep_02_seed_679173697.json",
+          "repeticion": 2,
+          "seed_ejecucion": 679173697,
+          "semillas_por_metodo": {
+            "GA": 679181698,
+            "GREEDY": 679173697,
+            "HIBRIDO": 679182698,
+            "RANDOM": 679180698,
+            "RL": 679173697
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_11_rep_03_seed_762304325.json",
+          "repeticion": 3,
+          "seed_ejecucion": 762304325,
+          "semillas_por_metodo": {
+            "GA": 762312326,
+            "GREEDY": 762304325,
+            "HIBRIDO": 762313326,
+            "RANDOM": 762311326,
+            "RL": 762304325
+          }
+        }
+      ],
+      "seed_escenario": 728709571,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0012_pedidos_dia_12.xlsx",
+      "dia_numero": 12,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_12_rep_01_seed_213574788.json",
+          "repeticion": 1,
+          "seed_ejecucion": 213574788,
+          "semillas_por_metodo": {
+            "GA": 213582789,
+            "GREEDY": 213574788,
+            "HIBRIDO": 213583789,
+            "RANDOM": 213581789,
+            "RL": 213574788
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_12_rep_02_seed_376138372.json",
+          "repeticion": 2,
+          "seed_ejecucion": 376138372,
+          "semillas_por_metodo": {
+            "GA": 376146373,
+            "GREEDY": 376138372,
+            "HIBRIDO": 376147373,
+            "RANDOM": 376145373,
+            "RL": 376138372
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_12_rep_03_seed_260222997.json",
+          "repeticion": 3,
+          "seed_ejecucion": 260222997,
+          "semillas_por_metodo": {
+            "GA": 260230998,
+            "GREEDY": 260222997,
+            "HIBRIDO": 260231998,
+            "RANDOM": 260229998,
+            "RL": 260222997
+          }
+        }
+      ],
+      "seed_escenario": 115412664,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0013_pedidos_dia_13.xlsx",
+      "dia_numero": 13,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_13_rep_01_seed_824341126.json",
+          "repeticion": 1,
+          "seed_ejecucion": 824341126,
+          "semillas_por_metodo": {
+            "GA": 824349127,
+            "GREEDY": 824341126,
+            "HIBRIDO": 824350127,
+            "RANDOM": 824348127,
+            "RL": 824341126
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_13_rep_02_seed_715419936.json",
+          "repeticion": 2,
+          "seed_ejecucion": 715419936,
+          "semillas_por_metodo": {
+            "GA": 715427937,
+            "GREEDY": 715419936,
+            "HIBRIDO": 715428937,
+            "RANDOM": 715426937,
+            "RL": 715419936
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_13_rep_03_seed_633862079.json",
+          "repeticion": 3,
+          "seed_ejecucion": 633862079,
+          "semillas_por_metodo": {
+            "GA": 633870080,
+            "GREEDY": 633862079,
+            "HIBRIDO": 633871080,
+            "RANDOM": 633869080,
+            "RL": 633862079
+          }
+        }
+      ],
+      "seed_escenario": 607587125,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0014_pedidos_dia_14.xlsx",
+      "dia_numero": 14,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_14_rep_01_seed_28891484.json",
+          "repeticion": 1,
+          "seed_ejecucion": 28891484,
+          "semillas_por_metodo": {
+            "GA": 28899485,
+            "GREEDY": 28891484,
+            "HIBRIDO": 28900485,
+            "RANDOM": 28898485,
+            "RL": 28891484
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_14_rep_02_seed_864252230.json",
+          "repeticion": 2,
+          "seed_ejecucion": 864252230,
+          "semillas_por_metodo": {
+            "GA": 864260231,
+            "GREEDY": 864252230,
+            "HIBRIDO": 864261231,
+            "RANDOM": 864259231,
+            "RL": 864252230
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_14_rep_03_seed_201255817.json",
+          "repeticion": 3,
+          "seed_ejecucion": 201255817,
+          "semillas_por_metodo": {
+            "GA": 201263818,
+            "GREEDY": 201255817,
+            "HIBRIDO": 201264818,
+            "RANDOM": 201262818,
+            "RL": 201255817
+          }
+        }
+      ],
+      "seed_escenario": 553792794,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0015_pedidos_dia_15.xlsx",
+      "dia_numero": 15,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_15_rep_01_seed_157807859.json",
+          "repeticion": 1,
+          "seed_ejecucion": 157807859,
+          "semillas_por_metodo": {
+            "GA": 157815860,
+            "GREEDY": 157807859,
+            "HIBRIDO": 157816860,
+            "RANDOM": 157814860,
+            "RL": 157807859
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_15_rep_02_seed_544519227.json",
+          "repeticion": 2,
+          "seed_ejecucion": 544519227,
+          "semillas_por_metodo": {
+            "GA": 544527228,
+            "GREEDY": 544519227,
+            "HIBRIDO": 544528228,
+            "RANDOM": 544526228,
+            "RL": 544519227
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_15_rep_03_seed_49864560.json",
+          "repeticion": 3,
+          "seed_ejecucion": 49864560,
+          "semillas_por_metodo": {
+            "GA": 49872561,
+            "GREEDY": 49864560,
+            "HIBRIDO": 49873561,
+            "RANDOM": 49871561,
+            "RL": 49864560
+          }
+        }
+      ],
+      "seed_escenario": 754412598,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0016_pedidos_dia_16.xlsx",
+      "dia_numero": 16,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_16_rep_01_seed_223031050.json",
+          "repeticion": 1,
+          "seed_ejecucion": 223031050,
+          "semillas_por_metodo": {
+            "GA": 223039051,
+            "GREEDY": 223031050,
+            "HIBRIDO": 223040051,
+            "RANDOM": 223038051,
+            "RL": 223031050
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_16_rep_02_seed_470981807.json",
+          "repeticion": 2,
+          "seed_ejecucion": 470981807,
+          "semillas_por_metodo": {
+            "GA": 470989808,
+            "GREEDY": 470981807,
+            "HIBRIDO": 470990808,
+            "RANDOM": 470988808,
+            "RL": 470981807
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_16_rep_03_seed_830425837.json",
+          "repeticion": 3,
+          "seed_ejecucion": 830425837,
+          "semillas_por_metodo": {
+            "GA": 830433838,
+            "GREEDY": 830425837,
+            "HIBRIDO": 830434838,
+            "RANDOM": 830432838,
+            "RL": 830425837
+          }
+        }
+      ],
+      "seed_escenario": 925813794,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0017_pedidos_dia_17.xlsx",
+      "dia_numero": 17,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_17_rep_01_seed_846797808.json",
+          "repeticion": 1,
+          "seed_ejecucion": 846797808,
+          "semillas_por_metodo": {
+            "GA": 846805809,
+            "GREEDY": 846797808,
+            "HIBRIDO": 846806809,
+            "RANDOM": 846804809,
+            "RL": 846797808
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_17_rep_02_seed_540925030.json",
+          "repeticion": 2,
+          "seed_ejecucion": 540925030,
+          "semillas_por_metodo": {
+            "GA": 540933031,
+            "GREEDY": 540925030,
+            "HIBRIDO": 540934031,
+            "RANDOM": 540932031,
+            "RL": 540925030
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_17_rep_03_seed_140454581.json",
+          "repeticion": 3,
+          "seed_ejecucion": 140454581,
+          "semillas_por_metodo": {
+            "GA": 140462582,
+            "GREEDY": 140454581,
+            "HIBRIDO": 140463582,
+            "RANDOM": 140461582,
+            "RL": 140454581
+          }
+        }
+      ],
+      "seed_escenario": 4798120,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0018_pedidos_dia_18.xlsx",
+      "dia_numero": 18,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_18_rep_01_seed_495180661.json",
+          "repeticion": 1,
+          "seed_ejecucion": 495180661,
+          "semillas_por_metodo": {
+            "GA": 495188662,
+            "GREEDY": 495180661,
+            "HIBRIDO": 495189662,
+            "RANDOM": 495187662,
+            "RL": 495180661
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_18_rep_02_seed_309337059.json",
+          "repeticion": 2,
+          "seed_ejecucion": 309337059,
+          "semillas_por_metodo": {
+            "GA": 309345060,
+            "GREEDY": 309337059,
+            "HIBRIDO": 309346060,
+            "RANDOM": 309344060,
+            "RL": 309337059
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_18_rep_03_seed_495543628.json",
+          "repeticion": 3,
+          "seed_ejecucion": 495543628,
+          "semillas_por_metodo": {
+            "GA": 495551629,
+            "GREEDY": 495543628,
+            "HIBRIDO": 495552629,
+            "RANDOM": 495550629,
+            "RL": 495543628
+          }
+        }
+      ],
+      "seed_escenario": 461250343,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0019_pedidos_dia_19.xlsx",
+      "dia_numero": 19,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_19_rep_01_seed_376233465.json",
+          "repeticion": 1,
+          "seed_ejecucion": 376233465,
+          "semillas_por_metodo": {
+            "GA": 376241466,
+            "GREEDY": 376233465,
+            "HIBRIDO": 376242466,
+            "RANDOM": 376240466,
+            "RL": 376233465
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_19_rep_02_seed_548210630.json",
+          "repeticion": 2,
+          "seed_ejecucion": 548210630,
+          "semillas_por_metodo": {
+            "GA": 548218631,
+            "GREEDY": 548210630,
+            "HIBRIDO": 548219631,
+            "RANDOM": 548217631,
+            "RL": 548210630
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_19_rep_03_seed_194075956.json",
+          "repeticion": 3,
+          "seed_ejecucion": 194075956,
+          "semillas_por_metodo": {
+            "GA": 194083957,
+            "GREEDY": 194075956,
+            "HIBRIDO": 194084957,
+            "RANDOM": 194082957,
+            "RL": 194075956
+          }
+        }
+      ],
+      "seed_escenario": 953197571,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0020_pedidos_dia_20.xlsx",
+      "dia_numero": 20,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_20_rep_01_seed_521949227.json",
+          "repeticion": 1,
+          "seed_ejecucion": 521949227,
+          "semillas_por_metodo": {
+            "GA": 521957228,
+            "GREEDY": 521949227,
+            "HIBRIDO": 521958228,
+            "RANDOM": 521956228,
+            "RL": 521949227
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_20_rep_02_seed_227813521.json",
+          "repeticion": 2,
+          "seed_ejecucion": 227813521,
+          "semillas_por_metodo": {
+            "GA": 227821522,
+            "GREEDY": 227813521,
+            "HIBRIDO": 227822522,
+            "RANDOM": 227820522,
+            "RL": 227813521
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_20_rep_03_seed_597310203.json",
+          "repeticion": 3,
+          "seed_ejecucion": 597310203,
+          "semillas_por_metodo": {
+            "GA": 597318204,
+            "GREEDY": 597310203,
+            "HIBRIDO": 597319204,
+            "RANDOM": 597317204,
+            "RL": 597310203
+          }
+        }
+      ],
+      "seed_escenario": 930792124,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0021_pedidos_dia_21.xlsx",
+      "dia_numero": 21,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_21_rep_01_seed_490121423.json",
+          "repeticion": 1,
+          "seed_ejecucion": 490121423,
+          "semillas_por_metodo": {
+            "GA": 490129424,
+            "GREEDY": 490121423,
+            "HIBRIDO": 490130424,
+            "RANDOM": 490128424,
+            "RL": 490121423
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_21_rep_02_seed_594268531.json",
+          "repeticion": 2,
+          "seed_ejecucion": 594268531,
+          "semillas_por_metodo": {
+            "GA": 594276532,
+            "GREEDY": 594268531,
+            "HIBRIDO": 594277532,
+            "RANDOM": 594275532,
+            "RL": 594268531
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_21_rep_03_seed_916465788.json",
+          "repeticion": 3,
+          "seed_ejecucion": 916465788,
+          "semillas_por_metodo": {
+            "GA": 916473789,
+            "GREEDY": 916465788,
+            "HIBRIDO": 916474789,
+            "RANDOM": 916472789,
+            "RL": 916465788
+          }
+        }
+      ],
+      "seed_escenario": 240734904,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0022_pedidos_dia_22.xlsx",
+      "dia_numero": 22,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_22_rep_01_seed_830366647.json",
+          "repeticion": 1,
+          "seed_ejecucion": 830366647,
+          "semillas_por_metodo": {
+            "GA": 830374648,
+            "GREEDY": 830366647,
+            "HIBRIDO": 830375648,
+            "RANDOM": 830373648,
+            "RL": 830366647
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_22_rep_02_seed_594717738.json",
+          "repeticion": 2,
+          "seed_ejecucion": 594717738,
+          "semillas_por_metodo": {
+            "GA": 594725739,
+            "GREEDY": 594717738,
+            "HIBRIDO": 594726739,
+            "RANDOM": 594724739,
+            "RL": 594717738
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_22_rep_03_seed_957826278.json",
+          "repeticion": 3,
+          "seed_ejecucion": 957826278,
+          "semillas_por_metodo": {
+            "GA": 957834279,
+            "GREEDY": 957826278,
+            "HIBRIDO": 957835279,
+            "RANDOM": 957833279,
+            "RL": 957826278
+          }
+        }
+      ],
+      "seed_escenario": 715369738,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0023_pedidos_dia_23.xlsx",
+      "dia_numero": 23,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_23_rep_01_seed_115105080.json",
+          "repeticion": 1,
+          "seed_ejecucion": 115105080,
+          "semillas_por_metodo": {
+            "GA": 115113081,
+            "GREEDY": 115105080,
+            "HIBRIDO": 115114081,
+            "RANDOM": 115112081,
+            "RL": 115105080
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_23_rep_02_seed_769517721.json",
+          "repeticion": 2,
+          "seed_ejecucion": 769517721,
+          "semillas_por_metodo": {
+            "GA": 769525722,
+            "GREEDY": 769517721,
+            "HIBRIDO": 769526722,
+            "RANDOM": 769524722,
+            "RL": 769517721
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_23_rep_03_seed_167607139.json",
+          "repeticion": 3,
+          "seed_ejecucion": 167607139,
+          "semillas_por_metodo": {
+            "GA": 167615140,
+            "GREEDY": 167607139,
+            "HIBRIDO": 167616140,
+            "RANDOM": 167614140,
+            "RL": 167607139
+          }
+        }
+      ],
+      "seed_escenario": 230387013,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0024_pedidos_dia_24.xlsx",
+      "dia_numero": 24,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_24_rep_01_seed_313233461.json",
+          "repeticion": 1,
+          "seed_ejecucion": 313233461,
+          "semillas_por_metodo": {
+            "GA": 313241462,
+            "GREEDY": 313233461,
+            "HIBRIDO": 313242462,
+            "RANDOM": 313240462,
+            "RL": 313233461
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_24_rep_02_seed_700477647.json",
+          "repeticion": 2,
+          "seed_ejecucion": 700477647,
+          "semillas_por_metodo": {
+            "GA": 700485648,
+            "GREEDY": 700477647,
+            "HIBRIDO": 700486648,
+            "RANDOM": 700484648,
+            "RL": 700477647
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_24_rep_03_seed_898346259.json",
+          "repeticion": 3,
+          "seed_ejecucion": 898346259,
+          "semillas_por_metodo": {
+            "GA": 898354260,
+            "GREEDY": 898346259,
+            "HIBRIDO": 898355260,
+            "RANDOM": 898353260,
+            "RL": 898346259
+          }
+        }
+      ],
+      "seed_escenario": 294472709,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0025_pedidos_dia_25.xlsx",
+      "dia_numero": 25,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_25_rep_01_seed_627995821.json",
+          "repeticion": 1,
+          "seed_ejecucion": 627995821,
+          "semillas_por_metodo": {
+            "GA": 628003822,
+            "GREEDY": 627995821,
+            "HIBRIDO": 628004822,
+            "RANDOM": 628002822,
+            "RL": 627995821
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_25_rep_02_seed_455950222.json",
+          "repeticion": 2,
+          "seed_ejecucion": 455950222,
+          "semillas_por_metodo": {
+            "GA": 455958223,
+            "GREEDY": 455950222,
+            "HIBRIDO": 455959223,
+            "RANDOM": 455957223,
+            "RL": 455950222
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_25_rep_03_seed_327397328.json",
+          "repeticion": 3,
+          "seed_ejecucion": 327397328,
+          "semillas_por_metodo": {
+            "GA": 327405329,
+            "GREEDY": 327397328,
+            "HIBRIDO": 327406329,
+            "RANDOM": 327404329,
+            "RL": 327397328
+          }
+        }
+      ],
+      "seed_escenario": 238796990,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0026_pedidos_dia_26.xlsx",
+      "dia_numero": 26,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_26_rep_01_seed_218239844.json",
+          "repeticion": 1,
+          "seed_ejecucion": 218239844,
+          "semillas_por_metodo": {
+            "GA": 218247845,
+            "GREEDY": 218239844,
+            "HIBRIDO": 218248845,
+            "RANDOM": 218246845,
+            "RL": 218239844
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_26_rep_02_seed_328424835.json",
+          "repeticion": 2,
+          "seed_ejecucion": 328424835,
+          "semillas_por_metodo": {
+            "GA": 328432836,
+            "GREEDY": 328424835,
+            "HIBRIDO": 328433836,
+            "RANDOM": 328431836,
+            "RL": 328424835
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_26_rep_03_seed_373803899.json",
+          "repeticion": 3,
+          "seed_ejecucion": 373803899,
+          "semillas_por_metodo": {
+            "GA": 373811900,
+            "GREEDY": 373803899,
+            "HIBRIDO": 373812900,
+            "RANDOM": 373810900,
+            "RL": 373803899
+          }
+        }
+      ],
+      "seed_escenario": 780716710,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0027_pedidos_dia_27.xlsx",
+      "dia_numero": 27,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_27_rep_01_seed_105955888.json",
+          "repeticion": 1,
+          "seed_ejecucion": 105955888,
+          "semillas_por_metodo": {
+            "GA": 105963889,
+            "GREEDY": 105955888,
+            "HIBRIDO": 105964889,
+            "RANDOM": 105962889,
+            "RL": 105955888
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_27_rep_02_seed_991564599.json",
+          "repeticion": 2,
+          "seed_ejecucion": 991564599,
+          "semillas_por_metodo": {
+            "GA": 991572600,
+            "GREEDY": 991564599,
+            "HIBRIDO": 991573600,
+            "RANDOM": 991571600,
+            "RL": 991564599
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_27_rep_03_seed_749210097.json",
+          "repeticion": 3,
+          "seed_ejecucion": 749210097,
+          "semillas_por_metodo": {
+            "GA": 749218098,
+            "GREEDY": 749210097,
+            "HIBRIDO": 749219098,
+            "RANDOM": 749217098,
+            "RL": 749210097
+          }
+        }
+      ],
+      "seed_escenario": 784652876,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0028_pedidos_dia_28.xlsx",
+      "dia_numero": 28,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_28_rep_01_seed_174500007.json",
+          "repeticion": 1,
+          "seed_ejecucion": 174500007,
+          "semillas_por_metodo": {
+            "GA": 174508008,
+            "GREEDY": 174500007,
+            "HIBRIDO": 174509008,
+            "RANDOM": 174507008,
+            "RL": 174500007
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_28_rep_02_seed_853941477.json",
+          "repeticion": 2,
+          "seed_ejecucion": 853941477,
+          "semillas_por_metodo": {
+            "GA": 853949478,
+            "GREEDY": 853941477,
+            "HIBRIDO": 853950478,
+            "RANDOM": 853948478,
+            "RL": 853941477
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_28_rep_03_seed_775813395.json",
+          "repeticion": 3,
+          "seed_ejecucion": 775813395,
+          "semillas_por_metodo": {
+            "GA": 775821396,
+            "GREEDY": 775813395,
+            "HIBRIDO": 775822396,
+            "RANDOM": 775820396,
+            "RL": 775813395
+          }
+        }
+      ],
+      "seed_escenario": 565647963,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0029_pedidos_dia_29.xlsx",
+      "dia_numero": 29,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_29_rep_01_seed_66751406.json",
+          "repeticion": 1,
+          "seed_ejecucion": 66751406,
+          "semillas_por_metodo": {
+            "GA": 66759407,
+            "GREEDY": 66751406,
+            "HIBRIDO": 66760407,
+            "RANDOM": 66758407,
+            "RL": 66751406
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_29_rep_02_seed_295027390.json",
+          "repeticion": 2,
+          "seed_ejecucion": 295027390,
+          "semillas_por_metodo": {
+            "GA": 295035391,
+            "GREEDY": 295027390,
+            "HIBRIDO": 295036391,
+            "RANDOM": 295034391,
+            "RL": 295027390
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_29_rep_03_seed_725914411.json",
+          "repeticion": 3,
+          "seed_ejecucion": 725914411,
+          "semillas_por_metodo": {
+            "GA": 725922412,
+            "GREEDY": 725914411,
+            "HIBRIDO": 725923412,
+            "RANDOM": 725921412,
+            "RL": 725914411
+          }
+        }
+      ],
+      "seed_escenario": 50651556,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0030_pedidos_dia_30.xlsx",
+      "dia_numero": 30,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_30_rep_01_seed_117862687.json",
+          "repeticion": 1,
+          "seed_ejecucion": 117862687,
+          "semillas_por_metodo": {
+            "GA": 117870688,
+            "GREEDY": 117862687,
+            "HIBRIDO": 117871688,
+            "RANDOM": 117869688,
+            "RL": 117862687
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_30_rep_02_seed_780109454.json",
+          "repeticion": 2,
+          "seed_ejecucion": 780109454,
+          "semillas_por_metodo": {
+            "GA": 780117455,
+            "GREEDY": 780109454,
+            "HIBRIDO": 780118455,
+            "RANDOM": 780116455,
+            "RL": 780109454
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_30_rep_03_seed_87397094.json",
+          "repeticion": 3,
+          "seed_ejecucion": 87397094,
+          "semillas_por_metodo": {
+            "GA": 87405095,
+            "GREEDY": 87397094,
+            "HIBRIDO": 87406095,
+            "RANDOM": 87404095,
+            "RL": 87397094
+          }
+        }
+      ],
+      "seed_escenario": 79747660,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0031_pedidos_dia_31.xlsx",
+      "dia_numero": 31,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_31_rep_01_seed_398233075.json",
+          "repeticion": 1,
+          "seed_ejecucion": 398233075,
+          "semillas_por_metodo": {
+            "GA": 398241076,
+            "GREEDY": 398233075,
+            "HIBRIDO": 398242076,
+            "RANDOM": 398240076,
+            "RL": 398233075
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_31_rep_02_seed_71114311.json",
+          "repeticion": 2,
+          "seed_ejecucion": 71114311,
+          "semillas_por_metodo": {
+            "GA": 71122312,
+            "GREEDY": 71114311,
+            "HIBRIDO": 71123312,
+            "RANDOM": 71121312,
+            "RL": 71114311
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_31_rep_03_seed_757766221.json",
+          "repeticion": 3,
+          "seed_ejecucion": 757766221,
+          "semillas_por_metodo": {
+            "GA": 757774222,
+            "GREEDY": 757766221,
+            "HIBRIDO": 757775222,
+            "RANDOM": 757773222,
+            "RL": 757766221
+          }
+        }
+      ],
+      "seed_escenario": 550385970,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0032_pedidos_dia_32.xlsx",
+      "dia_numero": 32,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_32_rep_01_seed_282199319.json",
+          "repeticion": 1,
+          "seed_ejecucion": 282199319,
+          "semillas_por_metodo": {
+            "GA": 282207320,
+            "GREEDY": 282199319,
+            "HIBRIDO": 282208320,
+            "RANDOM": 282206320,
+            "RL": 282199319
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_32_rep_02_seed_468057562.json",
+          "repeticion": 2,
+          "seed_ejecucion": 468057562,
+          "semillas_por_metodo": {
+            "GA": 468065563,
+            "GREEDY": 468057562,
+            "HIBRIDO": 468066563,
+            "RANDOM": 468064563,
+            "RL": 468057562
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_32_rep_03_seed_535103510.json",
+          "repeticion": 3,
+          "seed_ejecucion": 535103510,
+          "semillas_por_metodo": {
+            "GA": 535111511,
+            "GREEDY": 535103510,
+            "HIBRIDO": 535112511,
+            "RANDOM": 535110511,
+            "RL": 535103510
+          }
+        }
+      ],
+      "seed_escenario": 410419068,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0033_pedidos_dia_33.xlsx",
+      "dia_numero": 33,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_33_rep_01_seed_106938415.json",
+          "repeticion": 1,
+          "seed_ejecucion": 106938415,
+          "semillas_por_metodo": {
+            "GA": 106946416,
+            "GREEDY": 106938415,
+            "HIBRIDO": 106947416,
+            "RANDOM": 106945416,
+            "RL": 106938415
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_33_rep_02_seed_106725181.json",
+          "repeticion": 2,
+          "seed_ejecucion": 106725181,
+          "semillas_por_metodo": {
+            "GA": 106733182,
+            "GREEDY": 106725181,
+            "HIBRIDO": 106734182,
+            "RANDOM": 106732182,
+            "RL": 106725181
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_33_rep_03_seed_327091987.json",
+          "repeticion": 3,
+          "seed_ejecucion": 327091987,
+          "semillas_por_metodo": {
+            "GA": 327099988,
+            "GREEDY": 327091987,
+            "HIBRIDO": 327100988,
+            "RANDOM": 327098988,
+            "RL": 327091987
+          }
+        }
+      ],
+      "seed_escenario": 766124814,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0034_pedidos_dia_34.xlsx",
+      "dia_numero": 34,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_34_rep_01_seed_459443976.json",
+          "repeticion": 1,
+          "seed_ejecucion": 459443976,
+          "semillas_por_metodo": {
+            "GA": 459451977,
+            "GREEDY": 459443976,
+            "HIBRIDO": 459452977,
+            "RANDOM": 459450977,
+            "RL": 459443976
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_34_rep_02_seed_428369584.json",
+          "repeticion": 2,
+          "seed_ejecucion": 428369584,
+          "semillas_por_metodo": {
+            "GA": 428377585,
+            "GREEDY": 428369584,
+            "HIBRIDO": 428378585,
+            "RANDOM": 428376585,
+            "RL": 428369584
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_34_rep_03_seed_678581224.json",
+          "repeticion": 3,
+          "seed_ejecucion": 678581224,
+          "semillas_por_metodo": {
+            "GA": 678589225,
+            "GREEDY": 678581224,
+            "HIBRIDO": 678590225,
+            "RANDOM": 678588225,
+            "RL": 678581224
+          }
+        }
+      ],
+      "seed_escenario": 622367014,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0035_pedidos_dia_35.xlsx",
+      "dia_numero": 35,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_35_rep_01_seed_999638071.json",
+          "repeticion": 1,
+          "seed_ejecucion": 999638071,
+          "semillas_por_metodo": {
+            "GA": 999646072,
+            "GREEDY": 999638071,
+            "HIBRIDO": 999647072,
+            "RANDOM": 999645072,
+            "RL": 999638071
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_35_rep_02_seed_681650864.json",
+          "repeticion": 2,
+          "seed_ejecucion": 681650864,
+          "semillas_por_metodo": {
+            "GA": 681658865,
+            "GREEDY": 681650864,
+            "HIBRIDO": 681659865,
+            "RANDOM": 681657865,
+            "RL": 681650864
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_35_rep_03_seed_214395801.json",
+          "repeticion": 3,
+          "seed_ejecucion": 214395801,
+          "semillas_por_metodo": {
+            "GA": 214403802,
+            "GREEDY": 214395801,
+            "HIBRIDO": 214404802,
+            "RANDOM": 214402802,
+            "RL": 214395801
+          }
+        }
+      ],
+      "seed_escenario": 680179705,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0036_pedidos_dia_36.xlsx",
+      "dia_numero": 36,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_36_rep_01_seed_344551168.json",
+          "repeticion": 1,
+          "seed_ejecucion": 344551168,
+          "semillas_por_metodo": {
+            "GA": 344559169,
+            "GREEDY": 344551168,
+            "HIBRIDO": 344560169,
+            "RANDOM": 344558169,
+            "RL": 344551168
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_36_rep_02_seed_216056338.json",
+          "repeticion": 2,
+          "seed_ejecucion": 216056338,
+          "semillas_por_metodo": {
+            "GA": 216064339,
+            "GREEDY": 216056338,
+            "HIBRIDO": 216065339,
+            "RANDOM": 216063339,
+            "RL": 216056338
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_36_rep_03_seed_427646390.json",
+          "repeticion": 3,
+          "seed_ejecucion": 427646390,
+          "semillas_por_metodo": {
+            "GA": 427654391,
+            "GREEDY": 427646390,
+            "HIBRIDO": 427655391,
+            "RANDOM": 427653391,
+            "RL": 427646390
+          }
+        }
+      ],
+      "seed_escenario": 547324467,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0037_pedidos_dia_37.xlsx",
+      "dia_numero": 37,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_37_rep_01_seed_378291469.json",
+          "repeticion": 1,
+          "seed_ejecucion": 378291469,
+          "semillas_por_metodo": {
+            "GA": 378299470,
+            "GREEDY": 378291469,
+            "HIBRIDO": 378300470,
+            "RANDOM": 378298470,
+            "RL": 378291469
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_37_rep_02_seed_484183830.json",
+          "repeticion": 2,
+          "seed_ejecucion": 484183830,
+          "semillas_por_metodo": {
+            "GA": 484191831,
+            "GREEDY": 484183830,
+            "HIBRIDO": 484192831,
+            "RANDOM": 484190831,
+            "RL": 484183830
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_37_rep_03_seed_910057924.json",
+          "repeticion": 3,
+          "seed_ejecucion": 910057924,
+          "semillas_por_metodo": {
+            "GA": 910065925,
+            "GREEDY": 910057924,
+            "HIBRIDO": 910066925,
+            "RANDOM": 910064925,
+            "RL": 910057924
+          }
+        }
+      ],
+      "seed_escenario": 308838911,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0038_pedidos_dia_38.xlsx",
+      "dia_numero": 38,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_38_rep_01_seed_670992969.json",
+          "repeticion": 1,
+          "seed_ejecucion": 670992969,
+          "semillas_por_metodo": {
+            "GA": 671000970,
+            "GREEDY": 670992969,
+            "HIBRIDO": 671001970,
+            "RANDOM": 670999970,
+            "RL": 670992969
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_38_rep_02_seed_119941957.json",
+          "repeticion": 2,
+          "seed_ejecucion": 119941957,
+          "semillas_por_metodo": {
+            "GA": 119949958,
+            "GREEDY": 119941957,
+            "HIBRIDO": 119950958,
+            "RANDOM": 119948958,
+            "RL": 119941957
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_38_rep_03_seed_345148529.json",
+          "repeticion": 3,
+          "seed_ejecucion": 345148529,
+          "semillas_por_metodo": {
+            "GA": 345156530,
+            "GREEDY": 345148529,
+            "HIBRIDO": 345157530,
+            "RANDOM": 345155530,
+            "RL": 345148529
+          }
+        }
+      ],
+      "seed_escenario": 114724274,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0039_pedidos_dia_39.xlsx",
+      "dia_numero": 39,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_39_rep_01_seed_578414825.json",
+          "repeticion": 1,
+          "seed_ejecucion": 578414825,
+          "semillas_por_metodo": {
+            "GA": 578422826,
+            "GREEDY": 578414825,
+            "HIBRIDO": 578423826,
+            "RANDOM": 578421826,
+            "RL": 578414825
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_39_rep_02_seed_368568621.json",
+          "repeticion": 2,
+          "seed_ejecucion": 368568621,
+          "semillas_por_metodo": {
+            "GA": 368576622,
+            "GREEDY": 368568621,
+            "HIBRIDO": 368577622,
+            "RANDOM": 368575622,
+            "RL": 368568621
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_39_rep_03_seed_717439826.json",
+          "repeticion": 3,
+          "seed_ejecucion": 717439826,
+          "semillas_por_metodo": {
+            "GA": 717447827,
+            "GREEDY": 717439826,
+            "HIBRIDO": 717448827,
+            "RANDOM": 717446827,
+            "RL": 717439826
+          }
+        }
+      ],
+      "seed_escenario": 849011957,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0040_pedidos_dia_40.xlsx",
+      "dia_numero": 40,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_40_rep_01_seed_197628867.json",
+          "repeticion": 1,
+          "seed_ejecucion": 197628867,
+          "semillas_por_metodo": {
+            "GA": 197636868,
+            "GREEDY": 197628867,
+            "HIBRIDO": 197637868,
+            "RANDOM": 197635868,
+            "RL": 197628867
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_40_rep_02_seed_411834181.json",
+          "repeticion": 2,
+          "seed_ejecucion": 411834181,
+          "semillas_por_metodo": {
+            "GA": 411842182,
+            "GREEDY": 411834181,
+            "HIBRIDO": 411843182,
+            "RANDOM": 411841182,
+            "RL": 411834181
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_40_rep_03_seed_136513098.json",
+          "repeticion": 3,
+          "seed_ejecucion": 136513098,
+          "semillas_por_metodo": {
+            "GA": 136521099,
+            "GREEDY": 136513098,
+            "HIBRIDO": 136522099,
+            "RANDOM": 136520099,
+            "RL": 136513098
+          }
+        }
+      ],
+      "seed_escenario": 845310544,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0041_pedidos_dia_41.xlsx",
+      "dia_numero": 41,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_41_rep_01_seed_491245698.json",
+          "repeticion": 1,
+          "seed_ejecucion": 491245698,
+          "semillas_por_metodo": {
+            "GA": 491253699,
+            "GREEDY": 491245698,
+            "HIBRIDO": 491254699,
+            "RANDOM": 491252699,
+            "RL": 491245698
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_41_rep_02_seed_600132127.json",
+          "repeticion": 2,
+          "seed_ejecucion": 600132127,
+          "semillas_por_metodo": {
+            "GA": 600140128,
+            "GREEDY": 600132127,
+            "HIBRIDO": 600141128,
+            "RANDOM": 600139128,
+            "RL": 600132127
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_41_rep_03_seed_76607363.json",
+          "repeticion": 3,
+          "seed_ejecucion": 76607363,
+          "semillas_por_metodo": {
+            "GA": 76615364,
+            "GREEDY": 76607363,
+            "HIBRIDO": 76616364,
+            "RANDOM": 76614364,
+            "RL": 76607363
+          }
+        }
+      ],
+      "seed_escenario": 635437990,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0042_pedidos_dia_42.xlsx",
+      "dia_numero": 42,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_42_rep_01_seed_861143207.json",
+          "repeticion": 1,
+          "seed_ejecucion": 861143207,
+          "semillas_por_metodo": {
+            "GA": 861151208,
+            "GREEDY": 861143207,
+            "HIBRIDO": 861152208,
+            "RANDOM": 861150208,
+            "RL": 861143207
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_42_rep_02_seed_559057511.json",
+          "repeticion": 2,
+          "seed_ejecucion": 559057511,
+          "semillas_por_metodo": {
+            "GA": 559065512,
+            "GREEDY": 559057511,
+            "HIBRIDO": 559066512,
+            "RANDOM": 559064512,
+            "RL": 559057511
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_42_rep_03_seed_384493502.json",
+          "repeticion": 3,
+          "seed_ejecucion": 384493502,
+          "semillas_por_metodo": {
+            "GA": 384501503,
+            "GREEDY": 384493502,
+            "HIBRIDO": 384502503,
+            "RANDOM": 384500503,
+            "RL": 384493502
+          }
+        }
+      ],
+      "seed_escenario": 516746534,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0043_pedidos_dia_43.xlsx",
+      "dia_numero": 43,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_43_rep_01_seed_331718769.json",
+          "repeticion": 1,
+          "seed_ejecucion": 331718769,
+          "semillas_por_metodo": {
+            "GA": 331726770,
+            "GREEDY": 331718769,
+            "HIBRIDO": 331727770,
+            "RANDOM": 331725770,
+            "RL": 331718769
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_43_rep_02_seed_330400193.json",
+          "repeticion": 2,
+          "seed_ejecucion": 330400193,
+          "semillas_por_metodo": {
+            "GA": 330408194,
+            "GREEDY": 330400193,
+            "HIBRIDO": 330409194,
+            "RANDOM": 330407194,
+            "RL": 330400193
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_43_rep_03_seed_500181504.json",
+          "repeticion": 3,
+          "seed_ejecucion": 500181504,
+          "semillas_por_metodo": {
+            "GA": 500189505,
+            "GREEDY": 500181504,
+            "HIBRIDO": 500190505,
+            "RANDOM": 500188505,
+            "RL": 500181504
+          }
+        }
+      ],
+      "seed_escenario": 597123892,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0044_pedidos_dia_44.xlsx",
+      "dia_numero": 44,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_44_rep_01_seed_596214981.json",
+          "repeticion": 1,
+          "seed_ejecucion": 596214981,
+          "semillas_por_metodo": {
+            "GA": 596222982,
+            "GREEDY": 596214981,
+            "HIBRIDO": 596223982,
+            "RANDOM": 596221982,
+            "RL": 596214981
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_44_rep_02_seed_603443781.json",
+          "repeticion": 2,
+          "seed_ejecucion": 603443781,
+          "semillas_por_metodo": {
+            "GA": 603451782,
+            "GREEDY": 603443781,
+            "HIBRIDO": 603452782,
+            "RANDOM": 603450782,
+            "RL": 603443781
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_44_rep_03_seed_122505228.json",
+          "repeticion": 3,
+          "seed_ejecucion": 122505228,
+          "semillas_por_metodo": {
+            "GA": 122513229,
+            "GREEDY": 122505228,
+            "HIBRIDO": 122514229,
+            "RANDOM": 122512229,
+            "RL": 122505228
+          }
+        }
+      ],
+      "seed_escenario": 807991906,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0045_pedidos_dia_45.xlsx",
+      "dia_numero": 45,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_45_rep_01_seed_294684436.json",
+          "repeticion": 1,
+          "seed_ejecucion": 294684436,
+          "semillas_por_metodo": {
+            "GA": 294692437,
+            "GREEDY": 294684436,
+            "HIBRIDO": 294693437,
+            "RANDOM": 294691437,
+            "RL": 294684436
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_45_rep_02_seed_185332549.json",
+          "repeticion": 2,
+          "seed_ejecucion": 185332549,
+          "semillas_por_metodo": {
+            "GA": 185340550,
+            "GREEDY": 185332549,
+            "HIBRIDO": 185341550,
+            "RANDOM": 185339550,
+            "RL": 185332549
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_45_rep_03_seed_3995601.json",
+          "repeticion": 3,
+          "seed_ejecucion": 3995601,
+          "semillas_por_metodo": {
+            "GA": 4003602,
+            "GREEDY": 3995601,
+            "HIBRIDO": 4004602,
+            "RANDOM": 4002602,
+            "RL": 3995601
+          }
+        }
+      ],
+      "seed_escenario": 742347677,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0046_pedidos_dia_46.xlsx",
+      "dia_numero": 46,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_46_rep_01_seed_637947814.json",
+          "repeticion": 1,
+          "seed_ejecucion": 637947814,
+          "semillas_por_metodo": {
+            "GA": 637955815,
+            "GREEDY": 637947814,
+            "HIBRIDO": 637956815,
+            "RANDOM": 637954815,
+            "RL": 637947814
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_46_rep_02_seed_46700582.json",
+          "repeticion": 2,
+          "seed_ejecucion": 46700582,
+          "semillas_por_metodo": {
+            "GA": 46708583,
+            "GREEDY": 46700582,
+            "HIBRIDO": 46709583,
+            "RANDOM": 46707583,
+            "RL": 46700582
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_46_rep_03_seed_470264633.json",
+          "repeticion": 3,
+          "seed_ejecucion": 470264633,
+          "semillas_por_metodo": {
+            "GA": 470272634,
+            "GREEDY": 470264633,
+            "HIBRIDO": 470273634,
+            "RANDOM": 470271634,
+            "RL": 470264633
+          }
+        }
+      ],
+      "seed_escenario": 481964517,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0047_pedidos_dia_47.xlsx",
+      "dia_numero": 47,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_47_rep_01_seed_518722756.json",
+          "repeticion": 1,
+          "seed_ejecucion": 518722756,
+          "semillas_por_metodo": {
+            "GA": 518730757,
+            "GREEDY": 518722756,
+            "HIBRIDO": 518731757,
+            "RANDOM": 518729757,
+            "RL": 518722756
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_47_rep_02_seed_453852400.json",
+          "repeticion": 2,
+          "seed_ejecucion": 453852400,
+          "semillas_por_metodo": {
+            "GA": 453860401,
+            "GREEDY": 453852400,
+            "HIBRIDO": 453861401,
+            "RANDOM": 453859401,
+            "RL": 453852400
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_47_rep_03_seed_640796750.json",
+          "repeticion": 3,
+          "seed_ejecucion": 640796750,
+          "semillas_por_metodo": {
+            "GA": 640804751,
+            "GREEDY": 640796750,
+            "HIBRIDO": 640805751,
+            "RANDOM": 640803751,
+            "RL": 640796750
+          }
+        }
+      ],
+      "seed_escenario": 632960517,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0048_pedidos_dia_48.xlsx",
+      "dia_numero": 48,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_48_rep_01_seed_470031131.json",
+          "repeticion": 1,
+          "seed_ejecucion": 470031131,
+          "semillas_por_metodo": {
+            "GA": 470039132,
+            "GREEDY": 470031131,
+            "HIBRIDO": 470040132,
+            "RANDOM": 470038132,
+            "RL": 470031131
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_48_rep_02_seed_594554122.json",
+          "repeticion": 2,
+          "seed_ejecucion": 594554122,
+          "semillas_por_metodo": {
+            "GA": 594562123,
+            "GREEDY": 594554122,
+            "HIBRIDO": 594563123,
+            "RANDOM": 594561123,
+            "RL": 594554122
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_48_rep_03_seed_926120592.json",
+          "repeticion": 3,
+          "seed_ejecucion": 926120592,
+          "semillas_por_metodo": {
+            "GA": 926128593,
+            "GREEDY": 926120592,
+            "HIBRIDO": 926129593,
+            "RANDOM": 926127593,
+            "RL": 926120592
+          }
+        }
+      ],
+      "seed_escenario": 334542655,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0049_pedidos_dia_49.xlsx",
+      "dia_numero": 49,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_49_rep_01_seed_955505031.json",
+          "repeticion": 1,
+          "seed_ejecucion": 955505031,
+          "semillas_por_metodo": {
+            "GA": 955513032,
+            "GREEDY": 955505031,
+            "HIBRIDO": 955514032,
+            "RANDOM": 955512032,
+            "RL": 955505031
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_49_rep_02_seed_104045169.json",
+          "repeticion": 2,
+          "seed_ejecucion": 104045169,
+          "semillas_por_metodo": {
+            "GA": 104053170,
+            "GREEDY": 104045169,
+            "HIBRIDO": 104054170,
+            "RANDOM": 104052170,
+            "RL": 104045169
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_49_rep_03_seed_582051437.json",
+          "repeticion": 3,
+          "seed_ejecucion": 582051437,
+          "semillas_por_metodo": {
+            "GA": 582059438,
+            "GREEDY": 582051437,
+            "HIBRIDO": 582060438,
+            "RANDOM": 582058438,
+            "RL": 582051437
+          }
+        }
+      ],
+      "seed_escenario": 519904438,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0050_pedidos_dia_50.xlsx",
+      "dia_numero": 50,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_50_rep_01_seed_404269437.json",
+          "repeticion": 1,
+          "seed_ejecucion": 404269437,
+          "semillas_por_metodo": {
+            "GA": 404277438,
+            "GREEDY": 404269437,
+            "HIBRIDO": 404278438,
+            "RANDOM": 404276438,
+            "RL": 404269437
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_50_rep_02_seed_778119632.json",
+          "repeticion": 2,
+          "seed_ejecucion": 778119632,
+          "semillas_por_metodo": {
+            "GA": 778127633,
+            "GREEDY": 778119632,
+            "HIBRIDO": 778128633,
+            "RANDOM": 778126633,
+            "RL": 778119632
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_50_rep_03_seed_191012102.json",
+          "repeticion": 3,
+          "seed_ejecucion": 191012102,
+          "semillas_por_metodo": {
+            "GA": 191020103,
+            "GREEDY": 191012102,
+            "HIBRIDO": 191021103,
+            "RANDOM": 191019103,
+            "RL": 191012102
+          }
+        }
+      ],
+      "seed_escenario": 233744575,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0051_pedidos_dia_51.xlsx",
+      "dia_numero": 51,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_51_rep_01_seed_951652856.json",
+          "repeticion": 1,
+          "seed_ejecucion": 951652856,
+          "semillas_por_metodo": {
+            "GA": 951660857,
+            "GREEDY": 951652856,
+            "HIBRIDO": 951661857,
+            "RANDOM": 951659857,
+            "RL": 951652856
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_51_rep_02_seed_679728086.json",
+          "repeticion": 2,
+          "seed_ejecucion": 679728086,
+          "semillas_por_metodo": {
+            "GA": 679736087,
+            "GREEDY": 679728086,
+            "HIBRIDO": 679737087,
+            "RANDOM": 679735087,
+            "RL": 679728086
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_51_rep_03_seed_693419427.json",
+          "repeticion": 3,
+          "seed_ejecucion": 693419427,
+          "semillas_por_metodo": {
+            "GA": 693427428,
+            "GREEDY": 693419427,
+            "HIBRIDO": 693428428,
+            "RANDOM": 693426428,
+            "RL": 693419427
+          }
+        }
+      ],
+      "seed_escenario": 879574816,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0052_pedidos_dia_52.xlsx",
+      "dia_numero": 52,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_52_rep_01_seed_711684164.json",
+          "repeticion": 1,
+          "seed_ejecucion": 711684164,
+          "semillas_por_metodo": {
+            "GA": 711692165,
+            "GREEDY": 711684164,
+            "HIBRIDO": 711693165,
+            "RANDOM": 711691165,
+            "RL": 711684164
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_52_rep_02_seed_870452486.json",
+          "repeticion": 2,
+          "seed_ejecucion": 870452486,
+          "semillas_por_metodo": {
+            "GA": 870460487,
+            "GREEDY": 870452486,
+            "HIBRIDO": 870461487,
+            "RANDOM": 870459487,
+            "RL": 870452486
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_52_rep_03_seed_93790949.json",
+          "repeticion": 3,
+          "seed_ejecucion": 93790949,
+          "semillas_por_metodo": {
+            "GA": 93798950,
+            "GREEDY": 93790949,
+            "HIBRIDO": 93799950,
+            "RANDOM": 93797950,
+            "RL": 93790949
+          }
+        }
+      ],
+      "seed_escenario": 703270580,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0053_pedidos_dia_53.xlsx",
+      "dia_numero": 53,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_53_rep_01_seed_744427622.json",
+          "repeticion": 1,
+          "seed_ejecucion": 744427622,
+          "semillas_por_metodo": {
+            "GA": 744435623,
+            "GREEDY": 744427622,
+            "HIBRIDO": 744436623,
+            "RANDOM": 744434623,
+            "RL": 744427622
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_53_rep_02_seed_638123089.json",
+          "repeticion": 2,
+          "seed_ejecucion": 638123089,
+          "semillas_por_metodo": {
+            "GA": 638131090,
+            "GREEDY": 638123089,
+            "HIBRIDO": 638132090,
+            "RANDOM": 638130090,
+            "RL": 638123089
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_53_rep_03_seed_130012525.json",
+          "repeticion": 3,
+          "seed_ejecucion": 130012525,
+          "semillas_por_metodo": {
+            "GA": 130020526,
+            "GREEDY": 130012525,
+            "HIBRIDO": 130021526,
+            "RANDOM": 130019526,
+            "RL": 130012525
+          }
+        }
+      ],
+      "seed_escenario": 368961658,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0054_pedidos_dia_54.xlsx",
+      "dia_numero": 54,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_54_rep_01_seed_236057501.json",
+          "repeticion": 1,
+          "seed_ejecucion": 236057501,
+          "semillas_por_metodo": {
+            "GA": 236065502,
+            "GREEDY": 236057501,
+            "HIBRIDO": 236066502,
+            "RANDOM": 236064502,
+            "RL": 236057501
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_54_rep_02_seed_718784205.json",
+          "repeticion": 2,
+          "seed_ejecucion": 718784205,
+          "semillas_por_metodo": {
+            "GA": 718792206,
+            "GREEDY": 718784205,
+            "HIBRIDO": 718793206,
+            "RANDOM": 718791206,
+            "RL": 718784205
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_54_rep_03_seed_498543438.json",
+          "repeticion": 3,
+          "seed_ejecucion": 498543438,
+          "semillas_por_metodo": {
+            "GA": 498551439,
+            "GREEDY": 498543438,
+            "HIBRIDO": 498552439,
+            "RANDOM": 498550439,
+            "RL": 498543438
+          }
+        }
+      ],
+      "seed_escenario": 485656658,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0055_pedidos_dia_55.xlsx",
+      "dia_numero": 55,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_55_rep_01_seed_256684231.json",
+          "repeticion": 1,
+          "seed_ejecucion": 256684231,
+          "semillas_por_metodo": {
+            "GA": 256692232,
+            "GREEDY": 256684231,
+            "HIBRIDO": 256693232,
+            "RANDOM": 256691232,
+            "RL": 256684231
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_55_rep_02_seed_919443718.json",
+          "repeticion": 2,
+          "seed_ejecucion": 919443718,
+          "semillas_por_metodo": {
+            "GA": 919451719,
+            "GREEDY": 919443718,
+            "HIBRIDO": 919452719,
+            "RANDOM": 919450719,
+            "RL": 919443718
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_55_rep_03_seed_544470739.json",
+          "repeticion": 3,
+          "seed_ejecucion": 544470739,
+          "semillas_por_metodo": {
+            "GA": 544478740,
+            "GREEDY": 544470739,
+            "HIBRIDO": 544479740,
+            "RANDOM": 544477740,
+            "RL": 544470739
+          }
+        }
+      ],
+      "seed_escenario": 727460189,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0056_pedidos_dia_56.xlsx",
+      "dia_numero": 56,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_56_rep_01_seed_339420647.json",
+          "repeticion": 1,
+          "seed_ejecucion": 339420647,
+          "semillas_por_metodo": {
+            "GA": 339428648,
+            "GREEDY": 339420647,
+            "HIBRIDO": 339429648,
+            "RANDOM": 339427648,
+            "RL": 339420647
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_56_rep_02_seed_303840181.json",
+          "repeticion": 2,
+          "seed_ejecucion": 303840181,
+          "semillas_por_metodo": {
+            "GA": 303848182,
+            "GREEDY": 303840181,
+            "HIBRIDO": 303849182,
+            "RANDOM": 303847182,
+            "RL": 303840181
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_56_rep_03_seed_511831015.json",
+          "repeticion": 3,
+          "seed_ejecucion": 511831015,
+          "semillas_por_metodo": {
+            "GA": 511839016,
+            "GREEDY": 511831015,
+            "HIBRIDO": 511840016,
+            "RANDOM": 511838016,
+            "RL": 511831015
+          }
+        }
+      ],
+      "seed_escenario": 312760704,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0057_pedidos_dia_57.xlsx",
+      "dia_numero": 57,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_57_rep_01_seed_313418315.json",
+          "repeticion": 1,
+          "seed_ejecucion": 313418315,
+          "semillas_por_metodo": {
+            "GA": 313426316,
+            "GREEDY": 313418315,
+            "HIBRIDO": 313427316,
+            "RANDOM": 313425316,
+            "RL": 313418315
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_57_rep_02_seed_748256546.json",
+          "repeticion": 2,
+          "seed_ejecucion": 748256546,
+          "semillas_por_metodo": {
+            "GA": 748264547,
+            "GREEDY": 748256546,
+            "HIBRIDO": 748265547,
+            "RANDOM": 748263547,
+            "RL": 748256546
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_57_rep_03_seed_791431472.json",
+          "repeticion": 3,
+          "seed_ejecucion": 791431472,
+          "semillas_por_metodo": {
+            "GA": 791439473,
+            "GREEDY": 791431472,
+            "HIBRIDO": 791440473,
+            "RANDOM": 791438473,
+            "RL": 791431472
+          }
+        }
+      ],
+      "seed_escenario": 447357036,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0058_pedidos_dia_58.xlsx",
+      "dia_numero": 58,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_58_rep_01_seed_477052809.json",
+          "repeticion": 1,
+          "seed_ejecucion": 477052809,
+          "semillas_por_metodo": {
+            "GA": 477060810,
+            "GREEDY": 477052809,
+            "HIBRIDO": 477061810,
+            "RANDOM": 477059810,
+            "RL": 477052809
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_58_rep_02_seed_773636533.json",
+          "repeticion": 2,
+          "seed_ejecucion": 773636533,
+          "semillas_por_metodo": {
+            "GA": 773644534,
+            "GREEDY": 773636533,
+            "HIBRIDO": 773645534,
+            "RANDOM": 773643534,
+            "RL": 773636533
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_58_rep_03_seed_992049956.json",
+          "repeticion": 3,
+          "seed_ejecucion": 992049956,
+          "semillas_por_metodo": {
+            "GA": 992057957,
+            "GREEDY": 992049956,
+            "HIBRIDO": 992058957,
+            "RANDOM": 992056957,
+            "RL": 992049956
+          }
+        }
+      ],
+      "seed_escenario": 408982537,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0059_pedidos_dia_59.xlsx",
+      "dia_numero": 59,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_59_rep_01_seed_940144052.json",
+          "repeticion": 1,
+          "seed_ejecucion": 940144052,
+          "semillas_por_metodo": {
+            "GA": 940152053,
+            "GREEDY": 940144052,
+            "HIBRIDO": 940153053,
+            "RANDOM": 940151053,
+            "RL": 940144052
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_59_rep_02_seed_658757254.json",
+          "repeticion": 2,
+          "seed_ejecucion": 658757254,
+          "semillas_por_metodo": {
+            "GA": 658765255,
+            "GREEDY": 658757254,
+            "HIBRIDO": 658766255,
+            "RANDOM": 658764255,
+            "RL": 658757254
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_59_rep_03_seed_338133081.json",
+          "repeticion": 3,
+          "seed_ejecucion": 338133081,
+          "semillas_por_metodo": {
+            "GA": 338141082,
+            "GREEDY": 338133081,
+            "HIBRIDO": 338142082,
+            "RANDOM": 338140082,
+            "RL": 338133081
+          }
+        }
+      ],
+      "seed_escenario": 627299157,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0060_pedidos_dia_60.xlsx",
+      "dia_numero": 60,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_60_rep_01_seed_852592822.json",
+          "repeticion": 1,
+          "seed_ejecucion": 852592822,
+          "semillas_por_metodo": {
+            "GA": 852600823,
+            "GREEDY": 852592822,
+            "HIBRIDO": 852601823,
+            "RANDOM": 852599823,
+            "RL": 852592822
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_60_rep_02_seed_605132047.json",
+          "repeticion": 2,
+          "seed_ejecucion": 605132047,
+          "semillas_por_metodo": {
+            "GA": 605140048,
+            "GREEDY": 605132047,
+            "HIBRIDO": 605141048,
+            "RANDOM": 605139048,
+            "RL": 605132047
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_60_rep_03_seed_316622227.json",
+          "repeticion": 3,
+          "seed_ejecucion": 316622227,
+          "semillas_por_metodo": {
+            "GA": 316630228,
+            "GREEDY": 316622227,
+            "HIBRIDO": 316631228,
+            "RANDOM": 316629228,
+            "RL": 316622227
+          }
+        }
+      ],
+      "seed_escenario": 670387165,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0061_pedidos_dia_61.xlsx",
+      "dia_numero": 61,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_61_rep_01_seed_547698230.json",
+          "repeticion": 1,
+          "seed_ejecucion": 547698230,
+          "semillas_por_metodo": {
+            "GA": 547706231,
+            "GREEDY": 547698230,
+            "HIBRIDO": 547707231,
+            "RANDOM": 547705231,
+            "RL": 547698230
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_61_rep_02_seed_57838838.json",
+          "repeticion": 2,
+          "seed_ejecucion": 57838838,
+          "semillas_por_metodo": {
+            "GA": 57846839,
+            "GREEDY": 57838838,
+            "HIBRIDO": 57847839,
+            "RANDOM": 57845839,
+            "RL": 57838838
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_61_rep_03_seed_506747377.json",
+          "repeticion": 3,
+          "seed_ejecucion": 506747377,
+          "semillas_por_metodo": {
+            "GA": 506755378,
+            "GREEDY": 506747377,
+            "HIBRIDO": 506756378,
+            "RANDOM": 506754378,
+            "RL": 506747377
+          }
+        }
+      ],
+      "seed_escenario": 995364463,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0062_pedidos_dia_62.xlsx",
+      "dia_numero": 62,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_62_rep_01_seed_67353524.json",
+          "repeticion": 1,
+          "seed_ejecucion": 67353524,
+          "semillas_por_metodo": {
+            "GA": 67361525,
+            "GREEDY": 67353524,
+            "HIBRIDO": 67362525,
+            "RANDOM": 67360525,
+            "RL": 67353524
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_62_rep_02_seed_318300756.json",
+          "repeticion": 2,
+          "seed_ejecucion": 318300756,
+          "semillas_por_metodo": {
+            "GA": 318308757,
+            "GREEDY": 318300756,
+            "HIBRIDO": 318309757,
+            "RANDOM": 318307757,
+            "RL": 318300756
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_62_rep_03_seed_464362737.json",
+          "repeticion": 3,
+          "seed_ejecucion": 464362737,
+          "semillas_por_metodo": {
+            "GA": 464370738,
+            "GREEDY": 464362737,
+            "HIBRIDO": 464371738,
+            "RANDOM": 464369738,
+            "RL": 464362737
+          }
+        }
+      ],
+      "seed_escenario": 749701069,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0063_pedidos_dia_63.xlsx",
+      "dia_numero": 63,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_63_rep_01_seed_317632818.json",
+          "repeticion": 1,
+          "seed_ejecucion": 317632818,
+          "semillas_por_metodo": {
+            "GA": 317640819,
+            "GREEDY": 317632818,
+            "HIBRIDO": 317641819,
+            "RANDOM": 317639819,
+            "RL": 317632818
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_63_rep_02_seed_744881976.json",
+          "repeticion": 2,
+          "seed_ejecucion": 744881976,
+          "semillas_por_metodo": {
+            "GA": 744889977,
+            "GREEDY": 744881976,
+            "HIBRIDO": 744890977,
+            "RANDOM": 744888977,
+            "RL": 744881976
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_63_rep_03_seed_525545519.json",
+          "repeticion": 3,
+          "seed_ejecucion": 525545519,
+          "semillas_por_metodo": {
+            "GA": 525553520,
+            "GREEDY": 525545519,
+            "HIBRIDO": 525554520,
+            "RANDOM": 525552520,
+            "RL": 525545519
+          }
+        }
+      ],
+      "seed_escenario": 540633088,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0064_pedidos_dia_64.xlsx",
+      "dia_numero": 64,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_64_rep_01_seed_280281428.json",
+          "repeticion": 1,
+          "seed_ejecucion": 280281428,
+          "semillas_por_metodo": {
+            "GA": 280289429,
+            "GREEDY": 280281428,
+            "HIBRIDO": 280290429,
+            "RANDOM": 280288429,
+            "RL": 280281428
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_64_rep_02_seed_9622206.json",
+          "repeticion": 2,
+          "seed_ejecucion": 9622206,
+          "semillas_por_metodo": {
+            "GA": 9630207,
+            "GREEDY": 9622206,
+            "HIBRIDO": 9631207,
+            "RANDOM": 9629207,
+            "RL": 9622206
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_64_rep_03_seed_531295033.json",
+          "repeticion": 3,
+          "seed_ejecucion": 531295033,
+          "semillas_por_metodo": {
+            "GA": 531303034,
+            "GREEDY": 531295033,
+            "HIBRIDO": 531304034,
+            "RANDOM": 531302034,
+            "RL": 531295033
+          }
+        }
+      ],
+      "seed_escenario": 166876413,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0065_pedidos_dia_65.xlsx",
+      "dia_numero": 65,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_65_rep_01_seed_972885975.json",
+          "repeticion": 1,
+          "seed_ejecucion": 972885975,
+          "semillas_por_metodo": {
+            "GA": 972893976,
+            "GREEDY": 972885975,
+            "HIBRIDO": 972894976,
+            "RANDOM": 972892976,
+            "RL": 972885975
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_65_rep_02_seed_710816677.json",
+          "repeticion": 2,
+          "seed_ejecucion": 710816677,
+          "semillas_por_metodo": {
+            "GA": 710824678,
+            "GREEDY": 710816677,
+            "HIBRIDO": 710825678,
+            "RANDOM": 710823678,
+            "RL": 710816677
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_65_rep_03_seed_445018291.json",
+          "repeticion": 3,
+          "seed_ejecucion": 445018291,
+          "semillas_por_metodo": {
+            "GA": 445026292,
+            "GREEDY": 445018291,
+            "HIBRIDO": 445027292,
+            "RANDOM": 445025292,
+            "RL": 445018291
+          }
+        }
+      ],
+      "seed_escenario": 219265259,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0066_pedidos_dia_66.xlsx",
+      "dia_numero": 66,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_66_rep_01_seed_598538724.json",
+          "repeticion": 1,
+          "seed_ejecucion": 598538724,
+          "semillas_por_metodo": {
+            "GA": 598546725,
+            "GREEDY": 598538724,
+            "HIBRIDO": 598547725,
+            "RANDOM": 598545725,
+            "RL": 598538724
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_66_rep_02_seed_127018929.json",
+          "repeticion": 2,
+          "seed_ejecucion": 127018929,
+          "semillas_por_metodo": {
+            "GA": 127026930,
+            "GREEDY": 127018929,
+            "HIBRIDO": 127027930,
+            "RANDOM": 127025930,
+            "RL": 127018929
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_66_rep_03_seed_484514308.json",
+          "repeticion": 3,
+          "seed_ejecucion": 484514308,
+          "semillas_por_metodo": {
+            "GA": 484522309,
+            "GREEDY": 484514308,
+            "HIBRIDO": 484523309,
+            "RANDOM": 484521309,
+            "RL": 484514308
+          }
+        }
+      ],
+      "seed_escenario": 951177941,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0067_pedidos_dia_67.xlsx",
+      "dia_numero": 67,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_67_rep_01_seed_359078709.json",
+          "repeticion": 1,
+          "seed_ejecucion": 359078709,
+          "semillas_por_metodo": {
+            "GA": 359086710,
+            "GREEDY": 359078709,
+            "HIBRIDO": 359087710,
+            "RANDOM": 359085710,
+            "RL": 359078709
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_67_rep_02_seed_596020810.json",
+          "repeticion": 2,
+          "seed_ejecucion": 596020810,
+          "semillas_por_metodo": {
+            "GA": 596028811,
+            "GREEDY": 596020810,
+            "HIBRIDO": 596029811,
+            "RANDOM": 596027811,
+            "RL": 596020810
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_67_rep_03_seed_582448158.json",
+          "repeticion": 3,
+          "seed_ejecucion": 582448158,
+          "semillas_por_metodo": {
+            "GA": 582456159,
+            "GREEDY": 582448158,
+            "HIBRIDO": 582457159,
+            "RANDOM": 582455159,
+            "RL": 582448158
+          }
+        }
+      ],
+      "seed_escenario": 832954505,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0068_pedidos_dia_68.xlsx",
+      "dia_numero": 68,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_68_rep_01_seed_659164785.json",
+          "repeticion": 1,
+          "seed_ejecucion": 659164785,
+          "semillas_por_metodo": {
+            "GA": 659172786,
+            "GREEDY": 659164785,
+            "HIBRIDO": 659173786,
+            "RANDOM": 659171786,
+            "RL": 659164785
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_68_rep_02_seed_493071132.json",
+          "repeticion": 2,
+          "seed_ejecucion": 493071132,
+          "semillas_por_metodo": {
+            "GA": 493079133,
+            "GREEDY": 493071132,
+            "HIBRIDO": 493080133,
+            "RANDOM": 493078133,
+            "RL": 493071132
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_68_rep_03_seed_533029153.json",
+          "repeticion": 3,
+          "seed_ejecucion": 533029153,
+          "semillas_por_metodo": {
+            "GA": 533037154,
+            "GREEDY": 533029153,
+            "HIBRIDO": 533038154,
+            "RANDOM": 533036154,
+            "RL": 533029153
+          }
+        }
+      ],
+      "seed_escenario": 522230099,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0069_pedidos_dia_69.xlsx",
+      "dia_numero": 69,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_69_rep_01_seed_58492690.json",
+          "repeticion": 1,
+          "seed_ejecucion": 58492690,
+          "semillas_por_metodo": {
+            "GA": 58500691,
+            "GREEDY": 58492690,
+            "HIBRIDO": 58501691,
+            "RANDOM": 58499691,
+            "RL": 58492690
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_69_rep_02_seed_604161753.json",
+          "repeticion": 2,
+          "seed_ejecucion": 604161753,
+          "semillas_por_metodo": {
+            "GA": 604169754,
+            "GREEDY": 604161753,
+            "HIBRIDO": 604170754,
+            "RANDOM": 604168754,
+            "RL": 604161753
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_69_rep_03_seed_60972475.json",
+          "repeticion": 3,
+          "seed_ejecucion": 60972475,
+          "semillas_por_metodo": {
+            "GA": 60980476,
+            "GREEDY": 60972475,
+            "HIBRIDO": 60981476,
+            "RANDOM": 60979476,
+            "RL": 60972475
+          }
+        }
+      ],
+      "seed_escenario": 44285358,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0070_pedidos_dia_70.xlsx",
+      "dia_numero": 70,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_70_rep_01_seed_973733921.json",
+          "repeticion": 1,
+          "seed_ejecucion": 973733921,
+          "semillas_por_metodo": {
+            "GA": 973741922,
+            "GREEDY": 973733921,
+            "HIBRIDO": 973742922,
+            "RANDOM": 973740922,
+            "RL": 973733921
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_70_rep_02_seed_215091998.json",
+          "repeticion": 2,
+          "seed_ejecucion": 215091998,
+          "semillas_por_metodo": {
+            "GA": 215099999,
+            "GREEDY": 215091998,
+            "HIBRIDO": 215100999,
+            "RANDOM": 215098999,
+            "RL": 215091998
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_70_rep_03_seed_758503288.json",
+          "repeticion": 3,
+          "seed_ejecucion": 758503288,
+          "semillas_por_metodo": {
+            "GA": 758511289,
+            "GREEDY": 758503288,
+            "HIBRIDO": 758512289,
+            "RANDOM": 758510289,
+            "RL": 758503288
+          }
+        }
+      ],
+      "seed_escenario": 545961000,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0071_pedidos_dia_71.xlsx",
+      "dia_numero": 71,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_71_rep_01_seed_650124713.json",
+          "repeticion": 1,
+          "seed_ejecucion": 650124713,
+          "semillas_por_metodo": {
+            "GA": 650132714,
+            "GREEDY": 650124713,
+            "HIBRIDO": 650133714,
+            "RANDOM": 650131714,
+            "RL": 650124713
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_71_rep_02_seed_772419315.json",
+          "repeticion": 2,
+          "seed_ejecucion": 772419315,
+          "semillas_por_metodo": {
+            "GA": 772427316,
+            "GREEDY": 772419315,
+            "HIBRIDO": 772428316,
+            "RANDOM": 772426316,
+            "RL": 772419315
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_71_rep_03_seed_441469609.json",
+          "repeticion": 3,
+          "seed_ejecucion": 441469609,
+          "semillas_por_metodo": {
+            "GA": 441477610,
+            "GREEDY": 441469609,
+            "HIBRIDO": 441478610,
+            "RANDOM": 441476610,
+            "RL": 441469609
+          }
+        }
+      ],
+      "seed_escenario": 587546650,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0072_pedidos_dia_72.xlsx",
+      "dia_numero": 72,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_72_rep_01_seed_485200735.json",
+          "repeticion": 1,
+          "seed_ejecucion": 485200735,
+          "semillas_por_metodo": {
+            "GA": 485208736,
+            "GREEDY": 485200735,
+            "HIBRIDO": 485209736,
+            "RANDOM": 485207736,
+            "RL": 485200735
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_72_rep_02_seed_378072212.json",
+          "repeticion": 2,
+          "seed_ejecucion": 378072212,
+          "semillas_por_metodo": {
+            "GA": 378080213,
+            "GREEDY": 378072212,
+            "HIBRIDO": 378081213,
+            "RANDOM": 378079213,
+            "RL": 378072212
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_72_rep_03_seed_396116372.json",
+          "repeticion": 3,
+          "seed_ejecucion": 396116372,
+          "semillas_por_metodo": {
+            "GA": 396124373,
+            "GREEDY": 396116372,
+            "HIBRIDO": 396125373,
+            "RANDOM": 396123373,
+            "RL": 396116372
+          }
+        }
+      ],
+      "seed_escenario": 424930081,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0073_pedidos_dia_73.xlsx",
+      "dia_numero": 73,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_73_rep_01_seed_625534537.json",
+          "repeticion": 1,
+          "seed_ejecucion": 625534537,
+          "semillas_por_metodo": {
+            "GA": 625542538,
+            "GREEDY": 625534537,
+            "HIBRIDO": 625543538,
+            "RANDOM": 625541538,
+            "RL": 625534537
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_73_rep_02_seed_354870538.json",
+          "repeticion": 2,
+          "seed_ejecucion": 354870538,
+          "semillas_por_metodo": {
+            "GA": 354878539,
+            "GREEDY": 354870538,
+            "HIBRIDO": 354879539,
+            "RANDOM": 354877539,
+            "RL": 354870538
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_73_rep_03_seed_859805467.json",
+          "repeticion": 3,
+          "seed_ejecucion": 859805467,
+          "semillas_por_metodo": {
+            "GA": 859813468,
+            "GREEDY": 859805467,
+            "HIBRIDO": 859814468,
+            "RANDOM": 859812468,
+            "RL": 859805467
+          }
+        }
+      ],
+      "seed_escenario": 191210318,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0074_pedidos_dia_74.xlsx",
+      "dia_numero": 74,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_74_rep_01_seed_293482477.json",
+          "repeticion": 1,
+          "seed_ejecucion": 293482477,
+          "semillas_por_metodo": {
+            "GA": 293490478,
+            "GREEDY": 293482477,
+            "HIBRIDO": 293491478,
+            "RANDOM": 293489478,
+            "RL": 293482477
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_74_rep_02_seed_928130769.json",
+          "repeticion": 2,
+          "seed_ejecucion": 928130769,
+          "semillas_por_metodo": {
+            "GA": 928138770,
+            "GREEDY": 928130769,
+            "HIBRIDO": 928139770,
+            "RANDOM": 928137770,
+            "RL": 928130769
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_74_rep_03_seed_665219424.json",
+          "repeticion": 3,
+          "seed_ejecucion": 665219424,
+          "semillas_por_metodo": {
+            "GA": 665227425,
+            "GREEDY": 665219424,
+            "HIBRIDO": 665228425,
+            "RANDOM": 665226425,
+            "RL": 665219424
+          }
+        }
+      ],
+      "seed_escenario": 109229919,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0075_pedidos_dia_75.xlsx",
+      "dia_numero": 75,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_75_rep_01_seed_534637500.json",
+          "repeticion": 1,
+          "seed_ejecucion": 534637500,
+          "semillas_por_metodo": {
+            "GA": 534645501,
+            "GREEDY": 534637500,
+            "HIBRIDO": 534646501,
+            "RANDOM": 534644501,
+            "RL": 534637500
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_75_rep_02_seed_2596271.json",
+          "repeticion": 2,
+          "seed_ejecucion": 2596271,
+          "semillas_por_metodo": {
+            "GA": 2604272,
+            "GREEDY": 2596271,
+            "HIBRIDO": 2605272,
+            "RANDOM": 2603272,
+            "RL": 2596271
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_75_rep_03_seed_690369345.json",
+          "repeticion": 3,
+          "seed_ejecucion": 690369345,
+          "semillas_por_metodo": {
+            "GA": 690377346,
+            "GREEDY": 690369345,
+            "HIBRIDO": 690378346,
+            "RANDOM": 690376346,
+            "RL": 690369345
+          }
+        }
+      ],
+      "seed_escenario": 778870252,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0076_pedidos_dia_76.xlsx",
+      "dia_numero": 76,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_76_rep_01_seed_687433497.json",
+          "repeticion": 1,
+          "seed_ejecucion": 687433497,
+          "semillas_por_metodo": {
+            "GA": 687441498,
+            "GREEDY": 687433497,
+            "HIBRIDO": 687442498,
+            "RANDOM": 687440498,
+            "RL": 687433497
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_76_rep_02_seed_546499991.json",
+          "repeticion": 2,
+          "seed_ejecucion": 546499991,
+          "semillas_por_metodo": {
+            "GA": 546507992,
+            "GREEDY": 546499991,
+            "HIBRIDO": 546508992,
+            "RANDOM": 546506992,
+            "RL": 546499991
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_76_rep_03_seed_703480293.json",
+          "repeticion": 3,
+          "seed_ejecucion": 703480293,
+          "semillas_por_metodo": {
+            "GA": 703488294,
+            "GREEDY": 703480293,
+            "HIBRIDO": 703489294,
+            "RANDOM": 703487294,
+            "RL": 703480293
+          }
+        }
+      ],
+      "seed_escenario": 275602220,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0077_pedidos_dia_77.xlsx",
+      "dia_numero": 77,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_77_rep_01_seed_64173930.json",
+          "repeticion": 1,
+          "seed_ejecucion": 64173930,
+          "semillas_por_metodo": {
+            "GA": 64181931,
+            "GREEDY": 64173930,
+            "HIBRIDO": 64182931,
+            "RANDOM": 64180931,
+            "RL": 64173930
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_77_rep_02_seed_717888671.json",
+          "repeticion": 2,
+          "seed_ejecucion": 717888671,
+          "semillas_por_metodo": {
+            "GA": 717896672,
+            "GREEDY": 717888671,
+            "HIBRIDO": 717897672,
+            "RANDOM": 717895672,
+            "RL": 717888671
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_77_rep_03_seed_675084326.json",
+          "repeticion": 3,
+          "seed_ejecucion": 675084326,
+          "semillas_por_metodo": {
+            "GA": 675092327,
+            "GREEDY": 675084326,
+            "HIBRIDO": 675093327,
+            "RANDOM": 675091327,
+            "RL": 675084326
+          }
+        }
+      ],
+      "seed_escenario": 81088329,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0078_pedidos_dia_78.xlsx",
+      "dia_numero": 78,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_78_rep_01_seed_731297038.json",
+          "repeticion": 1,
+          "seed_ejecucion": 731297038,
+          "semillas_por_metodo": {
+            "GA": 731305039,
+            "GREEDY": 731297038,
+            "HIBRIDO": 731306039,
+            "RANDOM": 731304039,
+            "RL": 731297038
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_78_rep_02_seed_316462611.json",
+          "repeticion": 2,
+          "seed_ejecucion": 316462611,
+          "semillas_por_metodo": {
+            "GA": 316470612,
+            "GREEDY": 316462611,
+            "HIBRIDO": 316471612,
+            "RANDOM": 316469612,
+            "RL": 316462611
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_78_rep_03_seed_251145861.json",
+          "repeticion": 3,
+          "seed_ejecucion": 251145861,
+          "semillas_por_metodo": {
+            "GA": 251153862,
+            "GREEDY": 251145861,
+            "HIBRIDO": 251154862,
+            "RANDOM": 251152862,
+            "RL": 251145861
+          }
+        }
+      ],
+      "seed_escenario": 237172021,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0079_pedidos_dia_79.xlsx",
+      "dia_numero": 79,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_79_rep_01_seed_978076710.json",
+          "repeticion": 1,
+          "seed_ejecucion": 978076710,
+          "semillas_por_metodo": {
+            "GA": 978084711,
+            "GREEDY": 978076710,
+            "HIBRIDO": 978085711,
+            "RANDOM": 978083711,
+            "RL": 978076710
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_79_rep_02_seed_690670706.json",
+          "repeticion": 2,
+          "seed_ejecucion": 690670706,
+          "semillas_por_metodo": {
+            "GA": 690678707,
+            "GREEDY": 690670706,
+            "HIBRIDO": 690679707,
+            "RANDOM": 690677707,
+            "RL": 690670706
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_79_rep_03_seed_581128789.json",
+          "repeticion": 3,
+          "seed_ejecucion": 581128789,
+          "semillas_por_metodo": {
+            "GA": 581136790,
+            "GREEDY": 581128789,
+            "HIBRIDO": 581137790,
+            "RANDOM": 581135790,
+            "RL": 581128789
+          }
+        }
+      ],
+      "seed_escenario": 21455758,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0080_pedidos_dia_80.xlsx",
+      "dia_numero": 80,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_80_rep_01_seed_6424558.json",
+          "repeticion": 1,
+          "seed_ejecucion": 6424558,
+          "semillas_por_metodo": {
+            "GA": 6432559,
+            "GREEDY": 6424558,
+            "HIBRIDO": 6433559,
+            "RANDOM": 6431559,
+            "RL": 6424558
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_80_rep_02_seed_697091657.json",
+          "repeticion": 2,
+          "seed_ejecucion": 697091657,
+          "semillas_por_metodo": {
+            "GA": 697099658,
+            "GREEDY": 697091657,
+            "HIBRIDO": 697100658,
+            "RANDOM": 697098658,
+            "RL": 697091657
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_80_rep_03_seed_387438154.json",
+          "repeticion": 3,
+          "seed_ejecucion": 387438154,
+          "semillas_por_metodo": {
+            "GA": 387446155,
+            "GREEDY": 387438154,
+            "HIBRIDO": 387447155,
+            "RANDOM": 387445155,
+            "RL": 387438154
+          }
+        }
+      ],
+      "seed_escenario": 193403345,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0081_pedidos_dia_81.xlsx",
+      "dia_numero": 81,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_81_rep_01_seed_971726163.json",
+          "repeticion": 1,
+          "seed_ejecucion": 971726163,
+          "semillas_por_metodo": {
+            "GA": 971734164,
+            "GREEDY": 971726163,
+            "HIBRIDO": 971735164,
+            "RANDOM": 971733164,
+            "RL": 971726163
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_81_rep_02_seed_985870374.json",
+          "repeticion": 2,
+          "seed_ejecucion": 985870374,
+          "semillas_por_metodo": {
+            "GA": 985878375,
+            "GREEDY": 985870374,
+            "HIBRIDO": 985879375,
+            "RANDOM": 985877375,
+            "RL": 985870374
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_81_rep_03_seed_421206486.json",
+          "repeticion": 3,
+          "seed_ejecucion": 421206486,
+          "semillas_por_metodo": {
+            "GA": 421214487,
+            "GREEDY": 421206486,
+            "HIBRIDO": 421215487,
+            "RANDOM": 421213487,
+            "RL": 421206486
+          }
+        }
+      ],
+      "seed_escenario": 624197274,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0082_pedidos_dia_82.xlsx",
+      "dia_numero": 82,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_82_rep_01_seed_370504273.json",
+          "repeticion": 1,
+          "seed_ejecucion": 370504273,
+          "semillas_por_metodo": {
+            "GA": 370512274,
+            "GREEDY": 370504273,
+            "HIBRIDO": 370513274,
+            "RANDOM": 370511274,
+            "RL": 370504273
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_82_rep_02_seed_120612597.json",
+          "repeticion": 2,
+          "seed_ejecucion": 120612597,
+          "semillas_por_metodo": {
+            "GA": 120620598,
+            "GREEDY": 120612597,
+            "HIBRIDO": 120621598,
+            "RANDOM": 120619598,
+            "RL": 120612597
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_82_rep_03_seed_226702114.json",
+          "repeticion": 3,
+          "seed_ejecucion": 226702114,
+          "semillas_por_metodo": {
+            "GA": 226710115,
+            "GREEDY": 226702114,
+            "HIBRIDO": 226711115,
+            "RANDOM": 226709115,
+            "RL": 226702114
+          }
+        }
+      ],
+      "seed_escenario": 390408201,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0083_pedidos_dia_83.xlsx",
+      "dia_numero": 83,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_83_rep_01_seed_686193913.json",
+          "repeticion": 1,
+          "seed_ejecucion": 686193913,
+          "semillas_por_metodo": {
+            "GA": 686201914,
+            "GREEDY": 686193913,
+            "HIBRIDO": 686202914,
+            "RANDOM": 686200914,
+            "RL": 686193913
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_83_rep_02_seed_954773652.json",
+          "repeticion": 2,
+          "seed_ejecucion": 954773652,
+          "semillas_por_metodo": {
+            "GA": 954781653,
+            "GREEDY": 954773652,
+            "HIBRIDO": 954782653,
+            "RANDOM": 954780653,
+            "RL": 954773652
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_83_rep_03_seed_247955094.json",
+          "repeticion": 3,
+          "seed_ejecucion": 247955094,
+          "semillas_por_metodo": {
+            "GA": 247963095,
+            "GREEDY": 247955094,
+            "HIBRIDO": 247964095,
+            "RANDOM": 247962095,
+            "RL": 247955094
+          }
+        }
+      ],
+      "seed_escenario": 222571587,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0084_pedidos_dia_84.xlsx",
+      "dia_numero": 84,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_84_rep_01_seed_352172838.json",
+          "repeticion": 1,
+          "seed_ejecucion": 352172838,
+          "semillas_por_metodo": {
+            "GA": 352180839,
+            "GREEDY": 352172838,
+            "HIBRIDO": 352181839,
+            "RANDOM": 352179839,
+            "RL": 352172838
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_84_rep_02_seed_3060453.json",
+          "repeticion": 2,
+          "seed_ejecucion": 3060453,
+          "semillas_por_metodo": {
+            "GA": 3068454,
+            "GREEDY": 3060453,
+            "HIBRIDO": 3069454,
+            "RANDOM": 3067454,
+            "RL": 3060453
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_84_rep_03_seed_620854655.json",
+          "repeticion": 3,
+          "seed_ejecucion": 620854655,
+          "semillas_por_metodo": {
+            "GA": 620862656,
+            "GREEDY": 620854655,
+            "HIBRIDO": 620863656,
+            "RANDOM": 620861656,
+            "RL": 620854655
+          }
+        }
+      ],
+      "seed_escenario": 592130226,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0085_pedidos_dia_85.xlsx",
+      "dia_numero": 85,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_85_rep_01_seed_935883349.json",
+          "repeticion": 1,
+          "seed_ejecucion": 935883349,
+          "semillas_por_metodo": {
+            "GA": 935891350,
+            "GREEDY": 935883349,
+            "HIBRIDO": 935892350,
+            "RANDOM": 935890350,
+            "RL": 935883349
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_85_rep_02_seed_854012574.json",
+          "repeticion": 2,
+          "seed_ejecucion": 854012574,
+          "semillas_por_metodo": {
+            "GA": 854020575,
+            "GREEDY": 854012574,
+            "HIBRIDO": 854021575,
+            "RANDOM": 854019575,
+            "RL": 854012574
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_85_rep_03_seed_849526721.json",
+          "repeticion": 3,
+          "seed_ejecucion": 849526721,
+          "semillas_por_metodo": {
+            "GA": 849534722,
+            "GREEDY": 849526721,
+            "HIBRIDO": 849535722,
+            "RANDOM": 849533722,
+            "RL": 849526721
+          }
+        }
+      ],
+      "seed_escenario": 268763027,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0086_pedidos_dia_86.xlsx",
+      "dia_numero": 86,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_86_rep_01_seed_395943674.json",
+          "repeticion": 1,
+          "seed_ejecucion": 395943674,
+          "semillas_por_metodo": {
+            "GA": 395951675,
+            "GREEDY": 395943674,
+            "HIBRIDO": 395952675,
+            "RANDOM": 395950675,
+            "RL": 395943674
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_86_rep_02_seed_329490684.json",
+          "repeticion": 2,
+          "seed_ejecucion": 329490684,
+          "semillas_por_metodo": {
+            "GA": 329498685,
+            "GREEDY": 329490684,
+            "HIBRIDO": 329499685,
+            "RANDOM": 329497685,
+            "RL": 329490684
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_86_rep_03_seed_136266435.json",
+          "repeticion": 3,
+          "seed_ejecucion": 136266435,
+          "semillas_por_metodo": {
+            "GA": 136274436,
+            "GREEDY": 136266435,
+            "HIBRIDO": 136275436,
+            "RANDOM": 136273436,
+            "RL": 136266435
+          }
+        }
+      ],
+      "seed_escenario": 993688759,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0087_pedidos_dia_87.xlsx",
+      "dia_numero": 87,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_87_rep_01_seed_218533444.json",
+          "repeticion": 1,
+          "seed_ejecucion": 218533444,
+          "semillas_por_metodo": {
+            "GA": 218541445,
+            "GREEDY": 218533444,
+            "HIBRIDO": 218542445,
+            "RANDOM": 218540445,
+            "RL": 218533444
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_87_rep_02_seed_375650871.json",
+          "repeticion": 2,
+          "seed_ejecucion": 375650871,
+          "semillas_por_metodo": {
+            "GA": 375658872,
+            "GREEDY": 375650871,
+            "HIBRIDO": 375659872,
+            "RANDOM": 375657872,
+            "RL": 375650871
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_87_rep_03_seed_86541059.json",
+          "repeticion": 3,
+          "seed_ejecucion": 86541059,
+          "semillas_por_metodo": {
+            "GA": 86549060,
+            "GREEDY": 86541059,
+            "HIBRIDO": 86550060,
+            "RANDOM": 86548060,
+            "RL": 86541059
+          }
+        }
+      ],
+      "seed_escenario": 504680220,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0088_pedidos_dia_88.xlsx",
+      "dia_numero": 88,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_88_rep_01_seed_296705578.json",
+          "repeticion": 1,
+          "seed_ejecucion": 296705578,
+          "semillas_por_metodo": {
+            "GA": 296713579,
+            "GREEDY": 296705578,
+            "HIBRIDO": 296714579,
+            "RANDOM": 296712579,
+            "RL": 296705578
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_88_rep_02_seed_510121824.json",
+          "repeticion": 2,
+          "seed_ejecucion": 510121824,
+          "semillas_por_metodo": {
+            "GA": 510129825,
+            "GREEDY": 510121824,
+            "HIBRIDO": 510130825,
+            "RANDOM": 510128825,
+            "RL": 510121824
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_88_rep_03_seed_645255105.json",
+          "repeticion": 3,
+          "seed_ejecucion": 645255105,
+          "semillas_por_metodo": {
+            "GA": 645263106,
+            "GREEDY": 645255105,
+            "HIBRIDO": 645264106,
+            "RANDOM": 645262106,
+            "RL": 645255105
+          }
+        }
+      ],
+      "seed_escenario": 630307895,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0089_pedidos_dia_89.xlsx",
+      "dia_numero": 89,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_89_rep_01_seed_195876215.json",
+          "repeticion": 1,
+          "seed_ejecucion": 195876215,
+          "semillas_por_metodo": {
+            "GA": 195884216,
+            "GREEDY": 195876215,
+            "HIBRIDO": 195885216,
+            "RANDOM": 195883216,
+            "RL": 195876215
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_89_rep_02_seed_502250785.json",
+          "repeticion": 2,
+          "seed_ejecucion": 502250785,
+          "semillas_por_metodo": {
+            "GA": 502258786,
+            "GREEDY": 502250785,
+            "HIBRIDO": 502259786,
+            "RANDOM": 502257786,
+            "RL": 502250785
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_89_rep_03_seed_899764917.json",
+          "repeticion": 3,
+          "seed_ejecucion": 899764917,
+          "semillas_por_metodo": {
+            "GA": 899772918,
+            "GREEDY": 899764917,
+            "HIBRIDO": 899773918,
+            "RANDOM": 899771918,
+            "RL": 899764917
+          }
+        }
+      ],
+      "seed_escenario": 518308372,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0090_pedidos_dia_90.xlsx",
+      "dia_numero": 90,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_90_rep_01_seed_774222847.json",
+          "repeticion": 1,
+          "seed_ejecucion": 774222847,
+          "semillas_por_metodo": {
+            "GA": 774230848,
+            "GREEDY": 774222847,
+            "HIBRIDO": 774231848,
+            "RANDOM": 774229848,
+            "RL": 774222847
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_90_rep_02_seed_198842278.json",
+          "repeticion": 2,
+          "seed_ejecucion": 198842278,
+          "semillas_por_metodo": {
+            "GA": 198850279,
+            "GREEDY": 198842278,
+            "HIBRIDO": 198851279,
+            "RANDOM": 198849279,
+            "RL": 198842278
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_90_rep_03_seed_476513488.json",
+          "repeticion": 3,
+          "seed_ejecucion": 476513488,
+          "semillas_por_metodo": {
+            "GA": 476521489,
+            "GREEDY": 476513488,
+            "HIBRIDO": 476522489,
+            "RANDOM": 476520489,
+            "RL": 476513488
+          }
+        }
+      ],
+      "seed_escenario": 721101479,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0091_pedidos_dia_91.xlsx",
+      "dia_numero": 91,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_91_rep_01_seed_357448752.json",
+          "repeticion": 1,
+          "seed_ejecucion": 357448752,
+          "semillas_por_metodo": {
+            "GA": 357456753,
+            "GREEDY": 357448752,
+            "HIBRIDO": 357457753,
+            "RANDOM": 357455753,
+            "RL": 357448752
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_91_rep_02_seed_443931706.json",
+          "repeticion": 2,
+          "seed_ejecucion": 443931706,
+          "semillas_por_metodo": {
+            "GA": 443939707,
+            "GREEDY": 443931706,
+            "HIBRIDO": 443940707,
+            "RANDOM": 443938707,
+            "RL": 443931706
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_91_rep_03_seed_225371596.json",
+          "repeticion": 3,
+          "seed_ejecucion": 225371596,
+          "semillas_por_metodo": {
+            "GA": 225379597,
+            "GREEDY": 225371596,
+            "HIBRIDO": 225380597,
+            "RANDOM": 225378597,
+            "RL": 225371596
+          }
+        }
+      ],
+      "seed_escenario": 979360608,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0092_pedidos_dia_92.xlsx",
+      "dia_numero": 92,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_92_rep_01_seed_889534688.json",
+          "repeticion": 1,
+          "seed_ejecucion": 889534688,
+          "semillas_por_metodo": {
+            "GA": 889542689,
+            "GREEDY": 889534688,
+            "HIBRIDO": 889543689,
+            "RANDOM": 889541689,
+            "RL": 889534688
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_92_rep_02_seed_76671704.json",
+          "repeticion": 2,
+          "seed_ejecucion": 76671704,
+          "semillas_por_metodo": {
+            "GA": 76679705,
+            "GREEDY": 76671704,
+            "HIBRIDO": 76680705,
+            "RANDOM": 76678705,
+            "RL": 76671704
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_92_rep_03_seed_304461710.json",
+          "repeticion": 3,
+          "seed_ejecucion": 304461710,
+          "semillas_por_metodo": {
+            "GA": 304469711,
+            "GREEDY": 304461710,
+            "HIBRIDO": 304470711,
+            "RANDOM": 304468711,
+            "RL": 304461710
+          }
+        }
+      ],
+      "seed_escenario": 161599258,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0093_pedidos_dia_93.xlsx",
+      "dia_numero": 93,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_93_rep_01_seed_801210095.json",
+          "repeticion": 1,
+          "seed_ejecucion": 801210095,
+          "semillas_por_metodo": {
+            "GA": 801218096,
+            "GREEDY": 801210095,
+            "HIBRIDO": 801219096,
+            "RANDOM": 801217096,
+            "RL": 801210095
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_93_rep_02_seed_980314907.json",
+          "repeticion": 2,
+          "seed_ejecucion": 980314907,
+          "semillas_por_metodo": {
+            "GA": 980322908,
+            "GREEDY": 980314907,
+            "HIBRIDO": 980323908,
+            "RANDOM": 980321908,
+            "RL": 980314907
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_93_rep_03_seed_727934306.json",
+          "repeticion": 3,
+          "seed_ejecucion": 727934306,
+          "semillas_por_metodo": {
+            "GA": 727942307,
+            "GREEDY": 727934306,
+            "HIBRIDO": 727943307,
+            "RANDOM": 727941307,
+            "RL": 727934306
+          }
+        }
+      ],
+      "seed_escenario": 614675621,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0094_pedidos_dia_94.xlsx",
+      "dia_numero": 94,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_94_rep_01_seed_986777360.json",
+          "repeticion": 1,
+          "seed_ejecucion": 986777360,
+          "semillas_por_metodo": {
+            "GA": 986785361,
+            "GREEDY": 986777360,
+            "HIBRIDO": 986786361,
+            "RANDOM": 986784361,
+            "RL": 986777360
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_94_rep_02_seed_69106436.json",
+          "repeticion": 2,
+          "seed_ejecucion": 69106436,
+          "semillas_por_metodo": {
+            "GA": 69114437,
+            "GREEDY": 69106436,
+            "HIBRIDO": 69115437,
+            "RANDOM": 69113437,
+            "RL": 69106436
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_94_rep_03_seed_278249294.json",
+          "repeticion": 3,
+          "seed_ejecucion": 278249294,
+          "semillas_por_metodo": {
+            "GA": 278257295,
+            "GREEDY": 278249294,
+            "HIBRIDO": 278258295,
+            "RANDOM": 278256295,
+            "RL": 278249294
+          }
+        }
+      ],
+      "seed_escenario": 581298025,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0095_pedidos_dia_95.xlsx",
+      "dia_numero": 95,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_95_rep_01_seed_260276435.json",
+          "repeticion": 1,
+          "seed_ejecucion": 260276435,
+          "semillas_por_metodo": {
+            "GA": 260284436,
+            "GREEDY": 260276435,
+            "HIBRIDO": 260285436,
+            "RANDOM": 260283436,
+            "RL": 260276435
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_95_rep_02_seed_726253077.json",
+          "repeticion": 2,
+          "seed_ejecucion": 726253077,
+          "semillas_por_metodo": {
+            "GA": 726261078,
+            "GREEDY": 726253077,
+            "HIBRIDO": 726262078,
+            "RANDOM": 726260078,
+            "RL": 726253077
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_95_rep_03_seed_526492408.json",
+          "repeticion": 3,
+          "seed_ejecucion": 526492408,
+          "semillas_por_metodo": {
+            "GA": 526500409,
+            "GREEDY": 526492408,
+            "HIBRIDO": 526501409,
+            "RANDOM": 526499409,
+            "RL": 526492408
+          }
+        }
+      ],
+      "seed_escenario": 492959958,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0096_pedidos_dia_96.xlsx",
+      "dia_numero": 96,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_96_rep_01_seed_531824356.json",
+          "repeticion": 1,
+          "seed_ejecucion": 531824356,
+          "semillas_por_metodo": {
+            "GA": 531832357,
+            "GREEDY": 531824356,
+            "HIBRIDO": 531833357,
+            "RANDOM": 531831357,
+            "RL": 531824356
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_96_rep_02_seed_330902851.json",
+          "repeticion": 2,
+          "seed_ejecucion": 330902851,
+          "semillas_por_metodo": {
+            "GA": 330910852,
+            "GREEDY": 330902851,
+            "HIBRIDO": 330911852,
+            "RANDOM": 330909852,
+            "RL": 330902851
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_96_rep_03_seed_629329312.json",
+          "repeticion": 3,
+          "seed_ejecucion": 629329312,
+          "semillas_por_metodo": {
+            "GA": 629337313,
+            "GREEDY": 629329312,
+            "HIBRIDO": 629338313,
+            "RANDOM": 629336313,
+            "RL": 629329312
+          }
+        }
+      ],
+      "seed_escenario": 896980957,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0097_pedidos_dia_97.xlsx",
+      "dia_numero": 97,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_97_rep_01_seed_845163947.json",
+          "repeticion": 1,
+          "seed_ejecucion": 845163947,
+          "semillas_por_metodo": {
+            "GA": 845171948,
+            "GREEDY": 845163947,
+            "HIBRIDO": 845172948,
+            "RANDOM": 845170948,
+            "RL": 845163947
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_97_rep_02_seed_257083448.json",
+          "repeticion": 2,
+          "seed_ejecucion": 257083448,
+          "semillas_por_metodo": {
+            "GA": 257091449,
+            "GREEDY": 257083448,
+            "HIBRIDO": 257092449,
+            "RANDOM": 257090449,
+            "RL": 257083448
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_97_rep_03_seed_662667142.json",
+          "repeticion": 3,
+          "seed_ejecucion": 662667142,
+          "semillas_por_metodo": {
+            "GA": 662675143,
+            "GREEDY": 662667142,
+            "HIBRIDO": 662676143,
+            "RANDOM": 662674143,
+            "RL": 662667142
+          }
+        }
+      ],
+      "seed_escenario": 209288191,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0098_pedidos_dia_98.xlsx",
+      "dia_numero": 98,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_98_rep_01_seed_757616574.json",
+          "repeticion": 1,
+          "seed_ejecucion": 757616574,
+          "semillas_por_metodo": {
+            "GA": 757624575,
+            "GREEDY": 757616574,
+            "HIBRIDO": 757625575,
+            "RANDOM": 757623575,
+            "RL": 757616574
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_98_rep_02_seed_979591839.json",
+          "repeticion": 2,
+          "seed_ejecucion": 979591839,
+          "semillas_por_metodo": {
+            "GA": 979599840,
+            "GREEDY": 979591839,
+            "HIBRIDO": 979600840,
+            "RANDOM": 979598840,
+            "RL": 979591839
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_98_rep_03_seed_601081808.json",
+          "repeticion": 3,
+          "seed_ejecucion": 601081808,
+          "semillas_por_metodo": {
+            "GA": 601089809,
+            "GREEDY": 601081808,
+            "HIBRIDO": 601090809,
+            "RANDOM": 601088809,
+            "RL": 601081808
+          }
+        }
+      ],
+      "seed_escenario": 670577685,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0099_pedidos_dia_99.xlsx",
+      "dia_numero": 99,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_99_rep_01_seed_837501676.json",
+          "repeticion": 1,
+          "seed_ejecucion": 837501676,
+          "semillas_por_metodo": {
+            "GA": 837509677,
+            "GREEDY": 837501676,
+            "HIBRIDO": 837510677,
+            "RANDOM": 837508677,
+            "RL": 837501676
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_99_rep_02_seed_278568858.json",
+          "repeticion": 2,
+          "seed_ejecucion": 278568858,
+          "semillas_por_metodo": {
+            "GA": 278576859,
+            "GREEDY": 278568858,
+            "HIBRIDO": 278577859,
+            "RANDOM": 278575859,
+            "RL": 278568858
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_99_rep_03_seed_336275650.json",
+          "repeticion": 3,
+          "seed_ejecucion": 336275650,
+          "semillas_por_metodo": {
+            "GA": 336283651,
+            "GREEDY": 336275650,
+            "HIBRIDO": 336284651,
+            "RANDOM": 336282651,
+            "RL": 336275650
+          }
+        }
+      ],
+      "seed_escenario": 365831577,
+      "turno": "MANANA"
+    },
+    {
+      "archivo_excel": "C:\\Users\\Propietario.DESKTOP-QTLGQ35\\Desktop\\PedemonteDigitalTwin_v2\\python\\data\\results\\estudios\\seed_52451_20261102_144549_593\\ejecucion_20261102_144638_390\\seed_52451_20261102_144648\\entradas\\0100_pedidos_dia_100.xlsx",
+      "dia_numero": 100,
+      "repeticiones": [
+        {
+          "archivo_resultado": "corridas/turno_100_rep_01_seed_966012439.json",
+          "repeticion": 1,
+          "seed_ejecucion": 966012439,
+          "semillas_por_metodo": {
+            "GA": 966020440,
+            "GREEDY": 966012439,
+            "HIBRIDO": 966021440,
+            "RANDOM": 966019440,
+            "RL": 966012439
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_100_rep_02_seed_783204068.json",
+          "repeticion": 2,
+          "seed_ejecucion": 783204068,
+          "semillas_por_metodo": {
+            "GA": 783212069,
+            "GREEDY": 783204068,
+            "HIBRIDO": 783213069,
+            "RANDOM": 783211069,
+            "RL": 783204068
+          }
+        },
+        {
+          "archivo_resultado": "corridas/turno_100_rep_03_seed_659915705.json",
+          "repeticion": 3,
+          "seed_ejecucion": 659915705,
+          "semillas_por_metodo": {
+            "GA": 659923706,
+            "GREEDY": 659915705,
+            "HIBRIDO": 659924706,
+            "RANDOM": 659922706,
+            "RL": 659915705
+          }
+        }
+      ],
+      "seed_escenario": 912466572,
+      "turno": "MANANA"
+    }
+  ],
+  "version": 2
+}

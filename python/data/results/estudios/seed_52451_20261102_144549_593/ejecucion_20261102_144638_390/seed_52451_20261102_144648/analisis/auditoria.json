@@ -1,0 +1,23 @@
+{
+  "advertencia_inferencia": "Los IC95 se calculan sobre escenarios independientes; las réplicas de un mismo escenario se promedian antes de estimar la varianza. No son intervalos ajustados por comparaciones múltiples.",
+  "archivos_faltantes": [],
+  "auditoria_costos": {
+    "desgloses_incompletos": 0,
+    "errores": [],
+    "inconsistentes": 0,
+    "resultados_analizados": 1500
+  },
+  "corridas_esperadas": 1500,
+  "corridas_invalidas": 0,
+  "corridas_validas": 1500,
+  "duplicados": [],
+  "errores": [],
+  "estado_simulado": {
+    "FINALIZADO": 1500
+  },
+  "faltantes": 0,
+  "fecha_auditoria": "2026-11-02T18:41:59",
+  "filas_presentes": 1500,
+  "identificadores_faltantes": [],
+  "identificadores_inesperados": []
+}
