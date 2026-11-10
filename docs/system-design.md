@@ -116,9 +116,9 @@ Implementado en `planner.algorithms.hybrid_rl_ga`, combina la velocidad de const
 4. Aplica un criterio de **no inferioridad garantizada**: si el plan evolucionado por `GA` no supera el costo de la semilla `RL`, el método retiene automáticamente la solución original de `RL`.
 
 ### 3. Motores de Referencia (Baselines)
-- **Heurística Voraz (`GREEDY` — `planner.algorithms.greedy`):** Algoritmo constructivo determinista que asigna iterativamente la tarea factible de menor costo incremental, priorizando urgencia de ventana horaria, proximidad geográfica y compatibilidad de volcador.
-- **Algoritmo Genético Puro (`GA` — `planner.algorithms.ga`):** Metaheurística poblacional que parte de permutaciones iniciales sin asistencia de la política RL, permitiendo cuantificar el aporte específico del *warm-start* neuronal en el modo Híbrido.
-- **Línea de Base Aleatoria (`RANDOM` — `planner.algorithms.random_feasible`):** Construye planes factibles mediante muestreo estocástico controlado por semilla, estableciendo la cota inferior de desempeño admisible.
+- **Heurística Voraz (`GREEDY` - `planner.algorithms.greedy`):** Algoritmo constructivo determinista que asigna iterativamente la tarea factible de menor costo incremental, priorizando urgencia de ventana horaria, proximidad geográfica y compatibilidad de volcador.
+- **Algoritmo Genético Puro (`GA` - `planner.algorithms.ga`):** Metaheurística poblacional que parte de permutaciones iniciales sin asistencia de la política RL, permitiendo cuantificar el aporte específico del *warm-start* neuronal en el modo Híbrido.
+- **Línea de Base Aleatoria (`RANDOM` - `planner.algorithms.random_feasible`):** Construye planes factibles mediante muestreo estocástico controlado por semilla, estableciendo la cota inferior de desempeño admisible.
 
 ---
 

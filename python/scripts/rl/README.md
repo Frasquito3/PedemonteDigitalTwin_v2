@@ -1,4 +1,4 @@
-# Módulo `scripts.rl` — Entrenamiento Reproducible de Modelos RL por Configuración JSON
+# Módulo `scripts.rl` - Entrenamiento Reproducible de Modelos RL por Configuración JSON
 
 Este módulo centraliza el entrenamiento de políticas de Aprendizaje por Refuerzo (`MaskablePPO`) guiado por archivos de configuración JSON para garantizar **100% de reproducibilidad**.
 

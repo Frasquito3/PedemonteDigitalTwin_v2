@@ -1,4 +1,4 @@
-# Módulo `scripts.simulation` — Simulación y Benchmarking en AnyLogic
+# Módulo `scripts.simulation` - Simulación y Benchmarking en AnyLogic
 
 Este submódulo agrupa los scripts ejecutables para correr planes de ruteo en el modelo exportado de AnyLogic mediante Alpyne de forma limpia y desatendida.
 

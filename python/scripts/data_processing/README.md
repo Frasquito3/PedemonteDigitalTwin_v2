@@ -1,4 +1,4 @@
-# Módulo `scripts.data_processing` — Pipeline de Datos Históricos y Generador
+# Módulo `scripts.data_processing` - Pipeline de Datos Históricos y Generador
 
 Este submódulo implementa el flujo de extracción, limpieza, geolocalización, análisis estadístico y síntesis estocástica de pedidos para benchmarking.
 

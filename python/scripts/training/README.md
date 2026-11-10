@@ -1,4 +1,4 @@
-# Módulo `scripts.training` — Entrenamiento de Políticas de Aprendizaje por Refuerzo
+# Módulo `scripts.training` - Entrenamiento de Políticas de Aprendizaje por Refuerzo
 
 Este módulo contiene los scripts de entrenamiento de la política RL productiva mediante `MaskablePPO` (sb3-contrib).
 

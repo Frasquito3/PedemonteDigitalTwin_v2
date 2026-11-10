@@ -1,4 +1,4 @@
-# Módulo `planner.integration` — Interoperabilidad con AnyLogic y Excel
+# Módulo `planner.integration` - Interoperabilidad con AnyLogic y Excel
 
 El submódulo `integration` contiene los conectores, puentes de comunicación y códecs que permiten a AnyLogic comunicarse bidireccionalmente con los planificadores de Python mediante Pypeline, importar planillas Excel y ejecutar simulaciones discretas vía Alpyne.
 
