@@ -1,4 +1,4 @@
-# Módulo `planner.domain` — Lógica de Negocio y Validaciones
+# Módulo `planner.domain` - Lógica de Negocio y Validaciones
 
 El submódulo `domain` implementa las reglas operativas del corralón, transformando los pedidos originales en tareas unitarias factibles y verificando la integridad de instancias y planes.
 

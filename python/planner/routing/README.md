@@ -1,4 +1,4 @@
-# Módulo `planner.routing` — Modelado Espacial y Estimación de Rutas
+# Módulo `planner.routing` - Modelado Espacial y Estimación de Rutas
 
 El submódulo `routing` transforma asignaciones abstractas de pedidos en itinerarios físicos sobre la red vial, calculando distancias, duraciones y costos multiobjetivo.
 

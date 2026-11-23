@@ -6,7 +6,7 @@ on:
     paths:
       - "README.md"
       - "python/**"
-      - "docs/pdoc_template/**"
+      - "docs/**"
       - ".github/workflows/docs.yml"
   workflow_dispatch:
 
@@ -49,6 +49,7 @@ jobs:
           sed -i 's/docs\/development-and-deployment\.md/docs\/development_and_deployment.html/g' docs/pdoc_template/repo_readme.md
           sed -i 's/docs\/README\.md/docs.html/g' docs/pdoc_template/repo_readme.md
           PYTHONPATH=python python -m pdoc -o _site -t docs/pdoc_template -d google --search --math --mermaid --footer-text "Pedemonte Digital Twin • Gemelo Digital v2" docs planner scripts
+          touch _site/.nojekyll
 
       - name: Subir artefacto para GitHub Pages
         uses: actions/upload-pages-artifact@v3

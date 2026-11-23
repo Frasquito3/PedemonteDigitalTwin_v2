@@ -1,4 +1,4 @@
-# Módulo `planner.core` — Modelos de Datos y Protocolos Base
+# Módulo `planner.core` - Modelos de Datos y Protocolos Base
 
 El submódulo `core` centraliza las definiciones estructurales, los esquemas tipados de entrada y salida, la configuración global del gemelo digital y los protocolos de interfaz comunes a todos los algoritmos.
 

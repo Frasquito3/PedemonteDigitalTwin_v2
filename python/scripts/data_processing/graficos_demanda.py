@@ -129,7 +129,7 @@ def _obtener_mapa_base_escala_grises(
     lon_min: float,
     lon_max: float,
     zoom: int = 13,
-) -> tuple[np.ndarray | None, list[float] | None]:
+) -> tuple[np.ndarray | None, tuple[float, float, float, float] | None]:
     """Descarga y ensambla teselas abiertas de OpenStreetMap en escala de grises.
 
     Utiliza el servidor público de OpenStreetMap sin requerir credenciales ni API keys.
@@ -157,7 +157,7 @@ def _obtener_mapa_base_escala_grises(
 
         nw_lat, nw_lon = _num2deg(x0, y0, zoom)
         se_lat, se_lon = _num2deg(x1 + 1, y1 + 1, zoom)
-        extent = [nw_lon, se_lon, se_lat, nw_lat]
+        extent = (nw_lon, se_lon, se_lat, nw_lat)
         return stitched_bw_clarificado, extent
     except Exception:
         return None, None
@@ -314,12 +314,13 @@ def generar_grafico_donut_ciudades(
     ]
 
     fig, ax = plt.subplots(figsize=(8.2, 5.2), dpi=DPI)
-    wedges, _ = ax.pie(
+    res_pie = ax.pie(
         por_ciudad_graf["n"],
         colors=colores_donut,
         startangle=90,
         wedgeprops=dict(width=0.45, edgecolor="white", linewidth=1.5, antialiased=True),
     )
+    wedges = res_pie[0]
 
     leyenda_donut = [
         mpatches.Patch(
@@ -407,8 +408,6 @@ def generar_grafico_dispersion_geografica(
     df_clean = df.dropna(subset=["latitud", "longitud"]).copy()
     df_clean[col_ciudad] = df_clean[col_ciudad].astype(str).str.strip()
 
-    total_pedidos = len(df_clean)
-
     km_por_grado_lat = 111.0
     km_por_grado_lon = 111.0 * float(np.cos(np.radians(lat_depot)))
 
@@ -418,7 +417,6 @@ def generar_grafico_dispersion_geografica(
 
     mascara_nucleo = distancias_km <= distancia_max_km
     df_core = df_clean[mascara_nucleo].copy()
-    pct_core = (len(df_core) / total_pedidos * 100) if total_pedidos > 0 else 0.0
 
     lat_min, lat_max = -32.890, -32.812
     lon_min, lon_max = -60.755, -60.680
