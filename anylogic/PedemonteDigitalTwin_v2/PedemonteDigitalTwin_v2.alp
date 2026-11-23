@@ -2616,6 +2616,21 @@ if (
 						</InitialValue>
 					</Properties>
 				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1890000070001</Id>
+					<Name><![CDATA[modoInterfaz]]></Name>
+					<X>-447</X><Y>1289</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA["SIN_SELECCION"]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
 				<Variable Class="Parameter">
 					<Id>1786556369483</Id>
 					<Name><![CDATA[CAPACIDAD_CAMION]]></Name>
@@ -4202,7 +4217,7 @@ programarProximaLlegadaProveedor();]]></Action>
 				<Event>
 					<Id>1787146155965</Id>
 					<Name><![CDATA[eventoPausaInterfaz]]></Name>
-					<X>-1527</X><Y>1603</Y>
+					<X>-1527</X><Y>1665</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -4253,10 +4268,10 @@ if (
 
 
     if (!reinicioAplicado) {
-
+        modoInterfaz = "SIN_SELECCION";
         mensajeInterfazPlanificacion =
-            "Configure la instancia y seleccione "
-            + "el algoritmo.";
+            "Seleccioná un modo para comenzar.";
+        getExperimentHost().navigateTo(viewSeleccionModo);
     }
 
 
@@ -13533,65 +13548,9 @@ traceln(
 				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
 					<ReturnType><![CDATA[String]]></ReturnType>
-					<Id>1787154178558</Id>
-					<Name><![CDATA[resumenEstadosCamionesGIS]]></Name>
-					<X>-2497</X><Y>742</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>false</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>true</ShowLabel>
-					<Body><![CDATA[if (estadosCamionesGIS.isEmpty()) {
-
-    return mensajeCamionesGIS;
-}
-
-
-StringBuilder resumen =
-    new StringBuilder();
-
-
-for (
-    java.util.Map.Entry<
-        Integer,
-        String
-    > entrada
-    : estadosCamionesGIS.entrySet()
-) {
-
-    if (resumen.length() > 0) {
-
-        resumen.append(
-            " | "
-        );
-    }
-
-
-    resumen.append(
-        "Camión "
-    );
-
-    resumen.append(
-        entrada.getKey()
-    );
-
-    resumen.append(
-        ": "
-    );
-
-    resumen.append(
-        entrada.getValue()
-    );
-}
-
-
-return resumen.toString();]]></Body>
-				</Function>
-				<Function AccessType="default" StaticFunction="false">
-					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
-					<ReturnType><![CDATA[String]]></ReturnType>
 					<Id>1787155874135</Id>
 					<Name><![CDATA[obtenerPedidoOriginalIdGIS]]></Name>
-					<X>-2497</X><Y>775</Y>
+					<X>-2497</X><Y>742</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -13642,7 +13601,7 @@ return originalId.trim();]]></Body>
 					<ReturnType><![CDATA[java.awt.Color]]></ReturnType>
 					<Id>1787155911927</Id>
 					<Name><![CDATA[colorBasePedidoGIS]]></Name>
-					<X>-2497</X><Y>808</Y>
+					<X>-2497</X><Y>775</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -13709,7 +13668,7 @@ return new java.awt.Color(
 					<ReturnType><![CDATA[java.awt.Color]]></ReturnType>
 					<Id>1787155951559</Id>
 					<Name><![CDATA[colorEstadoPedidoGIS]]></Name>
-					<X>-2497</X><Y>841</Y>
+					<X>-2497</X><Y>808</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -13831,7 +13790,7 @@ return new java.awt.Color(
 					<ReturnType><![CDATA[String]]></ReturnType>
 					<Id>1787155990847</Id>
 					<Name><![CDATA[estadoAgregadoPedidoOriginalGIS]]></Name>
-					<X>-2497</X><Y>874</Y>
+					<X>-2497</X><Y>841</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -14037,7 +13996,7 @@ return "PENDIENTE";]]></Body>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1787156018343</Id>
 					<Name><![CDATA[indexarPuntosPedidosGIS]]></Name>
-					<X>-2497</X><Y>907</Y>
+					<X>-2497</X><Y>874</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -14145,7 +14104,7 @@ traceln(
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1787156039551</Id>
 					<Name><![CDATA[actualizarPuntoPedidoOriginalGIS]]></Name>
-					<X>-2497</X><Y>940</Y>
+					<X>-2497</X><Y>907</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -14481,7 +14440,7 @@ traceln(
 					<ReturnType><![CDATA[String]]></ReturnType>
 					<Id>1787156068879</Id>
 					<Name><![CDATA[resumenEstadosPedidosGIS]]></Name>
-					<X>-2497</X><Y>973</Y>
+					<X>-2497</X><Y>940</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -19554,9 +19513,11 @@ traceln(
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>true</ShowLabel>
-					<Body><![CDATA[getExperimentHost().navigateTo(
-    viewComparacion
-);]]></Body>
+					<Body><![CDATA[if (!"COMPLETO".equals(modoInterfaz)) {
+    getExperimentHost().navigateTo(viewPedidos);
+    return;
+}
+getExperimentHost().navigateTo(viewComparacion);]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
@@ -25426,6 +25387,11 @@ final com.anylogic.engine.ExperimentSimulation<?>
 
 
 System.setProperty(
+    "pedemonte.restart.interfaceMode",
+    "OPERARIO".equals(modoInterfaz) ? "OPERARIO" : "COMPLETO"
+);
+
+System.setProperty(
     "pedemonte.restart.mode",
     "NUEVA_OPERACION"
 );
@@ -25518,7 +25484,16 @@ return true;]]></Body>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>true</ShowLabel>
-					<Body><![CDATA[String modoReinicio =
+					<Body><![CDATA[String modoGuardado = System.getProperty(
+    "pedemonte.restart.interfaceMode", ""
+);
+System.clearProperty("pedemonte.restart.interfaceMode");
+
+modoInterfaz =
+    "COMPLETO".equals(modoGuardado) || "OPERARIO".equals(modoGuardado)
+    ? modoGuardado : "SIN_SELECCION";
+
+String modoReinicio =
     System.getProperty(
         "pedemonte.restart.mode",
         ""
@@ -25541,6 +25516,17 @@ if (modoReinicio.isEmpty()) {
     return false;
 }
 
+
+if ("CAMBIAR_MODO".equals(modoReinicio)) {
+    System.clearProperty("pedemonte.restart.mode");
+    System.clearProperty("pedemonte.restart.payload");
+    modoInterfaz = "SIN_SELECCION";
+    reinicioCompletoSolicitado = false;
+    mensajeInterfazPlanificacion = "Seleccioná un modo para comenzar.";
+    getExperimentHost().navigateTo(viewSeleccionModo);
+    traceln("CAMBIO DE MODO: modelo recreado, datos reiniciados");
+    return true;
+}
 
 if (
     "NUEVA_OPERACION".equals(
@@ -25569,7 +25555,8 @@ if (
 
 
     getExperimentHost().navigateTo(
-        viewPedidos
+        "SIN_SELECCION".equals(modoInterfaz)
+        ? viewSeleccionModo : viewPedidos
     );
 
 
@@ -25850,7 +25837,8 @@ try {
 
 
     getExperimentHost().navigateTo(
-        viewOperacion
+        "SIN_SELECCION".equals(modoInterfaz)
+        ? viewSeleccionModo : viewOperacion
     );
 
 
@@ -25934,7 +25922,8 @@ try {
 
 
     getExperimentHost().navigateTo(
-        viewPedidos
+        "SIN_SELECCION".equals(modoInterfaz)
+        ? viewSeleccionModo : viewPedidos
     );
 
 
@@ -26854,6 +26843,11 @@ final com.anylogic.engine.ExperimentSimulation<?>
             com.anylogic.engine.ExperimentSimulation<?>
         ) experimento;
 
+
+System.setProperty(
+    "pedemonte.restart.interfaceMode",
+    "OPERARIO".equals(modoInterfaz) ? "OPERARIO" : "COMPLETO"
+);
 
 System.setProperty(
     "pedemonte.restart.mode",
@@ -30993,9 +30987,11 @@ return true;]]></Body>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>true</ShowLabel>
-					<Body><![CDATA[getExperimentHost().navigateTo(
-    viewEstudioExperimental
-);]]></Body>
+					<Body><![CDATA[if (!"COMPLETO".equals(modoInterfaz)) {
+    getExperimentHost().navigateTo(viewPedidos);
+    return;
+}
+getExperimentHost().navigateTo(viewEstudioExperimental);]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>VOID</ReturnModificator>
@@ -33811,6 +33807,90 @@ return String.format(
     valor
 );]]></Body>
 				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1890000070002</Id>
+					<Name><![CDATA[seleccionarModoInterfaz]]></Name>
+					<X>-1527</X><Y>1545</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[modo]]></Name>
+						<Type><![CDATA[String]]></Type>
+					</Parameter>
+					<Body><![CDATA[if (!"COMPLETO".equals(modo) && !"OPERARIO".equals(modo)) {
+    throw new IllegalArgumentException("Modo de interfaz no reconocido: " + modo);
+}
+modoInterfaz = modo;
+getExperimentHost().navigateTo(viewPedidos);]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1890000070003</Id>
+					<Name><![CDATA[volverASeleccionModo]]></Name>
+					<X>-987</X><Y>1545</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[if (reinicioCompletoSolicitado) {
+    return;
+}
+
+if (pypelineSolicitudEnCurso || estudioFlujoActivo
+        || estudioSimulacionEnCurso || generacionActivaEstudio()) {
+    mensajeInterfazPlanificacion =
+        "No se puede cambiar de modo mientras se procesa una planificación "
+        + "o un estudio experimental.";
+    traceln(mensajeInterfazPlanificacion);
+    return;
+}
+
+com.anylogic.engine.Experiment<?> experimento =
+    getEngine().getExperiment();
+
+if (!(experimento instanceof com.anylogic.engine.ExperimentSimulation)) {
+    mensajeInterfazPlanificacion =
+        "El modo solo puede cambiarse desde el experimento de simulación.";
+    traceln(mensajeInterfazPlanificacion);
+    return;
+}
+
+final com.anylogic.engine.ExperimentSimulation<?> experimentoSimulacion =
+    (com.anylogic.engine.ExperimentSimulation<?>) experimento;
+
+// Se descarta la operación anterior y se vuelve a la selección inicial.
+System.setProperty("pedemonte.restart.mode", "CAMBIAR_MODO");
+System.clearProperty("pedemonte.restart.payload");
+System.clearProperty("pedemonte.restart.interfaceMode");
+reinicioCompletoSolicitado = true;
+
+traceln("CAMBIO DE MODO: reinicio completo solicitado");
+
+Thread hiloReinicio = new Thread(new Runnable() {
+    @Override
+    public void run() {
+        try {
+            Thread.sleep(150L);
+            experimentoSimulacion.stop();
+            Thread.sleep(150L);
+            experimentoSimulacion.run();
+        } catch (InterruptedException ex) {
+            Thread.currentThread().interrupt();
+            ex.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+}, "pedemonte-change-interface-mode");
+
+hiloReinicio.setDaemon(true);
+hiloReinicio.start();]]></Body>
+				</Function>
 			</Functions>
 
 			<EmbeddedObjects>
@@ -35028,7 +35108,7 @@ if (
 					<LineMaterial>null</LineMaterial>
 					<LineStyle>SOLID</LineStyle>
 					<Width>1470</Width>
-					<Height>517</Height>
+					<Height>585</Height>
 					<Rotation>0.0</Rotation>
 					<FillColor>-722949</FillColor>
 					<FillMaterial>null</FillMaterial>
@@ -35099,7 +35179,7 @@ if (
 				<Text>
 					<Id>1794162739072</Id>
 					<Name><![CDATA[txtSubtituloEventosNavegacion]]></Name>
-					<X>-1532</X><Y>1569</Y>
+					<X>-1532</X><Y>1630</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -35513,7 +35593,7 @@ if (
 				<Rectangle>
 					<Id>1788093260532</Id>
 					<Name><![CDATA[rectResumenFinalOperacion]]></Name>
-					<X>3005</X><Y>756</Y>
+					<X>3005</X><Y>737</Y>
 					<Label><X>10</X><Y>10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -35527,29 +35607,7 @@ if (
 					<LineMaterial>null</LineMaterial>
 					<LineStyle>SOLID</LineStyle>
 					<Width>350</Width>
-					<Height>100</Height>
-					<Rotation>0.0</Rotation>
-					<FillColor>-460036</FillColor>
-					<FillMaterial>null</FillMaterial>
-				</Rectangle>
-				<Rectangle>
-					<Id>1788093112900</Id>
-					<Name><![CDATA[rectResumenEstadoGeneral]]></Name>
-					<X>3005</X><Y>550</Y>
-					<Label><X>10</X><Y>10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<ZHeight>10</ZHeight>
-					<LineWidth>1</LineWidth>
-					<LineColor>-2563606</LineColor>
-					<LineMaterial>null</LineMaterial>
-					<LineStyle>SOLID</LineStyle>
-					<Width>350</Width>
-					<Height>64</Height>
+					<Height>128</Height>
 					<Rotation>0.0</Rotation>
 					<FillColor>-460036</FillColor>
 					<FillMaterial>null</FillMaterial>
@@ -35557,7 +35615,7 @@ if (
 				<Rectangle>
 					<Id>1787570191206</Id>
 					<Name><![CDATA[rectEstadoCamion1]]></Name>
-					<X>3190</X><Y>661</Y>
+					<X>3190</X><Y>603</Y>
 					<Label><X>10</X><Y>10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -35571,7 +35629,7 @@ if (
 					<LineMaterial>null</LineMaterial>
 					<LineStyle>SOLID</LineStyle>
 					<Width>165</Width>
-					<Height>78</Height>
+					<Height>111</Height>
 					<Rotation>0.0</Rotation>
 					<FillColor>-460036</FillColor>
 					<FillMaterial>null</FillMaterial>
@@ -35579,7 +35637,7 @@ if (
 				<Rectangle>
 					<Id>1787569984046</Id>
 					<Name><![CDATA[rectEstadoCamion0]]></Name>
-					<X>3005</X><Y>661</Y>
+					<X>3005</X><Y>603</Y>
 					<Label><X>10</X><Y>10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -35593,7 +35651,7 @@ if (
 					<LineMaterial>null</LineMaterial>
 					<LineStyle>SOLID</LineStyle>
 					<Width>165</Width>
-					<Height>78</Height>
+					<Height>111</Height>
 					<Rotation>0.0</Rotation>
 					<FillColor>-460036</FillColor>
 					<FillMaterial>null</FillMaterial>
@@ -35747,7 +35805,7 @@ if (
 					<LineMaterial>null</LineMaterial>
 					<LineStyle>SOLID</LineStyle>
 					<Width>410</Width>
-					<Height>92</Height>
+					<Height>98</Height>
 					<Rotation>0.0</Rotation>
 					<FillColor>-460036</FillColor>
 					<FillMaterial>null</FillMaterial>
@@ -35792,7 +35850,7 @@ if (
 					<TextCode><![CDATA[mensajeFormulario]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>10</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -35808,7 +35866,7 @@ if (
 					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
 					<EmbeddedIcon>false</EmbeddedIcon>
 					<Width>880</Width>
-					<Height>450</Height>
+					<Height>525</Height>
 					<GISShapes>
 					</GISShapes>
 					<Latitude>-32.85583600364033</Latitude>
@@ -35881,7 +35939,7 @@ if (
 );]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="10" Style="0"/>
+						<Font Name="SansSerif" Size="12" Style="0"/>
 						<Editable>false</Editable>
 						<Button><![CDATA[RL]]></Button>
 						<Button><![CDATA[GA]]></Button>
@@ -35905,6 +35963,7 @@ if (
 					<BasicProperties Width="410" Height="32">
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<TextColor>-15257011</TextColor>
+						<VisibleCode><![CDATA[!"SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
 						<Enabled>true</Enabled>
 						<EnableExpression><![CDATA[!pedidosFormulario.isEmpty()
 &&
@@ -35989,7 +36048,7 @@ instanciaInterfazActual == null
 }]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="10" Style="1"/>
+						<Font Name="SansSerif" Size="12" Style="1"/>
 						<LabelText><![CDATA[Preparar operación]]></LabelText>
 					</ExtendedProperties>
 				</Control>
@@ -36006,6 +36065,7 @@ instanciaInterfazActual == null
 					<BasicProperties Width="200" Height="32">
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<TextColor>-15257011</TextColor>
+						<VisibleCode><![CDATA[!"SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
 						<Enabled>true</Enabled>
 						<EnableExpression><![CDATA[(
     !pedidosFormulario.isEmpty()
@@ -36032,7 +36092,7 @@ instanciaInterfazActual == null
 }]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="10" Style="1"/>
+						<Font Name="SansSerif" Size="12" Style="1"/>
 						<LabelText><![CDATA[Nueva operación]]></LabelText>
 					</ExtendedProperties>
 				</Control>
@@ -36049,6 +36109,7 @@ instanciaInterfazActual == null
 					<BasicProperties Width="370" Height="40">
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<TextColor>-15257011</TextColor>
+						<VisibleCode><![CDATA[!"SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
 						<Enabled>true</Enabled>
 						<EnableExpression><![CDATA[instanciaInterfazActual == null
 &&
@@ -36075,7 +36136,7 @@ if (pedidoAgregado) {
 }]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="10" Style="1"/>
+						<Font Name="SansSerif" Size="12" Style="1"/>
 						<LabelText><![CDATA[Agregar pedido a la instancia]]></LabelText>
 					</ExtendedProperties>
 				</Control>
@@ -36092,6 +36153,7 @@ if (pedidoAgregado) {
 					<BasicProperties Width="370" Height="40">
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<TextColor>-15257011</TextColor>
+						<VisibleCode><![CDATA[!"SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
 						<Enabled>true</Enabled>
 						<EnableExpression><![CDATA[!pedidosFormulario.isEmpty()
 &&
@@ -36115,14 +36177,14 @@ if (eliminado) {
 }]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="10" Style="0"/>
+						<Font Name="SansSerif" Size="12" Style="0"/>
 						<LabelText><![CDATA[Eliminar último pedido]]></LabelText>
 					</ExtendedProperties>
 				</Control>
 				<Text>
 					<Id>1787148307312</Id>
 					<Name><![CDATA[txtResumenPedidosFormulario]]></Name>
-					<X>1165</X><Y>336</Y>
+					<X>1165</X><Y>341</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -36136,7 +36198,7 @@ if (eliminado) {
 					<TextCode><![CDATA[resumenPedidosVisual()]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>12</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -36155,6 +36217,7 @@ if (eliminado) {
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<FillColor>-1</FillColor>
 						<TextColor>-15257011</TextColor>
+						<VisibleCode><![CDATA[!"SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
 						<Enabled>true</Enabled>
 						<EnableExpression><![CDATA[instanciaInterfazActual == null
 &&
@@ -36163,7 +36226,7 @@ if (eliminado) {
 !pypelineSolicitudEnCurso]]></EnableExpression>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="10" Style="0"/>
+						<Font Name="SansSerif" Size="12" Style="0"/>
 						<LinkTo>true</LinkTo>
 						<Link>latitudFormulario</Link>
 					</ExtendedProperties>
@@ -36184,7 +36247,7 @@ if (eliminado) {
 					<Text><![CDATA[Latitud]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>11</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -36205,7 +36268,7 @@ if (eliminado) {
 					<Text><![CDATA[Hora desde (HH:mm)]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>11</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -36224,6 +36287,7 @@ if (eliminado) {
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<FillColor>-1</FillColor>
 						<TextColor>-15257011</TextColor>
+						<VisibleCode><![CDATA[!"SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
 						<Enabled>true</Enabled>
 						<EnableExpression><![CDATA[tieneVentanaFormulario
 &&
@@ -36234,7 +36298,7 @@ instanciaInterfazActual == null
 !pypelineSolicitudEnCurso]]></EnableExpression>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="10" Style="0"/>
+						<Font Name="SansSerif" Size="12" Style="0"/>
 						<LinkTo>true</LinkTo>
 						<Link>horaHastaFormulario</Link>
 					</ExtendedProperties>
@@ -36242,7 +36306,7 @@ instanciaInterfazActual == null
 				<Rectangle>
 					<Id>1787156342847</Id>
 					<Name><![CDATA[rectangle6]]></Name>
-					<X>2280</X><Y>817</Y>
+					<X>2280</X><Y>827</Y>
 					<Label><X>10</X><Y>10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -36264,7 +36328,7 @@ instanciaInterfazActual == null
 				<Text>
 					<Id>1787156342853</Id>
 					<Name><![CDATA[text22]]></Name>
-					<X>2518</X><Y>819</Y>
+					<X>2518</X><Y>829</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -36277,7 +36341,7 @@ instanciaInterfazActual == null
 					<Text><![CDATA[En transito]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>12</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -36285,7 +36349,7 @@ instanciaInterfazActual == null
 				<Rectangle>
 					<Id>1787156342855</Id>
 					<Name><![CDATA[rectangle8]]></Name>
-					<X>2720</X><Y>817</Y>
+					<X>2720</X><Y>827</Y>
 					<Label><X>10</X><Y>10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -36307,7 +36371,7 @@ instanciaInterfazActual == null
 				<Text>
 					<Id>1787156575637</Id>
 					<Name><![CDATA[text24]]></Name>
-					<X>2078</X><Y>843</Y>
+					<X>2078</X><Y>853</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -36320,7 +36384,7 @@ instanciaInterfazActual == null
 					<Text><![CDATA[Parcial]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>12</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -36328,7 +36392,7 @@ instanciaInterfazActual == null
 				<Rectangle>
 					<Id>1787156631554</Id>
 					<Name><![CDATA[rectangle11]]></Name>
-					<X>2280</X><Y>841</Y>
+					<X>2280</X><Y>851</Y>
 					<Label><X>10</X><Y>10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -36350,7 +36414,7 @@ instanciaInterfazActual == null
 				<Text>
 					<Id>1787156631556</Id>
 					<Name><![CDATA[text25]]></Name>
-					<X>2298</X><Y>843</Y>
+					<X>2298</X><Y>853</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -36363,7 +36427,7 @@ instanciaInterfazActual == null
 					<Text><![CDATA[Entregado]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>12</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -36371,7 +36435,7 @@ instanciaInterfazActual == null
 				<Rectangle>
 					<Id>1787151059751</Id>
 					<Name><![CDATA[rectangle1]]></Name>
-					<X>2280</X><Y>732</Y>
+					<X>2280</X><Y>737</Y>
 					<Label><X>10</X><Y>10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -36393,7 +36457,7 @@ instanciaInterfazActual == null
 				<Rectangle>
 					<Id>1787151071048</Id>
 					<Name><![CDATA[rectangle2]]></Name>
-					<X>2500</X><Y>732</Y>
+					<X>2500</X><Y>737</Y>
 					<Label><X>10</X><Y>10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -36425,6 +36489,7 @@ instanciaInterfazActual == null
 					<BasicProperties Width="210" Height="24">
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<TextColor>-15257011</TextColor>
+						<VisibleCode><![CDATA[!"SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
 						<Enabled>true</Enabled>
 						<EnableExpression><![CDATA[instanciaInterfazActual == null
 &&
@@ -36433,7 +36498,7 @@ instanciaInterfazActual == null
 !pypelineSolicitudEnCurso]]></EnableExpression>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="10" Style="0"/>
+						<Font Name="SansSerif" Size="12" Style="0"/>
 						<LabelText><![CDATA[Tiene ventana específica]]></LabelText>
 						<LinkTo>true</LinkTo>
 						<Link>tieneVentanaFormulario</Link>
@@ -36453,6 +36518,7 @@ instanciaInterfazActual == null
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<FillColor>-1</FillColor>
 						<TextColor>-15257011</TextColor>
+						<VisibleCode><![CDATA[!"SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
 						<Enabled>true</Enabled>
 						<EnableExpression><![CDATA[tieneVentanaFormulario
 &&
@@ -36463,7 +36529,7 @@ instanciaInterfazActual == null
 !pypelineSolicitudEnCurso]]></EnableExpression>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="10" Style="0"/>
+						<Font Name="SansSerif" Size="12" Style="0"/>
 						<LinkTo>true</LinkTo>
 						<Link>horaDesdeFormulario</Link>
 					</ExtendedProperties>
@@ -36471,7 +36537,7 @@ instanciaInterfazActual == null
 				<Text>
 					<Id>1787151215740</Id>
 					<Name><![CDATA[text16]]></Name>
-					<X>2080</X><Y>758</Y>
+					<X>2080</X><Y>763</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -36484,29 +36550,7 @@ instanciaInterfazActual == null
 					<Text><![CDATA[Corralón]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
-						<Style>0</Style>
-					</Font>
-					<Alignment>LEFT</Alignment>
-				</Text>
-				<Text>
-					<Id>1787152715608</Id>
-					<Name><![CDATA[txtEstadoRutasGIS]]></Name>
-					<X>2060</X><Y>650</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<Rotation>0.0</Rotation>
-					<Color>-14735049</Color>
-					<Text><![CDATA[text]]></Text>
-					<TextCode><![CDATA[mensajeRutasGIS]]></TextCode>
-					<Font>
-						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>12</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -36608,7 +36652,7 @@ resumenEstadosPedidosGIS()
     )]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -36616,7 +36660,7 @@ resumenEstadosPedidosGIS()
 				<Rectangle>
 					<Id>1787156342841</Id>
 					<Name><![CDATA[rectangle5]]></Name>
-					<X>2060</X><Y>817</Y>
+					<X>2060</X><Y>827</Y>
 					<Label><X>10</X><Y>10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -36638,7 +36682,7 @@ resumenEstadosPedidosGIS()
 				<Text>
 					<Id>1787156342843</Id>
 					<Name><![CDATA[text19]]></Name>
-					<X>2298</X><Y>819</Y>
+					<X>2298</X><Y>829</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -36651,7 +36695,7 @@ resumenEstadosPedidosGIS()
 					<Text><![CDATA[Cargado]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>12</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -36659,7 +36703,7 @@ resumenEstadosPedidosGIS()
 				<Text>
 					<Id>1787156342845</Id>
 					<Name><![CDATA[text20]]></Name>
-					<X>2078</X><Y>819</Y>
+					<X>2078</X><Y>829</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -36672,7 +36716,7 @@ resumenEstadosPedidosGIS()
 					<Text><![CDATA[Planificado]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>12</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -36691,6 +36735,7 @@ resumenEstadosPedidosGIS()
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<FillColor>-1</FillColor>
 						<TextColor>-15257011</TextColor>
+						<VisibleCode><![CDATA[!"SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
 						<Enabled>true</Enabled>
 						<EnableExpression><![CDATA[instanciaInterfazActual == null
 &&
@@ -36699,7 +36744,7 @@ resumenEstadosPedidosGIS()
 !pypelineSolicitudEnCurso]]></EnableExpression>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="10" Style="0"/>
+						<Font Name="SansSerif" Size="12" Style="0"/>
 						<LinkTo>true</LinkTo>
 						<Link>clienteFormulario</Link>
 					</ExtendedProperties>
@@ -36720,7 +36765,7 @@ resumenEstadosPedidosGIS()
 					<Text><![CDATA[Cliente]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>11</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -36739,6 +36784,7 @@ resumenEstadosPedidosGIS()
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<FillColor>-1</FillColor>
 						<TextColor>-15257011</TextColor>
+						<VisibleCode><![CDATA[!"SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
 						<Enabled>true</Enabled>
 						<EnableExpression><![CDATA[instanciaInterfazActual == null
 &&
@@ -36747,7 +36793,7 @@ resumenEstadosPedidosGIS()
 !pypelineSolicitudEnCurso]]></EnableExpression>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="10" Style="0"/>
+						<Font Name="SansSerif" Size="12" Style="0"/>
 						<LinkTo>true</LinkTo>
 						<Link>direccionFormulario</Link>
 					</ExtendedProperties>
@@ -36755,7 +36801,7 @@ resumenEstadosPedidosGIS()
 				<Line>
 					<Id>1787152829951</Id>
 					<Name><![CDATA[lineaLeyendaCamion1]]></Name>
-					<X>2500</X><Y>763</Y>
+					<X>2500</X><Y>768</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -36779,7 +36825,7 @@ resumenEstadosPedidosGIS()
 				<Text>
 					<Id>1787152829953</Id>
 					<Name><![CDATA[text18]]></Name>
-					<X>2540</X><Y>758</Y>
+					<X>2540</X><Y>763</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -36792,57 +36838,7 @@ resumenEstadosPedidosGIS()
 					<Text><![CDATA[Ruta Camión 1]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
-						<Style>0</Style>
-					</Font>
-					<Alignment>LEFT</Alignment>
-				</Text>
-				<Text>
-					<Id>1787153559449</Id>
-					<Name><![CDATA[txtEstadoCamionesGIS]]></Name>
-					<X>2060</X><Y>667</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<Rotation>0.0</Rotation>
-					<Color>-13414808</Color>
-					<Text><![CDATA[text]]></Text>
-					<TextCode><![CDATA[resumenEstadosCamionesGIS() == null
-?
-""
-:
-resumenEstadosCamionesGIS()
-    .replace(
-        "EN_CORRALON",
-        "En corralón"
-    )
-    .replace(
-        "PLAN_FINALIZADO",
-        "Plan finalizado"
-    )
-    .replace(
-        "CARGANDO",
-        "Cargando"
-    )
-    .replace(
-        "VIAJANDO_A_",
-        "Viajando a "
-    )
-    .replace(
-        "EN_CLIENTE_",
-        "En cliente "
-    )
-    .replace(
-        "REGRESANDO_CORRALON",
-        "Regresando al corralón"
-    )]]></TextCode>
-					<Font>
-						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>12</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -36861,6 +36857,7 @@ resumenEstadosCamionesGIS()
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<FillColor>-1</FillColor>
 						<TextColor>-15257011</TextColor>
+						<VisibleCode><![CDATA[!"SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
 						<Enabled>true</Enabled>
 						<EnableExpression><![CDATA[instanciaInterfazActual == null
 &&
@@ -36869,37 +36866,15 @@ resumenEstadosCamionesGIS()
 !pypelineSolicitudEnCurso]]></EnableExpression>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="10" Style="0"/>
+						<Font Name="SansSerif" Size="12" Style="0"/>
 						<LinkTo>true</LinkTo>
 						<Link>longitudFormulario</Link>
 					</ExtendedProperties>
 				</Control>
-				<Text>
-					<Id>1787150964843</Id>
-					<Name><![CDATA[txtEstadoGIS]]></Name>
-					<X>2060</X><Y>633</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<Rotation>0.0</Rotation>
-					<Color>-13414808</Color>
-					<Text><![CDATA[text]]></Text>
-					<TextCode><![CDATA[mensajeGIS]]></TextCode>
-					<Font>
-						<Name>SansSerif</Name>
-						<Size>9</Size>
-						<Style>0</Style>
-					</Font>
-					<Alignment>LEFT</Alignment>
-				</Text>
 				<Rectangle>
 					<Id>1787151011716</Id>
 					<Name><![CDATA[rectangle]]></Name>
-					<X>2060</X><Y>732</Y>
+					<X>2060</X><Y>737</Y>
 					<Label><X>10</X><Y>10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -36921,7 +36896,7 @@ resumenEstadosCamionesGIS()
 				<Rectangle>
 					<Id>1787151118943</Id>
 					<Name><![CDATA[rectangle3]]></Name>
-					<X>2720</X><Y>732</Y>
+					<X>2720</X><Y>737</Y>
 					<Label><X>10</X><Y>10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -36943,7 +36918,7 @@ resumenEstadosCamionesGIS()
 				<Rectangle>
 					<Id>1787151140130</Id>
 					<Name><![CDATA[rectangle4]]></Name>
-					<X>2060</X><Y>756</Y>
+					<X>2060</X><Y>761</Y>
 					<Label><X>10</X><Y>10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -36978,7 +36953,7 @@ resumenEstadosCamionesGIS()
 					<Text><![CDATA[Dirección]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>11</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -36997,6 +36972,7 @@ resumenEstadosCamionesGIS()
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<FillColor>-1</FillColor>
 						<TextColor>-15257011</TextColor>
+						<VisibleCode><![CDATA[!"SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
 						<Enabled>true</Enabled>
 						<EnableExpression><![CDATA[instanciaInterfazActual == null
 &&
@@ -37005,7 +36981,7 @@ resumenEstadosCamionesGIS()
 !pypelineSolicitudEnCurso]]></EnableExpression>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="10" Style="0"/>
+						<Font Name="SansSerif" Size="12" Style="0"/>
 						<LinkTo>true</LinkTo>
 						<Link>unidadesFormulario</Link>
 					</ExtendedProperties>
@@ -37026,7 +37002,7 @@ resumenEstadosCamionesGIS()
 					<Text><![CDATA[Unidades]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>11</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -37034,7 +37010,7 @@ resumenEstadosCamionesGIS()
 				<Rectangle>
 					<Id>1787156744254</Id>
 					<Name><![CDATA[rectangle13]]></Name>
-					<X>2720</X><Y>841</Y>
+					<X>2720</X><Y>851</Y>
 					<Label><X>10</X><Y>10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -37056,7 +37032,7 @@ resumenEstadosCamionesGIS()
 				<Text>
 					<Id>1787156744256</Id>
 					<Name><![CDATA[text27]]></Name>
-					<X>2738</X><Y>843</Y>
+					<X>2738</X><Y>853</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -37069,7 +37045,7 @@ resumenEstadosCamionesGIS()
 					<Text><![CDATA[Pendiente dia siguiente]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>12</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -37077,7 +37053,7 @@ resumenEstadosCamionesGIS()
 				<Text>
 					<Id>1787151154148</Id>
 					<Name><![CDATA[text]]></Name>
-					<X>2080</X><Y>734</Y>
+					<X>2080</X><Y>739</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -37090,7 +37066,7 @@ resumenEstadosCamionesGIS()
 					<Text><![CDATA[Pedido normal]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>12</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -37098,7 +37074,7 @@ resumenEstadosCamionesGIS()
 				<Text>
 					<Id>1787151177484</Id>
 					<Name><![CDATA[text2]]></Name>
-					<X>2300</X><Y>734</Y>
+					<X>2300</X><Y>739</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -37111,7 +37087,7 @@ resumenEstadosCamionesGIS()
 					<Text><![CDATA[Con ventana]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>12</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -37119,7 +37095,7 @@ resumenEstadosCamionesGIS()
 				<Line>
 					<Id>1787152759639</Id>
 					<Name><![CDATA[lineaLeyendaCamion0]]></Name>
-					<X>2280</X><Y>763</Y>
+					<X>2280</X><Y>768</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -37143,7 +37119,7 @@ resumenEstadosCamionesGIS()
 				<Text>
 					<Id>1787152819448</Id>
 					<Name><![CDATA[text17]]></Name>
-					<X>2320</X><Y>758</Y>
+					<X>2320</X><Y>763</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -37156,7 +37132,7 @@ resumenEstadosCamionesGIS()
 					<Text><![CDATA[Ruta Camión 0]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>12</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -37175,6 +37151,7 @@ resumenEstadosCamionesGIS()
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<FillColor>-1</FillColor>
 						<TextColor>-15257011</TextColor>
+						<VisibleCode><![CDATA[!"SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
 						<Enabled>true</Enabled>
 						<EnableExpression><![CDATA[instanciaInterfazActual == null
 &&
@@ -37183,7 +37160,7 @@ resumenEstadosCamionesGIS()
 !pypelineSolicitudEnCurso]]></EnableExpression>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="10" Style="0"/>
+						<Font Name="SansSerif" Size="12" Style="0"/>
 						<LinkTo>true</LinkTo>
 						<Link>barrioFormulario</Link>
 					</ExtendedProperties>
@@ -37204,7 +37181,7 @@ resumenEstadosCamionesGIS()
 					<Text><![CDATA[Barrio]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>11</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -37225,7 +37202,7 @@ resumenEstadosCamionesGIS()
 					<Text><![CDATA[Configuración del turno]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>14</Size>
+						<Size>15</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -37391,7 +37368,7 @@ try {
 ]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="10" Style="1"/>
+						<Font Name="SansSerif" Size="12" Style="1"/>
 						<LabelText><![CDATA[Generar y ejecutar]]></LabelText>
 					</ExtendedProperties>
 				</Control>
@@ -37411,7 +37388,7 @@ try {
 					<Text><![CDATA[Semilla de simulación]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>11</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -37430,6 +37407,7 @@ try {
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<FillColor>-1</FillColor>
 						<TextColor>-15257011</TextColor>
+						<VisibleCode><![CDATA[!"SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
 						<Enabled>true</Enabled>
 						<EnableExpression><![CDATA[instanciaInterfazActual == null
 &&
@@ -37438,7 +37416,7 @@ try {
 !pypelineSolicitudEnCurso]]></EnableExpression>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="10" Style="0"/>
+						<Font Name="SansSerif" Size="12" Style="0"/>
 						<LinkTo>true</LinkTo>
 						<Link>pedidoIdFormulario</Link>
 					</ExtendedProperties>
@@ -37457,6 +37435,7 @@ try {
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<FillColor>-1</FillColor>
 						<TextColor>-15257011</TextColor>
+						<VisibleCode><![CDATA[!"SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
 						<Enabled>true</Enabled>
 						<EnableExpression><![CDATA[pedidosFormulario.isEmpty()
 &&
@@ -37467,7 +37446,7 @@ instanciaInterfazActual == null
 !pypelineSolicitudEnCurso]]></EnableExpression>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="10" Style="0"/>
+						<Font Name="SansSerif" Size="12" Style="0"/>
 						<LinkTo>true</LinkTo>
 						<Link>fechaFormulario</Link>
 					</ExtendedProperties>
@@ -37488,7 +37467,7 @@ instanciaInterfazActual == null
 					<Text><![CDATA[Fecha]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>11</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -37496,7 +37475,7 @@ instanciaInterfazActual == null
 				<Rectangle>
 					<Id>1787156679086</Id>
 					<Name><![CDATA[rectangle12]]></Name>
-					<X>2500</X><Y>841</Y>
+					<X>2500</X><Y>851</Y>
 					<Label><X>10</X><Y>10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -37518,7 +37497,7 @@ instanciaInterfazActual == null
 				<Text>
 					<Id>1787156679088</Id>
 					<Name><![CDATA[text26]]></Name>
-					<X>2518</X><Y>843</Y>
+					<X>2518</X><Y>853</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -37531,7 +37510,7 @@ instanciaInterfazActual == null
 					<Text><![CDATA[No entregado]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>12</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -37550,6 +37529,7 @@ instanciaInterfazActual == null
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<FillColor>-1</FillColor>
 						<TextColor>-15257011</TextColor>
+						<VisibleCode><![CDATA[!"SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
 						<Enabled>true</Enabled>
 						<EnableExpression><![CDATA[pedidosFormulario.isEmpty()
 &&
@@ -37560,7 +37540,7 @@ instanciaInterfazActual == null
 !pypelineSolicitudEnCurso]]></EnableExpression>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="10" Style="0"/>
+						<Font Name="SansSerif" Size="12" Style="0"/>
 						<MinValue><![CDATA[1]]></MinValue>
 						<MaxValue><![CDATA[2147483647]]></MaxValue>
 						<LinkTo>true</LinkTo>
@@ -37583,7 +37563,7 @@ instanciaInterfazActual == null
 					<Text><![CDATA[Longitud]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>11</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -37601,6 +37581,7 @@ instanciaInterfazActual == null
 					<BasicProperties Width="190" Height="24">
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<TextColor>-15257011</TextColor>
+						<VisibleCode><![CDATA[!"SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
 						<Enabled>true</Enabled>
 						<EnableExpression><![CDATA[instanciaInterfazActual == null
 &&
@@ -37609,7 +37590,7 @@ instanciaInterfazActual == null
 !pypelineSolicitudEnCurso]]></EnableExpression>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="10" Style="0"/>
+						<Font Name="SansSerif" Size="12" Style="0"/>
 						<LabelText><![CDATA[Requiere volcador]]></LabelText>
 						<LinkTo>true</LinkTo>
 						<Link>requiereVolcadorFormulario</Link>
@@ -37618,7 +37599,7 @@ instanciaInterfazActual == null
 				<Text>
 					<Id>1787151202564</Id>
 					<Name><![CDATA[text14]]></Name>
-					<X>2520</X><Y>734</Y>
+					<X>2520</X><Y>739</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -37631,7 +37612,7 @@ instanciaInterfazActual == null
 					<Text><![CDATA[Requiere volcador]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>12</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -37639,7 +37620,7 @@ instanciaInterfazActual == null
 				<Text>
 					<Id>1787151210100</Id>
 					<Name><![CDATA[text15]]></Name>
-					<X>2740</X><Y>734</Y>
+					<X>2740</X><Y>739</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -37652,7 +37633,7 @@ instanciaInterfazActual == null
 					<Text><![CDATA[Ventana + volcador]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>12</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -37673,7 +37654,7 @@ instanciaInterfazActual == null
 					<Text><![CDATA[Hora hasta (HH:mm)]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>11</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -37692,6 +37673,7 @@ instanciaInterfazActual == null
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<FillColor>-1</FillColor>
 						<TextColor>-15257011</TextColor>
+						<VisibleCode><![CDATA[!"SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
 						<Enabled>true</Enabled>
 						<EnableExpression><![CDATA[pedidosFormulario.isEmpty()
 &&
@@ -37708,7 +37690,7 @@ mensajeFormulario =
     + ".";]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="10" Style="0"/>
+						<Font Name="SansSerif" Size="12" Style="0"/>
 						<Editable>false</Editable>
 						<Button><![CDATA[MANANA]]></Button>
 						<Button><![CDATA[TARDE]]></Button>
@@ -37719,7 +37701,7 @@ mensajeFormulario =
 				<Rectangle>
 					<Id>1787156342857</Id>
 					<Name><![CDATA[rectangle9]]></Name>
-					<X>2500</X><Y>817</Y>
+					<X>2500</X><Y>827</Y>
 					<Label><X>10</X><Y>10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -37741,7 +37723,7 @@ mensajeFormulario =
 				<Text>
 					<Id>1787156342859</Id>
 					<Name><![CDATA[text23]]></Name>
-					<X>2738</X><Y>819</Y>
+					<X>2738</X><Y>829</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -37754,7 +37736,7 @@ mensajeFormulario =
 					<Text><![CDATA[Esperando]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>12</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -37762,7 +37744,7 @@ mensajeFormulario =
 				<Rectangle>
 					<Id>1787156575635</Id>
 					<Name><![CDATA[rectangle10]]></Name>
-					<X>2060</X><Y>841</Y>
+					<X>2060</X><Y>851</Y>
 					<Label><X>10</X><Y>10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -37797,7 +37779,7 @@ mensajeFormulario =
 					<Text><![CDATA[ID del pedido]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>11</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -37840,7 +37822,7 @@ mensajeFormulario =
 					<Text><![CDATA[Turno]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>11</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -37882,7 +37864,7 @@ mensajeFormulario =
 					<Text><![CDATA[Pedidos cargados]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>14</Size>
+						<Size>15</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -37890,7 +37872,7 @@ mensajeFormulario =
 				<Text>
 					<Id>1787520511733</Id>
 					<Name><![CDATA[txtLabelResumenPedidos]]></Name>
-					<X>1165</X><Y>310</Y>
+					<X>1165</X><Y>314</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -37903,7 +37885,7 @@ mensajeFormulario =
 					<Text><![CDATA[RESUMEN DE LA INSTANCIA]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -37948,7 +37930,7 @@ mensajeFormulario =
 					<Text><![CDATA[Planificación y ejecución]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>15</Size>
+						<Size>16</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -37969,7 +37951,7 @@ mensajeFormulario =
 					<Text><![CDATA[Método seleccionado]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>13</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -38014,7 +37996,7 @@ mensajeFormulario =
 					<Text><![CDATA[Mapa operativo GIS]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>14</Size>
+						<Size>16</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -38022,7 +38004,7 @@ mensajeFormulario =
 				<Text>
 					<Id>1787521700079</Id>
 					<Name><![CDATA[txtModoGIS]]></Name>
-					<X>2900</X><Y>112</Y>
+					<X>2880</X><Y>112</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -38043,28 +38025,7 @@ mensajeFormulario =
 )]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
-						<Style>1</Style>
-					</Font>
-					<Alignment>LEFT</Alignment>
-				</Text>
-				<Text>
-					<Id>1787522075219</Id>
-					<Name><![CDATA[txtTituloEstadoMapa]]></Name>
-					<X>2060</X><Y>615</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<Rotation>0.0</Rotation>
-					<Color>-13414808</Color>
-					<Text><![CDATA[Seguimiento operativo]]></Text>
-					<Font>
-						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>12</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -38109,7 +38070,7 @@ mensajeFormulario =
 					<Text><![CDATA[Referencias del mapa]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>13</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -38117,7 +38078,7 @@ mensajeFormulario =
 				<Line>
 					<Id>1787522747949</Id>
 					<Name><![CDATA[lineaSeparadoraGIS2]]></Name>
-					<X>2060</X><Y>788</Y>
+					<X>2060</X><Y>793</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -38141,7 +38102,7 @@ mensajeFormulario =
 				<Text>
 					<Id>1787522782733</Id>
 					<Name><![CDATA[txtTituloEstadosOperativos]]></Name>
-					<X>2060</X><Y>800</Y>
+					<X>2060</X><Y>805</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -38154,7 +38115,7 @@ mensajeFormulario =
 					<Text><![CDATA[Estados operativos]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>13</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -38175,83 +38136,15 @@ mensajeFormulario =
 					<Text><![CDATA[Estado operativo]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>15</Size>
+						<Size>16</Size>
 						<Style>1</Style>
-					</Font>
-					<Alignment>LEFT</Alignment>
-				</Text>
-				<Text>
-					<Id>1787523632853</Id>
-					<Name><![CDATA[txtLabelEstadoGeneral]]></Name>
-					<X>3017</X><Y>562</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<Rotation>0.0</Rotation>
-					<Color>-12102553</Color>
-					<Text><![CDATA[Estado general]]></Text>
-					<Font>
-						<Name>SansSerif</Name>
-						<Size>10</Size>
-						<Style>1</Style>
-					</Font>
-					<Alignment>LEFT</Alignment>
-				</Text>
-				<Text>
-					<Id>1787523659150</Id>
-					<Name><![CDATA[txtEstadoGeneralDinamico]]></Name>
-					<X>3017</X><Y>582</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<Rotation>0.0</Rotation>
-					<Color>-14735049</Color>
-					<Text><![CDATA[text]]></Text>
-					<TextCode><![CDATA[planActual == null
-?
-"Sin plan disponible.\nMétodo aplicado: —"
-:
-(
-    ejecucionEnCurso
-    ?
-    (
-        "Plan en ejecución.\nMétodo aplicado: "
-        + planActual.algoritmo
-    )
-    :
-    (
-        ejecucionFinalizada
-        ?
-        (
-            "Plan finalizado.\nMétodo aplicado: "
-            + planActual.algoritmo
-        )
-        :
-        (
-            "Plan preparado.\nMétodo aplicado: "
-            + planActual.algoritmo
-        )
-    )
-)]]></TextCode>
-					<Font>
-						<Name>SansSerif</Name>
-						<Size>10</Size>
-						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
 				</Text>
 				<Line>
 					<Id>1787523706702</Id>
 					<Name><![CDATA[lineaSeparadoraEstado1]]></Name>
-					<X>3005</X><Y>626</Y>
+					<X>3005</X><Y>562</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -38275,7 +38168,7 @@ mensajeFormulario =
 				<Line>
 					<Id>1787523794390</Id>
 					<Name><![CDATA[lineaSeparadoraEstado2]]></Name>
-					<X>3005</X><Y>748</Y>
+					<X>3005</X><Y>723</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -38299,7 +38192,7 @@ mensajeFormulario =
 				<Text>
 					<Id>1787523821542</Id>
 					<Name><![CDATA[txtLabelResumenTurno]]></Name>
-					<X>3017</X><Y>768</Y>
+					<X>3017</X><Y>748</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -38312,7 +38205,7 @@ mensajeFormulario =
 					<Text><![CDATA[Resumen final]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>13</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -38320,7 +38213,7 @@ mensajeFormulario =
 				<Text>
 					<Id>1787523847078</Id>
 					<Name><![CDATA[txtTareasEntregadas]]></Name>
-					<X>3017</X><Y>789</Y>
+					<X>3017</X><Y>784</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -38335,7 +38228,7 @@ mensajeFormulario =
 					<TextCode><![CDATA["Tareas entregadas: " + tareasEntregadasAlpyne()]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>12</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -38343,7 +38236,7 @@ mensajeFormulario =
 				<Text>
 					<Id>1787523896525</Id>
 					<Name><![CDATA[txtTareasNoEntregadas]]></Name>
-					<X>3017</X><Y>806</Y>
+					<X>3017</X><Y>804</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -38358,7 +38251,7 @@ mensajeFormulario =
 					<TextCode><![CDATA["Tareas no entregadas: " + tareasNoEntregadasAlpyne()]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>12</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -38366,7 +38259,7 @@ mensajeFormulario =
 				<Text>
 					<Id>1787523938734</Id>
 					<Name><![CDATA[txtViajesTotales]]></Name>
-					<X>3017</X><Y>823</Y>
+					<X>3017</X><Y>824</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -38381,7 +38274,7 @@ mensajeFormulario =
 					<TextCode><![CDATA["Viajes totales: " + viajesTotalesAlpyne()]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>12</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -38389,7 +38282,7 @@ mensajeFormulario =
 				<Text>
 					<Id>1787523964021</Id>
 					<Name><![CDATA[txtCostoTotal]]></Name>
-					<X>3017</X><Y>840</Y>
+					<X>3017</X><Y>844</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -38410,7 +38303,7 @@ String.format(
 )]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>12</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -38418,7 +38311,7 @@ String.format(
 				<Text>
 					<Id>1787569925870</Id>
 					<Name><![CDATA[txtLabelCamionesOperativos]]></Name>
-					<X>3005</X><Y>640</Y>
+					<X>3005</X><Y>577</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -38431,7 +38324,7 @@ String.format(
 					<Text><![CDATA[Camiones]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>13</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -38439,7 +38332,7 @@ String.format(
 				<Rectangle>
 					<Id>1787570024365</Id>
 					<Name><![CDATA[rectIndicadorCamion0]]></Name>
-					<X>3005</X><Y>661</Y>
+					<X>3005</X><Y>603</Y>
 					<Label><X>10</X><Y>10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -38461,7 +38354,7 @@ String.format(
 				<Text>
 					<Id>1787570115270</Id>
 					<Name><![CDATA[txtNombreCamion0]]></Name>
-					<X>3015</X><Y>673</Y>
+					<X>3015</X><Y>618</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -38474,7 +38367,7 @@ String.format(
 					<Text><![CDATA[Camión 0]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>13</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -38482,7 +38375,7 @@ String.format(
 				<Text>
 					<Id>1787570151909</Id>
 					<Name><![CDATA[txtEstadoCamion0Dashboard]]></Name>
-					<X>3015</X><Y>691</Y>
+					<X>3015</X><Y>643</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -38498,7 +38391,7 @@ String.format(
 )]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>13</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -38506,7 +38399,7 @@ String.format(
 				<Rectangle>
 					<Id>1787570238382</Id>
 					<Name><![CDATA[rectIndicadorCamion1]]></Name>
-					<X>3190</X><Y>661</Y>
+					<X>3190</X><Y>603</Y>
 					<Label><X>10</X><Y>10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -38528,7 +38421,7 @@ String.format(
 				<Text>
 					<Id>1787570280366</Id>
 					<Name><![CDATA[txtNombreCamion1]]></Name>
-					<X>3200</X><Y>673</Y>
+					<X>3200</X><Y>618</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -38541,7 +38434,7 @@ String.format(
 					<Text><![CDATA[Camión 1]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>13</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -38549,7 +38442,7 @@ String.format(
 				<Text>
 					<Id>1787570323094</Id>
 					<Name><![CDATA[txtEstadoCamion1Dashboard]]></Name>
-					<X>3200</X><Y>691</Y>
+					<X>3200</X><Y>643</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -38565,7 +38458,7 @@ String.format(
 )]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>13</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -38584,9 +38477,10 @@ String.format(
 					<Rotation>0.0</Rotation>
 					<Color>-13414808</Color>
 					<Text><![CDATA[RESULTADO DE PLANIFICACIÓN]]></Text>
+					<TextCode><![CDATA["OPERARIO".equals(modoInterfaz) ? "PLAN DE REPARTO" : "RESULTADO DE PLANIFICACIÓN"]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>11</Size>
+						<Size>13</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -38630,7 +38524,7 @@ String.format(
 					<TextCode><![CDATA[uiSelectorFuente]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>12</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -38684,7 +38578,7 @@ String.format(
 )]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>12</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -38698,6 +38592,9 @@ String.format(
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA["COMPLETO".equals(modoInterfaz)
+&& !Double.isNaN(uiSelectorCostoElegido)
+&& !Double.isInfinite(uiSelectorCostoElegido)]]></VisibleCode>
 					<EmbeddedIcon>false</EmbeddedIcon>
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
@@ -38733,7 +38630,7 @@ String.format(
 )]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>12</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -38747,6 +38644,9 @@ String.format(
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA["COMPLETO".equals(modoInterfaz)
+&& !Double.isNaN(uiSelectorCostoElegido)
+&& !Double.isInfinite(uiSelectorCostoElegido)]]></VisibleCode>
 					<EmbeddedIcon>false</EmbeddedIcon>
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
@@ -38768,7 +38668,7 @@ uiSelectorLineaPrincipal
 )]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>12</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -38782,6 +38682,9 @@ uiSelectorLineaPrincipal
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA["COMPLETO".equals(modoInterfaz)
+&& !Double.isNaN(uiSelectorCostoElegido)
+&& !Double.isInfinite(uiSelectorCostoElegido)]]></VisibleCode>
 					<EmbeddedIcon>false</EmbeddedIcon>
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
@@ -38803,7 +38706,7 @@ uiSelectorLineaSecundaria
 )]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>12</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -38817,6 +38720,9 @@ uiSelectorLineaSecundaria
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA["COMPLETO".equals(modoInterfaz)
+&& !Double.isNaN(uiSelectorCostoElegido)
+&& !Double.isInfinite(uiSelectorCostoElegido)]]></VisibleCode>
 					<EmbeddedIcon>false</EmbeddedIcon>
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
@@ -38829,7 +38735,7 @@ uiSelectorLineaDetalle
 textoMejoraSelector()]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>12</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -38843,6 +38749,9 @@ textoMejoraSelector()]]></TextCode>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA["COMPLETO".equals(modoInterfaz)
+&& !Double.isNaN(uiSelectorCostoElegido)
+&& !Double.isInfinite(uiSelectorCostoElegido)]]></VisibleCode>
 					<EmbeddedIcon>false</EmbeddedIcon>
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
@@ -38855,7 +38764,7 @@ uiSelectorLineaResultado
 textoMotivoSelector()]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -38869,6 +38778,18 @@ textoMotivoSelector()]]></TextCode>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA["COMPLETO".equals(modoInterfaz)
+&& (
+    (
+        !Double.isNaN(uiSelectorTiempoMs)
+        && !Double.isInfinite(uiSelectorTiempoMs)
+    )
+    ||
+    (
+        uiSelectorAviso != null
+        && !uiSelectorAviso.trim().isEmpty()
+    )
+)]]></VisibleCode>
 					<EmbeddedIcon>false</EmbeddedIcon>
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
@@ -38880,7 +38801,7 @@ textoMotivoSelector()]]></TextCode>
 : textoTiempoSelector()]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -38899,6 +38820,7 @@ textoMotivoSelector()]]></TextCode>
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<FillColor>-460036</FillColor>
 						<TextColor>-15257011</TextColor>
+						<VisibleCode><![CDATA[!"SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
 						<Enabled>true</Enabled>
 						<ActionCode><![CDATA[rutaArchivoExcelSubido =
     value;
@@ -38940,7 +38862,7 @@ if (importado) {
 }]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="9" Style="1"/>
+						<Font Name="SansSerif" Size="12" Style="1"/>
 						<Title><![CDATA[Seleccionar archivo Excel]]></Title>
 						<Type>UPLOAD</Type>
 						<Filters>.xlsx, .xls</Filters>
@@ -38950,7 +38872,7 @@ if (importado) {
 				<Text>
 					<Id>1787864963351</Id>
 					<Name><![CDATA[txtDetalleCamion0Dashboard]]></Name>
-					<X>3015</X><Y>709</Y>
+					<X>3015</X><Y>672</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -38964,7 +38886,7 @@ if (importado) {
 					<TextCode><![CDATA[detalleCamionDashboard(0)]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>12</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -38972,7 +38894,7 @@ if (importado) {
 				<Text>
 					<Id>1787865027351</Id>
 					<Name><![CDATA[txtDetalleCamion1Dashboard]]></Name>
-					<X>3200</X><Y>709</Y>
+					<X>3200</X><Y>672</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -38986,7 +38908,7 @@ if (importado) {
 					<TextCode><![CDATA[detalleCamionDashboard(1)]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>12</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -38994,7 +38916,7 @@ if (importado) {
 				<Text>
 					<Id>1787958995047</Id>
 					<Name><![CDATA[txtResumenTurnoPendiente]]></Name>
-					<X>3017</X><Y>789</Y>
+					<X>3017</X><Y>784</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -39013,7 +38935,7 @@ if (importado) {
 "Sin resultados todavía."]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>12</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -39022,7 +38944,7 @@ if (importado) {
 				 	<EmbeddedIcon>false</EmbeddedIcon>				
 					<Id>1788011690623</Id>
 					<Name><![CDATA[btnVistaGeneralGIS]]></Name>
-					<X>2500</X><Y>103</Y>
+					<X>2480</X><Y>103</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -39036,7 +38958,7 @@ if (importado) {
 						<ActionCode><![CDATA[activarVistaGeneralGIS();]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="9" Style="1"/>
+						<Font Name="SansSerif" Size="12" Style="1"/>
 						<LabelText><![CDATA[General]]></LabelText>
 					</ExtendedProperties>
 				</Control>
@@ -39044,7 +38966,7 @@ if (importado) {
 				 	<EmbeddedIcon>false</EmbeddedIcon>				
 					<Id>1788011955886</Id>
 					<Name><![CDATA[btnSeguirCamion0GIS]]></Name>
-					<X>2630</X><Y>103</Y>
+					<X>2610</X><Y>103</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -39062,7 +38984,7 @@ camiones.size() > 0]]></EnableExpression>
 );]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="9" Style="1"/>
+						<Font Name="SansSerif" Size="12" Style="1"/>
 						<LabelText><![CDATA[Camión 0]]></LabelText>
 					</ExtendedProperties>
 				</Control>
@@ -39070,7 +38992,7 @@ camiones.size() > 0]]></EnableExpression>
 				 	<EmbeddedIcon>false</EmbeddedIcon>				
 					<Id>1788012527233</Id>
 					<Name><![CDATA[btnSeguirCamion1GIS]]></Name>
-					<X>2760</X><Y>103</Y>
+					<X>2740</X><Y>103</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -39088,7 +39010,7 @@ camiones.size() > 1]]></EnableExpression>
 );]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="9" Style="1"/>
+						<Font Name="SansSerif" Size="12" Style="1"/>
 						<LabelText><![CDATA[Camión 1]]></LabelText>
 					</ExtendedProperties>
 				</Control>
@@ -39151,7 +39073,7 @@ camiones.size() > 1]]></EnableExpression>
 					<Text><![CDATA[Gemelo digital logístico]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>12</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -39215,6 +39137,7 @@ camiones.size() > 1]]></EnableExpression>
 					<BasicProperties Width="180" Height="46">
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<TextColor>-15257011</TextColor>
+						<VisibleCode><![CDATA[!"SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
 						<Enabled>false</Enabled>
 						<ActionCode><![CDATA[irAVistaPedidos();]]></ActionCode>
 					</BasicProperties>
@@ -39236,6 +39159,7 @@ camiones.size() > 1]]></EnableExpression>
 					<BasicProperties Width="180" Height="46">
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<TextColor>-15257011</TextColor>
+						<VisibleCode><![CDATA[!"SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
 						<Enabled>true</Enabled>
 						<ActionCode><![CDATA[irAVistaOperacion();]]></ActionCode>
 					</BasicProperties>
@@ -39257,6 +39181,7 @@ camiones.size() > 1]]></EnableExpression>
 					<BasicProperties Width="180" Height="46">
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<TextColor>-15257011</TextColor>
+						<VisibleCode><![CDATA[("COMPLETO".equals(modoInterfaz)) && (!"SIN_SELECCION".equals(modoInterfaz))]]></VisibleCode>
 						<Enabled>true</Enabled>
 						<ActionCode><![CDATA[irAVistaComparacion();]]></ActionCode>
 					</BasicProperties>
@@ -39345,6 +39270,7 @@ camiones.size() > 1]]></EnableExpression>
 					<BasicProperties Width="180" Height="46">
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<TextColor>-15257011</TextColor>
+						<VisibleCode><![CDATA["COMPLETO".equals(modoInterfaz)]]></VisibleCode>
 						<Enabled>true</Enabled>
 						<ActionCode><![CDATA[irAVistaComparacion();]]></ActionCode>
 					</BasicProperties>
@@ -39411,7 +39337,7 @@ camiones.size() > 1]]></EnableExpression>
 					<Text><![CDATA[Gemelo digital logístico]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>12</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -39475,6 +39401,7 @@ camiones.size() > 1]]></EnableExpression>
 					<BasicProperties Width="180" Height="46">
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<TextColor>-15257011</TextColor>
+						<VisibleCode><![CDATA["COMPLETO".equals(modoInterfaz)]]></VisibleCode>
 						<Enabled>false</Enabled>
 						<ActionCode><![CDATA[irAVistaComparacion();]]></ActionCode>
 					</BasicProperties>
@@ -39520,7 +39447,7 @@ camiones.size() > 1]]></EnableExpression>
 					<Text><![CDATA[Gemelo digital logístico]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>12</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -39570,7 +39497,7 @@ camiones.size() > 1]]></EnableExpression>
 				<Text>
 					<Id>1787517232141</Id>
 					<Name><![CDATA[txtMarcaDashboard]]></Name>
-					<X>1420</X><Y>40</Y>
+					<X>1350</X><Y>40</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -39583,7 +39510,7 @@ camiones.size() > 1]]></EnableExpression>
 					<Text><![CDATA[CREACIÓN DE LA INSTANCIA]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>11</Size>
+						<Size>12</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -39591,7 +39518,7 @@ camiones.size() > 1]]></EnableExpression>
 				<Text>
 					<Id>1787517142957</Id>
 					<Name><![CDATA[txtTituloDashboard]]></Name>
-					<X>245</X><Y>17</Y>
+					<X>275</X><Y>17</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -39612,7 +39539,7 @@ camiones.size() > 1]]></EnableExpression>
 				<Text>
 					<Id>1787517186637</Id>
 					<Name><![CDATA[txtSubtituloDashboard]]></Name>
-					<X>248</X><Y>44</Y>
+					<X>278</X><Y>44</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -39625,7 +39552,7 @@ camiones.size() > 1]]></EnableExpression>
 					<Text><![CDATA[Configuración, carga y validación de pedidos]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>11</Size>
+						<Size>12</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -39646,7 +39573,7 @@ camiones.size() > 1]]></EnableExpression>
 					<Text><![CDATA[Acciones de la instancia]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>11</Size>
+						<Size>12</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -39667,7 +39594,7 @@ camiones.size() > 1]]></EnableExpression>
 					<Text><![CDATA[Detalle de tareas finales]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>11</Size>
+						<Size>12</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -39713,7 +39640,7 @@ camiones.size() > 1]]></EnableExpression>
 					<TextCode><![CDATA[pieDetallePedidosFormulario()]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -39836,7 +39763,7 @@ camiones.size() > 1]]></EnableExpression>
 				<Text>
 					<Id>1788044898455</Id>
 					<Name><![CDATA[txtFilaPedido1]]></Name>
-					<X>1155</X><Y>507</Y>
+					<X>1155</X><Y>503</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -39851,7 +39778,7 @@ camiones.size() > 1]]></EnableExpression>
 					<TextCode><![CDATA[detallePedidoFormulario(0)]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>11</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -39859,7 +39786,7 @@ camiones.size() > 1]]></EnableExpression>
 				<Text>
 					<Id>1788044952814</Id>
 					<Name><![CDATA[txtFilaPedido2]]></Name>
-					<X>1155</X><Y>545</Y>
+					<X>1155</X><Y>541</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -39874,7 +39801,7 @@ camiones.size() > 1]]></EnableExpression>
 					<TextCode><![CDATA[detallePedidoFormulario(1)]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>11</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -39882,7 +39809,7 @@ camiones.size() > 1]]></EnableExpression>
 				<Text>
 					<Id>1788044987830</Id>
 					<Name><![CDATA[txtFilaPedido3]]></Name>
-					<X>1155</X><Y>583</Y>
+					<X>1155</X><Y>579</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -39897,7 +39824,7 @@ camiones.size() > 1]]></EnableExpression>
 					<TextCode><![CDATA[detallePedidoFormulario(2)]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>11</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -39905,7 +39832,7 @@ camiones.size() > 1]]></EnableExpression>
 				<Text>
 					<Id>1788045022336</Id>
 					<Name><![CDATA[txtFilaPedido4]]></Name>
-					<X>1155</X><Y>621</Y>
+					<X>1155</X><Y>617</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -39920,7 +39847,7 @@ camiones.size() > 1]]></EnableExpression>
 					<TextCode><![CDATA[detallePedidoFormulario(3)]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>11</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -39928,7 +39855,7 @@ camiones.size() > 1]]></EnableExpression>
 				<Text>
 					<Id>1788045046674</Id>
 					<Name><![CDATA[txtFilaPedido5]]></Name>
-					<X>1155</X><Y>659</Y>
+					<X>1155</X><Y>655</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -39943,7 +39870,7 @@ camiones.size() > 1]]></EnableExpression>
 					<TextCode><![CDATA[detallePedidoFormulario(4)]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>11</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -39973,7 +39900,7 @@ camiones.size() > 1]]></EnableExpression>
 				<Text>
 					<Id>1788045344849</Id>
 					<Name><![CDATA[txtTituloOperacion]]></Name>
-					<X>2045</X><Y>17</Y>
+					<X>2075</X><Y>17</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -39994,7 +39921,7 @@ camiones.size() > 1]]></EnableExpression>
 				<Text>
 					<Id>1788045373649</Id>
 					<Name><![CDATA[txtSubtituloOperacion]]></Name>
-					<X>2048</X><Y>44</Y>
+					<X>2078</X><Y>44</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -40007,7 +39934,7 @@ camiones.size() > 1]]></EnableExpression>
 					<Text><![CDATA[Planificación, ejecución y control GIS]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>11</Size>
+						<Size>12</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -40015,7 +39942,7 @@ camiones.size() > 1]]></EnableExpression>
 				<Text>
 					<Id>1788045449187</Id>
 					<Name><![CDATA[txtMarcaOperacion]]></Name>
-					<X>3240</X><Y>40</Y>
+					<X>3190</X><Y>40</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -40028,7 +39955,7 @@ camiones.size() > 1]]></EnableExpression>
 					<Text><![CDATA[OPERACIÓN LOGÍSTICA]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>11</Size>
+						<Size>12</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -40058,7 +39985,7 @@ camiones.size() > 1]]></EnableExpression>
 				<Text>
 					<Id>1788095815410</Id>
 					<Name><![CDATA[txtTituloComparacion]]></Name>
-					<X>3845</X><Y>17</Y>
+					<X>3875</X><Y>17</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -40079,7 +40006,7 @@ camiones.size() > 1]]></EnableExpression>
 				<Text>
 					<Id>1788095842305</Id>
 					<Name><![CDATA[txtSubtituloComparacion]]></Name>
-					<X>3848</X><Y>44</Y>
+					<X>3878</X><Y>44</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -40092,7 +40019,7 @@ camiones.size() > 1]]></EnableExpression>
 					<Text><![CDATA[Evaluación estimada y resultados simulados]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>11</Size>
+						<Size>12</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -40100,7 +40027,7 @@ camiones.size() > 1]]></EnableExpression>
 				<Text>
 					<Id>1788095862611</Id>
 					<Name><![CDATA[txtMarcaComparacion]]></Name>
-					<X>5030</X><Y>40</Y>
+					<X>4970</X><Y>40</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -40113,7 +40040,7 @@ camiones.size() > 1]]></EnableExpression>
 					<Text><![CDATA[ANÁLISIS COMPARATIVO]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>11</Size>
+						<Size>12</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -40156,7 +40083,7 @@ camiones.size() > 1]]></EnableExpression>
 					<Text><![CDATA[Resumen de la instancia]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>14</Size>
+						<Size>15</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -40177,7 +40104,7 @@ camiones.size() > 1]]></EnableExpression>
 					<Text><![CDATA[La comparación utilizará exactamente la misma instancia preparada para todos los métodos.]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>12</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -40199,7 +40126,7 @@ camiones.size() > 1]]></EnableExpression>
 					<TextCode><![CDATA[resumenInstanciaComparacion()]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -40242,7 +40169,7 @@ camiones.size() > 1]]></EnableExpression>
 					<Text><![CDATA[Comparación de algoritmos]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>14</Size>
+						<Size>15</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -40263,7 +40190,7 @@ camiones.size() > 1]]></EnableExpression>
 					<Text><![CDATA[La tabla distinguirá los resultados estimados por Python de los resultados simulados por AnyLogic.]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>12</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -40285,7 +40212,7 @@ camiones.size() > 1]]></EnableExpression>
 					<TextCode><![CDATA[estadoTablaComparacionEstimada()]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -40306,7 +40233,7 @@ camiones.size() > 1]]></EnableExpression>
 					<Text><![CDATA[Gráficos comparativos]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>14</Size>
+						<Size>15</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -40329,7 +40256,7 @@ camiones.size() > 1]]></EnableExpression>
 					<TextCode><![CDATA[textoEstadoGraficoComparacion()]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>10</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -40372,7 +40299,7 @@ camiones.size() > 1]]></EnableExpression>
 					<Text><![CDATA[Resumen comparativo]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>14</Size>
+						<Size>15</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -40394,7 +40321,7 @@ camiones.size() > 1]]></EnableExpression>
 					<TextCode><![CDATA[resumenRankingComparacion()]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>10</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -40415,7 +40342,7 @@ camiones.size() > 1]]></EnableExpression>
 					<Text><![CDATA[Métrica]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -40440,7 +40367,7 @@ camiones.size() > 1]]></EnableExpression>
 !pypelineSolicitudEnCurso]]></EnableExpression>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="10" Style="0"/>
+						<Font Name="SansSerif" Size="11" Style="0"/>
 						<Editable>false</Editable>
 						<Button><![CDATA[Costo total]]></Button>
 						<Button><![CDATA[Distancia]]></Button>
@@ -40471,7 +40398,7 @@ camiones.size() > 1]]></EnableExpression>
 					<Text><![CDATA[Datos]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -40496,7 +40423,7 @@ camiones.size() > 1]]></EnableExpression>
 !pypelineSolicitudEnCurso]]></EnableExpression>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="10" Style="0"/>
+						<Font Name="SansSerif" Size="11" Style="0"/>
 						<Editable>false</Editable>
 						<Button><![CDATA[Estimado]]></Button>
 						<Button><![CDATA[Simulado]]></Button>
@@ -40653,7 +40580,7 @@ camiones.size() > 1]]></EnableExpression>
 					<Text><![CDATA[Método]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>10</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -40674,7 +40601,7 @@ camiones.size() > 1]]></EnableExpression>
 					<Text><![CDATA[Factible]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>10</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -40696,7 +40623,7 @@ camiones.size() > 1]]></EnableExpression>
 E / S]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>10</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -40718,7 +40645,7 @@ E / S]]></Text>
 (%)]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>10</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -40740,7 +40667,7 @@ E / S]]></Text>
 E / S]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>10</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -40762,7 +40689,7 @@ E / S]]></Text>
 E / S]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>10</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -40784,7 +40711,7 @@ E / S]]></Text>
 E / S]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>10</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -40806,7 +40733,7 @@ E / S]]></Text>
 E / S]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>10</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -40828,7 +40755,7 @@ E / S]]></Text>
 E / S]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>10</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -40850,7 +40777,7 @@ E / S]]></Text>
 (ms)]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>10</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -40872,7 +40799,7 @@ E / S]]></Text>
 simulado]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>10</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -41133,7 +41060,7 @@ simulado]]></Text>
 					<Text><![CDATA[RL]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>12</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -41154,7 +41081,7 @@ simulado]]></Text>
 					<Text><![CDATA[HÍBRIDO]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>12</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -41175,7 +41102,7 @@ simulado]]></Text>
 					<Text><![CDATA[GREEDY]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>12</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -41196,7 +41123,7 @@ simulado]]></Text>
 					<Text><![CDATA[RANDOM]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>12</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -41217,7 +41144,7 @@ simulado]]></Text>
 					<Text><![CDATA[GA]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>12</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -41238,7 +41165,7 @@ simulado]]></Text>
 					<Text><![CDATA[E / S = estimado por Python / simulado en AnyLogic. “No simulado” indica que todavía no existe una corrida real independiente.]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>10</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -41260,7 +41187,7 @@ simulado]]></Text>
 					<TextCode><![CDATA[textoFactibleComparacion("RL")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -41282,7 +41209,7 @@ simulado]]></Text>
 					<TextCode><![CDATA[textoFactibleComparacion("HIBRIDO")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -41304,7 +41231,7 @@ simulado]]></Text>
 					<TextCode><![CDATA[textoFactibleComparacion("GREEDY")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -41326,7 +41253,7 @@ simulado]]></Text>
 					<TextCode><![CDATA[textoFactibleComparacion("RANDOM")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -41348,7 +41275,7 @@ simulado]]></Text>
 					<TextCode><![CDATA[textoFactibleComparacion("GA")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -41471,7 +41398,7 @@ simulado]]></Text>
 				<Text>
 					<Id>1788099943961</Id>
 					<Name><![CDATA[txtEstadoSimuladoComparacionRL]]></Name>
-					<X>5083</X><Y>406</Y>
+					<X>5083</X><Y>405</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -41485,7 +41412,7 @@ simulado]]></Text>
 					<TextCode><![CDATA[textoEstadoSimuladoComparacion("RL")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -41493,7 +41420,7 @@ simulado]]></Text>
 				<Text>
 					<Id>1788100065814</Id>
 					<Name><![CDATA[txtEstadoSimuladoComparacionHibrido]]></Name>
-					<X>5083</X><Y>446</Y>
+					<X>5083</X><Y>445</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -41507,7 +41434,7 @@ simulado]]></Text>
 					<TextCode><![CDATA[textoEstadoSimuladoComparacion("HIBRIDO")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -41515,7 +41442,7 @@ simulado]]></Text>
 				<Text>
 					<Id>1788100093916</Id>
 					<Name><![CDATA[txtEstadoSimuladoComparacionGreedy]]></Name>
-					<X>5083</X><Y>486</Y>
+					<X>5083</X><Y>485</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -41529,7 +41456,7 @@ simulado]]></Text>
 					<TextCode><![CDATA[textoEstadoSimuladoComparacion("GREEDY")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -41537,7 +41464,7 @@ simulado]]></Text>
 				<Text>
 					<Id>1788100114640</Id>
 					<Name><![CDATA[txtEstadoSimuladoComparacionRandom]]></Name>
-					<X>5083</X><Y>526</Y>
+					<X>5083</X><Y>525</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -41551,7 +41478,7 @@ simulado]]></Text>
 					<TextCode><![CDATA[textoEstadoSimuladoComparacion("RANDOM")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -41559,7 +41486,7 @@ simulado]]></Text>
 				<Text>
 					<Id>1788100135631</Id>
 					<Name><![CDATA[txtEstadoSimuladoComparacionGA]]></Name>
-					<X>5083</X><Y>566</Y>
+					<X>5083</X><Y>565</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -41573,7 +41500,7 @@ simulado]]></Text>
 					<TextCode><![CDATA[textoEstadoSimuladoComparacion("GA")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -41616,7 +41543,7 @@ simulado]]></Text>
 					<Text><![CDATA[Ejecución de la comparación]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>12</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -41657,7 +41584,7 @@ simulado]]></Text>
 }]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="9" Style="1"/>
+						<Font Name="SansSerif" Size="11" Style="1"/>
 						<LabelText><![CDATA[Comparación estimada]]></LabelText>
 					</ExtendedProperties>
 				</Control>
@@ -41685,7 +41612,7 @@ instanciaBaseRepetibleDisponible()
 						<ActionCode><![CDATA[ejecutarComparacionSimuladaPypeline();]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="9" Style="1"/>
+						<Font Name="SansSerif" Size="11" Style="1"/>
 						<LabelText><![CDATA[Comparación simulada]]></LabelText>
 					</ExtendedProperties>
 				</Control>
@@ -41706,7 +41633,7 @@ instanciaBaseRepetibleDisponible()
 					<TextCode><![CDATA[estadoVisualComparacionEstimada()]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>10</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -41728,7 +41655,7 @@ instanciaBaseRepetibleDisponible()
 					<TextCode><![CDATA[textoMetricaComparacion("RL", "COSTO")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>9</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -41750,7 +41677,7 @@ instanciaBaseRepetibleDisponible()
 					<TextCode><![CDATA[textoMetricaComparacion("HIBRIDO", "COSTO")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>9</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -41772,7 +41699,7 @@ instanciaBaseRepetibleDisponible()
 					<TextCode><![CDATA[textoMetricaComparacion("GREEDY", "COSTO")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>9</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -41794,7 +41721,7 @@ instanciaBaseRepetibleDisponible()
 					<TextCode><![CDATA[textoMetricaComparacion("RANDOM", "COSTO")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>9</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -41816,7 +41743,7 @@ instanciaBaseRepetibleDisponible()
 					<TextCode><![CDATA[textoMetricaComparacion("GA", "COSTO")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>9</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -41838,7 +41765,7 @@ instanciaBaseRepetibleDisponible()
 					<TextCode><![CDATA[textoDiferenciaCostoComparacion("RL")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>9</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -41860,7 +41787,7 @@ instanciaBaseRepetibleDisponible()
 					<TextCode><![CDATA[textoDiferenciaCostoComparacion("HIBRIDO")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>9</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -41882,7 +41809,7 @@ instanciaBaseRepetibleDisponible()
 					<TextCode><![CDATA[textoDiferenciaCostoComparacion("GREEDY")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>9</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -41904,7 +41831,7 @@ instanciaBaseRepetibleDisponible()
 					<TextCode><![CDATA[textoDiferenciaCostoComparacion("RANDOM")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>9</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -41926,7 +41853,7 @@ instanciaBaseRepetibleDisponible()
 					<TextCode><![CDATA[textoDiferenciaCostoComparacion("GA")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>9</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -41948,7 +41875,7 @@ instanciaBaseRepetibleDisponible()
 					<TextCode><![CDATA[textoMetricaComparacion("RL", "DISTANCIA")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>9</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -41970,7 +41897,7 @@ instanciaBaseRepetibleDisponible()
 					<TextCode><![CDATA[textoMetricaComparacion("HIBRIDO", "DISTANCIA")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>9</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -41992,7 +41919,7 @@ instanciaBaseRepetibleDisponible()
 					<TextCode><![CDATA[textoMetricaComparacion("GREEDY", "DISTANCIA")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>9</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -42014,7 +41941,7 @@ instanciaBaseRepetibleDisponible()
 					<TextCode><![CDATA[textoMetricaComparacion("RANDOM", "DISTANCIA")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>9</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -42036,7 +41963,7 @@ instanciaBaseRepetibleDisponible()
 					<TextCode><![CDATA[textoMetricaComparacion("GA", "DISTANCIA")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>9</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -42058,7 +41985,7 @@ instanciaBaseRepetibleDisponible()
 					<TextCode><![CDATA[textoMetricaComparacion("RL", "DURACION")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>9</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -42080,7 +42007,7 @@ instanciaBaseRepetibleDisponible()
 					<TextCode><![CDATA[textoMetricaComparacion("HIBRIDO", "DURACION")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>9</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -42102,7 +42029,7 @@ instanciaBaseRepetibleDisponible()
 					<TextCode><![CDATA[textoMetricaComparacion("GREEDY", "DURACION")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>9</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -42124,7 +42051,7 @@ instanciaBaseRepetibleDisponible()
 					<TextCode><![CDATA[textoMetricaComparacion("RANDOM", "DURACION")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>9</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -42146,7 +42073,7 @@ instanciaBaseRepetibleDisponible()
 					<TextCode><![CDATA[textoMetricaComparacion("GA", "DURACION")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>9</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -42168,7 +42095,7 @@ instanciaBaseRepetibleDisponible()
 					<TextCode><![CDATA[textoMetricaComparacion("RL", "VIAJES")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>9</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -42190,7 +42117,7 @@ instanciaBaseRepetibleDisponible()
 					<TextCode><![CDATA[textoMetricaComparacion("HIBRIDO", "VIAJES")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>9</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -42212,7 +42139,7 @@ instanciaBaseRepetibleDisponible()
 					<TextCode><![CDATA[textoMetricaComparacion("GREEDY", "VIAJES")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>9</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -42234,7 +42161,7 @@ instanciaBaseRepetibleDisponible()
 					<TextCode><![CDATA[textoMetricaComparacion("RANDOM", "VIAJES")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>9</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -42256,7 +42183,7 @@ instanciaBaseRepetibleDisponible()
 					<TextCode><![CDATA[textoMetricaComparacion("GA", "VIAJES")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>9</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -42278,7 +42205,7 @@ instanciaBaseRepetibleDisponible()
 					<TextCode><![CDATA[textoMetricaComparacion("RL", "TARDANZA")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>9</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -42300,7 +42227,7 @@ instanciaBaseRepetibleDisponible()
 					<TextCode><![CDATA[textoMetricaComparacion("HIBRIDO", "TARDANZA")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>9</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -42322,7 +42249,7 @@ instanciaBaseRepetibleDisponible()
 					<TextCode><![CDATA[textoMetricaComparacion("GREEDY", "TARDANZA")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>9</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -42344,7 +42271,7 @@ instanciaBaseRepetibleDisponible()
 					<TextCode><![CDATA[textoMetricaComparacion("RANDOM", "TARDANZA")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>9</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -42366,7 +42293,7 @@ instanciaBaseRepetibleDisponible()
 					<TextCode><![CDATA[textoMetricaComparacion("GA", "TARDANZA")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>9</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -42388,7 +42315,7 @@ instanciaBaseRepetibleDisponible()
 					<TextCode><![CDATA[textoMetricaComparacion("RL", "DESBALANCE")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>9</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -42410,7 +42337,7 @@ instanciaBaseRepetibleDisponible()
 					<TextCode><![CDATA[textoMetricaComparacion("HIBRIDO", "DESBALANCE")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>9</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -42432,7 +42359,7 @@ instanciaBaseRepetibleDisponible()
 					<TextCode><![CDATA[textoMetricaComparacion("GREEDY", "DESBALANCE")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>9</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -42454,7 +42381,7 @@ instanciaBaseRepetibleDisponible()
 					<TextCode><![CDATA[textoMetricaComparacion("RANDOM", "DESBALANCE")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>9</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -42476,7 +42403,7 @@ instanciaBaseRepetibleDisponible()
 					<TextCode><![CDATA[textoMetricaComparacion("GA", "DESBALANCE")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>9</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -42498,7 +42425,7 @@ instanciaBaseRepetibleDisponible()
 					<TextCode><![CDATA[textoMetricaComparacion("RL", "PLANIFICACION")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>9</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -42520,7 +42447,7 @@ instanciaBaseRepetibleDisponible()
 					<TextCode><![CDATA[textoMetricaComparacion("HIBRIDO", "PLANIFICACION")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>9</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -42542,7 +42469,7 @@ instanciaBaseRepetibleDisponible()
 					<TextCode><![CDATA[textoMetricaComparacion("GREEDY", "PLANIFICACION")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>9</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -42564,7 +42491,7 @@ instanciaBaseRepetibleDisponible()
 					<TextCode><![CDATA[textoMetricaComparacion("RANDOM", "PLANIFICACION")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>9</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -42586,7 +42513,7 @@ instanciaBaseRepetibleDisponible()
 					<TextCode><![CDATA[textoMetricaComparacion("GA", "PLANIFICACION")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>9</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -42629,7 +42556,7 @@ instanciaBaseRepetibleDisponible()
 					<Text><![CDATA[Mejor costo]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>10</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -42651,7 +42578,7 @@ instanciaBaseRepetibleDisponible()
 					<TextCode><![CDATA[textoTarjetaResumenComparacion("COSTO")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>12</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -42694,7 +42621,7 @@ instanciaBaseRepetibleDisponible()
 					<Text><![CDATA[Menor distancia]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>10</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -42716,7 +42643,7 @@ instanciaBaseRepetibleDisponible()
 					<TextCode><![CDATA[textoTarjetaResumenComparacion("DISTANCIA")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>12</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -42759,7 +42686,7 @@ instanciaBaseRepetibleDisponible()
 					<Text><![CDATA[Mejor equilibrio]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>10</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -42781,7 +42708,7 @@ instanciaBaseRepetibleDisponible()
 					<TextCode><![CDATA[textoTarjetaResumenComparacion("DESBALANCE")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>12</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -42790,7 +42717,7 @@ instanciaBaseRepetibleDisponible()
 				 	<EmbeddedIcon>false</EmbeddedIcon>				
 					<Id>1788115400687</Id>
 					<Name><![CDATA[btnResumenEstimadoComparacion]]></Name>
-					<X>4970</X><Y>660</Y>
+					<X>4970</X><Y>670</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -42807,7 +42734,7 @@ instanciaBaseRepetibleDisponible()
     "Estimado";]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="8" Style="1"/>
+						<Font Name="SansSerif" Size="10" Style="1"/>
 						<LabelText><![CDATA[Estimado]]></LabelText>
 					</ExtendedProperties>
 				</Control>
@@ -42815,7 +42742,7 @@ instanciaBaseRepetibleDisponible()
 				 	<EmbeddedIcon>false</EmbeddedIcon>				
 					<Id>1788115482991</Id>
 					<Name><![CDATA[btnResumenSimuladoComparacion]]></Name>
-					<X>5064</X><Y>660</Y>
+					<X>5064</X><Y>670</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -42834,7 +42761,7 @@ comparacionSimuladaCompleta
     "Simulado";]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="8" Style="1"/>
+						<Font Name="SansSerif" Size="10" Style="1"/>
 						<LabelText><![CDATA[Simulado]]></LabelText>
 					</ExtendedProperties>
 				</Control>
@@ -42965,7 +42892,7 @@ comparacionSimuladaCompleta
 					<TextCode><![CDATA[textoPuestoRankingComparacion(0)]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>7</Size>
+						<Size>9</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -42987,7 +42914,7 @@ comparacionSimuladaCompleta
 					<TextCode><![CDATA[textoPuestoRankingComparacion(1)]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>7</Size>
+						<Size>9</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -43009,7 +42936,7 @@ comparacionSimuladaCompleta
 					<TextCode><![CDATA[textoPuestoRankingComparacion(2)]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>7</Size>
+						<Size>9</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -43031,7 +42958,7 @@ comparacionSimuladaCompleta
 					<TextCode><![CDATA[textoPuestoRankingComparacion(3)]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>7</Size>
+						<Size>9</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -43053,7 +42980,7 @@ comparacionSimuladaCompleta
 					<TextCode><![CDATA[textoPuestoRankingComparacion(4)]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>7</Size>
+						<Size>9</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -43077,7 +43004,7 @@ comparacionSimuladaCompleta
 					<Text><![CDATA[RANDOM]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>10</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -43101,7 +43028,7 @@ comparacionSimuladaCompleta
 					<Text><![CDATA[HÍBRIDO]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>10</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -43125,7 +43052,7 @@ comparacionSimuladaCompleta
 					<Text><![CDATA[RL]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>10</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -43149,7 +43076,7 @@ comparacionSimuladaCompleta
 					<Text><![CDATA[GA]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>10</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -43173,7 +43100,7 @@ comparacionSimuladaCompleta
 					<Text><![CDATA[GREEDY]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>10</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -43476,7 +43403,7 @@ comparacionSimuladaCompleta
 					<TextCode><![CDATA[textoValorGraficoComparacion("RL")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>7</Size>
+						<Size>9</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -43499,7 +43426,7 @@ comparacionSimuladaCompleta
 					<TextCode><![CDATA[textoValorGraficoComparacion("HIBRIDO")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>7</Size>
+						<Size>9</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -43522,7 +43449,7 @@ comparacionSimuladaCompleta
 					<TextCode><![CDATA[textoValorGraficoComparacion("GREEDY")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>7</Size>
+						<Size>9</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -43545,7 +43472,7 @@ comparacionSimuladaCompleta
 					<TextCode><![CDATA[textoValorGraficoComparacion("RANDOM")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>7</Size>
+						<Size>9</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -43568,7 +43495,7 @@ comparacionSimuladaCompleta
 					<TextCode><![CDATA[textoValorGraficoComparacion("GA")]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>7</Size>
+						<Size>9</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -43593,7 +43520,7 @@ comparacionSimuladaCompleta
 					<TextCode><![CDATA[textoLeyendaGraficoComparacion()]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>7</Size>
+						<Size>10</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -44752,7 +44679,7 @@ graficoDesgloseCostoSeleccionado()]]></VisibleCode>
 					<Text><![CDATA[Penalizaciones]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>7</Size>
+						<Size>10</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -44776,7 +44703,7 @@ graficoDesgloseCostoSeleccionado()]]></VisibleCode>
 					<Text><![CDATA[Operación]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>7</Size>
+						<Size>10</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -44800,7 +44727,7 @@ graficoDesgloseCostoSeleccionado()]]></VisibleCode>
 					<Text><![CDATA[Distancia]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>7</Size>
+						<Size>10</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -44824,7 +44751,7 @@ graficoDesgloseCostoSeleccionado()]]></VisibleCode>
 					<Text><![CDATA[Viajes]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>7</Size>
+						<Size>10</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -44848,7 +44775,7 @@ graficoDesgloseCostoSeleccionado()]]></VisibleCode>
 					<Text><![CDATA[Desbalance]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>7</Size>
+						<Size>10</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -45192,6 +45119,7 @@ graficoCostoTiempoSeleccionado()]]></VisibleCode>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA[graficoComparacionDisponible()]]></VisibleCode>
 					<EmbeddedIcon>false</EmbeddedIcon>
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
@@ -45199,7 +45127,7 @@ graficoCostoTiempoSeleccionado()]]></VisibleCode>
 					<Text><![CDATA[Costo | planificación]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>6</Size>
+						<Size>9</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>CENTER</Alignment>
@@ -45221,7 +45149,7 @@ graficoCostoTiempoSeleccionado()]]></VisibleCode>
 					<LineMaterial>null</LineMaterial>
 					<LineStyle>SOLID</LineStyle>
 					<Width>880</Width>
-					<Height>450</Height>
+					<Height>525</Height>
 					<Rotation>0.0</Rotation>
 					<FillColor>-1</FillColor>
 					<FillColorCode><![CDATA[new java.awt.Color(
@@ -45245,6 +45173,7 @@ graficoCostoTiempoSeleccionado()]]></VisibleCode>
 					<BasicProperties Width="170" Height="38">
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<TextColor>-15257011</TextColor>
+						<VisibleCode><![CDATA[!"SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
 						<Enabled>true</Enabled>
 						<EnableExpression><![CDATA[ejecucionFinalizada
 &&
@@ -45265,7 +45194,7 @@ instanciaBaseRepetibleDisponible()
 }]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="9" Style="1"/>
+						<Font Name="SansSerif" Size="12" Style="1"/>
 						<LabelText><![CDATA[Repetir instancia]]></LabelText>
 					</ExtendedProperties>
 				</Control>
@@ -45282,6 +45211,7 @@ instanciaBaseRepetibleDisponible()
 					<BasicProperties Width="370" Height="32">
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<TextColor>-15257011</TextColor>
+						<VisibleCode><![CDATA[!"SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
 						<Enabled>true</Enabled>
 						<EnableExpression><![CDATA[webToolkitListo
 &&
@@ -45295,7 +45225,7 @@ instanciaInterfazActual == null
 						<ActionCode><![CDATA[abrirSelectorUbicacionWeb();]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="9" Style="1"/>
+						<Font Name="SansSerif" Size="12" Style="1"/>
 						<LabelText><![CDATA[Seleccionar ubicación en mapa]]></LabelText>
 					</ExtendedProperties>
 				</Control>
@@ -45326,7 +45256,7 @@ instanciaInterfazActual == null
 )]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>10</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -45344,6 +45274,7 @@ instanciaInterfazActual == null
 					<BasicProperties Width="370" Height="32">
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<TextColor>-15257011</TextColor>
+						<VisibleCode><![CDATA[!"SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
 						<Enabled>true</Enabled>
 						<EnableExpression><![CDATA[webToolkitListo
 &&
@@ -45359,7 +45290,7 @@ instanciaInterfazActual == null
 						<ActionCode><![CDATA[abrirGestionPedidosWeb();]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="9" Style="1"/>
+						<Font Name="SansSerif" Size="12" Style="1"/>
 						<LabelText><![CDATA[Cargar pedidos desde la web]]></LabelText>
 					</ExtendedProperties>
 				</Control>
@@ -45379,7 +45310,7 @@ instanciaInterfazActual == null
 					<Text><![CDATA[Ingrese los datos manualmente o utilice las herramientas web.]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -45400,7 +45331,7 @@ instanciaInterfazActual == null
 					<Text><![CDATA[DATOS DEL PEDIDO]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -45421,7 +45352,7 @@ instanciaInterfazActual == null
 					<Text><![CDATA[ENTREGA Y UBICACIÓN]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -45439,10 +45370,10 @@ instanciaInterfazActual == null
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
 					<Color>-11112315</Color>
-					<Text><![CDATA[CONDICIONES DE ENTREGA]]></Text>
+					<Text><![CDATA[CONDICIONES]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -45463,7 +45394,7 @@ instanciaInterfazActual == null
 					<Text><![CDATA[HERRAMIENTAS WEB]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -45596,7 +45527,7 @@ pedidosFormulario.size() > 4]]></VisibleCode>
 				<Text>
 					<Id>1788145520548</Id>
 					<Name><![CDATA[txtMetaFilaPedido1]]></Name>
-					<X>1435</X><Y>507</Y>
+					<X>1435</X><Y>503</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -45615,7 +45546,7 @@ pedidosFormulario.size() > 0]]></VisibleCode>
 )]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>11</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -45623,7 +45554,7 @@ pedidosFormulario.size() > 0]]></VisibleCode>
 				<Text>
 					<Id>1788145569059</Id>
 					<Name><![CDATA[txtMetaFilaPedido2]]></Name>
-					<X>1435</X><Y>545</Y>
+					<X>1435</X><Y>541</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -45642,7 +45573,7 @@ pedidosFormulario.size() > 1]]></VisibleCode>
 )]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>11</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -45650,7 +45581,7 @@ pedidosFormulario.size() > 1]]></VisibleCode>
 				<Text>
 					<Id>1788145592888</Id>
 					<Name><![CDATA[txtMetaFilaPedido3]]></Name>
-					<X>1435</X><Y>583</Y>
+					<X>1435</X><Y>579</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -45669,7 +45600,7 @@ pedidosFormulario.size() > 2]]></VisibleCode>
 )]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>11</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -45677,7 +45608,7 @@ pedidosFormulario.size() > 2]]></VisibleCode>
 				<Text>
 					<Id>1788145611405</Id>
 					<Name><![CDATA[txtMetaFilaPedido4]]></Name>
-					<X>1435</X><Y>621</Y>
+					<X>1435</X><Y>617</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -45696,7 +45627,7 @@ pedidosFormulario.size() > 3]]></VisibleCode>
 )]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>11</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -45704,7 +45635,7 @@ pedidosFormulario.size() > 3]]></VisibleCode>
 				<Text>
 					<Id>1788145624870</Id>
 					<Name><![CDATA[txtMetaFilaPedido5]]></Name>
-					<X>1435</X><Y>659</Y>
+					<X>1435</X><Y>655</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -45723,7 +45654,7 @@ pedidosFormulario.size() > 4]]></VisibleCode>
 )]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>11</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -45759,7 +45690,7 @@ pedidosFormulario.size() > 4]]></VisibleCode>
 )]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>10</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -45767,7 +45698,7 @@ pedidosFormulario.size() > 4]]></VisibleCode>
 				<Text>
 					<Id>1791897610342</Id>
 					<Name><![CDATA[txtRelojSimuladoOperacion]]></Name>
-					<X>2340</X><Y>112</Y>
+					<X>2320</X><Y>112</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -45791,7 +45722,7 @@ pedidosFormulario.size() > 4]]></VisibleCode>
 )]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>11</Size>
+						<Size>13</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -45800,13 +45731,13 @@ pedidosFormulario.size() > 4]]></VisibleCode>
 				 	<EmbeddedIcon>false</EmbeddedIcon>				
 					<Id>1791909035752</Id>
 					<Name><![CDATA[btnExportarHojaRuta]]></Name>
-					<X>3245</X><Y>110</Y>
+					<X>3188</X><Y>743</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<BasicProperties Width="110" Height="38">
+					<BasicProperties Width="162" Height="32">
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<TextColor>-15257011</TextColor>
 						<Enabled>true</Enabled>
@@ -46047,14 +45978,14 @@ getExperimentHost().showMessageDialog(
 );]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="10" Style="1"/>
+						<Font Name="SansSerif" Size="12" Style="1"/>
 						<LabelText><![CDATA[Exportar Excel]]></LabelText>
 					</ExtendedProperties>
 				</Control>
 				<Text>
 					<Id>1791909664570</Id>
 					<Name><![CDATA[txtEstadoExportacionHojaRuta]]></Name>
-					<X>3250</X><Y>150</Y>
+					<X>3198</X><Y>785</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -46067,7 +45998,7 @@ getExperimentHost().showMessageDialog(
 					<Text><![CDATA[]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>8</Size>
+						<Size>11</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -46086,7 +46017,7 @@ getExperimentHost().showMessageDialog(
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<FillColor>-1</FillColor>
 						<TextColor>-15257011</TextColor>
-						<VisibleCode><![CDATA[requiereVolcadorFormulario]]></VisibleCode>
+						<VisibleCode><![CDATA[(requiereVolcadorFormulario) && (!"SIN_SELECCION".equals(modoInterfaz))]]></VisibleCode>
 						<Enabled>true</Enabled>
 						<EnableExpression><![CDATA[requiereVolcadorFormulario
 && instanciaInterfazActual == null
@@ -46094,7 +46025,7 @@ getExperimentHost().showMessageDialog(
 && !pypelineSolicitudEnCurso]]></EnableExpression>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="10" Style="0"/>
+						<Font Name="SansSerif" Size="12" Style="0"/>
 						<LinkTo>true</LinkTo>
 						<Link>unidadesVolcadorFormulario</Link>
 					</ExtendedProperties>
@@ -46116,7 +46047,7 @@ getExperimentHost().showMessageDialog(
 					<Text><![CDATA[Unidades con volcador]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -46134,6 +46065,7 @@ getExperimentHost().showMessageDialog(
 					<BasicProperties Width="180" Height="46">
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<TextColor>-15257011</TextColor>
+						<VisibleCode><![CDATA[("COMPLETO".equals(modoInterfaz)) && (!"SIN_SELECCION".equals(modoInterfaz))]]></VisibleCode>
 						<Enabled>true</Enabled>
 						<ActionCode><![CDATA[irAVistaEstudioExperimental();]]></ActionCode>
 					</BasicProperties>
@@ -46155,6 +46087,7 @@ getExperimentHost().showMessageDialog(
 					<BasicProperties Width="180" Height="46">
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<TextColor>-15257011</TextColor>
+						<VisibleCode><![CDATA["COMPLETO".equals(modoInterfaz)]]></VisibleCode>
 						<Enabled>true</Enabled>
 						<ActionCode><![CDATA[irAVistaEstudioExperimental();]]></ActionCode>
 					</BasicProperties>
@@ -46176,6 +46109,7 @@ getExperimentHost().showMessageDialog(
 					<BasicProperties Width="180" Height="46">
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<TextColor>-15257011</TextColor>
+						<VisibleCode><![CDATA["COMPLETO".equals(modoInterfaz)]]></VisibleCode>
 						<Enabled>true</Enabled>
 						<ActionCode><![CDATA[irAVistaEstudioExperimental();]]></ActionCode>
 					</BasicProperties>
@@ -46265,6 +46199,7 @@ getExperimentHost().showMessageDialog(
 					<BasicProperties Width="180" Height="46">
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<TextColor>-15257011</TextColor>
+						<VisibleCode><![CDATA["COMPLETO".equals(modoInterfaz)]]></VisibleCode>
 						<Enabled>true</Enabled>
 						<ActionCode><![CDATA[irAVistaComparacion();]]></ActionCode>
 					</BasicProperties>
@@ -46310,7 +46245,7 @@ getExperimentHost().showMessageDialog(
 					<Text><![CDATA[Gemelo digital logístico]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>12</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -46370,6 +46305,7 @@ getExperimentHost().showMessageDialog(
 					<BasicProperties Width="180" Height="46">
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<TextColor>-15257011</TextColor>
+						<VisibleCode><![CDATA["COMPLETO".equals(modoInterfaz)]]></VisibleCode>
 						<Enabled>false</Enabled>
 						<ActionCode><![CDATA[irAVistaEstudioExperimental();]]></ActionCode>
 					</BasicProperties>
@@ -46403,7 +46339,7 @@ getExperimentHost().showMessageDialog(
 				<Text>
 					<Id>1793370243356</Id>
 					<Name><![CDATA[txtTituloEstudio]]></Name>
-					<X>5645</X><Y>17</Y>
+					<X>5675</X><Y>17</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -46424,7 +46360,7 @@ getExperimentHost().showMessageDialog(
 				<Text>
 					<Id>1793370243358</Id>
 					<Name><![CDATA[txtSubtituloEstudio]]></Name>
-					<X>5648</X><Y>44</Y>
+					<X>5678</X><Y>44</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -46437,7 +46373,7 @@ getExperimentHost().showMessageDialog(
 					<Text><![CDATA[Simulación de múltiples turnos y análisis estadístico de algoritmos]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>11</Size>
+						<Size>12</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -46445,7 +46381,7 @@ getExperimentHost().showMessageDialog(
 				<Text>
 					<Id>1793370243360</Id>
 					<Name><![CDATA[txtMarcaEstudio]]></Name>
-					<X>6830</X><Y>40</Y>
+					<X>6770</X><Y>40</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -46458,7 +46394,7 @@ getExperimentHost().showMessageDialog(
 					<Text><![CDATA[ANÁLISIS EXPERIMENTAL]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>11</Size>
+						<Size>12</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -46501,7 +46437,7 @@ getExperimentHost().showMessageDialog(
 					<Text><![CDATA[Configuración del estudio]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>14</Size>
+						<Size>15</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -46522,7 +46458,7 @@ getExperimentHost().showMessageDialog(
 					<Text><![CDATA[Seleccioná los escenarios y repeticiones que querés evaluar.]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>12</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -46567,7 +46503,7 @@ getExperimentHost().showMessageDialog(
 					<Text><![CDATA[Turnos a simular]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>12</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -46588,7 +46524,7 @@ getExperimentHost().showMessageDialog(
 					<Text><![CDATA[Repeticiones por turno]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>12</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -46609,7 +46545,7 @@ getExperimentHost().showMessageDialog(
 					<Text><![CDATA[Semilla inicial]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>12</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -46630,7 +46566,7 @@ getExperimentHost().showMessageDialog(
 					<Text><![CDATA[Turno de operación]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>12</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -46651,7 +46587,7 @@ getExperimentHost().showMessageDialog(
 					<Text><![CDATA[Métodos evaluados]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>12</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -46703,7 +46639,7 @@ getExperimentHost().showMessageDialog(
 						<ActionCode><![CDATA[invalidarConfiguracionEstudio();]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="11" Style="0"/>
+						<Font Name="SansSerif" Size="12" Style="0"/>
 						<DefaultValueCode><![CDATA["5"]]></DefaultValueCode>
 						<LinkTo>false</LinkTo>
 					</ExtendedProperties>
@@ -46731,7 +46667,7 @@ getExperimentHost().showMessageDialog(
 						<ActionCode><![CDATA[invalidarConfiguracionEstudio();]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="11" Style="0"/>
+						<Font Name="SansSerif" Size="12" Style="0"/>
 						<DefaultValueCode><![CDATA["1"]]></DefaultValueCode>
 						<LinkTo>false</LinkTo>
 					</ExtendedProperties>
@@ -46759,7 +46695,7 @@ getExperimentHost().showMessageDialog(
 						<ActionCode><![CDATA[invalidarConfiguracionEstudio();]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="11" Style="0"/>
+						<Font Name="SansSerif" Size="12" Style="0"/>
 						<DefaultValueCode><![CDATA["20261030"]]></DefaultValueCode>
 						<LinkTo>false</LinkTo>
 					</ExtendedProperties>
@@ -46787,7 +46723,7 @@ getExperimentHost().showMessageDialog(
 						<ActionCode><![CDATA[invalidarConfiguracionEstudio();]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="11" Style="0"/>
+						<Font Name="SansSerif" Size="12" Style="0"/>
 						<DefaultValueCode><![CDATA["MIXTO"]]></DefaultValueCode>
 						<Editable>false</Editable>
 						<Button><![CDATA[MIXTO]]></Button>
@@ -46821,7 +46757,7 @@ getExperimentHost().showMessageDialog(
 				<Text>
 					<Id>1793374942757</Id>
 					<Name><![CDATA[txtMetodosPrincipalEstudio]]></Name>
-					<X>5937</X><Y>302</Y>
+					<X>5937</X><Y>300</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -46834,7 +46770,7 @@ getExperimentHost().showMessageDialog(
 					<Text><![CDATA[	RL  -  Híbrido  -  Greedy  -  Random  -  GA]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>12</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -46842,7 +46778,7 @@ getExperimentHost().showMessageDialog(
 				<Text>
 					<Id>1793375010261</Id>
 					<Name><![CDATA[txtMetodosSecundarioEstudio]]></Name>
-					<X>5937</X><Y>317</Y>
+					<X>5937</X><Y>316</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -46855,7 +46791,7 @@ getExperimentHost().showMessageDialog(
 					<Text><![CDATA[Los cinco métodos se evalúan sobre los mismos escenarios.]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -46882,7 +46818,7 @@ getExperimentHost().showMessageDialog(
 						<ActionCode><![CDATA[validarConfiguracionEstudio();]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="11" Style="1"/>
+						<Font Name="SansSerif" Size="12" Style="1"/>
 						<LabelText><![CDATA[Validar configuración]]></LabelText>
 					</ExtendedProperties>
 				</Control>
@@ -46903,7 +46839,7 @@ getExperimentHost().showMessageDialog(
 					<TextCode><![CDATA[estudioMensajeConfiguracion]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>12</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -46946,7 +46882,7 @@ getExperimentHost().showMessageDialog(
 					<Text><![CDATA[Resumen del estudio]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>14</Size>
+						<Size>15</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -46967,7 +46903,7 @@ getExperimentHost().showMessageDialog(
 					<Text><![CDATA[Cantidad de ejecuciones previstas.]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>12</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -47034,7 +46970,7 @@ getExperimentHost().showMessageDialog(
 					<Text><![CDATA[SIMULACIONES PREVISTAS]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -47079,7 +47015,7 @@ getExperimentHost().showMessageDialog(
 					<Text><![CDATA[Turnos × repeticiones × 5 métodos]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -47100,7 +47036,7 @@ getExperimentHost().showMessageDialog(
 					<Text><![CDATA[ESTADO DE LA CONFIGURACIÓN]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -47124,7 +47060,7 @@ getExperimentHost().showMessageDialog(
     : "Pendiente de validar"]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>12</Size>
+						<Size>13</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -47156,7 +47092,7 @@ getExperimentHost().showMessageDialog(
     )]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -47199,7 +47135,7 @@ getExperimentHost().showMessageDialog(
 					<Text><![CDATA[Seguimiento del experimento]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>14</Size>
+						<Size>15</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -47220,7 +47156,7 @@ getExperimentHost().showMessageDialog(
 					<Text><![CDATA[Avance por turnos y repeticiones]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>12</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -47375,7 +47311,7 @@ getExperimentHost().showMessageDialog(
 					<Text><![CDATA[Turnos previstos]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -47396,7 +47332,7 @@ getExperimentHost().showMessageDialog(
 					<Text><![CDATA[Escenarios generados]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -47417,7 +47353,7 @@ getExperimentHost().showMessageDialog(
 					<Text><![CDATA[Simulaciones completas]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -47438,7 +47374,7 @@ getExperimentHost().showMessageDialog(
 					<Text><![CDATA[Simulaciones restantes]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -47459,7 +47395,7 @@ getExperimentHost().showMessageDialog(
 					<Text><![CDATA[Simulaciones fallidas]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -47620,7 +47556,7 @@ getExperimentHost().showMessageDialog(
     )]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -47666,7 +47602,7 @@ getExperimentHost().showMessageDialog(
     : estudioEstadoVial]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -47709,7 +47645,7 @@ getExperimentHost().showMessageDialog(
 					<Text><![CDATA[Resultados experimentales]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>14</Size>
+						<Size>15</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -47717,7 +47653,7 @@ getExperimentHost().showMessageDialog(
 				<Text>
 					<Id>1793376745436</Id>
 					<Name><![CDATA[txtDescripcionResultadosEstudio]]></Name>
-					<X>5925</X><Y>658</Y>
+					<X>5985</X><Y>658</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -47730,7 +47666,7 @@ getExperimentHost().showMessageDialog(
 					<Text><![CDATA[Comparación agregada de corridas reales de AnyLogic]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>12</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -47797,7 +47733,7 @@ getExperimentHost().showMessageDialog(
 					<Text><![CDATA[Desempeño por algoritmo]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>11</Size>
+						<Size>12</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -47821,7 +47757,7 @@ getExperimentHost().showMessageDialog(
 && !estudioSimulacionEnCurso]]></EnableExpression>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="10" Style="0"/>
+						<Font Name="SansSerif" Size="12" Style="0"/>
 						<DefaultValueCode><![CDATA["Costo total"]]></DefaultValueCode>
 						<Editable>false</Editable>
 						<Button><![CDATA[Costo total]]></Button>
@@ -47850,51 +47786,7 @@ getExperimentHost().showMessageDialog(
 					<Text><![CDATA[Sin resultados simulados cargados]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>12</Size>
-						<Style>0</Style>
-					</Font>
-					<Alignment>LEFT</Alignment>
-				</Text>
-				<Text>
-					<Id>1793377077736</Id>
-					<Name><![CDATA[txtAyudaGraficoDesempenoEstudio]]></Name>
-					<X>5682</X><Y>784</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D</DrawMode>
-					<VisibleCode><![CDATA[!estudioResultadosCargados]]></VisibleCode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<Rotation>0.0</Rotation>
-					<Color>-10063739</Color>
-					<Text><![CDATA[Acá aparecerá el promedio por algoritmo.]]></Text>
-					<Font>
-						<Name>SansSerif</Name>
-						<Size>9</Size>
-						<Style>0</Style>
-					</Font>
-					<Alignment>LEFT</Alignment>
-				</Text>
-				<Text>
-					<Id>1793377097399</Id>
-					<Name><![CDATA[txtNotaGraficoDesempenoEstudio]]></Name>
-					<X>5682</X><Y>806</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D</DrawMode>
-					<VisibleCode><![CDATA[!estudioResultadosCargados]]></VisibleCode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<Rotation>0.0</Rotation>
-					<Color>-10063739</Color>
-					<Text><![CDATA[Los métodos sin corridas válidas se indicarán como N/D.]]></Text>
-					<Font>
-						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>13</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -47937,7 +47829,7 @@ getExperimentHost().showMessageDialog(
 					<Text><![CDATA[Comparación estadística con RL]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>11</Size>
+						<Size>12</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -47958,7 +47850,7 @@ getExperimentHost().showMessageDialog(
 					<Text><![CDATA[Δ = RL - método. Negativo favorece RL.]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -47980,29 +47872,7 @@ getExperimentHost().showMessageDialog(
 					<Text><![CDATA[No hay observaciones válidas para analizar.]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>11</Size>
-						<Style>0</Style>
-					</Font>
-					<Alignment>LEFT</Alignment>
-				</Text>
-				<Text>
-					<Id>1793377321763</Id>
-					<Name><![CDATA[txtNotaEstadisticaEstudio]]></Name>
-					<X>6329</X><Y>802</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D</DrawMode>
-					<VisibleCode><![CDATA[!estudioResultadosCargados]]></VisibleCode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<Rotation>0.0</Rotation>
-					<Color>-10063739</Color>
-					<Text><![CDATA[Solo se compararán escenarios y repeticiones equivalentes.]]></Text>
-					<Font>
-						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>12</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -48026,7 +47896,7 @@ getExperimentHost().showMessageDialog(
     : "Seleccioná un archivo CSV de resultados para visualizar el resumen experimental."]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -48068,7 +47938,7 @@ instanciaInterfazActual == null
 						<ActionCode><![CDATA[iniciarGeneracionYPreparacionEstudio();]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="10" Style="1"/>
+						<Font Name="SansSerif" Size="12" Style="1"/>
 						<LabelText><![CDATA[Generar escenarios]]></LabelText>
 					</ExtendedProperties>
 				</Control>
@@ -48163,7 +48033,7 @@ estudioProcesoSimulacion != null
 }]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="10" Style="1"/>
+						<Font Name="SansSerif" Size="12" Style="1"/>
 						<LabelText><![CDATA[Ejecutar estudio]]></LabelText>
 					</ExtendedProperties>
 				</Control>
@@ -48184,7 +48054,7 @@ estudioProcesoSimulacion != null
 					<Text><![CDATA[RL]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -48206,7 +48076,7 @@ estudioProcesoSimulacion != null
 					<Text><![CDATA[Híbrido]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -48228,7 +48098,7 @@ estudioProcesoSimulacion != null
 					<Text><![CDATA[Greedy]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -48250,7 +48120,7 @@ estudioProcesoSimulacion != null
 					<Text><![CDATA[Random]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -48272,7 +48142,7 @@ estudioProcesoSimulacion != null
 					<Text><![CDATA[GA]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -48420,7 +48290,7 @@ estudioProcesoSimulacion != null
 					<TextCode><![CDATA[valorPromedioEstudio(0)]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -48443,7 +48313,7 @@ estudioProcesoSimulacion != null
 					<TextCode><![CDATA[valorPromedioEstudio(1)]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -48466,7 +48336,7 @@ estudioProcesoSimulacion != null
 					<TextCode><![CDATA[valorPromedioEstudio(2)]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -48489,7 +48359,7 @@ estudioProcesoSimulacion != null
 					<TextCode><![CDATA[valorPromedioEstudio(3)]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -48512,7 +48382,7 @@ estudioProcesoSimulacion != null
 					<TextCode><![CDATA[valorPromedioEstudio(4)]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -48535,7 +48405,7 @@ estudioProcesoSimulacion != null
 					<TextCode><![CDATA[textoDiferenciaRLEstudio(1)]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -48558,7 +48428,7 @@ estudioProcesoSimulacion != null
 					<TextCode><![CDATA[textoDiferenciaRLEstudio(2)]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -48581,7 +48451,7 @@ estudioProcesoSimulacion != null
 					<TextCode><![CDATA[textoDiferenciaRLEstudio(3)]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -48604,7 +48474,7 @@ estudioProcesoSimulacion != null
 					<TextCode><![CDATA[textoDiferenciaRLEstudio(4)]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -48666,7 +48536,7 @@ if (
 }]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="10" Style="1"/>
+						<Font Name="SansSerif" Size="12" Style="1"/>
 						<Title><![CDATA[Cargar resultados CSV]]></Title>
 						<Type>UPLOAD</Type>
 						<Filters>.csv</Filters>
@@ -48676,7 +48546,7 @@ if (
 				<Text>
 					<Id>1793390928975</Id>
 					<Name><![CDATA[txtLabelMetricaEstudio]]></Name>
-					<X>6040</X><Y>720</Y>
+					<X>5995</X><Y>720</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -48689,7 +48559,7 @@ if (
 					<Text><![CDATA[Métrica]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>10</Size>
+						<Size>12</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -48711,7 +48581,7 @@ if (
 					<Text><![CDATA[Nota: menor valor = mejor desempeño.]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>11</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -48720,21 +48590,22 @@ if (
 				 	<EmbeddedIcon>false</EmbeddedIcon>				
 					<Id>1794144776199</Id>
 					<Name><![CDATA[btnVerEstadosCamion0]]></Name>
-					<X>3165</X><Y>518</Y>
+					<X>3165</X><Y>517</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<BasicProperties Width="90" Height="28">
+					<BasicProperties Width="90" Height="30">
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<TextColor>-13730510</TextColor>
+						<VisibleCode><![CDATA["COMPLETO".equals(modoInterfaz)]]></VisibleCode>
 						<Enabled>true</Enabled>
 						<EnableExpression><![CDATA[camiones.size() > 0]]></EnableExpression>
 						<ActionCode><![CDATA[camiones.get(0).viewEstadosCamion.navigateTo();]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="10" Style="0"/>
+						<Font Name="SansSerif" Size="12" Style="0"/>
 						<LabelText><![CDATA[Estados C0]]></LabelText>
 					</ExtendedProperties>
 				</Control>
@@ -48742,21 +48613,22 @@ if (
 				 	<EmbeddedIcon>false</EmbeddedIcon>				
 					<Id>1794144809857</Id>
 					<Name><![CDATA[btnVerEstadosCamion1]]></Name>
-					<X>3265</X><Y>518</Y>
+					<X>3265</X><Y>517</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<BasicProperties Width="90" Height="28">
+					<BasicProperties Width="90" Height="30">
                         <EmbeddedIcon>false</EmbeddedIcon>	
 						<TextColor>-8708190</TextColor>
+						<VisibleCode><![CDATA["COMPLETO".equals(modoInterfaz)]]></VisibleCode>
 						<Enabled>true</Enabled>
 						<EnableExpression><![CDATA[camiones.size() > 0]]></EnableExpression>
 						<ActionCode><![CDATA[camiones.get(1).viewEstadosCamion.navigateTo();]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="10" Style="0"/>
+						<Font Name="SansSerif" Size="12" Style="0"/>
 						<LabelText><![CDATA[Estados C1]]></LabelText>
 					</ExtendedProperties>
 				</Control>
@@ -48845,6 +48717,704 @@ if (
 					</Font>
 					<Alignment>LEFT</Alignment>
 				</Text>
+				<Rectangle>
+					<Id>1890000070004</Id>
+					<Name><![CDATA[rectFondoSeleccionModo]]></Name>
+					<X>7200</X><Y>0</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<VisibleCode><![CDATA["SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>0</LineWidth>
+					<LineColor>-15454903</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>1600</Width>
+					<Height>900</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-15454903</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Rectangle>
+					<Id>1890000070005</Id>
+					<Name><![CDATA[rectBarraSuperiorSeleccionModo]]></Name>
+					<X>7200</X><Y>0</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<VisibleCode><![CDATA["SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>0</LineWidth>
+					<LineColor>-15415080</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>1600</Width>
+					<Height>12</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-15415080</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Rectangle>
+					<Id>1890000070006</Id>
+					<Name><![CDATA[rectTarjetaSeleccionModo]]></Name>
+					<X>7440</X><Y>138</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<VisibleCode><![CDATA["SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-3418655</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>1120</Width>
+					<Height>645</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-525572</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Rectangle>
+					<Id>1890000070007</Id>
+					<Name><![CDATA[rectTarjetaCompleta]]></Name>
+					<X>7502</X><Y>385</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<VisibleCode><![CDATA["SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-3418655</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>470</Width>
+					<Height>252</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-1</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Rectangle>
+					<Id>1890000070008</Id>
+					<Name><![CDATA[rectTarjetaOperario]]></Name>
+					<X>8026</X><Y>385</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<VisibleCode><![CDATA["SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-3418655</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>470</Width>
+					<Height>252</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-1</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Rectangle>
+					<Id>1890000070009</Id>
+					<Name><![CDATA[rectIndicadorTarjetaCompleta]]></Name>
+					<X>7502</X><Y>385</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<VisibleCode><![CDATA["SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>0</LineWidth>
+					<LineColor>-13611659</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>470</Width>
+					<Height>8</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-13611659</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Rectangle>
+					<Id>1890000070010</Id>
+					<Name><![CDATA[rectIndicadorTarjetaOperario]]></Name>
+					<X>8026</X><Y>385</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<VisibleCode><![CDATA["SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>0</LineWidth>
+					<LineColor>-15095409</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>470</Width>
+					<Height>8</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-15095409</FillColor>
+					<FillMaterial>null</FillMaterial>
+				</Rectangle>
+				<Text>
+					<Id>1890000070011</Id>
+					<Name><![CDATA[txtMarcaSeleccionModo]]></Name>
+					<X>7510</X><Y>198</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA["SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-15107179</Color>
+					<Text><![CDATA[PEDEMONTE DIGITAL TWIN]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>14</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1890000070012</Id>
+					<Name><![CDATA[txtTituloSeleccionModo]]></Name>
+					<X>7510</X><Y>243</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA["SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-15257011</Color>
+					<Text><![CDATA[¿Cómo querés utilizar el sistema?]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>31</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1890000070013</Id>
+					<Name><![CDATA[txtExplicacionSeleccionModo]]></Name>
+					<X>7512</X><Y>310</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA["SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-11378057</Color>
+					<Text><![CDATA[Elegí cómo utilizar el sistema. Cambiar de modo inicia una operación nueva.]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>16</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1890000070014</Id>
+					<Name><![CDATA[txtTituloTarjetaCompleta]]></Name>
+					<X>7535</X><Y>415</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA["SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-15257011</Color>
+					<Text><![CDATA[Vista completa]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>23</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1890000070015</Id>
+					<Name><![CDATA[txtDetalleCompleta1]]></Name>
+					<X>7535</X><Y>461</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA["SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-13418155</Color>
+					<Text><![CDATA[Pedidos y operación logística]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>16</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1890000070016</Id>
+					<Name><![CDATA[txtDetalleCompleta2]]></Name>
+					<X>7535</X><Y>490</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA["SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-13418155</Color>
+					<Text><![CDATA[Comparación de algoritmos]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>16</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1890000070017</Id>
+					<Name><![CDATA[txtDetalleCompleta3]]></Name>
+					<X>7535</X><Y>519</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA["SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-13418155</Color>
+					<Text><![CDATA[Estudio experimental y resultados]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>16</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1890000070018</Id>
+					<Name><![CDATA[txtTituloTarjetaOperario]]></Name>
+					<X>8060</X><Y>415</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA["SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-15257011</Color>
+					<Text><![CDATA[Operario]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>23</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1890000070019</Id>
+					<Name><![CDATA[txtDetalleOperario1]]></Name>
+					<X>8060</X><Y>461</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA["SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-13418155</Color>
+					<Text><![CDATA[Carga y preparación de pedidos]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>16</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1890000070020</Id>
+					<Name><![CDATA[txtDetalleOperario2]]></Name>
+					<X>8060</X><Y>490</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA["SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-13418155</Color>
+					<Text><![CDATA[Planificación y seguimiento]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>16</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1890000070021</Id>
+					<Name><![CDATA[txtDetalleOperario3]]></Name>
+					<X>8060</X><Y>519</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA["SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-13418155</Color>
+					<Text><![CDATA[Solo información de uso diario]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>16</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Text>
+					<Id>1890000070022</Id>
+					<Name><![CDATA[txtNotaSeleccionModo]]></Name>
+					<X>7515</X><Y>714</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA["SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-11378057</Color>
+					<Text><![CDATA[Al cambiar de modo, se reinician los pedidos y los resultados de la operación anterior.]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>14</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Control Type="Button">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1890000070023</Id>
+					<Name><![CDATA[btnSeleccionModoCompleto]]></Name>
+					<X>7534</X><Y>562</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="410" Height="55">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<TextColor>-15257011</TextColor>
+						<VisibleCode><![CDATA["SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
+						<Enabled>true</Enabled>
+						<ActionCode><![CDATA[seleccionarModoInterfaz("COMPLETO");]]></ActionCode>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="16" Style="1"/>
+						<LabelText><![CDATA[Entrar a vista completa]]></LabelText>
+					</ExtendedProperties>
+				</Control>
+				<Control Type="Button">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1890000070024</Id>
+					<Name><![CDATA[btnSeleccionModoOperario]]></Name>
+					<X>8058</X><Y>562</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="410" Height="55">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<TextColor>-15257011</TextColor>
+						<VisibleCode><![CDATA["SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
+						<Enabled>true</Enabled>
+						<ActionCode><![CDATA[seleccionarModoInterfaz("OPERARIO");]]></ActionCode>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="16" Style="1"/>
+						<LabelText><![CDATA[Entrar como operario]]></LabelText>
+					</ExtendedProperties>
+				</Control>
+				<Text>
+					<Id>1890000070025</Id>
+					<Name><![CDATA[txtModoActualEnPedidos]]></Name>
+					<X>20</X><Y>761</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA[!"SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-1906448</Color>
+					<Text><![CDATA[Modo: ...]]></Text>
+					<TextCode><![CDATA["COMPLETO".equals(modoInterfaz) ? "Modo: vista completa" : "Modo: operario"]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>13</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Control Type="Button">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1890000070026</Id>
+					<Name><![CDATA[btnCambiarModoEnPedidos]]></Name>
+					<X>20</X><Y>806</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="180" Height="45">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<TextColor>-15257011</TextColor>
+						<VisibleCode><![CDATA[!"SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[!reinicioCompletoSolicitado
+&& !pypelineSolicitudEnCurso
+&& !estudioFlujoActivo
+&& !estudioSimulacionEnCurso
+&& !generacionActivaEstudio()]]></EnableExpression>
+						<ActionCode><![CDATA[volverASeleccionModo();]]></ActionCode>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="13" Style="1"/>
+						<LabelText><![CDATA[Cambiar modo]]></LabelText>
+					</ExtendedProperties>
+				</Control>
+				<Text>
+					<Id>1890000070027</Id>
+					<Name><![CDATA[txtModoActualEnOperacion]]></Name>
+					<X>1820</X><Y>761</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA[!"SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-1906448</Color>
+					<Text><![CDATA[Modo: ...]]></Text>
+					<TextCode><![CDATA["COMPLETO".equals(modoInterfaz) ? "Modo: vista completa" : "Modo: operario"]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>13</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Control Type="Button">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1890000070028</Id>
+					<Name><![CDATA[btnCambiarModoEnOperacion]]></Name>
+					<X>1820</X><Y>806</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="180" Height="45">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<TextColor>-15257011</TextColor>
+						<VisibleCode><![CDATA[!"SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[!reinicioCompletoSolicitado
+&& !pypelineSolicitudEnCurso
+&& !estudioFlujoActivo
+&& !estudioSimulacionEnCurso
+&& !generacionActivaEstudio()]]></EnableExpression>
+						<ActionCode><![CDATA[volverASeleccionModo();]]></ActionCode>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="13" Style="1"/>
+						<LabelText><![CDATA[Cambiar modo]]></LabelText>
+					</ExtendedProperties>
+				</Control>
+				<Text>
+					<Id>1890000070029</Id>
+					<Name><![CDATA[txtModoActualEnComparacion]]></Name>
+					<X>3620</X><Y>761</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA[!"SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-1906448</Color>
+					<Text><![CDATA[Modo: ...]]></Text>
+					<TextCode><![CDATA["COMPLETO".equals(modoInterfaz) ? "Modo: vista completa" : "Modo: operario"]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>13</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Control Type="Button">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1890000070030</Id>
+					<Name><![CDATA[btnCambiarModoEnComparacion]]></Name>
+					<X>3620</X><Y>806</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="180" Height="45">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<TextColor>-15257011</TextColor>
+						<VisibleCode><![CDATA[!"SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[!reinicioCompletoSolicitado
+&& !pypelineSolicitudEnCurso
+&& !estudioFlujoActivo
+&& !estudioSimulacionEnCurso
+&& !generacionActivaEstudio()]]></EnableExpression>
+						<ActionCode><![CDATA[volverASeleccionModo();]]></ActionCode>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="13" Style="1"/>
+						<LabelText><![CDATA[Cambiar modo]]></LabelText>
+					</ExtendedProperties>
+				</Control>
+				<Text>
+					<Id>1890000070031</Id>
+					<Name><![CDATA[txtModoActualEnEstudio]]></Name>
+					<X>5420</X><Y>761</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA[!"SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-1906448</Color>
+					<Text><![CDATA[Modo: ...]]></Text>
+					<TextCode><![CDATA["COMPLETO".equals(modoInterfaz) ? "Modo: vista completa" : "Modo: operario"]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>13</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
+				<Control Type="Button">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1890000070032</Id>
+					<Name><![CDATA[btnCambiarModoEnEstudio]]></Name>
+					<X>5420</X><Y>806</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="180" Height="45">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<TextColor>-15257011</TextColor>
+						<VisibleCode><![CDATA[!"SIN_SELECCION".equals(modoInterfaz)]]></VisibleCode>
+						<Enabled>true</Enabled>
+						<EnableExpression><![CDATA[!reinicioCompletoSolicitado
+&& !pypelineSolicitudEnCurso
+&& !estudioFlujoActivo
+&& !estudioSimulacionEnCurso
+&& !generacionActivaEstudio()]]></EnableExpression>
+						<ActionCode><![CDATA[volverASeleccionModo();]]></ActionCode>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="SansSerif" Size="13" Style="1"/>
+						<LabelText><![CDATA[Cambiar modo]]></LabelText>
+					</ExtendedProperties>
+				</Control>
+				<Text>
+					<Id>1890000070033</Id>
+					<Name><![CDATA[txtIndicacionOperacionOperario]]></Name>
+					<X>3017</X><Y>361</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<VisibleCode><![CDATA["OPERARIO".equals(modoInterfaz)]]></VisibleCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-13418155</Color>
+					<Text><![CDATA[Estado del reparto]]></Text>
+					<TextCode><![CDATA[ejecucionEnCurso
+    ? "Reparto en marcha.\nSeguí los camiones en el mapa."
+    : ejecucionFinalizada
+        ? "Operación finalizada.\nRevisá y exportá el resultado."
+        : instanciaInterfazActual != null
+            ? "Pedidos preparados.\nGenerá el plan para comenzar."
+            : "Prepará los pedidos en la vista Pedidos.\nDespués elegí un método y ejecutá."]]></TextCode>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>15</Size>
+						<Style>0</Style>
+					</Font>
+					<Alignment>LEFT</Alignment>
+				</Text>
 			</Presentation>
 
 				</Level>
@@ -48895,6 +49465,18 @@ if (
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<Title><![CDATA[]]></Title>
+					<Width>1600</Width>
+					<Height>900</Height>
+				</Area>
+				<Area>
+					<Id>1890000080001</Id>
+					<Name><![CDATA[viewSeleccionModo]]></Name>
+					<X>7200</X><Y>0</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<Title><![CDATA[Selección de modo]]></Title>
 					<Width>1600</Width>
 					<Height>900</Height>
 				</Area>
@@ -52214,7 +52796,7 @@ return
 						<ActionCode><![CDATA[mainModel().irAVistaOperacion();]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="11" Style="1"/>
+						<Font Name="SansSerif" Size="13" Style="1"/>
 						<LabelText><![CDATA[Volver a Operación]]></LabelText>
 					</ExtendedProperties>
 				</Control>
@@ -52246,7 +52828,7 @@ if (principal.camiones.size() >= 2) {
 }]]></ActionCode>
 					</BasicProperties>
 					<ExtendedProperties>
-						<Font Name="SansSerif" Size="11" Style="1"/>
+						<Font Name="SansSerif" Size="13" Style="1"/>
 						<LabelText><![CDATA[Ver otro camión]]></LabelText>
 					</ExtendedProperties>
 				</Control>
@@ -52266,7 +52848,7 @@ if (principal.camiones.size() >= 2) {
 					<Text><![CDATA[Estados lógicos]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>15</Size>
+						<Size>19</Size>
 						<Style>1</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -52288,7 +52870,7 @@ if (principal.camiones.size() >= 2) {
 					<TextCode><![CDATA["Vista actual: Camión " + camionId]]></TextCode>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>11</Size>
+						<Size>13</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
@@ -52306,10 +52888,10 @@ if (principal.camiones.size() >= 2) {
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
 					<Color>-10589320</Color>
-					<Text><![CDATA[Se resalta el estado activo en rojo; las transiciones temporizadas aparecen en azul.]]></Text>
+					<Text><![CDATA[Estado activo en rojo. Transiciones temporizadas en azul.]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
-						<Size>9</Size>
+						<Size>12</Size>
 						<Style>0</Style>
 					</Font>
 					<Alignment>LEFT</Alignment>
